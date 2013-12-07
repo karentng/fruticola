@@ -1,0 +1,88 @@
+{% extends "_layouts/base.html.twig" %}
+
+{% block contenido %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>A1. Datos Personales</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container">
+            <form class="form-horizontal" role="form" action="#">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Primer Nombre</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Segundo Nombre</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Primer Apellido</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Segundo Apellido</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Sexo</label>
+                        <div class="col-md-2">
+                            <select>
+                                <option>Hombre</option>
+                                <option>Mujer</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="datepicker">Fecha de Nacimiento</label>
+                        <div class="col-lg-4">
+                            <div id="datepicker" class="input-group date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                <input size="16" class="form-control" type="text" value="12-02-2012">
+                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="normal">Normal field</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" type="text" id="normalField">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="focused">Focused input</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" id="focusedInput" type="text" value="This is focused…" autofocus="autofocus">
+                    </div>
+                </div>
+
+
+            </form>
+        </div> <!-- .container -->
+    </div><!-- End .panel-body -->
+</div><!-- panel default -->
+
+
+{% endblock %}
