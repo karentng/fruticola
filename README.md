@@ -35,3 +35,8 @@ Usuario, password y nombre de base de datos: `fruticola`
 
 - Importe los SQL de la carpeta `sql` del proyecto.
 
+### Otras Configuraciones Recomendadas
+
+Active los errores de PHP. En Ubuntu, edite el archivo */etc/php5/apache2/php.ini* y establezca la variable `display_errors = On`.
+Verifique que no tenga una señal de comentario (caracter punto y coma) al inicio de la linea.
+Luego de realizar el cambio, reinicie el servidor apache: `sudo apachectl restart`.
