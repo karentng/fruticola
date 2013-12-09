@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array();
+$autoload['libraries'] = array('ion_auth');
 
 
 /*
@@ -110,6 +110,10 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array();
+
+
+/* Autoload Sparks */
+$autoload['sparks'] = array('Twiggy/0.8.5');
 
 
 /* End of file autoload.php */

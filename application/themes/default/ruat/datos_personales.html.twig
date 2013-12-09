@@ -1,4 +1,4 @@
-{% extends "_layouts/base.html.twig" %}
+{% extends "base.html.twig" %}
 
 {% block contenido %}
 
@@ -42,20 +42,20 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">Sexo</label>
-                        <div class="col-md-2">
+                        <label class="col-sm-1 control-label">Sexo</label>
+                        <div class="col-sm-2">
                             <select>
                                 <option>Hombre</option>
                                 <option>Mujer</option>
                             </select>
                         </div>
-                    </div>
+                    {#</div>
 
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label" for="datepicker">Fecha de Nacimiento</label>
-                        <div class="col-lg-4">
-                            <div id="datepicker" class="input-group date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-                                <input size="16" class="form-control" type="text" value="12-02-2012">
+                    <div class="form-group">#}
+                        <label class="col-sm-3 control-label" for="fechaNacimiento">Fecha de Nacimiento</label>
+                        <div class="col-sm-2">
+                            <div id="fechaNacimiento"  class="input-group date datepicker" data-date="2012-05-01" data-date-format="yyyy-mm-dd">
+                                <input size="16" class="form-control" type="text">
                                 <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                             </div>
                         </div>
