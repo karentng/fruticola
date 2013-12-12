@@ -17,7 +17,7 @@ Usuario, password y nombre de base de datos: `fruticola`
 
     `sudo apt-get install postgresql-9.1`
 
-- Asegúrese de que PostgreSQL permita autenticación *md5*. Edite el archivo *pg_hba.conf* como usuario root (`sudo nano /etc/postgresql/9.1/main`).
+- Asegúrese de que PostgreSQL permita autenticación *md5*. Edite el archivo *pg_hba.conf* como usuario root (`sudo nano /etc/postgresql/9.1/main/pg_hba.conf`).
   Identifique una linea como la siguiente:
   
     `local   all             all                                     peer`
