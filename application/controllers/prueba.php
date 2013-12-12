@@ -41,5 +41,12 @@ class Prueba extends CI_Controller {
         $this->twiggy->display();
     }
 
+    public function finca()
+    {
+        //$this->load->spark('Twiggy/0.8.5');
+        $this->twiggy->template("ruat/datos_finca");
+        $this->twiggy->display();
+    }
+
 
 }
