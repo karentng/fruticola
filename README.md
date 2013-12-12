@@ -16,6 +16,15 @@ Usuario, password y nombre de base de datos: `fruticola`
 - **Instalar PostgreSQL**. En Ubuntu:
 
     `sudo apt-get install postgresql-9.1`
+
+- Asegúrese de que PostgreSQL permita autenticación *md5*. Edite el archivo *pg_hba.conf* como usuario root (`sudo nano /etc/postgresql/9.1/main`).
+  Identifique una linea como la siguiente:
+  
+    `local   all             all                                     peer`
+  
+    Cambie el `peer` por `md5`. Guarde y cierre el editor (`Ctrl+O` y `Ctrl+X`).
+
+- Reinicie el servidor postgres con `service postgresql restart`
   
 
 - Crear usuario de base de datos:
