@@ -69,4 +69,10 @@ class Prueba extends CI_Controller {
         //$this->twiggy->template("ruat/datos_personales")->display();
         $this->twiggy->template("ruat/observaciones")->display();
     }
+
+    public function main()
+    {
+        $this->twiggy->template("ruat/main");
+        $this->twiggy->display();
+    }
 }
