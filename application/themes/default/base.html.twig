@@ -95,6 +95,7 @@
 
   </head>
   <body>
+  {% block html_body %}
     <header id="header">
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             {#<a class="navbar-brand" href="#"><img src="{{ base_url('assets/images/logo.png') }}" alt="Genyx admin" class="img-responsive"></a>#}
@@ -182,4 +183,5 @@
         </section>
     </div><!-- End .main  -->
   </body>
+{% endblock %}
 </html>

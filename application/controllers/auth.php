@@ -57,10 +57,10 @@ class Auth extends CI_Controller {
 		$this->data['title'] = "Login";
 
 		//validate form input
-		$this->form_validation->set_rules('identity', 'Identity', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		//$this->form_validation->set_rules('identity', 'Identity', 'required');
+		//$this->form_validation->set_rules('password', 'Password', 'required');
 
-		if ($this->form_validation->run() == true)
+		if ($this->input->post())
 		{
 			//check to see if the user is logging in
 			//check for "remember me"
@@ -77,40 +77,48 @@ class Auth extends CI_Controller {
 			{
 				//if the login was un-successful
 				//redirect them back to the login page
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+				//$this->session->set_flashdata('message', $this->ion_auth->errors());
+				$this->data['message'] = $this->ion_auth->errors();
+				//redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
-		else
+		//else
 		{
 			//the user is not logging in so display the login page
 			//set the flash data error message if there is one
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			//$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			$this->data['identity'] = array('name' => 'identity',
 				'id' => 'identity',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('identity'),
+				'class' => 'form-control',
+				'placeholder' => 'Nombre de Usuario',
 			);
 			$this->data['password'] = array('name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
+				'class' => 'form-control',
+				'placeholder' => 'Contraseña',
 			);
 
-			$this->_render_page('auth/login', $this->data);
+			//$this->_render_page('auth/login', $this->data);
+			$this->twiggy->set($this->data, null);
+			$this->twiggy->template('auth/login');
+			$this->twiggy->display();
 		}
 	}
 
 	//log the user out
 	function logout()
 	{
-		$this->data['title'] = "Logout";
+		//$this->data['title'] = "Logout";
 
 		//log the user out
 		$logout = $this->ion_auth->logout();
 
 		//redirect them to the login page
-		$this->session->set_flashdata('message', $this->ion_auth->messages());
+		//$this->session->set_flashdata('message', $this->ion_auth->messages());
 		redirect('auth/login', 'refresh');
 	}
 
