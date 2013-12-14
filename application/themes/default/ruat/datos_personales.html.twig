@@ -14,69 +14,122 @@
     <div class="panel-body" style="display: block;">
         <div class="container">
             <form class="form-horizontal" role="form" action="#">
-
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="control-label">Primer Nombre</label>
-                            <input type="text" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">Segundo Nombre</label>
-                            <input type="text" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">Primer Apellido</label>
-                            <input type="text" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">Segundo Apellido</label>
-                            <input type="text" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">Sexo</label>
-                        <div class="col-sm-2">
-                            <select>
-                                <option>Hombre</option>
-                                <option>Mujer</option>
-                            </select>
-                        </div>
-                    {#</div>
-
-                    <div class="form-group">#}
-                        <label class="col-sm-3 control-label" for="fechaNacimiento">Fecha de Nacimiento</label>
-                        <div class="col-sm-2">
-                            <div id="fechaNacimiento"  class="input-group date datepicker" data-date="2012-05-01" data-date-format="yyyy-mm-dd">
-                                <input size="16" class="form-control" type="text">
-                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                            <label class="col-md-7 control-label">Primer Nombre</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" />
                             </div>
                         </div>
                     </div>
-
-
-                </div>
-
-                <div class="form-group">
-                    <label class="col-lg-2 control-label" for="normal">Normal field</label>
-                    <div class="col-lg-10">
-                        <input class="form-control" type="text" id="normalField">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="col-md-7 control-label">Segundo Nombre</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="col-md-7 control-label">Primer Apellido</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="col-md-7 control-label">Segundo Apellido</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-lg-2 control-label" for="focused">Focused input</label>
-                    <div class="col-lg-10">
-                        <input class="form-control" id="focusedInput" type="text" value="This is focused…" autofocus="autofocus">
+                <div class="row">
+                    <div div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-8 control-label">Tipo de Documento: </label>
+                            <div class="col-sm-4">
+                                <select>
+                                    <option>C.C.</option>
+                                    <option>T.I.</option>
+                                    <option>C.E.</option>
+                                    <option>NIT</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div div class="col-md-4">
+                       <div class="form-group">
+                            <label class="col-md-5 control-label" for="normal">Número de Documento:</label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" id="normalField">
+                            </div>
+                        </div> 
+                    </div>
+                    <div div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-sm-6 control-label" for="fechaNacimiento">Fecha de Nacimiento:</label>
+                            <div class="col-sm-6">
+                                <div id="fechaNacimiento"  class="input-group date datepicker" data-date="2012-05-01" data-date-format="yyyy-mm-dd">
+                                    <input size="16" class="form-control" type="text">
+                                    <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-sm-6 control-label">Sexo: </label>
+                            <div class="col-sm-6">
+                                <select>
+                                    <option>Hombre</option>
+                                    <option>Mujer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-6 control-label">Nivel Educativo: </label>
+                            <div class="col-sm-6">
+                                <select>
+                                    <option>Primaria</option>
+                                    <option>Secundaria</option>
+                                    <option>Técnica</option>
+                                    <option>Tecnológica</option>
+                                    <option>Universitaria</option>
+                                    <option>Ninguna</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="row">
+                    <div div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="focused">Tipo de Productor:</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" id="focusedInput" type="text" value="Tipo de Productor Según la Clasificación FINAGRO" >
+                            </div>
+                        </div>
+                    </div>
+                    <div div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="focused">Cadena Productiva:</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" id="focusedInput" type="text" value="Cadena Productiva FRUTÍCOLA / Producto seleccionado" >
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -84,7 +137,100 @@
             </form>
         </div> <!-- .container -->
     </div><!-- End .panel-body -->
+
 </div><!-- panel default -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>A2. Datos de Contacto</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container">
+            <form class="form-horizontal" role="form" action="#">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Teléfono Fijo</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-7 control-label">Número de Célular</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-7 control-label">Correo Electrónico</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label" for="focused">Departamento:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" id="focusedInput" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label" for="focused">Municipio:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" id="focusedInput" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label" for="focused">Vereda:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" id="focusedInput" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div div class="col-md-7">
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label" for="focused">Dirección de Residencia:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" id="focusedInput" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><!-- End .panel-body -->
+</div><!-- panel default -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>A3. Datos Económicos</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container">
+            <form class="form-horizontal" role="form" action="#">
+                <div class="row">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 {#% endblock %#}
