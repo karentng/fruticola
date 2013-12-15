@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+{% block titulo %} Gestión de Usuarios {% endblock %}
+
+{% block contenido %}
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Login</th>
+            <th>Nombre</th>
+            <th>Perfil</th>
+            <th>Creado</th>
+            <th>Estado</th>
+            <th>Último Acceso</th>
+            <th></th>  
+        </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td> {{user.username}} </td>
+                <td> 
+                    {{user.first_name}} {{user.last_name}} 
+                    {%if user.email %} <br/> <small class="text-info">{{user.email }}</small> {% endif %}
+                    {%if user.phone %} <br/> <small><abbr title="Teléfono">Tel: {{user.phone}}</abbr> </small> {% endif %}
+                </td>
+
+                <td> {{user.groups[0].name}} </td> 
+                <td> {{user.created_on|date('Y-m-d   H:i') }}
+                <td align="center">  
+                    {% if user.active %}
+                        <span class="text-success">Activo</span>
+                    {% else %}
+                        <span class="text-danger">Inactivo</span>
+                    {% endif %}
+                </td>
+                <td> {{user.last_login|date('Y-m-d  H:i')}} </td>
+                <td align="center"> 
+                    <a href="#" class="act-warning">
+                        <i class="i-pencil"></i>
+                        Editar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
