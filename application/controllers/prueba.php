@@ -1,16 +1,26 @@
 <?php
 class Prueba extends CI_Controller {
 
-    public function __construct()
+    /*public function __construct()
     {
+
         parent::__construct();
         if(!$this->ion_auth->logged_in())
             redirect('auth/login');
 
-        $this->twiggy->set('usuario', $this->ion_auth->user()->row(), true);
-        $this->twiggy->set('perfil', $this->ion_auth->get_users_groups()->row(), true);
 
-    }
+        $this->twiggy->set('usuario', $this->ion_auth->user()->row(), true);
+        $this->twiggy->set('perfil', $this->ion_auth->get_users_groups()->row(), true);    
+
+
+    }*/
+
+   public function index()
+   {
+		//$this->load->spark('Twiggy/0.8.5');
+        $this->twiggy->template("ruat/apropiacion_aprendizajes");
+        $this->twiggy->display();
+   }
 
     public function test($nombre="Foraneo") 
     {
@@ -48,5 +58,21 @@ class Prueba extends CI_Controller {
         $this->twiggy->display();
     }
 
+    public function aprendizaje()
+    {
+        //$this->twiggy->template("ruat/datos_personales")->display();
+        $this->twiggy->template("ruat/apropiacion_aprendizajes")->display();
+    }
+    
+    public function observaciones()
+    {
+        //$this->twiggy->template("ruat/datos_personales")->display();
+        $this->twiggy->template("ruat/observaciones")->display();
+    }
 
+    public function main()
+    {
+        $this->twiggy->template("ruat/main");
+        $this->twiggy->display();
+    }
 }

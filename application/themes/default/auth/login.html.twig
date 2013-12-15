@@ -1,6 +1,64 @@
-{% extends "_layouts/index.html.twig" %}
-{% block content %}
-    <h1>Login page</h1>
+{% extends "base.html.twig" %}
 
-    <h3> Hola {{usuario}} </h3>
+{% block html_body %}
+ <div class="container-fluid">
+        
+        <div id="login">
+
+            <div class="login-wrapper" data-active="log">
+                <a class="navbar-brand" href="#">
+                    {#<img src="{{base_url('assets/images/logodark.png')}}" alt="Genyx admin" class="img-responsive">#}
+                    <h2 class="text-info">Plan Frutícola del Valle</h2>
+                </a>
+                <div id="log">
+                    {#<div id="avatar">
+                        <img src="images/avatars/suggebig.jpg" alt="SuggeElson" class="img-responsive">
+                    </div>#}
+                    <div class="page-header">
+                        <h3 class="center">Acceso al Sistema</h3>
+                    </div>
+                    {#<form role="form" id="login-form" class="form-horizontal" >#}
+                    {{form_open('', {'class':'form-horizontal', 'role':'form'}) }}
+                        <div class="row">
+                            <div class="form-group relative">
+                                <div class="icon"><i class="icon20 i-user"></i></div>
+                                {#<input class="form-control" type="text" name="user" id="user" placeholder="Nombre de Usuario" >#}
+                                {{ form_input(identity) }}
+                                
+                            </div><!-- End .control-group  -->
+                            <div class="form-group relative">
+                                <div class="icon"><i class="icon20 i-key"></i></div>
+                                {#<input class="form-control" type="password" name="password" id="password" placeholder="Contraseña" >#}
+                                {{ form_input(password) }}
+                                
+                            </div><!-- End .control-group  -->
+                            <div class="form-group relative ">
+                                {#<label class="control-label" class="checkbox pull-left">
+                                    <input type="checkbox" value="1" name="remember">
+                                    Remember me ?
+                                </label>#}
+                                <button id="loginBtn" type="submit" class="btn btn-primary pull-right col-lg-5">Ingresar</button>
+                            </div>
+                        </div><!-- End .row-fluid  -->
+                    </form>
+                    {#<p class="center">Don`t have an account? <a href="#" id="register"><strong>Create one now</strong></a></p>#}
+                    <div class="or center"><strong>...</strong></div>
+                    <hr class="seperator">
+                    {% if message %}
+                        <div class="alert alert-danger">Usuario o Contraseña Incorrecta</div>
+                    {% endif %}
+                    {#<a href="#" class="btn btn-primary pull-left"><i class="icon16 i-facebook gap-left0"></i> Connect</a>
+                    <a href="#" class="btn btn-info pull-right"><i class="icon16 i-twitter gap-left0"></i> Connect</a>#}
+                </div>
+            </div>
+            {#<div id="bar" data-active="log">
+                <div class="btn-group btn-group-vertical">
+                    <a id="log" href="#" class="btn tipR" title="Login"><i class="icon16 i-key"></i></a>
+                    {#<a id="reg" href="#" class="btn tipR" title="Register account"><i class="icon16 i-user-plus"></i></a>
+                    <a id="forgot" href="#" class="btn tipR" title="Forgout password"><i class="icon16 i-question"></i></a>
+                </div>
+            </div>#}
+            <div class="clearfix"></div>
+        </div>
+    </div>
 {% endblock %}

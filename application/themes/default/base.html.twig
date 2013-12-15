@@ -95,27 +95,28 @@
 
   </head>
   <body>
+  {% block html_body %}
     <header id="header">
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            {#<a class="navbar-brand" href="#"><img src="{{ base_url('assets/images/logo.png') }}" alt="Genyx admin" class="img-responsive"></a>#}
+            <a class="navbar-brand" href="#"><img src="{{ base_url('assets/images/logo.png') }}" alt="Plan fruticola" class="img-responsive" style="height:40px"></a>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle btn-danger" data-toggle="collapse" data-target="#navbar-to-collapse">
                     <span class="sr-only">Toggle right menu</span>
                     <i class="icon16 i-arrow-8"></i>
                 </button>
-                {#<a class="navbar-brand" href="#"><img src="{{ base_url('assets/images/logo.png') }}" alt="Genyx admin" class="img-responsive"></a>#}
             </div>
 
+
             <div class="collapse navbar-collapse" id="navbar-to-collapse">  
-                <ul class="nav navbar-nav">
-                    <li class="disabled"><a href="#" style="font-size:18px">Plan Frutícola del Valle</a></li>
-                    <li class="divider-vertical"></li>
-                    <li class="disabled">
+                {#<ul class="nav navbar-nav navbar-form">
+                    
+                    
+                    <li class="active">
                         <a href="#" class="disabled">{% block titulo %} Titulo {% endblock %}</a>
                     </li>
-                </ul>
+                </ul>#}
+
                 <ul class="nav navbar-nav pull-right">
-                    
                     <li class="disabled">
                         <a href="#" class="disabled">
                             <i class="icon16 i-user"></i>
@@ -135,18 +136,19 @@
     
     <div class="main">
         <aside id="sidebar">
-
+            <div class="side-options">
+                <ul>
+                    <li><a href="#" id="collapse-nav" class="act act-primary tip" title="Collapse navigation"><i class="icon16 i-arrow-left-7"></i></a></li>
+                </ul>
+            </div>
+            
             <div class="sidebar-wrapper">
                 <nav id="mainnav">
                     {% include "menus/admin.html.twig" %}
                 </nav> <!-- End #mainnav -->
             </div> <!-- End .sidebar-wrapper  -->
             
-            <div class="side-options">
-                <ul>
-                    <li><a href="#" id="collapse-nav" class="act act-primary tip" title="Collapse navigation"><i class="icon16 i-arrow-left-7"></i></a></li>
-                </ul>
-            </div>
+            
         </aside><!-- End #sidebar  -->
 
         <section id="content">
@@ -182,4 +184,5 @@
         </section>
     </div><!-- End .main  -->
   </body>
+{% endblock %}
 </html>

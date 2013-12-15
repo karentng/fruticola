@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+{% block titulo %} RUAT {% endblock %}
+{% block contenido %}
+
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a href="#infoUsuario" data-toggle="tab">A. Información del Usuario</a></li>
+    <li><a href="#descripFinca" data-toggle="tab">B. Descripción de la Finca</a></li>
+    <li><a href="#apropAprendizajes" data-toggle="tab">C. Apropiación de Aprendizajes</a></li>
+    {#<li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="#dropdown" data-toggle="tab">@fat</a></li>
+            <li><a href="#dropdown" data-toggle="tab">@mdo</a></li>
+         </ul>
+    </li>#}
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="infoUsuario">
+        {% include "ruat/datos_personales.html.twig" %}
+    </div>
+    <div class="tab-pane fade" id="descripFinca">
+        {% include "ruat/datos_finca.html.twig" %}
+    </div>
+    <div class="tab-pane fade" id="apropAprendizajes">
+        {% include "ruat/apropiacion_aprendizajes.html.twig" %}
+    </div>
+</div>    
+
+
+
+{% endblock %}
