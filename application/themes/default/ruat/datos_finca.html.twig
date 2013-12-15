@@ -124,7 +124,13 @@
                         <div class="container">
                             <div class="form-group">
                                 <label class="control-label" for="tags">Disponibilidad de servicios p&uacute;blicos</label>
-                                <input id="tags" type="text" value="awesome,nice" />
+                                <select class="select2 autostart" multiple data-placeholder="Seleccione los servicios de la parcela">
+                                    <option></option>
+                                    <option value="1">Agua Propia</option>
+                                    <option value="2">Acueducto</option>
+                                    <option value="3">Acceso a Internet</option>
+                                    <option value="4">Energía Eléctrica</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -209,7 +215,20 @@
                         <div class="form-group">
                             <label class="control-label col-md-4">Medios de transporte</label> {# para la realizacion de la actividad productiva y de comercializaci&oacute;n#}
                             <div class="col-md-8">
-                                <input id="tags" type="text" class="form-control" value="awesome,nice" />
+                                <select class="select2 autostart" multiple data-placeholder="Seleccione los servicios de la parcela">
+                                    <option></option>
+                                    <option value="1">Tracción Animal</option>
+                                    <option value="2">Animal</option>
+                                    <option value="3">Camión / Auto</option>
+                                    <option value="4">Bicicleta</option>
+                                    <option value="5">Caminata</option>
+                                    <option value="6">Tractor</option>
+                                    <option value="7">Banco</option>
+                                    <option value="8">Canoa</option>
+                                    <option value="9">Kayak</option>
+                                    <option value="10">Planchón</option>
+                                    <option value="10">Otro</option>
+                                </select>
                                 <span class="help-block"><small>Liste los medios de transporte utilizados para la realizacion de la actividad productiva y de comercializaci&oacute;n</small></span>
                             </div>
                         </div>
