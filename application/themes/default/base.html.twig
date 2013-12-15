@@ -63,8 +63,10 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Important plugins put in all pages -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    {#<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>#}
+    {#<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>#}
+    <script src="{{ base_url('assets/js/jquery.min.js') }}"></script>  
+    <script src="{{ base_url('assets/js/jquery-ui.min.js') }}"></script>  
     <script src="{{ base_url('assets/js/bootstrap/bootstrap.js') }}"></script>  
     <script src="{{ base_url('assets/js/conditionizr.min.js') }}"></script>  
     <script src="{{ base_url('assets/js/plugins/core/nicescroll/jquery.nicescroll.min.js') }}"></script>
