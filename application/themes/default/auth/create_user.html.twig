@@ -1,0 +1,73 @@
+{% extends "base.html.twig" %}
+{% block titulo %} 
+<h1><i class="icon20 i-user-plus"></i> Crear Nuevo Usuario</h1>
+{% endblock %}
+
+{% block contenido %}
+{{form_open(null, {'class':'form-horizontal'})}}
+    <div class="form-group">
+        <label class="col-md-3 control-label">Nombre Completo:</label>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="first_name" required placeholder="Nombre">
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="last_name" required placeholder="Apellido">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">E-mail:</label>
+        <div class="col-md-6">
+            <input type="email" class="form-control" name="email" placeholder="Correo electrónico">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Teléfono:</label>
+        <div class="col-md-3">
+            <input type="email" class="form-control" name="email" placeholder="Teléfono">
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Nombre de Usuario:</label>
+        <div class="col-md-5">
+            <div class="input-group">
+                <input type="text" class="form-control" name="first_name" required placeholder="Login">
+                <span class="input-group-btn">
+                    <button class="btn btn-info" type="button">Sugerir</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Contraseña:</label>
+        <div class="col-md-5">
+            <input type="password" class="form-control" name="password" placeholder="Asigne una contraseña al nuevo usuario">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Confirmar Contraseña:</label>
+        <div class="col-md-5">
+            <input type="password" class="form-control" name="password" placeholder="Reescriba la contraseña que desea asignar">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Perfil:</label>
+        <div class="col-md-5">
+            <select>
+
+            </select>
+        </div>
+    </div>
+
+
+{{form_close()}}
+
+{% endblock %}
