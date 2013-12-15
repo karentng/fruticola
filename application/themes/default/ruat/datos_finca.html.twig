@@ -33,7 +33,6 @@
                     <div class="col-md-4">
                         <div class="container">
                             <div class="form-group">
-                            
                                 <label class="control-label">Nombre de la finca</label>
                                 <input type="text" class="form-control" />
                             </div>
@@ -70,8 +69,8 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
+                        <div class="container">
+                            <div class="form-group">
                                 <label class="control-label" for="select">Departamento</label>
                                 <select name="select" class="form-control">
                                     <option>Valle del Cauca</option>
@@ -81,8 +80,8 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
+                        <div class="container">
+                            <div class="form-group">
                                 <label class="control-label" for="select">Municipio</label>
                                 <select name="select" class="form-control">
                                     <option>...</option>
@@ -95,26 +94,26 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
+                        <div class="container">
+                            <div class="form-group">
                                 <label class="control-label">Vereda</label>
                                 <input type="text" class="form-control" />
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
+                        <div class="container">
+                            <div class="form-group">
                                 <label class="control-label">Sector</label>
                                 <input type="text" class="form-control" />
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
-                                <label class="control-label">&Aacute;rea Total</label>
-                                <input type="text" class="form-control" />
+                        <div class="container">
+                            <div class="form-group">
+                                <label class="control-label">Área Total</label>
+                                <input type="number" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -122,8 +121,8 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
+                        <div class="container">
+                            <div class="form-group">
                                 <label class="control-label" for="tags">Disponibilidad de servicios p&uacute;blicos</label>
                                 <input id="tags" type="text" value="awesome,nice" />
                             </div>
@@ -131,13 +130,17 @@
                     </div>
                     <div class="col-md-4">
                         <div class="container">
-                            <label class="control-label" for="radio">Disponibilidad de Vias de Acceso</label>
-                            <label class="radio">
-                                <input type="radio" name="radio" value="1"> SI
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="radio" value="2"> NO
-                            </label>
+                            <div class="form-group">
+                                <label class="control-label" for="radio">Disponibilidad de Vias de Acceso</label>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label class="radio"> <input type="radio" name="radio" value="1"> SI </label>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <label class="radio"> <input type="radio" name="radio" value="2"> NO </label> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -160,19 +163,23 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="container">
-                            <label class="control-label" for="radio">Manejo Programa de Residuos</label>
-                            <label class="radio">
-                                <input type="radio" name="radio" value="1"> SI
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="radio" value="2"> NO
-                            </label>
+                            <div class="form-group">
+                                <label class="control-label" for="radio">Manejo Programa de Residuos</label>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label class="radio"> <input type="radio" name="radio" value="1"> SI </label>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <label class="radio"> <input type="radio" name="radio" value="2"> NO </label> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Este pedazo hay que ponerle la condicion de que si selecciono NO, entonces bloquee lo siguiente -->
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
+                        <div class="container">
+                            <div class="form-group">
                                 <label class="control-label" for="select">Programa</label>
                                 <select name="select" class="form-control">
                                     <option>Ordinarios</option>
@@ -183,8 +190,8 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
+                        <div class="container">
+                            <div class="form-group">
                                 <label class="control-label">Descripci&oacute;n</label>
                                 <input type="text" class="form-control" />
                             </div>
@@ -305,74 +312,371 @@
             <form class="form-horizontal" role="form" action="#">
 
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label class="control-label">Primer Nombre</label>
-                            <input type="text" class="form-control" />
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="7">Cultivos con Perspectiva Comercial</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th rowspan="2">Producto</th>
+                                        <th rowspan="2">Sostenimiento</th>
+                                        <th rowspan="2">Semilla</th>
+                                        <th rowspan="2" width="8%">Área Cosechada (ha)</th>
+                                        <th colspan="3" width="30%">Producción Total (kilos/año)</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Semestre A</th>
+                                        <th>Semestre B</th>
+                                        <th>Semestre C</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="center"><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Certificada</option>
+                                                <option>No Certificada</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center"><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Certificada</option>
+                                                <option>No Certificada</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center"><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Certificada</option>
+                                                <option>No Certificada</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center"><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Certificada</option>
+                                                <option>No Certificada</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                </div>
+                {# En esta tabla es seleccion multiple o unica #}
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label class="control-label">Segundo Nombre</label>
-                            <input type="text" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">Primer Apellido</label>
-                            <input type="text" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">Segundo Apellido</label>
-                            <input type="text" class="form-control" />
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2" width="15%">Costos ($/ha)</th>
+                                        <th colspan="2" width="15%">Producción destinada al mercado</th>
+                                        <th rowspan="2" width="15%">Sitio venta</th>
+                                        <th colspan="2" width="55%">A quien le vende</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Establecimiento ($/ha)</th>
+                                        <th>Sostenimiento ($/ha)</th>
+                                        <th>Kg</th>
+                                        <th>%</th>
+                                        <th width="16%">Tipo</th>
+                                        <th>Nombre y Apellido</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Finca</option>
+                                                <option>Plaza</option>
+                                                <option>Supermercado</option>
+                                                <option>Centro de Acopio</option>
+                                                <option>Plaza</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Acopiador</option>
+                                                <option>Transportador</option>
+                                                <option>Detallista</option>
+                                                <option>Transformador</option>
+                                                <option>Cooperativa</option>
+                                                <option>Consumidor Fina</option>
+                                                <option>Otra</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Finca</option>
+                                                <option>Plaza</option>
+                                                <option>Supermercado</option>
+                                                <option>Centro de Acopio</option>
+                                                <option>Plaza</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Acopiador</option>
+                                                <option>Transportador</option>
+                                                <option>Detallista</option>
+                                                <option>Transformador</option>
+                                                <option>Cooperativa</option>
+                                                <option>Consumidor Fina</option>
+                                                <option>Otra</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                    </tr><tr>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Finca</option>
+                                                <option>Plaza</option>
+                                                <option>Supermercado</option>
+                                                <option>Centro de Acopio</option>
+                                                <option>Plaza</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Acopiador</option>
+                                                <option>Transportador</option>
+                                                <option>Detallista</option>
+                                                <option>Transformador</option>
+                                                <option>Cooperativa</option>
+                                                <option>Consumidor Fina</option>
+                                                <option>Otra</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                    </tr><tr>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Finca</option>
+                                                <option>Plaza</option>
+                                                <option>Supermercado</option>
+                                                <option>Centro de Acopio</option>
+                                                <option>Plaza</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Acopiador</option>
+                                                <option>Transportador</option>
+                                                <option>Detallista</option>
+                                                <option>Transformador</option>
+                                                <option>Cooperativa</option>
+                                                <option>Consumidor Fina</option>
+                                                <option>Otra</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">Sexo</label>
-                        <div class="col-sm-2">
-                            <select>
-                                <option>Hombre</option>
-                                <option>Mujer</option>
-                            </select>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th rowspan="2" width="7%">Precio de Venta Promedio ($/kilos)</th>
+                                        <th rowspan="2" width="13%">Forma de Pago</th>
+                                        <th colspan="2">Subproductos del cultivo</th>
+                                        <th colspan="3">Pertenencia a Programas de Asistencia Técnica</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Cúal</th>
+                                        <th>Uso</th>
+                                        <th>S/N</th>
+                                        <th>Programa</th>
+                                        <th>Entidad</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Efectivo</option>
+                                                <option>Transferencia</option>
+                                                <option>Cheque</option>
+                                                <option>Crédito</option>
+                                                <option>Trueque</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input class="form-control" type="checkbox" id="agree" name="agree">
+                                            </label>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Efectivo</option>
+                                                <option>Transferencia</option>
+                                                <option>Cheque</option>
+                                                <option>Crédito</option>
+                                                <option>Trueque</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input class="form-control" type="checkbox" id="agree" name="agree">
+                                            </label>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Efectivo</option>
+                                                <option>Transferencia</option>
+                                                <option>Cheque</option>
+                                                <option>Crédito</option>
+                                                <option>Trueque</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input class="form-control" type="checkbox" id="agree" name="agree">
+                                            </label>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="number" class="form-control" /></td>
+                                        <td>
+                                            <select name="select" class="form-control">
+                                                <option>Efectivo</option>
+                                                <option>Transferencia</option>
+                                                <option>Cheque</option>
+                                                <option>Crédito</option>
+                                                <option>Trueque</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input class="form-control" type="checkbox" id="agree" name="agree">
+                                            </label>
+                                        </td>
+                                        <td><input type="text" class="form-control" /></td>
+                                        <td><input type="text" class="form-control" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    {#</div>
-
-                    <div class="form-group">#}
-                        <label class="col-sm-3 control-label" for="fechaNacimiento">Fecha de Nacimiento</label>
-                        <div class="col-sm-2">
-                            <div id="fechaNacimiento"  class="input-group date datepicker" data-date="2012-05-01" data-date-format="yyyy-mm-dd">
-                                <input size="16" class="form-control" type="text">
-                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                    </div>
+                </div>
+                <div class="page-header">
+                        <h4>GEORREFERENCIACION DEL PREDIO DE UBICACIÓN DEL CULTIVO <span class="help-block"><small>escribir las coordenadas en formato decimal</small></span></h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="container">
+                            <div class="form-group">
+                                <label class="control-label">LATITUD NORTE (N)</label>
+                                <input type="number" class="form-control" />
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="container">
+                            <div class="form-group">
+                                <label class="control-label">LATITUD OCCIDENTE (W)</label>
+                                <input type="number" class="form-control" />
                             </div>
                         </div>
                     </div>
-
-
-                </div>
-
-                <div class="form-group">
-                    <label class="col-lg-2 control-label" for="normal">Normal field</label>
-                    <div class="col-lg-10">
-                        <input class="form-control" type="text" id="normalField">
+                    <div class="col-md-4">
+                        <div class="container">
+                            <div class="form-group">
+                                <label class="control-label">ALTURA SOBRE EL NIVEL DEL MAR</label>
+                                <input type="number" class="form-control" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-lg-2 control-label" for="focused">Focused input</label>
-                    <div class="col-lg-10">
-                        <input class="form-control" id="focusedInput" type="text" value="This is focused…" autofocus="autofocus">
+                <div class="page-header">
+                        <h4>DISEÑO DEL PREDIO</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-5a">
+                        <div class="container">
+                            <div class="form-group">
+                                <label class="control-label">Subir archivo</label>
+                                <input type="file" class="form-control" />
+                            </div> 
+                        </div>
                     </div>
                 </div>
-
 
             </form>
-        {# </div> <!-- .container --> #}
+        </div> <!-- .container -->
     </div><!-- End .panel-body -->
 </div><!-- panel default -->
-
-
