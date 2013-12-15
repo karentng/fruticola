@@ -9,36 +9,40 @@
     </div><!-- End .panel-heading -->
 
     <div class="panel-body" style="display: block;">
-        <div class="container">
+        {# <div class="container"> #}
             <form class="form-horizontal" role="form" action="#">
 
                 <!-- Parte B.1: Formato RUAT -->
 
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
-                                <label class="control-label" for="radio">Finca</label>
-                                <label class="radio">
-                                    <input type="radio" name="radio" value="1"> SI
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" name="radio" value="2"> NO
-                                </label>
+                        <div class="container">
+                            <div class="form-group">
+                                <label class="control-label">Finca</label>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label class="radio"> <input type="radio" name="radio" value="1"> SI </label>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <label class="radio"> <input type="radio" name="radio" value="2"> NO </label> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
+                        <div class="container">
+                            <div class="form-group">
+                            
                                 <label class="control-label">Nombre de la finca</label>
                                 <input type="text" class="form-control" />
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
+                        <div class="container">
+                            <div class="form-group">
+                            
                                 <label class="control-label">Identificaci&oacute;n Catastral</label>
                                 <input type="text" class="form-control" />
                             </div>
@@ -49,8 +53,8 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
+                        <div class="container">
+                            <div class="form-group">
                                 <label class="control-label" for="select">Tenencia</label>
                                 <select name="select" class="form-control">
                                     <option>Propiedad con t&iacute;tulo</option>
@@ -189,28 +193,24 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <div class="container">
-                                <label class="control-label">Distancia de la finca a la cabecera municipal (Km)</label>
-                                <input type="text" class="form-control" />
+                            <label class="control-label col-md-8">Distancia de la finca a la cabecera municipal (Km)</label>
+                            <div class="col-md-4"><input type="number" class="form-control" /></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Medios de transporte</label> {# para la realizacion de la actividad productiva y de comercializaci&oacute;n#}
+                            <div class="col-md-8">
+                                <input id="tags" type="text" class="form-control" value="awesome,nice" />
+                                <span class="help-block"><small>Liste los medios de transporte utilizados para la realizacion de la actividad productiva y de comercializaci&oacute;n</small></span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5 col-md-offset-1">
                         <div class="form-group">
-                            <div class="container">
-                                <label class="control-label">Forma de Llegar al Predio</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="container">
-                                <label class="control-label" for="tags">Medios de transporte para la realizacion de la actividad productiva y de comercializaci&oacute;n</label>
-                                <input id="tags" type="text" value="awesome,nice" />
-                            </div>
+                            <label class="control-label">Forma de Llegar al Predio</label>
+                            <textarea class="form-control" rows="4" placeholder="Describa indicaciones para localizar el predio"></textarea>
                         </div>
                     </div>
                 </div>
@@ -371,7 +371,7 @@
 
 
             </form>
-        </div> <!-- .container -->
+        {# </div> <!-- .container --> #}
     </div><!-- End .panel-body -->
 </div><!-- panel default -->
 
