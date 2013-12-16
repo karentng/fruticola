@@ -1,17 +1,27 @@
+{% import "macros.html.twig" as macros %}
+
 {% extends "base.html.twig" %}
+
 {% block titulo %} 
-<h1><i class="icon20 i-user-plus"></i> Crear Nuevo Usuario</h1>
+    <h1><i class="icon20 i-user-plus"></i> Crear Nuevo Usuario</h1>
 {% endblock %}
 
 {% block contenido %}
+{{validation_errors()}}
 {{form_open(null, {'class':'form-horizontal'})}}
     <div class="form-group">
         <label class="col-md-3 control-label">Nombre Completo:</label>
         <div class="col-md-3">
-            <input type="text" class="form-control" name="first_name" required placeholder="Nombre">
+            {#
+            <input type="text" class="form-control" name="first_name" value="{{set_value('first_name')}}" placeholder="Nombre">
+            {% if form_error('first_name') %}
+                <label class="error">{{form_error('first_name')}}</label>
+            {% endif %}
+            #}
+            {{macros.input('first_name')}}
         </div>
         <div class="col-md-3">
-            <input type="text" class="form-control" name="last_name" required placeholder="Apellido">
+            <input type="text" class="form-control" name="last_name" value="{{set_value('last_name')}}"  placeholder="Apellido">
         </div>
     </div>
 
@@ -36,7 +46,7 @@
         <label class="col-md-3 control-label">Nombre de Usuario:</label>
         <div class="col-md-5">
             <div class="input-group">
-                <input type="text" class="form-control" name="first_name" required placeholder="Login">
+                <input type="text" class="form-control" name="username"  placeholder="Login">
                 <span class="input-group-btn">
                     <button class="btn btn-info" type="button">Sugerir</button>
                 </span>
@@ -66,8 +76,13 @@
             </select>
         </div>
     </div>
-
-
+    <br/>
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-5">
+            <button type="submit" class="btn btn-lg btn-success">Guardar</button>
+            <a href="{{site_url("auth")}}" class="btn btn-lg btn-default">Cancelar</a>
+        </div>
+    </div>
 {{form_close()}}
 
 {% endblock %}

@@ -1,0 +1,7 @@
+{% macro input(name, attrs) %}
+    {% set error = form_error(name) %}
+    <input type="text"  id="{{name}}" name="{{name}}" class="form-control {{classes}} {{errorCls?'error':''}}" value="{{set_value(name)}}" placeholder="{{placeholder}}" />
+    {% if error %}
+        <label class='error'>{{error}}</label>
+    {% endif %}
+{% endmacro %}
