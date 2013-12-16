@@ -1,12 +1,12 @@
 <ul class="nav nav-list">
-    <li>
-        <a href="dashboard.html">
+    <li {% if 'auth' in uri_string() %} class='current' {% endif %}>
+        <a href="{{site_url('auth')}}">
             <span class="icon"><i class="icon20 i-users"></i></span>
             <span class="txt">Gestión de Usuarios</span>
         </a>
     </li>
-    <li class="current">
-        <a href="charts.html">
+    <li {% if 'prueba' in uri_string() %} class='current' {% endif %}>
+        <a href="{{site_url('prueba/main')}}">
             <span class="icon"><i class="icon20 i-stats-up"></i></span>
             <span class="txt">RUAT</span>
         </a>

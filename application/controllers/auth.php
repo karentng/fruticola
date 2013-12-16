@@ -366,7 +366,7 @@ class Auth extends CI_Controller {
     }
 
     //deactivate the user
-    function deactivate_old($id = NULL)
+    private function deactivate_old($id = NULL)
     {
         $id = $this->config->item('use_mongodb', 'ion_auth') ? (string) $id : (int) $id;
 
@@ -583,6 +583,7 @@ class Auth extends CI_Controller {
     }
 
     // create a new group
+    /*
     function create_group()
     {
         $this->data['title'] = $this->lang->line('create_group_title');
@@ -691,7 +692,7 @@ class Auth extends CI_Controller {
 
         $this->_render_page('auth/edit_group', $this->data);
     }
-
+    */
 
     function _get_csrf_nonce()
     {
