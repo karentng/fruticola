@@ -33,9 +33,9 @@
                 <td> {{user.created_on|date('Y-m-d   H:i') }}
                 <td align="center">  
                     {% if user.active %}
-                        <span class="text-success">Activo</span>
+                        <a href="{{site_url(['auth','deactivate',user.id])}}" onclick="return confirm('Desea Bloquear el Usuario')"class="act-success"><i class="i-unlocked-2"></i>Habilitado</a>
                     {% else %}
-                        <span class="text-danger">Inactivo</span>
+                        <a href="{{site_url(['auth','activate',user.id])}}" onclick="return confirm('Desea Habilitar el Usuario')"class="act-danger"><i class="i-lock-5"></i>Bloqueado</a>
                     {% endif %}
                 </td>
                 <td> {{user.last_login|date('Y-m-d  H:i')}} </td>

@@ -84,8 +84,8 @@ $config['max_rounds']     = 9;
  */
 $config['site_title']                 = "Plan Fruticola";       // Site Title, example.com
 $config['admin_email']                = "admin@example.com"; // Admin Email, admin@example.com
-$config['default_group']              = 'members';           // Default group, use name
-$config['admin_group']                = 'admin';             // Default administrators group, use name
+$config['default_group']              = 'Digitador';           // Default group, use name
+$config['admin_group']                = 'Administrador';      // Default administrators group, use name
 $config['identity']                   = 'username';          // A database column which is used to login with
 $config['min_password_length']        = 4;                   // Minimum Required Length of Password
 $config['max_password_length']        = 20;                  // Maximum Allowed Length of Password

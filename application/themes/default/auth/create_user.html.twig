@@ -1,27 +1,58 @@
-{% import "macros.html.twig" as macros %}
 
 {% extends "base.html.twig" %}
+
+{% block html_head %}
+    <script type="text/javascript">
+        function stripVowelAccent(str) //remover tildes
+        {
+            var rExps=[
+                {re:/[\xC0-\xC6]/g, ch:'A'},
+                {re:/[\xE0-\xE6]/g, ch:'a'},
+                {re:/[\xC8-\xCB]/g, ch:'E'},
+                {re:/[\xE8-\xEB]/g, ch:'e'},
+                {re:/[\xCC-\xCF]/g, ch:'I'},
+                {re:/[\xEC-\xEF]/g, ch:'i'},
+                {re:/[\xD2-\xD6]/g, ch:'O'},
+                {re:/[\xF2-\xF6]/g, ch:'o'},
+                {re:/[\xD9-\xDC]/g, ch:'U'},
+                {re:/[\xF9-\xFC]/g, ch:'u'},
+                {re:/[\xD1]/g, ch:'N'},
+                {re:/[\xF1]/g, ch:'n'} ];
+
+            for(var i=0, len=rExps.length; i<len; i++)
+                str=str.replace(rExps[i].re, rExps[i].ch);
+
+            return str;
+        }
+
+        function sugerirUsername()
+        {
+            var nombre = $('#first_name').val(), apellido=$('#last_name').val();
+            if(nombre.length && apellido.length) {
+                var sugerencia = nombre[0] + apellido.split(' ')[0];
+                sugerencia = stripVowelAccent(sugerencia).toLowerCase();
+                $('#username').val(sugerencia);
+            }
+        }
+    </script>
+{% endblock %}
 
 {% block titulo %} 
     <h1><i class="icon20 i-user-plus"></i> Crear Nuevo Usuario</h1>
 {% endblock %}
 
 {% block contenido %}
-{{validation_errors()}}
+
+<!--{{validation_errors()}}--> {# for debugging purposes #}
+
 {{form_open(null, {'class':'form-horizontal'})}}
     <div class="form-group">
         <label class="col-md-3 control-label">Nombre Completo:</label>
         <div class="col-md-3">
-            {#
-            <input type="text" class="form-control" name="first_name" value="{{set_value('first_name')}}" placeholder="Nombre">
-            {% if form_error('first_name') %}
-                <label class="error">{{form_error('first_name')}}</label>
-            {% endif %}
-            #}
-            {{macros.input('first_name')}}
+            {{my_input('first_name',{'placeholder':'Nombre'})}}
         </div>
         <div class="col-md-3">
-            <input type="text" class="form-control" name="last_name" value="{{set_value('last_name')}}"  placeholder="Apellido">
+            {{my_input('last_name',{'placeholder':'Apellidos'})}}
         </div>
     </div>
 
@@ -29,14 +60,14 @@
     <div class="form-group">
         <label class="col-md-3 control-label">E-mail:</label>
         <div class="col-md-6">
-            <input type="email" class="form-control" name="email" placeholder="Correo electrónico">
+            {{my_input('email', {'type':'email', placeholder:'Correo electrónico'})}}
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-3 control-label">Teléfono:</label>
         <div class="col-md-3">
-            <input type="email" class="form-control" name="email" placeholder="Teléfono">
+            {{my_input('phone', {placeholder:'Teléfono'})}}
         </div>
     </div>
 
@@ -46,34 +77,40 @@
         <label class="col-md-3 control-label">Nombre de Usuario:</label>
         <div class="col-md-5">
             <div class="input-group">
-                <input type="text" class="form-control" name="username"  placeholder="Login">
+                {{ form_input({'name':'username', 'id':'username' ,'value':set_value('username'), 'class':'form-control',  'placeholder':'Login'}) }}
                 <span class="input-group-btn">
-                    <button class="btn btn-info" type="button">Sugerir</button>
+                    <button class="btn btn-info" type="button" onclick="sugerirUsername()">Sugerir</button>
                 </span>
             </div>
+            {% if form_error('username') %}
+                <label class='error'>{{ form_error('username') }}</label>
+            {% endif %}
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-3 control-label">Contraseña:</label>
         <div class="col-md-5">
-            <input type="password" class="form-control" name="password" placeholder="Asigne una contraseña al nuevo usuario">
+            {# <input type="password" class="form-control" name="password" placeholder="Asigne una contraseña al nuevo usuario"> #}
+            {{ my_input('password',{'type':'password', 'placeholder':'Asigne una contraseña al nuevo usuario' }) }}
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-3 control-label">Confirmar Contraseña:</label>
         <div class="col-md-5">
-            <input type="password" class="form-control" name="password" placeholder="Reescriba la contraseña que desea asignar">
+            {# <input type="password" class="form-control" name="password" placeholder="Reescriba la contraseña que desea asignar"> #}
+            {{ my_input('password_confirm', {'type':'password', 'placeholder':'Reescriba la contraseña que desea asignar' }) }}
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-3 control-label">Perfil:</label>
         <div class="col-md-5">
-            <select>
-
-            </select>
+            {{ form_dropdown('profile', {'':'-', 'admin':'Administrador', 'digitador':'Digitador'}, set_value('profile'), form_error('profile') ? 'class="error"' : '') }}
+            {% if form_error('profile') %}
+                <label class='error'>{{ form_error('profile') }}</label>
+            {% endif %}
         </div>
     </div>
     <br/>
