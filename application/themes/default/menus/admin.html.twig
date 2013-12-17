@@ -1,16 +1,37 @@
 <ul class="nav nav-list">
-    <li {% if 'auth' in uri_string() %} class='current' {% endif %}>
+    <li>
         <a href="{{site_url('auth')}}">
             <span class="icon"><i class="icon20 i-users"></i></span>
             <span class="txt">Gestión de Usuarios</span>
         </a>
     </li>
-    <li {% if 'prueba' in uri_string() %} class='current' {% endif %}>
-        <a href="{{site_url('prueba/main')}}">
+    <li>
+        <a href="#">
             <span class="icon"><i class="icon20 i-stats-up"></i></span>
             <span class="txt">RUAT</span>
         </a>
+        <ul class="sub">
+            <li>
+                <a href="{{ site_url('ruata') }}"   >
+                    <span class="icon"><i class="icon20 i-man"></i></span>
+                    <span class="txt">Parte A</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ site_url('ruatb') }}"   >
+                    <span class="icon"><i class="icon20 icon20 i-home-11"></i></span>
+                    <span class="txt">Parte B</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ site_url('ruatc') }}"   >
+                    <span class="icon"><i class="icon20 i-stack-checkmark"></i></span>
+                    <span class="txt">Parte C</span>
+                </a>
+            </li>
+        </ul>
     </li>
+
 {#
     <li>
         <a href="#">

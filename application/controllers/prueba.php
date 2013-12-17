@@ -72,7 +72,15 @@ class Prueba extends CI_Controller {
 
     public function main()
     {
-        $this->twiggy->template("ruat/main");
-        $this->twiggy->display();
+        //$this->twiggy->template("ruat/main");
+        //$this->twiggy->display();
+
+        echo "nope, go here <br/>";
+        $a = site_url('ruata');
+        $b = site_url('ruatb');
+        $c = site_url('ruatc');
+        echo "<a href='$a'>$a</a><br/>";
+        echo "<a href='$b'>$b</a><br/>";
+        echo "<a href='$c'>$c</a><br/>";
     }
 }

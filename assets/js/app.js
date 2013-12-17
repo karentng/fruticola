@@ -22,7 +22,7 @@ $(document).ready(function() {
             rotateIcon: true//rotate icon on hover , true or false
         },
         setCurrent: {
-            absoluteUrl: false, //put true if use absolute path links. example http://www.host.com/dashboard instead of /dashboard
+            absoluteUrl: true, //put true if use absolute path links. example http://www.host.com/dashboard instead of /dashboard
             subDir: '' //if you put template in sub dir you need to fill here. example '/html'
         },
         collapseNavIcon: 'i-arrow-left-7', //icon for collapse navigation button

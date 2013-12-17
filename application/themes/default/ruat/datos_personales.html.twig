@@ -1,8 +1,10 @@
-{# % extends "base.html.twig" % #}
+{% extends "base.html.twig" %}
 
+{% block titulo %} <h1><i class="icon20 i-man"></i> RUAT &#187; Datos Personales </h1> {% endblock %}
 
+{% block contenido %}
 
-{#% block contenido %#}
+{{ form_open(null, {role:'form'}) }}
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -13,124 +15,121 @@
 
     <div class="panel-body" style="display: block;">
         <div class="container"> 
-            <form class="form-horizontal" role="form">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Primer Nombre</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Segundo Nombre</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Primer Apellido</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Segundo Apellido</label>
-                                <input type="text" class="form-control" />
-                            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Primer Nombre</label>
+                            <input type="text" class="form-control" />
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Segundo Nombre</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Primer Apellido</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Segundo Apellido</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                <div class="row">
-                    <div div class="col-md-6">
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label">Documento: </label>
-                            <div class="col-xs-3" style="padding-right:0px !important">
-                                <select class="form-control">
-                                    <option>C.C.</option>
-                                    <option>T.I.</option>
-                                    <option>C.E.</option>
-                                    <option>NIT</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-6" style="padding-left:0px !important">
-                                <input class="form-control" type="text" placeholder="Número">
-                            </div>
+            <div class="row">
+                <div div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">Documento: </label>
+                        <div class="col-xs-3" style="padding-right:0px !important">
+                            <select class="form-control">
+                                <option>C.C.</option>
+                                <option>T.I.</option>
+                                <option>C.E.</option>
+                                <option>NIT</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6" style="padding-left:0px !important">
+                            <input class="form-control" type="text" placeholder="Número">
                         </div>
                     </div>
-                    
-                    <div div class="col-md-6">
-                        <div class="form-group">
-                            <label class="col-sm-6 control-label" for="fechaNacimiento">Fecha de Nacimiento:</label>
-                            <div class="col-sm-6">
-                                <div class="input-group date datepicker autostart">
-                                    <input size="16" name="fechaNacimiento" class="form-control" type="text">
-                                    <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="row">
-                    <div div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-6 control-label">Sexo: </label>
-                            <div class="col-sm-6">
-                                <select class="form-control">
-                                    <option>Hombre</option>
-                                    <option>Mujer</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>                    
-                    <div div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-6 control-label">Nivel Educativo: </label>
-                            <div class="col-sm-6">
-                                <select class="form-control">
-                                    <option></option>
-                                    <option value="1">Primaria</option>
-                                    <option value="2">Secundaria</option>
-                                    <option value="3">Técnica</option>
-                                    <option value="4">Tecnológica</option>
-                                    <option value="5">Universitaria</option>
-                                    <option value="6">Ninguna</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
                 
-                <div class="row">
-                    <div div class="col-md-5">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="focused">Tipo de Productor:</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" id="focusedInput" type="text" placeholder="Tipo de Productor Según la Clasificación FINAGRO" >
-                            </div>
-                        </div>
-                    </div>
-                    <div div class="col-md-7">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="focused">Cadena Productiva:</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" id="focusedInput" type="text" placeholder="Cadena Productiva FRUTÍCOLA / Producto seleccionado" >
+                <div div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" for="fechaNacimiento">Fecha de Nacimiento:</label>
+                        <div class="col-sm-6">
+                            <div class="input-group date datepicker autostart">
+                                <input size="16" name="fechaNacimiento" class="form-control" type="text">
+                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                             </div>
                         </div>
                     </div>
                 </div>
-
-            </form>
+                
+            </div>
+            <div class="row">
+                <div div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Sexo: </label>
+                        <div class="col-sm-6">
+                            <select class="form-control">
+                                <option>Hombre</option>
+                                <option>Mujer</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>                    
+                <div div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Nivel Educativo: </label>
+                        <div class="col-sm-6">
+                            <select class="form-control">
+                                <option></option>
+                                <option value="1">Primaria</option>
+                                <option value="2">Secundaria</option>
+                                <option value="3">Técnica</option>
+                                <option value="4">Tecnológica</option>
+                                <option value="5">Universitaria</option>
+                                <option value="6">Ninguna</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="row">
+                <div div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="focused">Tipo de Productor:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="focusedInput" type="text" placeholder="Tipo de Productor Según la Clasificación FINAGRO" >
+                        </div>
+                    </div>
+                </div>
+                <div div class="col-md-7">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="focused">Cadena Productiva:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="focusedInput" type="text" placeholder="Cadena Productiva FRUTÍCOLA / Producto seleccionado" >
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div> <!-- .container -->
     </div><!-- End .panel-body -->
 
@@ -144,121 +143,120 @@
 
     <div class="panel-body" style="display: block;">
         <div class="container">
-            <form class="form-horizontal" role="form" action="#">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Teléfono Fijo</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Celular</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Correo Electrónico</label>
-                                <input type="text" class="form-control" />
-                            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Teléfono Fijo</label>
+                            <input type="text" class="form-control" />
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div div class="col-md-4">
+                <div class="col-md-4">
+                    <div class="container">
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="focused">Departamento:</label>
-                            <div class="col-md-8">
-                                <select class="select2 autostart" data-placeholder="Seleccione...">
-                                    <option></option>
-                                    <option value="1">Amazonas</option>
-                                    <option value="2">Antioquia</option>
-                                    <option value="3">Arauca</option>
-                                    <option value="4">Atlántico</option>
-                                    <option value="5">Bogotá D.C.</option>
-                                    <option value="6">Bolívar</option>
-                                    <option value="7">Boyacá</option>
-                                    <option value="8">Caldas</option>
-                                    <option value="9">Caquetá</option>
-                                    <option value="0">Casanare</option>
-                                    <option value="q">Cauca</option>
-                                    <option value="w">Cesar</option>
-                                    <option value="re">Chocó</option>
-                                    <option value="t">Córdoba</option>
-                                    <option value="y">Cundinamarca</option>
-                                    <option value="u">Guainía</option>
-                                    <option value="i">Guaviare</option>
-                                    <option value="i">Huila</option>
-                                    <option value="o">La Guajira</option>
-                                    <option value="p">Magdalena</option>
-                                    <option value="a">Meta</option>
-                                    <option value="ds">Nariño</option>
-                                    <option value="d">Norte de Santander</option>
-                                    <option value="f">Putumayo</option>
-                                    <option value="h">Quindío</option>
-                                    <option value="z">Risaralda</option>
-                                    <option value="x">San Andrés</option>
-                                    <option value="c">Santander</option>
-                                    <option value="v">Sucre</option>
-                                    <option value="n">Tolima</option>
-                                    <option value="m">Valle del Cauca</option>
-                                    <option value=",">Vaupés</option>
-                                    <option value=".">Vichada</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="focused">Municipio:</label>
-                            <div class="col-md-8">
-                                <select class="select2 autostart" data-placeholder="Seleccione...">
-                                    <option></option>
-                                    <option value="0">Abejorral</option>
-                                    <option value="1">Andes</option>
-                                    <option value="2">Apulo</option>
-                                    <option value="3">Armenia</option>
-                                    <option value="4">Balboa</option>
-                                    <option value="5">Buga</option>
-                                    <option value="6">Caicedonia</option>
-                                    <option value="7">Calarca</option>
-                                    <option value="8">Cali</option>
-                                    <option value="9">Cerrito</option>
-                                    <option value="10">Cisneros</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="focused">Vereda:</label>
-                            <div class="col-md-8">
-                                <input class="form-control" id="focusedInput" type="text">
-                            </div>
+                            <label class="control-label">Celular</label>
+                            <input type="text" class="form-control" />
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div div class="col-md-7">
+                <div class="col-md-4">
+                    <div class="container">
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="focused">Dirección de Residencia:</label>
-                            <div class="col-md-8">
-                                <input class="form-control" id="focusedInput" type="text">
-                            </div>
+                            <label class="control-label">Correo Electrónico</label>
+                            <input type="text" class="form-control" />
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
+            <div class="row">
+                <div div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="focused">Departamento:</label>
+                        <div class="col-md-8">
+                            <select class="select2 autostart" data-placeholder="Seleccione...">
+                                <option></option>
+                                <option value="1">Amazonas</option>
+                                <option value="2">Antioquia</option>
+                                <option value="3">Arauca</option>
+                                <option value="4">Atlántico</option>
+                                <option value="5">Bogotá D.C.</option>
+                                <option value="6">Bolívar</option>
+                                <option value="7">Boyacá</option>
+                                <option value="8">Caldas</option>
+                                <option value="9">Caquetá</option>
+                                <option value="0">Casanare</option>
+                                <option value="q">Cauca</option>
+                                <option value="w">Cesar</option>
+                                <option value="re">Chocó</option>
+                                <option value="t">Córdoba</option>
+                                <option value="y">Cundinamarca</option>
+                                <option value="u">Guainía</option>
+                                <option value="i">Guaviare</option>
+                                <option value="i">Huila</option>
+                                <option value="o">La Guajira</option>
+                                <option value="p">Magdalena</option>
+                                <option value="a">Meta</option>
+                                <option value="ds">Nariño</option>
+                                <option value="d">Norte de Santander</option>
+                                <option value="f">Putumayo</option>
+                                <option value="h">Quindío</option>
+                                <option value="z">Risaralda</option>
+                                <option value="x">San Andrés</option>
+                                <option value="c">Santander</option>
+                                <option value="v">Sucre</option>
+                                <option value="n">Tolima</option>
+                                <option value="m">Valle del Cauca</option>
+                                <option value=",">Vaupés</option>
+                                <option value=".">Vichada</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="focused">Municipio:</label>
+                        <div class="col-md-8">
+                            <select class="select2 autostart" data-placeholder="Seleccione...">
+                                <option></option>
+                                <option value="0">Abejorral</option>
+                                <option value="1">Andes</option>
+                                <option value="2">Apulo</option>
+                                <option value="3">Armenia</option>
+                                <option value="4">Balboa</option>
+                                <option value="5">Buga</option>
+                                <option value="6">Caicedonia</option>
+                                <option value="7">Calarca</option>
+                                <option value="8">Cali</option>
+                                <option value="9">Cerrito</option>
+                                <option value="10">Cisneros</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="focused">Vereda:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="focusedInput" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div div class="col-md-7">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="focused">Dirección de Residencia:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="focusedInput" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div><!-- End .panel-body -->
 </div><!-- panel default -->
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
@@ -268,77 +266,75 @@
 
     <div class="panel-body" style="display: block;">
         <div class="container">
-            <form class="form-horizontal" role="form" action="#">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Ingreso Familiar</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Personas que Dependen de este Ingreso</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Ingreso familiar de la actividad agropecuaria</label>
-                                <input type="text" class="form-control" />
-                            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Ingreso Familiar</label>
+                            <input type="text" class="form-control" />
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Uso de Crédito Actual</label>
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <label class="radio"> <input type="radio" name="radio" value="1"> Sí </label>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <label class="radio"> <input type="radio" name="radio" value="2"> No </label> 
-                                    </div>
+                <div div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Personas que Dependen de este Ingreso</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Ingreso familiar de la actividad agropecuaria</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Uso de Crédito Actual</label>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <label class="radio"> <input type="radio" name="radio" value="1"> Sí </label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <label class="radio"> <input type="radio" name="radio" value="2"> No </label> 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div div class="col-md-5">
-                        <div class="form-group">
-                            <label class="col-sm-6 control-label">Procedencia del Crédito: </label>
-                            <div class="col-sm-6">
-                                <select class="form-control">
-                                    <option></option>
-                                    <option>Agremiaciones</option>
-                                    <option>Bancos</option>
-                                    <option>Empresas de Insumos</option>
-                                    <option>Entidades Estatales</option>
-                                    <option>Familiares</option>
-                                    <option>Prestamistas</option>
-                                    <option>Otros</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="focused">¿Cuál?</label>
-                            <div class="col-md-8">
-                                <input class="form-control" id="focusedInput" type="text">
-                                <span class="help-block"><small>Si seleccionó la opción <b>Otros</b> en la procedencia, escriba aquí a cuál pertenece.</small></span>
-                            </div>
+                </div>
+                <div div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Procedencia del Crédito: </label>
+                        <div class="col-sm-6">
+                            <select class="form-control">
+                                <option></option>
+                                <option>Agremiaciones</option>
+                                <option>Bancos</option>
+                                <option>Empresas de Insumos</option>
+                                <option>Entidades Estatales</option>
+                                <option>Familiares</option>
+                                <option>Prestamistas</option>
+                                <option>Otros</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-            </form>
+                <div div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="focused">¿Cuál?</label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="focusedInput" type="text">
+                            <span class="help-block"><small>Si seleccionó la opción <b>Otros</b> en la procedencia, escriba aquí a cuál pertenece.</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -352,134 +348,132 @@
 
     <div class="panel-body" style="display: block;">
         <div class="container">
-            <form class="form-horizontal" role="form" action="#">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">¿Realiza Procesos de Innovación?</label>
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <label class="radio"> <input type="radio" name="radio" value="1"> Sí </label>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <label class="radio"> <input type="radio" name="radio" value="2"> No </label> 
-                                    </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">¿Realiza Procesos de Innovación?</label>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <label class="radio"> <input type="radio" name="radio" value="1"> Sí </label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <label class="radio"> <input type="radio" name="radio" value="2"> No </label> 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <span class="help-block"><small>Si su respuesta es <b>Sí</b>, por favor diligencie la siguiente tabla indicando la fase del proceso en la cual se efectuó y la fuente de procedencia. Si su respuesta es <b>No</b>, pase a la sección <i>A5</i>.</small></span>
+                </div>
+                <div class="col-md-8">
+                    <span class="help-block"><small>Si su respuesta es <b>Sí</b>, por favor diligencie la siguiente tabla indicando la fase del proceso en la cual se efectuó y la fuente de procedencia. Si su respuesta es <b>No</b>, pase a la sección <i>A5</i>.</small></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="1" rowspan="2" valign="middle">Actividad</th>
+                                    <th colspan="6">Fuente</th>
+                                    <th colspan="1" rowspan="2" valign="middle">Descricpción</th>
+                                </tr>
+                                <tr>
+                                    
+                                    <th>Propia</th>
+                                    <th>EPSAGRO</th>
+                                    <th>Asociaciones</th>
+                                    <th>Entidad Privada</th>
+                                    <th>Otra</th>
+                                    <th>¿Cuál?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="20%">Producción</td>
+                                    <td class="center" width="2%">                                            
+                                        <label class="radio"> <input type="radio" name="radio1" value="1"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio1" value="2"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio1" value="3"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio1" value="4"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio1" value="5"> </label>
+                                    </td>
+                                    <td width="20%"><input type="text" class="form-control" /></td>
+                                    <td width="40%"><input type="text" class="form-control" /></td>
+                                    
+                                <tr>
+                                    <td >Transformación</td>
+                                    <td class="center" width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio2" value="1"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio2" value="2"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio2" value="3"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio2" value="4"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio2" value="5"> </label>
+                                    </td>
+                                    <td width="20%"><input type="text" class="form-control" /></td>
+                                    <td width="40%"><input type="text" class="form-control" /></td>
+                                </tr>
+                                <tr>
+                                    <td >Comercialización</td>
+                                    <td class="center" width="2%">                                            
+                                        <label class=" center radio"> <input type="radio" name="radio3" value="1"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio3" value="2"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio3" value="3"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio3" value="4"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio3" value="5"> </label>
+                                    </td>
+                                    <td width="20%"><input type="text" class="form-control" /></td>
+                                    <td width="40%"><input type="text" class="form-control" /></td>
+                                </tr>
+                                <tr>
+                                    <td >Organizacional</td>
+                                    <td class="center" width="2%">                                            
+                                        <label class=" center radio"> <input type="radio" name="radio4" value="1"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio4" value="2"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio4" value="3"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio4" value="4"> </label>
+                                    </td>
+                                    <td width="2%">                                            
+                                        <label class="center radio"> <input type="radio" name="radio4" value="5"> </label>
+                                    </td>
+                                    <td width="20%"><input type="text" class="form-control" /></td>
+                                    <td width="40%"><input type="text" class="form-control" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th colspan="1" rowspan="2" valign="middle">Actividad</th>
-                                        <th colspan="6">Fuente</th>
-                                        <th colspan="1" rowspan="2" valign="middle">Descricpción</th>
-                                    </tr>
-                                    <tr>
-                                        
-                                        <th>Propia</th>
-                                        <th>EPSAGRO</th>
-                                        <th>Asociaciones</th>
-                                        <th>Entidad Privada</th>
-                                        <th>Otra</th>
-                                        <th>¿Cuál?</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td width="20%">Producción</td>
-                                        <td class="center" width="2%">                                            
-                                            <label class="radio"> <input type="radio" name="radio1" value="1"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio1" value="2"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio1" value="3"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio1" value="4"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio1" value="5"> </label>
-                                        </td>
-                                        <td width="20%"><input type="text" class="form-control" /></td>
-                                        <td width="40%"><input type="text" class="form-control" /></td>
-                                        
-                                    <tr>
-                                        <td >Transformación</td>
-                                        <td class="center" width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio2" value="1"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio2" value="2"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio2" value="3"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio2" value="4"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio2" value="5"> </label>
-                                        </td>
-                                        <td width="20%"><input type="text" class="form-control" /></td>
-                                        <td width="40%"><input type="text" class="form-control" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td >Comercialización</td>
-                                        <td class="center" width="2%">                                            
-                                            <label class=" center radio"> <input type="radio" name="radio3" value="1"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio3" value="2"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio3" value="3"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio3" value="4"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio3" value="5"> </label>
-                                        </td>
-                                        <td width="20%"><input type="text" class="form-control" /></td>
-                                        <td width="40%"><input type="text" class="form-control" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td >Organizacional</td>
-                                        <td class="center" width="2%">                                            
-                                            <label class=" center radio"> <input type="radio" name="radio4" value="1"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio4" value="2"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio4" value="3"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio4" value="4"> </label>
-                                        </td>
-                                        <td width="2%">                                            
-                                            <label class="center radio"> <input type="radio" name="radio4" value="5"> </label>
-                                        </td>
-                                        <td width="20%"><input type="text" class="form-control" /></td>
-                                        <td width="40%"><input type="text" class="form-control" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div><!-- End panel-body-->
 </div><!--End panel-default-->
@@ -493,137 +487,144 @@
 
     <div class="panel-body" style="display: block;">
         <div class="container">
-            <form class="form-horizontal" role="form" action="#">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label"> Pertenencia a Asociaciones, Cooperativas o Agremiaciones:</label>
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <label class="radio"> <input type="radio" name="radio" value="1"> Sí </label>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <label class="radio"> <input type="radio" name="radio" value="2"> No </label> 
-                                    </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label"> Pertenencia a Asociaciones, Cooperativas o Agremiaciones:</label>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <label class="radio"> <input type="radio" name="radio" value="1"> Sí </label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <label class="radio"> <input type="radio" name="radio" value="2"> No </label> 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <span class="help-block"><small>Si su respuesta es <b>Sí</b>, por favor indique su principal socio. Si su respuesta es <b>No</b>, pase a la pregunta del <i>Productor a Seguir</i>.</small></span>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Nombre del Productor en Asocio</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Apellidos del Productor en Asocio</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Vereda de Ubicación Productor en Asocio</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-6">
+                    <span class="help-block"><small>Si su respuesta es <b>Sí</b>, por favor indique su principal socio. Si su respuesta es <b>No</b>, pase a la pregunta del <i>Productor a Seguir</i>.</small></span>
                 </div>
-                <div class="row">
-                    <div div class="col-md-5">
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container">
                         <div class="form-group">
-                            <label class="col-sm-6 control-label">Grado de Confianza: </label>
-                            <div class="col-sm-6">
-                                <select class="form-control">
-                                    <option></option>
-                                    <option>Siempre</option>
-                                    <option>Casi siempre</option>
-                                    <option>A veces</option>
-                                    <option>Casi Nunca</option>
-                                    <option>Nunca</option>
-                                </select>
-                            </div>
+                            <label class="control-label">Nombre del Productor en Asocio</label>
+                            <input type="text" class="form-control" />
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">¿Productor a Seguir en su Vereda?</label>
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <label class="radio"> <input type="radio" name="radio" value="1"> Sí </label>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <label class="radio"> <input type="radio" name="radio" value="2"> No </label> 
-                                    </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Apellidos del Productor en Asocio</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Vereda de Ubicación Productor en Asocio</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Grado de Confianza: </label>
+                        <div class="col-sm-6">
+                            <select class="form-control">
+                                <option></option>
+                                <option>Siempre</option>
+                                <option>Casi siempre</option>
+                                <option>A veces</option>
+                                <option>Casi Nunca</option>
+                                <option>Nunca</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">¿Productor a Seguir en su Vereda?</label>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <label class="radio"> <input type="radio" name="radio" value="1"> Sí </label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <label class="radio"> <input type="radio" name="radio" value="2"> No </label> 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <span class="help-block"><small>Si su respuesta es <b>Sí</b>, indique el productor a seguir en su vereda Si su respuesta es <b>No</b>, pase al <i>Formulario B</i></small></span>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Nombre del Productor a Seguir</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Apellidos del Productor a Seguir</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="container">
-                            <div class="form-group">
-                                <label class="control-label">Vereda de Ubicación Productor a Seguir</label>
-                                <input type="text" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-6">
+                    <span class="help-block"><small>Si su respuesta es <b>Sí</b>, indique el productor a seguir en su vereda Si su respuesta es <b>No</b>, pase al <i>Formulario B</i></small></span>
                 </div>
-                <div class="row">
-                    <div div class="col-md-5">
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container">
                         <div class="form-group">
-                            <label class="col-sm-6 control-label">Grado de Confianza: </label>
-                            <div class="col-sm-6">
-                                <select class="form-control">
-                                    <option></option>
-                                    <option>Siempre</option>
-                                    <option>Casi siempre</option>
-                                    <option>A veces</option>
-                                    <option>Casi Nunca</option>
-                                    <option>Nunca</option>
-                                </select>
-                            </div>
+                            <label class="control-label">Nombre del Productor a Seguir</label>
+                            <input type="text" class="form-control" />
                         </div>
                     </div>
                 </div>
-            </form>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Apellidos del Productor a Seguir</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Vereda de Ubicación Productor a Seguir</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Grado de Confianza: </label>
+                        <div class="col-sm-6">
+                            <select class="form-control">
+                                <option></option>
+                                <option>Siempre</option>
+                                <option>Casi siempre</option>
+                                <option>A veces</option>
+                                <option>Casi Nunca</option>
+                                <option>Nunca</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div><!--End panel-body-->
 </div><!--End panel-default-->
 
+<br/>
+<div class="form-actions full">
+    {# <button class="btn pull-left" type="reset"><i class="icon16 i-arrow-left-2"></i>Back</button> #}
+    <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right-3"></i></button>
+</div>
 
-{#% endblock %#}
+<div class="row" style="height:100px"></div> {# para evitar que el señalador de "ir arriba" tape el boton siguiente #}
+
+{{ form_close() }}
+
+{% endblock %}
