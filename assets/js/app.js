@@ -68,8 +68,5 @@ $(document).ready(function() {
     
     $("[type='checkbox'], [type='radio'], [type='file']").not('.toggle').uniform();
     //$("select").not('.select2, .multiselect').first().uniform();
-    /*setTimeout(function(){
-        $("select").not('.select2, .multiselect').uniform();
-    },200);*/
 });
 
