@@ -20,7 +20,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Primer Nombre</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('nombre1') }}
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Segundo Nombre</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('nombre2') }}
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Primer Apellido</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('apellido1') }}
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Segundo Apellido</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('apellido2')}}
                         </div>
                     </div>
                 </div>
@@ -55,12 +55,7 @@
                     <div class="form-group">
                         <label class="col-xs-3 control-label">Documento: </label>
                         <div class="col-xs-3" style="padding-right:0px !important">
-                            <select class="form-control">
-                                <option>C.C.</option>
-                                <option>T.I.</option>
-                                <option>C.E.</option>
-                                <option>NIT</option>
-                            </select>
+                            {{my_select('tipo_documento', ['C.C','T.I','C.E','NIT'])}}
                         </div>
                         <div class="col-xs-6" style="padding-left:0px !important">
                             <input class="form-control" type="text" placeholder="Número">
@@ -86,10 +81,7 @@
                     <div class="form-group">
                         <label class="col-sm-6 control-label">Sexo: </label>
                         <div class="col-sm-6">
-                            <select class="form-control">
-                                <option>Hombre</option>
-                                <option>Mujer</option>
-                            </select>
+                            {{ my_select('sexo',{'M':'Hombre', 'F':'Mujer'}) }}
                         </div>
                     </div>
                 </div>                    
@@ -97,7 +89,7 @@
                     <div class="form-group">
                         <label class="col-sm-6 control-label">Nivel Educativo: </label>
                         <div class="col-sm-6">
-                            <select class="form-control">
+                            {#<select class="form-control">
                                 <option></option>
                                 <option value="1">Primaria</option>
                                 <option value="2">Secundaria</option>
@@ -105,7 +97,8 @@
                                 <option value="4">Tecnológica</option>
                                 <option value="5">Universitaria</option>
                                 <option value="6">Ninguna</option>
-                            </select>
+                            </select>#}
+                            {{ my_select('nivel_educativo', ['Ninguno','Primaria','Secundaria','Técnica','Tecnológica', 'Universitaria']) }}
                         </div>
                     </div>
                 </div>
@@ -626,5 +619,5 @@
 <div class="row" style="height:100px"></div> {# para evitar que el señalador de "ir arriba" tape el boton siguiente #}
 
 {{ form_close() }}
-
+{elapsed_time}
 {% endblock %}

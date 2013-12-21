@@ -196,7 +196,7 @@ $config['twiggy']['register_functions'] = array
     'lang', 
     'form_open', 'form_hidden', 'form_input', 'form_password', 'form_textarea', 'form_dropdown', 'form_checkbox', 'form_radio', 'form_submit', 'form_close', 'form_prep', 'set_value', 'set_select', 'set_checkbox', 'set_radio', 
     'validation_errors', 'form_error',
-    'my_input',
+    'my_input', 'my_select', 'current_user'
 );
 
 
