@@ -25,10 +25,14 @@
                             <label class="control-label">Finca</label>
                             <div class="row">
                                 <div class="col-xs-5">
-                                    <label class="radio"> <input type="radio" name="radio-finca" value="si" checked=""> SI </label>
+                                    <label class="radio">
+                                        <input type="radio" name="radio_finca" value="si" class="form-control" {{set_radio('radio_finca', 'si', TRUE)}}> SI 
+                                    </label>
                                 </div>
                                 <div class="col-xs-5">
-                                    <label class="radio"> <input type="radio" name="radio-finca" value="no"> NO </label> 
+                                    <label class="radio">
+                                        <input type="radio" class="form-control" name="radio_finca" value="no" {{set_radio('radio_finca', 'no')}}> NO
+                                    </label> 
                                 </div>
                             </div>
                         </div>
@@ -59,16 +63,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="select">Tenencia</label>
-                            <select name="select" class="form-control">
-                                <option>Propiedad con t&iacute;tulo</option>
-                                <option>Propiedad sin t&iacute;tulo</option>
-                                <option>En arrendamiento</option>
-                                <option>Comodacto</option>
-                                <option>Usufructo</option>
-                                <option>Aparcer&iacute;a</option>
-                                <option>Colectiva</option>
-                                <option>Otro</option>
-                            </select>
+                            {{my_select('tenencia', tenencia,{})}}
                         </div> 
                     </div>
                 </div>
@@ -84,20 +79,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="select">Municipio</label>
-                            <select class="select2 autostart" data-placeholder="Seleccione...">
-                                <option></option>
-                                <option value="0">Abejorral</option>
-                                <option value="1">Andes</option>
-                                <option value="2">Apulo</option>
-                                <option value="3">Armenia</option>
-                                <option value="4">Balboa</option>
-                                <option value="5">Buga</option>
-                                <option value="6">Caicedonia</option>
-                                <option value="7">Calarca</option>
-                                <option value="8">Cali</option>
-                                <option value="9">Cerrito</option>
-                                <option value="10">Cisneros</option>
-                            </select>
+                            {{my_select('municipio', municipio,{filter:true})}}
                         </div>
                     </div>
                 </div>
@@ -124,7 +106,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Área Total</label>
-                            {{my_input('first_name',{'type':'number'})}}
+                            {{my_input('area_total',{'type':'number'})}}
                         </div>
                     </div>
                 </div>
@@ -135,13 +117,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="tags">Disponibilidad de servicios p&uacute;blicos</label>
-                            <select class="select2 autostart" multiple data-placeholder="Seleccione los servicios de la parcela">
-                                <option></option>
-                                <option value="1">Agua Propia</option>
-                                <option value="2">Acueducto</option>
-                                <option value="3">Acceso a Internet</option>
-                                <option value="4">Energía Eléctrica</option>
-                            </select>
+                            {{my_select('servicios_publicos', servicios,{multiple:true})}}
                         </div>
                     </div>
                 </div>
@@ -151,10 +127,14 @@
                             <label class="control-label" for="radio">Disponibilidad de Vias de Acceso</label>
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <label class="radio"> <input type="radio" name="vias-acceso" value="si"> SI </label>
+                                    <label class="radio">
+                                        <input type="radio" name="vias_acceso" value="si" {{set_radio('vias_acceso', 'si')}}> SI
+                                    </label>
                                 </div>
                                 <div class="col-xs-3">
-                                    <label class="radio"> <input type="radio" name="vias-acceso" value="no"> NO </label> 
+                                    <label class="radio">
+                                        <input type="radio" name="vias_acceso" value="no" {{set_radio('vias_acceso', 'no', TRUE)}}> NO
+                                    </label> 
                                 </div>
                             </div>
                         </div>
@@ -164,15 +144,8 @@
                     <div class="form-group">
                         <div class="container">
                             <label class="control-label" for="select">Estado de las vias de acceso</label>
-                            <select name="select" class="form-control">
-                                <option>Pavimentada</option>
-                                <option>No Pavimentada</option>
-                            </select>  
-                            <select name="select" class="form-control">
-                                <option>Buena</option>
-                                <option>Regular</option>
-                                <option>Mala</option>
-                            </select>  
+                            {{my_select('tipo_via', tipo_via,{})}}
+                            {{my_select('estado_via', estado_via,{})}}
                         </div>
                     </div>
                 </div>
@@ -184,10 +157,14 @@
                             <label class="control-label" for="radio">Manejo Programa de Residuos</label>
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <label class="radio"> <input type="radio" name="programa-residuos" value="si"> SI </label>
+                                    <label class="radio">
+                                        <input type="radio" name="manejo_residuos" value="si" {{set_radio('manejo_residuos', 'si')}}> SI
+                                    </label>
                                 </div>
                                 <div class="col-xs-3">
-                                    <label class="radio"> <input type="radio" name="programa-residuos" value="no"> NO </label> 
+                                    <label class="radio">
+                                        <input type="radio" name="manejo_residuos" value="no" {{set_radio('manejo_residuos', 'no', TRUE)}}> NO
+                                    </label> 
                                 </div>
                             </div>
                         </div>
@@ -198,11 +175,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="select">Programa</label>
-                            <select name="select" class="form-control">
-                                <option>Ordinarios</option>
-                                <option>Peligrosos</option>
-                                <option>Otro</option>
-                            </select>
+                            {{my_select('programa_residuos', programa_residuos,{})}}
                         </div>
                     </div>
                 </div>
@@ -220,26 +193,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label col-md-8">Distancia de la finca a la cabecera municipal (Km)</label>
-                        <div class="col-md-4">{{my_input('distancia-finca-cabecera',{'type':'number'})}}</div>
+                        <div class="col-md-4">{{my_input('distancia_finca_cabecera',{'type':'number'})}}</div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-4">Medios de transporte</label> {# para la realizacion de la actividad productiva y de comercializaci&oacute;n#}
                         <div class="col-md-8">
-                            <select class="select2 autostart" multiple data-placeholder="Seleccione los servicios de la parcela">
-                                <option></option>
-                                <option value="1">Tracción Animal</option>
-                                <option value="2">Animal</option>
-                                <option value="3">Camión / Auto</option>
-                                <option value="4">Bicicleta</option>
-                                <option value="5">Caminata</option>
-                                <option value="6">Tractor</option>
-                                <option value="7">Banco</option>
-                                <option value="8">Canoa</option>
-                                <option value="9">Kayak</option>
-                                <option value="10">Planchón</option>
-                                <option value="10">Otro</option>
-                            </select>
+                            {{my_select('medios_transporte', medios_transporte,{})}}
                             <span class="help-block"><small>Liste los medios de transporte utilizados para la realizacion de la actividad productiva y de comercializaci&oacute;n</small></span>
                         </div>
                     </div>
@@ -247,7 +207,7 @@
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
                         <label class="control-label">Forma de Llegar al Predio</label>
-                        <textarea class="form-control" rows="4" placeholder="Describa indicaciones para localizar el predio"></textarea>
+                        <textarea name="forma_llegar_predio" id="forma_llegar_predio" class="form-control" rows="4" placeholder="Describa indicaciones para localizar el predio"></textarea>
                     </div>
                 </div>
             </div>
@@ -259,7 +219,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th colspan="3">Maquinaria y equipo para la realizaci&oacute;n de actividades productivas y comercializaci&oacute;n</th>
+                                    <th colspan="3">Maquinaria y equipo para la realización de actividades productivas y comercializaci&oacute;n</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -267,7 +227,7 @@
                                     <td class="center" width="20%">Herramientas</td>
                                     <td width="2%">
                                         <label class="checkbox">
-                                            <input class="form-control" type="checkbox" id="agree" name="agree">
+                                            <input class="form-control" type="checkbox" id="agree1" name="herramientasOP">
                                         </label>
                                     </td>
                                     <td width="65%">{{my_input('herramientas',{'readonly':'true'})}}</td>
@@ -276,7 +236,7 @@
                                     <td class="center">Utencilios</td>
                                     <td>
                                         <label class="checkbox">
-                                            <input class="form-control" type="checkbox" id="agree" name="agree">
+                                            <input class="form-control" type="checkbox" id="agree2" name="utenciliosOP">
                                         </label>
                                     </td>
                                     <td>{{my_input('utencilios',{'readonly':'true'})}}</td>
@@ -285,7 +245,7 @@
                                     <td class="center">Equipos</td>
                                     <td>
                                         <label class="checkbox">
-                                            <input class="form-control" type="checkbox" id="agree" name="agree">
+                                            <input class="form-control" type="checkbox" id="agree3" name="equiposOP">
                                         </label>
                                     </td>
                                     <td>{{my_input('equipos',{'readonly':'true'})}}</td>
@@ -294,7 +254,7 @@
                                     <td class="center">Maquinaria Liviana</td>
                                     <td>
                                         <label class="checkbox">
-                                            <input class="form-control" type="checkbox" id="agree" name="agree">
+                                            <input class="form-control" type="checkbox" id="agree4" name="livianaOP">
                                         </label>
                                     </td>
                                     <td>{{my_input('maquinaria_liviana',{'readonly':'true'})}}</td>
@@ -303,7 +263,7 @@
                                     <td class="center">Maquinaria Pesada</td>
                                     <td>
                                         <label class="checkbox">
-                                            <input class="form-control" type="checkbox" id="agree" name="agree">
+                                            <input class="form-control" type="checkbox" id="agree5" name="pesadaOP">
                                         </label>
                                     </td>
                                     <td>{{my_input('maquinaria_pesada',{'readonly':'true'})}}</td>
@@ -312,7 +272,7 @@
                                     <td class="center">Otros</td>
                                     <td>
                                         <label class="checkbox">
-                                            <input class="form-control" type="checkbox" id="agree" name="agree">
+                                            <input class="form-control" type="checkbox" id="agree6" name="otrosOP">
                                         </label>
                                     </td>
                                     <td>{{my_input('otros',{'readonly':'true'})}}</td>
@@ -351,7 +311,7 @@
                                 <tr>
                                     <th rowspan="2" width="19%">Producto</th>
                                     <th rowspan="2" width="19%">Variedad</th>
-                                    <th rowspan="2" width="15%">Semilla</th>
+                                    <th rowspan="2" width="16%">Semilla</th>
                                     <th rowspan="2" width="8%">Área Cosechada (ha)</th>
                                     <th colspan="3">Producción Total (kilos/año)</th>
                                 </tr>
@@ -361,60 +321,48 @@
                                     <th>Total</th>
                                 </tr>
                                 <tr>
-                                    <td class="center">{{my_input('producto-1')}}</td>
-                                    <td>{{my_input('variedad-1')}}</td>
+                                    <td class="center">{{my_input('producto_1')}}</td>
+                                    <td>{{my_input('variedad_1')}}</td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Certificada</option>
-                                            <option>No Certificada</option>
-                                        </select>
+                                        {{my_select('semilla1', semilla,{})}}
                                     </td>
-                                    <td>{{my_input('area-cosechada-1',{'type':'number'})}}</td>
-                                    <td>{{my_input('semestreA-1',{'type':'number'})}}</td>
-                                    <td>{{my_input('semestreB-1',{'type':'number'})}}</td>
-                                    <td>{{my_input('total-1',{'readonly':'true'})}}</td>
+                                    <td>{{my_input('area_cosechada_1',{'type':'number'})}}</td>
+                                    <td>{{my_input('semestreA_1',{'type':'number'})}}</td>
+                                    <td>{{my_input('semestreB_1',{'type':'number'})}}</td>
+                                    <td>{{my_input('total_1',{'readonly':'true'})}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="center">{{my_input('producto-2')}}</td>
-                                    <td>{{my_input('variedad-2')}}</td>
+                                    <td class="center">{{my_input('producto_2')}}</td>
+                                    <td>{{my_input('variedad_2')}}</td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Certificada</option>
-                                            <option>No Certificada</option>
-                                        </select>
+                                        {{my_select('semilla2', semilla,{})}}
                                     </td>
-                                    <td>{{my_input('area-cosechada-2',{'type':'number'})}}</td>
-                                    <td>{{my_input('semestreA-2',{'type':'number'})}}</td>
-                                    <td>{{my_input('semestreB-2',{'type':'number'})}}</td>
-                                    <td>{{my_input('total-2',{'readonly':'true'})}}</td>
+                                    <td>{{my_input('area_cosechada_2',{'type':'number'})}}</td>
+                                    <td>{{my_input('semestreA_2',{'type':'number'})}}</td>
+                                    <td>{{my_input('semestreB_2',{'type':'number'})}}</td>
+                                    <td>{{my_input('total_2',{'readonly':'true'})}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="center">{{my_input('producto-3')}}</td>
-                                    <td>{{my_input('variedad-3')}}</td>
+                                    <td class="center">{{my_input('producto_3')}}</td>
+                                    <td>{{my_input('variedad_3')}}</td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Certificada</option>
-                                            <option>No Certificada</option>
-                                        </select>
+                                        {{my_select('semilla3', semilla,{})}}
                                     </td>
-                                    <td>{{my_input('area-cosechada-3',{'type':'number'})}}</td>
-                                    <td>{{my_input('semestreA-3',{'type':'number'})}}</td>
-                                    <td>{{my_input('semestreB-3',{'type':'number'})}}</td>
-                                    <td>{{my_input('total-3',{'readonly':'true'})}}</td>
+                                    <td>{{my_input('area_cosechada_3',{'type':'number'})}}</td>
+                                    <td>{{my_input('semestreA_3',{'type':'number'})}}</td>
+                                    <td>{{my_input('semestreB_3',{'type':'number'})}}</td>
+                                    <td>{{my_input('total_3',{'readonly':'true'})}}</td>
                                 </tr>
                                 <tr>
-                                    <td class="center">{{my_input('producto-4')}}</td>
-                                    <td>{{my_input('variedad-4')}}</td>
+                                    <td class="center">{{my_input('producto_4')}}</td>
+                                    <td>{{my_input('variedad_4')}}</td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Certificada</option>
-                                            <option>No Certificada</option>
-                                        </select>
+                                        {{my_select('semilla4', semilla,{})}}
                                     </td>
-                                    <td>{{my_input('area-cosechada-4',{'type':'number'})}}</td>
-                                    <td>{{my_input('semestreA-4',{'type':'number'})}}</td>
-                                    <td>{{my_input('semestreB-4',{'type':'number'})}}</td>
-                                    <td>{{my_input('total-4',{'readonly':'true'})}}</td>
+                                    <td>{{my_input('area_cosechada_4',{'type':'number'})}}</td>
+                                    <td>{{my_input('semestreA_4',{'type':'number'})}}</td>
+                                    <td>{{my_input('semestreB_4',{'type':'number'})}}</td>
+                                    <td>{{my_input('total_4',{'readonly':'true'})}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -442,110 +390,54 @@
                                     <th>Nombre y Apellido</th>
                                 </tr>
                                 <tr>
-                                    <td>{{my_input('establecimiento-1',{'type':'number'})}}</td>
-                                    <td>{{my_input('sostenimiento-1',{'type':'number'})}}</td>
-                                    <td>{{my_input('kg-1',{'type':'number'})}}</td>
-                                    <td>{{my_input('porcentaje-1',{'readonly':'true'})}}</td>
+                                    <td>{{my_input('establecimiento_1',{'type':'number'})}}</td>
+                                    <td>{{my_input('sostenimiento_1',{'type':'number'})}}</td>
+                                    <td>{{my_input('kg_1',{'type':'number'})}}</td>
+                                    <td>{{my_input('porcentaje_1',{'readonly':'true'})}}</td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Finca</option>
-                                            <option>Plaza</option>
-                                            <option>Supermercado</option>
-                                            <option>Centro de Acopio</option>
-                                            <option>Plaza</option>
-                                        </select>
+                                        {{my_select('sitio_venta1', sitio_venta,{})}}
                                     </td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Acopiador</option>
-                                            <option>Transportador</option>
-                                            <option>Detallista</option>
-                                            <option>Transformador</option>
-                                            <option>Cooperativa</option>
-                                            <option>Consumidor Fina</option>
-                                            <option>Otra</option>
-                                        </select>
+                                        {{my_select('quien_vende_tipo1', quien_vende_tipo,{})}}
                                     </td>
-                                    <td>{{my_input('nombre_apellido-1')}}</td>
+                                    <td>{{my_input('nombre_apellido_1')}}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{my_input('establecimiento-2',{'type':'number'})}}</td>
-                                    <td>{{my_input('sostenimiento-2',{'type':'number'})}}</td>
-                                    <td>{{my_input('kg-2',{'type':'number'})}}</td>
-                                    <td>{{my_input('porcentaje-2',{'readonly':'true'})}}</td>
+                                    <td>{{my_input('establecimiento_2',{'type':'number'})}}</td>
+                                    <td>{{my_input('sostenimiento_2',{'type':'number'})}}</td>
+                                    <td>{{my_input('kg_2',{'type':'number'})}}</td>
+                                    <td>{{my_input('porcentaje_2',{'readonly':'true'})}}</td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Finca</option>
-                                            <option>Plaza</option>
-                                            <option>Supermercado</option>
-                                            <option>Centro de Acopio</option>
-                                            <option>Plaza</option>
-                                        </select>
+                                        {{my_select('sitio_venta2', sitio_venta,{})}}
                                     </td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Acopiador</option>
-                                            <option>Transportador</option>
-                                            <option>Detallista</option>
-                                            <option>Transformador</option>
-                                            <option>Cooperativa</option>
-                                            <option>Consumidor Fina</option>
-                                            <option>Otra</option>
-                                        </select>
+                                        {{my_select('quien_vende_tipo2', quien_vende_tipo,{})}}
                                     </td>
-                                    <td>{{my_input('nombre_apellido-2')}}</td>
+                                    <td>{{my_input('nombre_apellido_2')}}</td>
                                 </tr><tr>
-                                    <td>{{my_input('establecimiento-3',{'type':'number'})}}</td>
-                                    <td>{{my_input('sostenimiento-3',{'type':'number'})}}</td>
-                                    <td>{{my_input('kg-3',{'type':'number'})}}</td>
-                                    <td>{{my_input('porcentaje-3',{'readonly':'true'})}}</td>
+                                    <td>{{my_input('establecimiento_3',{'type':'number'})}}</td>
+                                    <td>{{my_input('sostenimiento_3',{'type':'number'})}}</td>
+                                    <td>{{my_input('kg_3',{'type':'number'})}}</td>
+                                    <td>{{my_input('porcentaje_3',{'readonly':'true'})}}</td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Finca</option>
-                                            <option>Plaza</option>
-                                            <option>Supermercado</option>
-                                            <option>Centro de Acopio</option>
-                                            <option>Plaza</option>
-                                        </select>
+                                        {{my_select('sitio_venta3', sitio_venta,{})}}
                                     </td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Acopiador</option>
-                                            <option>Transportador</option>
-                                            <option>Detallista</option>
-                                            <option>Transformador</option>
-                                            <option>Cooperativa</option>
-                                            <option>Consumidor Fina</option>
-                                            <option>Otra</option>
-                                        </select>
+                                        {{my_select('quien_vende_tipo3', quien_vende_tipo,{})}}
                                     </td>
-                                    <td>{{my_input('nombre_apellido-3')}}</td>
+                                    <td>{{my_input('nombre_apellido_3')}}</td>
                                 </tr><tr>
-                                    <td>{{my_input('establecimiento-4',{'type':'number'})}}</td>
-                                    <td>{{my_input('sostenimiento-4',{'type':'number'})}}</td>
-                                    <td>{{my_input('kg-4',{'type':'number'})}}</td>
-                                    <td>{{my_input('porcentaje-4',{'readonly':'true'})}}</td>
+                                    <td>{{my_input('establecimiento_4',{'type':'number'})}}</td>
+                                    <td>{{my_input('sostenimiento_4',{'type':'number'})}}</td>
+                                    <td>{{my_input('kg_4',{'type':'number'})}}</td>
+                                    <td>{{my_input('porcentaje_4',{'readonly':'true'})}}</td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Finca</option>
-                                            <option>Plaza</option>
-                                            <option>Supermercado</option>
-                                            <option>Centro de Acopio</option>
-                                            <option>Plaza</option>
-                                        </select>
+                                        {{my_select('sitio_venta4', sitio_venta,{})}}
                                     </td>
                                     <td>
-                                        <select name="select" class="form-control">
-                                            <option>Acopiador</option>
-                                            <option>Transportador</option>
-                                            <option>Detallista</option>
-                                            <option>Transformador</option>
-                                            <option>Cooperativa</option>
-                                            <option>Consumidor Fina</option>
-                                            <option>Otra</option>
-                                        </select>
+                                        {{my_select('quien_vende_tipo4', quien_vende_tipo,{})}}
                                     </td>
-                                    <td>{{my_input('nombre_apellido-4')}}</td>
+                                    <td>{{my_input('nombre_apellido_4')}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -573,92 +465,68 @@
                                     <th>Entidad</th>
                                 </tr>
                                 <tr>
-                                    <td>{{my_input('precio-venta-promedio-1',{'type':'number'})}}</td>
+                                    <td>{{my_input('precio_venta_promedio_1',{'type':'number'})}}</td>
                                     <td>
-                                        <select class="select2 autostart" multiple data-placeholder="Seleccione la forma de pago">
-                                            <option value="1">Efectivo</option>
-                                            <option value="2">Transferencia</option>
-                                            <option value="3">Cheque</option>
-                                            <option value="4">Crédito</option>
-                                            <option value="5">Trueque</option>
-                                        </select>
+                                        {{my_select('forma_pago1', forma_pago,{multiple:true})}}
                                     </td>
-                                    <td>{{my_input('subproducto-cultivo-cual-1')}}</td>
-                                    <td>{{my_input('subproducto-cultivo-uso-1')}}</td>
+                                    <td>{{my_input('subproducto_cultivo_cual_1')}}</td>
+                                    <td>{{my_input('subproducto_cultivo_uso_1')}}</td>
                                     <td>
-                                        <input type="radio" name="pertenece-1" value="si">
+                                        <input type="radio" name="pertenece_1" value="si" class="form-control" {{set_radio('pertenece_1', 'si')}}>
                                     </td>
                                     <td>
-                                        <input type="radio" name="pertenece-1" value="no">
+                                        <input type="radio" name="pertenece_1" value="no" class="form-control" {{set_radio('pertenece_1', 'no', TRUE)}}>
                                     </td>
-                                    <td>{{my_input('pertenencia-programa-1')}}</td>
-                                    <td>{{my_input('pertenencia-entidad-1')}}</td>
+                                    <td>{{my_input('pertenencia_programa_1')}}</td>
+                                    <td>{{my_input('pertenencia_entidad_1')}}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{my_input('precio-venta-promedio-2',{'type':'number'})}}</td>
+                                    <td>{{my_input('precio_venta_promedio_2',{'type':'number'})}}</td>
                                     <td>
-                                        <select class="select2 autostart" multiple data-placeholder="Seleccione la forma de pago">
-                                            <option value="1">Efectivo</option>
-                                            <option value="2">Transferencia</option>
-                                            <option value="3">Cheque</option>
-                                            <option value="4">Crédito</option>
-                                            <option value="5">Trueque</option>
-                                        </select>
+                                        {{my_select('forma_pago2', forma_pago,{multiple:true})}}
                                     </td>
-                                    <td>{{my_input('subproducto-cultivo-cual-2')}}</td>
-                                    <td>{{my_input('subproducto-cultivo-uso-2')}}</td>
+                                    <td>{{my_input('subproducto_cultivo_cual_2')}}</td>
+                                    <td>{{my_input('subproducto_cultivo_uso_2')}}</td>
                                     <td>
-                                        <input type="radio" name="pertenece-2" value="si">
+                                        <input type="radio" name="pertenece_2" value="si" class="form-control" {{set_radio('pertenece_2', 'si')}}>
                                     </td>
                                     <td>
-                                        <input type="radio" name="pertenece-2" value="no">
+                                        <input type="radio" name="pertenece_2" value="no" class="form-control" {{set_radio('pertenece_2', 'no', TRUE)}}>
                                     </td>
-                                    <td>{{my_input('pertenencia-programa-2')}}</td>
-                                    <td>{{my_input('pertenencia-entidad-2')}}</td>
+                                    <td>{{my_input('pertenencia_programa_2')}}</td>
+                                    <td>{{my_input('pertenencia_entidad_2')}}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{my_input('precio-venta-promedio-3',{'type':'number'})}}</td>
+                                    <td>{{my_input('precio_venta_promedio_3',{'type':'number'})}}</td>
                                     <td>
-                                        <select class="select2 autostart" multiple data-placeholder="Seleccione la forma de pago">
-                                            <option value="1">Efectivo</option>
-                                            <option value="2">Transferencia</option>
-                                            <option value="3">Cheque</option>
-                                            <option value="4">Crédito</option>
-                                            <option value="5">Trueque</option>
-                                        </select>
+                                        {{my_select('forma_pago3', forma_pago,{multiple:true})}}
                                     </td>
-                                    <td>{{my_input('subproducto-cultivo-cual-3')}}</td>
-                                    <td>{{my_input('subproducto-cultivo-uso-3')}}</td>
+                                    <td>{{my_input('subproducto_cultivo_cual_3')}}</td>
+                                    <td>{{my_input('subproducto_cultivo_uso_3')}}</td>
                                     <td>
-                                        <input type="radio" name="pertenece-3" value="si">
+                                        <input type="radio" name="pertenece_3" value="si" class="form-control" {{set_radio('pertenece_3', 'si')}}>
                                     </td>
                                     <td>
-                                        <input type="radio" name="pertenece-3" value="no">
+                                        <input type="radio" name="pertenece_3" value="no" class="form-control" {{set_radio('pertenece_3', 'no', TRUE)}}>
                                     </td>
-                                    <td>{{my_input('pertenencia-programa-3')}}</td>
-                                    <td>{{my_input('pertenencia-entidad-3')}}</td>
+                                    <td>{{my_input('pertenencia_programa_3')}}</td>
+                                    <td>{{my_input('pertenencia_entidad_3')}}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{my_input('precio-venta-promedio-4',{'type':'number'})}}</td>
+                                    <td>{{my_input('precio_venta_promedio_4',{'type':'number'})}}</td>
                                     <td>
-                                        <select class="select2 autostart" multiple data-placeholder="Seleccione la forma de pago">
-                                            <option value="1">Efectivo</option>
-                                            <option value="2">Transferencia</option>
-                                            <option value="3">Cheque</option>
-                                            <option value="4">Crédito</option>
-                                            <option value="5">Trueque</option>
-                                        </select>
+                                        {{my_select('forma_pago4', forma_pago,{multiple:true})}}
                                     </td>
-                                    <td>{{my_input('subproducto-cultivo-cual-4')}}</td>
-                                    <td>{{my_input('subproducto-cultivo-uso-4')}}</td>
+                                    <td>{{my_input('subproducto_cultivo_cual_4')}}</td>
+                                    <td>{{my_input('subproducto_cultivo_uso_4')}}</td>
                                     <td>
-                                        <input type="radio" name="pertenece-4" value="si">
+                                        <input type="radio" name="pertenece_4" value="si" class="form-control" {{set_radio('pertenece_4', 'si')}}>
                                     </td>
                                     <td>
-                                        <input type="radio" name="pertenece-4" value="no">
+                                        <input type="radio" name="pertenece_4" value="no" class="form-control" {{set_radio('pertenece_4', 'no', TRUE)}}>
                                     </td>
-                                    <td>{{my_input('pertenencia-programa-4')}}</td>
-                                    <td>{{my_input('pertenencia-entidad-4')}}</td>
+                                    <td>{{my_input('pertenencia_programa_4')}}</td>
+                                    <td>{{my_input('pertenencia_entidad_4')}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -673,7 +541,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">LATITUD NORTE (N)</label>
-                            {{my_input('latitud-norte',{'type':'number'})}}
+                            {{my_input('latitud_norte',{'type':'number'})}}
                         </div> 
                     </div>
                 </div>
@@ -681,7 +549,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">LONGITUD OCCIDENTE (W)</label>
-                            {{my_input('longitud-occidente',{'type':'number'})}}
+                            {{my_input('longitud_occidente',{'type':'number'})}}
                         </div>
                     </div>
                 </div>
@@ -689,7 +557,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">ALTURA SOBRE EL NIVEL DEL MAR</label>
-                            {{my_input('altura-nivel-mar',{'type':'number'})}}
+                            {{my_input('altura_nivel_mar',{'type':'number'})}}
                         </div>
                     </div>
                 </div>
@@ -702,7 +570,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-5">Subir Archivo</label>
                         <div class="col-sm-7">
-                            <input type="file" class="form-control" />
+                            {{my_input('subir_archivo',{'type':'file'})}}
                         </div>
                     </div> 
                 </div>
