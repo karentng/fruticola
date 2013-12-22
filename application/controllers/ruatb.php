@@ -56,9 +56,14 @@ class RuatB extends CI_Controller {
         $this->form_validation->set_rules('vias_acceso','Disponibilidad de Vias de Acceso','required');
         $this->form_validation->set_rules('tipo_via');
         $this->form_validation->set_rules('estado_via');
-        $this->form_validation->set_rules('manejo_residuos','Manejo de Programa de Residuos','required');
-        $this->form_validation->set_rules('programa_residuos');
-        $this->form_validation->set_rules('descripcion');
+
+        $this->form_validation->set_rules('ordinariosOP');
+        $this->form_validation->set_rules('ordinarios');
+        $this->form_validation->set_rules('peligrososOP');
+        $this->form_validation->set_rules('peligrosos');
+        $this->form_validation->set_rules('otrosOP');
+        $this->form_validation->set_rules('otros');
+
         $this->form_validation->set_rules('distancia_finca_cabecera','Distancia de la Finca a la Cabecera Municipal','required|numeric');
         $this->form_validation->set_rules('medios_transporte','Medios de Transporte para la Actividad Productiva','required');
         $this->form_validation->set_rules('forma_llegar_predio','Forma de Llegar al Predio','required');
@@ -190,12 +195,11 @@ class RuatB extends CI_Controller {
         $this->form_validation->set_rules('pertenencia_entidad_4');
         //Fin validaciones Parte 5
 
-
         //Inicio de Validaciones Parte 6 (GEORREFERENCIACION DEL PREDIO DE UBICACIÓN DEL CULTIVO)
         $this->form_validation->set_rules('latitud_norte','Latitud Norte','required|numeric');
         $this->form_validation->set_rules('longitud_occidente','Longitud Occidente','required|numeric');
         $this->form_validation->set_rules('altura_nivel_mar','Altura sobre el Nivel del Mar Occidente','required|numeric');
-        $this->form_validation->set_rules('subir_archivo','Diseño del Predio','required');
+        $this->form_validation->set_rules('subir_archivo');
         //Fin validaciones Parte 6 (GEORREFERENCIACION DEL PREDIO DE UBICACIÓN DEL CULTIVO)
 
         if($this->form_validation->run())

@@ -4,7 +4,7 @@
 
 {% block contenido %}
 
-{{ form_open(null, {role:'form'}) }}
+{{ form_open(null, {role:'form',class:'form-horizontal'}) }}
 
 {# Parte B: Formato RUAT #}
 
@@ -126,12 +126,12 @@
                         <div class="form-group">
                             <label class="control-label" for="radio">Disponibilidad de Vias de Acceso</label>
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-xs-5">
                                     <label class="radio">
                                         <input type="radio" name="vias_acceso" value="si" {{set_radio('vias_acceso', 'si')}}> SI
                                     </label>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-5">
                                     <label class="radio">
                                         <input type="radio" name="vias_acceso" value="no" {{set_radio('vias_acceso', 'no', TRUE)}}> NO
                                     </label> 
@@ -150,41 +150,46 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label" for="radio">Manejo Programa de Residuos</label>
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <label class="radio">
-                                        <input type="radio" name="manejo_residuos" value="si" {{set_radio('manejo_residuos', 'si')}}> SI
-                                    </label>
-                                </div>
-                                <div class="col-xs-3">
-                                    <label class="radio">
-                                        <input type="radio" name="manejo_residuos" value="no" {{set_radio('manejo_residuos', 'no', TRUE)}}> NO
-                                    </label> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {# Este pedazo hay que ponerle la condicion de que si selecciono NO, entonces bloquee lo siguiente #}
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label" for="select">Programa</label>
-                            {{my_select('programa_residuos', programa_residuos,{})}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Descripci&oacute;n</label>
-                            {{my_input('descripcion',{'placeholder':'Nombre'})}}
-                        </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">Manejo Programa de Residuos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="center" width="20%">Ordinarios</td>
+                                    <td width="2%">
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" value="ordinariosOP" name="ordinariosOP" {{set_checkbox('ordinariosOP', '0', TRUE)}}>
+                                        </label>
+                                    </td>
+                                    <td width="65%">{{my_input('ordinarios',{'readonly':'true', 'placeholder':'Descripción'})}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="center">Peligrosos</td>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" value="peligrososOP" name="peligrososOP" {{set_checkbox('peligrososOP', '1')}}>
+                                        </label>
+                                    </td>
+                                    <td>{{my_input('peligrosos',{'readonly':'true', 'placeholder':'Descripción'})}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="center">Otros</td>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" value="otrosOP" name="otrosOP" {{set_checkbox('otrosOP', '0')}}>
+                                        </label>
+                                    </td>
+                                    <td>{{my_input('otros',{'readonly':'true', 'placeholder':'Descripción'})}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -199,7 +204,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-4">Medios de transporte</label> {# para la realizacion de la actividad productiva y de comercializaci&oacute;n#}
                         <div class="col-md-8">
-                            {{my_select('medios_transporte', medios_transporte,{})}}
+                            {{my_select('medios_transporte', medios_transporte,{multiple:true})}}
                             <span class="help-block"><small>Liste los medios de transporte utilizados para la realizacion de la actividad productiva y de comercializaci&oacute;n</small></span>
                         </div>
                     </div>
