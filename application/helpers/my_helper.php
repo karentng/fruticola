@@ -50,7 +50,9 @@ if(! function_exists('my_input'))
         foreach($attrs as $key => $val) $extra.=" $key='$val'";
 
         $options = array(''=>'')+$options;
-        $output = form_dropdown($name, $options, set_value($name), $extra);
+        $val = set_value($name);
+        if($val==="") $val=-123456; //evitar seleccion de la opcion vacia
+        $output = form_dropdown($name, $options, $val, $extra);
 
         if($error) $output .= "<label class='error'>$error</label>";
         
