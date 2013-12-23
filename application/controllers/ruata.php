@@ -10,10 +10,27 @@ class RuatA extends CI_Controller {
     public function index()
     {
         check_profile($this, 'Administrador');
+
+        $beneficios_sociedad = array("economico"=>"Económico","especie"=>"En especie","capacitacion"=>"Capacitación"
+                                    ,"recreacion"=>"Recreación y Deporte","reconocimiento"=>"Reconocimiento de la Comunidad"
+                                    ,"participacion_decisiones"=>"Participación en la Toma de Decisiones","otro"=>"Otro");
+        $periodicidad = array("semanal"=>"Semanal", "quincenal"=>"Quincenal", "mensual"=>"Mensual", "bimestral"=>"Bimestral", 
+                            "trimestral"=>"Trimestral", "semestral"=>"Semestral", "anual"=>"Anual");
+
+        $this->twiggy->set('beneficios_sociedad',$beneficios_sociedad);
+        $this->twiggy->set('periodicidad',$periodicidad);
+
+
         
         $this->load->library('form_validation');
         //poner validaciones aqui. Ejemplo:
         //$this->form_validation->set_rules('name','Nombre', 'required|max_length[50]');
+
+        $this->form_validation->set_rules('beneficios_sociedad','Beneficios de Sociedades, Cooperativas o Gremios','required');
+        $this->form_validation->set_rules('periodicidad1');
+        $this->form_validation->set_rules('periodicidad2');
+        $this->form_validation->set_rules('periodicidad3');
+
 
         if($this->form_validation->run())
         {
