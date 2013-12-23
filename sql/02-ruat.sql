@@ -71,7 +71,7 @@ create table procesoinnovacion(
     tipo_id             integer not null references tipoinnovacion(id),
     fuente_id           integer references tipoinnovacion(id),
     otra_fuente         varchar(30),
-    descripcion         varchar(100),
+    descripcion         varchar(100)
 );
 
 
@@ -81,7 +81,7 @@ create table personaasociada(
     nombre              varchar(50) not null,
     apellido            varchar(50) not null,
     vereda              varchar(100),
-    grado_confianza     integer references tipoconfianza(id),
+    grado_confianza     integer references tipoconfianza(id)
 );
 
 
@@ -109,7 +109,7 @@ create table orgasociada(
     participante        boolean not null     
 );
 
-create table orgasociada_clases(
+/*create table orgasociada_clases(
     id                  serial not null primary key,
     orgasociada_id      integer not null references orgasociada(id),
     clase_id            integer not null references claseorganizacion(id),
@@ -121,9 +121,9 @@ create table orgasociada_beneficios(
     orgasociada_id      integer not null references orgasociada(id),
     beneficio_id        integer not null references tipobeneficio(id),
                         unique(orgasociada_id, beneficio_id)
-);
+);*/
 
 create table razones_nopertenecer(
-    id                  serial not null,
+    id                  serial not null
 
 );
