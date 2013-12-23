@@ -16,7 +16,6 @@ class RuatA extends CI_Controller {
                                     ,"participacion_decisiones"=>"Participación en la Toma de Decisiones","otro"=>"Otro");
         $periodicidad = array("semanal"=>"Semanal", "quincenal"=>"Quincenal", "mensual"=>"Mensual", "bimestral"=>"Bimestral", 
                             "trimestral"=>"Trimestral", "semestral"=>"Semestral", "anual"=>"Anual");
-
         $this->twiggy->set('beneficios_sociedad',$beneficios_sociedad);
         $this->twiggy->set('periodicidad',$periodicidad);
 
@@ -42,6 +41,7 @@ class RuatA extends CI_Controller {
         $data['nivelesEducativos'] = assoc(NivelEducativo::sorted());
         $data['tiposProductor'] = assoc(TipoProductor::sorted());
         $data['renglonesProductivos'] = assoc(RenglonProductivo::sorted());
+        $data['clasesOrganizaciones'] = assoc(ClaseOrganizacion::sorted());
         //var_dump($tiposDocumento);
         //die();
 

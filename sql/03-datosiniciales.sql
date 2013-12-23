@@ -12,6 +12,18 @@ insert into niveleducativo(descripcion, orden) VALUES
     ('Universitaria', 5),
     ('Ninguna', 100);
 
+insert into claseorganizacion(descripcion, orden) values
+    ('Agropecuaria',1),
+    ('Asistencial',2),
+    ('Comercial',3),
+    ('Cultural',4),
+    ('Deportiva',5),
+    ('Educativa',6),
+    ('Etnica',7),
+    ('Político',8),
+    ('Salud',9),
+    ('Social',10),
+    ('Tecnológico',11);
 
 
 insert into tipoproductor(descripcion,orden) values 
