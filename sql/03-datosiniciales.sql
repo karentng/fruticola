@@ -45,6 +45,16 @@ insert into renglonproductivo(descripcion,orden) values
     ('Piña',12),
     ('Uva',13);
 
+insert into tipobeneficios(descripcion, orden) values
+    ('Capacitación', 1),
+    ('Económico', 2),
+    ('En Especie',3),
+    ('Participación en la Toma de Decisiones', 4),
+    ('Reconocimiento de la Comunidad',5),
+    ('Recreación y Deporte', 6),
+    ('Otro', 7);
+
+
 insert into tipocredito(descripcion,orden) values
     ('Bancos',1),
     ('Agremiaciones',2),
