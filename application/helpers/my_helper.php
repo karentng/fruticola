@@ -52,6 +52,9 @@ if(! function_exists('my_input'))
         $options = array(''=>'')+$options;
         $val = set_value($name);
         if($val==="") $val=-123456; //evitar seleccion de la opcion vacia
+
+
+
         $output = form_dropdown($name, $options, $val, $extra);
 
         if($error) $output .= "<label class='error'>$error</label>";
@@ -94,5 +97,14 @@ if(! function_exists('my_input'))
 
 
         show_error('No tiene acceso a esta seccion del sistema. Consulte al administrador.');
+    }
+
+
+    function assoc(array $arreglo, $keyField="id", $valueField="descripcion")
+    {
+        $res = array();
+        foreach($arreglo as $obj)
+            $res[$obj->$keyField] = $obj->$valueField;
+        return $res;
     }
 }

@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label class="col-xs-3 control-label">Documento: </label>
                         <div class="col-xs-3" style="padding-right:0px !important">
-                            {{my_select('tipo_documento', ['C.C','T.I','C.E','NIT'])}}
+                            {{my_select('tipo_documento', tiposDocumento)}}
                         </div>
                         <div class="col-xs-6" style="padding-left:0px !important">
                             <input class="form-control" type="text" placeholder="Número">
@@ -89,16 +89,7 @@
                     <div class="form-group">
                         <label class="col-sm-6 control-label">Nivel Educativo: </label>
                         <div class="col-sm-6">
-                            {#<select class="form-control">
-                                <option></option>
-                                <option value="1">Primaria</option>
-                                <option value="2">Secundaria</option>
-                                <option value="3">Técnica</option>
-                                <option value="4">Tecnológica</option>
-                                <option value="5">Universitaria</option>
-                                <option value="6">Ninguna</option>
-                            </select>#}
-                            {{ my_select('nivel_educativo', ['Ninguno','Primaria','Secundaria','Técnica','Tecnológica', 'Universitaria']) }}
+                            {{ my_select('nivel_educativo', nivelesEducativos) }}
                         </div>
                     </div>
                 </div>
@@ -108,17 +99,17 @@
             <div class="row">
                 <div div class="col-md-5">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="focused">Tipo de Productor:</label>
-                        <div class="col-sm-9">
-                            <input class="form-control" id="focusedInput" type="text" placeholder="Tipo de Productor Según la Clasificación FINAGRO" >
+                        <label class="col-sm-5 control-label" for="focused">Tipo de Productor:</label>
+                        <div class="col-sm-7">
+                            {{ my_select('tipo_productor', tiposProductor, {placeholder:'Tipo según FINAGRO...'}) }}
                         </div>
                     </div>
                 </div>
                 <div div class="col-md-7">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="focused">Cadena Productiva:</label>
-                        <div class="col-sm-9">
-                            <input class="form-control" id="focusedInput" type="text" placeholder="Cadena Productiva FRUTÍCOLA / Producto seleccionado" >
+                        <label class="col-sm-5 control-label" for="focused">Renglón Productivo:</label>
+                        <div class="col-sm-7">
+                            {{ my_select('renglon_productivo', renglonesProductivos, {filter:true}) }}
                         </div>
                     </div>
                 </div>

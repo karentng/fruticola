@@ -20,7 +20,15 @@ class RuatA extends CI_Controller {
             //las validaciones pasaron, aqui iria la logica de insertar en la BD...
         }
 
+        $data = array();
+        $data['tiposDocumento'] = assoc(TipoDocumento::sorted());
+        $data['nivelesEducativos'] = assoc(NivelEducativo::sorted());
+        $data['tiposProductor'] = assoc(TipoProductor::sorted());
+        $data['renglonesProductivos'] = assoc(renglonProductivo::sorted());
+        //var_dump($tiposDocumento);
+        //die();
 
+        $this->twiggy->set($data, NULL);
         $this->twiggy->template("ruat/datos_personales");
         $this->twiggy->display();
     }
