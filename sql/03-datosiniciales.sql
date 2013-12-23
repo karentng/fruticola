@@ -19,8 +19,19 @@ insert into tipoproductor(descripcion,orden) values
     ('Mediano',2);
 
 insert into renglonproductivo(descripcion,orden) values
-    ('Uva',1),
-    ('Bananito',2);
+    ('Aguacate',1),
+    ('Bananito',2),
+    ('Cítricos',3),
+    ('Chontaduro',4),
+    ('Fresa',5),
+    ('Lulo',6),
+    ('Mango',7)
+    ('Maracuya',8),
+    ('Melon',9),
+    ('Mora',10),
+    ('Papaya',11),
+    ('Piña',12),
+    ('Uva',13);
 
 insert into tipocredito(descripcion,orden) values
     ('Bancos',1),

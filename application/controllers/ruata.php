@@ -37,11 +37,11 @@ class RuatA extends CI_Controller {
             //las validaciones pasaron, aqui iria la logica de insertar en la BD...
         }
 
-        $data = array();
+        $data = array();  // ----- que habia pasado con esto?????
         $data['tiposDocumento'] = assoc(TipoDocumento::sorted());
         $data['nivelesEducativos'] = assoc(NivelEducativo::sorted());
         $data['tiposProductor'] = assoc(TipoProductor::sorted());
-        $data['renglonesProductivos'] = assoc(renglonProductivo::sorted());
+        $data['renglonesProductivos'] = assoc(RenglonProductivo::sorted());
         //var_dump($tiposDocumento);
         //die();
 

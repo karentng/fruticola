@@ -109,7 +109,7 @@ create table orgasociada(
     participante        boolean not null     
 );
 
-/*create table orgasociada_clases(
+create table orgasociada_clases(
     id                  serial not null primary key,
     orgasociada_id      integer not null references orgasociada(id),
     clase_id            integer not null references claseorganizacion(id),
@@ -121,7 +121,7 @@ create table orgasociada_beneficios(
     orgasociada_id      integer not null references orgasociada(id),
     beneficio_id        integer not null references tipobeneficio(id),
                         unique(orgasociada_id, beneficio_id)
-);*/
+);
 
 create table razones_nopertenecer(
     id                  serial not null
