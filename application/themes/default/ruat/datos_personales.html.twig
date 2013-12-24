@@ -58,7 +58,7 @@
                             {{my_select('tipo_documento', tiposDocumento)}}
                         </div>
                         <div class="col-xs-6" style="padding-left:0px !important">
-                            <input class="form-control" type="text" placeholder="Número">
+                            {{ my_input('numero_documento')}}
                         </div>
                     </div>
                 </div>
@@ -133,8 +133,8 @@
                 <div class="col-md-4">
                     <div class="container">
                         <div class="form-group">
-                            <label class="control-label">Teléfono Fijo</label>
-                            <input type="text" class="form-control" />
+                            <label class="control-label">Telefono Fijo</label>
+                            {{ my_input('telefono_fijo') }}
                         </div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Celular</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('celular') }}
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Correo Electrónico</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('correo') }}
                         </div>
                     </div>
                 </div>
@@ -221,10 +221,11 @@
                     </div>
                 </div>
                 <div div class="col-md-4">
+
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="focused">Vereda:</label>
                         <div class="col-md-8">
-                            <input class="form-control" id="focusedInput" type="text">
+                            {{ my_input('vereda')}}
                         </div>
                     </div>
                 </div>
@@ -234,7 +235,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="focused">Dirección de Residencia:</label>
                         <div class="col-md-8">
-                            <input class="form-control" id="focusedInput" type="text">
+                            {{ my_input('direccion')}}
                         </div>
                     </div>
                 </div>
@@ -314,7 +315,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="focused">¿Cuál?</label>
                         <div class="col-md-8">
-                            <input class="form-control" id="focusedInput" type="text">
+                            {{ my_input('cual_procedencia') }}
                             <span class="help-block"><small>Si seleccionó la opción <b>Otros</b> en la procedencia, escriba aquí a cuál pertenece.</small></span>
                         </div>
                     </div>
@@ -624,7 +625,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Nombre del Productor en Asocio</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('nombre_socio') }}
                         </div>
                     </div>
                 </div>
@@ -632,7 +633,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Apellidos del Productor en Asocio</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('apellido_socio') }}
                         </div>
                     </div>
                 </div>
@@ -640,7 +641,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Vereda de Ubicación Productor en Asocio</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('vereda_socio') }}
                         </div>
                     </div>
                 </div>
@@ -680,7 +681,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Nombre del Productor a Seguir</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('nombre_seguir') }}>
                         </div>
                     </div>
                 </div>
@@ -688,7 +689,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Apellidos del Productor a Seguir</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('apellido_seguir') }}
                         </div>
                     </div>
                 </div>
@@ -696,7 +697,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Vereda de Ubicación Productor a Seguir</label>
-                            <input type="text" class="form-control" />
+                            {{ my_input('vereda_seguir') }}
                         </div>
                     </div>
                 </div>
