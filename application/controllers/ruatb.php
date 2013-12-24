@@ -4,42 +4,6 @@ class RuatB extends CI_Controller {
 
     public function index()
     {
-        //Arreglos que se requieren mostrar en los select del RUAT-B
-        $servicios = array("agua"=>"Agua Propia","acueducto"=>"Acueducto","internet"=>"Acceso a Internet","energia"=>"Energía Eléctrica");
-        $tenencia = array("propiedad"=>"Propiedad sin título","arrendamiento"=>"En arrendamiento","comodacto"=>"Comodacto",
-            "usufructo"=>"Usufructo","aparceria"=>"Aparcería","colectiva"=>"Colectiva","otro"=>"Otro");
-        $municipio = array("andres"=>"Andres","buga"=>"Buga","cali"=>"Cali");
-
-        $tipo_via = array("pavimentada"=>"Pavimentada","no_pavimentada"=>"No Pavimentada");
-        $estado_via = array("buena"=>"Buena","regular"=>"Regular","mala"=>"Mala");
-        $programa_residuos = array("ordinarios"=>"Ordinarios","peligrosos"=>"Peligrosos","otro"=>"Otro");
-
-        $medios_transporte = array("animal"=>"Animal","camion"=>"Camión","bicicleta"=>"Bicicleta","caminata"=>"Caminata","tractor"=>"Tractor",
-            "barco"=>"Barco","canoa"=>"Canoa","kayak"=>"Kayak","planchon"=>"Planchón","otro"=>"Otro");
-
-        $semilla = array("cerficicada"=>"Certificada", "no_certificada"=>"No Certificada");
-        $sitio_venta = array("finca"=>"Finca","plaza"=>"Plaza","super_mercado"=>"Super Mercado","centro"=>"Centro de Acopio",
-            "mercado_pueblo"=>"Mercado Pueblo","otro"=>"Otro");
-        $quien_vende_tipo = array("acopiador"=>"Acopiador","transportador"=>"Transportador","detallista"=>"Detallista",
-            "transformador"=>"Transformador","cooperativa"=>"Cooperativa","consumidor_final"=>"Consumidor Final","otro"=>"Otro");
-        $forma_pago = array("efectivo"=>"Efectivo","transferencia"=>"Transferencia","cheque"=>"Cheque","credito"=>"Crédito","trueque"=>"Trueque");
-        //Fin Arreglos
-
-        //Seteo para el uso de arreglos en la plantilla twiggy
-        $this->twiggy->set('servicios',$servicios);
-        $this->twiggy->set('tenencia',$tenencia);
-        $this->twiggy->set('municipio',$municipio);
-
-        $this->twiggy->set('tipo_via',$tipo_via);
-        $this->twiggy->set('estado_via',$estado_via);
-        $this->twiggy->set('programa_residuos',$programa_residuos);
-        $this->twiggy->set('medios_transporte',$medios_transporte);
-
-        $this->twiggy->set('semilla',$semilla);
-        $this->twiggy->set('sitio_venta',$sitio_venta);
-        $this->twiggy->set('quien_vende_tipo',$quien_vende_tipo);
-        $this->twiggy->set('forma_pago',$forma_pago);
-        //Fin Seteo
 
         $this->load->library('form_validation');
 
@@ -206,6 +170,70 @@ class RuatB extends CI_Controller {
         {
             //las validaciones pasaron, aqui iria la logica de insertar en la BD...
         }
+
+        //Arreglos que se requieren mostrar en los select del RUAT-B
+        /*$servicios = array("agua"=>"Agua Propia","acueducto"=>"Acueducto","internet"=>"Acceso a Internet","energia"=>"Energía Eléctrica");
+        $tenencia = array("propiedad"=>"Propiedad sin título","arrendamiento"=>"En arrendamiento","comodacto"=>"Comodacto",
+            "usufructo"=>"Usufructo","aparceria"=>"Aparcería","colectiva"=>"Colectiva","otro"=>"Otro");
+        $municipio = array("andres"=>"Andres","buga"=>"Buga","cali"=>"Cali");
+
+        $tipo_via = array("pavimentada"=>"Pavimentada","no_pavimentada"=>"No Pavimentada");
+        $estado_via = array("buena"=>"Buena","regular"=>"Regular","mala"=>"Mala");
+        $programa_residuos = array("ordinarios"=>"Ordinarios","peligrosos"=>"Peligrosos","otro"=>"Otro");
+
+        $medios_transporte = array("animal"=>"Animal","camion"=>"Camión","bicicleta"=>"Bicicleta","caminata"=>"Caminata","tractor"=>"Tractor",
+            "barco"=>"Barco","canoa"=>"Canoa","kayak"=>"Kayak","planchon"=>"Planchón","otro"=>"Otro");
+
+        $semilla = array("cerficicada"=>"Certificada", "no_certificada"=>"No Certificada");
+        $sitio_venta = array("finca"=>"Finca","plaza"=>"Plaza","super_mercado"=>"Super Mercado","centro"=>"Centro de Acopio",
+            "mercado_pueblo"=>"Mercado Pueblo","otro"=>"Otro");
+        $quien_vende_tipo = array("acopiador"=>"Acopiador","transportador"=>"Transportador","detallista"=>"Detallista",
+            "transformador"=>"Transformador","cooperativa"=>"Cooperativa","consumidor_final"=>"Consumidor Final","otro"=>"Otro");
+        $forma_pago = array("efectivo"=>"Efectivo","transferencia"=>"Transferencia","cheque"=>"Cheque","credito"=>"Crédito","trueque"=>"Trueque");*/
+        //Fin Arreglos
+
+        
+        $tenencia =  assoc(Tenencia::sorted());
+        $servicios = assoc(TipoServicioPublico::sorted());
+        //$municipio = assoc(Tenencia::sorted());
+        $tipo_via = assoc(TipoVia::sorted());
+        $estado_via  = assoc(TipoEstadoVia::sorted());
+        $medios_transporte = assoc(TipoMedioTransporte::sorted());
+        $semilla = assoc(TipoSemilla::sorted());
+        $sitio_venta = assoc(TipoSitioVenta::sorted());
+        $quien_vende_tipo = assoc(TipoVende::sorted());
+        $forma_pago = assoc(TipoFormaPago::sorted());
+
+        /*
+        $data = array();  // ----- que habia pasado con esto?????
+        $data['tenencia'] = assoc(Tenencia::sorted());
+        $data['nivelesEducativos'] = assoc(NivelEducativo::sorted());
+        $data['tiposProductor'] = assoc(TipoProductor::sorted());
+        $data['renglonesProductivos'] = assoc(RenglonProductivo::sorted());
+        $data['clasesOrganizaciones'] = assoc(ClaseOrganizacion::sorted());
+        $data['beneficiosSociedad'] = assoc(TipoBeneficio::sorted());
+        $data['tipoCredito'] = assoc(TipoCredito::sorted());
+        $data['periodicidad'] = assoc(Periodicidad::sorted());
+        $data['tipoConfianza'] = assoc(TipoConfianza::sorted());
+        */
+
+        
+
+        //Seteo para el uso de arreglos en la plantilla twiggy
+        $this->twiggy->set('servicios',$servicios);
+        $this->twiggy->set('tenencia',$tenencia);
+        //$this->twiggy->set('municipio',$municipio);
+
+        $this->twiggy->set('tipo_via',$tipo_via);
+        $this->twiggy->set('estado_via',$estado_via);
+        $this->twiggy->set('medios_transporte',$medios_transporte);
+
+        $this->twiggy->set('semilla',$semilla);
+        $this->twiggy->set('sitio_venta',$sitio_venta);
+        $this->twiggy->set('quien_vende_tipo',$quien_vende_tipo);
+        $this->twiggy->set('forma_pago',$forma_pago);
+        //Fin Seteo
+
 
         $this->twiggy->template("ruat/datos_finca");
         $this->twiggy->display();
