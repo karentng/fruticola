@@ -10,6 +10,8 @@ class RuatA extends CI_Controller {
     public function index()
     {
         check_profile($this, 'Administrador');
+        //$prueba = $this->input->post('prueba[]');
+        //var_dump($prueba);
 
                         
         $this->load->library('form_validation');
@@ -100,7 +102,7 @@ class RuatA extends CI_Controller {
         $data['tipoCredito'] = assoc(TipoCredito::sorted());
         $data['periodicidad'] = assoc(Periodicidad::sorted());
         $data['tipoConfianza'] = assoc(TipoConfianza::sorted());
-        
+        $data['departamentos'] = assoc(Departamento::all(array('order'=>'nombre')), 'id', 'nombre');
 
         //var_dump($tiposDocumento);
         //die();
@@ -118,6 +120,17 @@ class RuatA extends CI_Controller {
         {
             $this->form_validation->set_message('_date_check','El campo %s debe estar en la forma AAAA-MM-DD');
             return FALSE;
+        }
+    }
+
+    public function municipios($depto_id)
+    {
+
+        //if(!$depto_id) return;
+        $municipios = Municipio::find_all_by_departamento_id($depto_id);//, array('order' => 'nombre'));
+        echo "<option></option>";
+        foreach($municipios as $mun) {
+            echo "<option value='$mun->id'>$mun->nombre</option>\n";
         }
     }
 }

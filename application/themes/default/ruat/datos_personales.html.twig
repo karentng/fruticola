@@ -1,10 +1,35 @@
 {% extends "base.html.twig" %}
 
+{% block html_head %}
+<script type="text/javascript">
+    function agregarFilaAsociatividad_click() {
+        $('#filaAsociatividad').clone().removeClass('hidden').appendTo('table#asociatividad > tbody');
+    }
+
+    function eliminarFilaAsociatividad_click(btn){
+        console.log("Hola", btn);
+        console.log($(btn).parent());
+        $(btn).parent().parent().remove();
+    }
+
+    $(function() {
+        $('#departamento').change(function() {
+            $('#municipio').load('{{site_url("ruata/municipios")}}/'+$(this).select2('val'), null, function(){
+                $('#municipio').select2('val','');
+            });
+        });
+
+        agregarFilaAsociatividad_click();
+    });
+</script>
+{% endblock %}
+
 {% block titulo %} <h1><i class="icon20 i-man"></i> RUAT &#187; Datos Personales </h1> {% endblock %}
 
 {% block contenido %}
 
 {{ form_open(null, {role:'form', class:'form-horizontal'}) }}
+
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -161,42 +186,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="focused">Departamento:</label>
                         <div class="col-md-8">
-                            <select class="select2 autostart" data-placeholder="Seleccione...">
-                                <option></option>
-                                <option value="1">Amazonas</option>
-                                <option value="2">Antioquia</option>
-                                <option value="3">Arauca</option>
-                                <option value="4">Atlántico</option>
-                                <option value="5">Bogotá D.C.</option>
-                                <option value="6">Bolívar</option>
-                                <option value="7">Boyacá</option>
-                                <option value="8">Caldas</option>
-                                <option value="9">Caquetá</option>
-                                <option value="0">Casanare</option>
-                                <option value="q">Cauca</option>
-                                <option value="w">Cesar</option>
-                                <option value="re">Chocó</option>
-                                <option value="t">Córdoba</option>
-                                <option value="y">Cundinamarca</option>
-                                <option value="u">Guainía</option>
-                                <option value="i">Guaviare</option>
-                                <option value="i">Huila</option>
-                                <option value="o">La Guajira</option>
-                                <option value="p">Magdalena</option>
-                                <option value="a">Meta</option>
-                                <option value="ds">Nariño</option>
-                                <option value="d">Norte de Santander</option>
-                                <option value="f">Putumayo</option>
-                                <option value="h">Quindío</option>
-                                <option value="z">Risaralda</option>
-                                <option value="x">San Andrés</option>
-                                <option value="c">Santander</option>
-                                <option value="v">Sucre</option>
-                                <option value="n">Tolima</option>
-                                <option value="m">Valle del Cauca</option>
-                                <option value=",">Vaupés</option>
-                                <option value=".">Vichada</option>
-                            </select>
+                            {{ my_select('departamento',departamentos) }}
                         </div>
                     </div>
                 </div>
@@ -204,20 +194,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="focused">Municipio:</label>
                         <div class="col-md-8">
-                            <select class="select2 autostart" data-placeholder="Seleccione...">
-                                <option></option>
-                                <option value="0">Abejorral</option>
-                                <option value="1">Andes</option>
-                                <option value="2">Apulo</option>
-                                <option value="3">Armenia</option>
-                                <option value="4">Balboa</option>
-                                <option value="5">Buga</option>
-                                <option value="6">Caicedonia</option>
-                                <option value="7">Calarca</option>
-                                <option value="8">Cali</option>
-                                <option value="9">Cerrito</option>
-                                <option value="10">Cisneros</option>
-                            </select>
+                            {{ my_select('municipio', []) }}
                         </div>
                     </div>
                 </div>
@@ -498,128 +475,32 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <table class="table table-bordered">
+                        <table id="asociatividad" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th colspan="1" valign="middle" width="1%">No.</th>
-                                    <th colspan="1" valign="middle">Clase</th>
-                                    <th colspan="1" valign="middle">Organización</th>
+                                    <th>Clase</th>
+                                    <th>Organización</th>
+                                    <th>Beneficio</th>
+                                    <th>Periodicidad de Asistencia</th>
+                                    <th>Labor que Realiza</th>
+                                    <th><button type="button" onclick="agregarFilaAsociatividad_click()" class="btn btn-sm btn-primary tip" title="Agregar Fila"><i class="i-plus-circle"></i></button>
                                 </tr>
-                                
+                                <tr id="filaAsociatividad" class="hidden">
+                                    <td>{{ my_select('clases_organizacion1', clasesOrganizaciones,{multiple:true}) }} </td>
+                                    <td>{{ my_input('organizacion[]') }}</td>
+                                    <td>{{ my_select('beneficiosSociedad', beneficiosSociedad,{multiple:true}) }}</td>
+                                    <td>{{ my_select('periodicidad2', periodicidad) }} </td>
+                                    <td>{{ my_select('labor', {'Directivo':'Directivo', 'Participante':'Participante'})}} </td>
+                                    <td><button type="button" onclick="eliminarFilaAsociatividad_click(this)" class="btn btn-sm btn-danger" title="Quitar Fila"><i class="i-minus-circle"></i></button>
+                                </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td width="1%">1</td>
-                                    <td class="center" width="1%">                                            
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                {{my_select('clases_organizacion1', clasesOrganizaciones,{multiple:true})}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td width="25%"><input type="text" class="form-control" /></td>
-                                </tr>                                    
-                                <tr>
-                                    <td width="1%">2</td>
-                                    <td class="center" width="1%">                                            
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                {{my_select('clases_organizacion2', clasesOrganizaciones,{multiple:true})}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td width="25%"><input type="text" class="form-control" /></td>
-                                </tr>
-                                <tr>
-                                    <td width="1%">3</td>
-                                    <td class="center" width="1%">                                            
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                {{my_select('clases_organizacion3', clasesOrganizaciones,{multiple:true})}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-                                    <td width="25%"><input type="text" class="form-control" /></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th colspan="1" valign="middle" >No.</th>
-                                    <th colspan="1" valign="middle">Beneficio</th>
-                                    <th colspan="1" valign="middle">Periodicidad de Asistencia</th>
-                                    <th colspan="1" valign="middle">Labor que Realiza</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td width="1%">1</td>
-                                    <td class="center" width="15%">                                            
-                                        <div class="container">
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                    {{my_select('beneficiosSociedad', beneficiosSociedad,{multiple:true})}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="center" width="20%">                                            
-                                        {{my_select('periodicidad1', periodicidad,{})}}
-                                    </td>
-                                    <td width="20%">
-                                        <input type="text" class="form-control" />
-                                    </td>
-                                </tr>                                    
-                                <tr>
-                                    <td width="1%">2</td>
-                                    <td class="center" width="15%">                                            
-                                        <div class="container">
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                    {{my_select('beneficiosSociedad', beneficiosSociedad,{multiple:true})}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="center" width="20%">                                            
-                                        {{my_select('periodicidad2', periodicidad,{})}}
-                                    </td>
-                                    <td width="20%">
-                                        <input type="text" class="form-control" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td width="1%">3</td>
-                                    <td class="center" width="15%">                                            
-                                        <div class="container">
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                    {{my_select('beneficiosSociedad', beneficiosSociedad,{multiple:true})}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="center" width="20%">                                            
-                                        {{my_select('periodicidad3', periodicidad,{})}}
-                                    </td>
-                                    <td width="20%">
-                                        <input type="text" class="form-control" />
-                                    </td>
-                                </tr>
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+
             
             <div class="row">
                 <div class="col-md-4">
