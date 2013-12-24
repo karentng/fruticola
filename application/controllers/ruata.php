@@ -17,18 +17,19 @@ class RuatA extends CI_Controller {
         //$this->form_validation->set_rules('name','Nombre', 'required|max_length[50]');
         //-------------------------------------------------------------------------------
         // PARTE 1
-        $this->form_validation->set_rules('nombre1');
+        $this->form_validation->set_rules('nombre1','Primer Nombre', 'trim|required');
         $this->form_validation->set_rules('nombre2');
-        $this->form_validation->set_rules('apellido1');
+        $this->form_validation->set_rules('apellido1','Primer Apellido', 'trim|required');
         $this->form_validation->set_rules('apellido2');        
         $this->form_validation->set_rules('tipo_documento', 'Tipo de Documento', 'required');
-        $this->form_validation->set_rules('noumero_documento');
-        //falta fecha nacimiento
-        //falta sexo
+        $this->form_validation->set_rules('numero_documento', 'Numero de Documento','required|is_natural');
+        $this->form_validation->set_rules('fecha_nacimiento', 'Fecha de Nacimiento', 'required|callback__date_check');
+        $this->form_validation->set_rules('sexo', 'Sexo', 'required');
         $this->form_validation->set_rules('nivel_educativo', 'Nivel Educativo', 'required');
         $this->form_validation->set_rules('tipo_productor', 'Tipo de Productor', 'required');
         $this->form_validation->set_rules('renglon_productivo', 'Renglon Productivo', 'required');
 
+        /*
         //-------------------------------------------------------------------------------------------
         //PARTE 2
         $this->form_validation->set_rules('telefono_fijo');
@@ -68,20 +69,28 @@ class RuatA extends CI_Controller {
         $this->form_validation->set_rules('apellido_seguir');
         $this->form_validation->set_rules('vereda_seguir');
         $this->form_validation->set_rules('gradoConfianza2', 'Grado de Confianza', 'required');
-
+        */
 
         if($this->form_validation->run())
         {
             //las validaciones pasaron, aqui iria la logica de insertar en la BD...
+            $productor = new Productor;
+            $productor->nombre1               = $this->input->post('nombre1');
+            $productor->nombre2               = $this->input->post('nombre2');
+            $productor->apellido1             = $this->input->post('apellido1');
+            $productor->apellido2             = $this->input->post('apellido2');
+            $productor->tipo_documento_id     = $this->input->post('tipo_documento');
+            $productor->numero_documento      = $this->input->post('numero_documento');
+            $productor->fecha_nacimiento      = $this->input->post('fecha_nacimiento');
+            $productor->nivel_educativo_id    = $this->input->post('nivel_educativo');
+            $productor->tipo_productor_id     = $this->input->post('tipo_productor');
+            $productor->renglon_productivo_id = $this->input->post('renglon_productivo');
+            $productor->sexo                  = $this->input->post('sexo');
+            $productor->save();
 
-            /*$productor = new Productor;
-            $productor->nombre1 = $this->input->post('nombre1');
-                    asi vas asignando las propiedades
-                        luego haces
-            $productor->save();*/
         }
 
-        $data = array();  // ----- que habia pasado con esto?????
+        $data = array();
         $data['tiposDocumento'] = assoc(TipoDocumento::sorted());
         $data['nivelesEducativos'] = assoc(NivelEducativo::sorted());
         $data['tiposProductor'] = assoc(TipoProductor::sorted());
@@ -99,5 +108,16 @@ class RuatA extends CI_Controller {
         $this->twiggy->set($data, NULL);
         $this->twiggy->template("ruat/datos_personales");
         $this->twiggy->display();
+    }
+
+    function _date_check($str)
+    {
+        if(preg_match("/\d{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3(0|1))/",$str))
+            return TRUE;
+        else
+        {
+            $this->form_validation->set_message('_date_check','El campo %s debe estar en la forma AAAA-MM-DD');
+            return FALSE;
+        }
     }
 }

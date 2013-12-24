@@ -65,12 +65,13 @@
                 
                 <div div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-sm-6 control-label" for="fechaNacimiento">Fecha de Nacimiento:</label>
+                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento:</label>
                         <div class="col-sm-6">
                             <div class="input-group date datepicker autostart">
-                                <input size="16" name="fechaNacimiento" class="form-control" type="text">
+                                <input size="16" name="fecha_nacimiento" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text">
                                 <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                             </div>
+                            <label class="error">{{form_error('fecha_nacimiento')}}</label>
                         </div>
                     </div>
                 </div>

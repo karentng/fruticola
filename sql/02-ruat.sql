@@ -1,13 +1,12 @@
 create table tipodocumento          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table niveleducativo         (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table renglonproductivo      (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
-create table tipobeneficio          (id serial not null primary key, descripcion varchar(40) not null, orden integer not null);
 create table tipoproductor          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table tipocredito            (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table tipoinnovacion         (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table tipoconfianza          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table claseorganizacion      (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
-create table tipobeneficio          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
+create table tipobeneficio          (id serial not null primary key, descripcion varchar(50) not null, orden integer not null);
 create table fuenteinnovacion       (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table tiporazonnopertenecer  (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table periodicidad           (id serial not null primary key, descripcion varchar(30) not null, dias integer not null);
@@ -123,7 +122,7 @@ create table orgasociada_clases(
     id                  serial not null primary key,
     orgasociada_id      integer not null references orgasociada(id),
     clase_id            integer not null references claseorganizacion(id),
-                        unique(orgasociada_id, tipo_id)
+                        unique(orgasociada_id, clase_id)
 );
 
 create table orgasociada_beneficios(
