@@ -21,18 +21,6 @@ create table tipositioventa         (id serial not null primary key, descripcion
 create table tipovende              (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table tipoformapago          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 
-create table departamento(
-    id                  serial not null primary key,
-    nombre              varchar(100)
-);
-
-create table municipio(
-    id                  serial not null primary key,
-    nombre              varchar(100),
-    departamento_id     integer not null references departamento(id)
-);
-
-
 
 create table productor(
     id                     serial not null primary key,
