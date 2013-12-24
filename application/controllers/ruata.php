@@ -16,11 +16,22 @@ class RuatA extends CI_Controller {
         //poner validaciones aqui. Ejemplo:
         //$this->form_validation->set_rules('name','Nombre', 'required|max_length[50]');
 
-        $this->form_validation->set_rules('beneficiosSociedad','Beneficios de Sociedades');
-        $this->form_validation->set_rules('tipoCredito','Procedencia del Crédito');
-        $this->form_validation->set_rules('periodicidad1');
-        $this->form_validation->set_rules('periodicidad2');
-        $this->form_validation->set_rules('periodicidad3');
+        $this->form_validation->set_rules('beneficiosSociedad', 'Beneficios de Sociedades','required');
+        $this->form_validation->set_rules('tipoCredito', 'Procedencia del Crédito', 'required');
+        $this->form_validation->set_rules('periodicidad1', 'Periodicidad', 'required');
+        $this->form_validation->set_rules('periodicidad2', 'Periodicidad', 'required');
+        $this->form_validation->set_rules('periodicidad3', 'Periodicidad', 'required');
+        $this->form_validation->set_rules('tipo_documento', 'Tipo de Documento', 'required');
+        $this->form_validation->set_rules('nivel_educativo', 'Nivel Educativo', 'required');
+        $this->form_validation->set_rules('tipo_productor', 'Tipo de Productor', 'required');
+        $this->form_validation->set_rules('renglon_productivo', 'Renglon Productivo', 'required');
+        $this->form_validation->set_rules('clases_organizacion1', 'Clase de Organización', 'required');
+        $this->form_validation->set_rules('clases_organizacion2', 'Clase de Organización', 'required');
+        $this->form_validation->set_rules('clases_organizacion3', 'Clase de Organización', 'required');
+        $this->form_validation->set_rules('gradoConfianza1', 'Grado de Confianza', 'required');
+        $this->form_validation->set_rules('gradoConfianza2', 'Grado de Confianza', 'required');
+
+
 
 
         if($this->form_validation->run())

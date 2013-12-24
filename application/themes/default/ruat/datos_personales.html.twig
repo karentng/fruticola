@@ -99,9 +99,10 @@
             <div class="row">
                 <div div class="col-md-5">
                     <div class="form-group">
-                        <label class="col-sm-6 control-label">Tipo de Productor: </label>
-                        <div class="col-sm-6">
-                            {{ my_select('tproductor',{'M':'Mediano', 'P':'Pequeño'}) }}
+                        <label class="col-sm-5 control-label" for="focused">Tipo de Productor:</label>
+                        <div class="col-sm-7">
+                            {{ my_select('tipo_productor', tiposProductor) }}
+                            
                         </div>
                     </div>
                 </div>
@@ -510,7 +511,7 @@
                                     <td class="center" width="1%">                                            
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                {{my_select('clases_organizacion', clasesOrganizaciones,{multiple:true})}}
+                                                {{my_select('clases_organizacion1', clasesOrganizaciones,{multiple:true})}}
                                             </div>
                                         </div>
                                     </td>
@@ -521,7 +522,7 @@
                                     <td class="center" width="1%">                                            
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                {{my_select('clases_organizacion', clasesOrganizaciones,{multiple:true})}}
+                                                {{my_select('clases_organizacion2', clasesOrganizaciones,{multiple:true})}}
                                             </div>
                                         </div>
                                     </td>
@@ -532,7 +533,7 @@
                                     <td class="center" width="1%">                                            
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                {{my_select('clases_organizacion', clasesOrganizaciones,{multiple:true})}}
+                                                {{my_select('clases_organizacion3', clasesOrganizaciones,{multiple:true})}}
                                             </div>
                                         </div>
                                     </td>
@@ -649,7 +650,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label" for="focused">Grado de Confianza:</label>
                         <div class="col-sm-7">
-                            {{ my_select('gradoConfianza', tipoConfianza) }}
+                            {{ my_select('gradoConfianza1', tipoConfianza) }}
                         </div>
                     </div>
                 </div>
