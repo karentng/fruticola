@@ -11,21 +11,13 @@ class RuatA extends CI_Controller {
     {
         check_profile($this, 'Administrador');
 
-        $beneficios_sociedad = array("economico"=>"Económico","especie"=>"En especie","capacitacion"=>"Capacitación"
-                                    ,"recreacion"=>"Recreación y Deporte","reconocimiento"=>"Reconocimiento de la Comunidad"
-                                    ,"participacion_decisiones"=>"Participación en la Toma de Decisiones","otro"=>"Otro");
-        $periodicidad = array("semanal"=>"Semanal", "quincenal"=>"Quincenal", "mensual"=>"Mensual", "bimestral"=>"Bimestral", 
-                            "trimestral"=>"Trimestral", "semestral"=>"Semestral", "anual"=>"Anual");
-        $this->twiggy->set('beneficios_sociedad',$beneficios_sociedad);
-        $this->twiggy->set('periodicidad',$periodicidad);
-
-
-        
+                        
         $this->load->library('form_validation');
         //poner validaciones aqui. Ejemplo:
         //$this->form_validation->set_rules('name','Nombre', 'required|max_length[50]');
 
-        $this->form_validation->set_rules('beneficios_sociedad','Beneficios de Sociedades, Cooperativas o Gremios','required');
+        $this->form_validation->set_rules('beneficiosSociedad','Beneficios de Sociedades');
+        $this->form_validation->set_rules('tipoCredito','Procedencia del Crédito');
         $this->form_validation->set_rules('periodicidad1');
         $this->form_validation->set_rules('periodicidad2');
         $this->form_validation->set_rules('periodicidad3');
@@ -42,6 +34,12 @@ class RuatA extends CI_Controller {
         $data['tiposProductor'] = assoc(TipoProductor::sorted());
         $data['renglonesProductivos'] = assoc(RenglonProductivo::sorted());
         $data['clasesOrganizaciones'] = assoc(ClaseOrganizacion::sorted());
+        $data['beneficiosSociedad'] = assoc(TipoBeneficio::sorted());
+        $data['tipoCredito'] = assoc(TipoCredito::sorted());
+        $data['periodicidad'] = assoc(Periodicidad::sorted());
+        $data['tipoConfianza'] = assoc(TipoConfianza::sorted());
+        
+
         //var_dump($tiposDocumento);
         //die();
 

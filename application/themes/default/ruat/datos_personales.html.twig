@@ -300,19 +300,12 @@
                     </div>
                 </div>
                 <div div class="col-md-5">
+
                     <div class="form-group">
-                        <label class="col-sm-6 control-label">Procedencia del Crédito: </label>
-                        <div class="col-sm-6">
-                            <select class="form-control">
-                                <option></option>
-                                <option>Agremiaciones</option>
-                                <option>Bancos</option>
-                                <option>Empresas de Insumos</option>
-                                <option>Entidades Estatales</option>
-                                <option>Familiares</option>
-                                <option>Prestamistas</option>
-                                <option>Otros</option>
-                            </select>
+                        <label class="col-sm-5 control-label" for="focused">Procedencia del Crédito:</label>
+                        <div class="col-sm-7">
+                            {{ my_select('tipoCredito', tipoCredito) }}
+                            
                         </div>
                     </div>
                 </div>
@@ -528,7 +521,7 @@
                                     <td class="center" width="1%">                                            
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                {{my_select('beneficios_sociedad', beneficios_sociedad,{multiple:true})}}
+                                                {{my_select('clases_organizacion', clasesOrganizaciones,{multiple:true})}}
                                             </div>
                                         </div>
                                     </td>
@@ -539,7 +532,7 @@
                                     <td class="center" width="1%">                                            
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                {{my_select('beneficios_sociedad', beneficios_sociedad,{multiple:true})}}
+                                                {{my_select('clases_organizacion', clasesOrganizaciones,{multiple:true})}}
                                             </div>
                                         </div>
                                     </td>
@@ -570,7 +563,7 @@
                                         <div class="container">
                                             <div class="form-group">
                                                 <div class="col-md-12">
-                                                    {{my_select('beneficios_sociedad', beneficios_sociedad,{multiple:true})}}
+                                                    {{my_select('beneficiosSociedad', beneficiosSociedad,{multiple:true})}}
                                                 </div>
                                             </div>
                                         </div>
@@ -588,7 +581,7 @@
                                         <div class="container">
                                             <div class="form-group">
                                                 <div class="col-md-12">
-                                                    {{my_select('beneficios_sociedad', beneficios_sociedad,{multiple:true})}}
+                                                    {{my_select('beneficiosSociedad', beneficiosSociedad,{multiple:true})}}
                                                 </div>
                                             </div>
                                         </div>
@@ -606,7 +599,7 @@
                                         <div class="container">
                                             <div class="form-group">
                                                 <div class="col-md-12">
-                                                    {{my_select('beneficios_sociedad', beneficios_sociedad,{multiple:true})}}
+                                                    {{my_select('beneficiosSociedad', beneficiosSociedad,{multiple:true})}}
                                                 </div>
                                             </div>
                                         </div>
@@ -654,16 +647,9 @@
             <div class="row">
                 <div div class="col-md-5">
                     <div class="form-group">
-                        <label class="col-sm-6 control-label">Grado de Confianza: </label>
-                        <div class="col-sm-6">
-                            <select class="form-control">
-                                <option></option>
-                                <option>Siempre</option>
-                                <option>Casi siempre</option>
-                                <option>A veces</option>
-                                <option>Casi Nunca</option>
-                                <option>Nunca</option>
-                            </select>
+                        <label class="col-sm-5 control-label" for="focused">Grado de Confianza:</label>
+                        <div class="col-sm-7">
+                            {{ my_select('gradoConfianza', tipoConfianza) }}
                         </div>
                     </div>
                 </div>
@@ -717,16 +703,9 @@
             <div class="row">
                 <div div class="col-md-5">
                     <div class="form-group">
-                        <label class="col-sm-6 control-label">Grado de Confianza: </label>
-                        <div class="col-sm-6">
-                            <select class="form-control">
-                                <option></option>
-                                <option>Siempre</option>
-                                <option>Casi siempre</option>
-                                <option>A veces</option>
-                                <option>Casi Nunca</option>
-                                <option>Nunca</option>
-                            </select>
+                        <label class="col-sm-5 control-label" for="focused">Grado de Confianza:</label>
+                        <div class="col-sm-7">
+                            {{ my_select('gradoConfianza2', tipoConfianza) }}
                         </div>
                     </div>
                 </div>

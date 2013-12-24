@@ -45,7 +45,7 @@ insert into renglonproductivo(descripcion,orden) values
     ('Piña',12),
     ('Uva',13);
 
-insert into tipobeneficios(descripcion, orden) values
+insert into tipobeneficio(descripcion, orden) values
     ('Capacitación', 1),
     ('Económico', 2),
     ('En Especie',3),
@@ -63,3 +63,21 @@ insert into tipocredito(descripcion,orden) values
     ('Familiares',5),
     ('Empresas de Insumos',6),
     ('Otro',100);
+
+
+insert into periodicidad(descripcion, dias) values
+    ('Semanal',7),
+    ('Quincenal',15),
+    ('Mensual',30),
+    ('Bimestral',60),
+    ('Trimestral',90),
+    ('Semestral',180),
+    ('Anual',365);
+
+
+insert into tipoconfianza(descripcion, orden) values
+    ('Siempre',1),
+    ('Casi Siempre',2),
+    ('A Veces',3),
+    ('Casi Nunca',4),
+    ('Nunca',5);
