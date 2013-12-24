@@ -12,6 +12,15 @@ create table fuenteinnovacion       (id serial not null primary key, descripcion
 create table tiporazonnopertenecer  (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table periodicidad           (id serial not null primary key, descripcion varchar(30) not null, dias integer not null);
 
+create table tenencia               (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
+create table tiposerviciopublico    (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
+create table tipovia                (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
+create table tipoestadovia          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
+create table tipomediotransporte    (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
+create table tiposemilla            (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
+create table tipositioventa         (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
+create table tipovende              (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
+create table tipoformapago          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 
 create table departamento(
     id                  serial not null primary key,
