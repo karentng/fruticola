@@ -553,7 +553,7 @@ hr {
 }
 
 /* validation style */
-input.error, textarea.error {
+input.error, textarea.error, input.ng-error {
 	background: url(../images/error.png) no-repeat 99% 6px;
 	background: #ffffff;
 	background: url(../images/error.png) no-repeat 99% 6px, url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -604,7 +604,7 @@ label.error {color: #f40a0a;font-weight: bold;margin-bottom: 0;font-size: 13px;}
 	margin-top: -20px;
 	text-align: left;
 }
-.select2-container {margin-bottom: 15px;}
+/*.select2-container {margin-bottom: 15px;}*/
 
 /* Tables */
 .table {border-color: #c9c9c9;}

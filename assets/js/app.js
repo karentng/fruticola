@@ -65,8 +65,8 @@ $(document).ready(function() {
     //------------- Uniform  -------------//
     //add class .nostyle if not want uniform to style field
     //$("input, textarea, select").not('.nostyle').uniform();
-    
-    $("[type='checkbox'], [type='radio'], [type='file']").not('.toggle').uniform();
+    //$("input[type='text']").uniform();
+    //$("[type='checkbox'], [type='radio'], [type='file']").not('.toggle').uniform();
     //$("select").not('.select2, .multiselect').first().uniform();
 });
 
