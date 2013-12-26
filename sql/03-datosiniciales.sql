@@ -168,3 +168,10 @@ insert into tiporazonnopertenecer(descripcion, orden) values
     ('Falta de Tiempo', 3),
     ('Falta de Oportunidad', 4);
 
+insert into tipomaquinaria (descripcion, orden) values
+    ('Herramientas', 1),
+    ('Utensilios', 2),
+    ('Equipos', 3),
+    ('Maquinaría Liviana', 4),
+    ('Maquinaría Pesada', 5),
+    ('Otros', 6);
