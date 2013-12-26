@@ -4,6 +4,29 @@ class RuatB extends CI_Controller {
 
     public function index()
     {
+        function to_array($model) { return $model->to_array(); }
+
+        $combos = array();
+        $combos['tiposTenencia']        = array_map('to_array',Tenencia::sorted());
+        $combos['tiposServicio']        = array_map('to_array',TipoServicioPublico::sorted());
+        $combos['tiposVia']             = array_map('to_array',TipoVia::sorted());
+        $combos['tiposEstadoVia']       = array_map('to_array',TipoEstadoVia::sorted());
+        $combos['tiposMedioTransporte'] = array_map('to_array',TipoMedioTransporte::sorted());
+        $combos['tiposSemilla']         = array_map('to_array',TipoSemilla::sorted());
+        $combos['tiposSitioVenta']      = array_map('to_array',TipoSitioVenta::sorted());
+        $combos['tiposVende']           = array_map('to_array',TipoVende::sorted());
+        $combos['tiposFormaPago']       = array_map('to_array',TipoFormaPago::sorted());
+        //municipios del valle
+        
+        $combos['municipios'] = array_map('to_array',Municipio::find_all_by_departamento_id(30, array('select'=>'id,nombre' , 'order'=>'nombre')));
+        
+        $this->twiggy->set('combos', $combos);
+        $this->twiggy->template("ruat/ruatb");
+        $this->twiggy->display();
+    }
+
+    public function old()
+    {
 
         $this->load->library('form_validation');
 
@@ -192,18 +215,17 @@ class RuatB extends CI_Controller {
         $forma_pago = array("efectivo"=>"Efectivo","transferencia"=>"Transferencia","cheque"=>"Cheque","credito"=>"Crédito","trueque"=>"Trueque");*/
         //Fin Arreglos
 
-        
-        $tenencia =  assoc(Tenencia::sorted());
-        $servicios = assoc(TipoServicioPublico::sorted());
-        //$municipio = assoc(Tenencia::sorted());
-        $tipo_via = assoc(TipoVia::sorted());
-        $estado_via  = assoc(TipoEstadoVia::sorted());
-        $medios_transporte = assoc(TipoMedioTransporte::sorted());
-        $semilla = assoc(TipoSemilla::sorted());
-        $sitio_venta = assoc(TipoSitioVenta::sorted());
-        $quien_vende_tipo = assoc(TipoVende::sorted());
-        $forma_pago = assoc(TipoFormaPago::sorted());
-
+        $combos = array();
+        $combos['tiposTenencia']        =  Tenencia::sorted();
+        $combos['tiposServicio']        = TipoServicioPublico::sorted();
+        $combos['tiposVia']             = TipoVia::sorted();
+        $combos['tiposEstadoVia']       = TipoEstadoVia::sorted();
+        $combos['tiposMedioTransporte'] = TipoMedioTransporte::sorted();
+        $combos['tiposSemilla']         = TipoSemilla::sorted();
+        $combos['tiposSitioVenta']      = TipoSitioVenta::sorted();
+        $combos['tiposVende']           = TipoVende::sorted();
+        $combos['tiposFormaPago']       = TipoFormaPago::sorted();
+        var_dump($combos);
         /*
         $data = array();  // ----- que habia pasado con esto?????
         $data['tenencia'] = assoc(Tenencia::sorted());
@@ -220,21 +242,21 @@ class RuatB extends CI_Controller {
         
 
         //Seteo para el uso de arreglos en la plantilla twiggy
-        $this->twiggy->set('servicios',$servicios);
-        $this->twiggy->set('tenencia',$tenencia);
+        //$this->twiggy->set('servicios',$servicios);
+        //$this->twiggy->set('tenencia',$tenencia);
         //$this->twiggy->set('municipio',$municipio);
 
-        $this->twiggy->set('tipo_via',$tipo_via);
-        $this->twiggy->set('estado_via',$estado_via);
-        $this->twiggy->set('medios_transporte',$medios_transporte);
+        //$this->twiggy->set('tipo_via',$tipo_via);
+        //$this->twiggy->set('estado_via',$estado_via);
+        // $this->twiggy->set('medios_transporte',$medios_transporte);
 
-        $this->twiggy->set('semilla',$semilla);
-        $this->twiggy->set('sitio_venta',$sitio_venta);
-        $this->twiggy->set('quien_vende_tipo',$quien_vende_tipo);
-        $this->twiggy->set('forma_pago',$forma_pago);
+        // $this->twiggy->set('semilla',$semilla);
+        // $this->twiggy->set('sitio_venta',$sitio_venta);
+        // $this->twiggy->set('quien_vende_tipo',$quien_vende_tipo);
+        // $this->twiggy->set('forma_pago',$forma_pago);
         //Fin Seteo
 
-
+        $this->twiggy->set('combos',$combos);
         $this->twiggy->template("ruat/datos_finca");
         $this->twiggy->display();
     }

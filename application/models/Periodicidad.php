@@ -6,6 +6,6 @@ class Periodicidad extends ActiveRecord\Model
 
     static function sorted()
     {
-        return self::all(array('order' => 'dias'));
+        return self::all(array('select'=>'id,descripcion', 'order' => 'dias'));
     }
 }

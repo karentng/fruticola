@@ -90,6 +90,8 @@
 <div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
 <input type="submit">
 
+{{productor | json}}
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
@@ -614,7 +616,15 @@
 
 
 </form></div></div>
-<div style="height:150px"></div>
+
+<br/>
+<div class="form-actions full">
+    <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right-3"></i></button>
+</div>
+
+<div class="row" style="height:100px"></div> <!--para evitar que el señalador de "ir arriba" tape el boton siguiente -->
+
+
 {% endraw %}
 
 {% endblock %}

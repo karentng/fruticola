@@ -1,0 +1,352 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+<script src="{{base_url('assets/js/angular/angular.js')}}"></script>
+<script src="{{base_url('assets/js/angular/angular-animate.js')}}"></script>
+<script src="{{base_url('assets/js/angular/angular-ui/select2.js')}}"></script>
+<script src="{{base_url('assets/js/angular/angular-bootstrap-switch.js')}}"></script>
+
+
+<script type="text/javascript">
+    var extern = {
+        combos: {{combos | json_encode }}
+    };
+    var count = function(obj) {
+        var cnt = 0;
+        for(var x in obj)
+            if(obj.hasOwnProperty(x))
+                cnt++;
+        return cnt;
+    }
+</script>
+
+
+{% raw %}
+
+
+<script type="text/javascript">
+    var myApp = angular.module('myApp', ['ui.select2', 'frapontillo.bootstrap-switch']);
+
+    var RuatBCtrl = function($scope) {
+        angular.extend($scope, extern.combos);
+        $scope.finca = {esFinca:true};
+
+        $scope.validate = function(){   
+            for (feild in $scope.myForm) {
+                // look at each form input with a name attribute set
+                // checking if it is pristine and not a '$' special field
+                if (feild[0] != '$' && $scope.myForm[feild].$pristine)
+                    $scope.myForm[feild].$setViewValue( $scope.myForm[feild].$modelValue );
+            }
+            return $scope.myForm.valid;
+        };
+
+        $scope.submit = function() {
+            if(!$scope.validate()) {
+                alert('Revise errores');
+                return;
+            }
+
+            alert('Guardar!');
+        };
+    }
+</script>
+{% endraw %}
+{% endblock %}
+
+{% block titulo %} <h1><i class="icon20 i-home-11"></i> RUAT &#187; Datos Finca </h1> {% endblock %}
+
+
+{% block contenido %}
+{% raw %}
+
+<div ng-app="myApp"><div ng-controller="RuatBCtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
+<input type="submit">
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>B1. DATOS GENERALES DE LA FINCA</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body">
+        <!-- Parte B.1: Formato RUAT -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="form-group">
+                        <label class="control-label  ">Finca</label><br/>
+                        
+                        <input bs-switch ng-model="finca.esFinca" switch-on="success"
+                                switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-active="false" switch-animate="true">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="form-group">
+                        <label class="control-label">Nombre de la finca</label>
+                        <input type="text" class="form-control" name="nombreFinca" ng-model="finca.nombre" required />
+                        <label class="error" ng-show="myForm.nombreFinca.$dirty && myForm.nombreFinca.$error.required">Requerido</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="form-group">
+                    
+                        <label class="control-label">Identificaci&oacute;n Catastral</label>
+                        <input type="text" class="form-control" name="identifCatastral" ng-model="finca.identifCatastral" required />
+                        <label class="error" ng-show="myForm.identifCatastral.$dirty && myForm.identifCatastral.$error.required">Requerido</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label" for="select">Tenencia</label>
+                            <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tenencia" ng-model="finca.tenencia" ng-required="true">
+                                <option></option>
+                                <option ng-repeat="t in tiposTenencia" value="{{t.id}}">{{t.descripcion}}</option>
+                            </select>
+                            <label class="error" ng-show="myForm.tenencia.$dirty && myForm.tenencia.$error.required">Requerido</label>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label" for="select">Departamento</label>
+                            <input type="text" class="form-control" value="Valle del Cauca" disabled="disabled"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label" for="select">Municipio</label>
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="finca.municipio" ng-required="true">
+                                <option></option>
+                                <option ng-repeat="(id,nombre) in municipios" value="{{id}}">{{nombre}}</option>
+                            </select>
+                            <label class="error" ng-show="myForm.municipio.$dirty && myForm.municipio.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Vereda</label>
+                            <input type="text" class="form-control" name="veredaFinca" ng-model="finca.vereda" required />
+                            <label class="error" ng-show="myForm.veredaFinca.$dirty && myForm.veredaFinca.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Sector</label>
+                            <input type="text" class="form-control" name="sector" ng-model="finca.sector" required />
+                            <label class="error" ng-show="myForm.sector.$dirty && myForm.sector.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Área Total</label>
+                            <input type="number" class="form-control" name="areaTotal" ng-model="finca.areaTotal" required />
+                            <label class="error" ng-show="myForm.areaTotal.$dirty && myForm.areaTotal.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Disponibilidad de servicios p&uacute;blicos</label>
+                            {{my_select('servicios_publicos', servicios,{multiple:true})}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label" for="radio">Disponibilidad de Vias de Acceso</label><br/>
+                            <input bs-switch ng-model="vias.disponibilidad" switch-on="success" switch-off="danger"
+                                switch-on-label="SI" switch-off-label="NO" switch-type="checkbox">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="container">
+                            <label class="control-label" for="select">Estado de las vias de acceso</label>
+                            {{my_select('tipo_via', tipo_via,{})}}
+                            {{my_select('estado_via', estado_via,{})}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">Manejo Programa de Residuos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="center" width="20%">Ordinarios</td>
+                                    <td width="2%">
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" value="ordinariosOP" name="ordinariosOP" {{set_checkbox('ordinariosOP', '0', TRUE)}}>
+                                        </label>
+                                    </td>
+                                    <td width="65%">{{my_input('ordinarios',{'readonly':'true', 'placeholder':'Descripción'})}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="center">Peligrosos</td>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" value="peligrososOP" name="peligrososOP" {{set_checkbox('peligrososOP', '1')}}>
+                                        </label>
+                                    </td>
+                                    <td>{{my_input('peligrosos',{'readonly':'true', 'placeholder':'Descripción'})}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="center">Otros</td>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" value="otrosOP" name="otrosOP" {{set_checkbox('otrosOP', '0')}}>
+                                        </label>
+                                    </td>
+                                    <td>{{my_input('otros',{'readonly':'true', 'placeholder':'Descripción'})}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-8">Distancia de la finca a la cabecera municipal (Km)</label>
+                        <div class="col-md-4">{{my_input('distancia_finca_cabecera',{'type':'number'})}}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Medios de transporte</label> <!-- para la realizacion de la actividad productiva y de comercializaci&oacute;n-->
+                        <div class="col-md-8">
+                            {{my_select('medios_transporte', medios_transporte,{multiple:true})}}
+                            <span class="help-block"><small>Liste los medios de transporte utilizados para la realizacion de la actividad productiva y de comercializaci&oacute;n</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-md-offset-1">
+                    <div class="form-group">
+                        <label class="control-label">Forma de Llegar al Predio</label>
+                        <textarea name="forma_llegar_predio" id="forma_llegar_predio" class="form-control" rows="4" placeholder="Describa indicaciones para localizar el predio"></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- Aqui creo que es mejor cambiarla por una tabla -->
+                        
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">Maquinaria y equipo para la realización de actividades productivas y comercializaci&oacute;n</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="center" width="20%">Herramientas</td>
+                                    <td width="2%">
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" id="agree1" name="herramientasOP">
+                                        </label>
+                                    </td>
+                                    <td width="65%">{{my_input('herramientas',{'readonly':'true'})}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="center">Utencilios</td>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" id="agree2" name="utenciliosOP">
+                                        </label>
+                                    </td>
+                                    <td>{{my_input('utencilios',{'readonly':'true'})}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="center">Equipos</td>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" id="agree3" name="equiposOP">
+                                        </label>
+                                    </td>
+                                    <td>{{my_input('equipos',{'readonly':'true'})}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="center">Maquinaria Liviana</td>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" id="agree4" name="livianaOP">
+                                        </label>
+                                    </td>
+                                    <td>{{my_input('maquinaria_liviana',{'readonly':'true'})}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="center">Maquinaria Pesada</td>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" id="agree5" name="pesadaOP">
+                                        </label>
+                                    </td>
+                                    <td>{{my_input('maquinaria_pesada',{'readonly':'true'})}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="center">Otros</td>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input class="form-control" type="checkbox" id="agree6" name="otrosOP">
+                                        </label>
+                                    </td>
+                                    <td>{{my_input('otros',{'readonly':'true'})}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div><!-- End .panel-body -->
+</div><!-- panel default -->
+
+
+<br/>
+<div class="form-actions full">
+    <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right-3"></i></button>
+</div>
+
+<div class="row" style="height:100px"></div> <!--para evitar que el señalador de "ir arriba" tape el boton siguiente -->
+
+</form></div></div>
+{% endraw %}
+{% endblock %}

@@ -6,6 +6,6 @@ class TipoConfianza extends ActiveRecord\Model
 
     static function sorted()
     {
-        return self::all(array('order' => 'orden'));
+        return self::all(array('select' => 'id,descripcion', 'order' => 'orden'));
     }
 }
