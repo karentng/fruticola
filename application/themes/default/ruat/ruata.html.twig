@@ -54,8 +54,7 @@
             otroProductor:{asociado:false, nombre:'', apellido:'', vereda:'', confianza:null},
             sigue:{asociado:false, nombre:'', apellido:'', vereda:'', confianza:null},
         };
-        $scope.tiposInnovacion={1:"Producción", 2:"Transformación", 3:"Comercialización", 4:"Organizacional"};
-        $scope.fuentesInnovacion={1:"Propia", 2:"EPSAGRO", 3:"Asosiaciones", 4:"Entidad Privada", 5:"Otra"};
+        
         $scope.count = count;
         $scope.innovacion = {realiza:'no', fuente:{}};
         $scope.validate = function(){   
@@ -174,11 +173,12 @@
                     <div class="form-group">
                         <label class="col-sm-6 control-label">Sexo: </label>
                         <div class="col-sm-6">
-                            <select ui-select2="{allowClear:true, placeholder:'-', minimumResultsForSearch: -1}" ng-model="productor.sexo" required>
+                            <select ui-select2="{allowClear:true, placeholder:'-', minimumResultsForSearch: -1}" name="sexo" ng-model="productor.sexo" required>
                                 <option></option>
                                 <option value='M'>Masculino</option>
                                 <option value='F'>Femenino</option>
                             </select>
+                            <label class="error" ng-show="myForm.sexo.$dirty && myForm.sexo.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>                    
@@ -270,10 +270,11 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Departamento:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" ng-model="ubicacion.departamento">
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="departamento" ng-model="ubicacion.departamento" required>
                                 <option></option>
                                 <option ng-repeat="(key,depto) in departamentos" value="{{key}}">{{depto.nombre}}</option>
                             </select>
+                            <label class="error" ng-show="myForm.departamento.$dirty && myForm.departamento.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>
@@ -281,10 +282,11 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Municipio:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" ng-model="ubicacion.municipio">
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="ubicacion.municipio" ng-disabled="!ubicacion.departamento" ng-required="ubicacion.departamento">
                                 <option></option>
                                 <option ng-repeat="mun in departamentos[ubicacion.departamento].municipios" value="{{mun.id}}">{{mun.nombre}}</option>
                             </select>
+                            <label class="error" ng-show="myForm.municipio.$dirty && myForm.municipio.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>
@@ -328,11 +330,12 @@
                 <div class="col-md-4">
                     <div class="container">
                         <div class="form-group">
-                            <label class="control-label col-sm-7">Ingreso Mensual Familiar </label>
-                            <div class="col-sm-5">
-                                <input type="number" class="form-control" name="ingresoMensual" ng-model="economia.ingresoMensual" />
+                            <label class="control-label col-sm-6">Ingreso Mensual Familiar </label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" name="ingresoMensual" name="ingresoMensual" ng-model="economia.ingresoMensual" required/>
                             </div>
-                        </div>
+                            <label class="error" ng-show="myForm.ingresoMensual.$dirty && myForm.ingresoMensual.$error.required">Requerido</label>
+                         </div>
                     </div>
                 </div>
                 <div div class="col-md-3">
@@ -340,8 +343,9 @@
                         <div class="form-group">
                             <label class="control-label col-sm-8">Personas a Cargo</label>
                             <div class="col-sm-4">
-                                <input type="number" class="form-control" name="personasCargo" ng-model="economia.personasCargo" />
+                                <input type="number" class="form-control" name="personasCargo" ng-model="economia.personasCargo" required/>
                             </div>
+                            <span class="help-block" ng-show="myForm.personasCargo.$dirty && myForm.personasCargo.$error.required"><label class="error">Requerido</label></span>
                         </div> 
                     </div>
                 </div>
@@ -350,8 +354,9 @@
                         <div class="form-group">
                             <label class="control-label col-sm-7">Ingreso de Actividad Agropecuaria</label>
                             <div class="col-sm-5">
-                                <input type="number" class="form-control" name="ingresoAgropecuaria" ng-model="economia.ingresoAgropecuaria" />
+                                <input type="number" class="form-control" name="ingresoAgropecuaria" ng-model="economia.ingresoAgropecuaria" required/>
                             </div>
+                            <label class="error" ng-show="myForm.ingresoAgropecuaria.$dirty && myForm.ingresoAgropecuaria.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>
@@ -374,11 +379,11 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label" ng-class="{'text-muted':!economia.usaCredito}" for="focused">Procedencia del Crédito:</label>
                         <div class="col-sm-7">
-                            <select ui-select2="{allowClear:true, minimumResultsForSearch: -1, placeholder:'-'}" ng-model="economia.procedenciaCredito" ng-disabled="!economia.usaCredito">
+                            <select ui-select2="{allowClear:true, minimumResultsForSearch: -1, placeholder:'-'}" name="procedencia"ng-model="economia.procedenciaCredito" ng-disabled="!economia.usaCredito" ng-required="economia.usaCredito">
                                 <option></option>
                                 <option ng-repeat="(key,descrip) in tiposCredito" value="{{key}}">{{descrip}}</option>
                             </select>
-                            
+                            <label class="error" ng-show="myForm.procedencia.$dirty && myForm.procedencia.$error.required ">Requerido</label>
                         </div>
                     </div>
                 </div>
@@ -427,12 +432,14 @@
                 <tr ng-repeat="(keyTipoInn,descripTipoInn) in tiposInnovacion">
                     <td>{{descripTipoInn}}</td>
                     <td>
-                        <buttons-radio model="innovacion.fuente[keyTipoInn]" options="fuentesInnovacion">
+                        <buttons-radio model="innovacion.fuente[keyTipoInn]" options="fuentesInnovacion" name="fuente" ng-model="innovacion.fuente" ng-required="innovacion.realiza">
                         </buttons-radio>
+                        <label class="error" ng-show="myForm.innovacion.fuente[keyTipoInn].$dirty && myForm.innovacion.fuente[keyTipoInn].$error.required ">Requerido</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" style="width:100px" 
-                                placeholder="¿Cual?" ng-show="innovacion.fuente[keyTipoInn]==5" />
+                                placeholder="¿Cual?" name="cualInnovacion"ng-show="innovacion.fuente[keyTipoInn]==6" ng-required="innovacion.fuente[keyTipoInn]==6"/>
+                        <label class="error" ng-show="myForm.cualInnovacion.$dirty && myForm.cualInnovacion.$error.required ">Requerido</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" 
@@ -478,20 +485,28 @@
                 </tr>
             </thead>
                 <tr ng-repeat="fila in asociacion.cooperativa.filas">
-                    <td><select multiple ng-model="fila.clases" style="min-width:100px"
+                    <td>
+                        <select multiple name="clase" ng-required="asociacion.cooperativa.asociado" ng-model="fila.clases" style="min-width:100px"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Clases de Organización'}">
                             <option ng-repeat="(key,descrip) in clasesOrganizaciones" value="{{key}}">{{descrip}}</option>
+                        </select>
+                         <span class="help-block" ng-show="myForm.clase.$dirty && myForm.clase.$error.required"><label class="error">Requerido</label></span>
                     </td>
-                    <td><input type="text" class="form-control" ng-model="fila.organizacion" required /></td>
-                    <td><select multiple ng-model="fila.beneficios" style="min-width:100px"
+                    <td>
+                        <input type="text" class="form-control" name="Organizacion" ng-model="fila.organizacion" ng-required="asociacion.cooperativa.asociado" />
+                        <label class="error" ng-show="myForm.Organizacion.$dirty && myForm.Organizacion.$error.required ">Requerido</label>
+                    </td>
+                    <td><select multiple name="beneficios" ng-required="asociacion.cooperativa.asociado" ng-model="fila.beneficios" style="min-width:150px"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Beneficios'}">
                             <option ng-repeat="(key,descrip) in tiposBeneficio" value="{{key}}">{{descrip}}</option>
                         </select>
+                        <span class="help-block" ng-show="myForm.beneficios.$dirty && myForm.beneficios.$error.required"><label class="error">Requerido</label></span>
                     </td>
-                    <td><select ng-model="fila.periodicidad" 
+                    <td><select name="periodicidad" ng-model="fila.periodicidad" 
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true}" data-placeholder="Periodicidad">
                             <option ng-repeat="(key,descrip) in periodicidades" value="{{key}}">{{descrip}}</option>
                         </select>
+                        
                     </td>
                     <td><input bs-switch ng-model="fila.directivo" switch-on="info" switch-off="info"
                         switch-on-label="Directivo" switch-off-label="Participante" switch-type="checkbox" switch-size="" switch-animate="true" />
@@ -505,7 +520,10 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Razones de no Pertencer</label>
-                            <input type="text" ng-model="asociacion.cooperativa.razonesNoPertenecer" class="form-control">
+                            <select multiple ng-model="razones"
+                             ui-select2="{ multiple:true, minimumResultsForSearch: -1, allowClear:true}">
+                                <option ng-repeat="(key,descrip) in tiporazonnopertencer" value="{{key}}">{{descrip}}</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -532,7 +550,8 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Nombre del Productor en Asocio</label>
-                                <input type="text" class="form-control" ng-model="asociacion.otroProductor.nombre"/>
+                                <input type="text" class="form-control" name="nombreSocio" ng-model="asociacion.otroProductor.nombre" ng-required="asociacion.otroProductor.asociado"/>
+                                <label class="error" ng-show="myForm.nombreSocio.$dirty && myForm.nombreSocio.$error.required ">Requerido</label>
                             </div>
                         </div>
                     </div>
@@ -540,7 +559,8 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Apellidos del Productor en Asocio</label>
-                                <input type="text" class="form-control" ng-model="asociacion.otroProductor.apellido"/>
+                                <input type="text" class="form-control" name="apellidoSocio" ng-model="asociacion.otroProductor.apellido"  ng-required="asociacion.otroProductor.asociado"/>
+                                <label class="error" ng-show="myForm.apellidoSocio.$dirty && myForm.apellidoSocio.$error.required ">Requerido</label>
                             </div>
                         </div>
                     </div>
@@ -576,16 +596,19 @@
                     <div class="col-md-4">
                         <div class="container">
                             <div class="form-group">
-                                <label for="" class="control-label">Nombre del Productor en Asocio</label>
-                                <input type="text" class="form-control" ng-model="asociacion.sigue.nombre"/>
+                                <label for="" class="control-label">Nombre del Productor a Seguir</label>
+                                <input type="text" class="form-control" name="nombreSeguir" ng-model="asociacion.sigue.nombre" ng-required="asociacion.sigue.asociado"/>
+                                <label class="error" ng-show="myForm.nombreSeguir.$dirty && myForm.nombreSeguir.$error.required ">Requerido</label>
+
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="container">
                             <div class="form-group">
-                                <label for="" class="control-label">Apellidos del Productor en Asocio</label>
-                                <input type="text" class="form-control" ng-model="asociacion.sigue.apellido"/>
+                                <label for="" class="control-label">Apellidos del Productor a Seguir</label>
+                                <input type="text" class="form-control" name="apellidoSeguir" ng-model="asociacion.sigue.apellido" ng-required="asociacion.sigue.asociado"/>
+                                <label class="error" ng-show="myForm.apellidoSeguir.$dirty && myForm.apellidoSeguir.$error.required ">Requerido</label>
                             </div>
                         </div>
                     </div>
