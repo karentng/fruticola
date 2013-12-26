@@ -92,20 +92,22 @@ class RuatA extends CI_Controller {
 
         }
 
+        function to_array($model) { return $model->to_array(); }
+
         $data = array();
-        $data['tiposDocumento'] = assoc(TipoDocumento::sorted());
-        $data['nivelesEducativos'] = assoc(NivelEducativo::sorted());
-        $data['tiposProductor'] = assoc(TipoProductor::sorted());
-        $data['renglonesProductivos'] = assoc(RenglonProductivo::sorted());
-        $data['clasesOrganizaciones'] = assoc(ClaseOrganizacion::sorted());
-        $data['tiposBeneficio'] = assoc(TipoBeneficio::sorted());
-        $data['tiposCredito'] = assoc(TipoCredito::sorted());
-        $data['periodicidades'] = assoc(Periodicidad::sorted());
-        $data['tiposConfianza'] = assoc(TipoConfianza::sorted());
-        $data['tiposInnovacion'] = assoc(TipoInnovacion::sorted());
-        $data['fuentesInnovacion'] = assoc(FuenteInnovacion::sorted());
-        $data['tiporazonnopertencer'] = assoc(TipoRazonNoPertenecer::sorted());
-        //$data['departamentos'] = assoc(Departamento::all(array('order'=>'nombre')), 'id', 'nombre');
+        $data['tiposDocumento']       = array_map('to_array',TipoDocumento::sorted());
+        $data['nivelesEducativos']    = array_map('to_array',NivelEducativo::sorted());
+        $data['tiposProductor']       = array_map('to_array',TipoProductor::sorted());
+        $data['renglonesProductivos'] = array_map('to_array',RenglonProductivo::sorted());
+        $data['clasesOrganizaciones'] = array_map('to_array',ClaseOrganizacion::sorted());
+        $data['tiposBeneficio']       = array_map('to_array',TipoBeneficio::sorted());
+        $data['tiposCredito']         = array_map('to_array',TipoCredito::sorted());
+        $data['periodicidades']       = array_map('to_array',Periodicidad::sorted());
+        $data['tiposConfianza']       = array_map('to_array',TipoConfianza::sorted());
+        $data['tiposInnovacion']      = array_map('to_array',TipoInnovacion::sorted());
+        $data['fuentesInnovacion']    = array_map('to_array',FuenteInnovacion::sorted());
+        $data['tiporazonnopertencer'] = array_map('to_array',TipoRazonNoPertenecer::sorted());
+        //$data['departamentos'] = array_map('to_array',Departamento::all(array('order'=>'nombre')), 'id', 'nombre');
         $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
         $deptos_municipios = array();
         foreach($deptos as $depto) {
