@@ -145,3 +145,26 @@ insert into tipoformapago (descripcion, orden) values
     ('Cheque', 3),
     ('Crédito', 4),
     ('Trueque', 5);
+
+insert into tipoinnovacion(descripcion, orden) values
+    ('Producción', 1),
+    ('Transformación', 2),
+    ('Comercialización', 3),
+    ('Organizacional', 4);
+
+
+insert into fuenteinnovacion(descripcion, orden) values
+    ('Propia', 1),
+    ('EPSAGRO', 2),
+    ('Asociaciones', 3),
+    ('Organizacional', 4),
+    ('Entidad Privada', 5),
+    ('Otra', 6);
+
+
+insert into tiporazonnopertenecer(descripcion, orden) values
+    ('Desconocimiento', 1),
+    ('Falta de Interés', 2),
+    ('Falta de Tiempo', 3),
+    ('Falta de Oportunidad', 4);
+
