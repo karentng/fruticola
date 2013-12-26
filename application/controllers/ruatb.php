@@ -225,7 +225,8 @@ class RuatB extends CI_Controller {
         $combos['tiposSitioVenta']      = TipoSitioVenta::sorted();
         $combos['tiposVende']           = TipoVende::sorted();
         $combos['tiposFormaPago']       = TipoFormaPago::sorted();
-        var_dump($combos);
+        $combos['tiposMaquinaria']      = tiposMaquinaria::sorted();
+        //var_dump($combos);
         /*
         $data = array();  // ----- que habia pasado con esto?????
         $data['tenencia'] = assoc(Tenencia::sorted());
