@@ -33,14 +33,13 @@
             replace:true,
             controller: function($scope) {
                 $scope.activate = function(option) {
-                    console.log("de ",$scope.model," a ",option);
                     if($scope.model==option) $scope.model=null;
                     else $scope.model=option;
                 }
             },
-            template: "<div class='btn-group'><button type='button' ng-repeat='(key,descrip) in options' "+
-                        "class='btn btn-sm' + ng-class=\"{'active':key==model, 'btn-primary':key==model, 'btn-default':key!=model}\"  "+
-                        "ng-click='activate(key)'>{{descrip}}</button></div>"
+            template: "<div class='btn-group'><button type='button' ng-repeat='t in options' "+
+                        "class='btn btn-sm' + ng-class=\"{'active':t.id==model, 'btn-primary':t.id==model, 'btn-default':t.id!=model}\"  "+
+                        "ng-click='activate(t.id)'>{{t.descripcion}}</button></div>"
         };
     });
 
