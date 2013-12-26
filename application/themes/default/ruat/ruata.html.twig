@@ -211,11 +211,11 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label" for="focused">Renglón Productivo:</label>
                         <div class="col-sm-7">
-                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="renglonProductivo" ng-model="productor.renglonProductivo" required>
+                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="renglonProductivo" ng-model="productor.renglonProductivo" ng-required="true">
                                 <option></option>
                                 <option ng-repeat="(key,descrip) in renglonesProductivos" value="{{key}}">{{descrip}}</option>
-                                <label class="error" ng-show="myForm.renglonProductivo.$dirty && myForm.renglonProductivo.$error.required">Requerido</label>
                             </select>
+                            <label class="error" ng-show="myForm.renglonProductivo.$dirty && myForm.renglonProductivo.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>
