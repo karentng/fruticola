@@ -180,9 +180,11 @@
                     <div class="form-group">
                         <label class="col-sm-6 control-label">Nivel Educativo: </label>
                         <div class="col-sm-6">
-                            <select  ui-select2="{minimumResultsForSearch: -1}" ng-model="productor.nivelEducativo">
+                            <select  ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="nivelEducativo" ng-model="productor.nivelEducativo" ng-required="true">
+                                <option></option>
                                 <option ng-repeat="(key,descrip) in nivelesEducativos" value="{{key}}">{{descrip}}</option>
                             </select>
+                            <label class="error" ng-show="myForm.nivelEducativo.$dirty && myForm.nivelEducativo.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>
@@ -193,9 +195,11 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label" for="focused">Tipo de Productor:</label>
                         <div class="col-sm-7">
-                            <select ui-select2="{minimumResultsForSearch: -1}" ng-model="productor.tipo">
+                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="tipoProductor" ng-model="productor.tipo" required>
+                                <option></option>
                                 <option ng-repeat="(key,descrip) in tiposProductor" value="{{key}}">{{descrip}}</option>
                             </select>
+                            <label class="error" ng-show="myForm.tipoProductor.$dirty && myForm.tipoProductor.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>
@@ -203,8 +207,10 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label" for="focused">Renglón Productivo:</label>
                         <div class="col-sm-7">
-                            <select ui-select2="{minimumResultsForSearch: -1}" ng-model="productor.renglon">
+                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="renglonProductivo" ng-model="productor.renglonProductivo" required>
+                                <option></option>
                                 <option ng-repeat="(key,descrip) in renglonesProductivos" value="{{key}}">{{descrip}}</option>
+                                <label class="error" ng-show="myForm.renglonProductivo.$dirty && myForm.renglonProductivo.$error.required">Requerido</label>
                             </select>
                         </div>
                     </div>
