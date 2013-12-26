@@ -186,7 +186,7 @@
                         <div class="col-sm-6">
                             <select  ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="nivelEducativo" ng-model="productor.nivelEducativo" ng-required="true">
                                 <option></option>
-                                <option ng-repeat="(key,descrip) in nivelesEducativos" value="{{key}}">{{descrip}}</option>
+                                <option ng-repeat="t in nivelesEducativos" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
                             <label class="error" ng-show="myForm.nivelEducativo.$dirty && myForm.nivelEducativo.$error.required">Requerido</label>
                         </div>
@@ -201,9 +201,9 @@
                         <div class="col-sm-7">
                             <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="tipoProductor" ng-model="productor.tipo" required>
                                 <option></option>
-                                <option ng-repeat="(key,descrip) in tiposProductor" value="{{key}}">{{descrip}}</option>
+                                <option ng-repeat="t in tiposProductor" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
-                            <label class="error" ng-show="myForm.tipoProductor.$dirty && myForm.tipoProductor.$error.required">Requerido</label>
+                            <label class="error" ng-show="myForm.tiposProductor.$dirty && myForm.tipoProductor.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                         <div class="col-sm-7">
                             <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="renglonProductivo" ng-model="productor.renglonProductivo" ng-required="true">
                                 <option></option>
-                                <option ng-repeat="(key,descrip) in renglonesProductivos" value="{{key}}">{{descrip}}</option>
+                                <option ng-repeat="t in renglonesProductivos" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
                             <label class="error" ng-show="myForm.renglonProductivo.$dirty && myForm.renglonProductivo.$error.required">Requerido</label>
                         </div>
@@ -379,7 +379,7 @@
                         <div class="col-sm-7">
                             <select ui-select2="{allowClear:true, minimumResultsForSearch: -1, placeholder:'-'}" name="procedencia"ng-model="economia.procedenciaCredito" ng-disabled="!economia.usaCredito" ng-required="economia.usaCredito">
                                 <option></option>
-                                <option ng-repeat="(key,descrip) in tiposCredito" value="{{key}}">{{descrip}}</option>
+                                <option ng-repeat="t in tiposCredito" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
                             <label class="error" ng-show="myForm.procedencia.$dirty && myForm.procedencia.$error.required ">Requerido</label>
                         </div>
@@ -486,7 +486,7 @@
                     <td>
                         <select multiple name="clase" ng-required="asociacion.cooperativa.asociado" ng-model="fila.clases" style="min-width:100px"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Clases de Organización'}">
-                            <option ng-repeat="(key,descrip) in clasesOrganizaciones" value="{{key}}">{{descrip}}</option>
+                            <option ng-repeat="t in clasesOrganizaciones" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
                          <span class="help-block" ng-show="myForm.clase.$dirty && myForm.clase.$error.required"><label class="error">Requerido</label></span>
                     </td>
@@ -496,13 +496,13 @@
                     </td>
                     <td><select multiple name="beneficios" ng-required="asociacion.cooperativa.asociado" ng-model="fila.beneficios" style="min-width:150px"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Beneficios'}">
-                            <option ng-repeat="(key,descrip) in tiposBeneficio" value="{{key}}">{{descrip}}</option>
+                            <option ng-repeat="t in tiposBeneficio" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
                         <span class="help-block" ng-show="myForm.beneficios.$dirty && myForm.beneficios.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td><select name="periodicidad" ng-model="fila.periodicidad" 
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true}" data-placeholder="Periodicidad">
-                            <option ng-repeat="(key,descrip) in periodicidades" value="{{key}}">{{descrip}}</option>
+                            <option ng-repeat="t in periodicidades" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
                         
                     </td>
@@ -520,7 +520,7 @@
                             <label class="control-label">Razones de no Pertencer</label>
                             <select multiple ng-model="razones"
                              ui-select2="{ multiple:true, minimumResultsForSearch: -1, allowClear:true}">
-                                <option ng-repeat="(key,descrip) in tiporazonnopertencer" value="{{key}}">{{descrip}}</option>
+                                <option ng-repeat="t in tiporazonnopertenecer" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
                         </div>
                     </div>
