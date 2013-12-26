@@ -98,10 +98,13 @@ class RuatA extends CI_Controller {
         $data['tiposProductor'] = assoc(TipoProductor::sorted());
         $data['renglonesProductivos'] = assoc(RenglonProductivo::sorted());
         $data['clasesOrganizaciones'] = assoc(ClaseOrganizacion::sorted());
-        $data['beneficiosSociedad'] = assoc(TipoBeneficio::sorted());
+        $data['tiposBeneficio'] = assoc(TipoBeneficio::sorted());
         $data['tiposCredito'] = assoc(TipoCredito::sorted());
         $data['periodicidades'] = assoc(Periodicidad::sorted());
         $data['tiposConfianza'] = assoc(TipoConfianza::sorted());
+        $data['tiposInnovacion'] = assoc(TipoInnovacion::sorted());
+        $data['fuentesInnovacion'] = assoc(FuenteInnovacion::sorted());
+        $data['tiporazonnopertencer'] = assoc(TipoRazonNoPertenecer::sorted());
         //$data['departamentos'] = assoc(Departamento::all(array('order'=>'nombre')), 'id', 'nombre');
         $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
         $deptos_municipios = array();
