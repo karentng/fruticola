@@ -172,11 +172,12 @@
                     <div class="form-group">
                         <label class="col-sm-6 control-label">Sexo: </label>
                         <div class="col-sm-6">
-                            <select ui-select2="{allowClear:true, placeholder:'-', minimumResultsForSearch: -1}" ng-model="productor.sexo" required>
+                            <select ui-select2="{allowClear:true, placeholder:'-', minimumResultsForSearch: -1}" name="sexo" ng-model="productor.sexo" required>
                                 <option></option>
                                 <option value='M'>Masculino</option>
                                 <option value='F'>Femenino</option>
                             </select>
+                            <label class="error" ng-show="myForm.sexo.$dirty && myForm.sexo.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>                    
@@ -268,10 +269,11 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Departamento:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" ng-model="ubicacion.departamento">
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="departamento" ng-model="ubicacion.departamento" required>
                                 <option></option>
                                 <option ng-repeat="(key,depto) in departamentos" value="{{key}}">{{depto.nombre}}</option>
                             </select>
+                            <label class="error" ng-show="myForm.departamento.$dirty && myForm.departamento.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>
@@ -279,10 +281,11 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Municipio:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" ng-model="ubicacion.municipio">
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="ubicacion.municipio" ng-disabled="!ubicacion.departamento" required>
                                 <option></option>
                                 <option ng-repeat="mun in departamentos[ubicacion.departamento].municipios" value="{{mun.id}}">{{mun.nombre}}</option>
                             </select>
+                            <label class="error" ng-show="myForm.municipio.$dirty && myForm.municipio.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>
