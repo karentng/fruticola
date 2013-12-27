@@ -83,13 +83,14 @@ insert into tipoconfianza(descripcion, orden) values
     ('Nunca',5);
 
 insert into tenencia (descripcion, orden) values
-    ('Propiedad sin título', 1),
-    ('En arrendamiento', 2),
-    ('Comodacto', 3),
-    ('Usufructo', 4),
-    ('Aparcería', 5),
-    ('Colectiva', 6),
-    ('Otro', 7);
+    ('Propietario con título', 1),
+    ('Propietario sin título', 2),
+    ('En arrendamiento', 3),
+    ('Comodacto', 4),
+    ('Usufructo', 5),
+    ('Aparcería', 6),
+    ('Colectiva', 7),
+    ('Otro', 8);
 
 insert into tiposerviciopublico (descripcion, orden) values
     ('Agua Propia', 1),
