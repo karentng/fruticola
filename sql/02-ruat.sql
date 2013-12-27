@@ -107,21 +107,97 @@ create table orgasociada(
     participante        boolean not null     
 );
 
-create table orgasociada_clases(
+create table orgasociada_clase(
     id                  serial not null primary key,
     orgasociada_id      integer not null references orgasociada(id),
     clase_id            integer not null references claseorganizacion(id),
                         unique(orgasociada_id, clase_id)
 );
 
-create table orgasociada_beneficios(
+create table orgasociada_beneficio(
     id                  serial not null primary key,
     orgasociada_id      integer not null references orgasociada(id),
     beneficio_id        integer not null references tipobeneficio(id),
                         unique(orgasociada_id, beneficio_id)
 );
 
-create table razones_nopertenecer(
-    id                  serial not null
-
+create table razonnopertenecer(
+    id                  serial not null primary key
+    ruat_id             integer not null references ruat(id),
+    razon_id            integer not null references tiporazonnopertenecer(id)
 );
+
+create table finca(
+    id                  serial not null primary key,
+    ruat_id             integer not null references ruat(id),
+    nombre              varchar(50) not null,
+    identif_catastral   varchar(30) not null,
+    tenencia_id         integer not null references tenencia(id),
+    municipio_id        integer not null references municipio(id),
+    vereda              varchar(50) not null,
+    sector              varchar(50) not null,
+    area_total          double precision ,
+
+    residuos_ordinarios     varchar(100),
+    residuos_peligrosos     varchar(100),
+    residuos_otro           varchar(100),
+
+    via_disponibilidad      boolean not null,
+    via_tipo_id             integer references tipovia(id),
+    via_estado_id           integer references tipoestadovia(id),
+
+    dist_cabecera_mpal  double precision,
+    forma_llegar        text,
+
+    geo_latitud         double precision,
+    geo_longitud        double precision,
+    geo_altura          double precision
+
+    archivo_adjunto     text
+);
+
+create table finca_servicio(
+    id          serial not null primary key,
+    finca_id    integer not null references finca(id),
+    servicio_id integer not null references tiposerviciopublico(id)
+);
+
+create table finca_transporte(
+    id                  serial not null primary key,
+    finca_id            integer not null references finca(id),
+    transporte_id       integer not null references tipomediotransporte(id)
+);  
+
+
+create table finca_maquinaria(
+    id                  serial not null primary key,
+    finca_id            integer not null references finca(id),
+    maquinaria_id       integer not null references tipomaquinaria(id)
+);
+
+
+create table producto(
+    id                              serial not null primary key,
+    ruat_id                         integer not null references ruat(id),
+    nombre                          varchar(100) not null,
+    variedad                        varchar(100) not null,
+    semilla_certificada             boolean not null,
+    area_cosechada                  double precision not null,
+    prod_semestre_a                 double precision,
+    prod_semestre_b                 double precision,
+    prod_total                      double precision,
+    costo_establecimiento           double precision,
+    costo_sostenimiento             double precision,
+    prod_mercado                    double precision,
+    prod_mercado_porcentaje         double precision,
+    sitio_venta_id                  integer not null references tipositioventa(id),
+    vende_tipo_id                   integer not null references tipovende(id),
+    vende_nombre                    varchar(100),
+    precio_promedio                 double precision,
+    forma_pago_id                   integer not null references tipoformapago(id),
+    subproducto                     varchar(50),
+    subproducto_uso                 varchar(50),
+    asistencia_programa             varchar(50) not null,
+    asistencia_entidad              varchar(50) not null,
+);
+

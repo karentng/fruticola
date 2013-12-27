@@ -63,7 +63,7 @@
                 if (feild[0] != '$' && $scope.myForm[feild].$pristine)
                     $scope.myForm[feild].$setViewValue( $scope.myForm[feild].$modelValue );
             }
-            return $scope.myForm.valid;
+            return $scope.myForm.$valid;
         };
 
         $scope.submit = function() {
@@ -428,21 +428,21 @@
                 
             </thead>
             <tbody>
-                <tr ng-repeat="(keyTipoInn,descripTipoInn) in tiposInnovacion">
-                    <td>{{descripTipoInn}}</td>
+                <tr ng-repeat="tipoInn in tiposInnovacion">
+                    <td>{{tipoInn.descripcion}}</td>
                     <td>
-                        <buttons-radio model="innovacion.fuente[keyTipoInn]" options="fuentesInnovacion" name="fuente" ng-model="innovacion.fuente" ng-required="innovacion.realiza">
+                        <buttons-radio model="innovacion.fuente[tipoInn.id]" options="fuentesInnovacion" name="fuente" ng-model="innovacion.fuente" ng-required="innovacion.realiza">
                         </buttons-radio>
-                        <label class="error" ng-show="myForm.innovacion.fuente[keyTipoInn].$dirty && myForm.innovacion.fuente[keyTipoInn].$error.required ">Requerido</label>
+                        <label class="error" ng-show="myForm.innovacion.fuente[tipoInn.id].$dirty && myForm.innovacion.fuente[tipoInn.id].$error.required ">Requerido</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" style="width:100px" 
-                                placeholder="¿Cual?" name="cualInnovacion"ng-show="innovacion.fuente[keyTipoInn]==6" ng-required="innovacion.fuente[keyTipoInn]==6"/>
+                                placeholder="¿Cual?" name="cualInnovacion" ng-show="innovacion.fuente[tipoInn.id]==6" ng-required="innovacion.fuente[tipoInn.id]==6"/>
                         <label class="error" ng-show="myForm.cualInnovacion.$dirty && myForm.cualInnovacion.$error.required ">Requerido</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" 
-                            placeholder="{{innovacion.fuente[keyTipoInn]?'Ingrese aqui la Descripción':''}}" ng-disabled="!innovacion.fuente[keyTipoInn]" />
+                            placeholder="{{innovacion.fuente[tipoInn.id]?'Ingrese aqui la Descripción':''}}" ng-disabled="!innovacion.fuente[tipoInn.id]" />
                     </td>
                 </tr>
             </tbody>
@@ -521,7 +521,7 @@
                             <label class="control-label">Razones de no Pertencer</label>
                             <select multiple ng-model="razones"
                              ui-select2="{ multiple:true, minimumResultsForSearch: -1, allowClear:true}">
-                                <option ng-repeat="t in tiporazonnopertenecer" value="{{t.id}}">{{t.descripcion}}</option>
+                                <option ng-repeat="t in tiposRazonNoPertenecer" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
                         </div>
                     </div>
@@ -637,15 +637,15 @@
 
 
 
-</form></div></div>
 
 <br/>
 <div class="form-actions full">
     <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right-3"></i></button>
 </div>
 
-<div class="row" style="height:100px"></div> <!--para evitar que el señalador de "ir arriba" tape el boton siguiente -->
 
+</form></div></div>
+<div class="row" style="height:100px"></div> <!--para evitar que el señalador de "ir arriba" tape el boton siguiente -->
 
 {% endraw %}
 

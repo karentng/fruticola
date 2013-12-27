@@ -11,6 +11,10 @@
     var extern = {
         combos: {{combos | json_encode }}
     };
+    var urls = {
+        guardar : "{{site_url('ruatb/guardar')}}",
+    };
+
     var count = function(obj) {
         var cnt = 0;
         for(var x in obj)
@@ -27,30 +31,62 @@
 <script type="text/javascript">
     var myApp = angular.module('myApp', ['ui.select2', 'frapontillo.bootstrap-switch']);
     
-    var RuatBCtrl = function($scope) {
+    var RuatBCtrl = function($scope, $http) {
         angular.extend($scope, extern.combos);
-        $scope.finca = {esFinca:true};
-        $scope.maquinaria = {1:{}, 2:{}};
-        $scope.productos = [{}];
-        //$scope.tiposMaquinaria = [{id:1, descripcion:'hErRaMiEnTaS'}, {id:2, descripcion:'UtEnCiLiOs'}];
+        $scope.finca = {
+            esFinca:true, 
+            nombre:'as', 
+            identifCatastral:'ssd',
+            tenencia:1,
+            municipio:'',
+            vereda:'sdfsdfsf',
+            sector:'sdf',
+            
+            areaTotal:34,
 
-        $scope.validate = function(){   
-            for (feild in $scope.myForm) {
+        };
+
+        if(!$scope.maquinaria) {
+            $scope.maquinaria = {};
+            for(var i in $scope.tiposMaquinaria)
+                $scope.maquinaria[$scope.tiposMaquinaria[i].id]={usa:false};
+        }
+
+        $scope.productos = [{}];
+
+        $scope.validate = function(form){   
+            for (feild in form) {
                 // look at each form input with a name attribute set
                 // checking if it is pristine and not a '$' special field
-                if (feild[0] != '$' && $scope.myForm[feild].$pristine)
-                    $scope.myForm[feild].$setViewValue( $scope.myForm[feild].$modelValue );
+                if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
+                    //console.log(typeof($scope.myForm[feild]));
+                    form[feild].$setViewValue( form[feild].$modelValue );
+                }
             }
-            return $scope.myForm.valid;
+            return $scope.myForm.$valid;
         };
 
         $scope.submit = function() {
-            if(!$scope.validate()) {
+            if(!$scope.validate($scope.myForm)) {
                 alert('Revise errores');
                 return;
             }
 
-            alert('Guardar!');
+            //alert('Guardar!');
+            var data = {
+                finca: $scope.finca,
+                productos: $scope.productos,
+                maquinaria: $scope.maquinaria,
+                residuos: $scope.residuos,
+                vias: $scope.vias,
+            };
+
+            $http.post(urls.guardar, data).success(function(response,status) {
+                console.log(response);
+            });
+
+
+            //alert("Guardar!");
         };
     }
 </script>
@@ -64,8 +100,11 @@
 {% raw %}
 
 <div ng-app="myApp"><div ng-controller="RuatBCtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
-<input type="submit">
+{{myForm.$error|json}}
 
+<pre>
+{{master|json}}
+</pre>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -83,7 +122,7 @@
                         <label class="control-label  ">Finca</label><br/>
                         
                         <input bs-switch ng-model="finca.esFinca" switch-on="success"
-                                switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-active="false" switch-animate="true">
+                                switch-on-label="SI" switch-off-label="NO" switch-active="false">
                     </div>
                 </div>
             </div>
@@ -305,18 +344,19 @@
 
         <hr/>
                     
-        
         <table class="table">
             <thead><tr><th colspan="3">Maquinaria y equipo para la realización de actividades productivas y comercializaci&oacute;n</th></tr></thead>
             <tbody>
-                <tr ng-repeat="t in tiposMaquinaria">
+                <tr ng-repeat="t in tiposMaquinaria" ng-form="subForm">
+
                     <td style="width:150px; vertical-align:middle"><strong>{{t.descripcion}}</strong></td>
                     <td style="width:100px">
                         <input bs-switch ng-model="maquinaria[t.id].usa" 
-                                switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="small">
+                                switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="small" />
                     </td>
-                    <td><input type="text" class="form-control" name="descripMaquinaria_{{t.id}}" ng-model="maquinaria[t.id].descripcion" 
-                                placeholder="Descripción" ng-show="maquinaria[t.id].usa" ng-required="maquinaria[t.id].usa" /></td>
+                    <td><input type="text" class="form-control" name="descripMaquinaria" ng-model="maquinaria[t.id].descripcion" 
+                                placeholder="Descripción" ng-show="maquinaria[t.id].usa" ng-required="maquinaria[t.id].usa" />
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -332,18 +372,20 @@
         <a href="#" class="minimize"></a>
     </div>
 
-    <div class="panel-body"><div class="container">
+    <div class="panel-body"><div class="">
         <table class="table table-bordered">
             <thead>
-                <tr><th colspan="7">Cultivos con Perspectiva Comercial</th></tr>
+                <tr><th colspan="8">Cultivos con Perspectiva Comercial</th></tr>
                 <tr>
                     <th rowspan="2">
                         <button type="button" class="btn btn-info tip" title="Agregar Fila" ng-click="productos.push({})"><i class="i-plus-circle"></i></button><br/>
+                    </th>
+                    <th rowspan="2">
                         Producto
                     </th>
                     <th rowspan="2">Variedad</th>
                     <th rowspan="2">Semilla</th>
-                    <th rowspan="2">Área Cosechada (ha)</th>
+                    <th rowspan="2">Área Cosechada</th>
                     <th colspan="3">Producción Total (kilos/año)</th>
                 </tr>
                 <tr>
@@ -353,23 +395,221 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="prod in productos">
+                <tr ng-repeat="prod in productos" ng-form="subForm">
+                    <th><button type="button" ng-click="productos.splice($index,1)" class="btn btn-danger btn-xs" title="Remover fila">-</button> {{$index+1}} </th>
                     <td>
-                        <input type="text" class="form-control" name="nombreProd_{{$index}}" ng-model="prod.nombre" required />
-                        <!--label class="error" ng-show="myForm.nombreFinca.$dirty && myForm.nombreFinca.$error.required">Requerido</label-->
+                        <input type="text" class="form-control" name="nombreProd" ng-model="prod.nombre" required />
+                        <label class="error" ng-show="subForm.nombreProd.$error.required">Requerido</label>
                     </td>
-                    <td><input type="text" class="form-control" name="variedadProd_{{$index}}" ng-model="prod.nombre" required /></td>
+                    <td>
+                        <input type="text" class="form-control" name="variedadProd" ng-model="prod.variedad" required />
+                        <label class="error" ng-show="subForm.variedadProd.$error.required">Requerido</label>
+                    </td>
                     <td>
                         <input bs-switch ng-model="prod.semillaCertif" switch-on="success" switch-off="warning"
-                                switch-on-label=".&nbsp; Certificada  &nbsp;." switch-off-label="No Certificada" switch-type="checkbox" switch-size="" >
-
+                                switch-on-label=".&nbsp; Certificada  &nbsp;." switch-off-label="No Certificada">
+                    </td>
+                    <td>
+                        <div class="input-group" style="width:100px">
+                            <span class="input-group-addon">ha</span>
+                            <input type="number" class="form-control" name="areaCosechada" ng-model="prod.areaCosechada" required /></td>
+                        </div>
+                        <label class="error" ng-show="subForm.areaCosechada.$error.required">Requerido</label>
+                    </td>
+                    <td>
+                        <div class="input-group" style="width:100px">
+                            <span class="input-group-addon">Kg</span>
+                            <input type="number" class="form-control" name="semA" ng-model="prod.semestreA"  /></td>
+                        </div>
+                        <!--label class="error" ng-show="subForm.semA.$dirty && subForm.semA.$error.required">Requerido</label-->
+                    </td>
+                    <td>
+                        <div class="input-group" style="width:100px">
+                            <span class="input-group-addon">Kg</span>
+                            <input type="number" class="form-control" name="semB" ng-model="prod.semestreB"  /></td>
+                        </div>
+                        <!--label class="error" ng-show="subForm.semB.$dirty && subForm.semB.$error.required">Requerido</label-->
+                    </td>
+                    <th>
+                        {{prod.semestreA + prod.semestreB}} Kg
                     </td>
                 </tr>
-
             </tbody>
         </table>
+        
+        <br/>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="min-width:70px"></th>
+                    <th colspan="2" width="15%">Costos ($/ha)</th>
+                    <th rowspan="2" colspan="2" width="15%">Producción destinada al mercado</th>
+                    <th rowspan="2" width="15%">Sitio venta</th>
+                    <th colspan="2" width="55%">A quien le vende</th>
+                </tr>
+                <tr>
+                    <th>Establecimiento</th>
+                    <th>Sostenimiento</th>
+                    <th width="16%">Tipo</th>
+                    <th>Nombre y Apellido</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="prod in productos" ng-form="subForm">
+                    <th>{{$index+1}}</th>
+                    <td>
+                        <div class="input-group" style="width:100px">
+                            <span class="input-group-addon">$/ha</span>
+                            <input type="number" class="form-control" name="costoEstab" ng-model="prod.costoEstablecimiento"  /></td>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group" style="width:100px">
+                            <span class="input-group-addon">$/ha</span>
+                            <input type="number" class="form-control" name="costoSost" ng-model="prod.costoSostenimiento"  /></td>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group" style="width:100px">
+                            <span class="input-group-addon">Kg</span>
+                            <input type="number" class="form-control" name="destMercado" ng-model="prod.destMercado"  /></td>
+                        </div>
+                    </td>
+                    <td style="vertical-align:middle"> <strong>{{ (prod.destMercado*100/(prod.semestreA+prod.semestreB)) | number:2}}%</strong></td>
+                    <td>
+                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Sitio de Venta'}" 
+                            name="sitioVenta" ng-model="prod.sitioVenta" ng-required="true">
+                            <option></option>
+                            <option ng-repeat="t in tiposSitioVenta" value="{{t.id}}">{{t.descripcion}}</option>
+                        </select>
+                        <label class="error" ng-show="myForm.sitioVenta.$dirty && myForm.sitioVenta.$error.required">Requerido</label>
+                    </td>
+                    <td>
+                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'A quién le vende'}" 
+                            name="vende" ng-model="prod.vende" ng-required="true">
+                            <option></option>
+                            <option ng-repeat="t in tiposVende" value="{{t.id}}">{{t.descripcion}}</option>
+                        </select>
+                        <label class="error" ng-show="myForm.vende.$dirty && myForm.vende.$error.required">Requerido</label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="nombreVende" ng-model="prod.nombreVende" placeholder="Nombre y Apellido">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <br/>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="min-width:70px"></th>
+                    <th rowspan="2" width="150">Precio de Venta Promedio ($/kilos)</th>
+                    <th rowspan="2">Forma de Pago</th>
+                    <th colspan="2">Subproductos del cultivo</th>
+                    <th colspan="3">Pertenencia a Programas de Asistencia Técnica</th>
+                </tr>
+                <tr>
+                    <th>Cúal</th>
+                    <th>Uso</th>
+                    <th>SI | NO</th>
+                    <th>Programa</th>
+                    <th>Entidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="prod in productos" ng-form="subForm">
+                    <th>{{$index+1}}</th>
+                    <td>
+                        <div class="input-group" style="width:120px">
+                            <span class="input-group-addon">$/Kg</span>
+                            <input type="number" class="form-control" name="precioVentaProm" ng-model="prod.precioVentaPromedio"  /></td>
+                        </div>
+                    </td>
+                    <td>
+                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Forma de Pago'}" 
+                            name="formaPago" ng-model="prod.formaPago" ng-required="true">
+                            <option></option>
+                            <option ng-repeat="t in tiposFormaPago" value="{{t.id}}">{{t.descripcion}}</option>
+                        </select>
+                        <label class="error" ng-show="myForm.formaPago.$dirty && myForm.formaPago.$error.required">Requerido</label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="subproducto" ng-model="prod.subproducto" placeholder="Subproducto">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="usoSubproducto" ng-model="prod.usoSubproducto" placeholder="Uso">
+                    </td>
+                    <td style="text-align:center">
+                        <input bs-switch ng-model="prod.perteneceProgAsistencia" switch-on="info" switch-off="warning" switch-size="small"
+                                switch-on-label="SI" switch-off-label="NO">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="programa" ng-model="prod.progAsistencia" ng-required="prod.perteneceProgAsistencia" 
+                                ng-disabled="!prod.perteneceProgAsistencia" placeholder="{{prod.perteneceProgAsistencia?'Programa':''}}" />
+                        <label class="error" ng-show="subForm.programa.$error.required">Requerido</label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="entidad" ng-model="prod.entidadAsistencia" ng-required="prod.perteneceProgAsistencia"
+                                ng-disabled="!prod.perteneceProgAsistencia" placeholder="{{prod.perteneceProgAsistencia?'Entidad':''}}" />
+                        <label class="error" ng-show="subForm.entidad.$error.required">Requerido</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div></div><!-- .container and .panel-body -->
+</div>
 
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>Georreferenciación del Predio de Ubicación del Cultivo. <small>Escribir las coordenadas en formato decimal</small></h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
 
+    <div class="panel-body"><div class="container">
+        <span></span>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="form-group">
+                        <label class="control-label">LATITUD NORTE (N)</label>
+                        <input type="number" class="form-control" name="latitud" ng-model="finca.latitud" />
+                    </div> 
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="form-group">
+                        <label class="control-label">LONGITUD OCCIDENTE (W)</label>
+                        <input type="number" class="form-control" name="longitud" ng-model="finca.longitud" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="form-group">
+                        <label class="control-label">ALTURA SOBRE EL NIVEL DEL MAR</label>
+                        <input type="number" class="form-control" name="altura" ng-model="finca.altitud" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--div class="page-header">
+                <h4>DISEÑO DEL PREDIO</h4>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-5">Subir Archivo</label>
+                    <div class="col-sm-7">
+                        {{my_input('subir_archivo',{'type':'file'})}}
+                    </div>
+                </div> 
+            </div>
+        </div-->
     </div></div><!-- .container and .panel-body -->
 </div>
 

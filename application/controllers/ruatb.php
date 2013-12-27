@@ -4,6 +4,8 @@ class RuatB extends CI_Controller {
 
     public function index()
     {
+        check_profile($this,"Administrador");
+
         function to_array($model) { return $model->to_array(); }
 
         $combos = array();
@@ -16,6 +18,7 @@ class RuatB extends CI_Controller {
         $combos['tiposSitioVenta']      = array_map('to_array',TipoSitioVenta::sorted());
         $combos['tiposVende']           = array_map('to_array',TipoVende::sorted());
         $combos['tiposFormaPago']       = array_map('to_array',TipoFormaPago::sorted());
+        $combos['tiposMaquinaria']      = array_map('to_array',TipoMaquinaria::sorted());
         //municipios del valle
         
         $combos['municipios'] = array_map('to_array',Municipio::find_all_by_departamento_id(30, array('select'=>'id,nombre' , 'order'=>'nombre')));
@@ -23,6 +26,13 @@ class RuatB extends CI_Controller {
         $this->twiggy->set('combos', $combos);
         $this->twiggy->template("ruat/ruatb");
         $this->twiggy->display();
+    }
+
+    public function guardar()
+    {
+        $input = json_decode(file_get_contents("php://input"));
+        echo "me llego ";
+        var_dump($input);
     }
 
     public function old()

@@ -172,6 +172,6 @@ insert into tipomaquinaria (descripcion, orden) values
     ('Herramientas', 1),
     ('Utensilios', 2),
     ('Equipos', 3),
-    ('Maquinaría Liviana', 4),
-    ('Maquinaría Pesada', 5),
+    ('Maquinaria Liviana', 4),
+    ('Maquinaria Pesada', 5),
     ('Otros', 6);
