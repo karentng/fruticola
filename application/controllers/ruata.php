@@ -189,14 +189,16 @@ class RuatA extends CI_Controller {
             $innovacion = new Innovacion();
             $innovacion->productor_id = $productor->id;
             $innovacion->tipo_id = $innova->tipo;
-            $innovacion->fuente_id  = $innova->fuente;
-            $innovacion->otra_fuente = $innova->cual;
-            $innovacion->descripcion = $innova->descripcion;
-            $innovacion->save(); 
+            if ($innova->fuente!= NULL)
+            {
+                $innovacion->fuente_id  = $innova->fuente;
+                $innovacion->otra_fuente = $innova->cual;
+                $innovacion->descripcion = $innova->descripcion;
+                $innovacion->save(); 
+            }
+            
         }
         
-        //$innovacion->productor_id     = $productor->id;
-        //$innovacion->tipo_id    = $input->$innovacion->
 
 
 
