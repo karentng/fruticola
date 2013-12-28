@@ -154,6 +154,7 @@ class RuatA extends CI_Controller {
         $productor->apellido1   = $input->productor->apellido1;
         $productor->apellido2   = $input->productor->apellido2;
         $productor->sexo        = $input->productor->sexo;
+        $productor->fecha_nacimiento = $input->productor->fechaNacimiento;
         $productor->nivel_educativo_id = $input->productor->nivelEducativo;
         $productor->tipo_documento_id = $input->productor->tipoDocumento;
         $productor->numero_documento = $input->productor->numeroDocumento;
@@ -163,7 +164,7 @@ class RuatA extends CI_Controller {
         $productor->save();
 
         $contacto = new Contacto();
-
+        $contacto->productor_id     = $productor->id;
         $contacto->telefono         = $input->contacto->telefono;
         $contacto->celular          = $input->contacto->celular;
         $contacto->email            = $input->contacto->email;
@@ -173,6 +174,21 @@ class RuatA extends CI_Controller {
         $contacto->direccion        = $input->contacto->direccion;
 
         $contacto->save();
+
+        $economia = new Economia();
+        $economia->productor_id     = $productor->id;
+        $economia->ingreso_familiar = $input->$economia->ingresoMensual;
+        $economia->ingreso_agropecuaria = $input->$economia->ingresoAgropecuaria;
+        $economia->personas_dependientes = $input->$economia->personasCargo;
+        $economia->credito_id = $input->$economia->procedenciaCredito;
+        $economia->otro_credito = $input->$economia->otroCredito;
+
+        $economia->save();
+
+        $innovacion = new Innovacion();
+        $innovacion->productor_id     = $productor->id;
+        //$innovacion->tipo_id    = $input->$innovacion->
+
 
 
         
