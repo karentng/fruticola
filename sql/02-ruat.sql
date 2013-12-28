@@ -59,6 +59,7 @@ create table contacto(
 
 create table economia(
     id                     serial not null primary key,
+    productor_id           integer unique references productor(id),
     ingreso_familiar       integer,
     personas_dependientes  integer,
     ingreso_agropecuario   integer,
@@ -69,6 +70,7 @@ create table economia(
 
 create table procesoinnovacion(
     id                  serial not null primary key,
+    productor_id        integer unique references productor(id),
     tipo_id             integer not null references tipoinnovacion(id),
     fuente_id           integer references tipoinnovacion(id),
     otra_fuente         varchar(30),
@@ -79,6 +81,7 @@ create table procesoinnovacion(
 
 create table personaasociada(
     id                  serial not null primary key,
+    productor_id           integer unique references productor(id),
     nombre              varchar(50) not null,
     apellido            varchar(50) not null,
     vereda              varchar(100),
