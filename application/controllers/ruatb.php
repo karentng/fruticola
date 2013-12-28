@@ -4,7 +4,7 @@ class RuatB extends CI_Controller {
 
     public function index()
     {
-        check_profile($this,"Administrador");
+        //check_profile($this,"Administrador");
 
         function to_array($model) { return $model->to_array(); }
 
@@ -28,11 +28,99 @@ class RuatB extends CI_Controller {
         $this->twiggy->display();
     }
 
-    public function guardar()
+    public function guardar() //si viene como parametro: $ruat_id
     {
         $input = json_decode(file_get_contents("php://input"));
         echo "me llego ";
         var_dump($input);
+
+        //$finca = Finca::find_by_ruat_id($ruat_id);
+        //if(!$finca) 
+            $finca = new Finca();
+        
+        $ruat_id = 1;
+        $finca->ruat_id =  $ruat_id; //revisar
+        $finca->nombre = $input->finca->nombre;
+        $finca->identif_catrastral = $input->finca->identifCatastral;
+        $finca->tenencia_id = $input->finca->tenencia;
+        $finca->municipio_id = $input->finca->municipio;
+        $finca->vereda = $input->finca->vereda;
+        $finca->sector = $input->finca->sector;
+        $finca->area_total = $input->finca->areaTotal;
+
+        $finca->save();
+
+        foreach($input->finca->servicios as $s){
+            $serviciosPublicos = new TipoServicioPublico();
+            $serviciosPublicos->finca_id = $finca->id;
+            $serviciosPublicos->servicio_id = $s;
+            $serviciosPublicos->save();
+        }
+/*
+        $disponible = $input->vias->disponibilidad;
+
+        $finca->via_disponibilidad = $disponible;
+
+        if($disponible){
+            $finca->via_tipo_id = $input->finca->vias->tipo;
+            $finca->via_estado_id = $input->finca->vias->estado;
+        } else {
+            $finca->via_tipo_id = null;
+            $finca->via_estado_id = null;
+
+        }
+
+        if($input->residuos->ordinarios->maneja){
+            $finca->residuos_ordinarios = $input->residuos->ordinarios->descripcion;
+        }else{
+            $finca->residuos_ordinarios = null;
+        }
+
+        if($input->residuos->peligrosos->maneja){
+            $finca->residuos_peligrosos = $input->residuos->peligrosos->descripcion;
+        }else{
+            $finca->residuos_peligrosos = null;
+        }
+
+        if($input->residuos->otros->maneja){
+            $finca->residuos_otro = $input->residuos->otros->descripcion;
+        }else{
+            $finca->residuos_otro = null;
+        }
+
+        $finca->dist_cabecera_mpal = $input->finca->distanciaCabecera;
+
+        foreach($input->$finca->mediosTransporte as $mt){
+            $fincaTransporte = new FincaTransporte();
+            $fincaTransporte->$finca_id = $finca->id;
+            $fincaTransporte->$transporte_id = $finca->$mt;
+            $fincaTransporte->save();
+        }
+
+        $finca->forma_llegar = $input->finca->formaLlegar;
+
+        //Aqui viene la maquinaria
+
+        foreach($input->maquinaria as $tipo => $maq) {
+           if($maq->usa) {
+              $objetico = new FincaMaquinaria();
+              $objetico->finca_id = $finca->id;
+              $objetico->maquinaria_id = $tipo;
+              $objetico->descripcion = $maq->descripcion;
+              $objetico->save();
+           }
+        }
+        //Aqui viene los productos
+
+*/
+
+        //Aqui viene la georreferenciacion
+
+
+        $finca->save(); 
+
+
+        echo "ok";
     }
 
     public function old()
