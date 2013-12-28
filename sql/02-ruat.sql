@@ -43,7 +43,7 @@ create table productor(
 
 
 
-create table ubicacion(
+create table contacto(
     id                  serial not null primary key,
     productor_id        integer unique references productor(id),
     telefono            varchar(20),
@@ -125,7 +125,7 @@ create table orgasociada_beneficio(
 );
 
 create table razonnopertenecer(
-    id                  serial not null primary key
+    id                  serial not null primary key,
     ruat_id             integer not null references ruat(id),
     razon_id            integer not null references tiporazonnopertenecer(id)
 );
@@ -154,7 +154,7 @@ create table finca(
 
     geo_latitud         double precision,
     geo_longitud        double precision,
-    geo_altura          double precision
+    geo_altura          double precision,
 
     archivo_adjunto     text,
     observaciones       text
@@ -176,7 +176,8 @@ create table finca_transporte(
 create table finca_maquinaria(
     id                  serial not null primary key,
     finca_id            integer not null references finca(id),
-    maquinaria_id       integer not null references tipomaquinaria(id)
+    maquinaria_id       integer not null references tipomaquinaria(id),
+    descripcion         text not null
 );
 
 
