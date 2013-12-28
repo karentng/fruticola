@@ -22,6 +22,8 @@ create table tipositioventa         (id serial not null primary key, descripcion
 create table tipovende              (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table tipoformapago          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 
+create table tipopregunta           (id serial not null primary key, descripcion text not null, orden integer not null);
+create table tiporespuesta          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 
 create table productor(
     id                     serial not null primary key,
@@ -35,7 +37,8 @@ create table productor(
     sexo                   char not null,
     nivel_educativo_id     integer references niveleducativo(id),
     tipo_productor_id      integer references tipoproductor(id),
-    renglon_productivo_id  integer not null references renglonproductivo(id)
+    renglon_productivo_id  integer not null references renglonproductivo(id),
+    adjunto_cedula         text 
 );
 
 
@@ -125,7 +128,7 @@ create table orgasociada_beneficio(
 );
 
 create table razonnopertenecer(
-    id                  serial not null primary key
+    id                  serial not null primary key,
     ruat_id             integer not null references ruat(id),
     razon_id            integer not null references tiporazonnopertenecer(id)
 );
@@ -154,9 +157,10 @@ create table finca(
 
     geo_latitud         double precision,
     geo_longitud        double precision,
-    geo_altura          double precision
+    geo_altura          double precision,
 
-    archivo_adjunto     text
+    archivo_adjunto     text,
+    observaciones       text
 );
 
 create table finca_servicio(
@@ -175,7 +179,8 @@ create table finca_transporte(
 create table finca_maquinaria(
     id                  serial not null primary key,
     finca_id            integer not null references finca(id),
-    maquinaria_id       integer not null references tipomaquinaria(id)
+    maquinaria_id       integer not null references tipomaquinaria(id),
+    descripcion         text not null
 );
 
 
@@ -201,6 +206,13 @@ create table producto(
     subproducto                     varchar(50),
     subproducto_uso                 varchar(50),
     asistencia_programa             varchar(50) not null,
-    asistencia_entidad              varchar(50) not null,
+    asistencia_entidad              varchar(50) not null
 );
 
+
+create table aprendizaje_respuesta(
+    id              serial not null primary key,
+    ruat_id         integer not null references ruat(id),
+    pregunta_id     integer not null references tipopregunta(id),
+    respuesta_id    integer not null references tiporespuesta(id)
+);

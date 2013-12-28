@@ -103,7 +103,7 @@
 {{myForm.$error|json}}
 
 <pre>
-{{master|json}}
+{{finca.servicios|json}}
 </pre>
 
 <div class="panel panel-default">
@@ -326,7 +326,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Medios de transporte</label> <!-- para la realizacion de la actividad productiva y de comercializaci&oacute;n-->
-                    <select multiple name="servicios" ng-model="finca.servicios"
+                    <select multiple name="mediosTransporte" ng-model="finca.mediosTransporte"
                                 ui-select2="{multiple:true, allowClear:true, placeholder:'-'}">
                             <option ng-repeat="t in tiposMedioTransporte" value="{{t.id}}">{{t.descripcion}}</option>
                     </select>
@@ -337,7 +337,7 @@
             <div class="col-md-5 col-md-offset-1">
                 <div class="form-group">
                     <label class="control-label">Forma de Llegar al Predio</label>
-                    <textarea name="forma_llegar_predio" id="forma_llegar_predio" class="form-control" rows="4" placeholder="Describa indicaciones para localizar el predio"></textarea>
+                    <textarea ng-model="finca.formaLlegar" name="forma_llegar_predio" id="forma_llegar_predio" class="form-control" rows="4" placeholder="Describa indicaciones para localizar el predio"></textarea>
                 </div>
             </div>
         </div>

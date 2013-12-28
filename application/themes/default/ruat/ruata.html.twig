@@ -95,18 +95,18 @@
         };
         
         $scope.count = count;
-        $scope.innovaciones = {}
-        /*$scope.innovacion = {
-            tiposInn: 2,
-            realiza:false, 
-            fuente:{}
-        };*/
-        $scope.validate = function(){   
-            for (feild in $scope.myForm) {
+
+        $scope.innovacion = {realiza:false, fuente:{}};
+        
+        $scope.validate = function(form){   
+            for (feild in form) {
+
                 // look at each form input with a name attribute set
                 // checking if it is pristine and not a '$' special field
-                if (feild[0] != '$' && $scope.myForm[feild].$pristine)
-                    $scope.myForm[feild].$setViewValue( $scope.myForm[feild].$modelValue );
+                if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
+                    //console.log(typeof($scope.myForm[feild]));
+                    form[feild].$setViewValue( form[feild].$modelValue );
+                }
             }
             return $scope.myForm.$valid;
         };

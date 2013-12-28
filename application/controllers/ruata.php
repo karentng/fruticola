@@ -197,4 +197,14 @@ class RuatA extends CI_Controller {
 
         echo "ok";
     }
+
+
+
+    public function cargar($ruat_id)
+    {
+        $ruat = Ruat::find($ruat_id);
+
+        $output = new StdClass;
+        
+    }
 }
