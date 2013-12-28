@@ -62,7 +62,8 @@
             tipoDocumento:1,
             numeroDocumento:102909,
             tipo:1,
-            renglonProductivo:1
+            renglonProductivo:1,
+            fechaNacimiento: '2013-12-20'
 
         };
         $scope.contacto = {
@@ -82,8 +83,11 @@
             ingresoMensual: 123234,
             personasCargo: 3,
             ingresoAgropecuaria: 121212,
+            procedenciaCredito: 2,
+            otroCredito: "algo"
 
         };
+
         $scope.asociacion = {
             cooperativa:{asociado:false, filas:[{}]},
             otroProductor:{asociado:false, nombre:'', apellido:'', vereda:'', confianza:null},
@@ -91,10 +95,12 @@
         };
         
         $scope.count = count;
+
         $scope.innovacion = {realiza:false, fuente:{}};
         
         $scope.validate = function(form){   
             for (feild in form) {
+
                 // look at each form input with a name attribute set
                 // checking if it is pristine and not a '$' special field
                 if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
@@ -211,7 +217,7 @@
                         <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento:</label>
                         <div class="col-sm-6">
                             <div class="input-group date datepicker autostart">
-                                <input size="16" name="fecha_nacimiento" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text">
+                                <input size="16" name="fecha_nacimiento" ng-model="productor.fechaNacimiento" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text">
                                 <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                             </div>
                         </div>
@@ -439,7 +445,7 @@
                 </div>
                 <div div class="col-md-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="otraProcedencia" placeholder="¿Cuál?" 
+                        <input type="text" class="form-control" name="otraProcedencia" ng-model="otroCredito" placeholder="¿Cuál?" 
                                 ng-required="economia.usaCredito&& economia.procedenciaCredito==7" 
                                 ng-show="economia.usaCredito && economia.procedenciaCredito==7" />
                     </div>
