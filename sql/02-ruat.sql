@@ -70,9 +70,9 @@ create table economia(
 
 create table procesoinnovacion(
     id                  serial not null primary key,
-    productor_id        integer unique references productor(id),
+    productor_id        integer references productor(id),
     tipo_id             integer not null references tipoinnovacion(id),
-    fuente_id           integer references tipoinnovacion(id),
+    fuente_id           integer references fuenteinnovacion(id),
     otra_fuente         varchar(30),
     descripcion         varchar(100)
 );

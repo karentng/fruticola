@@ -96,7 +96,10 @@
         
         $scope.count = count;
 
-        $scope.innovacion = {realiza:false, fuente:{}};
+        $scope.realizaInnovacion=false;
+
+        $scope.innovaciones=[];
+
         
         $scope.validate = function(form){   
             for (feild in form) {
@@ -122,7 +125,7 @@
                 contacto : $scope.contacto,
                 economia: $scope.economia,
                 asociacion: $scope.asociacion,
-                innovacion: $scope.innovacion
+                innovaciones: $scope.realizaInnovacion?$scope.innovaciones:[]
             };
 
             $http.post(urls.guardar, data).success(function(response,status) {
@@ -470,12 +473,12 @@
             <div class="form-group">
                 <label class="col-md-7 control-label">¿Realiza Procesos de Innovación?</label>
                 <div class="col-md-5">
-                    <input bs-switch ng-model="innovacion.realiza" switch-on="success" switch-off="danger"
+                    <input bs-switch ng-model="realizaInnovacion" switch-on="success" switch-off="danger"
                         switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true">
                 </div>
             </div>
 
-            <table class="table table-bordered animate-show-hide" ng-show="innovacion.realiza">
+            <table class="table table-bordered animate-show-hide" ng-show="realizaInnovacion">
             <thead>
                 <tr>
                     <th>Actividad</th>
@@ -488,18 +491,18 @@
                 <tr ng-repeat="tipoInn in tiposInnovacion">
                     <td>{{tipoInn.descripcion}}</td>
                     <td>
-                        <buttons-radio model="innovacion.fuente[tipoInn.id]" options="fuentesInnovacion" name="fuente" ng-model="innovacion.fuente" ng-required="innovacion.realiza">
+                        <span ng-init="innovaciones[$index]={tipo:tipoInn.id}"></span>
+                        <buttons-radio model="innovaciones[$index].fuente" options="fuentesInnovacion" name="fuente" >
                         </buttons-radio>
-                        <label class="error" ng-show="myForm.innovacion.fuente[tipoInn.id].$dirty && myForm.innovacion.fuente[tipoInn.id].$error.required ">Requerido</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" style="width:100px" 
-                                placeholder="¿Cual?" name="cualInnovacion" ng-show="innovacion.fuente[tipoInn.id]==6" ng-required="innovacion.fuente[tipoInn.id]==6"/>
-                        <label class="error" ng-show="myForm.cualInnovacion.$dirty && myForm.cualInnovacion.$error.required ">Requerido</label>
+                                placeholder="¿Cual?" name="cualInnovacion" ng-model="innovaciones[$index].cual" ng-show="innovaciones[$index].fuente==6" ng-required="innovaciones[$index].fuente==6"/>
+                        
                     </td>
                     <td>
-                        <input type="text" class="form-control" 
-                            placeholder="{{innovacion.fuente[tipoInn.id]?'Ingrese aqui la Descripción':''}}" ng-disabled="!innovacion.fuente[tipoInn.id]" />
+                        <input type="text" class="form-control" name="descripcion" ng-model="innovaciones[$index].descripcion"
+                            placeholder="{{innovaciones[$index].fuente?'Ingrese aqui la Descripción':''}}" ng-disabled="!innovaciones[$index].fuente" />
                     </td>
                 </tr>
             </tbody>

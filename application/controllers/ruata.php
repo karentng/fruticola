@@ -177,16 +177,25 @@ class RuatA extends CI_Controller {
 
         $economia = new Economia();
         $economia->productor_id     = $productor->id;
-        $economia->ingreso_familiar = $input->$economia->ingresoMensual;
-        $economia->ingreso_agropecuaria = $input->$economia->ingresoAgropecuaria;
-        $economia->personas_dependientes = $input->$economia->personasCargo;
-        $economia->credito_id = $input->$economia->procedenciaCredito;
-        $economia->otro_credito = $input->$economia->otroCredito;
+        $economia->ingreso_familiar = $input->economia->ingresoMensual;
+        $economia->ingreso_agropecuario = $input->economia->ingresoAgropecuaria;
+        $economia->personas_dependientes = $input->economia->personasCargo;
+        $economia->credito_id = $input->economia->procedenciaCredito;
+        $economia->otro_credito = $input->economia->otroCredito;
 
         $economia->save();
 
-        $innovacion = new Innovacion();
-        $innovacion->productor_id     = $productor->id;
+        foreach($input->innovaciones as $innova) {
+            $innovacion = new Innovacion();
+            $innovacion->productor_id = $productor->id;
+            $innovacion->tipo_id = $innova->tipo;
+            $innovacion->fuente_id  = $innova->fuente;
+            $innovacion->otra_fuente = $innova->cual;
+            $innovacion->descripcion = $innova->descripcion;
+            $innovacion->save(); 
+        }
+        
+        //$innovacion->productor_id     = $productor->id;
         //$innovacion->tipo_id    = $input->$innovacion->
 
 
