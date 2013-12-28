@@ -40,7 +40,7 @@ create table productor(
 
 
 
-create table ubicacion(
+create table contacto(
     id                  serial not null primary key,
     productor_id        integer unique references productor(id),
     telefono            varchar(20),
