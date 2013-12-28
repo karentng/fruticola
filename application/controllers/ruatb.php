@@ -61,8 +61,6 @@ class RuatB extends CI_Controller {
             $serviciosPublicos->save();
         }
 
-        
-
         if($disponible === 't'){
             $finca->via_tipo_id = $input->finca->vias->tipo;
             $finca->via_estado_id = $input->finca->vias->estado;
@@ -72,26 +70,32 @@ class RuatB extends CI_Controller {
 
         }
 
-        if($input->residuos->ordinarios->maneja){
+        $ordin = $input->residuos->ordinarios->maneja ? 't' : 'f';
+
+        if($ordin === 't'){
             $finca->residuos_ordinarios = $input->residuos->ordinarios->descripcion;
         }else{
             $finca->residuos_ordinarios = null;
         }
 
-        if($input->residuos->peligrosos->maneja){
+        $pelig = $input->residuos->peligrosos->maneja ? 't' : 'f';
+
+        if($pelig === 't'){
             $finca->residuos_peligrosos = $input->residuos->peligrosos->descripcion;
         }else{
             $finca->residuos_peligrosos = null;
         }
 
-        if($input->residuos->otros->maneja){
+        $otr = $input->residuos->otros->maneja ? 't' : 'f';
+
+        if($otr === 't'){
             $finca->residuos_otro = $input->residuos->otros->descripcion;
         }else{
             $finca->residuos_otro = null;
         }
 
         $finca->dist_cabecera_mpal = $input->finca->distanciaCabecera;
-
+        
         foreach($input->finca->mediosTransporte as $mt){
             $fincaTransporte = new FincaTransporte();
             $fincaTransporte->finca_id = $finca->id;
@@ -112,12 +116,52 @@ class RuatB extends CI_Controller {
               $objetico->save();
            }
         }
+
         //Aqui viene los productos
 
+        foreach($input->productos as $p){
+            $producto = new Producto();
+            $producto->ruat_id = $ruat_id;
+            $producto->nombre = $p->nombre;
+            $producto->variedad = $p->variedad;
 
+            $producto->semilla_certificada = $p->semillaCertif ? 't' : 'f';
+            $producto->area_cosechada = $p->areaCosechada;
+            $producto->prod_semestre_a = $p->semestreA;
+            $producto->prod_semestre_b = $p->semestreB;
+            $producto->prod_total = $p->semestreA + $p->semestreB;
+            $producto->costo_establecimiento = $p->costoEstablecimiento;
+            $producto->costo_sostenimiento = $p->costoSostenimiento;
+            $producto->prod_mercado = $p->destMercado;
+            $producto->prod_mercado_porcentaje = ($p->destMercado * 100)/($p->semestreA + $p->semestreB);
+            $producto->sitio_venta_id = $p->sitioVenta;
+            $producto->vende_tipo_id = $p->vende;
+            $producto->vende_nombre = $p->nombreVende;
+            $producto->precio_promedio = $p->precioVentaPromedio;
+
+            $producto->forma_pago_id = $p->formaPago;
+            $producto->subproducto = $p->subproducto;
+            $producto->subproducto_uso = $p->usoSubproducto;
+
+            $progAsistencia = $p->perteneceProgAsistencia ? 't' : 'f';
+            if($progAsistencia === 't'){
+                $producto->asistencia_programa = $p->progAsistencia;
+                $producto->asistencia_entidad = $p->entidadAsistencia;
+            }else{
+                $producto->asistencia_programa = '';
+                $producto->asistencia_entidad = '';
+            }
+
+            $producto->save();
+        }
 
         //Aqui viene la georreferenciacion
-        
+        $finca->geo_latitud = $input->finca->latitud;
+        $finca->geo_longitud = $input->finca->longitud;
+        $finca->geo_altura = $input->finca->altitud;
+
+        $finca->archivo_adjunto = null;
+        $finca->observaciones = null;
 
         $finca->save(); 
 
