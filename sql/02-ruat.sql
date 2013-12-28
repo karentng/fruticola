@@ -205,8 +205,8 @@ create table producto(
     forma_pago_id                   integer not null references tipoformapago(id),
     subproducto                     varchar(50),
     subproducto_uso                 varchar(50),
-    asistencia_programa             varchar(50) not null,
-    asistencia_entidad              varchar(50) not null
+    asistencia_programa             varchar(50),
+    asistencia_entidad              varchar(50)
 );
 
 
