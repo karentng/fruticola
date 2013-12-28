@@ -11,6 +11,10 @@
     var extern = {
         combos: {{combos}}
     };
+
+    var urls = {
+        guardar : "{{site_url('ruata/guardar')}}",
+    };
     var count = function(obj) {
         var cnt = 0;
         for(var x in obj)
@@ -46,8 +50,32 @@
     var RuatACtrl = function($scope) {
         angular.extend($scope, extern.combos);
         //$scope.combos = extern.combos;
+
+        $scope.productor = {
+            nombre1:'carlos', 
+            apellido1:'torres',
+            sexo:'M',
+            nivelEducativo:1,
+            tipoDocumento:1,
+            numeroDocumento:102909,
+            tipo:1,
+            renglonProductivo:1
+
+        };
+        $scope.ubicacion = {
+            departamento: 1,
+            municipio: 505,
+
+        };
+
         
-        $scope.economia = {usaCredito:false};
+        $scope.economia = {
+            usaCredito: false,
+            ingresoMensual: 123234,
+            personasCargo: 3,
+            ingresoAgropecuaria: 121212,
+
+        };
         $scope.asociacion = {
             cooperativa:{asociado:false, filas:[{}]},
             otroProductor:{asociado:false, nombre:'', apellido:'', vereda:'', confianza:null},
@@ -55,7 +83,7 @@
         };
         
         $scope.count = count;
-        $scope.innovacion = {realiza:'no', fuente:{}};
+        $scope.innovacion = {realiza:false, fuente:{}};
         $scope.validate = function(){   
             for (feild in $scope.myForm) {
                 // look at each form input with a name attribute set
@@ -72,7 +100,18 @@
                 return;
             }
 
-            alert('Guardar!');
+            var data = {
+                productor: $scope.productor,
+                economia: $scope.economia,
+                asociacion: $scope.asociacion,
+                innovacion: $scope.innovacion
+            };
+
+            $http.post(urls.guardar, data).success(function(response,status) {
+                console.log(response);
+            });
+
+            //alert('Guardar!');
         };
 
     };

@@ -141,5 +141,28 @@ class RuatA extends CI_Controller {
     public function guardar()
     {
         
+        $input = json_decode(file_get_contents("php://input"));
+        
+        
+        $input->productor->nombre1;
+        //$input['finca']['nombre']
+        
+        //echo "me llego ";
+        //var_dump($input);
+
+        //$finca = Finca::find_by_ruat_id($ruat_id);
+        //if(!$finca) 
+        $productor = new Productor();
+        
+        
+        $productor->nombre1 =  $input->productor->nombre1;
+        $productor->apellido1 = $input->productor->apellido1;
+        
+        $productor->save();
+        
+        
+
+
+        echo "ok";
     }
 }
