@@ -41,27 +41,29 @@ class RuatB extends CI_Controller {
         $ruat_id = 1;
         $finca->ruat_id =  $ruat_id; //revisar
         $finca->nombre = $input->finca->nombre;
-        $finca->identif_catrastral = $input->finca->identifCatastral;
+        $finca->identif_catastral = $input->finca->identifCatastral;
         $finca->tenencia_id = $input->finca->tenencia;
         $finca->municipio_id = $input->finca->municipio;
         $finca->vereda = $input->finca->vereda;
         $finca->sector = $input->finca->sector;
         $finca->area_total = $input->finca->areaTotal;
 
+        $disponible = $input->vias->disponibilidad ? 't' : 'f';
+
+        $finca->via_disponibilidad = $disponible;
+
         $finca->save();
 
         foreach($input->finca->servicios as $s){
-            $serviciosPublicos = new TipoServicioPublico();
+            $serviciosPublicos = new FincaServicio();
             $serviciosPublicos->finca_id = $finca->id;
             $serviciosPublicos->servicio_id = $s;
             $serviciosPublicos->save();
         }
-/*
-        $disponible = $input->vias->disponibilidad;
 
-        $finca->via_disponibilidad = $disponible;
+        
 
-        if($disponible){
+        if($disponible === 't'){
             $finca->via_tipo_id = $input->finca->vias->tipo;
             $finca->via_estado_id = $input->finca->vias->estado;
         } else {
@@ -90,10 +92,10 @@ class RuatB extends CI_Controller {
 
         $finca->dist_cabecera_mpal = $input->finca->distanciaCabecera;
 
-        foreach($input->$finca->mediosTransporte as $mt){
+        foreach($input->finca->mediosTransporte as $mt){
             $fincaTransporte = new FincaTransporte();
-            $fincaTransporte->$finca_id = $finca->id;
-            $fincaTransporte->$transporte_id = $finca->$mt;
+            $fincaTransporte->finca_id = $finca->id;
+            $fincaTransporte->transporte_id = $mt;
             $fincaTransporte->save();
         }
 
@@ -112,10 +114,10 @@ class RuatB extends CI_Controller {
         }
         //Aqui viene los productos
 
-*/
+
 
         //Aqui viene la georreferenciacion
-
+        
 
         $finca->save(); 
 
