@@ -47,24 +47,32 @@
         };
     });
 
-    var RuatACtrl = function($scope) {
+    var RuatACtrl = function($scope, $http) {
+
         angular.extend($scope, extern.combos);
         //$scope.combos = extern.combos;
 
         $scope.productor = {
-            nombre1:'carlos', 
-            apellido1:'torres',
+            nombre1:'guachu',
+            nombre2:'Alan', 
+            apellido1:'from',
+            apellido2: 'missisipi',
             sexo:'M',
-            nivelEducativo:1,
+            nivelEducativo:'1',
             tipoDocumento:1,
             numeroDocumento:102909,
             tipo:1,
             renglonProductivo:1
 
         };
-        $scope.ubicacion = {
+        $scope.contacto = {
+            celular: 3114005089,
+            telefono: 3774121,
+            email: 'guachu@openEnglish.com',
             departamento: 1,
             municipio: 505,
+            vereda:'micasita',
+            direccion: 'calle con carrera'
 
         };
 
@@ -102,6 +110,7 @@
 
             var data = {
                 productor: $scope.productor,
+                contacto : $scope.contacto,
                 economia: $scope.economia,
                 asociacion: $scope.asociacion,
                 innovacion: $scope.innovacion
@@ -279,7 +288,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Telefono Fijo</label>
-                            <input type="text" class="form-control" name="telefono" ng-model="ubicacion.telefono" />
+                            <input type="text" class="form-control" name="telefono" ng-model="contacto.telefono" />
                             <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -288,7 +297,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Celular</label>
-                            <input type="text" class="form-control" name="celular" ng-model="ubicacion.celular" />
+                            <input type="text" class="form-control" name="celular" ng-model="contacto.celular" />
                             <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -297,7 +306,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" name="email" ng-model="ubicacion.email" />
+                            <input type="email" class="form-control" name="email" ng-model="contacto.email" />
                             <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Debe ser un Email Válido</label></span>
                         </div>
                     </div>
@@ -308,7 +317,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Departamento:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="departamento" ng-model="ubicacion.departamento" required>
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="departamento" ng-model="contacto.departamento" required>
                                 <option></option>
                                 <option ng-repeat="(key,depto) in departamentos" value="{{key}}">{{depto.nombre}}</option>
                             </select>
@@ -320,9 +329,9 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Municipio:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="ubicacion.municipio" ng-disabled="!ubicacion.departamento" ng-required="ubicacion.departamento">
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="contacto.municipio" ng-disabled="!contacto.departamento" ng-required="contacto.departamento">
                                 <option></option>
-                                <option ng-repeat="mun in departamentos[ubicacion.departamento].municipios" value="{{mun.id}}">{{mun.nombre}}</option>
+                                <option ng-repeat="mun in departamentos[contacto.departamento].municipios" value="{{mun.id}}">{{mun.nombre}}</option>
                             </select>
                             <label class="error" ng-show="myForm.municipio.$dirty && myForm.municipio.$error.required">Requerido</label>
                         </div>
@@ -332,7 +341,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Vereda</label>
-                            <input type="text" class="form-control" name="vereda" ng-model="ubicacion.vereda" />
+                            <input type="text" class="form-control" name="vereda" ng-model="contacto.vereda" />
                             <span class="help-block" ng-show="myForm.vereda.$dirty && myForm.vereda.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -343,7 +352,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="focused">Dirección de Residencia:</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="direccion" ng-model="ubicacion.direccion">
+                            <input type="text" class="form-control" name="direccion" ng-model="contacto.direccion">
 
                         </div>
                     </div>
