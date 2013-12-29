@@ -20,6 +20,7 @@
                 Lea detenidamente cada una de las preguntas y marque el nivel de acuerdo en el que usted se sienta;
                 TOTALMENTE DESACUERDO, DESACUERDO, NI DE ACUERDO NI EN DESACUERDO, DE ACUERDO, TOTALMENTE DE ACUERDO.
             </p>
+
             <table class="table table-bordered">
                 <thead style="vertical-align:text-top;">
                     <tr class="center">
@@ -38,7 +39,9 @@
 						<tr class="center">
 							<td>{{ pregunta.descripcion }}</td>
 								{% for respuesta in respuestas %}
-									<td><input type="radio" name="radio_pregunta{{ contador }}" value="{{ pregunta.id }}_{{ respuesta.id }}"></td>
+                                                                    {% set nombre_pregunta = "radio_pregunta" ~ contador %}
+                                                                    {% set valor_pregunta = pregunta.id ~ '_' ~ respuesta.id %}
+                                                                    <td><input type="radio" name="{{ nombre_pregunta }}" value="{{ valor_pregunta }}" {{ set_radio(nombre_pregunta, valor_pregunta) }}></td>
 								{% endfor %}
 						</tr>
 					{% set contador  = contador+1 %}
