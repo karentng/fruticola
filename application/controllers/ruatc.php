@@ -2,10 +2,9 @@
 
 class RuatC extends CI_Controller {
 
-    public function index()
-    {
-        $this->load->library('form_validation');
-
+	public function index()
+	{
+		$this->load->library('form_validation');
 		$preguntas = TipoPregunta::sorted();
 		$respuestas = TipoRespuesta::sorted();
 
@@ -13,35 +12,33 @@ class RuatC extends CI_Controller {
 		{
 			$this->form_validation->set_rules('radio_pregunta'.$i, 'Pregunta'.$i, 'required');			
 		}
-
-        if($this->form_validation->run())
-        {
-			die;
-			
-   			for( $i = 0; $i < count($preguntas); $i++ )
+		
+		if($this->form_validation->run())
+		{
+			for( $i = 0; $i < count($preguntas); $i++ )
 			{
-				try
-				{
-					$tmpRespuesta = explode("_", $this->input->post( 'radio_pregunta'.$i ));
 
-					$respuestaRuat = new AprendizajeRespuesta;
-					$respuestaRuat->ruat_id = 1;
-					$respuestaRuat->respuesta_id = $tmpRespuesta[0];
-					$respuestaRuat->pregunta_id = $tmpRespuesta[1];
-					$respuestaRuat->save();					
-				}
-				catch( Exception $e)
-				{ echo( $e );}
+			try
+			{
+				$tmpRespuesta = explode("_", $this->input->post( 'radio_pregunta'.$i ));
+				$respuestaRuat = new AprendizajeRespuesta;
+				$respuestaRuat->ruat_id = 1;
+				$respuestaRuat->respuesta_id = $tmpRespuesta[0];
+				$respuestaRuat->pregunta_id = $tmpRespuesta[1];
+				$respuestaRuat->save();					
 			}
-        }
-        /*else
-        {
-			echo('campos sin llenar'); die;
+			catch( Exception $e)
+			{ echo( $e );}
+			}
+		}
+		/*else
+		{
+		echo('campos sin llenar'); die;
 		}*/
-
-        $this->twiggy->set('preguntas', $preguntas);
-        $this->twiggy->set('respuestas', $respuestas);
-        $this->twiggy->template("ruat/apropiacion_aprendizajes");
-        $this->twiggy->display();
-    }
+		
+		$this->twiggy->set('preguntas', $preguntas);
+		$this->twiggy->set('respuestas', $respuestas);
+		$this->twiggy->template("ruat/apropiacion_aprendizajes");
+		$this->twiggy->display();
+	}
 }
