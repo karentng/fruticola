@@ -24,142 +24,25 @@
                 <thead style="vertical-align:text-top;">
                     <tr class="center">
                         <th>Pregunta</th>
-                        <th>Totalmente en Desacuerdo</th>
-                        <th>En Desacuerdo</th>
-                        <th>Ni en Acuerdo ni en Desacuerdo</th>
-                        <th>De Acuerdo</th>
-                        <th>Totalmente de Acuerdo</th>
+
+                        {% for respuesta in respuestas %}
+						<th>{{ respuesta.descripcion }}</th>
+						{% endfor %}
+
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="center">
-                        <td>Procuro estar al tanto de lo que ocurre aquí y ahora.</td>
-                        <td><input type="radio" name="p1" value="0" ></td>
-                        <td><input type="radio" name="p1" value="1"></td>
-                        <td><input type="radio" name="p1" value="2"></td>
-                        <td><input type="radio" name="p1" value="3"></td>
-                        <td><input type="radio" name="p1" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Normalmente trato de resolver los problemas paso a paso.</td>
-                        <td><input type="radio" name="p2" value="0" ></td>
-                        <td><input type="radio" name="p2" value="1"></td>
-                        <td><input type="radio" name="p2" value="2"></td>
-                        <td><input type="radio" name="p2" value="3"></td>
-                        <td><input type="radio" name="p2" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Me gusta analizar y dar vuelta a las cosas.</td>
-                        <td><input type="radio" name="p3" value="0" ></td>
-                        <td><input type="radio" name="p3" value="1"></td>
-                        <td><input type="radio" name="p3" value="2"></td>
-                        <td><input type="radio" name="p3" value="3"></td>
-                        <td><input type="radio" name="p3" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Me gusta experimentar y aplicar las cosas.</td>
-                        <td><input type="radio" name="p4" value="0" ></td>
-                        <td><input type="radio" name="p4" value="1"></td>
-                        <td><input type="radio" name="p4" value="2"></td>
-                        <td><input type="radio" name="p4" value="3"></td>
-                        <td><input type="radio" name="p4" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Muchas veces actúo sin mirar las consecuencias.</td>
-                        <td><input type="radio" name="p5" value="0" ></td>
-                        <td><input type="radio" name="p5" value="1"></td>
-                        <td><input type="radio" name="p5" value="2"></td>
-                        <td><input type="radio" name="p5" value="3"></td>
-                        <td><input type="radio" name="p5" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Prefiero discutir, cuestionar, concretar y no perder el tiempo con charlas sin sentido.</td>
-                        <td><input type="radio" name="p6" value="0" ></td>
-                        <td><input type="radio" name="p6" value="1"></td>
-                        <td><input type="radio" name="p6" value="2"></td>
-                        <td><input type="radio" name="p6" value="3"></td>
-                        <td><input type="radio" name="p6" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Tiendo a, ser perfeccionista.</td>
-                        <td><input type="radio" name="p7" value="0" ></td>
-                        <td><input type="radio" name="p7" value="1"></td>
-                        <td><input type="radio" name="p7" value="2"></td>
-                        <td><input type="radio" name="p7" value="3"></td>
-                        <td><input type="radio" name="p7" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Tengo fama de decir lo que pienso claramente y sin rodeos</td>
-                        <td><input type="radio" name="p8" value="0" ></td>
-                        <td><input type="radio" name="p8" value="1"></td>
-                        <td><input type="radio" name="p8" value="2"></td>
-                        <td><input type="radio" name="p8" value="3"></td>
-                        <td><input type="radio" name="p8" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>La mayoría de las veces expreso abiertamente cómo me siento</td>
-                        <td><input type="radio" name="p9" value="0" ></td>
-                        <td><input type="radio" name="p9" value="1"></td>
-                        <td><input type="radio" name="p9" value="2"></td>
-                        <td><input type="radio" name="p9" value="3"></td>
-                        <td><input type="radio" name="p9" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Suelo reflexionar sobre los asuntos y problemas.</td>
-                        <td><input type="radio" name="p10" value="0" ></td>
-                        <td><input type="radio" name="p10" value="1"></td>
-                        <td><input type="radio" name="p10" value="2"></td>
-                        <td><input type="radio" name="p10" value="3"></td>
-                        <td><input type="radio" name="p10" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Me cuesta ser creativo/a. Romper estructuras.</td>
-                        <td><input type="radio" name="11" value="0" ></td>
-                        <td><input type="radio" name="11" value="1"></td>
-                        <td><input type="radio" name="11" value="2"></td>
-                        <td><input type="radio" name="11" value="3"></td>
-                        <td><input type="radio" name="11" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Juzgo con frecuencia las ideas de los demás por su valor práctico.</td>
-                        <td><input type="radio" name="12" value="0" ></td>
-                        <td><input type="radio" name="12" value="1"></td>
-                        <td><input type="radio" name="12" value="2"></td>
-                        <td><input type="radio" name="12" value="3"></td>
-                        <td><input type="radio" name="12" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Me gusta afrontar la vida espontáneamente y no tener que planificar todo previamente.</td>
-                        <td><input type="radio" name="13" value="0" ></td>
-                        <td><input type="radio" name="13" value="1"></td>
-                        <td><input type="radio" name="13" value="2"></td>
-                        <td><input type="radio" name="13" value="3"></td>
-                        <td><input type="radio" name="13" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Prefiero discutir cuestiones concretas y no perder el tiempo con charlas vacías.</td>
-                        <td><input type="radio" name="14" value="0" ></td>
-                        <td><input type="radio" name="14" value="1"></td>
-                        <td><input type="radio" name="14" value="2"></td>
-                        <td><input type="radio" name="14" value="3"></td>
-                        <td><input type="radio" name="14" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>Prefiero las cosas estructuradas a las desordenadas.</td>
-                        <td><input type="radio" name="15" value="0" ></td>
-                        <td><input type="radio" name="15" value="1"></td>
-                        <td><input type="radio" name="15" value="2"></td>
-                        <td><input type="radio" name="15" value="3"></td>
-                        <td><input type="radio" name="15" value="4"></td>
-                    </tr>
-                    <tr class="center">
-                        <td>No me importa hacer todo lo necesario para que sea efectivo mi trabajo.</td>
-                        <td><input type="radio" name="16" value="0" ></td>
-                        <td><input type="radio" name="16" value="1"></td>
-                        <td><input type="radio" name="16" value="2"></td>
-                        <td><input type="radio" name="16" value="3"></td>
-                        <td><input type="radio" name="16" value="4"></td>
-                    </tr>
+
+					{% set contador = 1 %}
+					{% for pregunta in preguntas %}
+						<tr class="center">
+							<td>{{ pregunta.descripcion }}</td>
+								{% for respuesta in respuestas %}
+									<td><input type="radio" name="radio_pregunta{{ contador }}" value="{{ pregunta.id }}_{{ respuesta.id }}"></td>
+								{% endfor %}
+						</tr>
+					{% set contador  = contador+1 %}
+					{% endfor %}
                 </tbody>
             </table>
         </div> {# .container #}
