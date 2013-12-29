@@ -176,3 +176,31 @@ insert into tipomaquinaria (descripcion, orden) values
     ('Maquinaria Liviana', 4),
     ('Maquinaria Pesada', 5),
     ('Otros', 6);
+
+
+insert into tipopregunta (descripcion, orden) values
+    ('Procuro estar al tanto de lo que ocurre aquí y ahora.', '1'),
+    ('Normalmente trato de resolver los problemas paso a paso.', '2'),
+    ('Me gusta analizar y dar vuelta a las cosas.', '3'),
+    ('Me gusta experimentar y aplicar las cosas.', '4'),
+    ('Muchas veces actúo sin mirar las consecuencias.', '5'),
+    ('Prefiero discutir, cuestionar, concretar y no perder el tiempo con charlas sin sentido.', '6'),
+    ('Tiendo a, ser perfeccionista.', '7'),
+    ('Tengo fama de decir lo que pienso claramente y sin rodeos', '8'),
+    ('La mayoría de las veces expreso abiertamente cómo me siento', '9'),
+    ('Suelo reflexionar sobre los asuntos y problemas.', '10'),
+    ('Me cuesta ser creativo/a. Romper estructuras.', '11'),
+    ('Juzgo con frecuencia las ideas de los demás por su valor práctico.', '12'),
+    ('Me gusta afrontar la vida espontáneamente y no tener que planificar todo previamente.', '13'),
+    ('Prefiero discutir cuestiones concretas y no perder el tiempo con charlas vacías.', '14'),
+    ('Prefiero las cosas estructuradas a las desordenadas.', '15'),
+    ('No me importa hacer todo lo necesario para que sea efectivo mi trabajo.', '16');
+
+
+insert into tiporespuesta (descripcion, orden) values
+    ('Totalmente en Desacuerdo', '1'),
+    ('En Desacuerdo', '2'),
+    ('Ni en Acuerdo ni en Desacuerdo', '3'),
+    ('Ni en Acuerdo ni en Desacuerdo', '4'),
+    ('De Acuerdo', '5'),
+    ('Totalmente de Acuerdo', '6');
