@@ -216,3 +216,10 @@ create table aprendizaje_respuesta(
     pregunta_id     integer not null references tipopregunta(id),
     respuesta_id    integer not null references tiporespuesta(id)
 );
+
+create table observacion(
+    id                  serial not null primary key,
+    ruat_id             integer not null references ruat(id),
+    observacion         text not null,
+    ruta_formulario     varchar(50)
+);
