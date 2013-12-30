@@ -10,6 +10,7 @@ class RuatD extends CI_Controller {
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
 
         $ruat_id = 1; /// sacarlo de session o algo, pendiente definir
+        
         ///Consulto la observacion de este RUAT (Edicion)
         $observacion = Observacion::first(array(
                     'conditions' => array('ruat_id = ?', $ruat_id)
