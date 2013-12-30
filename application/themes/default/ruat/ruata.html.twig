@@ -89,9 +89,35 @@
         };
 
         $scope.asociacion = {
-            cooperativa:{asociado:false, filas:[{}]},
-            otroProductor:{asociado:false, nombre:'', apellido:'', vereda:'', confianza:null},
-            sigue:{asociado:false, nombre:'', apellido:'', vereda:'', confianza:null},
+            cooperativa: 
+            {
+                asociado: true,
+                filas: [{
+                    directivo: true,
+                    clases: [3, 4],
+                    organizacion: "una organización",
+                    periodicidad: 3,
+                    directivo: "true",
+                    participante: "false",
+                    beneficios: [4, 5]
+                }],
+                razones: [1, 2], 
+                apoyan: []
+            },
+            otroProductor: {
+                asociado: true,
+                nombre: "igor",
+                apellido: "pato",
+                vereda: "el laguito",
+                confianza: null
+            },
+            sigue: {
+                asociado: true,
+                nombre: "iguana",
+                apellido: "tejado",
+                vereda: "lago verde",
+                confianza: null
+            }
         };
         
         $scope.count = count;
@@ -532,7 +558,7 @@
                 </div>
             </div>
             
-            <table class="table table-bordered" ng-show="asociacion.cooperativa.asociado" ng>
+            <table class="table table-bordered" ng-show="asociacion.cooperativa.asociado" >
             <thead>
                 <tr>
                     <th>Clase</th>
@@ -579,7 +605,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Razones de no Pertencer</label>
-                            <select multiple ng-model="razones"
+                            <select multiple ng-model="asociacion.cooperativa.razones"
                              ui-select2="{ multiple:true, minimumResultsForSearch: -1, allowClear:true}">
                                 <option ng-repeat="t in tiposRazonNoPertenecer" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>

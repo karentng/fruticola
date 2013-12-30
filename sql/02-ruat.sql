@@ -106,7 +106,7 @@ create table ruat(
 
 create table orgasociada(
     id                  serial not null primary key,
-    ruat_id             integer not null references ruat(id),
+    productor_id        integer references productor(id),
     nombre              varchar(100),
     periodicidad_id     integer references periodicidad(id),   
     directivo           boolean not null,
@@ -129,7 +129,7 @@ create table orgasociada_beneficio(
 
 create table razonnopertenecer(
     id                  serial not null primary key,
-    ruat_id             integer not null references ruat(id),
+    productor_id        integer references productor(id),
     razon_id            integer not null references tiporazonnopertenecer(id)
 );
 

@@ -143,9 +143,6 @@ class RuatA extends CI_Controller {
         
         $input = json_decode(file_get_contents("php://input"));
         
-        
-        
-        
         $productor = new Productor();
         
         
@@ -198,12 +195,61 @@ class RuatA extends CI_Controller {
             }
             
         }
-        
 
+        foreach($input->asociacion->cooperativa->filas as $fila) {
+            $orgasociada = new Orgasociada();
+            $orgasociada->productor_id = $productor->id;
+            $orgasociada->nombre = $fila->organizacion;
+            $orgasociada->periodicidad_id = $fila->periodicidad;
+            $orgasociada->directivo = $fila->directivo;
+            $orgasociada->participante = $fila->participante;
+            $orgasociada->save();
 
+            foreach ($fila->beneficios as $beneficio) {
+                $orgasociada_beneficio = new OrgasociadaBeneficio();
+                $orgasociada_beneficio->orgasociada_id = $orgasociada->id;
+                $orgasociada_beneficio->beneficio_id = $beneficio;
+                $orgasociada_beneficio->save();
+            }
 
-        
-        
+            foreach ($fila->clases as $clase) {
+                $orgasociada_clase = new OrgasociadaClase();
+                $orgasociada_clase->orgasociada_id = $orgasociada->id;
+                $orgasociada_clase->clase_id = $clase;
+                $orgasociada_clase->save();
+            }
+            
+        }
+
+        foreach ($input->asociacion->cooperativa->razones as $razon) {
+            $razonnopertenecer = new RazonesNoPertenecer();
+            $razonnopertenecer->productor_id = $productor->id;
+            $razonnopertenecer->razon_id = $razon;
+            $razonnopertenecer->save();
+        }
+
+        /*oreach ($input->asociacion->cooperativa->apoyan as $apoyo) {
+            $entidadApoyo = new EntidadesApoyo(); // falta crear modelo
+            $entidadApoyo ->productor_id = $productor->id;
+            $entidadApoyo ->entidadApoyo= $apoyo;
+            $entidadApoyo ->save();
+        }*/
+
+        $personaasociada = new PersonaAsociada();
+        $personaasociada->productor_id = $productor->id;
+        $personaasociada->nombre = $input->asociacion->otroProductor->nombre;
+        $personaasociada->apellido = $input->asociacion->otroProductor->apellido;
+        $personaasociada->vereda = $input->asociacion->otroProductor->vereda;
+        $personaasociada->grado_confianza = $input->asociacion->otroProductor->confianza;
+        $personaasociada->save();
+
+        /*$personaseguir = new PersonaSeguir();
+        $personaseguir->productor_id = $productor->id;
+        $personaseguir->nombre = $input->asociacion->sigue->nombre;
+        $personaseguir->apellido = $input->asociacion->sigue->apellido;
+        $personaseguir->vereda = $input->asociacion->sigue->vereda;
+        $personaseguir->grado_confianza = $input->asociacion->sigue->confianza;
+        $personaseguir->save();*/
 
 
         echo "ok";
