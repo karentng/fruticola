@@ -4,6 +4,9 @@
 
 {% block contenido %}
 
+<link href="{{ base_url('assets/css/preguntas.css') }}" rel="stylesheet" />
+
+
 {{ form_open(null, {role:'form'}) }}
 <!-- Cuando el $_POST esta vacio, form_validation->run() retorna false sin errores :/ -->
 <input type="hidden" name="para_validar" value="1" />
@@ -38,12 +41,19 @@
                     {% set contador = 1 %}
                     {% for pregunta in preguntas %}
                         {% set nombre_pregunta = "radio_pregunta" ~ contador %}
+                        {% set clase_pregunta = 1 %}
+
                         <tr class="center">
                             <td>{{ pregunta.descripcion }} {{form_error(nombre_pregunta)}}</td>
                             
                             {% for respuesta in respuestas %}
                                 {% set valor_pregunta = pregunta.id ~ '_' ~ respuesta.id %}
-                                <td><input type="radio" name="{{ nombre_pregunta }}" value="{{ valor_pregunta }}" {{ set_radio(nombre_pregunta, valor_pregunta) }}></td>
+                                <td>
+                                    <input type="radio" id="{{ nombre_pregunta~ '_' ~ clase_pregunta }}" name="{{ nombre_pregunta }}" value="{{ valor_pregunta }}" {{ set_radio(nombre_pregunta, valor_pregunta) }}>
+                                    <label for="{{ nombre_pregunta~ '_' ~ clase_pregunta }}" class="r{{ clase_pregunta }}"></label>
+
+                                </td>
+                                {% set clase_pregunta = clase_pregunta+1 %}
                             {% endfor %}
                         </tr>
                     {% set contador  = contador+1 %}
