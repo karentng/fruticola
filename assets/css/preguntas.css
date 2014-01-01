@@ -1,0 +1,111 @@
+
+input[type="radio"]{
+    display:none;
+}
+
+input[type="radio"] + label.r1
+{
+    background: url( '../images/preguntas_iconos/r1.png' ) no-repeat;
+    height: 30px;
+    width: 30px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+}
+
+input[type="radio"]:checked + label.r1
+{
+    background: url( '../images/preguntas_iconos/r_1.png' ) no-repeat;
+    height: 30px;
+    width: 30px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: gray;
+}
+
+
+input[type="radio"] + label.r2 
+{
+    background: url( '../images/preguntas_iconos/r2.png' ) no-repeat;
+    height: 30px;
+    width: 30px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+}
+
+input[type="radio"]:checked + label.r2 
+{
+    background: url( '../images/preguntas_iconos/r_2.png' ) no-repeat;
+    height: 30px;
+    width: 30px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: gray;
+}
+
+input[type="radio"] + label.r3
+{
+    background: url( '../images/preguntas_iconos/r3.png' ) no-repeat;
+    height: 30px;
+    width: 30px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+}
+
+input[type="radio"]:checked + label.r3
+{
+    background: url( '../images/preguntas_iconos/r_3.png' ) no-repeat;
+    height: 30px;
+    width: 30px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: gray;
+}
+
+input[type="radio"] + label.r4 
+{
+    background: url( '../images/preguntas_iconos/r4.png' ) no-repeat;
+    height: 30px;
+    width: 30px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+}
+
+input[type="radio"]:checked + label.r4
+{
+    background: url( '../images/preguntas_iconos/r_4.png' ) no-repeat;
+    height: 30px;
+    width: 30px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: gray;
+}
+
+input[type="radio"] + label.r5
+{
+    background: url( '../images/preguntas_iconos/r5.png' ) no-repeat;
+    height: 30px;
+    width: 30px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+}
+
+input[type="radio"]:checked + label.r5
+{
+    background: url( '../images/preguntas_iconos/r_5.png' ) no-repeat;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: gray;
+
+}
