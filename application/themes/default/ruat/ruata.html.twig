@@ -12,6 +12,78 @@
         combos: {{combos}}
     };
 
+    {% if ruat %}
+        extern.ruat = {{ruat}};
+    {% else %}
+        extern.ruat = {
+            productor : {
+                nombre1:'guachu',
+                nombre2:'Alan', 
+                apellido1:'from',
+                apellido2: 'missisipi',
+                sexo:'M',
+                nivelEducativo:'1',
+                tipoDocumento:1,
+                numeroDocumento:102909,
+                tipo:1,
+                renglonProductivo:1,
+                fechaNacimiento: '2013-12-20'
+            },
+            contacto : {
+                celular: 3114005089,
+                telefono: 3774121,
+                email: 'guachu@openEnglish.com',
+                departamento: 1,
+                municipio: 505,
+                vereda:'micasita',
+                direccion: 'calle con carrera'
+            },
+            economia : {
+                usaCredito: false,
+                ingresoMensual: 123234,
+                personasCargo: 3,
+                ingresoAgropecuaria: 121212,
+                usaCredito: true,
+                procedenciaCredito: 2,
+                otroCredito: "algo"
+            },
+            asociacion : {
+                cooperativa: {
+                    asociado: true,
+                    filas: [{
+                        directivo: true,
+                        clases: [3, 4],
+                        organizacion: "una organización",
+                        periodicidad: 3,
+                        directivo: "true",
+                        participante: "false",
+                        beneficios: [4, 5]
+                    }],
+                    razones: [1, 2], 
+                    apoyan: []
+                },
+                otroProductor: {
+                    asociado: true,
+                    nombre: "igor",
+                    apellido: "pato",
+                    vereda: "el laguito",
+                    confianza: 2
+                },
+                sigue: {
+                    asociado: true,
+                    nombre: "iguana",
+                    apellido: "tejado",
+                    vereda: "lago verde",
+                    confianza: 3
+                }
+            },
+            
+            realizaInnovacion:false,
+
+            innovaciones:[],
+        };
+    {% endif %}
+
     var urls = {
         guardar : "{{site_url('ruata/guardar')}}",
     };
@@ -50,82 +122,11 @@
     var RuatACtrl = function($scope, $http) {
 
         angular.extend($scope, extern.combos);
+        angular.extend($scope, extern.ruat);
         //$scope.combos = extern.combos;
 
-        $scope.productor = {
-            nombre1:'guachu',
-            nombre2:'Alan', 
-            apellido1:'from',
-            apellido2: 'missisipi',
-            sexo:'M',
-            nivelEducativo:'1',
-            tipoDocumento:1,
-            numeroDocumento:102909,
-            tipo:1,
-            renglonProductivo:1,
-            fechaNacimiento: '2013-12-20'
 
-        };
-        $scope.contacto = {
-            celular: 3114005089,
-            telefono: 3774121,
-            email: 'guachu@openEnglish.com',
-            departamento: 1,
-            municipio: 505,
-            vereda:'micasita',
-            direccion: 'calle con carrera'
-
-        };
-
-        
-        $scope.economia = {
-            usaCredito: false,
-            ingresoMensual: 123234,
-            personasCargo: 3,
-            ingresoAgropecuaria: 121212,
-            procedenciaCredito: 2,
-            otroCredito: "algo"
-
-        };
-
-        $scope.asociacion = {
-            cooperativa: 
-            {
-                asociado: true,
-                filas: [{
-                    directivo: true,
-                    clases: [3, 4],
-                    organizacion: "una organización",
-                    periodicidad: 3,
-                    directivo: "true",
-                    participante: "false",
-                    beneficios: [4, 5]
-                }],
-                razones: [1, 2], 
-                apoyan: []
-            },
-            otroProductor: {
-                asociado: true,
-                nombre: "igor",
-                apellido: "pato",
-                vereda: "el laguito",
-                confianza: null
-            },
-            sigue: {
-                asociado: true,
-                nombre: "iguana",
-                apellido: "tejado",
-                vereda: "lago verde",
-                confianza: null
-            }
-        };
-        
         $scope.count = count;
-
-        $scope.realizaInnovacion=false;
-
-        $scope.innovaciones=[];
-
         
         $scope.validate = function(form){   
             for (feild in form) {
@@ -710,7 +711,7 @@
                 <div class="form-group">
                     <label for="" class="control-label col-md-4">Grado de Confianza</label>
                     <div class="col-md-6">
-                        <buttons-radio model="asociacion.sigue.frecuenciaConsulta" options="tiposConfianza">
+                        <buttons-radio model="asociacion.sigue.confianza" options="tiposConfianza">
                         </buttons-radio>
                     </div>
                 </div>

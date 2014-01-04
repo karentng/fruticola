@@ -55,6 +55,7 @@ function activerecord_lib_autoload($class_name)
         "ActiveRecord\RecordNotFound"             =>"ActiveRecord\Exceptions",
         "ActiveRecord\DatabaseException"          =>"ActiveRecord\Exceptions",
         "ActiveRecord\UndefinedPropertyException" =>"ActiveRecord\Exceptions",
+        "ActiveRecord\ActiveRecordException"      =>"ActiveRecord\Exceptions",
     );
     if (isset($replace[$class_name])) $class_name = $replace[$class_name];     
 

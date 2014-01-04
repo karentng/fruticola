@@ -42,8 +42,14 @@ class RuatA extends CI_Controller {
         //var_dump($tiposDocumento);
         //die();
 
-        $this->twiggy->set($data, NULL);
+        //$this->twiggy->set($data, NULL);
         $this->twiggy->set('combos', json_encode($data));
+
+        if($ruat_id) {
+            $ruat = $this->cargar($ruat_id);
+            $this->twiggy->set('ruat', json_encode($ruat));
+        }
+
         $this->twiggy->template("ruat/ruata");
         $this->twiggy->display();
     }
@@ -67,7 +73,9 @@ class RuatA extends CI_Controller {
         if(empty($input->ruat_id)) {
             $ruat = new Ruat;
             $ruat->creador_id = current_user('id');
-            $productor = new Productor();
+            $productor = Productor::create((array)$input->productor);
+            $ruat->productor_id = $productor->id;
+            $ruat->save();
         }
         else {
             $ruat = Ruat::find($input->ruat_id);
@@ -77,47 +85,17 @@ class RuatA extends CI_Controller {
             $productor = $ruat->productor;
         }
 
-        $productor->nombre1     = $input->productor->nombre1;
-        $productor->nombre2     = $input->productor->nombre2;
-        $productor->apellido1   = $input->productor->apellido1;
-        $productor->apellido2   = $input->productor->apellido2;
-        $productor->sexo        = $input->productor->sexo;
-        $productor->fecha_nacimiento      = $input->productor->fechaNacimiento;
-        $productor->nivel_educativo_id    = $input->productor->nivelEducativo;
-        $productor->tipo_documento_id     = $input->productor->tipoDocumento;
-        $productor->numero_documento      = $input->productor->numeroDocumento;
-        $productor->renglon_productivo_id = $input->productor->renglonProductivo;
-        $productor->tipo_productor_id     = $input->productor->tipo;
+        $input->contacto->productor_id = $productor->id;
+        Contacto::create_or_update((array)$input->contacto);
+
+        $econo = $input->economia;
+        if(!$econo->usaCredito) $econo->procedenciaCredito = null;
+        if($econo->procedenciaCredito!=7)  $econo->otroCredito = null;
+        unset($econo->usaCredito);
+        $econo->productor_id = $productor->id;
+        Economia::create_or_update((array)$econo);
         
-        $productor->save();
-
-        if(!$ruat->id) {
-            $ruat->productor_id = $productor->id;
-            $ruat->save();
-        }
-
-        $contacto = new Contacto();
-        $contacto->productor_id     = $productor->id;
-        $contacto->telefono         = $input->contacto->telefono;
-        $contacto->celular          = $input->contacto->celular;
-        $contacto->email            = $input->contacto->email;
-        $contacto->departamento_id  = $input->contacto->departamento;
-        $contacto->municipio_id     = $input->contacto->municipio;
-        $contacto->vereda           = $input->contacto->vereda;
-        $contacto->direccion        = $input->contacto->direccion;
-        $contacto->save();
-
-
-        $economia = new Economia();
-        $economia->productor_id     = $productor->id;
-        $economia->ingreso_familiar = $input->economia->ingresoMensual;
-        $economia->ingreso_agropecuario = $input->economia->ingresoAgropecuaria;
-        $economia->personas_dependientes = $input->economia->personasCargo;
-        $economia->credito_id = $input->economia->procedenciaCredito;
-        $economia->otro_credito = $input->economia->otroCredito;
-
-        $economia->save();
-
+        
         foreach($input->innovaciones as $innova) {
             $innovacion = new Innovacion();
             $innovacion->productor_id = $productor->id;
@@ -170,13 +148,56 @@ class RuatA extends CI_Controller {
             $entidadApoyo ->save();
         }*/
 
-        $personaasociada = new PersonaAsociada();
-        //$personaasociada->productor_id = $productor->id;
-        $personaasociada->nombre       = $input->asociacion->otroProductor->nombre;
-        $personaasociada->apellido     = $input->asociacion->otroProductor->apellido;
-        $personaasociada->vereda       = $input->asociacion->otroProductor->vereda;
-        $personaasociada->confianza_id = $input->asociacion->otroProductor->confianza;
-        $personaasociada->save();
+        if($input->asociacion->otroProductor->asociado) {
+            $asoc = $input->asociacion->otroProductor;
+            unset($asoc->asociado);
+            $per = PersonaAsociada::create_or_update((array)$asoc);
+            $ruat->asociado_id = $per->id;
+        }
+        else if($ruat->asociado_id) {
+            PersonaAsociada::table()->delete(array('id' => $ruat->asociado_id));
+            $ruat->asociado_id = null;
+        }
+
+        if($input->asociacion->sigue->asociado) {
+            $asoc = $input->asociacion->sigue;
+            unset($asoc->asociado);
+            $per = PersonaAsociada::create_or_update((array)$asoc);
+            $ruat->seguir_id = $per->id;
+        }
+        else if($ruat->seguir_id) {
+            PersonaAsociada::table()->delete(array('id' => $ruat->seguir_id));
+            $ruat->seguir_id = null;
+        }  
+
+        /*
+        if($input->asociacion->otroProductor->asociado) {
+            $personaasociada = new PersonaAsociada();
+            $personaasociada->nombre       = $input->asociacion->otroProductor->nombre;
+            $personaasociada->apellido     = $input->asociacion->otroProductor->apellido;
+            $personaasociada->vereda       = $input->asociacion->otroProductor->vereda;
+            $personaasociada->confianza_id = $input->asociacion->otroProductor->confianza;
+            $personaasociada->save();
+            $ruat->asociado_id = $personaasociada->id;
+        }
+        else {
+            $ruat->asociado_id = null;
+        }
+
+        if($input->asociacion->sigue->asociado) {
+            $personaasociada = new PersonaAsociada();
+            $personaasociada->nombre       = $input->asociacion->sigue->nombre;
+            $personaasociada->apellido     = $input->asociacion->sigue->apellido;
+            $personaasociada->vereda       = $input->asociacion->sigue->vereda;
+            $personaasociada->confianza_id = $input->asociacion->sigue->confianza;
+            $personaasociada->save();
+            $ruat->asociado_id = $personaasociada->id;
+        }
+        else {
+            $ruat->asociado_id = null;
+        }
+        $ruat->save();
+
 
 
         /*$personaseguir = new PersonaSeguir();
@@ -187,7 +208,7 @@ class RuatA extends CI_Controller {
         $personaseguir->grado_confianza = $input->asociacion->sigue->confianza;
         $personaseguir->save();*/
 
-
+        $ruat->save();
         echo "ok";
     }
 
@@ -200,6 +221,7 @@ class RuatA extends CI_Controller {
         $output = new StdClass;
         $output->ruat_id = $ruat->id;
         $output->productor = new StdClass;
+        $output->productor->id                = $ruat->productor->id;
         $output->productor->nombre1           = $ruat->productor->nombre1;
         $output->productor->nombre2           = $ruat->productor->nombre2;
         $output->productor->apellido1         = $ruat->productor->apellido1;
@@ -213,6 +235,7 @@ class RuatA extends CI_Controller {
         $output->productor->fechaNacimiento   = $this->datefmt($ruat->productor->fecha_nacimiento);
         
         $output->contacto = new StdClass;
+        $output->contacto->id           = $ruat->productor->contacto->id;
         $output->contacto->celular      = $ruat->productor->contacto->celular;
         $output->contacto->telefono     = $ruat->productor->contacto->telefono;
         $output->contacto->email        = $ruat->productor->contacto->email;
@@ -259,7 +282,8 @@ class RuatA extends CI_Controller {
         $output->asociacion->otroProductor = cargarAsociado($ruat->asociado);
         $output->asociacion->sigue = cargarAsociado($ruat->seguir);
 
-        echo json_encode($output);
+        return $output;
+        //echo json_encode($output);
     }
 
     private function datefmt($f) 
