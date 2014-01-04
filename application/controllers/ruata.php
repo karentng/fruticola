@@ -7,90 +7,11 @@ class RuatA extends CI_Controller {
         $this->load->library('ion_auth');
     }
 
-    public function index()
+    public function index($ruat_id=NULL)
     {
         check_profile($this, 'Administrador');
-        //$prueba = $this->input->post('prueba[]');
-        //var_dump($prueba);
-
                         
-        $this->load->library('form_validation');
-        //poner validaciones aqui. Ejemplo:
-        //$this->form_validation->set_rules('name','Nombre', 'required|max_length[50]');
-        //-------------------------------------------------------------------------------
-        // PARTE 1
-        $this->form_validation->set_rules('nombre1','Primer Nombre', 'trim|required');
-        $this->form_validation->set_rules('nombre2');
-        $this->form_validation->set_rules('apellido1','Primer Apellido', 'trim|required');
-        $this->form_validation->set_rules('apellido2');        
-        $this->form_validation->set_rules('tipo_documento', 'Tipo de Documento', 'required');
-        $this->form_validation->set_rules('numero_documento', 'Numero de Documento','required|is_natural');
-        $this->form_validation->set_rules('fecha_nacimiento', 'Fecha de Nacimiento', 'required|callback__date_check');
-        $this->form_validation->set_rules('sexo', 'Sexo', 'required');
-        $this->form_validation->set_rules('nivel_educativo', 'Nivel Educativo', 'required');
-        $this->form_validation->set_rules('tipo_productor', 'Tipo de Productor', 'required');
-        $this->form_validation->set_rules('renglon_productivo', 'Renglon Productivo', 'required');
-
-        /*
-        //-------------------------------------------------------------------------------------------
-        //PARTE 2
-        $this->form_validation->set_rules('telefono_fijo');
-        $this->form_validation->set_rules('celular');
-        $this->form_validation->set_rules('correo');
-        $this->form_validation->set_rules('vereda');
-        $this->form_validation->set_rules('direccion');
-
-        //------------------------------------------------------------------------------------
-        //PARTE 3
-        $this->form_validation->set_rules('ingreso_familiar', 'Ingreso Mensual Familiar', 'decimal');
-        $this->form_validation->set_rules('personas_cargos', 'Personas a Cargo', 'numeric');
-        $this->form_validation->set_rules('ingreso_agropecuaria', 'Ingreso de Actividad Agropecuaria', 'decimal');
-        $this->form_validation->set_rules('tipoCredito', 'Procedencia del Crédito', 'required');
-        $this->form_validation->set_rules('cual_procedencia', 'Procedencia del Crédito', 'required');
-        //------------------------------------------------------------------------------------------------
-        //PARTE 4
-        $this->form_validation->set_rules('beneficiosSociedad', 'Beneficios de Sociedades','required');
         
-        $this->form_validation->set_rules('periodicidad1', 'Periodicidad', 'required');
-        $this->form_validation->set_rules('periodicidad2', 'Periodicidad', 'required');
-        $this->form_validation->set_rules('periodicidad3', 'Periodicidad', 'required');
-        
-        
-        $this->form_validation->set_rules('clases_organizacion1', 'Clase de Organización', 'required');
-        $this->form_validation->set_rules('clases_organizacion2', 'Clase de Organización', 'required');
-        $this->form_validation->set_rules('clases_organizacion3', 'Clase de Organización', 'required');
-
-        //----------------------------------------------------------------------------------------------
-        //PARTE 5
-        $this->form_validation->set_rules('nombre_socio');
-        $this->form_validation->set_rules('apellido_socio');
-        $this->form_validation->set_rules('vereda_socio');
-        $this->form_validation->set_rules('gradoConfianza1', 'Grado de Confianza', 'required');
-
-        $this->form_validation->set_rules('nombre_seguir');
-        $this->form_validation->set_rules('apellido_seguir');
-        $this->form_validation->set_rules('vereda_seguir');
-        $this->form_validation->set_rules('gradoConfianza2', 'Grado de Confianza', 'required');
-        */
-
-        if($this->form_validation->run())
-        {
-            //las validaciones pasaron, aqui iria la logica de insertar en la BD...
-            $productor = new Productor;
-            $productor->nombre1               = $this->input->post('nombre1');
-            $productor->nombre2               = $this->input->post('nombre2');
-            $productor->apellido1             = $this->input->post('apellido1');
-            $productor->apellido2             = $this->input->post('apellido2');
-            $productor->tipo_documento_id     = $this->input->post('tipo_documento');
-            $productor->numero_documento      = $this->input->post('numero_documento');
-            $productor->fecha_nacimiento      = $this->input->post('fecha_nacimiento');
-            $productor->nivel_educativo_id    = $this->input->post('nivel_educativo');
-            $productor->tipo_productor_id     = $this->input->post('tipo_productor');
-            $productor->renglon_productivo_id = $this->input->post('renglon_productivo');
-            $productor->sexo                  = $this->input->post('sexo');
-            $productor->save();
-
-        }
 
         function to_array($model) { return $model->to_array(); }
 
@@ -143,22 +64,37 @@ class RuatA extends CI_Controller {
         
         $input = json_decode(file_get_contents("php://input"));
         
-        $productor = new Productor();
-        
-        
+        if(empty($input->ruat_id)) {
+            $ruat = new Ruat;
+            $ruat->creador_id = current_user('id');
+            $productor = new Productor();
+        }
+        else {
+            $ruat = Ruat::find($input->ruat_id);
+            $ruat->modificado = time();
+            $ruat->modificador = current_user('id');
+            $ruat->save();
+            $productor = $ruat->productor;
+        }
+
         $productor->nombre1     = $input->productor->nombre1;
         $productor->nombre2     = $input->productor->nombre2;
         $productor->apellido1   = $input->productor->apellido1;
         $productor->apellido2   = $input->productor->apellido2;
         $productor->sexo        = $input->productor->sexo;
-        $productor->fecha_nacimiento = $input->productor->fechaNacimiento;
-        $productor->nivel_educativo_id = $input->productor->nivelEducativo;
-        $productor->tipo_documento_id = $input->productor->tipoDocumento;
-        $productor->numero_documento = $input->productor->numeroDocumento;
-        $productor->renglon_productivo_id= $input->productor->renglonProductivo;
-        $productor->tipo_productor_id = $input->productor->tipo;
+        $productor->fecha_nacimiento      = $input->productor->fechaNacimiento;
+        $productor->nivel_educativo_id    = $input->productor->nivelEducativo;
+        $productor->tipo_documento_id     = $input->productor->tipoDocumento;
+        $productor->numero_documento      = $input->productor->numeroDocumento;
+        $productor->renglon_productivo_id = $input->productor->renglonProductivo;
+        $productor->tipo_productor_id     = $input->productor->tipo;
         
         $productor->save();
+
+        if(!$ruat->id) {
+            $ruat->productor_id = $productor->id;
+            $ruat->save();
+        }
 
         $contacto = new Contacto();
         $contacto->productor_id     = $productor->id;
@@ -169,8 +105,8 @@ class RuatA extends CI_Controller {
         $contacto->municipio_id     = $input->contacto->municipio;
         $contacto->vereda           = $input->contacto->vereda;
         $contacto->direccion        = $input->contacto->direccion;
-
         $contacto->save();
+
 
         $economia = new Economia();
         $economia->productor_id     = $productor->id;
@@ -193,7 +129,6 @@ class RuatA extends CI_Controller {
                 $innovacion->descripcion = $innova->descripcion;
                 $innovacion->save(); 
             }
-            
         }
 
         foreach($input->asociacion->cooperativa->filas as $fila) {
@@ -236,12 +171,13 @@ class RuatA extends CI_Controller {
         }*/
 
         $personaasociada = new PersonaAsociada();
-        $personaasociada->productor_id = $productor->id;
-        $personaasociada->nombre = $input->asociacion->otroProductor->nombre;
-        $personaasociada->apellido = $input->asociacion->otroProductor->apellido;
-        $personaasociada->vereda = $input->asociacion->otroProductor->vereda;
-        $personaasociada->grado_confianza = $input->asociacion->otroProductor->confianza;
+        //$personaasociada->productor_id = $productor->id;
+        $personaasociada->nombre       = $input->asociacion->otroProductor->nombre;
+        $personaasociada->apellido     = $input->asociacion->otroProductor->apellido;
+        $personaasociada->vereda       = $input->asociacion->otroProductor->vereda;
+        $personaasociada->confianza_id = $input->asociacion->otroProductor->confianza;
         $personaasociada->save();
+
 
         /*$personaseguir = new PersonaSeguir();
         $personaseguir->productor_id = $productor->id;
@@ -262,6 +198,72 @@ class RuatA extends CI_Controller {
         $ruat = Ruat::find($ruat_id);
 
         $output = new StdClass;
+        $output->ruat_id = $ruat->id;
+        $output->productor = new StdClass;
+        $output->productor->nombre1           = $ruat->productor->nombre1;
+        $output->productor->nombre2           = $ruat->productor->nombre2;
+        $output->productor->apellido1         = $ruat->productor->apellido1;
+        $output->productor->apellido2         = $ruat->productor->apellido2;
+        $output->productor->sexo              = $ruat->productor->sexo; 
+        $output->productor->nivelEducativo    = $ruat->productor->nivel_educativo_id; 
+        $output->productor->tipoDocumento     = $ruat->productor->tipo_documento_id;
+        $output->productor->numeroDocumento   = $ruat->productor->numero_documento;
+        $output->productor->tipo              = $ruat->productor->tipo_productor_id;
+        $output->productor->renglonProductivo = $ruat->productor->renglon_productivo_id;
+        $output->productor->fechaNacimiento   = $this->datefmt($ruat->productor->fecha_nacimiento);
         
+        $output->contacto = new StdClass;
+        $output->contacto->celular      = $ruat->productor->contacto->celular;
+        $output->contacto->telefono     = $ruat->productor->contacto->telefono;
+        $output->contacto->email        = $ruat->productor->contacto->email;
+        $output->contacto->departamento = $ruat->productor->contacto->departamento_id;
+        $output->contacto->municipio    = $ruat->productor->contacto->municipio_id;
+        $output->contacto->vereda       = $ruat->productor->contacto->vereda;
+        $output->contacto->direccion    = $ruat->productor->contacto->direccion;
+        
+        $output->economia = new StdClass;
+        $output->economia->ingresoMensual      = $ruat->productor->economia->ingreso_familiar;
+        $output->economia->personasCargo       = $ruat->productor->economia->personas_dependientes;
+        $output->economia->ingresoAgropecuaria = $ruat->productor->economia->ingreso_agropecuario;
+        if($ruat->productor->economia->credito_id!==NULL) {
+            $output->economia->usaCredito = true;
+            $output->economia->procedenciaCredito = $ruat->productor->economia->credito_id;
+            $output->economia->otroCcredito = $ruat->productor->economia->otro_credito;
+        }
+        else {
+            $output->economia->usaCredito = false;
+            $output->economia->procedenciaCredito = null;
+            $output->economia->otroCcredito = null;
+        }
+
+        $output->asociacion = new StdClass;
+        function cargarAsociado($asociado) {
+            $asoc = new StdClass;
+            if($asociado==NULL) {
+                $asoc->asociado = false;
+                $asoc->nombre    = null;
+                $asoc->apellido  = null;
+                $asoc->vereda    = null;
+                $asoc->confianza = null;
+            }
+            else {
+                $asoc->asociado = true;
+                $asoc->nombre    = $asociado->nombre;
+                $asoc->apellido  = $asociado->apellido;
+                $asoc->vereda    = $asociado->vereda;
+                $asoc->confianza = $asociado->grado_confianza_id;
+            }
+            return $asoc;
+        }
+        
+        $output->asociacion->otroProductor = cargarAsociado($ruat->asociado);
+        $output->asociacion->sigue = cargarAsociado($ruat->seguir);
+
+        echo json_encode($output);
+    }
+
+    private function datefmt($f) 
+    {
+        return $f ? $f->format('Y-m-d') : '';
     }
 }
