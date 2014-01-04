@@ -160,7 +160,6 @@
 
             //alert('Guardar!');
         };
-
     };
 </script>
 {% endraw %}
@@ -171,7 +170,6 @@
 {% raw %}
 
 <div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
-
 
 <div class="row">
 	<div class="col-md-6">
@@ -357,7 +355,7 @@
             		<th align="center">
             			Aspectos Diagnosticados
             		</th>
-            		<th align="center">
+            		<th align="center" style="width:100px">
             			SI | NO
             		</th>
             		<th align="center">
@@ -370,99 +368,100 @@
                     <td>
                     	1. Conoce los antecedentes de la unidad productiva como historial de cultivos, agroquímicos aplicados, plagas que se presentan, industrias o producciones anteriores, etc.
                     </td>
-                    <td style="text-align:center">
+                    <td style="text-align:center; width:100px;">
                         <input bs-switch ng-model="diagnosticos1" switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                    	<input type="text" class="form-control" placeholder="" style="width:240px;" />
+                    	<input type="text" class="form-control" placeholder="" />
                     </td>
                 </tr>
-
                 <tr>
                     <td>
-                    	2.  Cuenta con un Certificado de uso del suelo de su unidad productiva expedido por la oficina de planeación de su municipio.
+                        2.  Cuenta con un Certificado de uso del suelo de su unidad productiva expedido por la oficina de planeación de su municipio.
                     </td>
-                    <td style="text-align:center">
+                    <td style="text-align:center; width:100px;">
                         <input bs-switch ng-model="diagnosticos2" switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                    	<input type="text" class="form-control" placeholder="" style="width:240px;" />
+                        <input type="text" class="form-control" placeholder="" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    	3.  Revisa la calidad y cantidad de agua disponible para el cultivo en mi unidad productiva y pido el permiso de uso de agua a la Corporación Autónoma si lo requiero.
+                        3.  Revisa la calidad y cantidad de agua disponible para el cultivo en mi unidad productiva y pido el permiso de uso de agua a la Corporación Autónoma si lo requiero.
                     </td>
-                    <td style="text-align:center">
+                    <td style="text-align:center; width:100px;">
                         <input bs-switch ng-model="diagnosticos3" switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                    	<input type="text" class="form-control" placeholder="" style="width:240px;" />
+                        <input type="text" class="form-control" placeholder="" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    	4.  Evalúa las condiciones climáticas (temperaturas, humedad, precipitación, etc.) y los recursos de la zona (vías, servicios de salud, disponibilidad de personal para las labores de campo, comunicaciones, etc)
+                        4.  Evalúa las condiciones climáticas (temperaturas, humedad, precipitación, etc.) y los recursos de la zona (vías, servicios de salud, disponibilidad de personal para las labores de campo, comunicaciones, etc)
                     </td>
-                    <td style="text-align:center">
+                    <td style="text-align:center; width:100px;">
                         <input bs-switch ng-model="diagnosticos4" switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                    	<input type="text" class="form-control" placeholder="" style="width:240px;" />
+                        <input type="text" class="form-control" placeholder="" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    	5.  Dibuja el mapa de su unidad productiva o consigue el plano de la misma para ubicar las instalaciones, lotes agrícolas y pecuarios, forestales, zonas de conservación, linderos, vecinos, fuentes de agua, carreteras, pozo séptico, etc)
+                        5.  Dibuja el mapa de su unidad productiva o consigue el plano de la misma para ubicar las instalaciones, lotes agrícolas y pecuarios, forestales, zonas de conservación, linderos, vecinos, fuentes de agua, carreteras, pozo séptico, etc)
                     </td>
                     <td style="text-align:center">
                         <input bs-switch ng-model="diagnosticos5" switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                    	<input type="text" class="form-control" placeholder="" style="width:240px;" />
+                        <input type="text" class="form-control" placeholder="" style="width:240px;" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    	6.  Invierte en análisis de las características fisicoquímicas y microbiológicas del suelo de su unidad productiva.
+                        6.  Invierte en análisis de las características fisicoquímicas y microbiológicas del suelo de su unidad productiva.
                     </td>
                     <td style="text-align:center">
                         <input bs-switch ng-model="diagnosticos6" switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                    	<input type="text" class="form-control" placeholder="" style="width:240px;" />
+                        <input type="text" class="form-control" placeholder="" style="width:240px;" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    	7.  Busca la asesoría de un ingeniero agrónomo competente en el cultivo que va a sembrar, con el fin de determinar material de siembra adecuado, fertilización, manejo de posibles plagas y enfermedades, etc.
+                        7.  Busca la asesoría de un ingeniero agrónomo competente en el cultivo que va a sembrar, con el fin de determinar material de siembra adecuado, fertilización, manejo de posibles plagas y enfermedades, etc.
                     </td>
                     <td style="text-align:center">
                         <input bs-switch ng-model="diagnosticos7" switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                    	<input type="text" class="form-control" placeholder="" style="width:240px;" />
+                        <input type="text" class="form-control" placeholder="" style="width:240px;" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    	8.  Evalúa las características agroecológicas de su unidad productiva para determinar si son favorables para el cultivo que va a sembrar, además de los PELIGROS que se pueden presentar (análisis de riesgos).
+                        8.  Evalúa las características agroecológicas de su unidad productiva para determinar si son favorables para el cultivo que va a sembrar, además de los PELIGROS que se pueden presentar (análisis de riesgos).
                     </td>
                     <td style="text-align:center">
                         <input bs-switch ng-model="diagnosticos8" switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                    	<input type="text" class="form-control" placeholder="" style="width:240px;" />
+                        <input type="text" class="form-control" placeholder="" style="width:240px;" />
                     </td>
                 </tr>
+                
+                
             </tbody>
             <thead>
             	<tr>
@@ -474,13 +473,12 @@
             <tbody>
                 <tr>
                     <td colspan="4">
-                    	<textarea rows="3" cols="145"></textarea>
+                    	<textarea rows="3" style="width:100%;"></textarea>
                     </td>
                 </tr>
             </tbody>
         </table>
     		
-    	</div>
     </div></div><!-- .container and .panel-body -->
 </div><!-- panel default -->
 
@@ -512,7 +510,7 @@
             			<b>1.  ÁREAS E INSTALACIONES</b>.  Este elemento tiene un papel fundamental para evitar la contaminación (mantenimiento de las instalaciones y las herramientas en condiciones adecuadas, y particularmente, ordenadas).  Debemos revisar si la agroempresa de frutas cuenta con las siguientes instalaciones para cumplir con las BPA:
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			{{(valor1.1+valor1.2+valor1.3+valor1.4+valor1.5+valor1.6)/6}}
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -524,7 +522,7 @@
             			1.1  Dispone de baño para los trabajadores con papel higiénico, jabón líquido y toallas limpias para el secado de manos.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" value="0" ng-model="valor1.1"  style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -535,7 +533,7 @@
             			1.2  Dispone de área para el almacenamiento de insumos agrícolas, alejada de la vivienda, en la que los plaguicidas están separados de los fertilizantes y bioinsumos.  Esta área permanece con llave y tiene avisos informativos para prevención de los peligros relacionados con el manejo de los insumos agrícolas, el uso de elementos de protección personal, extintor multiuso en un lugar visible y un kit para usar en caso de derrame que consta de aserrín o arena, recogedor, bolsa y guantes.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor1.2" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -546,7 +544,7 @@
             			1.3  Dispone de área para dosificación y preparación de mezclas de insumos agrícolas.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor1.3" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -557,7 +555,7 @@
             			1.4  Dispone de área de acopio transitorio de frutas cosechadas que cuente con techo, estibas, canastillas, lavamanos, jabón, mesa y cercado.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor1.4" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -568,7 +566,7 @@
             			1.5  Dispone de área para el consumo de alimentos y descanso de los trabajadores con canecas para la disposición de basuras.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor1.5" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -579,7 +577,7 @@
             			1.6  Dispone de área para disposición de residuos donde garantiza que no hay contaminación del alimento, tiene clasificados los residuos en recipientes debidamente tapados y protegidos de aguas lluvias, con iluminación y ventilación adecuada.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor1.6" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -590,7 +588,7 @@
             			<b>2.  EQUIPOS Y UTENSILIOS.</b>  Debemos revisar si la agroempresa de frutas cuenta con lo siguiente para cumplir con las BPA:
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			{{(valor2.1+valor2.2+valor2.3)/3}}
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -601,7 +599,7 @@
             			2.1  Revisar si todos los equipos, utensilios y herramientas que se utilizan en las labores de campo, cosecha y poscosecha se encuentran en buenas condiciones de limpieza y están organizados.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor2.1" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -612,7 +610,7 @@
             			2.2  Revisar si tiene un programa de mantenimiento y calibración preventivo para cada uno de los equipos, utensilios y herramientas que se utilizan en las labores de campo, cosecha y poscosecha.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor2.2" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -623,7 +621,7 @@
             			2.3  Revisar si se llevan registros de todas las actividades de mantenimiento y calibración con los procedimientos e instructivos para su manejo.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor2.3" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -636,7 +634,7 @@
             			<b>3.  CALIDAD Y MANEJO DEL AGUA.</b>  Debemos revisar si la agroempresa de frutas cuenta con lo siguiente para cumplir con las BPA:
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			{{valor3.1}}
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -655,7 +653,7 @@
             			</ul>
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor3.1" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -666,7 +664,10 @@
             			<b>4.  MANEJO INTEGRADO DEL CULTIVO (MIC).</b>  La clave está en realizar las labores en el momento oportuno, de acuerdo con las condiciones agroecológicas de la región y con la asesoría de un ingeniero agrónomo competente que nos garanticen la productividad e inocuidad de las frutas producidas.  Debemos revisar si la agroempresa de frutas cuenta con lo siguiente para cumplir con las BPA:
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			{{((valor4.1.1+valor4.1.2+valor4.1.3+valor4.1.4+valor4.1.5+valor4.1.6+valor4.1.7+valor4.1.8+valor4.1.9+valor4.1.10)/10
+                        +(valor4.2.1+valor4.2.2+valor4.2.3+valor4.2.4)/4+
+                        (valor4.3.1+valor4.3.2+valor4.3.3+valor4.3.4+valor4.3.5)/5
+                        )/3}}
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -677,10 +678,10 @@
             			<b>4.1  BPA EN EL MANEJO DE SUELOS.</b>
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			{{(valor4.1.1+valor4.1.2+valor4.1.3+valor4.1.4+valor4.1.5+valor4.1.6+valor4.1.7+valor4.1.8+valor4.1.9+valor4.1.10)/10}}
             		</td>
             		<td>
-            			<textarea style="width:240px; height:100%;"></textarea>
+            			
             		</td>
             	</tr>
             	<tr>
@@ -688,7 +689,7 @@
             			4.1.1  Se hace labranza mínima e incorpora la materia orgánica
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.1.1" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -699,7 +700,7 @@
             			4.1.2  Se hacen siembras en contorno o a través de la pendiente para formar una barrera que disminuya la fuerza de arrastre del agua y su efecto en la pérdida del suelo.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.1.2" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -710,7 +711,7 @@
             			4.1.3  Se usan distancias de siembra recomendadas según el clima, el cultivo, la pendiente del terreno, el tipo de suelo para facilitar las labores del cultivo, permitir la ventilación y contribuir a reducir problemas de plagas y enfermedades.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.1.3" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -721,7 +722,7 @@
             			4.1.4  Se hace rotación de cultivos (cultivos anuales) o se justifica cuando no se puede hacer.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.1.4" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -732,7 +733,7 @@
             			4.1.5  Se mantien protegido el suelo con coberturas inertes o con arvenses nobles para reducir la aplicación de herbicidas o evitar el movimiento de suelo.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.1.5" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -743,21 +744,18 @@
             			4.1.6  Se utilizan barreras vivas para evitar la erosión.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.1.6" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
             		</td>
             	</tr>
-
-
-
             	<tr>
             		<td>
             			4.1.7  Se colocan barreras muertas como los sacos con arena o muros de contención, trinchos en guadua o bambú en lugares donde la escorrentía del agua es muy fuerte.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.1.7" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -768,7 +766,7 @@
             			4.1.8  Se cultivan plantan fijadoras de nitrógeno entre los surcos del cultivo principal si es permitido por el técnico.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.1.8" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -779,7 +777,7 @@
             			4.1.9  Se hacen drenajes en suelos con problemas de saturación hídrica y se les hace mantenimiento al igual que los desagues naturales.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.1.9" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -790,7 +788,7 @@
             			4.1.10  Se mantiene un registro de todas estas prácticas.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.1.10" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -801,7 +799,7 @@
             			<b>4.2  BPA EN EL MATERIAL DE PROPAGACIÓN.</b>
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			{{(valor4.2.1+valor4.2.2+valor4.2.3+valor4.2.4)/4}}
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -812,7 +810,7 @@
             			4.2.1  Se registra e identifican las plantas madres o el campo del cultivo de origen.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.2.1" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -823,7 +821,7 @@
             			4.2.2  Se cuenta con certificado de calidad fitosanitaria de la semilla con la fecha de vencimiento, origen, lote, variedad, tasa de germinación, y empresa responsable.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.2.2" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -834,7 +832,7 @@
             			4.2.3  Se dispone del registro expedido por el ICA del vivero donde se compró la semilla o material de propagación.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.2.3" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -845,7 +843,7 @@
             			4.2.4  El material de propagación adquirido está libre de signos visibles de plagas y enfermedades.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.2.4" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -856,7 +854,7 @@
             			<b>4.3  BPA EN LA NUTRICIÓN DE LAS PLANTAS</b>
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			{{(valor4.3.1+valor4.3.2+valor4.3.3+valor4.3.4+valor4.3.5)/5}}
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -869,7 +867,7 @@
             			4.3.1  Toma de muestras de suelo y foliares y se gestiona el análisis fisico-químico con las recomendaciones de fertilización de Ingeniero Agrónomo.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.3.1" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -880,7 +878,7 @@
             			4.3.2  Se conocen los requerimientos nutricionales del cultivo.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.3.2" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -891,7 +889,7 @@
             			4.3.3  Se dispone de un plan de fertilización con las dosis y las frecuencias recomendadas por el Ingeniero Agrónomo.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.3.3" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -902,7 +900,7 @@
             			4.3.4  Los insumos agrícolas que se utilizan para la fertilización del cultivo tienen registro otorgado por el ICA y se adquieren en almacenes autorizados igualmente por el ICA.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.3.4" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -913,7 +911,7 @@
             			4.3.5  Los abonos orgánicos que se usan tienen las siguientes características: A) Están registrados ante el ICA y son comprados en los establecimientos autorizados, B) El abono que se prepara en la unidad productiva tiene registros que incluyen información sobre el origen del material, los procedimientos de transformación y los controles realizados, C) En la preparación de los abonos orgánicos no se utilizan heces humanas tratadas o sin tratar, desechos urbanos sin clasificar, ni cualquier otro material que presente contaminación microbiológica, metales pesados u otros productos químicos
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor4.3.5" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -924,7 +922,7 @@
             			<b>5.  MANEJO INTEGRADO DE PLAGAS (MIP).</b>  Es una estrategia que usa una gran variedad de métodos complementarios: físicos, mecánicos, químicos, biológicos, genéticos, legales y culturales para el control de las plagas.  Estos métodos se aplican en tres etapas: prevención, monitoreo-evaluación e intervención.  El MIP es un método que aspira a reducir o eliminar el uso de plaguicidas y a minimizar el impacto en el medio ambiente.  Debemos revisar si la agroempresa de frutas cuenta con lo siguiente para cumplir con las BPA:
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			{{(valor5.1+valor5.2+valor5.3)/3}}
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -935,7 +933,7 @@
             			<b>5.1  PREVENCIÓN.</b>  Realiza una revisión completa de cada plaga para conocer su nombre común y científico, su ciclo biológico y la evaluación de la magnitud del daño con el fin hacer un uso racional de las medidas de manejo especialmente el químico
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor5.1" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -946,7 +944,7 @@
             			<b>5.2  MONITOREO y EVALUACIÓN.</b>  Realiza monitoreos y evaluaciones de las poblaciones y niveles de daño causados por las plasgas (%  de infestación, % de incidencia y % de severidad), y consulta a un Ingeniero Agrónomo para realizar el manejo de las plagas que afectan el cultivo.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor5.2" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -957,7 +955,7 @@
             			<b>5.3  INTERVENCION.</b>  Las prácticas dirigidas a disminuir la población de las plagas con el fin de reducirlas a niveles aceptables mediante el Manejo Integrado Plagas (MIP), se planea y ejecuta bajo la responsabilidad de un ingeniero agrónomo competente en el cultivo.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor5.3" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -968,7 +966,7 @@
             			<b>6.  BIENESTAR DE LOS TRABAJADORES.</b>  Entre los elementos de las BPA también se encuentra el bienestar de los trabajadores. Se enfoca en promover la calidad de vida a través de una existencia tranquila, productiva y satisfecha.  Debemos revisar si la agroempresa de frutas cuenta con lo siguiente para cumplir con las BPA:
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			{{(valor6.1+valor6.2+valor6.3+valor6.4+valor6.5)/5}}
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -980,7 +978,7 @@
             			6.1  Se realizan contratos de capacitación frecuentemente sobre: A) Uso y manejo responsable de agroquímicos, B) Manejo de herramientas peligrosas, C) Curso de primeros auxilios, D) Manejo de extintores.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor6.1" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -991,7 +989,7 @@
             			6.2  Se mantiene por escrito y en lugares visibles los procedimientos en caso de emergencia y unos trabajadores responsables que estén entrenados para actuar en caso de derrames de agroquímicos, incendios o intoxicaciones o cualquier riesgo potencial para ellos.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor6.2" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -1002,7 +1000,7 @@
             			6.3  Se mantiene la higiene en las viviendas e instalaciones. 
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor6.3" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -1013,7 +1011,7 @@
             			6.4  Los trabajadores permanentes están afiliados a una Empresa Prestadora de servicios de Salud (EPS) y a una Administradora de Riesgos Laborales (ARL) y a los trabajadores ocasionales se les solicitamos el certificado de afiliación como independientes a la EPS y ARL, en caso de no tenerlos se abstienen de contratarlos.
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor6.4" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -1024,7 +1022,7 @@
             			6.5  Se mantienen letreros visibles con información importante (policía nacional, defensa civil, hospital, bomberos, etc). 
             		</td>
             		<td align="center">
-            			<input type="number" value="100" style="width:60px;" />
+            			<input type="number" ng-model="valor6.5" value="100" style="width:60px;" />
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -1034,6 +1032,8 @@
         </table>
     </div></div><!-- .container and .panel-body -->
 </div><!-- panel default -->
+
+</form></div></div>
 
 {% endraw %}
 {% endblock %}

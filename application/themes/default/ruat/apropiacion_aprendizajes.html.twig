@@ -42,16 +42,16 @@
                     {% for pregunta in preguntas %}
                         {% set nombre_pregunta = "radio_pregunta" ~ contador %}
                         {% set clase_pregunta = 1 %}
-
+                        {% set respuesta_bd = aprendizajeRespuestas[nombre_pregunta] ? aprendizajeRespuestas[nombre_pregunta] : null %}
                         <tr class="center">
                             <td>{{ pregunta.descripcion }} {{form_error(nombre_pregunta)}}</td>
                             
-                            {% for respuesta in respuestas %}
+                            {% for respuesta in respuestas %}                                
                                 {% set valor_pregunta = pregunta.id ~ '_' ~ respuesta.id %}
+                                {% set respuesta_checked_bd =  respuesta_bd == valor_pregunta ? 'checked' : ''%}
                                 <td>
-                                    <input type="radio" id="{{ nombre_pregunta~ '_' ~ clase_pregunta }}" name="{{ nombre_pregunta }}" value="{{ valor_pregunta }}" {{ set_radio(nombre_pregunta, valor_pregunta) }}>
+                                    <input type="radio" id="{{ nombre_pregunta~ '_' ~ clase_pregunta }}" name="{{ nombre_pregunta }}" value="{{ valor_pregunta }}" {{ set_radio(nombre_pregunta, valor_pregunta) ? set_radio(nombre_pregunta, valor_pregunta) : respuesta_checked_bd }}>
                                     <label for="{{ nombre_pregunta~ '_' ~ clase_pregunta }}" class="r{{ clase_pregunta }}"></label>
-
                                 </td>
                                 {% set clase_pregunta = clase_pregunta+1 %}
                             {% endfor %}
