@@ -201,6 +201,5 @@ insert into tiporespuesta (descripcion, orden) values
     ('Totalmente en Desacuerdo', '1'),
     ('En Desacuerdo', '2'),
     ('Ni en Acuerdo ni en Desacuerdo', '3'),
-    ('Ni en Acuerdo ni en Desacuerdo', '4'),
-    ('De Acuerdo', '5'),
-    ('Totalmente de Acuerdo', '6');
+    ('De Acuerdo', '4'),
+    ('Totalmente de Acuerdo', '5');

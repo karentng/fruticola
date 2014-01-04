@@ -45,7 +45,7 @@ create table productor(
 
 create table contacto(
     id                  serial not null primary key,
-    productor_id        integer unique references productor(id),
+    productor_id        integer not null unique references productor(id),
     telefono            varchar(20),
     celular             varchar(20),
     email               varchar(60),
@@ -59,7 +59,7 @@ create table contacto(
 
 create table economia(
     id                     serial not null primary key,
-    productor_id           integer unique references productor(id),
+    productor_id           integer not null unique references productor(id),
     ingreso_familiar       integer,
     personas_dependientes  integer,
     ingreso_agropecuario   integer,
@@ -81,17 +81,16 @@ create table procesoinnovacion(
 
 create table personaasociada(
     id                  serial not null primary key,
-    productor_id           integer unique references productor(id),
     nombre              varchar(50) not null,
     apellido            varchar(50) not null,
     vereda              varchar(100),
-    grado_confianza     integer references tipoconfianza(id)
+    confianza_id        integer references tipoconfianza(id)
 );
 
 
 create table ruat(
     id                  serial not null primary key,
-    productor_id        integer unique references productor(id),
+    productor_id        integer not null unique references productor(id),
 
     asociado_id         integer references personaasociada(id),
     seguir_id           integer references personaasociada(id),
@@ -215,4 +214,11 @@ create table aprendizaje_respuesta(
     ruat_id         integer not null references ruat(id),
     pregunta_id     integer not null references tipopregunta(id),
     respuesta_id    integer not null references tiporespuesta(id)
+);
+
+create table observacion(
+    id                  serial not null primary key,
+    ruat_id             integer not null references ruat(id),
+    observacion         text not null,
+    ruta_formulario     varchar(50)
 );
