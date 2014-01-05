@@ -70,7 +70,7 @@ create table economia(
 
 create table procesoinnovacion(
     id                  serial not null primary key,
-    productor_id        integer references productor(id),
+    ruat_id             integer references ruat(id),
     tipo_id             integer not null references tipoinnovacion(id),
     fuente_id           integer references fuenteinnovacion(id),
     otra_fuente         varchar(30),
@@ -129,7 +129,7 @@ create table orgasociada_beneficio(
 
 create table razonnopertenecer(
     id                  serial not null primary key,
-    ruat_id             integer references productor(id),
+    ruat_id             integer references ruat(id),
     razon_id            integer not null references tiporazonnopertenecer(id)
 );
 

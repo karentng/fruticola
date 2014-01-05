@@ -132,6 +132,12 @@
 
                 // look at each form input with a name attribute set
                 // checking if it is pristine and not a '$' special field
+                console.log(feild);
+                if(feild =='subForm') {
+                    window.lito = form[feild];
+                    console.log("teke");
+                    return false;
+                }
                 if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
                     //console.log(typeof($scope.myForm[feild]));
                     form[feild].$setViewValue( form[feild].$modelValue );
@@ -141,7 +147,7 @@
         };
 
         $scope.submit = function() {
-            if(!$scope.validate()) {
+            if(!$scope.validate($scope.myForm)) {
                 alert('Revise errores');
                 return;
             }
@@ -525,21 +531,23 @@
                 
             </thead>
             <tbody>
-                <tr ng-repeat="tipoInn in tiposInnovacion">
+                <tr ng-repeat="tipoInn in tiposInnovacion" ng-form="subForm">
                     <td>{{tipoInn.descripcion}}</td>
                     <td>
-                        <span ng-init="innovaciones[$index]={tipo_id:tipoInn.id}"></span>
+                        <span ng-init="innovaciones[$index] = innovaciones[$index] ? innovaciones[$index] : {tipo_id:tipoInn.id}"></span>
                         <buttons-radio model="innovaciones[$index].fuente_id" options="fuentesInnovacion" name="fuente" >
                         </buttons-radio>
                     </td>
                     <td>
                         <input type="text" class="form-control" style="width:100px" 
-                                placeholder="¿Cual?" name="cualInnovacion" ng-model="innovaciones[$index].cual" ng-show="innovaciones[$index].fuente==6" ng-required="innovaciones[$index].fuente==6"/>
+                                placeholder="¿Cual?" name="otra_fuente" ng-model="innovaciones[$index].otra_fuente" ng-show="innovaciones[$index].fuente_id==6" ng-required="innovaciones[$index].fuente_id==6"/>
+                        <label class="error" ng-show="subForm.otra_fuente.$error.required">Requerido</label>
                         
                     </td>
                     <td>
                         <input type="text" class="form-control" name="descripcion" ng-model="innovaciones[$index].descripcion"
-                            placeholder="{{innovaciones[$index].fuente?'Ingrese aqui la Descripción':''}}" ng-disabled="!innovaciones[$index].fuente" />
+                            placeholder="{{innovaciones[$index].fuente_id?'Ingrese aqui la Descripción':''}}" ng-required="innovaciones[$index].fuente_id" ng-disabled="!innovaciones[$index].fuente_id" />
+                        <label class="error" ng-show="subForm.descripcion.$error.required">Requerido</label>
                     </td>
                 </tr>
             </tbody>
@@ -580,17 +588,17 @@
                     <th><button type="button" ng-click="asociacion.cooperativa.filas.push({})" class="btn btn-sm btn-primary tip" data-original-title="Agregar Fila"><i class="i-plus-circle"></i></button></th>
                 </tr>
             </thead>
-                <tr ng-repeat="fila in asociacion.cooperativa.filas">
+                <tr ng-repeat="fila in asociacion.cooperativa.filas" ng-form="subForm">
                     <td>
                         <select multiple name="clase" ng-required="asociacion.cooperativa.asociado" ng-model="fila.clases" style="min-width:100px"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Clases de Organización'}">
                             <option ng-repeat="t in clasesOrganizaciones" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                         <span class="help-block" ng-show="myForm.clase.$dirty && myForm.clase.$error.required"><label class="error">Requerido</label></span>
+                         <span class="help-block" ng-show="subForm.clase.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="Organizacion" ng-model="fila.nombre" ng-required="true" />
-                        <label class="error" ng-show="myForm.Organizacion.$dirty && myForm.Organizacion.$error.required ">Requerido</label>
+                        <input type="text" class="form-control" name="nombre" ng-model="fila.nombre" ng-required="true" />
+                        <label class="error" ng-show="myForm.nombre.$error.required ">Requerido</label>
                     </td>
                     <td><select multiple name="beneficios" ng-required="asociacion.cooperativa.asociado" ng-model="fila.beneficios" style="min-width:150px"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Beneficios'}">
