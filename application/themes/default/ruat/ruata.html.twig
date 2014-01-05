@@ -132,11 +132,11 @@
 
                 // look at each form input with a name attribute set
                 // checking if it is pristine and not a '$' special field
-                console.log(feild);
+                //console.log(feild);
                 if(feild =='subForm') {
                     window.lito = form[feild];
-                    console.log("teke");
-                    return false;
+                    //console.log("teke");
+                    //return false;
                 }
                 if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
                     //console.log(typeof($scope.myForm[feild]));
@@ -162,6 +162,7 @@
             }
 
             var data = {
+                ruat_id : $scope.ruat_id || null,
                 productor: $scope.productor,
                 contacto : $scope.contacto,
                 economia: $scope.economia,
@@ -189,9 +190,6 @@
 {% raw %}
 
 <div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
-<input type="submit">
-
-{{productor | json}}
 
 <div class="panel panel-default">
     <div class="panel-heading">

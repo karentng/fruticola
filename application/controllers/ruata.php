@@ -56,8 +56,6 @@ class RuatA extends CI_Controller {
 
     public function municipios($depto_id)
     {
-
-        //if(!$depto_id) return;
         $municipios = Municipio::find_all_by_departamento_id($depto_id);//, array('order' => 'nombre'));
         echo "<option></option>";
         foreach($municipios as $mun) {
@@ -80,9 +78,11 @@ class RuatA extends CI_Controller {
         else {
             $ruat = Ruat::find($input->ruat_id);
             $ruat->modificado = time();
-            $ruat->modificador = current_user('id');
+            $ruat->modificador_id = current_user('id');
             $ruat->save();
             $productor = $ruat->productor;
+            $productor->set_attributes((array)$input->productor);
+            $productor->save();
         }
 
         $input->contacto->productor_id = $productor->id;
@@ -160,7 +160,7 @@ class RuatA extends CI_Controller {
 
 
 
-    public function cargar($ruat_id)
+    public function cargar($ruat_id, $do_echo=false)
     {
         $ruat = Ruat::find($ruat_id);
 
@@ -176,8 +176,14 @@ class RuatA extends CI_Controller {
             'sigue'         => array('asociado' => false),
         );
             
-        foreach(Orgasociada::find_all_by_ruat_id($ruat->id) as $org) 
-            $output->asociacion['cooperativa']['filas'][] = $org->to_array();
+        $coops = Orgasociada::find_all_by_ruat_id($ruat->id, array('include' =>array('clases','beneficios')));
+        foreach($coops as $org) {
+            $orgasociada = $org->to_array();
+            $orgasociada['directivo']  = $orgasociada['membresia']=='Directivo';
+            $orgasociada['clases']     = array_map(function($cls){ return $cls->clase_id; }, $org->clases);
+            $orgasociada['beneficios'] = array_map(function($bnf){ return $bnf->beneficio_id; }, $org->beneficios);
+            $output->asociacion['cooperativa']['filas'][] = $orgasociada;
+        }
         $output->asociacion['cooperativa']['asociado'] = (bool)count($output->asociacion['cooperativa']['filas']);
 
         if($ruat->asociado_id) {
@@ -194,7 +200,7 @@ class RuatA extends CI_Controller {
             $output->innovaciones[] = $inno->to_array();
         }
         $output->realizaInnovacion = (bool)count($output->innovaciones);
-        //echo json_encode($output);
+        if($do_echo) echo json_encode($output);
         return $output;
         //echo json_encode($output);
     }
