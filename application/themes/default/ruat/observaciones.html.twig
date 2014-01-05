@@ -17,47 +17,75 @@
     <!-- End .panel-heading -->
 
     <div class="panel-body" style="display: block;">
-        <div class="container">
-            Nombre: {{objRuat.productor.nombre1}}
+        <div class="container">            
             <!-- begin -->
             <div class="row">
                 {{form_error('observacion')}}
                     <textarea class="form-control" id="textarea" name="observacion" rows="3" >{{ set_value('observacion') ? set_value('observacion') : observacion.observacion }}</textarea>
                 </div>
-                <div class="row">
-                    {{upload_result}}
-                        <label for="archivo_formulario">Ruat Digítal</label><br/>
-                        {% if observacion.ruta_formulario %}
-                            <span class="box1">
+
+                <div class="form-group">
+
+                    <div class="col-lg-4">
+                        <input id="beneficiario" class="form-control" style="text-align: center;" type="text" value="{{productor.nombre1}} {{productor.nombre2}} {{productor.apellido1}} {{productor.apellido2}}" disabled>
+                        <label for="beneficiario" class="col-lg-12" style="text-align: center;" >BENEFICIARIO</label>
+                    </div>
+                    <div class="col-lg-4">                      
+                    </div>
+                    <div class="col-lg-4">
+                        <input id="responsable" class="form-control" style="text-align: center;" type="text" value="{{usuaioSesion.first_name}} {{usuaioSesion.last_name}}" disabled>
+                        <label for="responsable" class="col-lg-12" style="text-align: center;" >FUNCIONARIO RESPONSABLE</label>
+                    </div>
+                </div>
+
+                <div class="or center">&nbsp;</div>
+                <hr class="seperator">
+                <div class="form-group">
+
+                    <div class="col-lg-4">                            
+                            {% if observacion.ruta_formulario %}
+                            <span class="box1 col-lg-12">
                                 <i aria-hidden="true" class="i-file"></i>
                                 <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~ observacion.ruta_formulario}}">{{observacion.ruta_formulario}} </a>
                             </span>      
                             <br/><br/><br/>
-                        {% endif %}
+                            {% endif %}
 
-                        <!--<div class="uploader focus" id="uniform-file"> -->
-                        <input type="file" name="archivo_formulario" id="file">
-                        <!--< <span class="filename" style="-webkit-user-select: none;">
-                             Archivo No Seleccionado
-                         </span>
-                         <span class="action" style="-webkit-user-select: none;">
-                             Escoger Archivo
-                         </span>
-                     </div>-->
+                            
+                            <input type="file" name="archivo_formulario" id="archivo_formulario" >
+                            {{upload_result_ruat}}
+                            <label for="archivo_formulario" class="col-lg-12" style="text-align: center;" >Documento del beneficiario</label>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-4">
+                            {% if productor.adjunto_cedula %}
+                                <span class="box1 col-lg-12">
+                                    <i aria-hidden="true" class="i-vcard"></i>
+                                    <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~productor.adjunto_cedula}}">{{productor.adjunto_cedula}} </a>
+                                </span>      
+                                <br/><br/><br/>
+                            {% endif %}
+
+                            <input type="file" name="archivo_documento_identificacion" id="archivo_documento_identificacion" >
+                            {{upload_result_documento_identidad}}
+                            <label for="archivo_documento_identificacion" class="col-lg-12" style="text-align: center;" >RUAT Digitalizado</label>
+                        </div>
                     </div>
-                    <!-- end -->
+                
 
-                </div> <!-- .container -->
-            </div><!-- End .panel-body -->
-        </div><!-- panel default -->
+                        <!-- end -->
+                    </div> <!-- .container -->
+                </div><!-- End .panel-body -->
+            </div><!-- panel default -->
 
-        <br/>
-        <div class="form-actions full">
-            <a class="btn btn-lg btn-warning pull-left" type="button" href="{{url_ruatc}}"><i class="icon16 i-arrow-left-2"></i>Anterior</a>
-            <button class="btn btn-lg btn-success pull-right" type="submit">Finalizar<i class="icon16 i-arrow-right-3"></i></button>
-        </div>
+            <br/>
+            <div class="form-actions full">
+                <a class="btn btn-lg btn-warning pull-left" type="button" href="{{url_ruatc}}"><i class="icon16 i-arrow-left-2"></i>Anterior</a>
+                <button class="btn btn-lg btn-success pull-right" type="submit">Finalizar<i class="icon16 i-arrow-right-3"></i></button>
+            </div>
 
-        <div class="row" style="height:100px"></div> {# para evitar que el señalador de "ir arriba" tape el boton siguiente #}
+            <div class="row" style="height:100px"></div> {# para evitar que el señalador de "ir arriba" tape el boton siguiente #}
 
 {{ form_close() }}
 
