@@ -11,8 +11,6 @@ class RuatA extends CI_Controller {
     {
         check_profile($this, 'Administrador');
                         
-        
-
         function to_array($model) { return $model->to_array(); }
 
         $data = array();
@@ -28,7 +26,6 @@ class RuatA extends CI_Controller {
         $data['tiposInnovacion']      = array_map('to_array',TipoInnovacion::sorted());
         $data['fuentesInnovacion']    = array_map('to_array',FuenteInnovacion::sorted());
         $data['tiposRazonNoPertenecer'] = array_map('to_array',TipoRazonNoPertenecer::sorted());
-        //$data['departamentos'] = array_map('to_array',Departamento::all(array('order'=>'nombre')), 'id', 'nombre');
         $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
         $deptos_municipios = array();
         foreach($deptos as $depto) {
@@ -39,10 +36,6 @@ class RuatA extends CI_Controller {
 
         $data['departamentos'] = $deptos_municipios;
 
-        //var_dump($tiposDocumento);
-        //die();
-
-        //$this->twiggy->set($data, NULL);
         $this->twiggy->set('combos', json_encode($data));
 
         if($ruat_id) {
@@ -54,18 +47,9 @@ class RuatA extends CI_Controller {
         $this->twiggy->display();
     }
 
-    public function municipios($depto_id)
-    {
-        $municipios = Municipio::find_all_by_departamento_id($depto_id);//, array('order' => 'nombre'));
-        echo "<option></option>";
-        foreach($municipios as $mun) {
-            echo "<option value='$mun->id'>$mun->nombre</option>\n";
-        }
-    }
 
     public function guardar()
     {
-        
         $input = json_decode(file_get_contents("php://input"));
         
         if(empty($input->ruat_id)) {
@@ -122,9 +106,8 @@ class RuatA extends CI_Controller {
 
             foreach($beneficios as $bnf)
                 OrgasociadaBeneficio::create(array(
-                    'orgasociada_id' => $orgasociada->id, 'beneficio_id' => $bnf ));
+                    'orgasociada_id' => $orgasociada->id, 'beneficio_id' => $bnf) );
         }
-        
 
         foreach ($input->asociacion->cooperativa->razones as $razon)
             RazonNoPertenecer::create(array('ruat_id' => $ruat->id, 'razon_id' => $razon));
@@ -153,11 +136,15 @@ class RuatA extends CI_Controller {
             $ruat->seguir_id = null;
         }  
 
-        
         $ruat->save();
-        echo "ok";
+        $response = array(
+            'success'=>true, 
+            'message'=> array('type'=>'success', 'text'=>'Guardado Exitoso'),
+            'scope'=>$this->cargar($ruat->id)
+        );
+        
+        echo json_encode($response);
     }
-
 
 
     public function cargar($ruat_id, $do_echo=false)
@@ -203,15 +190,14 @@ class RuatA extends CI_Controller {
             $output->innovaciones[] = $inno->to_array();
         }
         $output->realizaInnovacion = (bool)count($output->innovaciones);
+        
         if($do_echo) echo json_encode($output);
         return $output;
-        //echo json_encode($output);
     }
+
 
     private function datefmt($f) 
     {
         return $f ? $f->format('Y-m-d') : '';
     }
-
-    
 }

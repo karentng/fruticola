@@ -86,13 +86,7 @@
     var urls = {
         guardar : "{{site_url('ruata/guardar')}}",
     };
-    var count = function(obj) {
-        var cnt = 0;
-        for(var x in obj)
-            if(obj.hasOwnProperty(x))
-                cnt++;
-        return cnt;
-    }
+    
 </script>
 
 
@@ -124,8 +118,6 @@
         angular.extend($scope, extern.ruat);
         //$scope.combos = extern.combos;
 
-
-        $scope.count = count;
         
         $scope.validate = function(form){   
             for (feild in form) {
@@ -148,7 +140,7 @@
 
         $scope.submit = function() {
             if(!$scope.validate($scope.myForm)) {
-                alert('Revise errores');
+                notif({type:'error', text:'Formulario Incompleto. <br/> Verifique los campos requeridos'});
                 return;
             }
 
@@ -173,7 +165,15 @@
 
 
             $http.post(urls.guardar, data).success(function(response,status) {
-                console.log(response);
+                //console.log(response);
+                if(response.success!==undefined) {
+                    notif(response.message);
+                    if(response.success)
+                        angular.extend($scope, response.scope);
+                }
+                else {
+                    alert("Error en comunicacion con el servidor. Intente nuevamente.");
+                }
             });
 
             //alert('Guardar!');
