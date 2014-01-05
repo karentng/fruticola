@@ -107,4 +107,15 @@ if(! function_exists('my_input'))
             $res[$obj->$keyField] = $obj->$valueField;
         return $res;
     }
+
+    function extract_prop($objs, $prop) {
+        $res = array();
+        if(is_array($objs[0]))
+            foreach($objs as $obj) 
+                $res[] = $obj[$prop];
+        else
+            foreach($objs as $obj) 
+                $res[] = $obj->$prop;
+        return $res;
+    }
 }

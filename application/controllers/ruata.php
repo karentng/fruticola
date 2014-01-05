@@ -167,6 +167,7 @@ class RuatA extends CI_Controller {
         $output = new StdClass;
         $output->ruat_id = $ruat->id;
         $output->productor = $ruat->productor->to_array();
+        $output->productor['fecha_nacimiento'] = $ruat->productor->fecha_nacimiento->format("Y-m-d");
         $output->contacto = $ruat->productor->contacto->to_array();
         $output->economia = $ruat->productor->economia->to_array();
         $output->economia['usaCredito'] = (bool)($output->economia['credito_id']);
@@ -180,11 +181,13 @@ class RuatA extends CI_Controller {
         foreach($coops as $org) {
             $orgasociada = $org->to_array();
             $orgasociada['directivo']  = $orgasociada['membresia']=='Directivo';
-            $orgasociada['clases']     = array_map(function($cls){ return $cls->clase_id; }, $org->clases);
-            $orgasociada['beneficios'] = array_map(function($bnf){ return $bnf->beneficio_id; }, $org->beneficios);
+            $orgasociada['clases']     = extract_prop($org->clases, 'clase_id');
+            $orgasociada['beneficios'] = extract_prop($org->beneficios, 'beneficio_id');
             $output->asociacion['cooperativa']['filas'][] = $orgasociada;
         }
         $output->asociacion['cooperativa']['asociado'] = (bool)count($output->asociacion['cooperativa']['filas']);
+        $output->asociacion['cooperativa']['orgs_apoyan'] = json_decode($ruat->orgs_apoyan);
+        $output->asociacion['cooperativa']['razones'] = extract_prop(RazonNoPertenecer::find_all_by_ruat_id($ruat->id),'razon_id');
 
         if($ruat->asociado_id) {
             $output->asociacion['otroProductor'] = PersonaAsociada::find($ruat->asociado_id)->to_array();
@@ -209,4 +212,6 @@ class RuatA extends CI_Controller {
     {
         return $f ? $f->format('Y-m-d') : '';
     }
+
+    
 }
