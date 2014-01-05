@@ -2,7 +2,7 @@
 
 {% block contenido %}
 
-{{ form_open(null, {role:'form'}) }}
+{{ form_open_multipart(null, {role:'form'}) }}
 <!-- Cuando el $_POST esta vacio, form_validation->run() retorna false sin errores :/ -->
 <input type="hidden" name="para_validar" value="1" />
 
@@ -18,25 +18,46 @@
 
     <div class="panel-body" style="display: block;">
         <div class="container">
-
+            Nombre: {{objRuat.productor.nombre1}}
             <!-- begin -->
             <div class="row">
                 {{form_error('observacion')}}
-                <textarea class="form-control" id="textarea" name="observacion" rows="3" >{{ set_value('observacion') ? set_value('observacion') : observacion.observacion }}</textarea>
-            </div>
-            <!-- end -->
+                    <textarea class="form-control" id="textarea" name="observacion" rows="3" >{{ set_value('observacion') ? set_value('observacion') : observacion.observacion }}</textarea>
+                </div>
+                <div class="row">
+                    {{upload_result}}
+                        <label for="archivo_formulario">Ruat Digítal</label><br/>
+                        {% if observacion.ruta_formulario %}
+                            <span class="box1">
+                                <i aria-hidden="true" class="i-file"></i>
+                                <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~ observacion.ruta_formulario}}">{{observacion.ruta_formulario}} </a>
+                            </span>      
+                            <br/><br/><br/>
+                        {% endif %}
 
-        </div> <!-- .container -->
-    </div><!-- End .panel-body -->
-</div><!-- panel default -->
+                        <!--<div class="uploader focus" id="uniform-file"> -->
+                        <input type="file" name="archivo_formulario" id="file">
+                        <!--< <span class="filename" style="-webkit-user-select: none;">
+                             Archivo No Seleccionado
+                         </span>
+                         <span class="action" style="-webkit-user-select: none;">
+                             Escoger Archivo
+                         </span>
+                     </div>-->
+                    </div>
+                    <!-- end -->
 
-<br/>
-<div class="form-actions full">
-    <a class="btn btn-lg btn-warning pull-left" type="button" href="{{url_ruatc}}"><i class="icon16 i-arrow-left-2"></i>Anterior</a>
-    <button class="btn btn-lg btn-success pull-right" type="submit">Finalizar<i class="icon16 i-arrow-right-3"></i></button>
-</div>
+                </div> <!-- .container -->
+            </div><!-- End .panel-body -->
+        </div><!-- panel default -->
 
-<div class="row" style="height:100px"></div> {# para evitar que el señalador de "ir arriba" tape el boton siguiente #}
+        <br/>
+        <div class="form-actions full">
+            <a class="btn btn-lg btn-warning pull-left" type="button" href="{{url_ruatc}}"><i class="icon16 i-arrow-left-2"></i>Anterior</a>
+            <button class="btn btn-lg btn-success pull-right" type="submit">Finalizar<i class="icon16 i-arrow-right-3"></i></button>
+        </div>
+
+        <div class="row" style="height:100px"></div> {# para evitar que el señalador de "ir arriba" tape el boton siguiente #}
 
 {{ form_close() }}
 
