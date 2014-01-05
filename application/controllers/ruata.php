@@ -42,8 +42,14 @@ class RuatA extends CI_Controller {
         //var_dump($tiposDocumento);
         //die();
 
-        $this->twiggy->set($data, NULL);
+        //$this->twiggy->set($data, NULL);
         $this->twiggy->set('combos', json_encode($data));
+
+        if($ruat_id) {
+            $ruat = $this->cargar($ruat_id);
+            $this->twiggy->set('ruat', json_encode($ruat));
+        }
+
         $this->twiggy->template("ruat/ruata");
         $this->twiggy->display();
     }
@@ -67,7 +73,9 @@ class RuatA extends CI_Controller {
         if(empty($input->ruat_id)) {
             $ruat = new Ruat;
             $ruat->creador_id = current_user('id');
-            $productor = new Productor();
+            $productor = Productor::create((array)$input->productor);
+            $ruat->productor_id = $productor->id;
+            $ruat->save();
         }
         else {
             $ruat = Ruat::find($input->ruat_id);
@@ -77,46 +85,16 @@ class RuatA extends CI_Controller {
             $productor = $ruat->productor;
         }
 
-        $productor->nombre1     = $input->productor->nombre1;
-        $productor->nombre2     = $input->productor->nombre2;
-        $productor->apellido1   = $input->productor->apellido1;
-        $productor->apellido2   = $input->productor->apellido2;
-        $productor->sexo        = $input->productor->sexo;
-        $productor->fecha_nacimiento      = $input->productor->fechaNacimiento;
-        $productor->nivel_educativo_id    = $input->productor->nivelEducativo;
-        $productor->tipo_documento_id     = $input->productor->tipoDocumento;
-        $productor->numero_documento      = $input->productor->numeroDocumento;
-        $productor->renglon_productivo_id = $input->productor->renglonProductivo;
-        $productor->tipo_productor_id     = $input->productor->tipo;
+        $input->contacto->productor_id = $productor->id;
+        Contacto::create_or_update((array)$input->contacto);
+
+        $econo = $input->economia;
+        if(!$econo->usaCredito) $econo->credito_id = null;
+        if($econo->credito_id!=7)  $econo->otro_credito = null;
+        unset($econo->usaCredito);
+        $econo->productor_id = $productor->id;
+        Economia::create_or_update((array)$econo);
         
-        $productor->save();
-
-        if(!$ruat->id) {
-            $ruat->productor_id = $productor->id;
-            $ruat->save();
-        }
-
-        $contacto = new Contacto();
-        $contacto->productor_id     = $productor->id;
-        $contacto->telefono         = $input->contacto->telefono;
-        $contacto->celular          = $input->contacto->celular;
-        $contacto->email            = $input->contacto->email;
-        $contacto->departamento_id  = $input->contacto->departamento;
-        $contacto->municipio_id     = $input->contacto->municipio;
-        $contacto->vereda           = $input->contacto->vereda;
-        $contacto->direccion        = $input->contacto->direccion;
-        $contacto->save();
-
-
-        $economia = new Economia();
-        $economia->productor_id     = $productor->id;
-        $economia->ingreso_familiar = $input->economia->ingresoMensual;
-        $economia->ingreso_agropecuario = $input->economia->ingresoAgropecuaria;
-        $economia->personas_dependientes = $input->economia->personasCargo;
-        $economia->credito_id = $input->economia->procedenciaCredito;
-        $economia->otro_credito = $input->economia->otroCredito;
-
-        $economia->save();
 
         foreach($input->innovaciones as $innova) {
             $innovacion = new Innovacion();
@@ -131,63 +109,58 @@ class RuatA extends CI_Controller {
             }
         }
 
-        foreach($input->asociacion->cooperativa->filas as $fila) {
-            $orgasociada = new Orgasociada();
-            $orgasociada->productor_id = $productor->id;
-            $orgasociada->nombre = $fila->organizacion;
-            $orgasociada->periodicidad_id = $fila->periodicidad;
-            $orgasociada->directivo = $fila->directivo;
-            $orgasociada->participante = $fila->participante;
-            $orgasociada->save();
+        Orgasociada::table()->delete(array('ruat_id' => $ruat->id));
+        RazonNoPertenecer::table()->delete(array('ruat_id' => $ruat->id));
+        
+        foreach($input->asociacion->cooperativa->filas as $org) {
+            $clases = $org->clases;
+            $beneficios = $org->beneficios;
+            $directivo = $org->directivo;
+            unset($org->clases, $org->beneficios, $org->directivo);
+            $org->ruat_id = $ruat->id;
+            $org->membresia = $org->directivo ? 'Directivo' : 'Participante';
 
-            foreach ($fila->beneficios as $beneficio) {
-                $orgasociada_beneficio = new OrgasociadaBeneficio();
-                $orgasociada_beneficio->orgasociada_id = $orgasociada->id;
-                $orgasociada_beneficio->beneficio_id = $beneficio;
-                $orgasociada_beneficio->save();
-            }
+            $orgasociada = Orgasociada::create((array)$org);
 
-            foreach ($fila->clases as $clase) {
-                $orgasociada_clase = new OrgasociadaClase();
-                $orgasociada_clase->orgasociada_id = $orgasociada->id;
-                $orgasociada_clase->clase_id = $clase;
-                $orgasociada_clase->save();
-            }
-            
+            foreach($clases as $cls)
+                OrgasociadaClase::create(array(
+                    'orgasociada_id' => $orgasociada->id, 'clase_id' => $cls) );
+
+            foreach($beneficios as $bnf)
+                OrgasociadaBeneficio::create(array(
+                    'orgasociada_id' => $orgasociada->id, 'beneficio_id' => $bnf ));
+        }
+        
+
+        foreach ($input->asociacion->cooperativa->razones as $razon)
+            RazonNoPertenecer::create(array('ruat_id' => $ruat->id, 'razon_id' => $razon));
+        
+        $ruat->orgs_apoyan = json_encode($input->asociacion->cooperativa->orgs_apoyan);
+
+        if($input->asociacion->otroProductor->asociado) {
+            $asoc = $input->asociacion->otroProductor;
+            unset($asoc->asociado);
+            $per = PersonaAsociada::create_or_update((array)$asoc);
+            $ruat->asociado_id = $per->id;
+        }
+        else if($ruat->asociado_id) {
+            PersonaAsociada::table()->delete(array('id' => $ruat->asociado_id));
+            $ruat->asociado_id = null;
         }
 
-        foreach ($input->asociacion->cooperativa->razones as $razon) {
-            $razonnopertenecer = new RazonesNoPertenecer();
-            $razonnopertenecer->productor_id = $productor->id;
-            $razonnopertenecer->razon_id = $razon;
-            $razonnopertenecer->save();
+        if($input->asociacion->sigue->asociado) {
+            $asoc = $input->asociacion->sigue;
+            unset($asoc->asociado);
+            $per = PersonaAsociada::create_or_update((array)$asoc);
+            $ruat->seguir_id = $per->id;
         }
+        else if($ruat->seguir_id) {
+            PersonaAsociada::table()->delete(array('id' => $ruat->seguir_id));
+            $ruat->seguir_id = null;
+        }  
 
-        /*oreach ($input->asociacion->cooperativa->apoyan as $apoyo) {
-            $entidadApoyo = new EntidadesApoyo(); // falta crear modelo
-            $entidadApoyo ->productor_id = $productor->id;
-            $entidadApoyo ->entidadApoyo= $apoyo;
-            $entidadApoyo ->save();
-        }*/
-
-        $personaasociada = new PersonaAsociada();
-        //$personaasociada->productor_id = $productor->id;
-        $personaasociada->nombre       = $input->asociacion->otroProductor->nombre;
-        $personaasociada->apellido     = $input->asociacion->otroProductor->apellido;
-        $personaasociada->vereda       = $input->asociacion->otroProductor->vereda;
-        $personaasociada->confianza_id = $input->asociacion->otroProductor->confianza;
-        $personaasociada->save();
-
-
-        /*$personaseguir = new PersonaSeguir();
-        $personaseguir->productor_id = $productor->id;
-        $personaseguir->nombre = $input->asociacion->sigue->nombre;
-        $personaseguir->apellido = $input->asociacion->sigue->apellido;
-        $personaseguir->vereda = $input->asociacion->sigue->vereda;
-        $personaseguir->grado_confianza = $input->asociacion->sigue->confianza;
-        $personaseguir->save();*/
-
-
+        
+        $ruat->save();
         echo "ok";
     }
 
@@ -200,6 +173,7 @@ class RuatA extends CI_Controller {
         $output = new StdClass;
         $output->ruat_id = $ruat->id;
         $output->productor = new StdClass;
+        $output->productor->id                = $ruat->productor->id;
         $output->productor->nombre1           = $ruat->productor->nombre1;
         $output->productor->nombre2           = $ruat->productor->nombre2;
         $output->productor->apellido1         = $ruat->productor->apellido1;
@@ -213,6 +187,7 @@ class RuatA extends CI_Controller {
         $output->productor->fechaNacimiento   = $this->datefmt($ruat->productor->fecha_nacimiento);
         
         $output->contacto = new StdClass;
+        $output->contacto->id           = $ruat->productor->contacto->id;
         $output->contacto->celular      = $ruat->productor->contacto->celular;
         $output->contacto->telefono     = $ruat->productor->contacto->telefono;
         $output->contacto->email        = $ruat->productor->contacto->email;
@@ -259,7 +234,8 @@ class RuatA extends CI_Controller {
         $output->asociacion->otroProductor = cargarAsociado($ruat->asociado);
         $output->asociacion->sigue = cargarAsociado($ruat->seguir);
 
-        echo json_encode($output);
+        return $output;
+        //echo json_encode($output);
     }
 
     private function datefmt($f) 
