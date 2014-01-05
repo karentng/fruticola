@@ -190,6 +190,9 @@
 {% raw %}
 
 <div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
+<!--<input type="submit">
+
+{{productor | json}}-->
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -595,20 +598,23 @@
                          <span class="help-block" ng-show="subForm.clase.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="nombre" ng-model="fila.nombre" ng-required="true" />
-                        <label class="error" ng-show="myForm.nombre.$error.required ">Requerido</label>
+                        <input type="text" class="form-control" name="nombre" ng-model="fila.nombre" ng-required="true" placeholder="Organización"/>
+                         <span class="help-block" ng-show="subForm.nombre.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td><select multiple name="beneficios" ng-required="asociacion.cooperativa.asociado" ng-model="fila.beneficios" style="min-width:150px"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Beneficios'}">
                             <option ng-repeat="t in tiposBeneficio" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <span class="help-block" ng-show="myForm.beneficios.$dirty && myForm.beneficios.$error.required"><label class="error">Requerido</label></span>
+                         <span class="help-block" ng-show="subForm.beneficios.$error.required"><label class="error">Requerido</label></span>
                     </td>
-                    <td><select name="periodicidad" ng-model="fila.periodicidad_id" 
-                                ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true}" data-placeholder="Periodicidad">
+                    <td>
+                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Periodicidad'}" 
+                            name="periodicidad" ng-model="fila.periodicidad_id" ng-required="true">
+                            <option></option>
                             <option ng-repeat="t in periodicidades" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        
+                        <label class="error" ng-show="subForm.periodicidad.$error.required">Requerido</label>
+                    
                     </td>
                     <td><input bs-switch ng-model="fila.directivo" switch-on="info" switch-off="info"
                         switch-on-label="Directivo" switch-off-label="Participante" switch-type="checkbox" switch-size="" switch-animate="true" />
