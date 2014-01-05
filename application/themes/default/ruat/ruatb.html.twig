@@ -543,7 +543,7 @@
                             <option></option>
                             <option ng-repeat="t in tiposFormaPago" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <label class="error" ng-show="subForm.forma_pago_id.$dirty && subForm.forma_pago_id.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.formaPago.$dirty && subForm.formaPago.$error.required">Requerido</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" name="subproducto" ng-model="prod.subproducto" placeholder="Subproducto" required>
