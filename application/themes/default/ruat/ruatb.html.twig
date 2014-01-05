@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <label class="control-label  ">Finca</label><br/>
                         
-                        <input bs-switch ng-model="finca.esFinca" switch-on="success"
+                        <input bs-switch ng-model="finca.esFinca" switch-on="primary"
                                 switch-on-label="SI" switch-off-label="NO" switch-active="false">
                     </div>
                 </div>
@@ -230,7 +230,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Disponibilidad de Vias de Acceso</label><br/>
-                        <input bs-switch ng-model="vias.disponibilidad" switch-on="success" switch-off="danger"
+                        <input bs-switch ng-model="vias.disponibilidad" switch-on="primary" switch-off="warning"
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox">
                     </div>
                 </div>
@@ -352,7 +352,7 @@
 
                     <td style="width:150px; vertical-align:middle"><strong>{{t.descripcion}}</strong></td>
                     <td style="width:100px">
-                        <input bs-switch ng-model="maquinaria[t.id].usa" 
+                        <input bs-switch ng-model="maquinaria[t.id].usa" switch-on="primary" switch-off="warning" 
                                 switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="small" />
                     </td>
                     <td><input type="text" class="form-control" name="descripMaquinaria" ng-model="maquinaria[t.id].descripcion" 
@@ -410,7 +410,7 @@
                         <label class="error" ng-show="subForm.variedadProd.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input bs-switch ng-model="prod.semilla_certificada" switch-on="success" switch-off="warning"
+                        <input bs-switch ng-model="prod.semilla_certificada" switch-on="primary" switch-off="warning"
                                 switch-on-label=".&nbsp; Certificada  &nbsp;." switch-off-label="No Certificada">
                     </td>
                     <td>
