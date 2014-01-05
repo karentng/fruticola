@@ -676,7 +676,9 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Vereda de Ubicación</label>
-                                <input type="text" class="form-control" ng-model="asociacion.otroProductor.vereda"/>
+                                <input type="text" class="form-control" name="veredaAsocio" ng-model="asociacion.otroProductor.vereda" ng-required="asociacion.otroProductor.asociado"/>
+                                <label class="error" ng-show="myForm.veredaAsocio.$dirty && myForm.veredaAsocio.$error.required ">Requerido</label>
+
                             </div>
                         </div>
                     </div>
@@ -724,7 +726,9 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Vereda de Ubicación</label>
-                                <input type="text" class="form-control" ng-model="asociacion.sigue.vereda"/>
+                                <input type="text" class="form-control" name="veredaSeguir" ng-model="asociacion.sigue.vereda" ng-required="asociacion.sigue.asociado"/>
+                                <label class="error" ng-show="myForm.veredaSeguir.$dirty && myForm.veredaSeguir.$error.required ">Requerido</label>
+
                             </div>
                         </div>
                     </div>
