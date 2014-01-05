@@ -95,6 +95,8 @@ create table ruat(
     asociado_id         integer references personaasociada(id),
     seguir_id           integer references personaasociada(id),
 
+    orgs_apoyan         text,
+
     creado              timestamp default current_timestamp,
     creador_id          integer references users(id),
     modificado          timestamp,

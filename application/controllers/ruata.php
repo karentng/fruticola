@@ -89,8 +89,8 @@ class RuatA extends CI_Controller {
         Contacto::create_or_update((array)$input->contacto);
 
         $econo = $input->economia;
-        if(!$econo->usaCredito) $econo->procedenciaCredito = null;
-        if($econo->procedenciaCredito!=7)  $econo->otroCredito = null;
+        if(!$econo->usaCredito) $econo->credito_id = null;
+        if($econo->credito_id!=7)  $econo->otro_credito = null;
         unset($econo->usaCredito);
         $econo->productor_id = $productor->id;
         Economia::create_or_update((array)$econo);
@@ -111,8 +111,8 @@ class RuatA extends CI_Controller {
 
         Orgasociada::table()->delete(array('ruat_id' => $ruat->id));
         RazonNoPertenecer::table()->delete(array('ruat_id' => $ruat->id));
-        $coop = $input->asociacion->cooperativa;
-        foreach($coop->filas as $org) {
+        
+        foreach($input->asociacion->cooperativa->filas as $org) {
             $clases = $org->clases;
             $beneficios = $org->beneficios;
             $directivo = $org->directivo;
@@ -130,46 +130,12 @@ class RuatA extends CI_Controller {
                 OrgasociadaBeneficio::create(array(
                     'orgasociada_id' => $orgasociada->id, 'beneficio_id' => $bnf ));
         }
-        /*
-        foreach($input->asociacion->cooperativa->filas as $fila) {
-            $orgasociada = new Orgasociada();
-            $orgasociada->productor_id = $productor->id;
-            $orgasociada->nombre = $fila->organizacion;
-            $orgasociada->periodicidad_id = $fila->periodicidad;
-            $orgasociada->directivo = $fila->directivo;
-            $orgasociada->participante = $fila->participante;
-            $orgasociada->save();
+        
 
-            foreach ($fila->beneficios as $beneficio) {
-                $orgasociada_beneficio = new OrgasociadaBeneficio();
-                $orgasociada_beneficio->orgasociada_id = $orgasociada->id;
-                $orgasociada_beneficio->beneficio_id = $beneficio;
-                $orgasociada_beneficio->save();
-            }
-
-            foreach ($fila->clases as $clase) {
-                $orgasociada_clase = new OrgasociadaClase();
-                $orgasociada_clase->orgasociada_id = $orgasociada->id;
-                $orgasociada_clase->clase_id = $clase;
-                $orgasociada_clase->save();
-            }
-            
-        }
-        */
-
-        foreach ($input->asociacion->cooperativa->razones as $razon) {
-            $razonnopertenecer = new RazonesNoPertenecer();
-            $razonnopertenecer->productor_id = $productor->id;
-            $razonnopertenecer->razon_id = $razon;
-            $razonnopertenecer->save();
-        }
-
-        /*oreach ($input->asociacion->cooperativa->apoyan as $apoyo) {
-            $entidadApoyo = new EntidadesApoyo(); // falta crear modelo
-            $entidadApoyo ->productor_id = $productor->id;
-            $entidadApoyo ->entidadApoyo= $apoyo;
-            $entidadApoyo ->save();
-        }*/
+        foreach ($input->asociacion->cooperativa->razones as $razon)
+            RazonNoPertenecer::create(array('ruat_id' => $ruat->id, 'razon_id' => $razon));
+        
+        $ruat->orgs_apoyan = json_encode($input->asociacion->cooperativa->orgs_apoyan);
 
         if($input->asociacion->otroProductor->asociado) {
             $asoc = $input->asociacion->otroProductor;
@@ -193,44 +159,7 @@ class RuatA extends CI_Controller {
             $ruat->seguir_id = null;
         }  
 
-        /*
-        if($input->asociacion->otroProductor->asociado) {
-            $personaasociada = new PersonaAsociada();
-            $personaasociada->nombre       = $input->asociacion->otroProductor->nombre;
-            $personaasociada->apellido     = $input->asociacion->otroProductor->apellido;
-            $personaasociada->vereda       = $input->asociacion->otroProductor->vereda;
-            $personaasociada->confianza_id = $input->asociacion->otroProductor->confianza;
-            $personaasociada->save();
-            $ruat->asociado_id = $personaasociada->id;
-        }
-        else {
-            $ruat->asociado_id = null;
-        }
-
-        if($input->asociacion->sigue->asociado) {
-            $personaasociada = new PersonaAsociada();
-            $personaasociada->nombre       = $input->asociacion->sigue->nombre;
-            $personaasociada->apellido     = $input->asociacion->sigue->apellido;
-            $personaasociada->vereda       = $input->asociacion->sigue->vereda;
-            $personaasociada->confianza_id = $input->asociacion->sigue->confianza;
-            $personaasociada->save();
-            $ruat->asociado_id = $personaasociada->id;
-        }
-        else {
-            $ruat->asociado_id = null;
-        }
-        $ruat->save();
-
-
-
-        /*$personaseguir = new PersonaSeguir();
-        $personaseguir->productor_id = $productor->id;
-        $personaseguir->nombre = $input->asociacion->sigue->nombre;
-        $personaseguir->apellido = $input->asociacion->sigue->apellido;
-        $personaseguir->vereda = $input->asociacion->sigue->vereda;
-        $personaseguir->grado_confianza = $input->asociacion->sigue->confianza;
-        $personaseguir->save();*/
-
+        
         $ruat->save();
         echo "ok";
     }

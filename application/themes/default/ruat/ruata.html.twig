@@ -53,14 +53,13 @@
                     filas: [{
                         directivo: true,
                         clases: [3, 4],
-                        organizacion: "una organización",
-                        periodicidad: 3,
+                        nombre: "una organización",
+                        periodicidad_id: 3,
                         directivo: "true",
-                        participante: "false",
                         beneficios: [4, 5]
                     }],
                     razones: [1, 2], 
-                    apoyan: []
+                    orgs_apoyan: []
                 },
                 otroProductor: {
                     asociado: true,
@@ -379,9 +378,9 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Municipio:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="contacto.municipio_id" ng-disabled="!contacto.departamento" ng-required="contacto.departamento">
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="contacto.municipio_id" required>
                                 <option></option>
-                                <option ng-repeat="mun in departamentos[contacto.departamento].municipios" value="{{mun.id}}">{{mun.nombre}}</option>
+                                <option ng-repeat="mun in departamentos[contacto.departamento_id].municipios" value="{{mun.id}}">{{mun.nombre}}</option>
                             </select>
                             <label class="error" ng-show="myForm.municipio.$dirty && myForm.municipio.$error.required">Requerido</label>
                         </div>
@@ -628,7 +627,7 @@
                     <div class="container"> 
                         <div class="form-group">
                             <label class="control-label">Entidades a las que no esté asociado pero que presten apoyo</label>
-                            <input type="text" ng-model="asociacion.cooperativa.apoyan" ui-select2="{multiple:true, simple_tags:true, tags:[]}" />
+                            <input type="text" ng-model="asociacion.cooperativa.orgs_apoyan" ui-select2="{multiple:true, simple_tags:true, tags:[]}" />
                         </div>
                     </div>
                 </div>

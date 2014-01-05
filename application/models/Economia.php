@@ -6,6 +6,7 @@ class Economia extends MyModel
 {
     static $table_name = "economia";
 
+    /*
     static $alias_attribute = array(
         'ingresoMensual'       => 'ingreso_familiar',
         'personasCargo'        => 'personas_dependientes',
@@ -13,4 +14,5 @@ class Economia extends MyModel
         'procedenciaCredito'   => 'credito_id',
         'otroCredito'          => 'otro_credito'
     );
+    */
 }

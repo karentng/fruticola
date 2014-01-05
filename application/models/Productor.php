@@ -8,7 +8,7 @@ class Productor extends ActiveRecord\Model
         array('contacto', 'class_name'=>'Contacto', 'foreign_key'=>'productor_id'),
         array('economia', 'class_name'=>'Economia', 'foreign_key'=>'productor_id'),
     );
-
+    /*
     static $alias_attribute = array(
         'nivelEducativo'    => 'nivel_educativo_id',
         'tipoDocumento'     => 'tipo_documento_id',
@@ -17,4 +17,5 @@ class Productor extends ActiveRecord\Model
         'renglonProductivo' => 'renglon_productivo_id',
         'fechaNacimiento'   => 'fecha_nacimiento'
     );
+    */
 }
