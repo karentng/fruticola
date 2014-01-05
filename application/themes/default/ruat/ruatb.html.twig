@@ -36,13 +36,13 @@
         $scope.finca = {
             esFinca:true, 
             nombre:'as', 
-            identifCatastral:'ssd',
-            tenencia:1,
-            municipio:'',
+            identif_catastral:'ssd',
+            tenencia_id:1,
+            municipio_id:'',
             vereda:'sdfsdfsf',
             sector:'sdf',
             
-            areaTotal:34,
+            area_total:34,
 
         };
 
@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <label class="control-label  ">Finca</label><br/>
                         
-                        <input bs-switch ng-model="finca.esFinca" switch-on="success"
+                        <input bs-switch ng-model="finca.esFinca" switch-on="primary"
                                 switch-on-label="SI" switch-off-label="NO" switch-active="false">
                     </div>
                 </div>
@@ -140,8 +140,8 @@
                     <div class="form-group">
                     
                         <label class="control-label">Identificaci&oacute;n Catastral</label>
-                        <input type="text" class="form-control" name="identifCatastral" ng-model="finca.identifCatastral" required />
-                        <label class="error" ng-show="myForm.identifCatastral.$dirty && myForm.identifCatastral.$error.required">Requerido</label>
+                        <input type="text" class="form-control" name="identif_catastral" ng-model="finca.identif_catastral" required />
+                        <label class="error" ng-show="myForm.identif_catastral.$dirty && myForm.identif_catastral.$error.required">Requerido</label>
                     </div>
                 </div>
             </div>
@@ -153,7 +153,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label" for="select">Tenencia</label>
-                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tenencia" ng-model="finca.tenencia" ng-required="true">
+                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tenencia" ng-model="finca.tenencia_id" ng-required="true">
                             <option></option>
                             <option ng-repeat="t in tiposTenencia" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
@@ -173,7 +173,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label" for="select">Municipio</label>
-                        <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="finca.municipio" ng-required="true">
+                        <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="finca.municipio_id" ng-required="true">
                             <option></option>
                             <option ng-repeat="m in municipios" value="{{m.id}}">{{m.nombre}}</option>
                         </select>
@@ -206,7 +206,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Área Total</label>
-                        <input type="number" class="form-control" name="areaTotal" ng-model="finca.areaTotal" required />
+                        <input type="number" class="form-control" name="areaTotal" ng-model="finca.area_total" required />
                         <label class="error" ng-show="myForm.areaTotal.$dirty && myForm.areaTotal.$error.required">Requerido valor numérico</label>
                     </div>
                 </div>
@@ -218,7 +218,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Disponibilidad de servicios p&uacute;blicos</label>
-                        <select multiple name="servicios" ng-model="finca.servicios"
+                        <select multiple name="servicios" ng-model="finca_servicio.servicio_id"
                                 ui-select2="{multiple:true, allowClear:true, placeholder:'-'}">
                             <option ng-repeat="t in tiposServicio" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
@@ -230,7 +230,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Disponibilidad de Vias de Acceso</label><br/>
-                        <input bs-switch ng-model="vias.disponibilidad" switch-on="success" switch-off="danger"
+                        <input bs-switch ng-model="vias.disponibilidad" switch-on="primary" switch-off="warning"
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox">
                     </div>
                 </div>
@@ -240,14 +240,14 @@
                     <div class="container">
                         <label class="control-label" ng-class="{'text-muted':!vias.disponibilidad}">Estado de las vias de acceso</label>
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tipoVia" 
-                                ng-model="finca.vias.tipo" ng-required="vias.disponibilidad" ng-disabled="!vias.disponibilidad">
+                                ng-model="finca.via_tipo_id" ng-required="vias.disponibilidad" ng-disabled="!vias.disponibilidad">
                             <option></option>
                             <option ng-repeat="t in tiposVia" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
                         <label class="error" ng-show="myForm.tipoVia.$dirty && myForm.tipoVia.$error.required">Requerido</label>
                         
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="estadoVia" 
-                                ng-model="finca.vias.estado" ng-required="vias.disponibilidad" ng-disabled="!vias.disponibilidad">
+                                ng-model="finca.via_estado_id" ng-required="vias.disponibilidad" ng-disabled="!vias.disponibilidad">
                             <option></option>
                             <option ng-repeat="t in tiposEstadoVia" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
@@ -269,7 +269,7 @@
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" />
                 </td>
                 <td>
-                    <input type="text" name="residuosOrdinarios" ng-model="residuos.ordinarios.descripcion" placeholder="Descripción" 
+                    <input type="text" name="residuosOrdinarios" ng-model="finca.residuos_ordinarios" placeholder="Descripción" 
                             ng-required='residuos.ordinarios.maneja' ng-show="residuos.ordinarios.maneja" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosOrdinarios.$dirty && myForm.residuosOrdinarios.$error.required">
                         <label class="error">Requerido</label>
@@ -283,7 +283,7 @@
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" />
                 </td>
                 <td>
-                    <input type="text" name="residuosPeligrosos" ng-model="residuos.peligrosos.descripcion" placeholder="Descripción" 
+                    <input type="text" name="residuosPeligrosos" ng-model="finca.residuos_peligrosos" placeholder="Descripción" 
                             ng-required='residuos.peligrosos.maneja' ng-show="residuos.peligrosos.maneja" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosPeligrosos.$dirty && myForm.residuosPeligrosos.$error.required">
                         <label class="error">Requerido</label>
@@ -297,7 +297,7 @@
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" />
                 </td>
                 <td>
-                    <input type="text" name="residuosOtros" class="form-control" ng-model="residuos.otros.descripcion" placeholder="Descripción" 
+                    <input type="text" name="residuosOtros" class="form-control" ng-model="finca.residuos_otro" placeholder="Descripción" 
                             ng-required='residuos.otros.maneja' ng-show="residuos.otros.maneja" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosOtros.$dirty && myForm.residuosOtros.$error.required">
                         <label class="error">Requerido</label>
@@ -316,9 +316,9 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-addon">Kms</span>
-                            <input type="number" class="form-control" name="distanciaCabecera" ng-model="finca.distanciaCabecera" ng-required='true' />
+                            <input type="number" class="form-control" name="dist_cabecera_mpal" ng-model="finca.dist_cabecera_mpal" ng-required='true' />
                         </div>
-                        <span class="help-block" ng-show="myForm.distanciaCabecera.$dirty && myForm.distanciaCabecera.$error.required">
+                        <span class="help-block" ng-show="myForm.dist_cabecera_mpal.$dirty && myForm.dist_cabecera_mpal.$error.required">
                             <label class="error">Requerido</label>
                         </span>
                     </div>
@@ -326,7 +326,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Medios de transporte</label> <!-- para la realizacion de la actividad productiva y de comercializaci&oacute;n-->
-                    <select multiple name="mediosTransporte" ng-model="finca.mediosTransporte"
+                    <select multiple name="mediosTransporte" ng-model="finca_transporte.transporte_id"
                                 ui-select2="{multiple:true, allowClear:true, placeholder:'-'}">
                             <option ng-repeat="t in tiposMedioTransporte" value="{{t.id}}">{{t.descripcion}}</option>
                     </select>
@@ -337,7 +337,7 @@
             <div class="col-md-5 col-md-offset-1">
                 <div class="form-group">
                     <label class="control-label">Forma de Llegar al Predio</label>
-                    <textarea ng-model="finca.formaLlegar" name="forma_llegar_predio" id="forma_llegar_predio" class="form-control" rows="4" placeholder="Describa indicaciones para localizar el predio" required></textarea>
+                    <textarea ng-model="finca.forma_llegar" name="forma_llegar_predio" id="forma_llegar_predio" class="form-control" rows="4" placeholder="Describa indicaciones para localizar el predio" required></textarea>
                      <label class="error" ng-show="myForm.forma_llegar_predio.$dirty && myForm.forma_llegar_predio.$error.required">Requerido</label>
                 </div>
             </div>
@@ -352,7 +352,7 @@
 
                     <td style="width:150px; vertical-align:middle"><strong>{{t.descripcion}}</strong></td>
                     <td style="width:100px">
-                        <input bs-switch ng-model="maquinaria[t.id].usa" 
+                        <input bs-switch ng-model="maquinaria[t.id].usa" switch-on="primary" switch-off="warning" 
                                 switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="small" />
                     </td>
                     <td><input type="text" class="form-control" name="descripMaquinaria" ng-model="maquinaria[t.id].descripcion" 
@@ -410,20 +410,20 @@
                         <label class="error" ng-show="subForm.variedadProd.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input bs-switch ng-model="prod.semillaCertif" switch-on="success" switch-off="warning"
+                        <input bs-switch ng-model="prod.semilla_certificada" switch-on="primary" switch-off="warning"
                                 switch-on-label=".&nbsp; Certificada  &nbsp;." switch-off-label="No Certificada">
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">ha</span>
-                            <input type="number" class="form-control" name="areaCosechada" ng-model="prod.areaCosechada" required /></td>
+                            <input type="number" class="form-control" name="areaCosechada" ng-model="prod.area_cosechada " required /></td>
                         </div>
                         <label class="error" ng-show="subForm.areaCosechada.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" name="semA" ng-model="prod.semestreA" required/></td>
+                            <input type="number" class="form-control" name="semA" ng-model="prod.prod_semestre_a" required/></td>
                         </div>
                         <label class="error" ng-show="subForm.semA.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semA.$dirty && subForm.semA.$error.required">Requerido</label-->
@@ -431,13 +431,13 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" name="semB" ng-model="prod.semestreB" required/></td>
+                            <input type="number" class="form-control" name="semB" ng-model="prod.prod_semestre_b" required/></td>
                         </div>
                         <label class="error" ng-show="subForm.semB.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semB.$dirty && subForm.semB.$error.required">Requerido</label-->
                     </td>
                     <th>
-                        {{prod.semestreA + prod.semestreB}} Kg
+                        {{prod.prod_semestre_a + prod.prod_semestre_b}} Kg
                     </td>
                 </tr>
             </tbody>
@@ -466,44 +466,44 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" name="costoEstab" ng-model="prod.costoEstablecimiento" required/></td>
+                            <input type="number" class="form-control" name="costoEstab" ng-model="prod.costo_establecimiento " required/></td>
                         </div>
                         <label class="error" ng-show="subForm.costoEstab.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" name="costoSost" ng-model="prod.costoSostenimiento" required/></td>
+                            <input type="number" class="form-control" name="costoSost" ng-model="prod.costo_sostenimiento" required/></td>
                         </div>
                         <label class="error" ng-show="subForm.costoSost.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" name="destMercado" ng-model="prod.destMercado" required/></td>
+                            <input type="number" class="form-control" name="prod_mercado" ng-model="prod.prod_mercado" required/></td>
                         </div>
-                        <label class="error" ng-show="subForm.destMercado.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.prod_mercado.$error.required">Requerido</label>
                     </td>
-                    <td style="vertical-align:middle"> <strong>{{ (prod.destMercado*100/(prod.semestreA+prod.semestreB)) | number:2}}%</strong></td>
+                    <td style="vertical-align:middle"> <strong>{{ (prod.prod_mercado*100/(prod.prod_semestre_a +prod.prod_semestre_b)) | number:2}}%</strong></td>
                     <td>
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Sitio de Venta'}" 
-                            name="sitioVenta" ng-model="prod.sitioVenta" ng-required="true">
+                            name="sitioVenta" ng-model="prod.sitio_venta_id" ng-required="true">
                             <option></option>
                             <option ng-repeat="t in tiposSitioVenta" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <label class="error" ng-show="subForm.sitioVenta.$dirty && myForm.sitioVenta.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.sitio_venta_id.$dirty && myForm.sitio_venta_id.$error.required">Requerido</label>
                     </td>
                     <td>
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'A quién le vende'}" 
-                            name="vende" ng-model="prod.vende" ng-required="true">
+                            name="vende" ng-model="prod.vende_tipo_id" ng-required="true">
                             <option></option>
                             <option ng-repeat="t in tiposVende" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <label class="error" ng-show="subForm.vende.$dirty && subForm.vende.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.vende_tipo_id.$dirty && subForm.vende_tipo_id.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="nombreVende" ng-model="prod.nombreVende" placeholder="Nombre y Apellido" required>
-                        <label class="error" ng-show="subForm.nombreVende.$dirty && subForm.nombreVende.$error.required">Requerido</label>
+                        <input type="text" class="form-control" name="vende_nombre" ng-model="prod.vende_nombre" placeholder="Nombre y Apellido" required>
+                        <label class="error" ng-show="subForm.vende_nombre.$dirty && subForm.vende_nombre.$error.required">Requerido</label>
                     </td>
                 </tr>
             </tbody>
@@ -533,37 +533,37 @@
                     <td>
                         <div class="input-group" style="width:120px">
                             <span class="input-group-addon">$/Kg</span>
-                            <input type="number" class="form-control" name="precioVentaProm" ng-model="prod.precioVentaPromedio" required/>
+                            <input type="number" class="form-control" name="precioVentaProm" ng-model="prod.precio_promedio" required/>
                         </div>
                         <label class="error" ng-show="subForm.precioVentaProm.$error.required">Requerido</label>
                     </td>
                     <td>
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Forma de Pago'}" 
-                            name="formaPago" ng-model="prod.formaPago" ng-required="true">
+                            name="formaPago" ng-model="prod.forma_pago_id" ng-required="true">
                             <option></option>
                             <option ng-repeat="t in tiposFormaPago" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <label class="error" ng-show="subForm.formaPago.$dirty && subForm.formaPago.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.forma_pago_id.$dirty && subForm.forma_pago_id.$error.required">Requerido</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" name="subproducto" ng-model="prod.subproducto" placeholder="Subproducto" required>
                         <label class="error" ng-show="subForm.subproducto.$dirty && subForm.subproducto.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="usoSubproducto" ng-model="prod.usoSubproducto" placeholder="Uso" required>
-                        <label class="error" ng-show="subForm.usoSubproducto.$dirty && subForm.usoSubproducto.$error.required">Requerido</label>
+                        <input type="text" class="form-control" name="subproducto_uso" ng-model="prod.subproducto_uso" placeholder="Uso" required>
+                        <label class="error" ng-show="subForm.subproducto_uso.$dirty && subForm.subproducto_uso.$error.required">Requerido</label>
                     </td>
                     <td style="text-align:center">
                         <input bs-switch ng-model="prod.perteneceProgAsistencia" switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="programa" ng-model="prod.progAsistencia" ng-required="prod.perteneceProgAsistencia" 
+                        <input type="text" class="form-control" name="programa" ng-model="prod.asistencia_programa" ng-required="prod.perteneceProgAsistencia" 
                                 ng-disabled="!prod.perteneceProgAsistencia" placeholder="{{prod.perteneceProgAsistencia?'Programa':''}}" />
                         <label class="error" ng-show="subForm.programa.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="entidad" ng-model="prod.entidadAsistencia" ng-required="prod.perteneceProgAsistencia"
+                        <input type="text" class="form-control" name="entidad" ng-model="prod.asistencia_entidad" ng-required="prod.perteneceProgAsistencia"
                                 ng-disabled="!prod.perteneceProgAsistencia" placeholder="{{prod.perteneceProgAsistencia?'Entidad':''}}" />
                         <label class="error" ng-show="subForm.entidad.$error.required">Requerido</label>
                     </td>
@@ -589,7 +589,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">LATITUD NORTE (N)</label>
-                        <input type="number" class="form-control" name="latitud" ng-model="finca.latitud" required/>
+                        <input type="number" class="form-control" name="latitud" ng-model="finca.geo_latitud" required/>
                         <label class="error" ng-show="myForm.latitud.$dirty && myForm.latitud.$error.required">Requerido un valor numérico</label>
                     </td>
                     </div> 
@@ -599,7 +599,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">LONGITUD OCCIDENTE (W)</label>
-                        <input type="number" class="form-control" name="longitud" ng-model="finca.longitud" required/>
+                        <input type="number" class="form-control" name="longitud" ng-model="finca.geo_longitud" required/>
                         <label class="error" ng-show="myForm.longitud.$dirty && myForm.longitud.$error.required">Requerido un valor numérico</label>
                     </div>
                 </div>
@@ -608,7 +608,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">ALTURA SOBRE EL NIVEL DEL MAR</label>
-                        <input type="number" class="form-control" name="altura" ng-model="finca.altitud" required/>
+                        <input type="number" class="form-control" name="altura" ng-model="finca.geo_altura" required/>
                         <label class="error" ng-show="myForm.altura.$dirty && myForm.altura.$error.required">Requerido un valor numérico</label>
                     </div>
                 </div>
