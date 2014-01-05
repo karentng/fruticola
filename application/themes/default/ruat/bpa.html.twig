@@ -178,7 +178,8 @@
 	            <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
 	            <div class="col-sm-8">
 	                <div class="input-group date datepicker autostart">
-	                    <input size="16" name="fecha" ng-model="bpa.fecha" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text">
+	                    <input size="16" name="fecha" ng-model="bpa.fecha" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text" required>
+                        <label class="error" ng-show="myForm.fecha.$dirty && myForm.fecha.$error.required">Requerido</label>
 	                    <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
 	                </div>
 	            </div>
@@ -966,7 +967,7 @@
             			<b>6.  BIENESTAR DE LOS TRABAJADORES.</b>  Entre los elementos de las BPA también se encuentra el bienestar de los trabajadores. Se enfoca en promover la calidad de vida a través de una existencia tranquila, productiva y satisfecha.  Debemos revisar si la agroempresa de frutas cuenta con lo siguiente para cumplir con las BPA:
             		</td>
             		<td align="center">
-            			{{(valor6.1+valor6.2+valor6.3+valor6.4+valor6.5)/5}}
+            			{{(valor6.1+valor6.2+valor6.3+valor6.4+valor6.5+valor6.6)/6}}
             		</td>
             		<td>
             			<textarea style="width:240px; height:100%;"></textarea>
@@ -1028,6 +1029,196 @@
             			<textarea style="width:240px; height:100%;"></textarea>
             		</td>
             	</tr>
+                <tr>
+                    <td>
+                        6.6  Dispone de equipo de protección para el manejo de plaguicidas y herramientas peligrosas.
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor6.6" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>7.  PROTECCIÓN AMBIENTAL.</b>  Entre los elementos de las BPA también se encuentra la protección ambiental.  Evalúa la cultura actual de protección y el buen mantenimiento para colaborar en nuestra propia vida futura.
+                    </td>
+                    <td align="center">
+                        {{(valor7.1+valor7.2+valor7.3+valor7.4+valor7.5)/5}}
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        7.1  Los sobrantes de las aplicaciones de plaguicidas y las aguas de lavado de las aspersoras, las asperjamos en un sitio de barbecho debidamente identificado y alejado de las fuentes de agua.
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor7.1" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        7.2  Hacemos el triple lavado de los envases de plaguicidas cuando están vacíos, además se perforan sin destruir la etiqueta y se guardan en un sitio aparte y restringido hasta entregarlos al representante de la empresa CAMPOLIMPIO que promueve esta actividad en el País.
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor7.2" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        7.3  Cuando hay material vegetal resultante de podas fitosanitarias, lo retiramos del lote o lo enterramos.
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor7.3" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        7.4  Los productos de desecho los identificamos y cuantificamos en todas las áreas de la unidad productiva (como papel, cartón, rastrojos de cosecha, aceite, combustibles, roca, lana, etc.) con el fin de definir la gestión de cada uno de los residuos.
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor7.4" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        7.5  Los residuos orgánicos provenientes de los baños y cocinas de las viviendas e instalaciones de la unidad productiva van al pozo séptico construido técnicamente.
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor7.5" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>8.  Documentación, Registros y Trazabilidad.</b>  Se entiende como trazabilidad aquellos procedimientos que permiten conocer el histórico, la ubicación, y la trayectoria de un producto o lote de productos a los largo de la cadena de suministros.  Gracias a la trazabilidad poodemos saber cuales fueron los insumos que se utilizaron en el proceso productivo para la obtención de las frutas, hasta que se vendió al consumidor.
+                    </td>
+                    <td align="center">
+                        {{(valor8.1+valor8.2+valor8.3+valor8.4+valor8.5+valor8.6+valor8.7)/7}}
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        8.1  Se lleva un registro de la evaluación de las características y recursos de la zona, del predio y de los riesgos asociados.
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor8.1" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        8.2  Existe documentación sobre el material de siembra (Procedimiento de sanidad y calidad del material de propagación; Instructivo para desinfección de material de propagación o tratamiento de semillas; Certificado del material de siembra; Registro del control de calidad en viveros; Registro de siembra).
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor8.2" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        8.3  Existen registros de análisis de agua y suelos (Físico-químicos y microbiológicos).
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor8.3" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        8.4  Existen registros de mantenimiento y calibración de equipos (Equipos de aplicación de fertilizantes foliares y de plaguicidas).
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor8.4" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        8.5  Registro de aplicación de fertilizantes (PLAN DE FERTILIZACION, Kárdex de fertilizantes, Fichas técnicas de los fertilizantes y abonos).
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor8.5" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        8.6  Registro sobre la preparación de los abonos orgánicos (en caso de elaborarse en la unidad productiva) - Evaluación de riesgos, Registros.
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor8.6" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        8.7  Plan de Manejo Integrado de Plagas (MIP).  Listado de plaguicidas permitidos y prohibidos en Colombia, Hojas de seguridad de cada plaguicida y límite máximo de residuos según el Codex alimentarius; Procedimiento de manejo de plagas; Kárdex actualizado; Registro de aplicación de plaguicidas.
+                    </td>
+                    <td align="center">
+                        <input type="number" ng-model="valor8.7" value="100" style="width:60px;" />
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <h3><b>PREDIO CON NIVEL DE IMPLEMENTACIÓN DE <br/>
+                        BUENAS PRACTICAS AGRÍCOLAS (BPA)</b></h3>
+                    </td>
+                    <td align="center">
+                        {{
+                        (((valor1.1+valor1.2+valor1.3+valor1.4+valor1.5+valor1.6)/6)+
+                        ((valor2.1+valor2.2+valor2.3)/3)+
+                        valor3.1+
+                        (((valor4.1.1+valor4.1.2+valor4.1.3+valor4.1.4+valor4.1.5+valor4.1.6+valor4.1.7+valor4.1.8+valor4.1.9+valor4.1.10)/10
+                                                +(valor4.2.1+valor4.2.2+valor4.2.3+valor4.2.4)/4+
+                                                (valor4.3.1+valor4.3.2+valor4.3.3+valor4.3.4+valor4.3.5)/5
+                                                )/3)+
+                        ((valor5.1+valor5.2+valor5.3)/3)+
+                        ((valor6.1+valor6.2+valor6.3+valor6.4+valor6.5+valor6.6)/6)+
+                        ((valor7.1+valor7.2+valor7.3+valor7.4+valor7.5)/5)+
+                        ((valor8.1+valor8.2+valor8.3+valor8.4+valor8.5+valor8.6+valor8.7)/7))
+                        /8
+                        }}
+                    </td>
+                    <td>
+                        <textarea style="width:240px; height:100%;"></textarea>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div></div><!-- .container and .panel-body -->
