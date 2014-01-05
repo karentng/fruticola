@@ -105,30 +105,29 @@ create table ruat(
 
 create table orgasociada(
     id                  serial not null primary key,
-    productor_id        integer references productor(id),
+    ruat_id             integer references ruat(id),
     nombre              varchar(100),
     periodicidad_id     integer references periodicidad(id),   
-    directivo           boolean not null,
-    participante        boolean not null     
+    membresia           varchar(20)
 );
 
 create table orgasociada_clase(
     id                  serial not null primary key,
-    orgasociada_id      integer not null references orgasociada(id),
+    orgasociada_id      integer not null references orgasociada(id) on delete cascade,
     clase_id            integer not null references claseorganizacion(id),
                         unique(orgasociada_id, clase_id)
 );
 
 create table orgasociada_beneficio(
     id                  serial not null primary key,
-    orgasociada_id      integer not null references orgasociada(id),
+    orgasociada_id      integer not null references orgasociada(id) on delete cascade,
     beneficio_id        integer not null references tipobeneficio(id),
                         unique(orgasociada_id, beneficio_id)
 );
 
 create table razonnopertenecer(
     id                  serial not null primary key,
-    productor_id        integer references productor(id),
+    ruat_id             integer references productor(id),
     razon_id            integer not null references tiporazonnopertenecer(id)
 );
 

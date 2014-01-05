@@ -95,7 +95,7 @@ class RuatA extends CI_Controller {
         $econo->productor_id = $productor->id;
         Economia::create_or_update((array)$econo);
         
-        
+
         foreach($input->innovaciones as $innova) {
             $innovacion = new Innovacion();
             $innovacion->productor_id = $productor->id;
@@ -109,6 +109,28 @@ class RuatA extends CI_Controller {
             }
         }
 
+        Orgasociada::table()->delete(array('ruat_id' => $ruat->id));
+        RazonNoPertenecer::table()->delete(array('ruat_id' => $ruat->id));
+        $coop = $input->asociacion->cooperativa;
+        foreach($coop->filas as $org) {
+            $clases = $org->clases;
+            $beneficios = $org->beneficios;
+            $directivo = $org->directivo;
+            unset($org->clases, $org->beneficios, $org->directivo);
+            $org->ruat_id = $ruat->id;
+            $org->membresia = $org->directivo ? 'Directivo' : 'Participante';
+
+            $orgasociada = Orgasociada::create((array)$org);
+
+            foreach($clases as $cls)
+                OrgasociadaClase::create(array(
+                    'orgasociada_id' => $orgasociada->id, 'clase_id' => $cls) );
+
+            foreach($beneficios as $bnf)
+                OrgasociadaBeneficio::create(array(
+                    'orgasociada_id' => $orgasociada->id, 'beneficio_id' => $bnf ));
+        }
+        /*
         foreach($input->asociacion->cooperativa->filas as $fila) {
             $orgasociada = new Orgasociada();
             $orgasociada->productor_id = $productor->id;
@@ -133,6 +155,7 @@ class RuatA extends CI_Controller {
             }
             
         }
+        */
 
         foreach ($input->asociacion->cooperativa->razones as $razon) {
             $razonnopertenecer = new RazonesNoPertenecer();

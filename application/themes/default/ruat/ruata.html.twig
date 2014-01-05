@@ -147,6 +147,15 @@
                 return;
             }
 
+            var coop = $scope.asociacion.cooperativa;
+            if(coop.asociado) {
+                coop.razones = [];
+                coop.apoyan = [];
+            }
+            else {
+                coop.filas = [];
+            }
+
             var data = {
                 productor: $scope.productor,
                 contacto : $scope.contacto,
@@ -154,6 +163,8 @@
                 asociacion: $scope.asociacion,
                 innovaciones: $scope.realizaInnovacion?$scope.innovaciones:[]
             };
+            
+
 
             $http.post(urls.guardar, data).success(function(response,status) {
                 console.log(response);
@@ -579,7 +590,7 @@
                          <span class="help-block" ng-show="myForm.clase.$dirty && myForm.clase.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="Organizacion" ng-model="fila.organizacion" ng-required="asociacion.cooperativa.asociado" />
+                        <input type="text" class="form-control" name="Organizacion" ng-model="fila.nombre" ng-required="true" />
                         <label class="error" ng-show="myForm.Organizacion.$dirty && myForm.Organizacion.$error.required ">Requerido</label>
                     </td>
                     <td><select multiple name="beneficios" ng-required="asociacion.cooperativa.asociado" ng-model="fila.beneficios" style="min-width:150px"
@@ -588,7 +599,7 @@
                         </select>
                         <span class="help-block" ng-show="myForm.beneficios.$dirty && myForm.beneficios.$error.required"><label class="error">Requerido</label></span>
                     </td>
-                    <td><select name="periodicidad" ng-model="fila.periodicidad" 
+                    <td><select name="periodicidad" ng-model="fila.periodicidad_id" 
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true}" data-placeholder="Periodicidad">
                             <option ng-repeat="t in periodicidades" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
