@@ -637,7 +637,12 @@
 
 <br/>
 <div class="form-actions full">
-    <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right-3"></i></button>
+
+    <button ng-disabled="myForm.$dirty"  class="btn btn-lg btn-warning" type="button" ng-click="siguiente()"><i class="icon16 i-arrow-first"></i>Anterior</button>
+    <div class="col-md-4 pull-right">
+        <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
+        <button ng-disabled="myForm.$dirty || !ruat_id"  class="btn btn-lg btn-success" type="button" ng-click="siguiente()">Siguiente<i class="icon16 i-arrow-right"></i></button>
+    </div>
 </div>
 
 <div class="row" style="height:100px"></div> <!--para evitar que el señalador de "ir arriba" tape el boton siguiente -->
