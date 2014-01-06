@@ -21,10 +21,12 @@ class Productor extends ActiveRecord\Model
         return $res;
     }
 
+    /*
     public function to_array() {
         $res = parent::to_array();
         $res['nombre_completo'] = $this->nombre_completo();
         $res['tipo_documento'] = $this->tipo_documento->descripcion;
         return $res;
     }
+    */
 }
