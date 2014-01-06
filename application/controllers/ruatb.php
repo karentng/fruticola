@@ -136,13 +136,15 @@ class RuatB extends CI_Controller {
         $output->finca = $finca->to_array();
         $output->servicios = extract_prop(FincaServicio::find_all_by_finca_id($finca->id),'servicio_id');
         $output->productos = array();
-        $output->mediosTransporte = array();
+        $output->mediosTransporte = extract_prop(FincaTransporte::find_all_by_finca_id($finca->id), 'transporte_id');
         $output->maquinaria = array();
-        foreach(TipoMaquinaria::all() as $t) $output->maquinaria[$t->id] = array('usa'=>false);
+        foreach(FincaMaquinaria::find_all_by_finca_id($finca->id) as $m)
+            $output->maquinaria[$m->maquinaria_id] = array('usa'=> true, 'descripcion'=>$m->descripcion);
+        //foreach(TipoMaquinaria::all() as $t) $output->maquinaria[$t->id] = array('usa'=>false);
 
-        $output->residuos = array('ordinarios' => array('maneja' => false),
-                                  'peligrosos' => array('maneja' => false),
-                                  'otros'      => array('maneja' => false));
+        //$output->residuos = array('ordinarios' => array('maneja' => false),
+        //                          'peligrosos' => array('maneja' => false),
+        //                          'otros'      => array('maneja' => false));
         /*
         productos: [{}],
             maquinaria: {},
