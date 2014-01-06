@@ -12,6 +12,11 @@
         combos: {{combos}}
     };
 
+    var urls = {
+        guardar : "{{site_url('ruata/guardar')}}",
+        siguiente : "{{site_url('ruatb/index')}}",
+    };
+
     {% if ruat %}
         extern.ruat = {{ruat}};
     {% else %}
@@ -84,9 +89,7 @@
         };
     {% endif %}
 
-    var urls = {
-        guardar : "{{site_url('ruata/guardar')}}",
-    };
+    
     
 </script>
 
@@ -113,15 +116,18 @@
         };
     });
 
-    var RuatACtrl = function($scope, $http) {
+    var RuatACtrl = function($scope, $http, $timeout) {
 
         angular.extend($scope, extern.combos);
         $scope.descripDocumento = {};
         $scope.tiposDocumento.forEach(function(t) { $scope.descripDocumento[t.id]=t.descripcion; });
 
         angular.extend($scope, extern.ruat);
-        //$scope.combos = extern.combos;
 
+
+        //$scope.$evalAsync();
+        //$scope.combos = extern.combos;
+        $timeout(function(){$scope.myForm.$setPristine()},100);
         
         $scope.validate = function(form){   
             for (feild in form) {
@@ -166,15 +172,17 @@
                     notif(response.message);
                     if(response.success)
                         angular.extend($scope, response.scope);
+                    $scope.myForm.$setPristine();
                 }
                 else {
                     alert("Error en comunicacion con el servidor. Intente nuevamente.");
                 }
             });
-
-            //alert('Guardar!');
         };
 
+        $scope.siguiente = function() {
+            window.location = (urls.siguiente+"/"+$scope.ruat_id);
+        }
     };
 </script>
 {% endraw %}
@@ -752,8 +760,14 @@
 
 
 <br/>
+
 <div class="form-actions full">
-    <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right-3"></i></button>
+
+    <div class="col-md-4 pull-right">
+        <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
+        <button ng-disabled="myForm.$dirty || !ruat_id"  class="btn btn-lg btn-success" type="button" ng-click="siguiente()">Siguiente<i class="icon16 i-arrow-right"></i></button>
+    </div>
+  
 </div>
 
 
