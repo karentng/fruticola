@@ -204,7 +204,7 @@ insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('19
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('68132','California',(select id from departamento where codigo='68'),'7.4166667','-72.85');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76126','Calima (Darién)',(select id from departamento where codigo='76'),'3.9166667','-76.6666667');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('19142','Caloto',(select id from departamento where codigo='19'),'3.0833333','-76.3333333');
-insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76001','Calí',(select id from departamento where codigo='76'),'3.4372222','-76.5225');
+insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76001','Cali',(select id from departamento where codigo='76'),'3.4372222','-76.5225');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('05134','Campamento',(select id from departamento where codigo='05'),'7.0833333','-75.25');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('08137','Campo de la Cruz',(select id from departamento where codigo='08'),'10.4166667','-74.9166667');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('41132','Campoalegre',(select id from departamento where codigo='41'),'2.6666667','-75.3333333');

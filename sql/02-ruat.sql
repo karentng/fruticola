@@ -68,17 +68,6 @@ create table economia(
 );
 
 
-create table procesoinnovacion(
-    id                  serial not null primary key,
-    ruat_id             integer references ruat(id),
-    tipo_id             integer not null references tipoinnovacion(id),
-    fuente_id           integer references fuenteinnovacion(id),
-    otra_fuente         varchar(30),
-    descripcion         varchar(100)
-);
-
-
-
 create table personaasociada(
     id                  serial not null primary key,
     nombre              varchar(50) not null,
@@ -86,7 +75,6 @@ create table personaasociada(
     vereda              varchar(100),
     confianza_id        integer references tipoconfianza(id)
 );
-
 
 create table ruat(
     id                  serial not null primary key,
@@ -101,6 +89,15 @@ create table ruat(
     creador_id          integer references users(id),
     modificado          timestamp,
     modificador_id      integer references users(id)
+);
+
+create table procesoinnovacion(
+    id                  serial not null primary key,
+    ruat_id             integer references ruat(id),
+    tipo_id             integer not null references tipoinnovacion(id),
+    fuente_id           integer references fuenteinnovacion(id),
+    otra_fuente         varchar(30),
+    descripcion         varchar(100)
 );
 
 
@@ -159,7 +156,7 @@ create table finca(
     geo_longitud        double precision,
     geo_altura          double precision,
 
-    archivo_adjunto     text,
+    archivo_adjunto     text
 );
 
 create table finca_servicio(
