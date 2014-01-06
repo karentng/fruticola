@@ -12,16 +12,25 @@
         combos: {{combos | json_encode }}
     };
     var urls = {
-        guardar : "{{site_url('ruatb/guardar')}}",
+        guardar : "{{site_url(['ruatb','guardar',ruat_id])}}",
     };
 
-    var count = function(obj) {
-        var cnt = 0;
-        for(var x in obj)
-            if(obj.hasOwnProperty(x))
-                cnt++;
-        return cnt;
-    }
+    {% if scope %}
+        extern.scope = {{scope | json_encode }};
+    {% else %}
+        extern.scope = {
+            finca: {  },
+            servicios: [],
+            mediosTransporte: [],
+            productos: [{}],
+            maquinaria: null,
+            residuos: {
+                ordinarios: { maneja: false },
+                peligrosos: { maneja: false },
+                otros: { maneja: false },
+            }
+        }
+    {% endif %}
 </script>
 
 
@@ -33,18 +42,8 @@
     
     var RuatBCtrl = function($scope, $http) {
         angular.extend($scope, extern.combos);
-        $scope.finca = {
-            esFinca:true, 
-            nombre:'as', 
-            identif_catastral:'ssd',
-            tenencia_id:1,
-            municipio_id:'',
-            vereda:'sdfsdfsf',
-            sector:'sdf',
-            
-            area_total:34,
-
-        };
+        angular.extend($scope,extern.scope);
+        $scope.finca.esFinca=true;
 
         if(!$scope.maquinaria) {
             $scope.maquinaria = {};
@@ -52,41 +51,45 @@
                 $scope.maquinaria[$scope.tiposMaquinaria[i].id]={usa:false};
         }
 
-        $scope.productos = [{}];
-
-        $scope.validate = function(form){   
+        $scope.validate = function(form) {
             for (feild in form) {
-                // look at each form input with a name attribute set
-                // checking if it is pristine and not a '$' special field
                 if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
-                    //console.log(typeof($scope.myForm[feild]));
                     form[feild].$setViewValue( form[feild].$modelValue );
                 }
             }
             return $scope.myForm.$valid;
         };
 
+
         $scope.submit = function() {
             if(!$scope.validate($scope.myForm)) {
-                alert('Revise errores');
+                notif({type:'error', text:'Formulario Incompleto. <br/> Verifique los campos requeridos'});
                 return;
             }
 
-            //alert('Guardar!');
             var data = {
                 finca: $scope.finca,
+                servicios: $scope.servicios,
+                mediosTransporte: $scope.mediosTransporte,
                 productos: $scope.productos,
                 maquinaria: $scope.maquinaria,
-                residuos: $scope.residuos,
-                vias: $scope.vias,
+
             };
 
+            if(!$scope.residuos.ordinarios.maneja) data.finca.residuos_ordinarios=null;
+            if(!$scope.residuos.peligrosos.maneja) data.finca.residuos_peligrosos=null;
+            if(!$scope.residuos.otros.maneja)      data.finca.residuos_otro=null;
+
             $http.post(urls.guardar, data).success(function(response,status) {
-                console.log(response);
+                if(response.success!==undefined) {
+                    notif(response.message);
+                    if(response.success)
+                        angular.extend($scope, response.scope);
+                }
+                else {
+                    alert("Error en comunicacion con el servidor. Intente nuevamente.");
+                }
             });
-
-
-            //alert("Guardar!");
         };
     }
 </script>
@@ -97,14 +100,12 @@
 
 
 {% block contenido %}
+
+<h3>{{productor.nombre_completo}} <small>{{productor.tipo_documento}}: {{productor.numero_documento}}</small></h3>
+
 {% raw %}
 
 <div ng-app="myApp"><div ng-controller="RuatBCtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
-<!--{{myForm.$error|json}}-->
-
-<!--<pre>
-{{finca.servicios|json}}
-</pre>-->
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -206,7 +207,10 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Área Total</label>
-                        <input type="number" class="form-control" name="areaTotal" ng-model="finca.area_total" required />
+                        <div class="input-group">
+                            <span class="input-group-addon">ha</span>
+                            <input type="number" class="form-control" name="areaTotal" ng-model="finca.area_total" required />
+                        </div>
                         <label class="error" ng-show="myForm.areaTotal.$dirty && myForm.areaTotal.$error.required">Requerido valor numérico</label>
                     </div>
                 </div>
@@ -218,7 +222,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Disponibilidad de servicios p&uacute;blicos</label>
-                        <select multiple name="servicios" ng-model="finca_servicio.servicio_id"
+                        <select multiple name="servicios" ng-model="servicios"
                                 ui-select2="{multiple:true, allowClear:true, placeholder:'-'}">
                             <option ng-repeat="t in tiposServicio" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
@@ -230,24 +234,24 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Disponibilidad de Vias de Acceso</label><br/>
-                        <input bs-switch ng-model="vias.disponibilidad" switch-on="primary" switch-off="warning"
-                            switch-on-label="SI" switch-off-label="NO" switch-type="checkbox">
+                        <input bs-switch ng-model="finca.via_disponibilidad" switch-on="primary" switch-off="warning"
+                            switch-on-label="SI" switch-off-label="NO">
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <div class="container">
-                        <label class="control-label" ng-class="{'text-muted':!vias.disponibilidad}">Estado de las vias de acceso</label>
+                        <label class="control-label" ng-class="{'text-muted':!finca.via_disponibilidad}">Estado de las vias de acceso</label>
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tipoVia" 
-                                ng-model="finca.via_tipo_id" ng-required="vias.disponibilidad" ng-disabled="!vias.disponibilidad">
+                                ng-model="finca.via_tipo_id" ng-required="finca.via_disponibilidad" ng-disabled="!finca.via_disponibilidad">
                             <option></option>
                             <option ng-repeat="t in tiposVia" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
                         <label class="error" ng-show="myForm.tipoVia.$dirty && myForm.tipoVia.$error.required">Requerido</label>
                         
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="estadoVia" 
-                                ng-model="finca.via_estado_id" ng-required="vias.disponibilidad" ng-disabled="!vias.disponibilidad">
+                                ng-model="finca.via_estado_id" ng-required="finca.via_disponibilidad" ng-disabled="!finca.via_disponibilidad">
                             <option></option>
                             <option ng-repeat="t in tiposEstadoVia" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
@@ -326,7 +330,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Medios de transporte</label> <!-- para la realizacion de la actividad productiva y de comercializaci&oacute;n-->
-                    <select multiple name="mediosTransporte" ng-model="finca_transporte.transporte_id"
+                    <select multiple name="mediosTransporte" ng-model="mediosTransporte"
                                 ui-select2="{multiple:true, allowClear:true, placeholder:'-'}">
                             <option ng-repeat="t in tiposMedioTransporte" value="{{t.id}}">{{t.descripcion}}</option>
                     </select>

@@ -185,10 +185,19 @@ class RuatA extends CI_Controller {
             $output->asociacion['sigue']['asociado'] = true;
         }
         
-        $output->innovaciones = array();
+        $inno_map = array();
         foreach(Innovacion::find_all_by_ruat_id($ruat->id) as $inno) {
-            $output->innovaciones[] = $inno->to_array();
+            $inno_map[$inno->tipo_id] = $inno->to_array();
         }
+
+        $output->innovaciones = array();
+        foreach(TipoInnovacion::sorted() as $t) {
+            if(isset($inno_map[$t->id]))
+                $output->innovaciones[] = $inno_map[$t->id];
+            else 
+                $output->innovaciones[] = array('tipo_id'=>$t->id);
+        }
+
         $output->realizaInnovacion = (bool)count($output->innovaciones);
         
         if($do_echo) echo json_encode($output);

@@ -115,23 +115,16 @@
     var RuatACtrl = function($scope, $http) {
 
         angular.extend($scope, extern.combos);
+        $scope.descripDocumento = {};
+        $scope.tiposDocumento.forEach(function(t) { $scope.descripDocumento[t.id]=t.descripcion; });
+
         angular.extend($scope, extern.ruat);
         //$scope.combos = extern.combos;
 
         
         $scope.validate = function(form){   
             for (feild in form) {
-
-                // look at each form input with a name attribute set
-                // checking if it is pristine and not a '$' special field
-                //console.log(feild);
-                if(feild =='subForm') {
-                    window.lito = form[feild];
-                    //console.log("teke");
-                    //return false;
-                }
                 if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
-                    //console.log(typeof($scope.myForm[feild]));
                     form[feild].$setViewValue( form[feild].$modelValue );
                 }
             }
@@ -190,9 +183,10 @@
 {% raw %}
 
 <div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
-<!--<input type="submit">
-
-{{productor | json}}-->
+<h3>
+    {{productor.nombre1}} {{productor.nombre2}} {{productor.apellido1}} {{productor.apellido2}} 
+    <small>{{descripDocumento[productor.tipo_documento_id]}}: {{productor.numero_documento}}</small>
+</h3>
 
 <div class="panel panel-default">
     <div class="panel-heading">

@@ -160,7 +160,6 @@ create table finca(
     geo_altura          double precision,
 
     archivo_adjunto     text,
-    observaciones       text
 );
 
 create table finca_servicio(
