@@ -121,8 +121,9 @@ class RuatA extends CI_Controller {
             $ruat->asociado_id = $per->id;
         }
         else if($ruat->asociado_id) {
-            PersonaAsociada::table()->delete(array('id' => $ruat->asociado_id));
             $ruat->asociado_id = null;
+            $ruat->save();
+            PersonaAsociada::table()->delete(array('id' => $ruat->asociado_id));
         }
 
         if($input->asociacion->sigue->asociado) {
@@ -132,8 +133,9 @@ class RuatA extends CI_Controller {
             $ruat->seguir_id = $per->id;
         }
         else if($ruat->seguir_id) {
-            PersonaAsociada::table()->delete(array('id' => $ruat->seguir_id));
             $ruat->seguir_id = null;
+            $ruat->save();
+            PersonaAsociada::table()->delete(array('id' => $ruat->seguir_id));
         }  
 
         $ruat->save();
@@ -172,6 +174,9 @@ class RuatA extends CI_Controller {
             $orgasociada['beneficios'] = extract_prop($org->beneficios, 'beneficio_id');
             $output->asociacion['cooperativa']['filas'][] = $orgasociada;
         }
+        if(!count($output->asociacion['cooperativa']['filas']))
+            $output->asociacion['cooperativa']['filas'][] = array(); //filita vacia
+
         $output->asociacion['cooperativa']['asociado'] = (bool)count($output->asociacion['cooperativa']['filas']);
         $output->asociacion['cooperativa']['orgs_apoyan'] = json_decode($ruat->orgs_apoyan);
         $output->asociacion['cooperativa']['razones'] = extract_prop(RazonNoPertenecer::find_all_by_ruat_id($ruat->id),'razon_id');
