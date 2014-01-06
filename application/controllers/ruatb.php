@@ -4,6 +4,7 @@ class RuatB extends CI_Controller {
 
     public function index($ruat_id)
     {
+        if(!$ruat_id) die("Invalid URL");
         //check_profile($this,"Administrador");
 
         function to_array($model) { return $model->to_array(); }
@@ -31,6 +32,8 @@ class RuatB extends CI_Controller {
         }
 
         $productor = $ruat->productor->to_array();
+        $productor['nombre_completo'] = $ruat->productor->nombre_completo();
+        $productor['tipo_documento']  = $ruat->productor->tipo_documento->descripcion;
         $this->twiggy->set('productor', $productor);
         $this->twiggy->set('combos', $combos);
         $this->twiggy->template("ruat/ruatb");
@@ -65,9 +68,19 @@ class RuatB extends CI_Controller {
                 'maquinaria_id' => $tipo, 'descripcion' => $maq->descripcion));
         }
         
-        //Aqui viene los productos
-        /*
+        //borrar productos que se hallan removido en el formulario
+        $conds = count($input->productos)
+            ? array('ruat_id = ? AND id NOT IN (?)', $ruat_id, extract_prop($input->productos, 'id'))
+            : array('ruat_id = ?', $ruat_id);
+
+        Producto::delete_all($conds);
+
+        
         foreach($input->productos as $p){
+            $p->ruat_id = $ruat_id;
+            $producto = Producto::get_or_create($p);
+
+            /*
             $producto = new Producto();
             $producto->ruat_id = $ruat_id;
             $producto->nombre = $p->nombre;
@@ -101,8 +114,9 @@ class RuatB extends CI_Controller {
             }
 
             $producto->save();
+            */
         }
-        */
+
         
                 
         $response = array(
@@ -121,8 +135,23 @@ class RuatB extends CI_Controller {
         $output = new StdClass;
         $output->finca = $finca->to_array();
         $output->servicios = extract_prop(FincaServicio::find_all_by_finca_id($finca->id),'servicio_id');
+        $output->productos = array();
+        $output->mediosTransporte = array();
+        $output->maquinaria = array();
+        foreach(TipoMaquinaria::all() as $t) $output->maquinaria[$t->id] = array('usa'=>false);
 
-
+        $output->residuos = array('ordinarios' => array('maneja' => false),
+                                  'peligrosos' => array('maneja' => false),
+                                  'otros'      => array('maneja' => false));
+        /*
+        productos: [{}],
+            maquinaria: {},
+            residuos: {
+                ordinarios: { maneja: false },
+                peligrosos: { maneja: false },
+                otros: { maneja: false },
+            }
+        */
         if($do_echo) echo json_encode($output);
         return $output;
     }
