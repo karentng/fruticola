@@ -10,7 +10,6 @@ class MyModel extends ActiveRecord\Model
         }
         else {
             $obj = static::find($data[id]);
-            var_dump($obj);
             $obj->set_attributes($data);
         }
 

@@ -17,7 +17,7 @@
     {% else %}
         extern.ruat = {
             productor : {
-                nombre1:'guachu',
+                /*nombre1:'guachu',
                 nombre2:'Alan', 
                 apellido1:'from',
                 apellido2: 'missisipi',
@@ -27,53 +27,54 @@
                 numero_documento:102909,
                 tipo_productor_id:1,
                 renglon_productivo_id:1,
-                fecha_nacimiento: '2013-12-20'
+                fecha_nacimiento: '2013-12-20'*/
             },
             contacto : {
-                celular: 3114005089,
+                /*celular: 3114005089,
                 telefono: 3774121,
                 email: 'guachu@openEnglish.com',
                 departamento_id: 1,
                 municipio_id: 505,
                 vereda:'micasita',
-                direccion: 'calle con carrera'
+                direccion: 'calle con carrera'*/
             },
             economia : {
                 usaCredito: false,
-                ingreso_familiar: 123234,
+                /*ingreso_familiar: 123234,
                 personas_dependientes: 3,
                 ingreso_agropecuario: 121212,
                 usaCredito: true,
                 credito_id: 2,
-                otro_credito: "algo"
+                otro_credito: "algo"*/
             },
             asociacion : {
                 cooperativa: {
-                    asociado: true,
-                    filas: [{
+                    asociado: false,
+                    filas: [] /*
+                        [{
                         directivo: true,
                         clases: [3, 4],
                         nombre: "una organización",
                         periodicidad_id: 3,
                         directivo: "true",
                         beneficios: [4, 5]
-                    }],
-                    razones: [1, 2], 
+                    }]*/,
+                    razones: [], 
                     orgs_apoyan: []
                 },
                 otroProductor: {
-                    asociado: true,
-                    nombre: "igor",
+                    asociado: false,
+                    /*nombre: "igor",
                     apellido: "pato",
                     vereda: "el laguito",
-                    confianza_id: 2
+                    confianza_id: 2*/
                 },
                 sigue: {
-                    asociado: true,
-                    nombre: "iguana",
+                    asociado: false,
+                    /*nombre: "iguana",
                     apellido: "tejado",
                     vereda: "lago verde",
-                    confianza_id: 3
+                    confianza_id: 3*/
                 }
             },
             
@@ -86,13 +87,7 @@
     var urls = {
         guardar : "{{site_url('ruata/guardar')}}",
     };
-    var count = function(obj) {
-        var cnt = 0;
-        for(var x in obj)
-            if(obj.hasOwnProperty(x))
-                cnt++;
-        return cnt;
-    }
+    
 </script>
 
 
@@ -121,19 +116,16 @@
     var RuatACtrl = function($scope, $http) {
 
         angular.extend($scope, extern.combos);
+        $scope.descripDocumento = {};
+        $scope.tiposDocumento.forEach(function(t) { $scope.descripDocumento[t.id]=t.descripcion; });
+
         angular.extend($scope, extern.ruat);
         //$scope.combos = extern.combos;
 
-
-        $scope.count = count;
         
         $scope.validate = function(form){   
             for (feild in form) {
-
-                // look at each form input with a name attribute set
-                // checking if it is pristine and not a '$' special field
                 if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
-                    //console.log(typeof($scope.myForm[feild]));
                     form[feild].$setViewValue( form[feild].$modelValue );
                 }
             }
@@ -141,8 +133,8 @@
         };
 
         $scope.submit = function() {
-            if(!$scope.validate()) {
-                alert('Revise errores');
+            if(!$scope.validate($scope.myForm)) {
+                notif({type:'error', text:'Formulario Incompleto. <br/> Verifique los campos requeridos'});
                 return;
             }
 
@@ -156,6 +148,7 @@
             }
 
             var data = {
+                ruat_id : $scope.ruat_id || null,
                 productor: $scope.productor,
                 contacto : $scope.contacto,
                 economia: $scope.economia,
@@ -166,7 +159,15 @@
 
 
             $http.post(urls.guardar, data).success(function(response,status) {
-                console.log(response);
+                //console.log(response);
+                if(response.success!==undefined) {
+                    notif(response.message);
+                    if(response.success)
+                        angular.extend($scope, response.scope);
+                }
+                else {
+                    alert("Error en comunicacion con el servidor. Intente nuevamente.");
+                }
             });
 
             //alert('Guardar!');
@@ -183,9 +184,12 @@
 {% raw %}
 
 <div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
-<!--<input type="submit">
 
-{{productor | json}}-->
+<h3>
+    {{productor.nombre1}} {{productor.nombre2}} {{productor.apellido1}} {{productor.apellido2}} 
+    <small>{{descripDocumento[productor.tipo_documento_id]}}: {{productor.numero_documento}}</small>
+</h3>
+
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -301,7 +305,7 @@
                                 <option></option>
                                 <option ng-repeat="t in tiposProductor" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
-                            <label class="error" ng-show="myForm.tiposProductor.$dirty && myForm.tipoProductor.$error.required">Requerido</label>
+                            <label class="error" ng-show="myForm.tipoProductor.$dirty && myForm.tipoProductor.$error.required">Requerido</label>
                         </div>
                     </div>
                 </div>
@@ -401,7 +405,8 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="focused">Dirección de Residencia:</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="direccion" ng-model="contacto.direccion">
+                            <input type="text" class="form-control" name="direccion" ng-model="contacto.direccion" required>
+                            <label class="error" ng-show="myForm.direccion.$dirty && myForm.direccion.$error.required">Requerido</label>
 
                         </div>
                     </div>
@@ -428,7 +433,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-6">Ingreso Mensual Familiar </label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" name="ingreso_familiar" name="ingreso_familiar" ng-model="economia.ingreso_familiar" required/>
+                                <input type="number" class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-model="economia.ingreso_familiar" required/>
                             </div>
                             <label class="error" ng-show="myForm.ingreso_familiar.$dirty && myForm.ingreso_familiar.$error.required">Requerido</label>
                          </div>
@@ -439,7 +444,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-8">Personas a Cargo</label>
                             <div class="col-sm-4">
-                                <input type="number" class="form-control" name="personas_dependientes" ng-model="economia.personas_dependientes" required/>
+                                <input type="number" class="form-control" name="personas_dependientes" ng-model="economia.personas_dependientes" min="0" max="15" required/>
                             </div>
                             <span class="help-block" ng-show="myForm.personas_dependientes.$dirty && myForm.personas_dependientes.$error.required"><label class="error">Requerido</label></span>
                         </div> 
@@ -450,7 +455,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-7">Ingreso de Actividad Agropecuaria</label>
                             <div class="col-sm-5">
-                                <input type="number" class="form-control" name="ingreso_agropecuario" ng-model="economia.ingreso_agropecuario" required/>
+                                <input type="number" class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-model="economia.ingreso_agropecuario" required/>
                             </div>
                             <label class="error" ng-show="myForm.ingreso_agropecuario.$dirty && myForm.ingreso_agropecuario.$error.required">Requerido</label>
                         </div>
@@ -525,21 +530,23 @@
                 
             </thead>
             <tbody>
-                <tr ng-repeat="tipoInn in tiposInnovacion">
+                <tr ng-repeat="tipoInn in tiposInnovacion" ng-form="subForm">
                     <td>{{tipoInn.descripcion}}</td>
                     <td>
-                        <span ng-init="innovaciones[$index]={tipo_id:tipoInn.id}"></span>
+                        <span ng-init="innovaciones[$index] = innovaciones[$index] ? innovaciones[$index] : {tipo_id:tipoInn.id}"></span>
                         <buttons-radio model="innovaciones[$index].fuente_id" options="fuentesInnovacion" name="fuente" >
                         </buttons-radio>
                     </td>
                     <td>
                         <input type="text" class="form-control" style="width:100px" 
-                                placeholder="¿Cual?" name="cualInnovacion" ng-model="innovaciones[$index].cual" ng-show="innovaciones[$index].fuente==6" ng-required="innovaciones[$index].fuente==6"/>
+                                placeholder="¿Cual?" name="otra_fuente" ng-model="innovaciones[$index].otra_fuente" ng-show="innovaciones[$index].fuente_id==6" ng-required="innovaciones[$index].fuente_id==6"/>
+                        <label class="error" ng-show="subForm.otra_fuente.$error.required">Requerido</label>
                         
                     </td>
                     <td>
                         <input type="text" class="form-control" name="descripcion" ng-model="innovaciones[$index].descripcion"
-                            placeholder="{{innovaciones[$index].fuente?'Ingrese aqui la Descripción':''}}" ng-disabled="!innovaciones[$index].fuente" />
+                            placeholder="{{innovaciones[$index].fuente_id?'Ingrese aqui la Descripción':''}}" ng-required="innovaciones[$index].fuente_id" ng-disabled="!innovaciones[$index].fuente_id" />
+                        <label class="error" ng-show="subForm.descripcion.$error.required">Requerido</label>
                     </td>
                 </tr>
             </tbody>
@@ -580,29 +587,32 @@
                     <th><button type="button" ng-click="asociacion.cooperativa.filas.push({})" class="btn btn-sm btn-primary tip" data-original-title="Agregar Fila"><i class="i-plus-circle"></i></button></th>
                 </tr>
             </thead>
-                <tr ng-repeat="fila in asociacion.cooperativa.filas">
+                <tr ng-repeat="fila in asociacion.cooperativa.filas" ng-form="subForm">
                     <td>
                         <select multiple name="clase" ng-required="asociacion.cooperativa.asociado" ng-model="fila.clases" style="min-width:100px"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Clases de Organización'}">
                             <option ng-repeat="t in clasesOrganizaciones" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                         <span class="help-block" ng-show="myForm.clase.$dirty && myForm.clase.$error.required"><label class="error">Requerido</label></span>
+                         <span class="help-block" ng-show="subForm.clase.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="Organizacion" ng-model="fila.nombre" ng-required="true" />
-                        <label class="error" ng-show="myForm.Organizacion.$dirty && myForm.Organizacion.$error.required ">Requerido</label>
+                        <input type="text" class="form-control" name="nombre" ng-model="fila.nombre" ng-required="true" placeholder="Organización"/>
+                         <span class="help-block" ng-show="subForm.nombre.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td><select multiple name="beneficios" ng-required="asociacion.cooperativa.asociado" ng-model="fila.beneficios" style="min-width:150px"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Beneficios'}">
                             <option ng-repeat="t in tiposBeneficio" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <span class="help-block" ng-show="myForm.beneficios.$dirty && myForm.beneficios.$error.required"><label class="error">Requerido</label></span>
+                         <span class="help-block" ng-show="subForm.beneficios.$error.required"><label class="error">Requerido</label></span>
                     </td>
-                    <td><select name="periodicidad" ng-model="fila.periodicidad_id" 
-                                ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true}" data-placeholder="Periodicidad">
+                    <td>
+                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Periodicidad'}" 
+                            name="periodicidad" ng-model="fila.periodicidad_id" ng-required="true">
+                            <option></option>
                             <option ng-repeat="t in periodicidades" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        
+                        <label class="error" ng-show="subForm.periodicidad.$error.required">Requerido</label>
+                    
                     </td>
                     <td><input bs-switch ng-model="fila.directivo" switch-on="info" switch-off="info"
                         switch-on-label="Directivo" switch-off-label="Participante" switch-type="checkbox" switch-size="" switch-animate="true" />
@@ -664,7 +674,9 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Vereda de Ubicación</label>
-                                <input type="text" class="form-control" ng-model="asociacion.otroProductor.vereda"/>
+                                <input type="text" class="form-control" name="veredaAsocio" ng-model="asociacion.otroProductor.vereda" ng-required="asociacion.otroProductor.asociado"/>
+                                <label class="error" ng-show="myForm.veredaAsocio.$dirty && myForm.veredaAsocio.$error.required ">Requerido</label>
+
                             </div>
                         </div>
                     </div>
@@ -712,7 +724,9 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Vereda de Ubicación</label>
-                                <input type="text" class="form-control" ng-model="asociacion.sigue.vereda"/>
+                                <input type="text" class="form-control" name="veredaSeguir" ng-model="asociacion.sigue.vereda" ng-required="asociacion.sigue.asociado"/>
+                                <label class="error" ng-show="myForm.veredaSeguir.$dirty && myForm.veredaSeguir.$error.required ">Requerido</label>
+
                             </div>
                         </div>
                     </div>
