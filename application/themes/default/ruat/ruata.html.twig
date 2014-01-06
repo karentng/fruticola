@@ -133,18 +133,20 @@
         };
 
         $scope.submit = function() {
-            if(!$scope.validate($scope.myForm)) {
-                notif({type:'error', text:'Formulario Incompleto. <br/> Verifique los campos requeridos'});
-                return;
-            }
-
             var coop = $scope.asociacion.cooperativa;
+            console.log("coop=",coop);
             if(coop.asociado) {
                 coop.razones = [];
                 coop.apoyan = [];
             }
             else {
                 coop.filas = [];
+            }
+            console.log("ahora coop=",coop);
+
+            if(!$scope.validate($scope.myForm)) {
+                notif({type:'error', text:'Formulario Incompleto. <br/> Verifique los campos requeridos'});
+                return;
             }
 
             var data = {
@@ -576,7 +578,7 @@
                 </div>
             </div>
             
-            <table class="table table-bordered" ng-show="asociacion.cooperativa.asociado" >
+            <table class="table table-bordered" ng-if="asociacion.cooperativa.asociado" >
             <thead>
                 <tr>
                     <th>Clase</th>
