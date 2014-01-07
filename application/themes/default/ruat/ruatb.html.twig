@@ -443,9 +443,10 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">ha</span>
-                            <input type="number" class="form-control" step="0.01" min="0" max="100000000000.99" name="areaCosechada" ng-model="prod.area_cosechada " required /></td>
+                            <input type="text" class="form-control"  name="areaCosechada" ng-model="prod.area_cosechada " ng-required="true" /></td>
                         </div>
                         <label class="error" ng-show="subForm.areaCosechada.$error.required">Requerido</label>
+                        
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">

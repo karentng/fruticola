@@ -37,8 +37,8 @@ $(document).ready(function() {
 
     //Disable certain links
     $('a[href^=#]').click(function (e) {
-        e.preventDefault()
-    })
+        e.preventDefault();
+    });
 
     //------------- Prettify code  -------------//
     window.prettyPrint && prettyPrint();
@@ -54,7 +54,7 @@ $(document).ready(function() {
     $("a[data-toggle=popover]")
       .popover()
       .click(function(e) {
-        e.preventDefault()
+        e.preventDefault();
     });
 
     $('#fixedwidth').click(function() {
@@ -67,6 +67,7 @@ $(document).ready(function() {
     //$("input, textarea, select").not('.nostyle').uniform();
     //$("input[type='text']").uniform();
     //$("[type='checkbox'], [type='radio'], [type='file']").not('.toggle').uniform();
+    $("[type='file']").uniform();
     //$("select").not('.select2, .multiselect').first().uniform();
 });
 

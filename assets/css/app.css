@@ -3043,15 +3043,15 @@ html.errorPage {
 	width: 100%;
 	border-top: 0;
 	box-shadow: none;
-	background: #4e525d;
-	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-	background: -moz-linear-gradient(top, #4e525d 0%, #363840 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4e525d), color-stop(100%,#363840));
-	background: -webkit-linear-gradient(top, #4e525d 0%,#363840 100%);
+	background: #67be47;
+	/*background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top, #4e525d 0%, #363840 100%);*/
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#62b842), color-stop(100%,#378e17));
+	/*background: -webkit-linear-gradient(top, #4e525d 0%,#363840 100%);
 	background: -o-linear-gradient(top, #4e525d 0%,#363840 100%);
 	background: -ms-linear-gradient(top, #4e525d 0%,#363840 100%);
 	background: linear-gradient(to bottom, #4e525d 0%,#363840 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e525d', endColorstr='#363840',GradientType=0 );
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e525d', endColorstr='#363840',GradientType=0 );*/
 }
 
 /* ------------------ Fixed with styles --------------------*/
