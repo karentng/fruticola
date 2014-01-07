@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
     var extern = {
-        combos: {{combos | json_encode }}
+        combos: {{combos | json_encode }},
     };
     var urls = {
         guardar : "{{site_url(['ruatb','guardar',ruat_id])}}",
@@ -21,16 +21,14 @@
         extern.scope = {{scope | json_encode }};
     {% else %}
         extern.scope = {
-            finca: {  },
+            finca: {ruat_id:{{ruat_id}}  },
             servicios: [],
             mediosTransporte: [],
             productos: [{}],
             maquinaria: {},
-            residuos: {
-                ordinarios: { maneja: false },
-                peligrosos: { maneja: false },
-                otros: { maneja: false },
-            }
+            manejaResidsOrdinarios: false,
+            manejaResidsPeligrosos: false,
+            manejaResidsOtros:      false,
         }
     {% endif %}
 </script>
@@ -45,17 +43,22 @@
     var RuatBCtrl = function($scope, $http, $timeout) {
         angular.extend($scope, extern.combos);
         angular.extend($scope,extern.scope);
-        $scope.finca.esFinca=true;
+        
+        $timeout(function(){$scope.myForm.$setPristine()},1000);
 
-        $timeout(function(){$scope.myForm.$setPristine()},100);
+        $scope.postLoad = function() {
+            $scope.finca.esFinca = true;
+            $scope.manejaResidsOrdinarios = $scope.finca.residuos_ordinarios!==null;
+            $scope.manejaResidsPeligrosos = $scope.finca.residuos_peligrosos!==null;
+            $scope.manejaResidsOtros      = $scope.finca.residuos_otros!==null;
 
-
-        if(!$scope.maquinaria) {
-            $scope.maquinaria = {};
-            for(var i in $scope.tiposMaquinaria)
-                $scope.maquinaria[$scope.tiposMaquinaria[i].id]={usa:false};
+            $scope.tiposMaquinaria.forEach(function(t) {
+                if(!$scope.maquinaria[""+t.id]) $scope.maquinaria[""+t.id] = ({usa:false});
+            });
         }
 
+        $scope.postLoad();
+        
         $scope.validate = function(form) {
             for (feild in form) {
                 if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
@@ -78,28 +81,35 @@
                 mediosTransporte: $scope.mediosTransporte,
                 productos: $scope.productos,
                 maquinaria: $scope.maquinaria,
-
             };
 
-            if(!$scope.residuos.ordinarios.maneja) data.finca.residuos_ordinarios=null;
-            if(!$scope.residuos.peligrosos.maneja) data.finca.residuos_peligrosos=null;
-            if(!$scope.residuos.otros.maneja)      data.finca.residuos_otro=null;
+            if(!$scope.manejaResidsOrdinarios) data.finca.residuos_ordinarios=null;
+            if(!$scope.manejaResidsPeligrosos) data.finca.residuos_peligrosos=null;
+            if(!$scope.manejaResidsOtros)      data.finca.residuos_otro=null;
 
             $http.post(urls.guardar, data).success(function(response,status) {
                 if(response.success!==undefined) {
                     notif(response.message);
-                    if(response.success)
+                    if(response.success) {
                         angular.extend($scope, response.scope);
+                        $scope.postLoad();
+                    }
                 }
                 else {
                     alert("Error en comunicacion con el servidor. Intente nuevamente.");
                 }
             });
 
-            $scope.anterior = function() {
-                window.location = (urls.anterior+"/"+$scope.finca.ruat_id);
-            }
+
         };
+
+        $scope.anterior = function() {
+            window.location = (urls.anterior+"/"+$scope.finca.ruat_id);
+        }
+
+        $scope.siguiente = function() {
+            window.location = (urls.siguiente+"/"+$scope.finca.ruat_id);
+        }
     }
 </script>
 {% endraw %}
@@ -278,12 +288,12 @@
             <tr>
                 <th style="width:150px; vertical-align:middle">Ordinarios</td>
                 <td style="width:100px">
-                    <input bs-switch ng-model="residuos.ordinarios.maneja" switch-on="primary" switch-off="warning"
+                    <input bs-switch ng-model="manejaResidsOrdinarios" switch-on="primary" switch-off="warning"
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" />
                 </td>
                 <td>
                     <input type="text" name="residuosOrdinarios" ng-model="finca.residuos_ordinarios" placeholder="Descripción" 
-                            ng-required='residuos.ordinarios.maneja' ng-show="residuos.ordinarios.maneja" style="width:100%" />
+                            ng-required='manejaResidsOrdinarios' ng-show="manejaResidsOrdinarios" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosOrdinarios.$dirty && myForm.residuosOrdinarios.$error.required">
                         <label class="error">Requerido</label>
                     </span>
@@ -292,12 +302,12 @@
             <tr>
                 <th style="width:150px; vertical-align:middle">Peligrosos</td>
                 <td style="width:100px">
-                    <input bs-switch ng-model="residuos.peligrosos.maneja" switch-on="primary" switch-off="warning"
+                    <input bs-switch ng-model="manejaResidsPeligrosos" switch-on="primary" switch-off="warning"
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" />
                 </td>
                 <td>
                     <input type="text" name="residuosPeligrosos" ng-model="finca.residuos_peligrosos" placeholder="Descripción" 
-                            ng-required='residuos.peligrosos.maneja' ng-show="residuos.peligrosos.maneja" style="width:100%" />
+                            ng-required='manejaResidsPeligrosos' ng-show="manejaResidsPeligrosos" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosPeligrosos.$dirty && myForm.residuosPeligrosos.$error.required">
                         <label class="error">Requerido</label>
                     </span>
@@ -306,12 +316,12 @@
             <tr>
                 <th style="width:150px; vertical-align:middle">Otros</td>
                 <td style="width:100px">
-                    <input bs-switch ng-model="residuos.otros.maneja" switch-on="primary" switch-off="warning"
+                    <input bs-switch ng-model="manejaResidsOtros" switch-on="primary" switch-off="warning"
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" />
                 </td>
                 <td>
                     <input type="text" name="residuosOtros" class="form-control" ng-model="finca.residuos_otro" placeholder="Descripción" 
-                            ng-required='residuos.otros.maneja' ng-show="residuos.otros.maneja" style="width:100%" />
+                            ng-required='manejaResidsOtros' ng-show="manejaResidsOtros" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosOtros.$dirty && myForm.residuosOtros.$error.required">
                         <label class="error">Requerido</label>
                     </span>
@@ -413,7 +423,9 @@
             </thead>
             <tbody>
                 <tr ng-repeat="prod in productos" ng-form="subForm">
-                    <th><button type="button" ng-click="productos.splice($index,1)" class="btn btn-danger btn-xs" title="Remover fila">-</button> {{$index+1}} </th>
+                    <th><button type="button" ng-click="productos.splice($index,1)" class="btn btn-danger btn-xs" title="Remover fila">-</button> {{$index+1}} 
+                        {{subForm.$dirty}}
+                    </th>
                     <td>
                         <input type="text" class="form-control" name="nombreProd" ng-model="prod.nombre" required />
                         <label class="error" ng-show="subForm.nombreProd.$error.required">Requerido</label>
