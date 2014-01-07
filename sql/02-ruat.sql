@@ -137,8 +137,8 @@ create table finca(
     identif_catastral   varchar(30) not null,
     tenencia_id         integer not null references tenencia(id),
     municipio_id        integer not null references municipio(id),
-    vereda              varchar(50) not null,
-    sector              varchar(50) not null,
+    vereda              varchar(50) ,
+    sector              varchar(50) ,
     area_total          double precision ,
 
     residuos_ordinarios     varchar(100),

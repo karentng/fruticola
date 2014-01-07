@@ -107,7 +107,7 @@
     <div class="form-group">
         <label class="col-md-3 control-label">Perfil:</label>
         <div class="col-md-5">
-            {{ form_dropdown('profile', {'':'-', 'admin':'Administrador', 'digitador':'Digitador'}, set_value('profile'), form_error('profile') ? 'class="error"' : '') }}
+            {{ form_dropdown('profile', perfiles, set_value('profile'), form_error('profile') ? 'class="error"' : '') }}
             {% if form_error('profile') %}
                 <label class='error'>{{ form_error('profile') }}</label>
             {% endif %}

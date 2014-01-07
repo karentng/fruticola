@@ -4,12 +4,12 @@ class RuatA extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('ion_auth');
+        
+        check_profile($this, "Administrador", "Coordinador", "Digitador");
     }
 
     public function index($ruat_id=NULL)
     {
-        check_profile($this, 'Administrador');
                         
         function to_array($model) { return $model->to_array(); }
 
