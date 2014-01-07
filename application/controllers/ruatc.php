@@ -43,7 +43,7 @@ class RuatC extends CI_Controller {
                 echo( $e );
             }
 
-            redirect(site_url('ruatd'));
+            redirect(site_url("ruatd/index/$ruat_id"));
         }
 
         $this->twiggy->register_function('form_error');
