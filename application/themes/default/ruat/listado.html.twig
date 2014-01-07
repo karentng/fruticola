@@ -1,12 +1,29 @@
 {% extends "base.html.twig" %}
 
+{% block titulo %} <h1><i class="icon20 i-man"></i> Listado de RUATs </h1> {% endblock %}
+
 {% block contenido %}
 
 <table class="table table-bordered table-hover">
+    <thead>
+        <th>#</th>
+        <th>Productor</th>
+        <th>Identificación</th>
+        <th>Creado</th>
+        <th></th>
+    </thead>
     <tbody>
-        <th>ID</th>
+        {% for row in ruats %}
+        {% set theid = row.__get('id') %}
+        <tr>
+            <td>{{row.id}}</td>
+            <td>{{row.productor.nombre_completo()}}</td>
+            <td>{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</td>
+            <td>{{row.creado | date("Y-m-d  H:i")}}</td>
+            <td><a class="act act-warning" href="{{site_url(['ruata','index',row.id])}}">Ver</a></td>
+        </tr>
+        {% endfor %}
     </tbody>
-
 </table>
 
 {% endblock %}

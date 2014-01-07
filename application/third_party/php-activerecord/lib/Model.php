@@ -341,7 +341,18 @@ class Model
 	 */
 	public function __isset($attribute_name)
 	{
-		return array_key_exists($attribute_name,$this->attributes) || array_key_exists($attribute_name,static::$alias_attribute);
+		$res = array_key_exists($attribute_name,$this->attributes) || array_key_exists($attribute_name,static::$alias_attribute);
+		if($res) return $res;
+
+		if (method_exists($this, "get_$name"))
+        {
+            //$name = "get_$name";
+            //$value = $this->$name();
+            //return $value;
+            return true;
+        }
+
+        return $this->read_attribute($attribute_name);
 	}
 
 	/**
