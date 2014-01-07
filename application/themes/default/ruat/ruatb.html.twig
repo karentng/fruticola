@@ -443,22 +443,24 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">ha</span>
-                            <input type="number" class="form-control" step="0.01" min="0" max="100000000000.99" name="areaCosechada" ng-model="prod.area_cosechada " required /></td>
+                            <input type="number" class="form-control" step="0.01" min="0" max="100000000000.99" style="width:90px" name="areaCosechada" ng-model="prod.area_cosechada " required />
+			    
                         </div>
-                        <label class="error" ng-show="subForm.areaCosechada.$error.required">Requerido</label>
+			<label class="error" ng-show="subForm.areaCosechada.$error.required">Requerido</label>
+                        
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" min="0" max="100000000000"  name="semA" ng-model="prod.prod_semestre_a" required/></td>
-                        </div>
+                            <input type="number" class="form-control" min="0" max="100000000000"  name="semA" style="width:110px" ng-model="prod.prod_semestre_a" required/>
+			</div>
                         <label class="error" ng-show="subForm.semA.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semA.$dirty && subForm.semA.$error.required">Requerido</label-->
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control"  min="0" max="100000000000" name="semB" ng-model="prod.prod_semestre_b" required/></td>
+                            <input type="number" class="form-control"  min="0" max="100000000000" name="semB" style="width:110px" ng-model="prod.prod_semestre_b" required/>
                         </div>
                         <label class="error" ng-show="subForm.semB.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semB.$dirty && subForm.semB.$error.required">Requerido</label-->
@@ -493,21 +495,22 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" min="0" max="1000000000" name="costoEstab" ng-model="prod.costo_establecimiento " required/></td>
+                            <input type="number" class="form-control" min="0" max="1000000000" name="costoEstab" ng-model="prod.costo_establecimiento " required/>
+			    
                         </div>
                         <label class="error" ng-show="subForm.costoEstab.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" min="0" max="100000000000" name="costoSost" ng-model="prod.costo_sostenimiento" required/></td>
+                            <input type="number" class="form-control" min="0" max="100000000000" name="costoSost" ng-model="prod.costo_sostenimiento" required/>
                         </div>
                         <label class="error" ng-show="subForm.costoSost.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" name="prod_mercado" ng-model="prod.prod_mercado" required/></td>
+                            <input type="number" class="form-control" name="prod_mercado" ng-model="prod.prod_mercado" required/>
                         </div>
                         <label class="error" ng-show="subForm.prod_mercado.$error.required">Requerido</label>
                     </td>
@@ -518,7 +521,7 @@
                             <option></option>
                             <option ng-repeat="t in tiposSitioVenta" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <label class="error" ng-show="subForm.sitio_venta_id.$dirty && myForm.sitio_venta_id.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.sitioVenta.$error.required">Requerido</label>
                     </td>
                     <td>
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'A quién le vende'}" 
@@ -526,11 +529,11 @@
                             <option></option>
                             <option ng-repeat="t in tiposVende" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <label class="error" ng-show="subForm.vende_tipo_id.$dirty && subForm.vende_tipo_id.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.vende.$error.required">Requerido</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" name="vende_nombre" ng-model="prod.vende_nombre" placeholder="Nombre y Apellido" required>
-                        <label class="error" ng-show="subForm.vende_nombre.$dirty && subForm.vende_nombre.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.vende_nombre.$error.required">Requerido</label>
                     </td>
                 </tr>
             </tbody>
@@ -561,8 +564,9 @@
                         <div class="input-group" style="width:120px">
                             <span class="input-group-addon">$/Kg</span>
                             <input type="number" class="form-control" name="precioVentaProm" ng-model="prod.precio_promedio" required/>
+			    <label class="error" ng-show="subForm.precioVentaProm.$error.required">Requerido</label>
                         </div>
-                        <label class="error" ng-show="subForm.precioVentaProm.$error.required">Requerido</label>
+                        
                     </td>
                     <td>
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Forma de Pago'}" 
@@ -570,19 +574,18 @@
                             <option></option>
                             <option ng-repeat="t in tiposFormaPago" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <label class="error" ng-show="subForm.formaPago.$dirty && subForm.formaPago.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.formaPago.$error.required">Requerido</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" name="subproducto" ng-model="prod.subproducto" placeholder="Subproducto" required>
-                        <label class="error" ng-show="subForm.subproducto.$dirty && subForm.subproducto.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.subproducto.$error.required">Requerido</label>
                     </td>
                     <td>
                         <input type="text" class="form-control" name="subproducto_uso" ng-model="prod.subproducto_uso" placeholder="Uso" required>
-                        <label class="error" ng-show="subForm.subproducto_uso.$dirty && subForm.subproducto_uso.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.subproducto_uso.$error.required">Requerido</label>
                     </td>
                     <td style="text-align:center">
-                        <input bs-switch ng-model="prod.perteneceProgAsistencia" switch-on="info" switch-off="warning" switch-size="small"
-                                switch-on-label="SI" switch-off-label="NO">
+                        <input bs-switch ng-model="prod.perteneceProgAsistencia" switch-on="info" switch-off="warning" switch-size="small" switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
                         <input type="text" class="form-control" name="programa" ng-model="prod.asistencia_programa" ng-required="prod.perteneceProgAsistencia" 
@@ -590,8 +593,7 @@
                         <label class="error" ng-show="subForm.programa.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="entidad" ng-model="prod.asistencia_entidad" ng-required="prod.perteneceProgAsistencia"
-                                ng-disabled="!prod.perteneceProgAsistencia" placeholder="{{prod.perteneceProgAsistencia?'Entidad':''}}" />
+                        <input type="text" class="form-control" name="entidad" ng-model="prod.asistencia_entidad" ng-required="prod.perteneceProgAsistencia" ng-disabled="!prod.perteneceProgAsistencia" placeholder="{{prod.perteneceProgAsistencia?'Entidad':''}}" />
                         <label class="error" ng-show="subForm.entidad.$error.required">Requerido</label>
                     </td>
                 </tr>
@@ -616,8 +618,8 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">LATITUD NORTE (N)</label>
-                        <input type="number" class="form-control" name="latitud" ng-model="finca.geo_latitud" required/>
-                        <label class="error" ng-show="myForm.latitud.$dirty && myForm.latitud.$error.required">Requerido un valor numérico</label>
+                        <input type="number" class="form-control" name="latitud" ng-model="finca.geo_latitud"/>
+                        <!--<label class="error" ng-show="myForm.latitud.$dirty && myForm.latitud.$error.required">Requerido un valor numérico</label>-->
                     </td>
                     </div> 
                 </div>
@@ -626,8 +628,8 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">LONGITUD OCCIDENTE (W)</label>
-                        <input type="number" class="form-control" name="longitud" ng-model="finca.geo_longitud" required/>
-                        <label class="error" ng-show="myForm.longitud.$dirty && myForm.longitud.$error.required">Requerido un valor numérico</label>
+                        <input type="number" class="form-control" name="longitud" ng-model="finca.geo_longitud" />
+                        <!--<label class="error" ng-show="myForm.longitud.$error">Requerido un valor numérico</label-->
                     </div>
                 </div>
             </div>
@@ -635,8 +637,8 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">ALTURA SOBRE EL NIVEL DEL MAR</label>
-                        <input type="number" class="form-control" name="altura" ng-model="finca.geo_altura" required/>
-                        <label class="error" ng-show="myForm.altura.$dirty && myForm.altura.$error.required">Requerido un valor numérico</label>
+                        <input type="number" class="form-control" name="altura" ng-model="finca.geo_altura" />
+                        <!--<label class="error" ng-show="myForm.altura.$dirty && myForm.altura.$error.required">Requerido un valor numérico</label>-->
                     </div>
                 </div>
             </div>
