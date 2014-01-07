@@ -13,6 +13,8 @@
     };
     var urls = {
         guardar : "{{site_url(['ruatb','guardar',ruat_id])}}",
+        anterior : "{{site_url('ruata/index')}}",
+        siguiente : "{{site_url('ruatc/index')}}",
     };
 
     {% if scope %}
@@ -40,10 +42,13 @@
 <script type="text/javascript">
     var myApp = angular.module('myApp', ['ui.select2', 'frapontillo.bootstrap-switch']);
     
-    var RuatBCtrl = function($scope, $http) {
+    var RuatBCtrl = function($scope, $http, $timeout) {
         angular.extend($scope, extern.combos);
         angular.extend($scope,extern.scope);
         $scope.finca.esFinca=true;
+
+        $timeout(function(){$scope.myForm.$setPristine()},100);
+
 
         if(!$scope.maquinaria) {
             $scope.maquinaria = {};
@@ -90,6 +95,10 @@
                     alert("Error en comunicacion con el servidor. Intente nuevamente.");
                 }
             });
+
+            $scope.anterior = function() {
+                window.location = (urls.anterior+"/"+$scope.finca.ruat_id);
+            }
         };
     }
 </script>
@@ -638,10 +647,10 @@
 <br/>
 <div class="form-actions full">
 
-    <button ng-disabled="myForm.$dirty"  class="btn btn-lg btn-warning" type="button" ng-click="siguiente()"><i class="icon16 i-arrow-first"></i>Anterior</button>
+    <button ng-disabled="myForm.$dirty"  class="btn btn-lg btn-warning" type="button" ng-click="anterior()"><i class="icon16 i-arrow-first"></i>Anterior</button>
     <div class="col-md-4 pull-right">
         <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
-        <button ng-disabled="myForm.$dirty || !ruat_id"  class="btn btn-lg btn-success" type="button" ng-click="siguiente()">Siguiente<i class="icon16 i-arrow-right"></i></button>
+        <button ng-disabled="myForm.$dirty || !finca.id"  class="btn btn-lg btn-success" type="button" ng-click="siguiente()">Siguiente<i class="icon16 i-arrow-right"></i></button>
     </div>
 </div>
 
