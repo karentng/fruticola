@@ -73,12 +73,19 @@ class RuatB extends CI_Controller {
             ? array('ruat_id = ? AND id NOT IN (?)', $ruat_id, extract_prop($input->productos, 'id'))
             : array('ruat_id = ?', $ruat_id);
 
-        Producto::delete_all($conds);
 
+        Producto::delete_all(array('conditions' => $conds));
+        //echo Producto::table()->last_sql;
         
         foreach($input->productos as $p){
             $p->ruat_id = $ruat_id;
-            $producto = Producto::get_or_create($p);
+            $p->semilla_certificada = $p->semilla_certificada ? 't' : 'f';
+            if(!$p->perteneceProgAsistencia) {
+                $p->asistencia_programa=null;
+                $p->asistencia_entidad=null;
+            }
+            unset($p->perteneceProgAsistencia);
+            $producto = Producto::create_or_update((array)$p);
 
             /*
             $producto = new Producto();
@@ -135,11 +142,20 @@ class RuatB extends CI_Controller {
         $output = new StdClass;
         $output->finca = $finca->to_array();
         $output->servicios = extract_prop(FincaServicio::find_all_by_finca_id($finca->id),'servicio_id');
-        $output->productos = array();
+        
         $output->mediosTransporte = extract_prop(FincaTransporte::find_all_by_finca_id($finca->id), 'transporte_id');
         $output->maquinaria = array();
         foreach(FincaMaquinaria::find_all_by_finca_id($finca->id) as $m)
             $output->maquinaria[$m->maquinaria_id] = array('usa'=> true, 'descripcion'=>$m->descripcion);
+        
+
+        $output->productos = array_map(function($p){
+            $prod = $p->to_array();
+            if($prod['asistencia_programa'] || $prod['asistencia_entidad'])
+                $prod['perteneceProgAsistencia']=true;
+            return $prod;
+        }, Producto::find_all_by_ruat_id($ruat_id));
+
         //foreach(TipoMaquinaria::all() as $t) $output->maquinaria[$t->id] = array('usa'=>false);
 
         //$output->residuos = array('ordinarios' => array('maneja' => false),

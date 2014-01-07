@@ -1,6 +1,6 @@
 <?php
  
-class Producto     extends ActiveRecord\Model
+class Producto extends MyModel
 {
     static $table_name = "producto";
 
