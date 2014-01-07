@@ -341,6 +341,7 @@ class Model
 	 */
 	public function __isset($attribute_name)
 	{
+		if($attribute_name=="created_at" || $attribute_name=="updated_at") return false;
 		$res = array_key_exists($attribute_name,$this->attributes) || array_key_exists($attribute_name,static::$alias_attribute);
 		if($res) return $res;
 
