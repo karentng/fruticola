@@ -4,14 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class RuatC extends CI_Controller {
 
-    public function index() {
+    public function index($ruat_id) {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
 
         $preguntas = TipoPregunta::sorted();
         $respuestas = TipoRespuesta::sorted();
 
-        $ruat_id = 1; /// sacarlo de session o algo, pendiente definir
+        //$ruat_id = 1; /// sacarlo de session o algo, pendiente definir
 
         ///consulto los datos de este RUAT
         $aprendizajeRespuestas_aux = AprendizajeRespuesta::all(array(
@@ -50,7 +50,7 @@ class RuatC extends CI_Controller {
         $this->twiggy->register_function('set_radio');
         
         $this->twiggy->set('aprendizajeRespuestas', $aprendizajeRespuestas);
-        $this->twiggy->set('url_ruatb', site_url('ruatb'));
+        $this->twiggy->set('url_ruatb', site_url("ruatb/index/$ruat_id"));
         $this->twiggy->set('preguntas', $preguntas);
         $this->twiggy->set('respuestas', $respuestas);
         

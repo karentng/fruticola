@@ -9,7 +9,7 @@ class RuatD extends CI_Controller {
         $this->form_validation->set_rules('observacion', 'Observación', 'required');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
 
-        $ruat_id = 1; /// sacarlo de session o algo, pendiente definir
+        //$ruat_id = 1; /// sacarlo de session o algo, pendiente definir
         ///Consulto la observacion de este RUAT (Edicion)
         $observacion = Observacion::first(array(
                     'conditions' => array('ruat_id = ?', $ruat_id)
@@ -59,7 +59,7 @@ class RuatD extends CI_Controller {
         $this->twiggy->register_function('form_error');
         $this->twiggy->register_function('set_value');
         $this->twiggy->register_function('base_url');
-        $this->twiggy->set('url_ruatc', site_url('ruatc'));
+        $this->twiggy->set('url_ruatc', site_url("ruatc/index/$ruat_id"));
         $this->twiggy->set('observacion', $observacion);
         $this->twiggy->set('upload_result_ruat', $upload_result_ruat);
         $this->twiggy->set('upload_result_documento_identidad', $upload_result_documento_identidad);
