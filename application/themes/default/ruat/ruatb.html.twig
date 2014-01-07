@@ -48,9 +48,9 @@
 
         $scope.postLoad = function() {
             $scope.finca.esFinca = true;
-            $scope.manejaResidsOrdinarios = $scope.finca.residuos_ordinarios!==null;
-            $scope.manejaResidsPeligrosos = $scope.finca.residuos_peligrosos!==null;
-            $scope.manejaResidsOtros      = $scope.finca.residuos_otros!==null;
+            $scope.manejaResidsOrdinarios = !!$scope.finca.residuos_ordinarios;
+            $scope.manejaResidsPeligrosos = !!$scope.finca.residuos_peligrosos;
+            $scope.manejaResidsOtros      = !!$scope.finca.residuos_otro;
 
             $scope.tiposMaquinaria.forEach(function(t) {
                 if(!$scope.maquinaria[""+t.id]) $scope.maquinaria[""+t.id] = ({usa:false});
