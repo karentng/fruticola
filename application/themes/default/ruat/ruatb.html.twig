@@ -228,7 +228,7 @@
                         <label class="control-label">Área Total</label>
                         <div class="input-group">
                             <span class="input-group-addon">ha</span>
-                            <input type="number" class="form-control" name="areaTotal" ng-model="finca.area_total" required />
+                            <input type="number" class="form-control" step="0.01" min="0" max="1000000000.99" name="areaTotal" ng-model="finca.area_total" required />
                         </div>
                         <label class="error" ng-show="myForm.areaTotal.$dirty && myForm.areaTotal.$error.required">Requerido valor numérico</label>
                     </div>
@@ -290,6 +290,7 @@
                 <td style="width:100px">
                     <input bs-switch ng-model="manejaResidsOrdinarios" switch-on="primary" switch-off="warning"
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" />
+
                 </td>
                 <td>
                     <input type="text" name="residuosOrdinarios" ng-model="finca.residuos_ordinarios" placeholder="Descripción" 
@@ -339,7 +340,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-addon">Kms</span>
-                            <input type="number" class="form-control" name="dist_cabecera_mpal" ng-model="finca.dist_cabecera_mpal" ng-required='true' />
+                            <input type="number" class="form-control" min="0" max="1000000000" name="dist_cabecera_mpal" ng-model="finca.dist_cabecera_mpal" ng-required='true' />
                         </div>
                         <span class="help-block" ng-show="myForm.dist_cabecera_mpal.$dirty && myForm.dist_cabecera_mpal.$error.required">
                             <label class="error">Requerido</label>
@@ -441,14 +442,14 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">ha</span>
-                            <input type="number" class="form-control" name="areaCosechada" ng-model="prod.area_cosechada " required /></td>
+                            <input type="number" class="form-control" step="0.01" min="0" max="100000000000.99" name="areaCosechada" ng-model="prod.area_cosechada " required /></td>
                         </div>
                         <label class="error" ng-show="subForm.areaCosechada.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" name="semA" ng-model="prod.prod_semestre_a" required/></td>
+                            <input type="number" class="form-control" min="0" max="100000000000"  name="semA" ng-model="prod.prod_semestre_a" required/></td>
                         </div>
                         <label class="error" ng-show="subForm.semA.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semA.$dirty && subForm.semA.$error.required">Requerido</label-->
@@ -456,7 +457,7 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" name="semB" ng-model="prod.prod_semestre_b" required/></td>
+                            <input type="number" class="form-control"  min="0" max="100000000000" name="semB" ng-model="prod.prod_semestre_b" required/></td>
                         </div>
                         <label class="error" ng-show="subForm.semB.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semB.$dirty && subForm.semB.$error.required">Requerido</label-->
@@ -491,14 +492,14 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" name="costoEstab" ng-model="prod.costo_establecimiento " required/></td>
+                            <input type="number" class="form-control" min="0" max="1000000000" name="costoEstab" ng-model="prod.costo_establecimiento " required/></td>
                         </div>
                         <label class="error" ng-show="subForm.costoEstab.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" name="costoSost" ng-model="prod.costo_sostenimiento" required/></td>
+                            <input type="number" class="form-control" min="0" max="100000000000" name="costoSost" ng-model="prod.costo_sostenimiento" required/></td>
                         </div>
                         <label class="error" ng-show="subForm.costoSost.$error.required">Requerido</label>
                     </td>
