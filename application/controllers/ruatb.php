@@ -76,7 +76,6 @@ class RuatB extends CI_Controller {
             ? array('ruat_id = ? AND id NOT IN (?)', $ruat_id, extract_prop($input->productos, 'id'))
             : array('ruat_id = ?', $ruat_id);
 
-
         Producto::delete_all(array('conditions' => $conds));
         //echo Producto::table()->last_sql;
         
@@ -89,45 +88,8 @@ class RuatB extends CI_Controller {
             }
             unset($p->perteneceProgAsistencia);
             $producto = Producto::create_or_update((array)$p);
-
-            /*
-            $producto = new Producto();
-            $producto->ruat_id = $ruat_id;
-            $producto->nombre = $p->nombre;
-            $producto->variedad = $p->variedad;
-
-            $producto->semilla_certificada = $p->semillaCertif ? 't' : 'f';
-            $producto->area_cosechada = $p->areaCosechada;
-            $producto->prod_semestre_a = $p->semestreA;
-            $producto->prod_semestre_b = $p->semestreB;
-            $producto->prod_total = $p->semestreA + $p->semestreB;
-            $producto->costo_establecimiento = $p->costoEstablecimiento;
-            $producto->costo_sostenimiento = $p->costoSostenimiento;
-            $producto->prod_mercado = $p->destMercado;
-            $producto->prod_mercado_porcentaje = ($p->destMercado * 100)/($p->semestreA + $p->semestreB);
-            $producto->sitio_venta_id = $p->sitioVenta;
-            $producto->vende_tipo_id = $p->vende;
-            $producto->vende_nombre = $p->nombreVende;
-            $producto->precio_promedio = $p->precioVentaPromedio;
-
-            $producto->forma_pago_id = $p->formaPago;
-            $producto->subproducto = $p->subproducto;
-            $producto->subproducto_uso = $p->usoSubproducto;
-
-            $progAsistencia = $p->perteneceProgAsistencia ? 't' : 'f';
-            if($progAsistencia === 't'){
-                $producto->asistencia_programa = $p->progAsistencia;
-                $producto->asistencia_entidad = $p->entidadAsistencia;
-            }else{
-                $producto->asistencia_programa = '';
-                $producto->asistencia_entidad = '';
-            }
-
-            $producto->save();
-            */
         }
-
-        
+       
                 
         $response = array(
             'success'=>true, 
@@ -159,20 +121,6 @@ class RuatB extends CI_Controller {
             return $prod;
         }, Producto::find_all_by_ruat_id($ruat_id));
 
-        //foreach(TipoMaquinaria::all() as $t) $output->maquinaria[$t->id] = array('usa'=>false);
-
-        //$output->residuos = array('ordinarios' => array('maneja' => false),
-        //                          'peligrosos' => array('maneja' => false),
-        //                          'otros'      => array('maneja' => false));
-        /*
-        productos: [{}],
-            maquinaria: {},
-            residuos: {
-                ordinarios: { maneja: false },
-                peligrosos: { maneja: false },
-                otros: { maneja: false },
-            }
-        */
         if($do_echo) echo json_encode($output);
         return $output;
     }

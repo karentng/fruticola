@@ -63,7 +63,7 @@
                         periodicidad_id: 3,
                         directivo: "true",
                         beneficios: [4, 5]
-                    }]*/,
+                    }]*/
                     razones: [], 
                     orgs_apoyan: []
                 },
@@ -167,9 +167,11 @@
                 //console.log(response);
                 if(response.success!==undefined) {
                     notif(response.message);
-                    if(response.success)
+                    if(response.success) {
                         angular.extend($scope, response.scope);
-                    $scope.myForm.$setPristine();
+                        $scope.siguiente();
+                    }
+                    //$scope.myForm.$setPristine();
                 }
                 else {
                     alert("Error en comunicacion con el servidor. Intente nuevamente.");
@@ -760,11 +762,11 @@
 
 <div class="form-actions full">
 
-    <div class="col-md-4 pull-right">
+    <!--div class="col-md-4 pull-right">
         <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
-        <button ng-disabled="myForm.$dirty || !ruat_id"  class="btn btn-lg btn-success" type="button" ng-click="siguiente()">Siguiente<i class="icon16 i-arrow-right"></i></button>
-    </div>
-  
+        
+    </div-->
+    <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
 </div>
 
 
