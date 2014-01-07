@@ -124,10 +124,7 @@
 
         angular.extend($scope, extern.ruat);
 
-
-        //$scope.$evalAsync();
-        //$scope.combos = extern.combos;
-        $timeout(function(){$scope.myForm.$setPristine()},100);
+        $timeout(function(){$scope.myForm.$setPristine()},1000);
         
         $scope.validate = function(form){   
             for (feild in form) {

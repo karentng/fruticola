@@ -9,17 +9,19 @@
 
 <script type="text/javascript">
     var extern = {
-        combos: {{combos | json_encode }}
+        combos: {{combos | json_encode }},
     };
     var urls = {
         guardar : "{{site_url(['ruatb','guardar',ruat_id])}}",
+        anterior : "{{site_url('ruata/index')}}",
+        siguiente : "{{site_url('ruatc/index')}}",
     };
 
     {% if scope %}
         extern.scope = {{scope | json_encode }};
     {% else %}
         extern.scope = {
-            finca: {  },
+            finca: {ruat_id:{{ruat_id}}  },
             servicios: [],
             mediosTransporte: [],
             productos: [{}],
@@ -38,10 +40,11 @@
 <script type="text/javascript">
     var myApp = angular.module('myApp', ['ui.select2', 'frapontillo.bootstrap-switch']);
     
-    var RuatBCtrl = function($scope, $http) {
+    var RuatBCtrl = function($scope, $http, $timeout) {
         angular.extend($scope, extern.combos);
         angular.extend($scope,extern.scope);
         
+        $timeout(function(){$scope.myForm.$setPristine()},1000);
 
         $scope.postLoad = function() {
             $scope.finca.esFinca = true;
@@ -56,10 +59,6 @@
 
         $scope.postLoad();
         
-        
-        
-        
-
         $scope.validate = function(form) {
             for (feild in form) {
                 if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
@@ -100,7 +99,17 @@
                     alert("Error en comunicacion con el servidor. Intente nuevamente.");
                 }
             });
+
+
         };
+
+        $scope.anterior = function() {
+            window.location = (urls.anterior+"/"+$scope.finca.ruat_id);
+        }
+
+        $scope.siguiente = function() {
+            window.location = (urls.siguiente+"/"+$scope.finca.ruat_id);
+        }
     }
 </script>
 {% endraw %}
@@ -219,7 +228,7 @@
                         <label class="control-label">Área Total</label>
                         <div class="input-group">
                             <span class="input-group-addon">ha</span>
-                            <input type="number" class="form-control" name="areaTotal" ng-model="finca.area_total" required />
+                            <input type="number" class="form-control" step="0.01" min="0" max="1000000000.99" name="areaTotal" ng-model="finca.area_total" required />
                         </div>
                         <label class="error" ng-show="myForm.areaTotal.$dirty && myForm.areaTotal.$error.required">Requerido valor numérico</label>
                     </div>
@@ -281,6 +290,7 @@
                 <td style="width:100px">
                     <input bs-switch ng-model="manejaResidsOrdinarios" switch-on="primary" switch-off="warning"
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" />
+
                 </td>
                 <td>
                     <input type="text" name="residuosOrdinarios" ng-model="finca.residuos_ordinarios" placeholder="Descripción" 
@@ -330,7 +340,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-addon">Kms</span>
-                            <input type="number" class="form-control" name="dist_cabecera_mpal" ng-model="finca.dist_cabecera_mpal" ng-required='true' />
+                            <input type="number" class="form-control" min="0" max="1000000000" name="dist_cabecera_mpal" ng-model="finca.dist_cabecera_mpal" ng-required='true' />
                         </div>
                         <span class="help-block" ng-show="myForm.dist_cabecera_mpal.$dirty && myForm.dist_cabecera_mpal.$error.required">
                             <label class="error">Requerido</label>
@@ -414,7 +424,9 @@
             </thead>
             <tbody>
                 <tr ng-repeat="prod in productos" ng-form="subForm">
-                    <th><button type="button" ng-click="productos.splice($index,1)" class="btn btn-danger btn-xs" title="Remover fila">-</button> {{$index+1}} </th>
+                    <th><button type="button" ng-click="productos.splice($index,1)" class="btn btn-danger btn-xs" title="Remover fila">-</button> {{$index+1}} 
+                        {{subForm.$dirty}}
+                    </th>
                     <td>
                         <input type="text" class="form-control" name="nombreProd" ng-model="prod.nombre" required />
                         <label class="error" ng-show="subForm.nombreProd.$error.required">Requerido</label>
@@ -430,14 +442,14 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">ha</span>
-                            <input type="number" class="form-control" name="areaCosechada" ng-model="prod.area_cosechada " required /></td>
+                            <input type="number" class="form-control" step="0.01" min="0" max="100000000000.99" name="areaCosechada" ng-model="prod.area_cosechada " required /></td>
                         </div>
                         <label class="error" ng-show="subForm.areaCosechada.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" name="semA" ng-model="prod.prod_semestre_a" required/></td>
+                            <input type="number" class="form-control" min="0" max="100000000000"  name="semA" ng-model="prod.prod_semestre_a" required/></td>
                         </div>
                         <label class="error" ng-show="subForm.semA.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semA.$dirty && subForm.semA.$error.required">Requerido</label-->
@@ -445,7 +457,7 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" name="semB" ng-model="prod.prod_semestre_b" required/></td>
+                            <input type="number" class="form-control"  min="0" max="100000000000" name="semB" ng-model="prod.prod_semestre_b" required/></td>
                         </div>
                         <label class="error" ng-show="subForm.semB.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semB.$dirty && subForm.semB.$error.required">Requerido</label-->
@@ -480,14 +492,14 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" name="costoEstab" ng-model="prod.costo_establecimiento " required/></td>
+                            <input type="number" class="form-control" min="0" max="1000000000" name="costoEstab" ng-model="prod.costo_establecimiento " required/></td>
                         </div>
                         <label class="error" ng-show="subForm.costoEstab.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" name="costoSost" ng-model="prod.costo_sostenimiento" required/></td>
+                            <input type="number" class="form-control" min="0" max="100000000000" name="costoSost" ng-model="prod.costo_sostenimiento" required/></td>
                         </div>
                         <label class="error" ng-show="subForm.costoSost.$error.required">Requerido</label>
                     </td>
@@ -648,10 +660,10 @@
 <br/>
 <div class="form-actions full">
 
-    <button ng-disabled="myForm.$dirty"  class="btn btn-lg btn-warning" type="button" ng-click="siguiente()"><i class="icon16 i-arrow-first"></i>Anterior</button>
+    <button ng-disabled="myForm.$dirty"  class="btn btn-lg btn-warning" type="button" ng-click="anterior()"><i class="icon16 i-arrow-first"></i>Anterior</button>
     <div class="col-md-4 pull-right">
         <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
-        <button ng-disabled="myForm.$dirty || !ruat_id"  class="btn btn-lg btn-success" type="button" ng-click="siguiente()">Siguiente<i class="icon16 i-arrow-right"></i></button>
+        <button ng-disabled="myForm.$dirty || !finca.id"  class="btn btn-lg btn-success" type="button" ng-click="siguiente()">Siguiente<i class="icon16 i-arrow-right"></i></button>
     </div>
 </div>
 

@@ -36,6 +36,9 @@ class RuatB extends CI_Controller {
         $productor['tipo_documento']  = $ruat->productor->tipo_documento->descripcion;
         $this->twiggy->set('productor', $productor);
         $this->twiggy->set('combos', $combos);
+
+        $this->twiggy->set('ruat_id', $ruat_id);
+
         $this->twiggy->template("ruat/ruatb");
         $this->twiggy->display();
     }
