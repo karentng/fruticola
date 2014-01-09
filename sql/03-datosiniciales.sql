@@ -86,7 +86,7 @@ insert into tenencia (descripcion, orden) values
     ('Propietario con título', 1),
     ('Propietario sin título', 2),
     ('En arrendamiento', 3),
-    ('Comodacto', 4),
+    ('Comodato', 4),
     ('Usufructo', 5),
     ('Aparcería', 6),
     ('Colectiva', 7),
