@@ -8,7 +8,7 @@ CREATE TABLE bpa (
 
 CREATE TABLE bpa_pregunta(
 	id serial NOT NULL PRIMARY KEY,
-	numeral varchar(10) NOT NULL,
+	numeral INTEGER NOT NULL,
 	enunciado text NOT NULL,
 	seccion char(1) NOT NULL, -- 'B', 'C'
 	padre integer REFERENCES bpa_pregunta(id)
