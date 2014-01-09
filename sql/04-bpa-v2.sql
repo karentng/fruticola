@@ -16,7 +16,7 @@ CREATE TABLE bpa_pregunta(
 
 CREATE TABLE bpa_respuesta(
 	id serial NOT NULL PRIMARY KEY,
-	ruat_id  integer NOT NULL REFERENCES ruat(id)
+	bpa_id  integer NOT NULL REFERENCES bpa(id),
     pregunta_id  integer NOT NULL REFERENCES bpa_pregunta(id),
     puntaje float NOT NULL,
     observacion text
