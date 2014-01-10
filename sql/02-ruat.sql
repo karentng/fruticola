@@ -134,7 +134,7 @@ create table finca(
     id                  serial not null primary key,
     ruat_id             integer not null references ruat(id),
     nombre              varchar(50) not null,
-    identif_catastral   varchar(30) not null,
+    identif_catastral   varchar(30),
     tenencia_id         integer not null references tenencia(id),
     municipio_id        integer not null references municipio(id),
     vereda              varchar(50) ,
