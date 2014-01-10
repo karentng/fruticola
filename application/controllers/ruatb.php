@@ -57,6 +57,7 @@ class RuatB extends CI_Controller {
         $ruat = Ruat::find($ruat_id);
         unset($input->finca->esFinca);
         $input->finca->ruat_id = $ruat->id;
+        if(!$input->finca->identif_catastral) $input->finca->identif_catastral=""; //evitar NULL
         $input->finca->via_disponibilidad = $input->finca->via_disponibilidad ? 't' : 'f';
         if($input->finca->via_disponibilidad=='f') {
             $input->finca->via_tipo_id=null;

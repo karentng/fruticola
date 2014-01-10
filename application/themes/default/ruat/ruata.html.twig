@@ -23,6 +23,7 @@
     {% else %}
         extern.ruat = {
             productor : {
+                tipo_documento_id:1,
                 /*nombre1:'guachu',
                 nombre2:'Alan', 
                 apellido1:'from',
@@ -36,6 +37,7 @@
                 fecha_nacimiento: '2013-12-20'*/
             },
             contacto : {
+                departamento_id:30, //valle
                 /*celular: 3114005089,
                 telefono: 3774121,
                 email: 'guachu@openEnglish.com',
@@ -179,6 +181,8 @@
         $scope.tiposDocumento.forEach(function(t) { $scope.descripDocumento[t.id]=t.descripcion; });
 
         angular.extend($scope, extern.ruat);
+
+        //if(!$scope.productor.tipo_documento_id) $scope.productor.tipo_documento_id="1";
 
         $timeout(function(){$scope.myForm.$setPristine()},1000);
         
@@ -498,7 +502,10 @@
                         <div class="form-group">
                             <label class="control-label col-sm-6">Ingreso Mensual Familiar </label>
                             <div class="col-sm-6">
-                                <input type="text" money class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-model="economia.ingreso_familiar" required/>
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" money class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-model="economia.ingreso_familiar" required/>
+                                </div>
                             </div>
                             <label class="error" ng-show="myForm.ingreso_familiar.$dirty && myForm.ingreso_familiar.$error.required">Requerido</label>
                          </div>
@@ -520,9 +527,13 @@
                         <div class="form-group">
                             <label class="control-label col-sm-7">Ingreso de Actividad Agropecuaria</label>
                             <div class="col-sm-5">
-                                <input type="text" money  class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-model="economia.ingreso_agropecuario" required/>
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" money  class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-model="economia.ingreso_agropecuario" required/>
+                                </div>
+                                <label class="error" ng-show="myForm.ingreso_agropecuario.$dirty && myForm.ingreso_agropecuario.$error.required">Requerido</label>
                             </div>
-                            <label class="error" ng-show="myForm.ingreso_agropecuario.$dirty && myForm.ingreso_agropecuario.$error.required">Requerido</label>
+                            
                         </div>
                     </div>
                 </div>
