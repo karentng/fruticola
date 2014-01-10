@@ -214,6 +214,7 @@
 
             var data = {
                 ruat_id : $scope.ruat_id || null,
+                numero_formulario : $scope.numero_formulario,
                 productor: $scope.productor,
                 contacto : $scope.contacto,
                 economia: $scope.economia,
@@ -254,11 +255,23 @@
 
 <div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
 
-<h3>
-    {{productor.nombre1}} {{productor.nombre2}} {{productor.apellido1}} {{productor.apellido2}} 
-    <small>{{descripDocumento[productor.tipo_documento_id]}}: {{productor.numero_documento}}</small>
-</h3>
-
+<div class="row">
+    <div class="col-sm-8">
+        <h3>
+            {{productor.nombre1}} {{productor.nombre2}} {{productor.apellido1}} {{productor.apellido2}} 
+            <small>{{descripDocumento[productor.tipo_documento_id]}}: {{productor.numero_documento}}</small>
+        </h3>
+    </div>
+    <div class="col-sm-3 col-sm-offset-1">
+        <div class="input-group">
+            <label  class="control-label col-sm-8">Número de Formulario</label>
+            <div class="col-sm-4">
+                <input type="text" ng-model="numero_formulario" class="form-control" style="color:red; text-align:center" maxlength="4" />
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -462,7 +475,7 @@
                 <div div class="col-md-4">
                     <div class="container">
                         <div class="form-group">
-                            <label class="control-label" for="focused">Vereda</label>
+                            <label class="control-label" for="focused">Vereda / Corregimiento</label>
                             <input type="text" capitalize class="form-control" name="vereda" ng-model="contacto.vereda" />
                             <span class="help-block" ng-show="myForm.vereda.$dirty && myForm.vereda.$error.required"><label class="error">Requerido</label></span>
                         </div>
@@ -749,7 +762,7 @@
                     <div class="col-md-4">
                         <div class="container">
                             <div class="form-group">
-                                <label for="" class="control-label">Vereda de Ubicación</label>
+                                <label for="" class="control-label">Vereda/Corregimiento de Ubicación</label>
                                 <input type="text" capitalize class="form-control" name="veredaAsocio" ng-model="asociacion.otroProductor.vereda" ng-required="asociacion.otroProductor.asociado"/>
                                 <label class="error" ng-show="myForm.veredaAsocio.$dirty && myForm.veredaAsocio.$error.required ">Requerido</label>
 
@@ -799,7 +812,7 @@
                     <div class="col-md-4">
                         <div class="container">
                             <div class="form-group">
-                                <label for="" class="control-label">Vereda de Ubicación</label>
+                                <label for="" class="control-label">Vereda/Corregimiento de Ubicación</label>
                                 <input type="text" capitalize class="form-control" name="veredaSeguir" ng-model="asociacion.sigue.vereda" ng-required="asociacion.sigue.asociado"/>
                                 <label class="error" ng-show="myForm.veredaSeguir.$dirty && myForm.veredaSeguir.$error.required ">Requerido</label>
 

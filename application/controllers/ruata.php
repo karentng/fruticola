@@ -54,6 +54,7 @@ class RuatA extends CI_Controller {
         
         if(empty($input->ruat_id)) {
             $ruat = new Ruat;
+            $ruat->numero_formulario= $input->numero_formulario;
             $ruat->creador_id = current_user('id');
             $productor = Productor::create((array)$input->productor);
             $ruat->productor_id = $productor->id;
@@ -61,6 +62,7 @@ class RuatA extends CI_Controller {
         }
         else {
             $ruat = Ruat::find($input->ruat_id);
+            $ruat->numero_formulario = $input->numero_formulario;
             $ruat->modificado = time();
             $ruat->modificador_id = current_user('id');
             $ruat->save();
@@ -157,6 +159,7 @@ class RuatA extends CI_Controller {
 
         $output = new StdClass;
         $output->ruat_id = $ruat->id;
+        $output->numero_formulario = $ruat->numero_formulario;
         $output->productor = $ruat->productor->to_array();
         $output->productor['fecha_nacimiento'] = $this->datefmt($ruat->productor->fecha_nacimiento);
         $output->contacto = $ruat->productor->contacto->to_array();

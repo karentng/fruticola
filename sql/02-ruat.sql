@@ -79,7 +79,7 @@ create table personaasociada(
 create table ruat(
     id                  serial not null primary key,
     productor_id        integer not null unique references productor(id),
-
+    numero_formulario   varchar(10),
     asociado_id         integer references personaasociada(id),
     seguir_id           integer references personaasociada(id),
 
