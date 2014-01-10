@@ -15,7 +15,9 @@ CREATE TABLE "users" (
     "first_name" varchar(50),
     "last_name" varchar(50),
     --"company" varchar(100),
-    "phone" varchar(20),
+    "phone" varchar(50),
+    "identification" varchar(20),
+    "city" varchar(50)
   PRIMARY KEY("id")
 );
 
