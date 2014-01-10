@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block html_head %}
+<script src="{{base_url('assets/js/plugins/forms/jquery.price_format.min.js')}}"></script>
 <script src="{{base_url('assets/js/angular/angular.js')}}"></script>
 <script src="{{base_url('assets/js/angular/angular-animate.js')}}"></script>
 <script src="{{base_url('assets/js/angular/angular-ui/select2.js')}}"></script>
@@ -116,11 +117,57 @@
         };
     });
 
+    myApp.directive('format', ['$filter', function ($filter) {
+        return {
+            require: '?ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                if (!ctrl) return;
+
+                
+                ctrl.$formatters.unshift(function (a) {
+                    var val = $filter(attrs.format)(ctrl.$modelValue,0);
+                    var again=true;
+                    while(again) {
+                        var newval = val.replace(",",".");
+                        if(newval==val) again=false;
+                        val=newval;
+                    }
+                    return val;
+                });
+
+
+                ctrl.$parsers.unshift(function (viewValue) {
+                    var decimals = attrs.decimals || 0;
+                    console.log("====>",decimals);
+                    elem.priceFormat({
+                        centsLimit:0,
+                        allowNegative:false,
+                        prefix: '',
+                        centsSeparator: ',',
+                        thousandsSeparator: '.',
+
+                    });
+                    
+                    var again = true;
+                    val = elem[0].value;
+                    while(again) {
+                        var newval = val.replace(".","");
+                        if(newval==val) again=false;
+                        val=newval;
+                    }
+                    //return val.replace(",",".");
+                    return val;
+                });
+            }
+        };
+    }]);
+
     myApp.directive('capitalize', function() {
        return {
          require: 'ngModel',
          link: function(scope, element, attrs, modelCtrl) {
             var capitalize = function(inputValue) {
+               if(typeof inputValue !== "string") return inputValue;
                var capitalized = inputValue.toUpperCase();
                if(capitalized !== inputValue) {
                   modelCtrl.$setViewValue(capitalized);
@@ -460,7 +507,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-6">Ingreso Mensual Familiar </label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-model="economia.ingreso_familiar" required/>
+                                <input type="text" format="number" class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-model="economia.ingreso_familiar" required/>
                             </div>
                             <label class="error" ng-show="myForm.ingreso_familiar.$dirty && myForm.ingreso_familiar.$error.required">Requerido</label>
                          </div>
@@ -482,7 +529,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-7">Ingreso de Actividad Agropecuaria</label>
                             <div class="col-sm-5">
-                                <input type="number" class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-model="economia.ingreso_agropecuario" required/>
+                                <input type="text" format="number"  class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-model="economia.ingreso_agropecuario" required/>
                             </div>
                             <label class="error" ng-show="myForm.ingreso_agropecuario.$dirty && myForm.ingreso_agropecuario.$error.required">Requerido</label>
                         </div>

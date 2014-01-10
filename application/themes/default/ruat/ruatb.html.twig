@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block html_head %}
+<script src="{{base_url('assets/js/plugins/forms/jquery.price_format.min.js')}}"></script>
 <script src="{{base_url('assets/js/angular/angular.js')}}"></script>
 <script src="{{base_url('assets/js/angular/angular-animate.js')}}"></script>
 <script src="{{base_url('assets/js/angular/angular-ui/select2.js')}}"></script>
@@ -46,6 +47,7 @@
          require: 'ngModel',
          link: function(scope, element, attrs, modelCtrl) {
             var capitalize = function(inputValue) {
+               if(typeof inputValue !== "string") return inputValue;
                var capitalized = inputValue.toUpperCase();
                if(capitalized !== inputValue) {
                   modelCtrl.$setViewValue(capitalized);
@@ -58,6 +60,34 @@
          }
        };
     });
+
+    myApp.directive('format', ['$filter', function ($filter) {
+        return {
+            require: '?ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                if (!ctrl) return;
+
+
+                ctrl.$formatters.unshift(function (a) {
+                    return $filter(attrs.format)(ctrl.$modelValue)
+                });
+
+
+                ctrl.$parsers.unshift(function (viewValue) {
+                    var decimals = attrs.decimals || 0;
+                    elem.priceFormat({
+                        centsLimit:decimals,
+                        prefix: '',
+                        centsSeparator: ',',
+                        thousandsSeparator: '.',
+
+                    });
+                             
+                    return elem[0].value;
+                });
+            }
+        };
+    }]);
 
     var RuatBCtrl = function($scope, $http, $timeout) {
         angular.extend($scope, extern.combos);
@@ -627,8 +657,8 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">LATITUD NORTE (N)</label>
-                        <input type="number" class="form-control" name="latitud" ng-model="finca.geo_latitud" ng-pattern="/^[0-9]+.[0-9][0-9][0-9][0-9][0-9][0-9]+$/"/>
-                        <label class="error" ng-show="myForm.latitud.$dirty && myForm.latitud.$error.pattern">Requerido un valor numérico con mínimo 6 decimales</label>
+                        <input type="number" class="form-control" name="latitud" ng-model="finca.geo_latitud" />  <!-- ng-pattern="/^[0-9]+.[0-9][0-9][0-9][0-9][0-9][0-9]+$/" -->
+                        <!--label class="error" ng-show="myForm.latitud.$dirty && myForm.latitud.$error.pattern">Requerido un valor numérico con mínimo 6 decimales</label-->
                     </td>
                     </div> 
                 </div>
@@ -637,8 +667,8 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">LONGITUD OCCIDENTE (W)</label>
-                        <input type="number" class="form-control" name="longitud" ng-model="finca.geo_longitud" ng-pattern="/^[0-9]+.[0-9][0-9][0-9][0-9][0-9][0-9]+$/"/>
-                        <label class="error" ng-show="myForm.longitud.$error.pattern">Requerido un valor numérico con mínimo 6 decimales</label>
+                        <input type="number" class="form-control" name="longitud" ng-model="finca.geo_longitud" /> <!-- ng-pattern="/^[0-9]+.[0-9][0-9][0-9][0-9][0-9][0-9]+$/" -->
+                        <!--label class="error" ng-show="myForm.longitud.$error.pattern">Requerido un valor numérico con mínimo 6 decimales</label-->
                         <!--<label class="error" ng-show="myForm.longitud.$error">Requerido un valor numérico</label-->
                     </div>
                 </div>
