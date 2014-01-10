@@ -5,14 +5,32 @@ class Bpa extends CI_Controller {
     public function index()
     {
         //check_profile($this,"Administrador");
-         function to_array($model) { return $model->to_array(); }
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
+
+
+        function to_array($model) { return $model->to_array(); }
 
         $data = array();
-        $data['tiposBpaPreguntaB']     = array_map('to_array',BpaPregunta::sortedB());
-        $data['tiposBpaPreguntaC']     = array_map('to_array',BpaPregunta::sortedC());
-        //var_dump($data);
-        $this->twiggy->set($data, NULL);
-        $this->twiggy->set('combos', json_encode($data));
+        $preguntasB = BpaPregunta::sortedB();
+        $preguntasC = BpaPregunta::sortedC();
+
+
+        if ($this->form_validation->run()) {
+            for($i = 0;$i < count($preguntasC);$i++){
+
+            }
+            //$this->input->post('' . $i);
+        }
+
+        //var_dump($preguntasC);
+        $this->twiggy->set('preguntasB', $preguntasB);
+        $this->twiggy->set('preguntasC', $preguntasC);
+        $this->twiggy->set('tamaño', count($preguntasC)+count($preguntasB));
+
+        //$this->twiggy->set($data, NULL);
+        //$this->twiggy->set('combos', json_encode($data));
         //$this->twiggy->set('combos', $combos);
         $this->twiggy->template("ruat/bpa");
         $this->twiggy->display();
