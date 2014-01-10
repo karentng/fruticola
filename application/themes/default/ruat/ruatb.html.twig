@@ -37,6 +37,11 @@
 
 
 {% raw %}
+<style>
+    input[money] {
+        text-align:right;
+    }
+</style>
 
 
 <script type="text/javascript">
@@ -78,26 +83,27 @@
 
                 
                 ctrl.$formatters.unshift(function (a) {
-                    var val = $filter('number')(ctrl.$modelValue,0);
-                    return replaceAll(val,",",".");
+                    var val = $filter('number')(ctrl.$modelValue,attrs.decimals);
+                    //swap comma and dot
+                    val = replaceAll(val, ".","|");  
+                    val = replaceAll(val, ",",".");
+                    val = replaceAll(val, "|",",");
+                    return val;
                 });
 
+                var decimals = parseInt(attrs.decimals || 0);
 
                 ctrl.$parsers.unshift(function (viewValue) {
                     elem.priceFormat({
-                        centsLimit:0,
+                        centsLimit:decimals,
                         allowNegative:false,
                         prefix: '',
                         centsSeparator: ',',
                         thousandsSeparator: '.',
                     });
-
-                    var val = replaceAll(elem[0].value,".","");
-                    try {
-                        return parseInt(val);
-                    } catch(ex) {
-                        return 0;
-                    }
+                    var val = replaceAll(elem[0].value,".","").replace(",",".");
+                    if(val.length) return parseFloat(val);
+                    else return '';
                 });
             }
         };
@@ -290,7 +296,7 @@
                         <label class="control-label">Área Total</label>
                         <div class="input-group">
                             <span class="input-group-addon">ha</span>
-                            <input type="number" class="form-control" step="0.01" min="0" max="1000000000.99" name="areaTotal" ng-model="finca.area_total" required />
+                            <input type="text" money decimals="2" class="form-control" step="0.01" min="0" max="1000000000.99" name="areaTotal" ng-model="finca.area_total" required />
                         </div>
                         <label class="error" ng-show="myForm.areaTotal.$dirty && myForm.areaTotal.$error.required">Requerido valor numérico</label>
                     </div>
@@ -401,7 +407,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-addon">Kms</span>
-                            <input type="number" class="form-control" min="0" max="1000000000" name="dist_cabecera_mpal" ng-model="finca.dist_cabecera_mpal" ng-required='true' />
+                            <input type="text" money decimals="2" class="form-control" min="0" max="1000000000" name="dist_cabecera_mpal" ng-model="finca.dist_cabecera_mpal" ng-required='true' />
                         </div>
                         <span class="help-block" ng-show="myForm.dist_cabecera_mpal.$dirty && myForm.dist_cabecera_mpal.$error.required">
                             <label class="error">Requerido</label>
@@ -670,7 +676,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">LATITUD NORTE (N)</label>
-                        <input type="number" class="form-control" name="latitud" ng-model="finca.geo_latitud" />  <!-- ng-pattern="/^[0-9]+.[0-9][0-9][0-9][0-9][0-9][0-9]+$/" -->
+                        <input type="text" money decimals="6" class="form-control" name="latitud" ng-model="finca.geo_latitud" />  <!-- ng-pattern="/^[0-9]+.[0-9][0-9][0-9][0-9][0-9][0-9]+$/" -->
                         <!--label class="error" ng-show="myForm.latitud.$dirty && myForm.latitud.$error.pattern">Requerido un valor numérico con mínimo 6 decimales</label-->
                     </td>
                     </div> 
@@ -680,7 +686,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">LONGITUD OCCIDENTE (W)</label>
-                        <input type="number" class="form-control" name="longitud" ng-model="finca.geo_longitud" /> <!-- ng-pattern="/^[0-9]+.[0-9][0-9][0-9][0-9][0-9][0-9]+$/" -->
+                        <input type="text" money decimals="6" class="form-control" name="longitud" ng-model="finca.geo_longitud" /> <!-- ng-pattern="/^[0-9]+.[0-9][0-9][0-9][0-9][0-9][0-9]+$/" -->
                         <!--label class="error" ng-show="myForm.longitud.$error.pattern">Requerido un valor numérico con mínimo 6 decimales</label-->
                         <!--<label class="error" ng-show="myForm.longitud.$error">Requerido un valor numérico</label-->
                     </div>
@@ -690,7 +696,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">ALTURA SOBRE EL NIVEL DEL MAR</label>
-                        <input type="number" class="form-control" name="altura" ng-model="finca.geo_altura" />
+                        <input type="text" money  class="form-control" name="altura" ng-model="finca.geo_altura" />
                         <!--<label class="error" ng-show="myForm.altura.$dirty && myForm.altura.$error.required">Requerido un valor numérico</label>-->
                     </div>
                 </div>

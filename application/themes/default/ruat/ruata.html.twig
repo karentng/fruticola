@@ -24,81 +24,35 @@
         extern.ruat = {
             productor : {
                 tipo_documento_id:1,
-                /*nombre1:'guachu',
-                nombre2:'Alan', 
-                apellido1:'from',
-                apellido2: 'missisipi',
-                sexo:'M',
-                nivel_educativo_id:'1',
-                tipo_documento_id:1,
-                numero_documento:102909,
-                tipo_productor_id:1,
-                renglon_productivo_id:1,
-                fecha_nacimiento: '2013-12-20'*/
             },
             contacto : {
                 departamento_id:30, //valle
-                /*celular: 3114005089,
-                telefono: 3774121,
-                email: 'guachu@openEnglish.com',
-                departamento_id: 1,
-                municipio_id: 505,
-                vereda:'micasita',
-                direccion: 'calle con carrera'*/
             },
-            economia : {
-                usaCredito: false,
-                /*ingreso_familiar: 123234,
-                personas_dependientes: 3,
-                ingreso_agropecuario: 121212,
-                usaCredito: true,
-                credito_id: 2,
-                otro_credito: "algo"*/
-            },
+            economia : { usaCredito: false  },
             asociacion : {
                 cooperativa: {
                     asociado: false,
-                    filas: [{}], /*
-                        [{
-                        directivo: true,
-                        clases: [3, 4],
-                        nombre: "una organización",
-                        periodicidad_id: 3,
-                        directivo: "true",
-                        beneficios: [4, 5]
-                    }]*/
+                    filas: [{}], 
                     razones: [], 
                     orgs_apoyan: []
                 },
-                otroProductor: {
-                    asociado: false,
-                    /*nombre: "igor",
-                    apellido: "pato",
-                    vereda: "el laguito",
-                    confianza_id: 2*/
-                },
-                sigue: {
-                    asociado: false,
-                    /*nombre: "iguana",
-                    apellido: "tejado",
-                    vereda: "lago verde",
-                    confianza_id: 3*/
-                }
+                otroProductor: { asociado: false },
+                sigue: { asociado: false }
             },
             
             realizaInnovacion:false,
-
             innovaciones:[],
         };
     {% endif %}
-
-    
-    
 </script>
 
 
 {% raw %}
-
+<style>
+    input[money] {
+        text-align:right;
+    }
+</style>
 
 <script type="text/javascript">
     var myApp = angular.module('myApp', ['ui.select2', 'frapontillo.bootstrap-switch']);
@@ -136,20 +90,27 @@
 
                 
                 ctrl.$formatters.unshift(function (a) {
-                    var val = $filter('number')(ctrl.$modelValue,0);
-                    return replaceAll(val,",",".");
+                    var val = $filter('number')(ctrl.$modelValue,attrs.decimals);
+                    //swap comma and dot
+                    val = replaceAll(val, ".","|");  
+                    val = replaceAll(val, ",",".");
+                    val = replaceAll(val, "|",",");
+                    return val;
                 });
 
+                var decimals = parseInt(attrs.decimals || 0);
 
                 ctrl.$parsers.unshift(function (viewValue) {
                     elem.priceFormat({
-                        centsLimit:0,
+                        centsLimit:decimals,
                         allowNegative:false,
                         prefix: '',
                         centsSeparator: ',',
                         thousandsSeparator: '.',
                     });
-                    return replaceAll(elem[0].value,".","");
+                    var val = replaceAll(elem[0].value,".","").replace(",",".");
+                    if(val.length) return parseFloat(val);
+                    else return '';
                 });
             }
         };
