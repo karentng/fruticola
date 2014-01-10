@@ -41,7 +41,8 @@ CREATE TABLE "users_groups" (
 
 INSERT INTO groups (id, name, description) VALUES
     (1,'Administrador','Administrador'),
-    (2,'Digitador','Digitador');
+    (2,'Coordinador','Coordinador'),
+    (3,'Digitador','Digitador');
 
 INSERT INTO users (ip_address, username, password, salt, email, activation_code, forgotten_password_code, active, first_name, last_name, created_on) VALUES
     ('127.0.0.1','admin','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL, '1','Admin Plan','Fruticola', extract(epoch from current_timestamp)::int);
