@@ -4,6 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class RuatD extends CI_Controller {
 
+    public function __construct()
+    {
+        parent::__construct();
+        
+        check_profile($this, "Administrador", "Coordinador", "Digitador");
+    }
+
     public function index($ruat_id = null) {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('observacion', 'Observación', 'required');
@@ -28,7 +35,7 @@ class RuatD extends CI_Controller {
             $observacion->ruat_id = $ruat_id;
             $observacion->observacion = $this->input->post('observacion');
             
-            var_dump($_FILES);
+            //var_dump($_FILES);
             
             ///Subo el archivo del RUAT
             if(isset($_FILES["archivo_formulario"]) && !empty($_FILES["archivo_formulario"]["name"])) {
@@ -50,6 +57,8 @@ class RuatD extends CI_Controller {
             }
             
             $observacion->save();
+
+            redirect("listadoruats");
         }
         
         ///Obtengo los datos del usuario en session

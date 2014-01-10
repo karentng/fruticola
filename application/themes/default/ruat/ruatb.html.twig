@@ -8,6 +8,11 @@
 
 
 <script type="text/javascript">
+    function aMays(e, elemento) {
+        tecla=(document.all) ? e.keyCode : e.which; 
+        elemento.value = elemento.value.toUpperCase();
+    }
+
     var extern = {
         combos: {{combos | json_encode }},
     };
@@ -151,7 +156,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Nombre de la finca</label>
-                        <input type="text" class="form-control" name="nombreFinca" ng-model="finca.nombre" required />
+                        <input type="text" onblur="aMays(event, this)" class="form-control" name="nombreFinca" ng-model="finca.nombre" required />
                         <label class="error" ng-show="myForm.nombreFinca.$dirty && myForm.nombreFinca.$error.required">Requerido</label>
                     </div>
                 </div>
@@ -159,10 +164,8 @@
             <div class="col-md-4">
                 <div class="container">
                     <div class="form-group">
-                    
                         <label class="control-label">Identificaci&oacute;n Catastral</label>
-                        <input type="text" class="form-control" name="identif_catastral" ng-model="finca.identif_catastral" required />
-                        <label class="error" ng-show="myForm.identif_catastral.$dirty && myForm.identif_catastral.$error.required">Requerido</label>
+                        <input type="text" class="form-control" name="identif_catastral" ng-model="finca.identif_catastral" />
                     </div>
                 </div>
             </div>
@@ -209,8 +212,8 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Vereda</label>
-                        <input type="text" class="form-control" name="veredaFinca" ng-model="finca.vereda" required />
-                        <label class="error" ng-show="myForm.veredaFinca.$dirty && myForm.veredaFinca.$error.required">Requerido</label>
+                        <input type="text" onblur="aMays(event, this)" class="form-control" name="veredaFinca" ng-model="finca.vereda" />
+                        <!--label class="error" ng-show="myForm.veredaFinca.$dirty && myForm.veredaFinca.$error.required">Requerido</label-->
                     </div>
                 </div>
             </div>
@@ -218,8 +221,8 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Sector</label>
-                        <input type="text" class="form-control" name="sector" ng-model="finca.sector" required />
-                        <label class="error" ng-show="myForm.sector.$dirty && myForm.sector.$error.required">Requerido</label>
+                        <input type="text" onblur="aMays(event, this)" class="form-control" name="sector" ng-model="finca.sector" />
+                        <!--label class="error" ng-show="myForm.sector.$dirty && myForm.sector.$error.required">Requerido</label-->
                     </div>
                 </div>
             </div>
@@ -294,7 +297,7 @@
 
                 </td>
                 <td>
-                    <input type="text" name="residuosOrdinarios" ng-model="finca.residuos_ordinarios" placeholder="Descripción" 
+                    <input type="text" onblur="aMays(event, this)" name="residuosOrdinarios" ng-model="finca.residuos_ordinarios" placeholder="Descripción" 
                             ng-required='manejaResidsOrdinarios' ng-show="manejaResidsOrdinarios" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosOrdinarios.$dirty && myForm.residuosOrdinarios.$error.required">
                         <label class="error">Requerido</label>
@@ -308,7 +311,7 @@
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" />
                 </td>
                 <td>
-                    <input type="text" name="residuosPeligrosos" ng-model="finca.residuos_peligrosos" placeholder="Descripción" 
+                    <input type="text" onblur="aMays(event, this)" name="residuosPeligrosos" ng-model="finca.residuos_peligrosos" placeholder="Descripción" 
                             ng-required='manejaResidsPeligrosos' ng-show="manejaResidsPeligrosos" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosPeligrosos.$dirty && myForm.residuosPeligrosos.$error.required">
                         <label class="error">Requerido</label>
@@ -322,8 +325,7 @@
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" />
                 </td>
                 <td>
-                    <input type="text" name="residuosOtros" class="form-control" ng-model="finca.residuos_otro" placeholder="Descripción" 
-                            ng-required='manejaResidsOtros' ng-show="manejaResidsOtros" style="width:100%" />
+                    <input type="text" onblur="aMays(event, this)" name="residuosOtros" class="form-control" ng-model="finca.residuos_otro" placeholder="Descripción" ng-required='manejaResidsOtros' ng-show="manejaResidsOtros" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosOtros.$dirty && myForm.residuosOtros.$error.required">
                         <label class="error">Requerido</label>
                     </span>
@@ -362,7 +364,7 @@
             <div class="col-md-5 col-md-offset-1">
                 <div class="form-group">
                     <label class="control-label">Forma de Llegar al Predio</label>
-                    <textarea ng-model="finca.forma_llegar" name="forma_llegar_predio" id="forma_llegar_predio" class="form-control" rows="4" placeholder="Describa indicaciones para localizar el predio" required></textarea>
+                    <textarea ng-model="finca.forma_llegar" onblur="aMays(event, this)" name="forma_llegar_predio" id="forma_llegar_predio" class="form-control" rows="4" placeholder="Describa indicaciones para localizar el predio" required></textarea>
                      <label class="error" ng-show="myForm.forma_llegar_predio.$dirty && myForm.forma_llegar_predio.$error.required">Requerido</label>
                 </div>
             </div>
@@ -380,11 +382,8 @@
                         <input bs-switch ng-model="maquinaria[t.id].usa" switch-on="primary" switch-off="warning" 
                                 switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="small" />
                     </td>
-                    <td><input type="text" class="form-control" name="descripMaquinaria" ng-model="maquinaria[t.id].descripcion" 
-                                placeholder="Descripción" ng-show="maquinaria[t.id].usa" ng-required="maquinaria[t.id].usa" />
-                                      <label class="error" 
-          ng-show="subForm.descripMaquinaria.$dirty &&    
-          subForm.descripMaquinaria.$error.required">Requerido</label>
+                    <td><input type="text" onblur="aMays(event, this)" class="form-control" name="descripMaquinaria" ng-model="maquinaria[t.id].descripcion" placeholder="Descripción" ng-show="maquinaria[t.id].usa" ng-required="maquinaria[t.id].usa" />
+                        <label class="error" ng-show="subForm.descripMaquinaria.$dirty && subForm.descripMaquinaria.$error.required">Requerido</label>
                     </td>
                 </tr>
             </tbody>
@@ -425,16 +424,14 @@
             </thead>
             <tbody>
                 <tr ng-repeat="prod in productos" ng-form="subForm">
-                    <th><button type="button" ng-click="productos.splice($index,1)" class="btn btn-danger btn-xs" title="Remover fila">-</button> {{$index+1}} 
-                        {{subForm.$dirty}}
+                    <th><button type="button" ng-click="productos.splice($index,1)" class="btn btn-danger btn-xs" title="Remover fila">-</button> {{$index+1}}
                     </th>
                     <td>
-                        <input type="text" class="form-control" name="nombreProd" ng-model="prod.nombre" required />
+                        <input type="text" onblur="aMays(event, this)" class="form-control" name="nombreProd" ng-model="prod.nombre" required />
                         <label class="error" ng-show="subForm.nombreProd.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="variedadProd" ng-model="prod.variedad" required />
-                        <label class="error" ng-show="subForm.variedadProd.$error.required">Requerido</label>
+                        <input type="text" onblur="aMays(event, this)" class="form-control" name="variedadProd" ng-model="prod.variedad" />
                     </td>
                     <td>
                         <input bs-switch ng-model="prod.semilla_certificada" switch-on="primary" switch-off="warning"
@@ -443,22 +440,25 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">ha</span>
-                            <input type="number" class="form-control" step="0.01" min="0" max="100000000000.99" name="areaCosechada" ng-model="prod.area_cosechada " required /></td>
+
+                            <input type="number" class="form-control" step="0.01" min="0" max="100000000000.99" style="min-width:90px" name="areaCosechada" ng-model="prod.area_cosechada " required />
+			    
                         </div>
-                        <label class="error" ng-show="subForm.areaCosechada.$error.required">Requerido</label>
+			             <label class="error" ng-show="subForm.areaCosechada.$error.required">Requerido</label>
+                        
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" min="0" max="100000000000"  name="semA" ng-model="prod.prod_semestre_a" required/></td>
-                        </div>
+                            <input type="number" class="form-control" min="0" max="100000000000"  name="semA" style="min-width:100px" ng-model="prod.prod_semestre_a" required/>
+			</div>
                         <label class="error" ng-show="subForm.semA.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semA.$dirty && subForm.semA.$error.required">Requerido</label-->
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control"  min="0" max="100000000000" name="semB" ng-model="prod.prod_semestre_b" required/></td>
+                            <input type="number" class="form-control"  min="0" max="100000000000" name="semB" style="min-width:10   0px" ng-model="prod.prod_semestre_b" required/>
                         </div>
                         <label class="error" ng-show="subForm.semB.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semB.$dirty && subForm.semB.$error.required">Requerido</label-->
@@ -493,21 +493,22 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" min="0" max="1000000000" name="costoEstab" ng-model="prod.costo_establecimiento " required/></td>
+                            <input type="number" class="form-control" min="0" max="1000000000" style="min-width:100px" name="costoEstab" ng-model="prod.costo_establecimiento " required/>
+			    
                         </div>
                         <label class="error" ng-show="subForm.costoEstab.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" min="0" max="100000000000" name="costoSost" ng-model="prod.costo_sostenimiento" required/></td>
+                            <input type="number" class="form-control" min="0" max="100000000000" style="min-width:100px" name="costoSost" ng-model="prod.costo_sostenimiento" required/>
                         </div>
                         <label class="error" ng-show="subForm.costoSost.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" name="prod_mercado" ng-model="prod.prod_mercado" required/></td>
+                            <input type="number" class="form-control" name="prod_mercado" style="min-width:100px" ng-model="prod.prod_mercado" required/>
                         </div>
                         <label class="error" ng-show="subForm.prod_mercado.$error.required">Requerido</label>
                     </td>
@@ -518,7 +519,7 @@
                             <option></option>
                             <option ng-repeat="t in tiposSitioVenta" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <label class="error" ng-show="subForm.sitio_venta_id.$dirty && myForm.sitio_venta_id.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.sitioVenta.$error.required">Requerido</label>
                     </td>
                     <td>
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'A quién le vende'}" 
@@ -526,11 +527,10 @@
                             <option></option>
                             <option ng-repeat="t in tiposVende" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <label class="error" ng-show="subForm.vende_tipo_id.$dirty && subForm.vende_tipo_id.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.vende.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="vende_nombre" ng-model="prod.vende_nombre" placeholder="Nombre y Apellido" required>
-                        <label class="error" ng-show="subForm.vende_nombre.$dirty && subForm.vende_nombre.$error.required">Requerido</label>
+                        <input type="text" onblur="aMays(event, this)" class="form-control" name="vende_nombre" ng-model="prod.vende_nombre" placeholder="Nombre y Apellido">
                     </td>
                 </tr>
             </tbody>
@@ -541,7 +541,7 @@
             <thead>
                 <tr>
                     <th rowspan="2" style="min-width:70px"></th>
-                    <th rowspan="2" width="150">Precio de Venta Promedio ($/kilos)</th>
+                    <th rowspan="2" width="150">Precio de Venta Promedio ($/kilo)</th>
                     <th rowspan="2">Forma de Pago</th>
                     <th colspan="2">Subproductos del cultivo</th>
                     <th colspan="3">Pertenencia a Programas de Asistencia Técnica</th>
@@ -560,9 +560,10 @@
                     <td>
                         <div class="input-group" style="width:120px">
                             <span class="input-group-addon">$/Kg</span>
-                            <input type="number" class="form-control" name="precioVentaProm" ng-model="prod.precio_promedio" required/>
+                            <input type="number" class="form-control" name="precioVentaProm" style="min-width:100px" ng-model="prod.precio_promedio" required/>
+			    <label class="error" ng-show="subForm.precioVentaProm.$error.required">Requerido</label>
                         </div>
-                        <label class="error" ng-show="subForm.precioVentaProm.$error.required">Requerido</label>
+                        
                     </td>
                     <td>
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Forma de Pago'}" 
@@ -570,28 +571,24 @@
                             <option></option>
                             <option ng-repeat="t in tiposFormaPago" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
-                        <label class="error" ng-show="subForm.formaPago.$dirty && subForm.formaPago.$error.required">Requerido</label>
+                        <label class="error" ng-show="subForm.formaPago.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="subproducto" ng-model="prod.subproducto" placeholder="Subproducto" required>
-                        <label class="error" ng-show="subForm.subproducto.$dirty && subForm.subproducto.$error.required">Requerido</label>
+                        <input type="text" class="form-control" onblur="aMays(event, this)" name="subproducto" ng-model="prod.subproducto" placeholder="Subproducto">
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="subproducto_uso" ng-model="prod.subproducto_uso" placeholder="Uso" required>
-                        <label class="error" ng-show="subForm.subproducto_uso.$dirty && subForm.subproducto_uso.$error.required">Requerido</label>
+                        <input type="text" class="form-control" onblur="aMays(event, this)" name="subproducto_uso" ng-model="prod.subproducto_uso" placeholder="Uso">
                     </td>
                     <td style="text-align:center">
-                        <input bs-switch ng-model="prod.perteneceProgAsistencia" switch-on="info" switch-off="warning" switch-size="small"
-                                switch-on-label="SI" switch-off-label="NO">
+                        <input bs-switch ng-model="prod.perteneceProgAsistencia" switch-on="info" switch-off="warning" switch-size="small" switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="programa" ng-model="prod.asistencia_programa" ng-required="prod.perteneceProgAsistencia" 
+                        <input type="text" class="form-control" onblur="aMays(event, this)" name="programa" ng-model="prod.asistencia_programa" ng-required="prod.perteneceProgAsistencia" 
                                 ng-disabled="!prod.perteneceProgAsistencia" placeholder="{{prod.perteneceProgAsistencia?'Programa':''}}" />
                         <label class="error" ng-show="subForm.programa.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="entidad" ng-model="prod.asistencia_entidad" ng-required="prod.perteneceProgAsistencia"
-                                ng-disabled="!prod.perteneceProgAsistencia" placeholder="{{prod.perteneceProgAsistencia?'Entidad':''}}" />
+                        <input type="text" class="form-control" onblur="aMays(event, this)" name="entidad" ng-model="prod.asistencia_entidad" ng-required="prod.perteneceProgAsistencia" ng-disabled="!prod.perteneceProgAsistencia" placeholder="{{prod.perteneceProgAsistencia?'Entidad':''}}" />
                         <label class="error" ng-show="subForm.entidad.$error.required">Requerido</label>
                     </td>
                 </tr>
@@ -616,8 +613,8 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">LATITUD NORTE (N)</label>
-                        <input type="number" class="form-control" name="latitud" ng-model="finca.geo_latitud" required/>
-                        <label class="error" ng-show="myForm.latitud.$dirty && myForm.latitud.$error.required">Requerido un valor numérico</label>
+                        <input type="number" class="form-control" name="latitud" ng-model="finca.geo_latitud" ng-pattern="/^[0-9]+.[0-9][0-9][0-9][0-9][0-9][0-9]+$/"/>
+                        <label class="error" ng-show="myForm.latitud.$dirty && myForm.latitud.$error.pattern">Requerido un valor numérico con mínimo 6 decimales</label>
                     </td>
                     </div> 
                 </div>
@@ -626,8 +623,9 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">LONGITUD OCCIDENTE (W)</label>
-                        <input type="number" class="form-control" name="longitud" ng-model="finca.geo_longitud" required/>
-                        <label class="error" ng-show="myForm.longitud.$dirty && myForm.longitud.$error.required">Requerido un valor numérico</label>
+                        <input type="number" class="form-control" name="longitud" ng-model="finca.geo_longitud" ng-pattern="/^[0-9]+.[0-9][0-9][0-9][0-9][0-9][0-9]+$/"/>
+                        <label class="error" ng-show="myForm.longitud.$error.pattern">Requerido un valor numérico con mínimo 6 decimales</label>
+                        <!--<label class="error" ng-show="myForm.longitud.$error">Requerido un valor numérico</label-->
                     </div>
                 </div>
             </div>
@@ -635,8 +633,8 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">ALTURA SOBRE EL NIVEL DEL MAR</label>
-                        <input type="number" class="form-control" name="altura" ng-model="finca.geo_altura" required/>
-                        <label class="error" ng-show="myForm.altura.$dirty && myForm.altura.$error.required">Requerido un valor numérico</label>
+                        <input type="number" class="form-control" name="altura" ng-model="finca.geo_altura" />
+                        <!--<label class="error" ng-show="myForm.altura.$dirty && myForm.altura.$error.required">Requerido un valor numérico</label>-->
                     </div>
                 </div>
             </div>

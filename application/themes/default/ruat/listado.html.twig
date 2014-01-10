@@ -4,6 +4,9 @@
 
 {% block contenido %}
 
+<a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}">Crear Nuevo RUAT</a>
+<br/><br/>
+
 <table class="table table-bordered table-hover">
     <thead>
         <th>#</th>
@@ -20,7 +23,7 @@
             <td>{{row.productor.nombre_completo()}}</td>
             <td>{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</td>
             <td>{{row.creado | date("Y-m-d  H:i")}}</td>
-            <td><a class="act act-warning" href="{{site_url(['ruata','index',row.id])}}">Ver</a></td>
+            <td><a class="act act-warning" href="{{site_url(['ruata','index',row.id])}}">Editar</a></td>
         </tr>
         {% endfor %}
     </tbody>

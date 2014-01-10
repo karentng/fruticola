@@ -4,12 +4,12 @@ class RuatA extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('ion_auth');
+        
+        check_profile($this, "Administrador", "Coordinador", "Digitador");
     }
 
     public function index($ruat_id=NULL)
     {
-        check_profile($this, 'Administrador');
                         
         function to_array($model) { return $model->to_array(); }
 
@@ -158,7 +158,7 @@ class RuatA extends CI_Controller {
         $output = new StdClass;
         $output->ruat_id = $ruat->id;
         $output->productor = $ruat->productor->to_array();
-        $output->productor['fecha_nacimiento'] = $ruat->productor->fecha_nacimiento->format("Y-m-d");
+        $output->productor['fecha_nacimiento'] = $this->datefmt($ruat->productor->fecha_nacimiento);
         $output->contacto = $ruat->productor->contacto->to_array();
         $output->economia = $ruat->productor->economia->to_array();
         $output->economia['usaCredito'] = (bool)($output->economia['credito_id']);

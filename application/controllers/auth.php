@@ -19,7 +19,8 @@ class Auth extends CI_Controller {
     //redirect if needed, otherwise display the user list
     function index()
     {
-
+        check_profile($this, "Administrador");
+        
         if (!$this->ion_auth->logged_in())
         {
             //redirect them to the login page
@@ -408,6 +409,8 @@ class Auth extends CI_Controller {
     //create a new user
     function create_user()
     {
+        check_profile($this, "Administrador");
+        
         $this->data['title'] = "Create User";
 
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
@@ -436,7 +439,7 @@ class Auth extends CI_Controller {
                 'phone'      => $this->input->post('phone'),
             );
         
-            if ($this->ion_auth->register($username, $password, $email, $additional_data))
+            if ($this->ion_auth->register($username, $password, $email, $additional_data, array($this->input->post('profile'))))
             {
                 //check to see if we are creating the user
                 //redirect them back to the admin page
@@ -447,7 +450,9 @@ class Auth extends CI_Controller {
                 $this->data['message'] = $this->ion_auth->errors();
             }
         }
-
+	    $perfiles = assoc($this->ion_auth->groups()->result(), 'id', 'name');
+        //var_dump($perfiles);
+	    $this->twiggy->set("perfiles",  $perfiles);
         $this->twiggy->set($this->data, null);
         $this->twiggy->template("auth/create_user");
         $this->twiggy->display();
