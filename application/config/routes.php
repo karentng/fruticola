@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "ruata";
+$route['default_controller'] = "listadoruats";
 $route['404_override'] = '';
 
 
