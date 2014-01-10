@@ -61,29 +61,43 @@
        };
     });
 
-    myApp.directive('format', ['$filter', function ($filter) {
+    myApp.directive('money', ['$filter', function ($filter) {
+        var replaceAll = function(value, a,b) {
+            while(true) {
+                var newval = value.replace(a,b);
+                if(newval==value) break;
+                value = newval;
+            }
+            return value;
+        };
+
         return {
             require: '?ngModel',
             link: function (scope, elem, attrs, ctrl) {
                 if (!ctrl) return;
 
-
+                
                 ctrl.$formatters.unshift(function (a) {
-                    return $filter(attrs.format)(ctrl.$modelValue)
+                    var val = $filter('number')(ctrl.$modelValue,0);
+                    return replaceAll(val,",",".");
                 });
 
 
                 ctrl.$parsers.unshift(function (viewValue) {
-                    var decimals = attrs.decimals || 0;
                     elem.priceFormat({
-                        centsLimit:decimals,
+                        centsLimit:0,
+                        allowNegative:false,
                         prefix: '',
                         centsSeparator: ',',
                         thousandsSeparator: '.',
-
                     });
-                             
-                    return elem[0].value;
+
+                    var val = replaceAll(elem[0].value,".","");
+                    try {
+                        return parseInt(val);
+                    } catch(ex) {
+                        return 0;
+                    }
                 });
             }
         };
@@ -494,7 +508,7 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" min="0" max="100000000000"  name="semA" style="min-width:100px" ng-model="prod.prod_semestre_a" required/>
+                            <input type="text" money class="form-control" min="0" max="100000000000"  name="semA" style="min-width:100px" ng-model="prod.prod_semestre_a" required/>
 			</div>
                         <label class="error" ng-show="subForm.semA.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semA.$dirty && subForm.semA.$error.required">Requerido</label-->
@@ -502,7 +516,7 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control"  min="0" max="100000000000" name="semB" style="min-width:10   0px" ng-model="prod.prod_semestre_b" required/>
+                            <input type="text" money class="form-control"  min="0" max="100000000000" name="semB" style="min-width:10   0px" ng-model="prod.prod_semestre_b" required/>
                         </div>
                         <label class="error" ng-show="subForm.semB.$error.required">Requerido</label>
                         <!--label class="error" ng-show="subForm.semB.$dirty && subForm.semB.$error.required">Requerido</label-->
@@ -537,7 +551,7 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" min="0" max="1000000000" style="min-width:100px" name="costoEstab" ng-model="prod.costo_establecimiento " required/>
+                            <input type="text" money class="form-control" min="0" max="1000000000" style="min-width:100px" name="costoEstab" ng-model="prod.costo_establecimiento " required/>
 			    
                         </div>
                         <label class="error" ng-show="subForm.costoEstab.$error.required">Requerido</label>
@@ -545,14 +559,14 @@
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">$/ha</span>
-                            <input type="number" class="form-control" min="0" max="100000000000" style="min-width:100px" name="costoSost" ng-model="prod.costo_sostenimiento" required/>
+                            <input type="text" money class="form-control" min="0" max="100000000000" style="min-width:100px" name="costoSost" ng-model="prod.costo_sostenimiento" required/>
                         </div>
                         <label class="error" ng-show="subForm.costoSost.$error.required">Requerido</label>
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">Kg</span>
-                            <input type="number" class="form-control" name="prod_mercado" style="min-width:100px" ng-model="prod.prod_mercado" required/>
+                            <input type="text" money class="form-control" name="prod_mercado" style="min-width:100px" ng-model="prod.prod_mercado" required/>
                         </div>
                         <label class="error" ng-show="subForm.prod_mercado.$error.required">Requerido</label>
                     </td>
@@ -604,10 +618,9 @@
                     <td>
                         <div class="input-group" style="width:120px">
                             <span class="input-group-addon">$/Kg</span>
-                            <input type="number" class="form-control" name="precioVentaProm" style="min-width:100px" ng-model="prod.precio_promedio" required/>
-			    <label class="error" ng-show="subForm.precioVentaProm.$error.required">Requerido</label>
+                            <input type="text" money class="form-control" name="precioVentaProm" style="min-width:100px" ng-model="prod.precio_promedio" required/>
                         </div>
-                        
+                        <label class="error" ng-show="subForm.precioVentaProm.$error.required">Requerido</label>
                     </td>
                     <td>
                         <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Forma de Pago'}" 

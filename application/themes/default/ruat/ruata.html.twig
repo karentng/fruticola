@@ -117,7 +117,16 @@
         };
     });
 
-    myApp.directive('format', ['$filter', function ($filter) {
+    myApp.directive('money', ['$filter', function ($filter) {
+        var replaceAll = function(value, a,b) {
+            while(true) {
+                var newval = value.replace(a,b);
+                if(newval==value) break;
+                value = newval;
+            }
+            return value;
+        };
+
         return {
             require: '?ngModel',
             link: function (scope, elem, attrs, ctrl) {
@@ -125,38 +134,20 @@
 
                 
                 ctrl.$formatters.unshift(function (a) {
-                    var val = $filter(attrs.format)(ctrl.$modelValue,0);
-                    var again=true;
-                    while(again) {
-                        var newval = val.replace(",",".");
-                        if(newval==val) again=false;
-                        val=newval;
-                    }
-                    return val;
+                    var val = $filter('number')(ctrl.$modelValue,0);
+                    return replaceAll(val,",",".");
                 });
 
 
                 ctrl.$parsers.unshift(function (viewValue) {
-                    var decimals = attrs.decimals || 0;
-                    console.log("====>",decimals);
                     elem.priceFormat({
                         centsLimit:0,
                         allowNegative:false,
                         prefix: '',
                         centsSeparator: ',',
                         thousandsSeparator: '.',
-
                     });
-                    
-                    var again = true;
-                    val = elem[0].value;
-                    while(again) {
-                        var newval = val.replace(".","");
-                        if(newval==val) again=false;
-                        val=newval;
-                    }
-                    //return val.replace(",",".");
-                    return val;
+                    return replaceAll(elem[0].value,".","");
                 });
             }
         };
@@ -507,7 +498,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-6">Ingreso Mensual Familiar </label>
                             <div class="col-sm-6">
-                                <input type="text" format="number" class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-model="economia.ingreso_familiar" required/>
+                                <input type="text" money class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-model="economia.ingreso_familiar" required/>
                             </div>
                             <label class="error" ng-show="myForm.ingreso_familiar.$dirty && myForm.ingreso_familiar.$error.required">Requerido</label>
                          </div>
@@ -529,7 +520,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-7">Ingreso de Actividad Agropecuaria</label>
                             <div class="col-sm-5">
-                                <input type="text" format="number"  class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-model="economia.ingreso_agropecuario" required/>
+                                <input type="text" money  class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-model="economia.ingreso_agropecuario" required/>
                             </div>
                             <label class="error" ng-show="myForm.ingreso_agropecuario.$dirty && myForm.ingreso_agropecuario.$error.required">Requerido</label>
                         </div>
