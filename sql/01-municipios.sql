@@ -181,7 +181,7 @@ insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('63
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('70110','Buenavista',(select id from departamento where codigo='70'),'9.3222222','-74.9772222');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('19110','Buenos Aires',(select id from departamento where codigo='19'),'2.9166667','-76.6666667');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('52110','Buesaco',(select id from departamento where codigo='52'),'1.25','-77.0833333');
-insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76111','Buga',(select id from departamento where codigo='76'),'3.9022222','-76.3027778');
+insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76111','Guadalajara de Buga',(select id from departamento where codigo='76'),'3.9022222','-76.3027778');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76113','Bugalagrande',(select id from departamento where codigo='76'),'4.2094444','-76.1602778');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('05113','Burítica',(select id from departamento where codigo='05'),'6.75','-75.9166667');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('15114','Busbanza',(select id from departamento where codigo='15'),'5.9166667','-72.85');
@@ -202,9 +202,9 @@ insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('05
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('15131','Caldas',(select id from departamento where codigo='15'),'5.55','-73.8833333');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('19137','Caldono',(select id from departamento where codigo='19'),'2.8333333','-76.4166667');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('68132','California',(select id from departamento where codigo='68'),'7.4166667','-72.85');
-insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76126','Calima (Darién)',(select id from departamento where codigo='76'),'3.9166667','-76.6666667');
+insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76126','Calima el Darién',(select id from departamento where codigo='76'),'3.9166667','-76.6666667');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('19142','Caloto',(select id from departamento where codigo='19'),'3.0833333','-76.3333333');
-insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76001','Cali',(select id from departamento where codigo='76'),'3.4372222','-76.5225');
+insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76001','Santiago de Cali',(select id from departamento where codigo='76'),'3.4372222','-76.5225');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('05134','Campamento',(select id from departamento where codigo='05'),'7.0833333','-75.25');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('08137','Campo de la Cruz',(select id from departamento where codigo='08'),'10.4166667','-74.9166667');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('41132','Campoalegre',(select id from departamento where codigo='41'),'2.6666667','-75.3333333');
@@ -436,7 +436,7 @@ insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('25
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('50313','Granada',(select id from departamento where codigo='50'),'3.5386111','-73.7005556');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('68318','Guaca',(select id from departamento where codigo='68'),'7','-72.7666667');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('15317','Guacamayas',(select id from departamento where codigo='15'),'6.5','-72.5');
-insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76318','Guacarí',(select id from departamento where codigo='76'),'3.7694444','-76.3380556');
+insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('76318','San Juan de Guacarí',(select id from departamento where codigo='76'),'3.7694444','-76.3380556');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('52699','Guachavés',(select id from departamento where codigo='52'),'1.2247222','-77.68');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('19300','Guachené',(select id from departamento where codigo='19'),'3.1333333','-76.3833333');
 insert into municipio(codigo,nombre,departamento_id,latitud,longitud) values('25317','Guachetá',(select id from departamento where codigo='25'),'5.4166667','-73.7');
