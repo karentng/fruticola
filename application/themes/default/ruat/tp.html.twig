@@ -1,27 +1,28 @@
 {% extends "base.html.twig" %}
 
 {% block html_head %}
+
 <script src="{{base_url('assets/js/angular/angular.js')}}"></script>
 <script src="{{base_url('assets/js/angular/angular-animate.js')}}"></script>
 <script src="{{base_url('assets/js/angular/angular-ui/select2.js')}}"></script>
 <script src="{{base_url('assets/js/angular/angular-bootstrap-switch.js')}}"></script>
 
 
-<script type="text/javascript">
-    var extern = {
-        combos: {{combos}}
-    };
 
+<script type="text/javascript">
     var urls = {
-        guardar : "{{site_url('ruata/guardar')}}",
+        guardar: "{{site_url('ruata/guardar')}}",
     };
     var count = function(obj) {
         var cnt = 0;
-        for(var x in obj)
-            if(obj.hasOwnProperty(x))
+        for (var x in obj)
+            if (obj.hasOwnProperty(x))
                 cnt++;
         return cnt;
     }
+
+    var preguntas_ingresos = {{preguntas_ingresos | json_encode }}
+    var preguntas_activos = {{preguntas_activos | json_encode }}
 </script>
 
 
@@ -29,804 +30,552 @@
 
 
 <script type="text/javascript">
-    var myApp = angular.module('myApp', ['ui.select2', 'frapontillo.bootstrap-switch']);
 
-    myApp.directive('buttonsRadio', function() { // http://stackoverflow.com/a/13450409
-        return {
-            restrict: 'E', scope: { model: '=', options:'='},
-            replace:true,
-            controller: function($scope) {
-                $scope.activate = function(option) {
-                    if($scope.model==option) $scope.model=null;
-                    else $scope.model=option;
-                }
-            },
-            template: "<div class='btn-group'><button type='button' ng-repeat='t in options' "+
-                        "class='btn btn-sm' + ng-class=\"{'active':t.id==model, 'btn-primary':t.id==model, 'btn-default':t.id!=model}\"  "+
-                        "ng-click='activate(t.id)'>{{t.descripcion}}</button></div>"
-        };
-    });
+    var myApp = angular.module('myApp', []);
 
-    var RuatACtrl = function($scope, $http) {
+    var TPCtrl = function($scope, $http) {
 
-        angular.extend($scope, extern.combos);
-        //$scope.combos = extern.combos;
-
-        $scope.productor = {
-            nombre1:'guachu',
-            nombre2:'Alan', 
-            apellido1:'from',
-            apellido2: 'missisipi',
-            sexo:'M',
-            nivelEducativo:'1',
-            tipoDocumento:1,
-            numeroDocumento:102909,
-            tipo:1,
-            renglonProductivo:1,
-            fechaNacimiento: '2013-12-20'
-
-        };
-        $scope.contacto = {
-            celular: 3114005089,
-            telefono: 3774121,
-            email: 'guachu@openEnglish.com',
-            departamento: 1,
-            municipio: 505,
-            vereda:'micasita',
-            direccion: 'calle con carrera'
-
-        };
-
-        
-        $scope.economia = {
-            usaCredito: false,
-            ingresoMensual: 123234,
-            personasCargo: 3,
-            ingresoAgropecuaria: 121212,
-            procedenciaCredito: 2,
-            otroCredito: "algo"
-
-        };
-
-        $scope.asociacion = {
-            cooperativa: 
-            {
-                asociado: true,
-                filas: [{
-                    directivo: true,
-                    clases: [3, 4],
-                    organizacion: "una organización",
-                    periodicidad: 3,
-                    directivo: "true",
-                    participante: "false",
-                    beneficios: [4, 5]
-                }],
-                razones: [1, 2], 
-                apoyan: []
-            },
-            otroProductor: {
-                asociado: true,
-                nombre: "igor",
-                apellido: "pato",
-                vereda: "el laguito",
-                confianza: null
-            },
-            sigue: {
-                asociado: true,
-                nombre: "iguana",
-                apellido: "tejado",
-                vereda: "lago verde",
-                confianza: null
-            }
-        };
-        
-        $scope.count = count;
-
-        $scope.realizaInnovacion=false;
-
-        $scope.innovaciones=[];
-
-        
-        $scope.validate = function(form){   
-            for (feild in form) {
-
-                // look at each form input with a name attribute set
-                // checking if it is pristine and not a '$' special field
-                if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
-                    //console.log(typeof($scope.myForm[feild]));
-                    form[feild].$setViewValue( form[feild].$modelValue );
-                }
-            }
-            return $scope.myForm.$valid;
-        };
-
-        $scope.submit = function() {
-            if(!$scope.validate()) {
-                alert('Revise errores');
-                return;
-            }
-
-            var data = {
-                productor: $scope.productor,
-                contacto : $scope.contacto,
-                economia: $scope.economia,
-                asociacion: $scope.asociacion,
-                innovaciones: $scope.realizaInnovacion?$scope.innovaciones:[]
-            };
-
-            $http.post(urls.guardar, data).success(function(response,status) {
-                console.log(response);
-            });
-
-            //alert('Guardar!');
-        };
     };
+
 </script>
 {% endraw %}
 {% endblock %}
 {% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> BPA &#187; DISEÑO DE PLANES DE IMPLEMENTACIÓN DE BUENAS PRÁCTICAS AGRICOLAS </h1> {% endblock %}
 
 {% block contenido %}
-{% raw %}
 
-<div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
+<div ng-app="myApp">
+    <div ng-controller="TPCtrl">
+        <form name="myForm"  class="form-horizontal css-form">
 
-<div class="row">
-	<div class="col-md-6">
-		<div class="container">
-	        <div class="form-group">
-	            <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
-	            <div class="col-sm-8">
-	                <div class="input-group date datepicker autostart">
-	                    <input size="16" name="fecha" ng-model="bpa.fecha" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text" required>
-                        <label class="error" ng-show="myForm.fecha.$dirty && myForm.fecha.$error.required">Requerido</label>
-	                    <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
-	                </div>
-	            </div>
-	        </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-		<div class="container">
-	        <div class="form-group">
-	            <label class="col-sm-5 control-label">CÓDIGO DEL BENEFICIARIO:</label>
-	            <div class="col-sm-7">
-                    <input size="16" name="codigoBenegiciario" ng-model="bpa.codigoBeneficiario" class="form-control" type="text" required>
-                    <label class="error" ng-show="myForm.codigoBenegiciario.$dirty && myForm.codigoBenegiciario.$error.required">Requerido</label>
-	            </div>
-	        </div>
-        </div>
-    </div>
-</div>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>A. DATOS DE IDENTIFICACIÓN DEL BENEFICIARIO</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body"><div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">PRIMER NOMBRE</label><br/>
-                        <input type="text" class="form-control" name="primerNombre" ng-model="persona.nombre1" required />
-                        <label class="error" ng-show="myForm.primerNombre.$dirty && myForm.primerNombre.$error.required">Requerido</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group date datepicker autostart">
+                                    <input size="16" name="fecha" value="{{ set_value('fecha_nacimiento')}}" class="form-control" type="text" required>
+                                    <label class="error" >Requerido</label>
+                                    <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">SEGUNDO NOMBRE</label>
-                        <input type="text" class="form-control" name="segundoNombre" ng-model="persona.nombre2" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">PRIMER APELLIDO</label>
-                        <input type="text" class="form-control" name="primerApellido" ng-model="persona.apellido1" required />
-                        <label class="error" ng-show="myForm.primerApellido.$dirty && myForm.primerApellido.$error.required">Requerido</label>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">SEGUNDO APELLIDO</label>
-                        <input type="text" class="form-control" name="segundoApellido" ng-model="persona.apellido2"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div div class="col-md-6">
-                <div class="form-group">
-                    <label class="col-xs-3 control-label">DOCUMENTO: </label>
-                    <div class="col-xs-3" style="padding-right:0px !important">
-                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tipoDocumento" ng-model="productor.tipoDocumento" ng-required="true">
-                            <option></option>
-                            <option ng-repeat="t in tiposDocumento" value="{{t.id}}">{{t.descripcion}}</option>
-                        </select>
-                        <label class="error" ng-show="myForm.tipoDocumento.$dirty && myForm.tipoDocumento.$error.required">Requerido</label>
-                    </div>
-                    <div class="col-xs-6" style="padding-left:0px !important">
-                        <input type="text" class="form-control" name="numeroDocumento" ng-model="bpa.numeroDocumento" required />
-                        <span class="help-block" ng-show="myForm.numeroDocumento.$dirty && myForm.numeroDocumento.$error.required"><label class="error">Requerido</label></span>
-                    </div>
-                </div>
-            </div>
-            <div div class="col-md-6">
-                <div class="form-group">
-                    <label class="col-xs-5 control-label">No. CELULAR: </label>
-                    <div class="col-xs-7" style="padding-left:0px !important">
-                        <input type="text" class="form-control" name="celular" ng-model="bpa.celular" required />
-                        <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-		<div class="row">
-			<div div class="col-md-6">
-                <div class="form-group">
-                    <label class="col-xs-5 control-label">RENGLÓN PRODUCTIVO: </label>
-                    <div class="col-xs-7" style="padding-left:0px !important">
-                        <input type="text" class="form-control" name="renglon" ng-model="bpa.renglon" required />
-                        <span class="help-block" ng-show="myForm.renglon.$dirty && myForm.renglon.$error.required"><label class="error">Requerido</label></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="col-xs-5 control-label" style="float:left;">NOMBRE DEL PREDIO: </label>
-                    <div class="col-xs-7" style="padding-left:0px !important">
-                        <input type="text" class="form-control" name="predio" ng-model="bpa.predio" required />
-                        <span class="help-block" ng-show="myForm.predio.$dirty && myForm.predio.$error.required"><label class="error">Requerido</label></span>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-
-        <div class="row">
-        	<div class="col-md-4">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">CORREGIMIENTO</label>
-                        <input type="text" class="form-control" name="corregimiento" ng-model="bpa.corregimiento" required />
-                        <span class="help-block" ng-show="myForm.corregimiento.$dirty && myForm.corregimiento.$error.required"><label class="error">Requerido</label></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">VEREDA</label>
-                        <input type="text" class="form-control" name="vereda" ng-model="bpa.vereda" required />
-                        <label class="error" ng-show="myForm.vereda.$dirty && myForm.vereda.$error.required">Requerido</label>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">MUNICIPIO</label>
-                        <input type="text" class="form-control" name="municipio" ng-model="bpa.municipio" required/>
-                        <label class="error" ng-show="myForm.municipio.$dirty && myForm.municipio.$error.required">Requerido</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div></div><!-- .container and .panel-body -->
-</div><!-- panel default -->
-
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>B.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN LA UNIDAD AGRÍCOLA FAMILIAR (UAF).</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body"><div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">Área Total del Predio (has)</label><br/>
-                        <input type="text" class="form-control" name="primerNombre" ng-model="persona.nombre1" required />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">Valor de la UAF del Municipio (has)</label>
-                        <input type="text" class="form-control" name="segundoNombre" ng-model="persona.nombre2" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">Tipo de Productor Según la UAF</label>
-                        <div style="text-align:center;">
-                            <input type="radio" class="" name="" ng-model=""/>
-                            <input type="radio" class="" name="" ng-model=""/>
-                        </div>                    
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="container">
-                    <div class="form-group">
-                        <label class="control-label">Clasificación productor según UAF</label>
-                        <div style="text-align:center;">
-                            <input type="radio" class="" name="" ng-model=""/>
-                            <input type="radio" class="" name="" ng-model=""/>
+                <div class="col-md-6">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="col-sm-5 control-label">CÓDIGO DEL BENEFICIARIO:</label>
+                            <div class="col-sm-7">
+                                <input size="16" name="codigoBenegiciario" class="form-control" type="text" required>
+                                <label class="error">Requerido</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div></div><!-- .container and .panel-body -->
-</div><!-- panel default -->
-
-
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>C.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body"><div class="container">
-    
-    <div class="col-md-6">
-    
-    	<table class="table table-bordered">
-            <thead>
-            	<tr>
-            		<th align="center">
-                        DESCRIPCION DE LOS ACTIVOS ($)
-            		</th>
-            		<th align="center" style="width: 100px;">
-            		</th>
-            	</tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        Dinero en Caja y/o Bancos
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Cuentas x cobrar (deudores)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Inventario en mercancías y/o insumos
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Propiedades urbanos
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Propiedades rurales
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Inversiones en Cultivos
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Inversiones en Semovientes (Animales)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Inversiones en Maquinaria
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Inversiones en Equipos y Herramientas
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Inversiones en Vehículos
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Muebles y enseres
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Otros Activos
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <b>TOTAL ACTIVOS ($)</b>
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" disabled/>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="col-md-6">
-
-    	<table class="table table-bordered">
-            <thead>
-            	<tr>
-            		<th align="center">
-                        DESCRIPCION DE LOS INGRESOS ($/Año)
-            		</th>
-            		<th align="center" style="width: 100px;">
-            		</th>
-            	</tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        Cantidad de producto vendido (kg/año) del renglón productivo
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Precio de venta promedio en el año anterior ($/kg)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        INGRESOS RENGLON PRODUCTIVO ($/Año)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        INGRESOS OTRAS ACTIVIDADES AGROPECUARIAS ($/Año)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        OTROS INGRESOS ($/Año)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <b>TOTAL INGRESOS DEL PRODUCTOR ($/AÑO)</b>
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" disabled/>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-        
-        <div style="padding-top: 10px;"></div>
-
-    	<table class="table table-bordered">
-            <thead>
-            	<tr>
-            		<th align="center">
-                        DESCRIPCION DE LOS EGRESOS ($/Año)
-            		</th>
-            		<th align="center" style="width: 100px;">
-            		</th>
-            	</tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        Costos de producción del renglón productivo ($/Año)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Préstamos personales y/o créditos con bancos ($/Año)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Servicios públicos y arriendos ($/Año)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Gastos familiares ($/Año)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        Otros egresos ($/Año)
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <b>TOTAL EGRESOS ($/AÑO)</b>
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" disabled/>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-
-    </div>
-    
-    <div class="col-md-11 center"  style="margin-top: 20px; margin-left: 40px;">
-    	<table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <td>
-                        <b>UTILIDAD ANUAL del productor según sus ingresos y egresos ( $/Año )</b>
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <b>RELACION BENEFICIO - COSTO del productor según sus ingresos y egresos es :</b>
-                    </td>
-
-                    <td>
-                    	<input type="text" class="form-control" placeholder="" />
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    
-    </div>
-
-    </div></div><!-- .container and .panel-body -->
-</div><!-- panel default -->
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>D.  REVISIÓN DE TODOS LOS CRITERIOS DE CLASIFICACION DEL PRODUCTOR AGROPECUARIO</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body"><div class="container">
-        <div class="row">
-
-
-    	<table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th align="center">
-                    </th>
-                    <th align="center" style="width: 300px;">
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>
-                        El BENEFICIARIO cumple con la condición de productor agropecuario según sus INGRESOS INVERTIDOS en el sector agropecuario? (Mínimo el 70% de los ingresos los obtiene de la actividad agropecuaria).
-                    </td>
-
-                    <td>
-                        <div style="text-align:center;">
-                            <input type="radio" class="" name="" ng-model=""/>
-                            <label>SI</label>
-                            <input type="radio" class="" name="" ng-model=""/>
-                            <label>NO</label>
-                        </div>                    
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        El productor según LA UAF (Unidad Agrícola Familiar) clasifica como:
-                    </td>
-
-                    <td>
-                        <div style="text-align:center;">
-                            <input type="radio" class="" name="" ng-model=""/>
-                            <label>PEQUEÑO PRODUCTOR</label><br/>
-                            <input type="radio" class="" name="" ng-model=""/>
-                            <label>MEDIANO PRODUCTOR</label>
-                        </div>                    
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        El productor según TOTAL ACTIVOS, y de acuerdo a la clasficación de productores de FINAGRO clasifica como: (Activos Menores a $85.477.500 = Pequeño Productor Agropecuario).
-                    </td>
-
-                    <td>
-                        <div style="text-align:center;">
-                            <input type="radio" class="" name="" ng-model=""/>
-                            <label>PEQUEÑO PRODUCTOR</label><br/>
-                            <input type="radio" class="" name="" ng-model=""/>
-                            <label>MEDIANO PRODUCTOR</label>
-                        </div>                    
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <b>Revisados todos los criterios de clasificación de productores agropecuarios, el BENEFICIARIO clasifica como</b>
-                    </td>
-
-                    <td>
-                        <div style="text-align:center;">
-                            <input type="radio" class="" name="" ng-model=""/>
-                            <label>PEQUEÑO PRODUCTOR</label><br/>
-                            <input type="radio" class="" name="" ng-model=""/>
-                            <label>MEDIANO PRODUCTOR</label>
-                        </div>                    
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-
-
-        </div>
-    </div></div><!-- .container and .panel-body -->
-</div><!-- panel default -->
-
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>E. OBSERVACIONES</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body"><div class="container">
-        <div class="row">
-
-        </div>
-    </div></div><!-- .container and .panel-body -->
-</div><!-- panel default -->
-
-</form></div></div>
-
-{% endraw %}
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                    <h4>A. DATOS DE IDENTIFICACIÓN DEL BENEFICIARIO</h4>
+                    <a href="#" class="minimize"></a>
+                </div><!-- End .panel-heading -->
+
+                <div class="panel-body"><div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">PRIMER NOMBRE</label><br/>
+                                        <input type="text" class="form-control" name="primerNombre" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">SEGUNDO NOMBRE</label>
+                                        <input type="text" class="form-control" name="segundoNombre" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">PRIMER APELLIDO</label>
+                                        <input type="text" class="form-control" name="primerApellido" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">SEGUNDO APELLIDO</label>
+                                        <input type="text" class="form-control" name="segundoApellido"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">DOCUMENTO: </label>
+                                    <div class="col-xs-3" style="padding-right:0px !important">
+                                        <select name="tipoDocumento">
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-6" style="padding-left:0px !important">
+                                        <input type="text" class="form-control" name="numeroDocumento" />
+                                        <span class="help-block"><label class="error">Requerido</label></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">No. CELULAR: </label>
+                                    <div class="col-xs-7" style="padding-left:0px !important">
+                                        <input type="text" class="form-control" name="celular" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">RENGLÓN PRODUCTIVO: </label>
+                                    <div class="col-xs-7" style="padding-left:0px !important">
+                                        <input type="text" class="form-control" name="renglon" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label" style="float:left;">NOMBRE DEL PREDIO: </label>
+                                    <div class="col-xs-7" style="padding-left:0px !important">
+                                        <input type="text" class="form-control" name="predio" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">CORREGIMIENTO</label>
+                                        <input type="text" class="form-control" name="corregimiento" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">VEREDA</label>
+                                        <input type="text" class="form-control" name="vereda" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">MUNICIPIO</label>
+                                        <input type="text" class="form-control" name="municipio"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div></div><!-- .container and .panel-body -->
+            </div><!-- panel default -->
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                    <h4>B.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN LA UNIDAD AGRÍCOLA FAMILIAR (UAF).</h4>
+                    <a href="#" class="minimize"></a>
+                </div><!-- End .panel-heading -->
+
+                <div class="panel-body"><div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">Área Total del Predio (has)</label><br/>
+                                        <input type="text" class="form-control" name="primerNombre" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">Valor de la UAF del Municipio (has)</label>
+                                        <input type="text" class="form-control" name="segundoNombre"  />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">Tipo de Productor Según la UAF</label>
+                                        <div style="text-align:center;">
+                                            <input type="radio" class="" name="" />
+                                            <input type="radio" class="" name="" />
+                                        </div>                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label class="control-label">Clasificación productor según UAF</label>
+                                        <div style="text-align:center;">
+                                            <input type="radio" class="" name="" />
+                                            <input type="radio" class="" name="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div><!-- .container and .panel-body -->
+            </div><!-- panel default -->
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                    <h4>C.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
+                    <a href="#" class="minimize"></a>
+                </div><!-- End .panel-heading -->
+
+                <div class="panel-body"><div class="container">
+
+                        <div class="col-md-6">
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th align="center">
+                                            DESCRIPCION DE LOS ACTIVOS ($)
+                                        </th>
+                                        <th align="center" style="width: 100px;">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for pa in preguntas_activos %}
+                                    <tr>
+                                        <td>
+                                           {{pa.enunciado}}
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" id="{{pa.id}}" name="{{pa.id}}" />
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th align="center">
+                                            DESCRIPCION DE LOS INGRESOS ($/Año)
+                                        </th>
+                                        <th align="center" style="width: 100px;">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Cantidad de producto vendido (kg/año) del renglón productivo
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            Precio de venta promedio en el año anterior ($/kg)
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            INGRESOS RENGLON PRODUCTIVO ($/Año)
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            INGRESOS OTRAS ACTIVIDADES AGROPECUARIAS ($/Año)
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            OTROS INGRESOS ($/Año)
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <b>TOTAL INGRESOS DEL PRODUCTOR ($/AÑO)</b>
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" disabled/>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div style="padding-top: 10px;"></div>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th align="center">
+                                            DESCRIPCION DE LOS EGRESOS ($/Año)
+                                        </th>
+                                        <th align="center" style="width: 100px;">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Costos de producción del renglón productivo ($/Año)
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            Préstamos personales y/o créditos con bancos ($/Año)
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            Servicios públicos y arriendos ($/Año)
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            Gastos familiares ($/Año)
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            Otros egresos ($/Año)
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <b>TOTAL EGRESOS ($/AÑO)</b>
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" disabled/>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="col-md-11 center"  style="margin-top: 20px; margin-left: 40px;">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>UTILIDAD ANUAL del productor según sus ingresos y egresos ( $/Año )</b>
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <b>RELACION BENEFICIO - COSTO del productor según sus ingresos y egresos es :</b>
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div></div><!-- .container and .panel-body -->
+            </div><!-- panel default -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                    <h4>D.  REVISIÓN DE TODOS LOS CRITERIOS DE CLASIFICACION DEL PRODUCTOR AGROPECUARIO</h4>
+                    <a href="#" class="minimize"></a>
+                </div><!-- End .panel-heading -->
+
+                <div class="panel-body"><div class="container">
+                        <div class="row">
+
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th align="center">
+                                        </th>
+                                        <th align="center" style="width: 300px;">
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            El BENEFICIARIO cumple con la condición de productor agropecuario según sus INGRESOS INVERTIDOS en el sector agropecuario? (Mínimo el 70% de los ingresos los obtiene de la actividad agropecuaria).
+                                        </td>
+
+                                        <td>
+                                            <div style="text-align:center;">
+                                                <input type="radio" class="" name=""/>
+                                                <label>SI</label>
+                                                <input type="radio" class="" name=""/>
+                                                <label>NO</label>
+                                            </div>                    
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            El productor según LA UAF (Unidad Agrícola Familiar) clasifica como:
+                                        </td>
+
+                                        <td>
+                                            <div style="text-align:center;">
+                                                <input type="radio" class="" name="" />
+                                                <label>PEQUEÑO PRODUCTOR</label><br/>
+                                                <input type="radio" class="" name="" />
+                                                <label>MEDIANO PRODUCTOR</label>
+                                            </div>                    
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            El productor según TOTAL ACTIVOS, y de acuerdo a la clasficación de productores de FINAGRO clasifica como: (Activos Menores a $85.477.500 = Pequeño Productor Agropecuario).
+                                        </td>
+
+                                        <td>
+                                            <div style="text-align:center;">
+                                                <input type="radio" class="" name="" />
+                                                <label>PEQUEÑO PRODUCTOR</label><br/>
+                                                <input type="radio" class="" name="" />
+                                                <label>MEDIANO PRODUCTOR</label>
+                                            </div>                    
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <b>Revisados todos los criterios de clasificación de productores agropecuarios, el BENEFICIARIO clasifica como</b>
+                                        </td>
+
+                                        <td>
+                                            <div style="text-align:center;">
+                                                <input type="radio" class="" name=""/>
+                                                <label>PEQUEÑO PRODUCTOR</label><br/>
+                                                <input type="radio" class="" name=""/>
+                                                <label>MEDIANO PRODUCTOR</label>
+                                            </div>                    
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div></div><!-- .container and .panel-body -->
+            </div><!-- panel default -->
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                    <h4>E. OBSERVACIONES</h4>
+                    <a href="#" class="minimize"></a>
+                </div><!-- End .panel-heading -->
+
+                <div class="panel-body"><div class="container">
+                        <div class="row">
+
+                        </div>
+                    </div></div><!-- .container and .panel-body -->
+            </div><!-- panel default -->
+
+        </form></div></div>
+
 {% endblock %}
