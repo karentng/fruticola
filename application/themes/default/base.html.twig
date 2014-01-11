@@ -106,7 +106,7 @@
   {% block html_body %}
     <header id="header">
         <nav class="navbar navbar-default navbar-static-top" role="navigation">
-            <a class="navbar-brand" href="#"><img src="{{ base_url('assets/images/logo.png') }}" alt="Plan fruticola" class="img-responsive" style="height:40px"></a>
+            <a class="navbar-brand" href="#"><img src="{{ base_url('assets/images/logo.png?v=2') }}" alt="Plan fruticola" class="img-responsive" style="height:40px"></a>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle btn-danger" data-toggle="collapse" data-target="#navbar-to-collapse">
                     <span class="sr-only">Toggle right menu</span>
@@ -162,15 +162,16 @@
         #}
         <section id="contento">
             <div class="wrapper">
-                {#
+                
                 <div class="crumb">
+                    {% block breadcrumnb %}
                     <ul class="breadcrumb">
-                      <li><a href="#"><i class="icon16 i-home-4"></i>Home</a></li>
-                      <li><a href="#">Library</a></li>
-                      <li class="active">Data</li>
+                      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
                     </ul>
+                    {% endblock %}
+                    xyz
                 </div>
-                #}
+                
                 <div class="container-fluid">
                     <div id="heading" class="page-header">
                         

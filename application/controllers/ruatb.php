@@ -46,6 +46,7 @@ class RuatB extends CI_Controller {
 
         $this->twiggy->set('ruat_id', $ruat_id);
 
+        $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(2, $ruat_id));
         $this->twiggy->template("ruat/ruatb");
         $this->twiggy->display();
     }

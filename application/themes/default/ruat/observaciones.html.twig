@@ -1,5 +1,14 @@
 {% extends "base.html.twig" %}
 
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      {{breadcrumbs}}
+    </ul>
+{% endblock %}
+
+{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> RUAT &#187; Observaciones </h1> {% endblock %}
+
 {% block contenido %}
 
 {{ form_open_multipart(null, {role:'form'}) }}
@@ -23,6 +32,7 @@
                 {{form_error('observacion')}}
                     <textarea class="form-control" id="textarea" name="observacion" rows="3" >{{ set_value('observacion') ? set_value('observacion') : observacion.observacion }}</textarea>
                 </div>
+                <br/>
 
                 <div class="form-group">
 

@@ -59,7 +59,7 @@
 
     myApp.directive('buttonsRadio', function() { // http://stackoverflow.com/a/13450409
         return {
-            restrict: 'E', scope: { model: '=', options:'='},
+            restrict: 'E', scope: { model: '=', options:'=', disabled:'='},
             replace:true,
             controller: function($scope) {
                 $scope.activate = function(option) {
@@ -67,7 +67,7 @@
                     else $scope.model=option;
                 }
             },
-            template: "<div class='btn-group'><button type='button' ng-repeat='t in options' "+
+            template: "<div class='btn-group'><button type='button' ng-repeat='t in options' ng-disabled='disabled' "+
                         "class='btn btn-sm' + ng-class=\"{'active':t.id==model, 'btn-primary':t.id==model, 'btn-default':t.id!=model}\"  "+
                         "ng-click='activate(t.id)'>{{t.descripcion}}</button></div>"
         };
@@ -208,6 +208,17 @@
 </script>
 {% endraw %}
 {% endblock %}
+
+
+
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      {{breadcrumbs}}
+    </ul>
+{% endblock %}
+
+
 
 {% block titulo %} <h1><i class="icon20 i-man"></i> RUAT &#187; Datos Personales </h1> {% endblock %}
 
@@ -580,7 +591,7 @@
                     <td>{{tipoInn.descripcion}}</td>
                     <td>
                         <span ng-init="innovaciones[$index] = innovaciones[$index] ? innovaciones[$index] : {tipo_id:tipoInn.id}"></span>
-                        <buttons-radio model="innovaciones[$index].fuente_id" options="fuentesInnovacion" name="fuente" >
+                        <buttons-radio model="innovaciones[$index].fuente_id" options="fuentesInnovacion" name="fuente" disabled="soloLectura" >
                         </buttons-radio>
                     </td>
                     <td>
@@ -731,7 +742,7 @@
                 <div class="form-group">
                     <label for="" class="control-label col-md-4">Grado de Confianza</label>
                     <div class="col-md-6">
-                        <buttons-radio model="asociacion.otroProductor.confianza_id" options="tiposConfianza">
+                        <buttons-radio model="asociacion.otroProductor.confianza_id" options="tiposConfianza" disabled="soloLectura">
                         </buttons-radio>
                     </div>
                 </div>
@@ -781,7 +792,7 @@
                 <div class="form-group">
                     <label for="" class="control-label col-md-4">Grado de Confianza</label>
                     <div class="col-md-6">
-                        <buttons-radio model="asociacion.sigue.confianza_id" options="tiposConfianza">
+                        <buttons-radio model="asociacion.sigue.confianza_id" options="tiposConfianza" disabled="soloLectura">
                         </buttons-radio>
                     </div>
                 </div>

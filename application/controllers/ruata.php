@@ -43,6 +43,7 @@ class RuatA extends CI_Controller {
             $this->twiggy->set('ruat', json_encode($ruat));
         }
 
+        $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(1, $ruat_id));
         $this->twiggy->template("ruat/ruata");
         $this->twiggy->display();
     }

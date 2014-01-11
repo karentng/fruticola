@@ -1,5 +1,13 @@
 {% extends "base.html.twig" %}
 
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      {{breadcrumbs}}
+    </ul>
+{% endblock %}
+
+
 {% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> RUAT &#187; Apropiación de Aprendizajes </h1> {% endblock %}
 
 {% block contenido %}

@@ -74,6 +74,8 @@ class RuatD extends CI_Controller {
         $this->twiggy->set('upload_result_documento_identidad', $upload_result_documento_identidad);
         $this->twiggy->set('productor', $productor);
         $this->twiggy->set('usuaioSesion', $usuaioSesion);
+
+        $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(4, $ruat_id));
         $this->twiggy->template("ruat/observaciones");
         $this->twiggy->display();
     }
