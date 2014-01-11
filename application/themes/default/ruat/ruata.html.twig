@@ -630,7 +630,7 @@
                     <th>Beneficio</th>
                     <th>Periodicidad <br/> de Asitencia</th>
                     <th>Labor <br/> que Realiza</th>
-                    <th><button type="button" ng-click="asociacion.cooperativa.filas.push({})" class="btn btn-sm btn-primary tip" data-original-title="Agregar Fila"><i class="i-plus-circle"></i></button></th>
+                    <th><button type="button" ng-click="asociacion.cooperativa.filas.push({})" ng-disabled="soloLectura"  class="btn btn-sm btn-primary tip" data-original-title="Agregar Fila"><i class="i-plus-circle"></i></button></th>
                 </tr>
             </thead>
                 <tr ng-repeat="fila in asociacion.cooperativa.filas" ng-form="subForm">
@@ -663,7 +663,7 @@
                     <td><input bs-switch ng-model="fila.directivo" switch-on="info" switch-off="info" switch-active="soloLectura"
                         switch-on-label="Directivo" switch-off-label="Participante" switch-type="checkbox" switch-size="" switch-animate="true" />
                     </td>
-                    <th><button type="button" ng-click="asociacion.cooperativa.filas.splice($index,1)" class="btn btn-sm btn-danger" title="Quitar Fila"><i class="i-minus-circle"></i></th>
+                    <th><button type="button" ng-click="asociacion.cooperativa.filas.splice($index,1)" ng-disabled="soloLectura"  class="btn btn-sm btn-danger" title="Quitar Fila"><i class="i-minus-circle"></i></th>
                 </tr>
             </table>
 
@@ -731,7 +731,7 @@
                 <div class="form-group">
                     <label for="" class="control-label col-md-4">Grado de Confianza</label>
                     <div class="col-md-6">
-                        <buttons-radio model="asociacion.otroProductor.confianza_id" options="tiposConfianza">
+                        <buttons-radio model="asociacion.otroProductor.confianza_id" ng-disabled="soloLectura"  options="tiposConfianza">
                         </buttons-radio>
                     </div>
                 </div>
@@ -781,7 +781,7 @@
                 <div class="form-group">
                     <label for="" class="control-label col-md-4">Grado de Confianza</label>
                     <div class="col-md-6">
-                        <buttons-radio model="asociacion.sigue.confianza_id" options="tiposConfianza">
+                        <buttons-radio model="asociacion.sigue.confianza_id" ng-disabled="soloLectura" options="tiposConfianza">
                         </buttons-radio>
                     </div>
                 </div>
