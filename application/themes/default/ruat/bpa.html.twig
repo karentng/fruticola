@@ -43,11 +43,11 @@
         valores[0] = valores[0] / 10;
         valores[1] = valores[1] / 4;
         valores[2] = valores[2] / 5;
-        $("#valor15f").text(valores[0]);
-        $("#valor26f").text(valores[1]);
-        $("#valor31f").text(valores[2]);
+        $("#valor15f").text(valores[0].toFixed(2));
+        $("#valor26f").text(valores[1].toFixed(2));
+        $("#valor31f").text(valores[2].toFixed(2));
 
-        $("#valor14f").text((+valores[0]+valores[1]+valores[2])/3);
+        $("#valor14f").text(((+valores[0]+valores[1]+valores[2])/3).toFixed(2));
     }
 
     function calcular(seccion, padre){
@@ -94,7 +94,7 @@
             }
         }
         resultado = resultado / numSubSecciones;
-        $("#valor"+padre+"f").text(resultado);
+        $("#valor"+padre+"f").text(resultado.toFixed(2));
         calcularFinal();
     }    
 </script>
@@ -190,8 +190,16 @@
                         {{preguntaB.enunciado}}
                     </td>
                     <td style="text-align:center; width:100px;">
-                        <input bs-switch switch-on="info" switch-off="warning" switch-size="small"
-                                switch-on-label="SI" switch-off-label="NO">
+                        <!--<input bs-switch switch-on="info" switch-off="warning" switch-size="small"
+                                switch-on-label="SI" switch-off-label="NO">-->
+                        <div class="switch" 
+     data-on="primary" 
+     data-off="danger" 
+     data-on-label="<i class='i-checkmark-3'></i>" 
+     data-off-label="<i class='i-close'></i>" >
+
+        <input class="toggle" type="checkbox" checked />
+</div>
                     </td>
                     <td>
                         <input id="{{'observacion'~ preguntaB.id}}" type="text" class="form-control" placeholder="" style="width:240px;"/>
