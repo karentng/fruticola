@@ -1,152 +1,111 @@
 {% extends "base.html.twig" %}
 
 {% block html_head %}
-<script src="{{base_url('assets/js/angular/angular.js')}}"></script>
-<script src="{{base_url('assets/js/angular/angular-animate.js')}}"></script>
-<script src="{{base_url('assets/js/angular/angular-ui/select2.js')}}"></script>
-<script src="{{base_url('assets/js/angular/angular-bootstrap-switch.js')}}"></script>
-<script src="{{base_url('assets/js/angular/angular-sanitize.min.js')}}"></script>
-
 
 <script type="text/javascript">
-    var extern = {
-        combos: {{combos}}
-    };
+    function calcularFinal(){
+        var resultado = 0;
 
-    var urls = {
-        guardar : "{{site_url('ruata/guardar')}}",
-    };
-    var count = function(obj) {
-        var cnt = 0;
-        for(var x in obj)
-            if(obj.hasOwnProperty(x))
-                cnt++;
-        return cnt;
+        for(var i = 1; i <= {{tamaño}}; i++){
+            var aux = parseInt($("#valor"+i+"f").text());
+            if( (typeof aux) === 'number' && !(isNaN(aux))){
+                resultado += aux;
+            }
+        }
+        console.log(resultado);
+        resultado /= 8;
+        console.log(resultado);
+        $("#valorFinal").text(resultado);
     }
-</script>
 
+    function calcularSeccionCuatro(){
+        var valores = [0,0,0]; // 41,42,43
 
-{% raw %}
-
-
-<script type="text/javascript">
-    var myApp = angular.module('myApp', ['ngSanitize','ui.select2', 'frapontillo.bootstrap-switch']);
-
-    myApp.directive('buttonsRadio', function() { // http://stackoverflow.com/a/13450409
-        return {
-            restrict: 'E', scope: { model: '=', options:'='},
-            replace:true,
-            controller: function($scope) {
-                $scope.activate = function(option) {
-                    if($scope.model==option) $scope.model=null;
-                    else $scope.model=option;
-                }
-            },
-            template: "<div class='btn-group'><button type='button' ng-repeat='t in options' "+
-                        "class='btn btn-sm' + ng-class=\"{'active':t.id==model, 'btn-primary':t.id==model, 'btn-default':t.id!=model}\"  "+
-                        "ng-click='activate(t.id)'>{{t.descripcion}}</button></div>"
-        };
-    });
-
-    var RuatACtrl = function($scope, $http) {
-
-        angular.extend($scope, extern.combos);
-        //$scope.combos = extern.combos;
-        
-        $scope.validate = function(form){   
-            for (feild in form) {
-
-                // look at each form input with a name attribute set
-                // checking if it is pristine and not a '$' special field
-                if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
-                    //console.log(typeof($scope.myForm[feild]));
-                    form[feild].$setViewValue( form[feild].$modelValue );
-                }
-            }
-            return $scope.myForm.$valid;
-        };
-
-        $scope.submit = function() {
-            if(!$scope.validate()) {
-                alert('Revise errores');
-                return;
+        for(var  i = 1; i <= {{tamaño}} ; i++){
+            var aux = parseInt($("#valor15"+i).val());
+            if( (typeof aux) === 'number' && !(isNaN(aux))){
+                valores[0] += aux;
             }
 
-            var data = {
-                productor: $scope.productor,
-                contacto : $scope.contacto,
-                economia: $scope.economia,
-                asociacion: $scope.asociacion,
-                innovaciones: $scope.realizaInnovacion?$scope.innovaciones:[]
-            };
+            aux = parseInt($("#valor26"+i).val());
+            if( (typeof aux) === 'number' && !(isNaN(aux))){
+                valores[1] += aux;
+            }
 
-            $http.post(urls.guardar, data).success(function(response,status) {
-                console.log(response);
-            });
-
-            //alert('Guardar!');
-        };
-
-        $scope.postLoad = function() {
-            $scope.tiposBpaPreguntaB.forEach(function(t) {
-                //console.log($scope.preguntasB[""+t.id]);
-                //if(!$scope.preguntasB[""+(t.id-62)]) $scope.preguntasB[""+(t.id-62)] = ({usa:false});
-            });
-            //console.log($scope);
+            aux = parseInt($("#valor31"+i).val());
+            if( (typeof aux) === 'number' && !(isNaN(aux))){
+                valores[2] += aux;
+            }
         }
 
-        //$scope.postLoad();
-    };
+        console.log(valores[0]);
+
+        valores[0] = valores[0] / 10;
+        valores[1] = valores[1] / 4;
+        valores[2] = valores[2] / 5;
+        $("#valor15f").text(valores[0]);
+        $("#valor26f").text(valores[1]);
+        $("#valor31f").text(valores[2]);
+
+        $("#valor14f").text((+valores[0]+valores[1]+valores[2])/3);
+    }
+
+    function calcular(seccion, padre){
+        var numSubSecciones = 0;
+        //console.log(seccion);
+        //console.log(padre);
+        switch(seccion){
+            case 1:
+                numSubSecciones = 6;
+                break;
+            case 2:
+                numSubSecciones = 3;
+                break;
+            case 3:
+                numSubSecciones = 1;
+                break;
+            case 4:
+            case 41:
+            case 42:
+            case 43:
+                calcularSeccionCuatro();
+                calcularFinal();
+                return; 
+                break;
+            case 5:
+                numSubSecciones = 3;
+                break;
+            case 6:
+                numSubSecciones = 6;
+                break;
+            case 7:
+                numSubSecciones = 5;
+                break;
+            case 8:
+                numSubSecciones = 7;
+                break;
+        }
+
+        var resultado = 0;
+        for(var i = 1; i <= {{tamaño}}; i++){
+            var aux = parseInt($("#valor"+padre+""+i).val());
+            if( (typeof aux) === 'number' && !(isNaN(aux))){
+                resultado += aux;
+            }
+        }
+        resultado = resultado / numSubSecciones;
+        $("#valor"+padre+"f").text(resultado);
+        calcularFinal();
+    }    
 </script>
-{% endraw %}
+
 {% endblock %}
+
 {% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> BPA &#187; DISEÑO DE PLANES DE IMPLEMENTACIÓN DE BUENAS PRÁCTICAS AGRICOLAS </h1> {% endblock %}
 
 {% block contenido %}
-{% raw %}
 
-<div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
-
-<!--<div class="row">
-    <div class="col-md-6">
-        <div class="container">
-            <div class="form-group">
-                <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
-                <div class="col-sm-8">
-                    <div class="input-group date datepicker autostart">
-                        <input size="16" name="fecha" ng-model="bpa.fecha" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text" required>
-                        <label class="error" ng-show="myForm.fecha.$dirty && myForm.fecha.$error.required">Requerido</label>
-                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="container">
-            <div class="form-group">
-                <label class="col-sm-5 control-label">CÉDULA DEL BENEFICIARIO:</label>
-                <div class="col-sm-7">
-                    <input size="16" name="codigoBenegiciario" ng-model="bpa.codigoBeneficiario" class="form-control" type="text" required>
-                    <label class="error" ng-show="myForm.codigoBenegiciario.$dirty && myForm.codigoBenegiciario.$error.required">Requerido</label>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="container">
-            <div class="form-group">
-                <label class="col-sm-4 control-label">NOMBRE Y APELLIDO DEL BENEFICIARIO:</label>
-                <div class="col-sm-8">
-                    <input size="16" name="nombreApellidoBene" ng-model="bpa.nombreApellidoBene" class="form-control" type="text" required>
-                    <label class="error" ng-show="myForm.nombreApellidoBene.$dirty && myForm.nombreApellidoBene.$error.required">Requerido</label>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
+{{ form_open(null, {role:'form'}) }}
 
 <div class="row">
     <div class="col-md-6">
@@ -155,8 +114,7 @@
                 <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
                 <div class="col-sm-8">
                     <div class="input-group date datepicker autostart">
-                        <input size="16" name="fecha" ng-model="bpa.fecha" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text" required>
-                        <label class="error" ng-show="myForm.fecha.$dirty && myForm.fecha.$error.required">Requerida una fecha</label>
+                        <input size="16" name="fecha" class="form-control" type="text" required>
                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                     </div>
                 </div>
@@ -168,8 +126,8 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">ID. RUAT:</label>
                 <div class="col-sm-8">
-                    <input size="16" name="idRuat" ng-model="bpa.idRuat" class="form-control" type="number" required>
-                    <label class="error" ng-show="myForm.idRuat.$dirty && myForm.idRuat.$error.required">Requerido un valor numérico</label>
+                    <input size="16" name="idRuat" class="form-control" type="number" required>
+                    <label class="error" > </label>
                 </div>
             </div>
         </div>
@@ -226,18 +184,20 @@
             	</tr>
             </thead>
             <tbody>
-                <tr ng-repeat="tipoB in tiposBpaPreguntaB" ng-form="subForm">
+                {% for preguntaB in preguntasB %}
+                <tr>
                     <td>
-                        {{tipoB.enunciado}}
+                        {{preguntaB.enunciado}}
                     </td>
                     <td style="text-align:center; width:100px;">
-                        <input bs-switch ng-model="valor1" switch-on="info" switch-off="warning" switch-size="small"
+                        <input bs-switch switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">
                     </td>
                     <td>
-                        <input type="text" class="form-control" placeholder="" style="width:240px;"/>
+                        <input id="{{'observacion'~ preguntaB.id}}" type="text" class="form-control" placeholder="" style="width:240px;"/>
                     </td>
                 </tr>
+                {% endfor %}
             </tbody>
             <thead>
             	<tr>
@@ -281,35 +241,42 @@
             	</tr>
             </thead>
             <tbody>
-                <tr ng-repeat="tipoC in tiposBpaPreguntaC">
+                {% for preguntaC in preguntasC %}
+                <tr>
                     <td>
-                        <span ng-bind-html="tipoC.enunciado"></span>
+                        {{preguntaC.enunciado}}
                     </td>
                     <td align="center">
-                        <input type="number" ng-model="valor1.1" value="" style="width:60px;" />
+                        {% if preguntaC.padre == null or preguntaC.numeral == 15 or
+                            preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
+                            <label id="{{'valor'~preguntaC.id~"f"}}">0</label>
+                        {% else %}
+                            <input type="number" onkeyup="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})" id="{{'valor'~ preguntaC.padre ~preguntaC.id}}" style="width:60px;" value="0" max="100" min="0" />
+                        {% endif %}
                     </td>
                     <td>
-                        <textarea style="width:240px; height:100%;"></textarea>
+                        <textarea id="{{'observacion'~ preguntaC.id}}" name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;"></textarea>
                     </td>
                 </tr>
+                {% endfor %}
+
+
                 <tr>
                     <td align="center">
                         <h3><b>PREDIO CON NIVEL DE IMPLEMENTACIÓN DE <br/>
                         BUENAS PRACTICAS AGRÍCOLAS (BPA)</b></h3>
                     </td>
                     <td align="center">
-                        
+                        <label id="valorFinal">0</label>
                     </td>
                     <td>
-                        <textarea style="width:240px; height:100%;"></textarea>
+                        <textarea name="observacionFinal" style="width:240px; height:100%;"></textarea>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div></div><!-- .container and .panel-body -->
 </div><!-- panel default -->
+{{ form_close() }}
 
-</form></div></div>
-
-{% endraw %}
 {% endblock %}

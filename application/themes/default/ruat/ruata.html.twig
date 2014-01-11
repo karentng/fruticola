@@ -227,7 +227,7 @@
         <div class="input-group">
             <label  class="control-label col-sm-8">Número de Formulario</label>
             <div class="col-sm-4">
-                <input type="text" ng-model="numero_formulario" class="form-control" style="color:red; text-align:center" maxlength="4" />
+                <input type="text" ng-model="numero_formulario" class="form-control" style="color:red; text-align:center" maxlength="4" ng-disabled="soloLectura"/>
             </div>
         </div>
     </div>
@@ -248,7 +248,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Primer Nombre</label>
-                            <input type="text" capitalize class="form-control" name="nombre1" ng-model="productor.nombre1" required />
+                            <input type="text" capitalize class="form-control" name="nombre1" ng-model="productor.nombre1" ng-disabled="soloLectura" required />
                             <label class="error" ng-show="myForm.nombre1.$dirty && myForm.nombre1.$error.required">Requerido</label>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Segundo Nombre</label>
-                            <input type="text" capitalize class="form-control" ng-model="productor.nombre2"  />
+                            <input type="text" capitalize class="form-control" ng-model="productor.nombre2"  ng-disabled="soloLectura"/>
                         </div>
                     </div>
                 </div>
@@ -265,7 +265,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Primer Apellido</label>
-                            <input type="text"  capitalize class="form-control" name="apellido1" ng-model="productor.apellido1" required />
+                            <input type="text"  capitalize class="form-control" name="apellido1" ng-model="productor.apellido1" ng-disabled="soloLectura" required />
                             <label class="error" ng-show="myForm.apellido1.$dirty && myForm.apellido1.$error.required">Requerido</label>
 
                         </div>
@@ -275,7 +275,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Segundo Apellido</label>
-                            <input type="text" capitalize class="form-control" ng-model="productor.apellido2"  />
+                            <input type="text" capitalize class="form-control" ng-model="productor.apellido2"  ng-disabled="soloLectura"/>
                         </div>
                     </div>
                 </div>
@@ -286,14 +286,14 @@
                     <div class="form-group">
                         <label class="col-xs-3 control-label">Documento: </label>
                         <div class="col-xs-3" style="padding-right:0px !important">
-                            <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tipo_documento_id" ng-model="productor.tipo_documento_id" ng-required="true">
+                            <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tipo_documento_id" ng-model="productor.tipo_documento_id" ng-required="true" ng-disabled="soloLectura">
                                 <option></option>
                                 <option ng-repeat="t in tiposDocumento" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
                             <label class="error" ng-show="myForm.tipo_documento_id.$dirty && myForm.tipo_documento_id.$error.required">Requerido</label>
                         </div>
                         <div class="col-xs-6" style="padding-left:0px !important">
-                            <input type="text" class="form-control" name="numero_documento" ng-model="productor.numero_documento" required />
+                            <input type="text" class="form-control" name="numero_documento" ng-model="productor.numero_documento" ng-disabled="soloLectura" required />
                             <span class="help-block" ng-show="myForm.numero_documento.$dirty && myForm.numero_documento.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -304,7 +304,7 @@
                         <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento:</label>
                         <div class="col-sm-6">
                             <div class="input-group date datepicker autostart">
-                                <input size="16" name="fecha_nacimiento" ng-model="productor.fecha_nacimiento" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text">
+                                <input size="16" name="fecha_nacimiento" ng-model="productor.fecha_nacimiento" ng-disabled="soloLectura" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text">
                                 <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                             </div>
                         </div>
@@ -316,7 +316,7 @@
                     <div class="form-group">
                         <label class="col-sm-6 control-label">Sexo: </label>
                         <div class="col-sm-6">
-                            <select ui-select2="{allowClear:true, placeholder:'-', minimumResultsForSearch: -1}" name="sexo" ng-model="productor.sexo" required>
+                            <select ui-select2="{allowClear:true, placeholder:'-', minimumResultsForSearch: -1}" name="sexo" ng-model="productor.sexo" ng-disabled="soloLectura" required>
                                 <option></option>
                                 <option value='M'>Masculino</option>
                                 <option value='F'>Femenino</option>
@@ -329,7 +329,7 @@
                     <div class="form-group">
                         <label class="col-sm-6 control-label">Nivel Educativo: </label>
                         <div class="col-sm-6">
-                            <select  ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="nivel_educativo_id" ng-model="productor.nivel_educativo_id" ng-required="true">
+                            <select  ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="nivel_educativo_id" ng-disabled="soloLectura" ng-model="productor.nivel_educativo_id" ng-required="true">
                                 <option></option>
                                 <option ng-repeat="t in nivelesEducativos" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
@@ -344,7 +344,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label" for="focused">Tipo de Productor:</label>
                         <div class="col-sm-7">
-                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="tipoProductor" ng-model="productor.tipo_productor_id" required>
+                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="tipoProductor" ng-disabled="soloLectura" ng-model="productor.tipo_productor_id" required>
                                 <option></option>
                                 <option ng-repeat="t in tiposProductor" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
@@ -356,7 +356,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label" for="focused">Renglón Productivo:</label>
                         <div class="col-sm-7">
-                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="renglon_productivo_id" ng-model="productor.renglon_productivo_id" ng-required="true">
+                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="renglon_productivo_id" ng-disabled="soloLectura" ng-model="productor.renglon_productivo_id" ng-required="true">
                                 <option></option>
                                 <option ng-repeat="t in renglonesProductivos" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
@@ -384,7 +384,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Telefono Fijo</label>
-                            <input type="text" class="form-control" name="telefono" ng-model="contacto.telefono" />
+                            <input type="text" class="form-control" name="telefono" ng-model="contacto.telefono" ng-disabled="soloLectura" />
                             <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -393,7 +393,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Celular</label>
-                            <input type="text" class="form-control" name="celular" ng-model="contacto.celular" />
+                            <input type="text" class="form-control" name="celular" ng-model="contacto.celular" ng-disabled="soloLectura" />
                             <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -402,7 +402,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" name="email" ng-model="contacto.email" />
+                            <input type="email" class="form-control" name="email" ng-model="contacto.email" ng-disabled="soloLectura"/>
                             <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Debe ser un Email Válido</label></span>
                         </div>
                     </div>
@@ -413,7 +413,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Departamento:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="departamento" ng-model="contacto.departamento_id" required>
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="departamento" ng-model="contacto.departamento_id" ng-disabled="soloLectura" required>
                                 <option></option>
                                 <option ng-repeat="(key,depto) in departamentos" value="{{key}}">{{depto.nombre}}</option>
                             </select>
@@ -425,7 +425,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Municipio:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="contacto.municipio_id" required>
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="contacto.municipio_id"  ng-disabled="soloLectura" required>
                                 <option></option>
                                 <option ng-repeat="mun in departamentos[contacto.departamento_id].municipios" value="{{mun.id}}">{{mun.nombre}}</option>
                             </select>
@@ -437,7 +437,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Vereda / Corregimiento</label>
-                            <input type="text" capitalize class="form-control" name="vereda" ng-model="contacto.vereda" />
+                            <input type="text" capitalize class="form-control" name="vereda" ng-model="contacto.vereda" ng-disabled="soloLectura"/>
                             <span class="help-block" ng-show="myForm.vereda.$dirty && myForm.vereda.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -448,7 +448,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="focused">Dirección de Residencia:</label>
                         <div class="col-md-9">
-                            <input type="text" capitalize class="form-control" name="direccion" ng-model="contacto.direccion" required>
+                            <input type="text" capitalize class="form-control" name="direccion" ng-model="contacto.direccion" ng-disabled="soloLectura" required>
                             <label class="error" ng-show="myForm.direccion.$dirty && myForm.direccion.$error.required">Requerido</label>
 
                         </div>
@@ -478,7 +478,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <input type="text" money class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-model="economia.ingreso_familiar" required/>
+                                    <input type="text" money class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-disabled="soloLectura" ng-model="economia.ingreso_familiar" required/>
                                 </div>
                             </div>
                             <label class="error" ng-show="myForm.ingreso_familiar.$dirty && myForm.ingreso_familiar.$error.required">Requerido</label>
@@ -490,7 +490,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-8">Personas a Cargo</label>
                             <div class="col-sm-4">
-                                <input type="number" class="form-control" name="personas_dependientes" ng-model="economia.personas_dependientes" min="0" max="15" required/>
+                                <input type="number" class="form-control" name="personas_dependientes" ng-disabled="soloLectura" ng-model="economia.personas_dependientes" min="0" max="15" required/>
                             </div>
                             <span class="help-block" ng-show="myForm.personas_dependientes.$dirty && myForm.personas_dependientes.$error.required"><label class="error">Requerido</label></span>
                         </div> 
@@ -503,7 +503,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <input type="text" money  class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-model="economia.ingreso_agropecuario" required/>
+                                    <input type="text" money  class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-disabled="soloLectura" ng-model="economia.ingreso_agropecuario" required/>
                                 </div>
                                 <label class="error" ng-show="myForm.ingreso_agropecuario.$dirty && myForm.ingreso_agropecuario.$error.required">Requerido</label>
                             </div>
@@ -518,8 +518,7 @@
                         <div class="form-group">
                             <label class="col-md-7 control-label">Uso de Crédito Actual</label>
                             <div class="col-md-5">
-                                <input bs-switch ng-model="economia.usaCredito" switch-on="primary" switch-off="warning"
-                                    switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true">
+                                <input bs-switch ng-model="economia.usaCredito" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" switch-active="soloLectura">
                             </div>
                             
                         </div>
@@ -530,7 +529,7 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label" ng-class="{'text-muted':!economia.usaCredito}" for="focused">Procedencia del Crédito:</label>
                         <div class="col-sm-7">
-                            <select ui-select2="{allowClear:true, minimumResultsForSearch: -1, placeholder:'-'}" name="procedencia"ng-model="economia.credito_id" ng-disabled="!economia.usaCredito" ng-required="economia.usaCredito">
+                            <select ui-select2="{allowClear:true, minimumResultsForSearch: -1, placeholder:'-'}" name="procedencia"ng-model="economia.credito_id" ng-disabled="!economia.usaCredito || soloLectura" ng-required="economia.usaCredito">
                                 <option></option>
                                 <option ng-repeat="t in tiposCredito" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
@@ -540,9 +539,7 @@
                 </div>
                 <div div class="col-md-3">
                     <div class="form-group">
-                        <input type="text" capitalize class="form-control" name="otraProcedencia" ng-model="otro_credito" placeholder="¿Cuál?" 
-                                ng-required="economia.usaCredito&& economia.credito_id==7" 
-                                ng-show="economia.usaCredito && economia.credito_id==7" />
+                        <input type="text" capitalize class="form-control" name="otraProcedencia" ng-model="otro_credito" placeholder="¿Cuál?" ng-required="economia.usaCredito&& economia.credito_id==7" ng-show="economia.usaCredito && economia.credito_id==7" ng-disabled="soloLectura"/>
                     </div>
                 </div>
             </div>
@@ -565,8 +562,7 @@
             <div class="form-group">
                 <label class="col-md-7 control-label">¿Realiza Procesos de Innovación?</label>
                 <div class="col-md-5">
-                    <input bs-switch ng-model="realizaInnovacion" switch-on="primary" switch-off="warning"
-                        switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true">
+                    <input bs-switch ng-model="realizaInnovacion" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" switch-active="soloLectura">
                 </div>
             </div>
 
@@ -589,13 +585,13 @@
                     </td>
                     <td>
                         <input type="text" capitalize class="form-control" style="width:100px" 
-                                placeholder="¿Cual?" name="otra_fuente" ng-model="innovaciones[$index].otra_fuente" ng-show="innovaciones[$index].fuente_id==6" ng-required="innovaciones[$index].fuente_id==6"/>
+                                placeholder="¿Cual?" name="otra_fuente" ng-model="innovaciones[$index].otra_fuente" ng-show="innovaciones[$index].fuente_id==6" ng-required="innovaciones[$index].fuente_id==6" ng-disabled="soloLectura"/>
                         <label class="error" ng-show="subForm.otra_fuente.$error.required">Requerido</label>
                         
                     </td>
                     <td>
                         <input type="text" capitalize class="form-control" name="descripcion" ng-model="innovaciones[$index].descripcion"
-                            placeholder="{{innovaciones[$index].fuente_id?'Ingrese aqui la Descripción':''}}" ng-required="innovaciones[$index].fuente_id" ng-disabled="!innovaciones[$index].fuente_id" />
+                            placeholder="{{innovaciones[$index].fuente_id?'Ingrese aqui la Descripción':''}}" ng-required="innovaciones[$index].fuente_id" ng-disabled="!innovaciones[$index].fuente_id || soloLectura" />
                         <label class="error" ng-show="subForm.descripcion.$error.required">Requerido</label>
                     </td>
                 </tr>
@@ -621,7 +617,7 @@
             <div class="form-group">
                 <label class="col-md-7 control-label">Pertenece a Asociaciones, Cooperativas o Agremiaciones</label>
                 <div class="col-md-2">
-                    <input bs-switch ng-model="asociacion.cooperativa.asociado" switch-on="primary" switch-off="warning"
+                    <input bs-switch ng-model="asociacion.cooperativa.asociado" switch-on="primary" switch-off="warning" switch-active="soloLectura"
                         switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" />
                 </div>
             </div>
@@ -639,24 +635,24 @@
             </thead>
                 <tr ng-repeat="fila in asociacion.cooperativa.filas" ng-form="subForm">
                     <td>
-                        <select multiple name="clase" ng-required="asociacion.cooperativa.asociado" ng-model="fila.clases" style="min-width:100px"
+                        <select multiple name="clase" ng-required="asociacion.cooperativa.asociado" ng-model="fila.clases" ng-disabled="soloLectura" style="min-width:100px"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Clases de Organización'}">
                             <option ng-repeat="t in clasesOrganizaciones" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
                          <span class="help-block" ng-show="subForm.clase.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td>
-                        <input type="text" capitalize class="form-control" name="nombre" ng-model="fila.nombre" ng-required="true" placeholder="Organización"/>
+                        <input type="text" capitalize class="form-control" name="nombre" ng-model="fila.nombre" ng-disabled="soloLectura" ng-required="true" placeholder="Organización"/>
                          <span class="help-block" ng-show="subForm.nombre.$error.required"><label class="error">Requerido</label></span>
                     </td>
-                    <td><select multiple name="beneficios" ng-required="asociacion.cooperativa.asociado" ng-model="fila.beneficios" style="min-width:150px"
+                    <td><select multiple name="beneficios" ng-required="asociacion.cooperativa.asociado" ng-model="fila.beneficios" style="min-width:150px" ng-disabled="soloLectura"
                                 ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Beneficios'}">
                             <option ng-repeat="t in tiposBeneficio" value="{{t.id}}">{{t.descripcion}}</option>
                         </select>
                          <span class="help-block" ng-show="subForm.beneficios.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td>
-                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Periodicidad'}" 
+                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Periodicidad'}" ng-disabled="soloLectura"
                             name="periodicidad" ng-model="fila.periodicidad_id" ng-required="true">
                             <option></option>
                             <option ng-repeat="t in periodicidades" value="{{t.id}}">{{t.descripcion}}</option>
@@ -664,7 +660,7 @@
                         <label class="error" ng-show="subForm.periodicidad.$error.required">Requerido</label>
                     
                     </td>
-                    <td><input bs-switch ng-model="fila.directivo" switch-on="info" switch-off="info"
+                    <td><input bs-switch ng-model="fila.directivo" switch-on="info" switch-off="info" switch-active="soloLectura"
                         switch-on-label="Directivo" switch-off-label="Participante" switch-type="checkbox" switch-size="" switch-animate="true" />
                     </td>
                     <th><button type="button" ng-click="asociacion.cooperativa.filas.splice($index,1)" class="btn btn-sm btn-danger" title="Quitar Fila"><i class="i-minus-circle"></i></th>
@@ -676,7 +672,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Razones de no Pertencer</label>
-                            <select multiple ng-model="asociacion.cooperativa.razones"
+                            <select multiple ng-model="asociacion.cooperativa.razones" ng-disabled="soloLectura"
                              ui-select2="{ multiple:true, minimumResultsForSearch: -1, allowClear:true}">
                                 <option ng-repeat="t in tiposRazonNoPertenecer" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
@@ -687,7 +683,7 @@
                     <div class="container"> 
                         <div class="form-group">
                             <label class="control-label">Entidades a las que no esté asociado pero que presten apoyo</label>
-                            <input type="text" capitalize ng-model="asociacion.cooperativa.orgs_apoyan" ui-select2="{multiple:true, simple_tags:true, tags:[]}" />
+                            <input type="text" capitalize ng-model="asociacion.cooperativa.orgs_apoyan" ng-disabled="soloLectura" ui-select2="{multiple:true, simple_tags:true, tags:[]}" />
                         </div>
                     </div>
                 </div>
@@ -696,7 +692,7 @@
             <div class="form-group">
                 <label class="col-md-7 control-label">Trabajo en asocio para realizar actividades productivas, de transformación y Comercialización con otro productor</label>
                 <div class="col-md-2">
-                    <input bs-switch ng-model="asociacion.otroProductor.asociado" switch-on="primary" switch-off="warning"
+                    <input bs-switch ng-model="asociacion.otroProductor.asociado" switch-on="primary" switch-off="warning" switch-active="soloLectura"
                         switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" />
                 </div>
             </div>
@@ -706,7 +702,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Nombre del Productor en Asocio</label>
-                                <input type="text" capitalize class="form-control" name="nombreSocio" ng-model="asociacion.otroProductor.nombre" ng-required="asociacion.otroProductor.asociado"/>
+                                <input type="text" capitalize class="form-control" name="nombreSocio" ng-model="asociacion.otroProductor.nombre" ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
                                 <label class="error" ng-show="myForm.nombreSocio.$dirty && myForm.nombreSocio.$error.required ">Requerido</label>
                             </div>
                         </div>
@@ -715,7 +711,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Apellidos del Productor en Asocio</label>
-                                <input type="text" capitalize class="form-control" name="apellidoSocio" ng-model="asociacion.otroProductor.apellido"  ng-required="asociacion.otroProductor.asociado"/>
+                                <input type="text" capitalize class="form-control" name="apellidoSocio" ng-model="asociacion.otroProductor.apellido"  ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
                                 <label class="error" ng-show="myForm.apellidoSocio.$dirty && myForm.apellidoSocio.$error.required ">Requerido</label>
                             </div>
                         </div>
@@ -724,7 +720,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Vereda/Corregimiento de Ubicación</label>
-                                <input type="text" capitalize class="form-control" name="veredaAsocio" ng-model="asociacion.otroProductor.vereda" ng-required="asociacion.otroProductor.asociado"/>
+                                <input type="text" capitalize class="form-control" name="veredaAsocio" ng-model="asociacion.otroProductor.vereda" ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
                                 <label class="error" ng-show="myForm.veredaAsocio.$dirty && myForm.veredaAsocio.$error.required ">Requerido</label>
 
                             </div>
@@ -745,7 +741,7 @@
             <div class="form-group">
                 <label class="col-md-7 control-label">Productor a seguir en su vereda</label>
                 <div class="col-md-2">
-                    <input bs-switch ng-model="asociacion.sigue.asociado" switch-on="primary" switch-off="warning"
+                    <input bs-switch ng-model="asociacion.sigue.asociado" switch-on="primary" switch-off="warning" switch-active="soloLectura"
                         switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" />
                 </div>
             </div>
@@ -755,7 +751,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Nombre del Productor a Seguir</label>
-                                <input type="text" capitalize class="form-control" name="nombreSeguir" ng-model="asociacion.sigue.nombre" ng-required="asociacion.sigue.asociado"/>
+                                <input type="text" capitalize class="form-control" name="nombreSeguir" ng-model="asociacion.sigue.nombre" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
                                 <label class="error" ng-show="myForm.nombreSeguir.$dirty && myForm.nombreSeguir.$error.required ">Requerido</label>
 
                             </div>
@@ -765,7 +761,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Apellidos del Productor a Seguir</label>
-                                <input type="text" capitalize class="form-control" name="apellidoSeguir" ng-model="asociacion.sigue.apellido" ng-required="asociacion.sigue.asociado"/>
+                                <input type="text" capitalize class="form-control" name="apellidoSeguir" ng-model="asociacion.sigue.apellido" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
                                 <label class="error" ng-show="myForm.apellidoSeguir.$dirty && myForm.apellidoSeguir.$error.required ">Requerido</label>
                             </div>
                         </div>
@@ -774,7 +770,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Vereda/Corregimiento de Ubicación</label>
-                                <input type="text" capitalize class="form-control" name="veredaSeguir" ng-model="asociacion.sigue.vereda" ng-required="asociacion.sigue.asociado"/>
+                                <input type="text" capitalize class="form-control" name="veredaSeguir" ng-model="asociacion.sigue.vereda" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
                                 <label class="error" ng-show="myForm.veredaSeguir.$dirty && myForm.veredaSeguir.$error.required ">Requerido</label>
 
                             </div>

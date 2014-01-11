@@ -156,8 +156,8 @@ class RuatA extends CI_Controller {
     public function cargar($ruat_id, $do_echo=false)
     {
         $ruat = Ruat::find($ruat_id);
-
         $output = new StdClass;
+        $output->soloLectura = true;
         $output->ruat_id = $ruat->id;
         $output->numero_formulario = $ruat->numero_formulario;
         $output->productor = $ruat->productor->to_array();
