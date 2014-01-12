@@ -4,7 +4,6 @@ create table renglonproductivo      (id serial not null primary key, descripcion
 create table tipoproductor          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table tipocredito            (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table tipoinnovacion         (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
-create table tipoactividadvisita    (id serial not null primary key, descripcion varchar(150) not null, orden integer not null);
 create table tipoconfianza          (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table claseorganizacion      (id serial not null primary key, descripcion varchar(30) not null, orden integer not null);
 create table tipobeneficio          (id serial not null primary key, descripcion varchar(50) not null, orden integer not null);
