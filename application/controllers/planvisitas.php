@@ -23,7 +23,7 @@ class PlanVisitas extends CI_Controller {
         $data['tiposCredito']         = array_map('to_array',TipoCredito::sorted());
         $data['periodicidades']       = array_map('to_array',Periodicidad::sorted());
         $data['tiposConfianza']       = array_map('to_array',TipoConfianza::sorted());
-        $data['tiposInnovacion']      = array_map('to_array',TipoInnovacion::sorted());
+        $data['tiposActividadVisita'] = array_map('to_array',TipoActividadVisita::sorted());
         $data['fuentesInnovacion']    = array_map('to_array',FuenteInnovacion::sorted());
         $data['tiposRazonNoPertenecer'] = array_map('to_array',TipoRazonNoPertenecer::sorted());
         $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
