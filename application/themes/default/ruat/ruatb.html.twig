@@ -23,6 +23,7 @@
         extern.scope = {{scope | json_encode }};
     {% else %}
         extern.scope = {
+            soloLectura: false,
             finca: {ruat_id:{{ruat_id}}  },
             servicios: [],
             mediosTransporte: [],
@@ -139,6 +140,8 @@
 
 
         $scope.submit = function() {
+            if($scope.soloLectura) return $scope.siguiente();
+
             if(!$scope.validate($scope.myForm)) {
                 notif({type:'error', text:'Formulario Incompleto. <br/> Verifique los campos requeridos'});
                 return;
@@ -184,6 +187,15 @@
 </script>
 {% endraw %}
 {% endblock %}
+
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      {{breadcrumbs}}
+    </ul>
+{% endblock %}
+
+
 
 {% block titulo %} <h1><i class="icon20 i-home-11"></i> RUAT &#187; Datos Finca </h1> {% endblock %}
 
@@ -322,7 +334,7 @@
                     <div class="form-group">
                         <label class="control-label">Disponibilidad de Vias de Acceso</label><br/>
                         <input bs-switch ng-model="finca.via_disponibilidad" switch-on="primary" switch-off="warning"
-                            switch-on-label="SI" switch-off-label="NO" switch-active="soloLectura">
+                            switch-on-label="SI" switch-off-label="NO" switch-active="{{!soloLectura}}">
                     </div>
                 </div>
             </div>
@@ -357,11 +369,11 @@
                 <th style="width:150px; vertical-align:middle">Ordinarios</td>
                 <td style="width:100px">
                     <input bs-switch ng-model="manejaResidsOrdinarios" switch-on="primary" switch-off="warning"
-                            switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-active="soloLectura"/>
+                            switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-active="{{!soloLectura}}"/>
 
                 </td>
                 <td>
-                    <input type="text" capitalize name="residuosOrdinarios" ng-model="finca.residuos_ordinarios" placeholder="Descripción" 
+                    <input type="text" capitalize name="residuosOrdinarios" ng-disabled="soloLectura" ng-model="finca.residuos_ordinarios" placeholder="Descripción" 
                             ng-required='manejaResidsOrdinarios' ng-show="manejaResidsOrdinarios" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosOrdinarios.$dirty && myForm.residuosOrdinarios.$error.required">
                         <label class="error">Requerido</label>
@@ -372,10 +384,10 @@
                 <th style="width:150px; vertical-align:middle">Peligrosos</td>
                 <td style="width:100px">
                     <input bs-switch ng-model="manejaResidsPeligrosos" switch-on="primary" switch-off="warning"
-                            switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-active="soloLectura"/>
+                            switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-active="{{!soloLectura}}"/>
                 </td>
                 <td>
-                    <input type="text" capitalize name="residuosPeligrosos" ng-model="finca.residuos_peligrosos" placeholder="Descripción" 
+                    <input type="text" capitalize name="residuosPeligrosos" ng-disabled="soloLectura" ng-model="finca.residuos_peligrosos" placeholder="Descripción" 
                             ng-required='manejaResidsPeligrosos' ng-disabled="soloLectura" ng-show="manejaResidsPeligrosos" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosPeligrosos.$dirty && myForm.residuosPeligrosos.$error.required">
                         <label class="error">Requerido</label>
@@ -386,7 +398,7 @@
                 <th style="width:150px; vertical-align:middle">Otros</td>
                 <td style="width:100px">
                     <input bs-switch ng-model="manejaResidsOtros" switch-on="primary" switch-off="warning"
-                            switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-active="soloLectura"/>
+                            switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-active="{{!soloLectura}}"/>
                 </td>
                 <td>
                     <input type="text" capitalize name="residuosOtros" class="form-control" ng-disabled="soloLectura" ng-model="finca.residuos_otro" placeholder="Descripción" ng-required='manejaResidsOtros' ng-show="manejaResidsOtros" style="width:100%" />
@@ -443,10 +455,10 @@
 
                     <td style="width:150px; vertical-align:middle"><strong>{{t.descripcion}}</strong></td>
                     <td style="width:100px">
-                        <input bs-switch ng-model="maquinaria[t.id].usa" switch-on="primary" switch-off="warning" switch-active="soloLectura"
+                        <input bs-switch ng-model="maquinaria[t.id].usa" switch-on="primary" switch-off="warning" switch-active="{{!soloLectura}}"
                                 switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="small" />
                     </td>
-                    <td><input type="text" capitalize class="form-control" name="descripMaquinaria" ng-model="maquinaria[t.id].descripcion" placeholder="Descripción" ng-show="maquinaria[t.id].usa" ng-required="maquinaria[t.id].usa" />
+                    <td><input type="text" capitalize class="form-control" name="descripMaquinaria" ng-model="maquinaria[t.id].descripcion" placeholder="Descripción" ng-disabled="soloLectura" ng-show="maquinaria[t.id].usa" ng-required="maquinaria[t.id].usa" />
                         <label class="error" ng-show="subForm.descripMaquinaria.$dirty && subForm.descripMaquinaria.$error.required">Requerido</label>
                     </td>
                 </tr>
@@ -498,14 +510,14 @@
                         <input type="text" capitalize class="form-control" name="variedadProd" ng-disabled="soloLectura" ng-model="prod.variedad" />
                     </td>
                     <td>
-                        <input bs-switch ng-model="prod.semilla_certificada" switch-on="primary" switch-off="warning" switch-active="soloLectura"
+                        <input bs-switch ng-model="prod.semilla_certificada" switch-on="primary" switch-off="warning" switch-active="{{!soloLectura}}"
                                 switch-on-label=".&nbsp; Certificada  &nbsp;." switch-off-label="No Certificada">
                     </td>
                     <td>
                         <div class="input-group" style="width:100px">
                             <span class="input-group-addon">ha</span>
 
-                            <input type="number" class="form-control" step="0.01" min="0" max="100000000000.99" style="min-width:90px" name="areaCosechada" ng-model="prod.area_cosechada " ng-disabled="soloLectura" required />
+                            <input type="text" money decimals="2" class="form-control" step="0.01" min="0" max="100000000000.99" style="min-width:90px" name="areaCosechada" ng-model="prod.area_cosechada " ng-disabled="soloLectura" required />
 			    
                         </div>
 			             <label class="error" ng-show="subForm.areaCosechada.$error.required">Requerido</label>
@@ -643,7 +655,7 @@
                         <input type="text" class="form-control" capitalize name="subproducto_uso" ng-model="prod.subproducto_uso" ng-disabled="soloLectura" placeholder="Uso">
                     </td>
                     <td style="text-align:center">
-                        <input bs-switch ng-model="prod.perteneceProgAsistencia" switch-on="info" switch-off="warning" switch-size="small" switch-on-label="SI" switch-off-label="NO" switch-active="soloLectura">
+                        <input bs-switch ng-model="prod.perteneceProgAsistencia" switch-on="info" switch-off="warning" switch-size="small" switch-on-label="SI" switch-off-label="NO" switch-active="{{!soloLectura}}">
                     </td>
                     <td>
                         <input type="text" class="form-control" capitalize name="programa" ng-model="prod.asistencia_programa" ng-required="prod.perteneceProgAsistencia" ng-disabled="!prod.perteneceProgAsistencia || soloLectura" placeholder="{{prod.perteneceProgAsistencia?'Programa':''}}" />

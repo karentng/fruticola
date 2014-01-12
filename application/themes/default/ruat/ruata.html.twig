@@ -22,6 +22,7 @@
         extern.ruat = {{ruat}};
     {% else %}
         extern.ruat = {
+            soloLectura:false,
             productor : {
                 tipo_documento_id:1,
             },
@@ -59,7 +60,7 @@
 
     myApp.directive('buttonsRadio', function() { // http://stackoverflow.com/a/13450409
         return {
-            restrict: 'E', scope: { model: '=', options:'='},
+            restrict: 'E', scope: { model: '=', options:'=', disabled:'='},
             replace:true,
             controller: function($scope) {
                 $scope.activate = function(option) {
@@ -67,7 +68,7 @@
                     else $scope.model=option;
                 }
             },
-            template: "<div class='btn-group'><button type='button' ng-repeat='t in options' "+
+            template: "<div class='btn-group'><button type='button' ng-repeat='t in options' ng-disabled='disabled' "+
                         "class='btn btn-sm' + ng-class=\"{'active':t.id==model, 'btn-primary':t.id==model, 'btn-default':t.id!=model}\"  "+
                         "ng-click='activate(t.id)'>{{t.descripcion}}</button></div>"
         };
@@ -157,6 +158,7 @@
         };
 
         $scope.submit = function() {
+            if($scope.soloLectura) return $scope.siguiente();
             var coop = $scope.asociacion.cooperativa;
             console.log("coop=",coop);
             if(coop.asociado) {
@@ -208,6 +210,17 @@
 </script>
 {% endraw %}
 {% endblock %}
+
+
+
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      {{breadcrumbs}}
+    </ul>
+{% endblock %}
+
+
 
 {% block titulo %} <h1><i class="icon20 i-man"></i> RUAT &#187; Datos Personales </h1> {% endblock %}
 
@@ -518,7 +531,7 @@
                         <div class="form-group">
                             <label class="col-md-7 control-label">Uso de Crédito Actual</label>
                             <div class="col-md-5">
-                                <input bs-switch ng-model="economia.usaCredito" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" switch-active="soloLectura">
+                                <input bs-switch ng-model="economia.usaCredito" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" switch-active="{{!soloLectura}}">
                             </div>
                             
                         </div>
@@ -562,7 +575,7 @@
             <div class="form-group">
                 <label class="col-md-7 control-label">¿Realiza Procesos de Innovación?</label>
                 <div class="col-md-5">
-                    <input bs-switch ng-model="realizaInnovacion" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" switch-active="soloLectura">
+                    <input bs-switch ng-model="realizaInnovacion" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" switch-active="{{!soloLectura}}">
                 </div>
             </div>
 
@@ -580,7 +593,7 @@
                     <td>{{tipoInn.descripcion}}</td>
                     <td>
                         <span ng-init="innovaciones[$index] = innovaciones[$index] ? innovaciones[$index] : {tipo_id:tipoInn.id}"></span>
-                        <buttons-radio model="innovaciones[$index].fuente_id" options="fuentesInnovacion" name="fuente" >
+                        <buttons-radio model="innovaciones[$index].fuente_id" options="fuentesInnovacion" name="fuente" disabled="soloLectura" >
                         </buttons-radio>
                     </td>
                     <td>
@@ -617,7 +630,7 @@
             <div class="form-group">
                 <label class="col-md-7 control-label">Pertenece a Asociaciones, Cooperativas o Agremiaciones</label>
                 <div class="col-md-2">
-                    <input bs-switch ng-model="asociacion.cooperativa.asociado" switch-on="primary" switch-off="warning" switch-active="soloLectura"
+                    <input bs-switch ng-model="asociacion.cooperativa.asociado" switch-on="primary" switch-off="warning" switch-active="{{!soloLectura}}"
                         switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" />
                 </div>
             </div>
@@ -660,7 +673,7 @@
                         <label class="error" ng-show="subForm.periodicidad.$error.required">Requerido</label>
                     
                     </td>
-                    <td><input bs-switch ng-model="fila.directivo" switch-on="info" switch-off="info" switch-active="soloLectura"
+                    <td><input bs-switch ng-model="fila.directivo" switch-on="info" switch-off="info" switch-active="{{!soloLectura}}"
                         switch-on-label="Directivo" switch-off-label="Participante" switch-type="checkbox" switch-size="" switch-animate="true" />
                     </td>
                     <th><button type="button" ng-click="asociacion.cooperativa.filas.splice($index,1)" ng-disabled="soloLectura"  class="btn btn-sm btn-danger" title="Quitar Fila"><i class="i-minus-circle"></i></th>
@@ -692,7 +705,7 @@
             <div class="form-group">
                 <label class="col-md-7 control-label">Trabajo en asocio para realizar actividades productivas, de transformación y Comercialización con otro productor</label>
                 <div class="col-md-2">
-                    <input bs-switch ng-model="asociacion.otroProductor.asociado" switch-on="primary" switch-off="warning" switch-active="soloLectura"
+                    <input bs-switch ng-model="asociacion.otroProductor.asociado" switch-on="primary" switch-off="warning" switch-active="{{!soloLectura}}"
                         switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" />
                 </div>
             </div>
@@ -731,7 +744,7 @@
                 <div class="form-group">
                     <label for="" class="control-label col-md-4">Grado de Confianza</label>
                     <div class="col-md-6">
-                        <buttons-radio model="asociacion.otroProductor.confianza_id" options="tiposConfianza">
+                        <buttons-radio model="asociacion.otroProductor.confianza_id" options="tiposConfianza" disabled="soloLectura">
                         </buttons-radio>
                     </div>
                 </div>
@@ -741,7 +754,7 @@
             <div class="form-group">
                 <label class="col-md-7 control-label">Productor a seguir en su vereda</label>
                 <div class="col-md-2">
-                    <input bs-switch ng-model="asociacion.sigue.asociado" switch-on="primary" switch-off="warning" switch-active="soloLectura"
+                    <input bs-switch ng-model="asociacion.sigue.asociado" switch-on="primary" switch-off="warning" switch-active="{{!soloLectura}}"
                         switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" />
                 </div>
             </div>
@@ -781,7 +794,7 @@
                 <div class="form-group">
                     <label for="" class="control-label col-md-4">Grado de Confianza</label>
                     <div class="col-md-6">
-                        <buttons-radio model="asociacion.sigue.confianza_id" options="tiposConfianza">
+                        <buttons-radio model="asociacion.sigue.confianza_id" options="tiposConfianza" disabled="soloLectura">
                         </buttons-radio>
                     </div>
                 </div>

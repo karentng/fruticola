@@ -1,5 +1,14 @@
 {% extends "base.html.twig" %}
 
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      {{breadcrumbs}}
+    </ul>
+{% endblock %}
+
+{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> RUAT &#187; Observaciones </h1> {% endblock %}
+
 {% block contenido %}
 
 {{ form_open_multipart(null, {role:'form'}) }}
@@ -19,10 +28,14 @@
     <div class="panel-body" style="display: block;">
         <div class="container">            
             <!-- begin -->
+            {% if soloLectura %}
+                {% set disabled = "disabled='disabled'" %}
+            {% endif %}
             <div class="row">
                 {{form_error('observacion')}}
-                    <textarea class="form-control" id="textarea" name="observacion" rows="3" >{{ set_value('observacion') ? set_value('observacion') : observacion.observacion }}</textarea>
+                    <textarea class="form-control" id="textarea" name="observacion" rows="3" {{disabled}} >{{ set_value('observacion') ? set_value('observacion') : observacion.observacion }}</textarea>
                 </div>
+                <br/>
 
                 <div class="form-group">
 
@@ -46,13 +59,13 @@
                             {% if observacion.ruta_formulario %}
                             <span class="box1 col-lg-12">
                                 <i aria-hidden="true" class="i-file"></i>
-                                <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~ observacion.ruta_formulario}}">{{observacion.ruta_formulario}} </a>
+                                <a type="button" target="_blank" href="{{base_url() ~ 'uploads/' ~ observacion.ruta_formulario}}">{{observacion.ruta_formulario}} </a>
                             </span>      
                             <br/><br/><br/>
                             {% endif %}
 
                             
-                            <input type="file" name="archivo_formulario" id="archivo_formulario" >
+                            <input type="file" name="archivo_formulario" id="archivo_formulario" {{disabled}}>
                             {{upload_result_ruat}}
                             <label for="archivo_formulario" class="col-lg-12"  >DOCUMENTO DEL BENEFICIARIO</label>
                         </div>
@@ -62,12 +75,12 @@
                             {% if productor.adjunto_cedula %}
                                 <span class="box1 col-lg-12">
                                     <i aria-hidden="true" class="i-vcard"></i>
-                                    <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~productor.adjunto_cedula}}">{{productor.adjunto_cedula}} </a>
+                                    <a type="button" target="_blank" href="{{base_url() ~ 'uploads/' ~productor.adjunto_cedula}}">{{productor.adjunto_cedula}} </a>
                                 </span>      
                                 <br/><br/><br/>
                             {% endif %}
 
-                            <input type="file" name="archivo_documento_identificacion" id="archivo_documento_identificacion" >
+                            <input type="file" name="archivo_documento_identificacion" id="archivo_documento_identificacion" {{disabled}}>
                             {{upload_result_documento_identidad}}
                             <label for="archivo_documento_identificacion" class="col-lg-12" >RUAT DIGITALIZADO</label>
                         </div>

@@ -9,3 +9,6 @@ application/logs/*
 !application/logs/.htaccess
 
 .nfs*
+
+uploads/ruat/*
+uploads/documentos_identificacion/*

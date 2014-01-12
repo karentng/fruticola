@@ -147,6 +147,7 @@ insert into tipoformapago (descripcion, orden) values
     ('Crédito', 4),
     ('Trueque', 5);
 
+
 insert into tipoinnovacion(descripcion, orden) values
     ('Producción', 1),
     ('Transformación', 2),
