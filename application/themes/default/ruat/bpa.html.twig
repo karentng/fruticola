@@ -7,15 +7,13 @@
         var resultado = 0;
 
         for(var i = 1; i <= {{tamaño}}; i++){
-            var aux = parseInt($("#valor"+i+"f").text());
+            var aux = parseInt($("#valor"+i+"f").val());
             if( (typeof aux) === 'number' && !(isNaN(aux))){
                 resultado += aux;
             }
         }
-        console.log(resultado);
         resultado /= 8;
-        console.log(resultado);
-        $("#valorFinal").text(resultado);
+        $("#valorFinal").val(resultado);
     }
 
     function calcularSeccionCuatro(){
@@ -38,19 +36,18 @@
             }
         }
 
-        console.log(valores[0]);
-
         valores[0] = valores[0] / 10;
         valores[1] = valores[1] / 4;
         valores[2] = valores[2] / 5;
-        $("#valor15f").text(valores[0].toFixed(2));
-        $("#valor26f").text(valores[1].toFixed(2));
-        $("#valor31f").text(valores[2].toFixed(2));
+        $("#valor15f").val(valores[0].toFixed(2));
+        $("#valor26f").val(valores[1].toFixed(2));
+        $("#valor31f").val(valores[2].toFixed(2));
 
-        $("#valor14f").text(((+valores[0]+valores[1]+valores[2])/3).toFixed(2));
+        $("#valor14f").val(((+valores[0]+valores[1]+valores[2])/3).toFixed(2));
     }
 
     function calcular(seccion, padre){
+        console.log("a");
         var numSubSecciones = 0;
         //console.log(seccion);
         //console.log(padre);
@@ -93,8 +90,9 @@
                 resultado += aux;
             }
         }
+
         resultado = resultado / numSubSecciones;
-        $("#valor"+padre+"f").text(resultado.toFixed(2));
+        $("#valor"+padre+"f").val(resultado.toFixed(2));
         calcularFinal();
     }    
 </script>
@@ -192,14 +190,9 @@
                     <td style="text-align:center; width:100px;">
                         <!--<input bs-switch switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">-->
-                        <div class="switch" 
-     data-on="primary" 
-     data-off="danger" 
-     data-on-label="<i class='i-checkmark-3'></i>" 
-     data-off-label="<i class='i-close'></i>" >
-
-        <input class="toggle" type="checkbox" checked />
-</div>
+                        <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>" >
+                            <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" checked />
+                        </div>
                     </td>
                     <td>
                         <input id="{{'respuesta'~ preguntaB.id}}" name="{{'recomendacion'~preguntaB.id}}" type="text" class="form-control" placeholder="" style="width:240px;"/>
@@ -257,7 +250,7 @@
                     <td align="center">
                         {% if preguntaC.padre == null or preguntaC.numeral == 15 or
                             preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
-                            <label id="{{'valor'~preguntaC.id~"f"}}">0</label>
+                            <input type="number" name="{{'valor'~preguntaC.id}}" style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="0" readonly="true" />
                         {% else %}
                             <input type="number" name="{{'valor'~preguntaC.id}}" onkeyup="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})" id="{{'valor'~ preguntaC.padre ~preguntaC.id}}" style="width:60px;" value="0" max="100" min="0" />
                         {% endif %}
@@ -275,10 +268,10 @@
                         BUENAS PRACTICAS AGRÍCOLAS (BPA)</b></h3>
                     </td>
                     <td align="center">
-                        <label id="valorFinal" name="valorFinal">0</label>
+                        <input type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="0" readonly="true" />
                     </td>
                     <td>
-                        <textarea name="observacionFinal" style="width:240px; height:100%;"></textarea>
+                        <textarea name="recomendacionFinal" style="width:240px; height:100%;"></textarea>
                     </td>
                 </tr>
             </tbody>
