@@ -123,7 +123,7 @@ if(! function_exists('my_input'))
     {
         $output = "<li>RUAT</li>";
         $cond = array('ruat_id'=> $ruat_id ?: "0");
-        $linkA = site_url("ruatb/index/$ruat_id");
+        $linkA = site_url("ruata/index/$ruat_id");
         $linkB = $ruat_id ? site_url("ruatb/index/$ruat_id") : null;
         $linkC = Finca::exists($cond) ? site_url("ruatc/index/$ruat_id") : null;
         $linkD = AprendizajeRespuesta::exists($cond) ? site_url("ruatd/index/$ruat_id") : null;
