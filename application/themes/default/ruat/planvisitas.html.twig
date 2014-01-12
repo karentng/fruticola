@@ -1,0 +1,487 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+<script src="{{base_url('assets/js/plugins/forms/jquery.price_format.min.js')}}"></script>
+<script src="{{base_url('assets/js/angular/angular.js')}}"></script>
+<script src="{{base_url('assets/js/angular/angular-animate.js')}}"></script>
+<script src="{{base_url('assets/js/angular/angular-ui/select2.js')}}"></script>
+<script src="{{base_url('assets/js/angular/angular-bootstrap-switch.js')}}"></script>
+
+
+<script type="text/javascript">
+    var extern = {
+        combos: {{combos}}
+    };
+
+    var urls = {
+        guardar : "{{site_url('ruata/guardar')}}",
+        siguiente : "{{site_url('ruatb/index')}}",
+    };
+
+    {% if ruat %}
+        extern.ruat = {{ruat}};
+    {% else %}
+        extern.ruat = {
+            productor : {
+                tipo_documento_id:1,
+            },
+            contacto : {
+                departamento_id:30, //valle
+            },
+            economia : { usaCredito: false  },
+            asociacion : {
+                cooperativa: {
+                    asociado: false,
+                    filas: [{}], 
+                    razones: [], 
+                    orgs_apoyan: []
+                },
+                otroProductor: { asociado: false },
+                sigue: { asociado: false }
+            },
+            
+            realizaInnovacion:false,
+            innovaciones:[],
+        };
+    {% endif %}
+</script>
+
+
+{% raw %}
+<style>
+    input[money] {
+        text-align:right;
+    }
+</style>
+
+<script type="text/javascript">
+    var myApp = angular.module('myApp', ['ui.select2', 'frapontillo.bootstrap-switch']);
+
+    myApp.directive('buttonsRadio', function() { // http://stackoverflow.com/a/13450409
+        return {
+            restrict: 'E', scope: { model: '=', options:'='},
+            replace:true,
+            controller: function($scope) {
+                $scope.activate = function(option) {
+                    if($scope.model==option) $scope.model=null;
+                    else $scope.model=option;
+                }
+            },
+            template: "<div class='btn-group'><button type='button' ng-repeat='t in options' "+
+                        "class='btn btn-sm' + ng-class=\"{'active':t.id==model, 'btn-primary':t.id==model, 'btn-default':t.id!=model}\"  "+
+                        "ng-click='activate(t.id)'>{{t.descripcion}}</button></div>"
+        };
+    });
+
+    myApp.directive('money', ['$filter', function ($filter) {
+        var replaceAll = function(value, a,b) {
+            while(true) {
+                var newval = value.replace(a,b);
+                if(newval==value) break;
+                value = newval;
+            }
+            return value;
+        };
+
+        return {
+            require: '?ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                if (!ctrl) return;
+
+                
+                ctrl.$formatters.unshift(function (a) {
+                    var val = $filter('number')(ctrl.$modelValue,attrs.decimals);
+                    //swap comma and dot
+                    val = replaceAll(val, ".","|");  
+                    val = replaceAll(val, ",",".");
+                    val = replaceAll(val, "|",",");
+                    return val;
+                });
+
+                var decimals = parseInt(attrs.decimals || 0);
+
+                ctrl.$parsers.unshift(function (viewValue) {
+                    elem.priceFormat({
+                        centsLimit:decimals,
+                        allowNegative:false,
+                        prefix: '',
+                        centsSeparator: ',',
+                        thousandsSeparator: '.',
+                    });
+                    var val = replaceAll(elem[0].value,".","").replace(",",".");
+                    if(val.length) return parseFloat(val);
+                    else return '';
+                });
+            }
+        };
+    }]);
+
+    myApp.directive('capitalize', function() {
+       return {
+         require: 'ngModel',
+         link: function(scope, element, attrs, modelCtrl) {
+            var capitalize = function(inputValue) {
+               if(typeof inputValue !== "string") return inputValue;
+               var capitalized = inputValue.toUpperCase();
+               if(capitalized !== inputValue) {
+                  modelCtrl.$setViewValue(capitalized);
+                  modelCtrl.$render();
+                }         
+                return capitalized;
+             }
+             modelCtrl.$parsers.push(capitalize);
+             capitalize(scope[attrs.ngModel]);  // capitalize initial value
+         }
+       };
+    });
+
+    var RuatACtrl = function($scope, $http, $timeout) {
+
+        angular.extend($scope, extern.combos);
+        $scope.descripDocumento = {};
+        $scope.tiposDocumento.forEach(function(t) { $scope.descripDocumento[t.id]=t.descripcion; });
+
+        angular.extend($scope, extern.ruat);
+
+        //if(!$scope.productor.tipo_documento_id) $scope.productor.tipo_documento_id="1";
+
+        $timeout(function(){$scope.myForm.$setPristine()},1000);
+        
+        $scope.validate = function(form){   
+            for (feild in form) {
+                if (feild[0] != '$' && feild!='subForm' && form[feild].$pristine) {
+                    form[feild].$setViewValue( form[feild].$modelValue );
+                }
+            }
+            return $scope.myForm.$valid;
+        };
+
+        $scope.submit = function() {
+            var coop = $scope.asociacion.cooperativa;
+            console.log("coop=",coop);
+            if(coop.asociado) {
+                coop.razones = [];
+                coop.apoyan = [];
+            }
+            else {
+                coop.filas = [];
+            }
+            console.log("ahora coop=",coop);
+
+            if(!$scope.validate($scope.myForm)) {
+                notif({type:'error', text:'Formulario Incompleto. <br/> Verifique los campos requeridos'});
+                return;
+            }
+
+            var data = {
+                ruat_id : $scope.ruat_id || null,
+                numero_formulario : $scope.numero_formulario,
+                productor: $scope.productor,
+                contacto : $scope.contacto,
+                economia: $scope.economia,
+                asociacion: $scope.asociacion,
+                innovaciones: $scope.realizaInnovacion?$scope.innovaciones:[]
+            };
+            
+
+
+            $http.post(urls.guardar, data).success(function(response,status) {
+                //console.log(response);
+                if(response.success!==undefined) {
+                    notif(response.message);
+                    if(response.success) {
+                        angular.extend($scope, response.scope);
+                        $scope.siguiente();
+                    }
+                    //$scope.myForm.$setPristine();
+                }
+                else {
+                    alert("Error en comunicacion con el servidor. Intente nuevamente.");
+                }
+            });
+        };
+
+        $scope.siguiente = function() {
+            window.location = (urls.siguiente+"/"+$scope.ruat_id);
+        }
+    };
+</script>
+{% endraw %}
+{% endblock %}
+
+{% block titulo %} <h1><i class="icon20 i-man"></i> PLAN DE VISITAS </h1> {% endblock %}
+
+{% block contenido %}
+{% raw %}
+
+<div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
+
+<div class="row">
+    <div class="col-sm-8">
+        <h3>
+            {{productor.nombre1}} {{productor.nombre2}} {{productor.apellido1}} {{productor.apellido2}} 
+            <small>{{descripDocumento[productor.tipo_documento_id]}}: {{productor.numero_documento}}</small>
+        </h3>
+    </div>
+</div>
+<br/>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container">
+            
+            <table class="table table-bordered animate-show-hide">
+            <thead>
+                <tr>
+                    <th>Actividad</th>
+                    <th>TOTAL VISITAS</th>
+                    <th colspan="2">NUMERO DE VISITAS A REALIZAR POR CADA BENEFICIARIO</th>
+                    
+                </tr>
+                
+            </thead>
+            <tbody>
+                <tr ng-repeat="tipoInn in tiposInnovacion" ng-form="subForm">
+                    <td>{{tipoInn.descripcion}}</td>
+                    <td>
+                        <span ng-init="innovaciones[$index] = innovaciones[$index] ? innovaciones[$index] : {tipo_id:tipoInn.id}"></span>
+                        <buttons-radio model="innovaciones[$index].fuente_id" options="fuentesInnovacion" name="fuente" >
+                        </buttons-radio>
+                    </td>
+                    <td>
+                        <input type="text" capitalize class="form-control" style="width:100px" 
+                                placeholder="¿Cual?" name="otra_fuente" ng-model="innovaciones[$index].otra_fuente" ng-show="innovaciones[$index].fuente_id==6" ng-required="innovaciones[$index].fuente_id==6" ng-disabled="soloLectura"/>
+                        <label class="error" ng-show="subForm.otra_fuente.$error.required">Requerido</label>
+                        
+                    </td>
+                    <td>
+                        <input type="text" capitalize class="form-control" name="descripcion" ng-model="innovaciones[$index].descripcion"
+                            placeholder="{{innovaciones[$index].fuente_id?'Ingrese aqui la Descripción':''}}" ng-required="innovaciones[$index].fuente_id" ng-disabled="!innovaciones[$index].fuente_id || soloLectura" />
+                        <label class="error" ng-show="subForm.descripcion.$error.required">Requerido</label>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<br/>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>A5. Asociatividad del Usuario</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container">
+            <div class="form-group">
+                <label class="col-md-7 control-label">Pertenece a Asociaciones, Cooperativas o Agremiaciones</label>
+                <div class="col-md-2">
+                    <input bs-switch ng-model="asociacion.cooperativa.asociado" switch-on="primary" switch-off="warning" switch-active="soloLectura"
+                        switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" />
+                </div>
+            </div>
+            
+            <table class="table table-bordered" ng-if="asociacion.cooperativa.asociado" >
+            <thead>
+                <tr>
+                    <th>Clase</th>
+                    <th>Organización</th>
+                    <th>Beneficio</th>
+                    <th>Periodicidad <br/> de Asitencia</th>
+                    <th>Labor <br/> que Realiza</th>
+                    <th><button type="button" ng-click="asociacion.cooperativa.filas.push({})" ng-disabled="soloLectura"  class="btn btn-sm btn-primary tip" data-original-title="Agregar Fila"><i class="i-plus-circle"></i></button></th>
+                </tr>
+            </thead>
+                <tr ng-repeat="fila in asociacion.cooperativa.filas" ng-form="subForm">
+                    <td>
+                        <select multiple name="clase" ng-required="asociacion.cooperativa.asociado" ng-model="fila.clases" ng-disabled="soloLectura" style="min-width:100px"
+                                ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Clases de Organización'}">
+                            <option ng-repeat="t in clasesOrganizaciones" value="{{t.id}}">{{t.descripcion}}</option>
+                        </select>
+                         <span class="help-block" ng-show="subForm.clase.$error.required"><label class="error">Requerido</label></span>
+                    </td>
+                    <td>
+                        <input type="text" capitalize class="form-control" name="nombre" ng-model="fila.nombre" ng-disabled="soloLectura" ng-required="true" placeholder="Organización"/>
+                         <span class="help-block" ng-show="subForm.nombre.$error.required"><label class="error">Requerido</label></span>
+                    </td>
+                    <td><select multiple name="beneficios" ng-required="asociacion.cooperativa.asociado" ng-model="fila.beneficios" style="min-width:150px" ng-disabled="soloLectura"
+                                ui-select2="{minimumResultsForSearch: -1, multiple:true, allowClear:true, placeholder:'Beneficios'}">
+                            <option ng-repeat="t in tiposBeneficio" value="{{t.id}}">{{t.descripcion}}</option>
+                        </select>
+                         <span class="help-block" ng-show="subForm.beneficios.$error.required"><label class="error">Requerido</label></span>
+                    </td>
+                    <td>
+                        <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'Periodicidad'}" ng-disabled="soloLectura"
+                            name="periodicidad" ng-model="fila.periodicidad_id" ng-required="true">
+                            <option></option>
+                            <option ng-repeat="t in periodicidades" value="{{t.id}}">{{t.descripcion}}</option>
+                        </select>
+                        <label class="error" ng-show="subForm.periodicidad.$error.required">Requerido</label>
+                    
+                    </td>
+                    <td><input bs-switch ng-model="fila.directivo" switch-on="info" switch-off="info" switch-active="soloLectura"
+                        switch-on-label="Directivo" switch-off-label="Participante" switch-type="checkbox" switch-size="" switch-animate="true" />
+                    </td>
+                    <th><button type="button" ng-click="asociacion.cooperativa.filas.splice($index,1)" ng-disabled="soloLectura"  class="btn btn-sm btn-danger" title="Quitar Fila"><i class="i-minus-circle"></i></th>
+                </tr>
+            </table>
+
+            <div class="row" ng-show="!asociacion.cooperativa.asociado">
+                <div class="col-md-5">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Razones de no Pertencer</label>
+                            <select multiple ng-model="asociacion.cooperativa.razones" ng-disabled="soloLectura"
+                             ui-select2="{ multiple:true, minimumResultsForSearch: -1, allowClear:true}">
+                                <option ng-repeat="t in tiposRazonNoPertenecer" value="{{t.id}}">{{t.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="container"> 
+                        <div class="form-group">
+                            <label class="control-label">Entidades a las que no esté asociado pero que presten apoyo</label>
+                            <input type="text" capitalize ng-model="asociacion.cooperativa.orgs_apoyan" ng-disabled="soloLectura" ui-select2="{multiple:true, simple_tags:true, tags:[]}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <label class="col-md-7 control-label">Trabajo en asocio para realizar actividades productivas, de transformación y Comercialización con otro productor</label>
+                <div class="col-md-2">
+                    <input bs-switch ng-model="asociacion.otroProductor.asociado" switch-on="primary" switch-off="warning" switch-active="soloLectura"
+                        switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" />
+                </div>
+            </div>
+            <div class="container" ng-show="asociacion.otroProductor.asociado">
+                <div class="row" >
+                    <div class="col-md-4">
+                        <div class="container">
+                            <div class="form-group">
+                                <label for="" class="control-label">Nombre del Productor en Asocio</label>
+                                <input type="text" capitalize class="form-control" name="nombreSocio" ng-model="asociacion.otroProductor.nombre" ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
+                                <label class="error" ng-show="myForm.nombreSocio.$dirty && myForm.nombreSocio.$error.required ">Requerido</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="container">
+                            <div class="form-group">
+                                <label for="" class="control-label">Apellidos del Productor en Asocio</label>
+                                <input type="text" capitalize class="form-control" name="apellidoSocio" ng-model="asociacion.otroProductor.apellido"  ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
+                                <label class="error" ng-show="myForm.apellidoSocio.$dirty && myForm.apellidoSocio.$error.required ">Requerido</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="container">
+                            <div class="form-group">
+                                <label for="" class="control-label">Vereda/Corregimiento de Ubicación</label>
+                                <input type="text" capitalize class="form-control" name="veredaAsocio" ng-model="asociacion.otroProductor.vereda" ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
+                                <label class="error" ng-show="myForm.veredaAsocio.$dirty && myForm.veredaAsocio.$error.required ">Requerido</label>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="" class="control-label col-md-4">Grado de Confianza</label>
+                    <div class="col-md-6">
+                        <buttons-radio model="asociacion.otroProductor.confianza_id" options="tiposConfianza">
+                        </buttons-radio>
+                    </div>
+                </div>
+            </div>
+            
+            <hr/>
+            <div class="form-group">
+                <label class="col-md-7 control-label">Productor a seguir en su vereda</label>
+                <div class="col-md-2">
+                    <input bs-switch ng-model="asociacion.sigue.asociado" switch-on="primary" switch-off="warning" switch-active="soloLectura"
+                        switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" />
+                </div>
+            </div>
+            <div class="container" ng-show="asociacion.sigue.asociado">
+                <div class="row" >
+                    <div class="col-md-4">
+                        <div class="container">
+                            <div class="form-group">
+                                <label for="" class="control-label">Nombre del Productor a Seguir</label>
+                                <input type="text" capitalize class="form-control" name="nombreSeguir" ng-model="asociacion.sigue.nombre" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
+                                <label class="error" ng-show="myForm.nombreSeguir.$dirty && myForm.nombreSeguir.$error.required ">Requerido</label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="container">
+                            <div class="form-group">
+                                <label for="" class="control-label">Apellidos del Productor a Seguir</label>
+                                <input type="text" capitalize class="form-control" name="apellidoSeguir" ng-model="asociacion.sigue.apellido" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
+                                <label class="error" ng-show="myForm.apellidoSeguir.$dirty && myForm.apellidoSeguir.$error.required ">Requerido</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="container">
+                            <div class="form-group">
+                                <label for="" class="control-label">Vereda/Corregimiento de Ubicación</label>
+                                <input type="text" capitalize class="form-control" name="veredaSeguir" ng-model="asociacion.sigue.vereda" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
+                                <label class="error" ng-show="myForm.veredaSeguir.$dirty && myForm.veredaSeguir.$error.required ">Requerido</label>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="" class="control-label col-md-4">Grado de Confianza</label>
+                    <div class="col-md-6">
+                        <buttons-radio model="asociacion.sigue.confianza_id" options="tiposConfianza">
+                        </buttons-radio>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<br/>
+
+<div class="form-actions full">
+
+    <!--div class="col-md-4 pull-right">
+        <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
+        
+    </div-->
+    <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
+</div>
+
+
+</form></div></div>
+<div class="row" style="height:100px"></div> <!--para evitar que el señalador de "ir arriba" tape el boton siguiente -->
+
+{% endraw %}
+
+{% endblock %}
