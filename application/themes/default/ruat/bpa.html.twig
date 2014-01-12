@@ -19,7 +19,7 @@
     }
 
     function calcularSeccionCuatro(){
-        var valores = [0,0,0]; // 41,42,43
+        var valores = [0,0,0];
 
         for(var  i = 1; i <= {{tamaño}} ; i++){
             var aux = parseInt($("#valor15"+i).val());
@@ -202,7 +202,7 @@
 </div>
                     </td>
                     <td>
-                        <input id="{{'observacion'~ preguntaB.id}}" type="text" class="form-control" placeholder="" style="width:240px;"/>
+                        <input id="{{'respuesta'~ preguntaB.id}}" name="{{'recomendacion'~preguntaB.id}}" type="text" class="form-control" placeholder="" style="width:240px;"/>
                     </td>
                 </tr>
                 {% endfor %}
@@ -217,7 +217,7 @@
             <tbody>
                 <tr>
                     <td colspan="4">
-                    	<textarea rows="3" style="width:100%;"></textarea>
+                    	<textarea rows="3" name="conclusionB" style="width:100%;"></textarea>
                     </td>
                 </tr>
             </tbody>
@@ -259,7 +259,7 @@
                             preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
                             <label id="{{'valor'~preguntaC.id~"f"}}">0</label>
                         {% else %}
-                            <input type="number" onkeyup="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})" id="{{'valor'~ preguntaC.padre ~preguntaC.id}}" style="width:60px;" value="0" max="100" min="0" />
+                            <input type="number" name="{{'valor'~preguntaC.id}}" onkeyup="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})" id="{{'valor'~ preguntaC.padre ~preguntaC.id}}" style="width:60px;" value="0" max="100" min="0" />
                         {% endif %}
                     </td>
                     <td>
@@ -275,7 +275,7 @@
                         BUENAS PRACTICAS AGRÍCOLAS (BPA)</b></h3>
                     </td>
                     <td align="center">
-                        <label id="valorFinal">0</label>
+                        <label id="valorFinal" name="valorFinal">0</label>
                     </td>
                     <td>
                         <textarea name="observacionFinal" style="width:240px; height:100%;"></textarea>
@@ -285,6 +285,16 @@
         </table>
     </div></div><!-- .container and .panel-body -->
 </div><!-- panel default -->
+
+<div class="form-actions full">
+
+    
+    <!---div class="col-md-4 pull-right">
+        <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
+        
+    </div-->
+    <button  class="btn btn-lg btn-success pull-right" type="submit">Guardar<i class="icon16 i-arrow-right"></i></button>
+</div>
 {{ form_close() }}
 
 {% endblock %}
