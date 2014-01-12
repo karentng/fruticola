@@ -43,6 +43,7 @@ class RuatA extends CI_Controller {
             $this->twiggy->set('ruat', json_encode($ruat));
         }
 
+        $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(1, $ruat_id));
         $this->twiggy->template("ruat/ruata");
         $this->twiggy->display();
     }
@@ -157,7 +158,8 @@ class RuatA extends CI_Controller {
     {
         $ruat = Ruat::find($ruat_id);
         $output = new StdClass;
-        $output->soloLectura = true;
+        $output->soloLectura = $ruat->soloLectura($this);
+
         $output->ruat_id = $ruat->id;
         $output->numero_formulario = $ruat->numero_formulario;
         $output->productor = $ruat->productor->to_array();

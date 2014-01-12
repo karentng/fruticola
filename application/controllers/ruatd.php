@@ -36,14 +36,16 @@ class RuatD extends CI_Controller {
             $observacion->observacion = $this->input->post('observacion');
             
             //var_dump($_FILES);
-            
+            $ok = true;
             ///Subo el archivo del RUAT
             if(isset($_FILES["archivo_formulario"]) && !empty($_FILES["archivo_formulario"]["name"])) {
                 $arr_upload_result = $this->do_upload_ruat($ruat_id);
                 if(!isset($arr_upload_result['error']) && isset($arr_upload_result['upload_data']))
                     $observacion->ruta_formulario = 'ruat/'.$arr_upload_result['upload_data']['file_name'];
-                else
+                else {
                     $upload_result_ruat = $arr_upload_result['error']; 
+                    $ok = false;
+                }
             }
             
             ///Subo el archivo de la CC
@@ -52,28 +54,31 @@ class RuatD extends CI_Controller {
                 if(!isset($arr_upload_result['error']) && isset($arr_upload_result['upload_data'])){
                     $productor->adjunto_cedula = 'documentos_identificacion/'.$arr_upload_result['upload_data']['file_name'];
                     $productor->save();
-                }else
+                } 
+                else {
                     $upload_result_documento_identidad = $arr_upload_result['error'];   
+                    $ok = false;
+                }
             }
             
             $observacion->save();
-
-            redirect("listadoruats");
+            
+            if($ok) redirect("listadoruats");
         }
         
         ///Obtengo los datos del usuario en session
         $usuaioSesion = $this->ion_auth->user()->row();
 
         $this->twiggy->register_function('form_open_multipart');
-        $this->twiggy->register_function('form_error');
-        $this->twiggy->register_function('set_value');
-        $this->twiggy->register_function('base_url');
+        $this->twiggy->set('soloLectura', Ruat::find($ruat_id)->soloLectura($this));
         $this->twiggy->set('url_ruatc', site_url("ruatc/index/$ruat_id"));
         $this->twiggy->set('observacion', $observacion);
         $this->twiggy->set('upload_result_ruat', $upload_result_ruat);
         $this->twiggy->set('upload_result_documento_identidad', $upload_result_documento_identidad);
         $this->twiggy->set('productor', $productor);
         $this->twiggy->set('usuaioSesion', $usuaioSesion);
+
+        $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(4, $ruat_id));
         $this->twiggy->template("ruat/observaciones");
         $this->twiggy->display();
     }
