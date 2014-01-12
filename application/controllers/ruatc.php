@@ -61,6 +61,8 @@ class RuatC extends CI_Controller {
         $this->twiggy->set('preguntas', $preguntas);
         $this->twiggy->set('respuestas', $respuestas);
         
+        $this->twiggy->set('ruat_id',$ruat_id);
+        $this->twiggy->set('soloLectura', Ruat::find($ruat_id)->soloLectura($this));
         $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(3, $ruat_id));
         $this->twiggy->template("ruat/apropiacion_aprendizajes");
         $this->twiggy->display();

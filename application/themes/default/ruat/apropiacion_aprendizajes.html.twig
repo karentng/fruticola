@@ -59,7 +59,11 @@
                                 {% set valor_pregunta = pregunta.id ~ '_' ~ respuesta.id %}
                                 {% set respuesta_checked_bd =  respuesta_bd == valor_pregunta ? 'checked' : ''%}
                                 <td>
-                                    <input type="radio" id="{{ nombre_pregunta~ '_' ~ clase_pregunta }}" name="{{ nombre_pregunta }}" value="{{ valor_pregunta }}" {{ set_radio(nombre_pregunta, valor_pregunta) ? set_radio(nombre_pregunta, valor_pregunta) : respuesta_checked_bd }}>
+                                    <input type="radio" id="{{ nombre_pregunta~ '_' ~ clase_pregunta }}" name="{{ nombre_pregunta }}" 
+                                            value="{{ valor_pregunta }}" 
+                                            {{ set_radio(nombre_pregunta, valor_pregunta) ? set_radio(nombre_pregunta, valor_pregunta) : respuesta_checked_bd }}
+                                            {% if soloLectura %} disabled="disabled" {% endif %} >
+                                    
                                     <label for="{{ nombre_pregunta~ '_' ~ clase_pregunta }}" class="r{{ clase_pregunta }}"></label>
                                 </td>
                                 {% set clase_pregunta = clase_pregunta+1 %}
@@ -75,8 +79,12 @@
 
 <br/>
 <div class="form-actions full">
-   <a class="btn btn-lg btn-warning pull-left" type="button" href="{{url_ruatb}}"><i class="icon16 i-arrow-first"></i>Anterior</a>
-   <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
+    <a class="btn btn-lg btn-warning pull-left" type="button" href="{{url_ruatb}}"><i class="icon16 i-arrow-first"></i>Anterior</a>
+    {% if soloLectura %}
+        <a class="btn btn-lg btn-success pull-right" href="{{site_url(['ruatd','index',ruat_id])}}">Siguiente <i class="icon16 i-arrow-right"></i></a>
+    {% else %}
+        <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente <i class="icon16 i-arrow-right"></i></button>
+    {% endif %}
 
 </div>
 

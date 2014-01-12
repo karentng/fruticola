@@ -28,9 +28,12 @@
     <div class="panel-body" style="display: block;">
         <div class="container">            
             <!-- begin -->
+            {% if soloLectura %}
+                {% set disabled = "disabled='disabled'" %}
+            {% endif %}
             <div class="row">
                 {{form_error('observacion')}}
-                    <textarea class="form-control" id="textarea" name="observacion" rows="3" >{{ set_value('observacion') ? set_value('observacion') : observacion.observacion }}</textarea>
+                    <textarea class="form-control" id="textarea" name="observacion" rows="3" {{disabled}} >{{ set_value('observacion') ? set_value('observacion') : observacion.observacion }}</textarea>
                 </div>
                 <br/>
 
@@ -62,7 +65,7 @@
                             {% endif %}
 
                             
-                            <input type="file" name="archivo_formulario" id="archivo_formulario" >
+                            <input type="file" name="archivo_formulario" id="archivo_formulario" {{disabled}}>
                             {{upload_result_ruat}}
                             <label for="archivo_formulario" class="col-lg-12"  >DOCUMENTO DEL BENEFICIARIO</label>
                         </div>
@@ -77,7 +80,7 @@
                                 <br/><br/><br/>
                             {% endif %}
 
-                            <input type="file" name="archivo_documento_identificacion" id="archivo_documento_identificacion" >
+                            <input type="file" name="archivo_documento_identificacion" id="archivo_documento_identificacion" {{disabled}}>
                             {{upload_result_documento_identidad}}
                             <label for="archivo_documento_identificacion" class="col-lg-12" >RUAT DIGITALIZADO</label>
                         </div>

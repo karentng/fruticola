@@ -114,7 +114,9 @@ class RuatB extends CI_Controller {
     {
         $finca = Finca::find_by_ruat_id($ruat_id);
         $output = new StdClass;
-        $output->soloLectura = true;
+        
+        $output->soloLectura = Ruat::find($ruat_id)->soloLectura($this);
+
         $output->finca = $finca->to_array();
         $output->servicios = extract_prop(FincaServicio::find_all_by_finca_id($finca->id),'servicio_id');
         
