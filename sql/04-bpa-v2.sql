@@ -3,7 +3,8 @@ CREATE TABLE bpa (
 	ruat_id integer REFERENCES ruat(id),
 	fecha date NOT NULL,
 	conclusion text,
-	nivel_bpa double precision
+	nivel_bpa double precision,
+	recomendacion text
 );
 
 CREATE TABLE bpa_pregunta(
