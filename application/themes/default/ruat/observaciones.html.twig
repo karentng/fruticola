@@ -59,7 +59,7 @@
                             {% if observacion.ruta_formulario %}
                             <span class="box1 col-lg-12">
                                 <i aria-hidden="true" class="i-file"></i>
-                                <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~ observacion.ruta_formulario}}">{{observacion.ruta_formulario}} </a>
+                                <a type="button" target="_blank" href="{{base_url() ~ 'uploads/' ~ observacion.ruta_formulario}}">{{observacion.ruta_formulario}} </a>
                             </span>      
                             <br/><br/><br/>
                             {% endif %}
@@ -75,7 +75,7 @@
                             {% if productor.adjunto_cedula %}
                                 <span class="box1 col-lg-12">
                                     <i aria-hidden="true" class="i-vcard"></i>
-                                    <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~productor.adjunto_cedula}}">{{productor.adjunto_cedula}} </a>
+                                    <a type="button" target="_blank" href="{{base_url() ~ 'uploads/' ~productor.adjunto_cedula}}">{{productor.adjunto_cedula}} </a>
                                 </span>      
                                 <br/><br/><br/>
                             {% endif %}
