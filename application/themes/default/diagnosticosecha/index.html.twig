@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+<script>
+    $(function() {
+        $("input[type='radio'], input[type='checkbox']").uniform();
+    });
+</script>
+{% endblock %}
+
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      <li><strong class="text-success">Diagnóstico de Cosecha</strong></li>
+    </ul>
+{% endblock %}
+
+{% block titulo %} 
+<h1><i class="icon20 i-users"></i> DIAGNÓSTICO MANEJO DE COSECHA</h1>
+{% endblock %}
+
+{% block contenido %}
+<h3>{{productor.nombre_completo}} <small>{{productor.tipo_documento}}: {{productor.numero_documento}}</small></h3>
+
+{{ form_open(null, {class:'form-horizontal', role:'form'}) }}
+{% for idxpreg in 0..7 %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="icon"><i class="icon20 i-menu-6"></i></div>
+            <h4>{{preguntas[idxpreg].numero}}. {{preguntas[idxpreg].texto}}</h4>
+        </div>
+
+        <div class="panel-body"><div class="container"><div class="row">
+        {% for bloque in bloques[idxpreg] %}
+            <div class="col-sm-4">
+            {% for idxop in bloque.inicio .. bloque.fin %}
+                <div class="form-group">
+                    <label for="{{idxpreg}}_{{idxop}}" class="control-label col-xs-10">
+                        {{ preguntas[idxpreg].opciones_respuesta[idxop].texto }}
+                    </label>
+                    <div class="col-xs-2">
+                        {% if preguntas[idxpreg].tipo_respuesta=='UNICA' %}
+                            {% set tipo = 'radio' %}
+                        {% else %}
+                            {% set tipo = 'checkbox' %}
+                        {% endif %}
+
+                        <label class="{{tipo}}-inline">
+                            <input type="{{tipo}}" class="form-control" id="{{idxpreg}}_{{idxop}}"
+                                name="preg_{{preguntas[idxpreg].id}}[]" 
+                                value="{{preguntas[idxpreg].opciones_respuesta[idxop].id}}" />
+                        </label>
+                    </div>
+                </div>
+                <br/>
+            {% endfor %}
+            </div>
+        {% endfor %}
+        </div></div></div>
+    </div>
+    <br/>
+{% endfor %}
+
+    
+{% endblock %}
