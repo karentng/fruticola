@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Bpa extends CI_Controller {
+class BPA extends CI_Controller {
 
     public function index()
     {
@@ -9,20 +9,28 @@ class Bpa extends CI_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
 
-
-        function to_array($model) { return $model->to_array(); }
-
         $data = array();
         $preguntasB = BpaPregunta::sortedB();
         $preguntasC = BpaPregunta::sortedC();
-
+        $this->form_validation->set_rules('conclusionB', 'Conclusión', 'required');
 
         if ($this->form_validation->run()) {
-            for($i = 0;$i < count($preguntasC);$i++){
+            $bpa = new BuenasPracticas();
+            $bpa->ruat_id = 1;
+            $bpa->fecha = $this->input->post('fecha');
+            $bpa->conclusion = $this->input->post('conclusionB');
+            $bpa->nivel_bpa = $this->input->post('valorFinal');
+            //var_dump($bpa);
+            $bpa->save();
+echo "pase por aqui";
+            //for($i = 0;$i < count($preguntasC);$i++){
 
-            }
+            //}
             //$this->input->post('' . $i);
-        }
+        }else {
+    echo validation_errors();
+    
+}
 
         //var_dump($preguntasC);
         $this->twiggy->set('preguntasB', $preguntasB);
