@@ -1,0 +1,419 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+
+<script type="text/javascript">
+
+    
+    /*
+     * Utilidad es igual a ingresos menos egresos     
+     */
+    function calcularUtilidad(){         
+        
+        var total_ingresos = parseFloat($('.respuestas_ingresos[readonly]').val());
+        var total_egresos = parseFloat($('.respuestas_egresos[readonly]').val());
+        var objUtilidad = $('.respuestas_c_totales').first();//primero de dos
+        objUtilidad.val(total_ingresos - total_egresos);
+        
+        ///recalculo la relacion beneficio-costo
+        calcularBeneficioCosto();
+    }
+    
+    /*
+     * La relacion beneficio-costo es igual al total de ingresos dividio la utilidad  
+     */
+    function calcularBeneficioCosto(){         
+        
+        var total_ingresos = parseFloat($('.respuestas_ingresos[readonly]').val());
+        var utilidad = parseFloat($('.respuestas_c_totales').first().val());
+        var objBeneficioCosto = $('.respuestas_c_totales').last();//ultimo de dos
+        
+        console.log('en calcular beneficios'+(total_ingresos / utilidad));
+        
+        if(utilidad)
+            objBeneficioCosto.val(total_ingresos / utilidad);
+    }
+
+
+    function calcularTotalActivos() {
+        var total = 0;
+        $('.respuestas_activos').each(function() {
+            var obj = $(this);
+
+            ///El unico readonly debe ser el del total
+            if (!obj.is('[readonly]') && obj.val())
+                total += parseFloat(obj.val());
+        });
+        $('.respuestas_activos[readonly]').val(total);
+    }
+    
+    function calcularTotalIngresos() {
+        var total = 0;
+        $('.respuestas_ingresos').each(function() {
+            var obj = $(this);
+
+            ///El unico readonly debe ser el del total
+            if (!obj.is('[readonly]') && obj.val())
+                total += parseFloat(obj.val());
+        });
+        $('.respuestas_ingresos[readonly]').val(total);
+        
+        ///recalculo las utilidad
+        calcularUtilidad();
+    }
+    
+    function calcularTotalEgresos() {
+        var total = 0;
+        $('.respuestas_egresos').each(function() {
+            var obj = $(this);
+
+            ///El unico readonly debe ser el del total
+            if (!obj.is('[readonly]') && obj.val())
+                total += parseFloat(obj.val());
+        });
+        $('.respuestas_egresos[readonly]').val(total);
+        
+        ///recalculo las utilidad
+        calcularUtilidad();
+    }
+
+    $(document).ready(function() {
+        $('.respuestas_activos').change(calcularTotalActivos);
+        $('.respuestas_ingresos').change(calcularTotalIngresos);
+        $('.respuestas_egresos').change(calcularTotalEgresos);
+    });
+
+</script>
+
+{% endblock %}
+{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> BPA &#187; DISEÑO DE PLANES DE IMPLEMENTACIÓN DE BUENAS PRÁCTICAS AGRICOLAS </h1> {% endblock %}
+
+{% block contenido %}
+
+<div>
+    <div>
+       {{ form_open(null, {role:'form'}) }}
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="container">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group date datepicker autostart">
+                                <input size="16" name="fecha" value="{{ set_value('fecha')}}" class="form-control" type="text" required>
+                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="container">
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">CÓDIGO DEL BENEFICIARIO:</label>
+                        <div class="col-sm-7">
+                            <input size="16" name="codigoBenegiciario" value="{{ set_value('codigoBenegiciario')}}" class="form-control" type="text" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>A. DATOS DE IDENTIFICACIÓN DEL BENEFICIARIO</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+        </div><!-- panel default -->
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>B.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN LA UNIDAD AGRÍCOLA FAMILIAR (UAF).</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body"><div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Área Total del Predio (has)</label><br/>
+                                    <input type="text" class="form-control" name="primerNombre" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Valor de la UAF del Municipio (has)</label>
+                                    <input type="text" class="form-control" name="segundoNombre"  />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de Productor Según la UAF</label>
+                                    <div style="text-align:center;">
+                                        <input type="radio" class="" name="" />
+                                        <input type="radio" class="" name="" />
+                                    </div>                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Clasificación productor según UAF</label>
+                                    <div style="text-align:center;">
+                                        <input type="radio" class="" name="" />
+                                        <input type="radio" class="" name="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div><!-- .container and .panel-body -->
+        </div><!-- panel default -->
+
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>C.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body"><div class="container">
+
+                    <div class="col-md-6">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th align="center">
+                                        DESCRIPCION DE LOS ACTIVOS ($)
+                                    </th>
+                                    <th align="center" style="width: 100px;">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {% for pa in preguntas_activos %}
+                                <tr>
+                                    <td>
+                                           {{pa.enunciado}}
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control respuestas_activos" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
+                                            {{form_error('pregunta_c_'~pa.id)}}
+                                    </td>
+                                </tr>
+                                    {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th align="center">
+                                        DESCRIPCION DE LOS INGRESOS ($/Año)
+                                    </th>
+                                    <th align="center" style="width: 100px;">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {% for pa in preguntas_ingresos%}
+                                <tr>
+                                    <td>
+                                           {{pa.enunciado}}
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control respuestas_ingresos" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
+                                            {{form_error('pregunta_c_'~pa.id)}}
+                                    </td>
+                                </tr>
+                                    {% endfor %}                                   
+
+                            </tbody>
+                        </table>
+
+                        <div style="padding-top: 10px;"></div>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th align="center">
+                                        DESCRIPCION DE LOS EGRESOS ($/Año)
+                                    </th>
+                                    <th align="center" style="width: 100px;">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {% for pa in preguntas_egresos%}
+                                <tr>
+                                    <td>
+                                           {{pa.enunciado}}
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control respuestas_egresos" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
+                                            {{form_error('pregunta_c_'~pa.id)}}
+                                    </td>
+                                </tr>
+                                    {% endfor %}   
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="col-md-11 center"  style="margin-top: 20px; margin-left: 40px;">
+                        <table class="table table-bordered">
+                            <tbody>
+                                    {% for pa in preguntas_totales%}
+                                <tr>
+                                    <td>
+                                           {{pa.enunciado}}
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control respuestas_c_totales" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}} />
+                                            {{form_error('pregunta_c_'~pa.id)}}
+                                    </td>
+                                </tr>
+                                    {% endfor %}   
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div></div><!-- .container and .panel-body -->
+        </div><!-- panel default -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>D.  REVISIÓN DE TODOS LOS CRITERIOS DE CLASIFICACION DEL PRODUCTOR AGROPECUARIO</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body"><div class="container">
+                    <div class="row">
+
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th align="center">
+                                    </th>
+                                    <th align="center" style="width: 300px;">
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        El BENEFICIARIO cumple con la condición de productor agropecuario según sus INGRESOS INVERTIDOS en el sector agropecuario? (Mínimo el 70% de los ingresos los obtiene de la actividad agropecuaria).
+                                    </td>
+
+                                    <td>
+                                        <div style="text-align:center;">
+                                            <input type="radio" class="" name=""/>
+                                            <label>SI</label>
+                                            <input type="radio" class="" name=""/>
+                                            <label>NO</label>
+                                        </div>                    
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        El productor según LA UAF (Unidad Agrícola Familiar) clasifica como:
+                                    </td>
+
+                                    <td>
+                                        <div style="text-align:center;">
+                                            <input type="radio" class="" name="" />
+                                            <label>PEQUEÑO PRODUCTOR</label><br/>
+                                            <input type="radio" class="" name="" />
+                                            <label>MEDIANO PRODUCTOR</label>
+                                        </div>                    
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        El productor según TOTAL ACTIVOS, y de acuerdo a la clasficación de productores de FINAGRO clasifica como: (Activos Menores a $85.477.500 = Pequeño Productor Agropecuario).
+                                    </td>
+
+                                    <td>
+                                        <div style="text-align:center;">
+                                            <input type="radio" class="" name="" />
+                                            <label>PEQUEÑO PRODUCTOR</label><br/>
+                                            <input type="radio" class="" name="" />
+                                            <label>MEDIANO PRODUCTOR</label>
+                                        </div>                    
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <b>Revisados todos los criterios de clasificación de productores agropecuarios, el BENEFICIARIO clasifica como</b>
+                                    </td>
+
+                                    <td>
+                                        <div style="text-align:center;">
+                                            <input type="radio" class="" name=""/>
+                                            <label>PEQUEÑO PRODUCTOR</label><br/>
+                                            <input type="radio" class="" name=""/>
+                                            <label>MEDIANO PRODUCTOR</label>
+                                        </div>                    
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div></div><!-- .container and .panel-body -->
+        </div><!-- panel default -->
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>E. OBSERVACIONES</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body"><div class="container">
+                    <div class="row">
+
+                    </div>
+                </div></div><!-- .container and .panel-body -->
+        </div><!-- panel default -->
+
+        <div class="form-actions full">
+            <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
+        </div>
+
+        {{ form_close() }}          
+    </div>
+
+</div>
+
+{% endblock %}
