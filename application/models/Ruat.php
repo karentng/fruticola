@@ -13,7 +13,13 @@ class Ruat extends ActiveRecord\Model
     public function soloLectura(&$controller)
     {
         if($controller->ion_auth->in_group('Digitador')) {
-            if($this->creado->diff(new DateTime(),true)->h >= 6) {
+            $dt = new DateTime();
+            $tm2 = $dt->getTimestamp();
+            $tm1 = $this->creado->getTimestamp();
+            $dif_horas = ($tm2-$tm1)/60.0/60.0;
+            //echo "diferencia ".$dif_horas;
+            //die();
+            if($dif_horas>=5.0) {
                 return true;
             }
         }
