@@ -175,7 +175,7 @@ class BPA extends CI_Controller {
         //$this->twiggy->set($data, NULL);
         //$this->twiggy->set('combos', json_encode($data));
         //$this->twiggy->set('combos', $combos);
-        $this->twiggy->template("ruat/bpa");
+        $this->twiggy->template("bpa/bpa");
         $this->twiggy->display();
     }
 
