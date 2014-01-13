@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tp extends CI_Controller {
+class TipoProductor extends CI_Controller {
 
     public function index($id = null) {
         $id = 1;
@@ -53,7 +53,20 @@ class Tp extends CI_Controller {
             elseif ($obj->categoria === 'D')
                 $preguntas_totales[] = $objAux;
         }
-
+        
+        
+        ///consulo las respuestas D
+        $respuesta_d = TPDRespuesta::first(array(
+                    'conditions' => array('visita_id = ?', $id)
+        ));
+        $this->form_validation->set_rules("criterio1", ' ', 'required|is_natural');
+        $this->form_validation->set_rules("criterio2", ' ', 'required|is_natural');
+        $this->form_validation->set_rules("criterio3", ' ', 'required|is_natural');
+        $this->form_validation->set_rules("criterio4", ' ', 'required|is_natural');
+        
+        
+        
+        ///Si las validaciones son correctas procedo a guardar
         if ($this->form_validation->run()) {
 
             ///GUARDANDO RESPUESTAS B
@@ -64,6 +77,16 @@ class Tp extends CI_Controller {
             $respuesta_b->tipo_productor_uaf =$this->input->post('tipo_productor_uaf');
             $respuesta_b->clasificacion_productor_uaf =$this->input->post('clasificacion_productor_uaf');
             $respuesta_b->save();
+            
+            
+            ///GUARDANDO RESPUESTAS D
+            $respuesta_d = ($respuesta_d) ? $respuesta_d : new TPDRespuesta;
+            $respuesta_d->visita_id = $id;
+            $respuesta_d->criterio1 =$this->input->post('criterio1');
+            $respuesta_d->criterio2 =$this->input->post('criterio2');
+            $respuesta_d->criterio3 =$this->input->post('criterio3');
+            $respuesta_d->criterio4 =$this->input->post('criterio4');
+            $respuesta_d->save();
 
 
             ///GUARDANDO RESPUESTAS C
@@ -88,8 +111,9 @@ class Tp extends CI_Controller {
         $this->twiggy->set('preguntas_egresos', $preguntas_egresos);
         $this->twiggy->set('preguntas_activos', $preguntas_activos);
         $this->twiggy->set('preguntas_totales', $preguntas_totales);
+        $this->twiggy->set('respuesta_d', $respuesta_d);
 
-        $this->twiggy->template("vtp/tp");
+        $this->twiggy->template("tipoproductor/tipo_productor");
         $this->twiggy->display();
     }
 
