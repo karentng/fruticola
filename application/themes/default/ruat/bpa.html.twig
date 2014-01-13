@@ -112,7 +112,12 @@
                 <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
                 <div class="col-sm-8">
                     <div class="input-group date datepicker autostart">
-                        <input size="16" name="fecha" class="form-control" type="text" required>
+                        {% if existe == 'yes' %}
+                            <input size="16" name="fecha" class="form-control" type="text" value="{{datosBpa[0].fecha}}" required>
+                        {% else %}
+                            <input size="16" name="fecha" class="form-control" type="text" required>
+                        {% endif %}
+                        
                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                     </div>
                 </div>
@@ -124,13 +129,13 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">ID. RUAT:</label>
                 <div class="col-sm-8">
-                    <input size="16" name="idRuat" class="form-control" type="number" required>
-                    <label class="error" > </label>
+                    <input size="16" name="idRuat" class="form-control" value="{{ruat_id}}" type="number" readonly="true">
                 </div>
             </div>
         </div>
     </div>
 </div>
+<br/    >
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -182,6 +187,7 @@
             	</tr>
             </thead>
             <tbody>
+                {% set cont = 0 %}
                 {% for preguntaB in preguntasB %}
                 <tr>
                     <td>
@@ -191,13 +197,26 @@
                         <!--<input bs-switch switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">-->
                         <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>" >
-                            <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" checked />
+                            {% if existe == 'yes' %}
+                                {% if respuestasB[cont].puntaje == 1 %}
+                                    <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" checked />
+                                {% else %}
+                                    <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" />
+                                {% endif %}
+                            {% else %}
+                                <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" checked />
+                            {% endif %}
                         </div>
                     </td>
                     <td>
-                        <input id="{{'respuesta'~ preguntaB.id}}" name="{{'recomendacion'~preguntaB.id}}" type="text" class="form-control" placeholder="" style="width:240px;"/>
+                        {% if existe == 'yes' %}
+                            <input id="{{'respuesta'~ preguntaB.id}}" value="{{respuestasB[cont].observacion}}" name="{{'recomendacion'~preguntaB.id}}" type="text" class="form-control" placeholder="" style="width:240px;"/>
+                        {% else %}
+                            <input id="{{'respuesta'~ preguntaB.id}}" name="{{'recomendacion'~preguntaB.id}}" type="text" class="form-control" placeholder="" style="width:240px;"/>
+                        {% endif %}
                     </td>
                 </tr>
+                {% set cont = cont +1 %}
                 {% endfor %}
             </tbody>
             <thead>
@@ -210,7 +229,11 @@
             <tbody>
                 <tr>
                     <td colspan="4">
-                    	<textarea rows="3" name="conclusionB" style="width:100%;"></textarea>
+                    {% if existe == 'yes' %}
+                        <textarea rows="3" name="conclusionB" style="width:100%;">{{datosBpa[0].conclusion}}</textarea>
+                    {% else %}
+                        <textarea rows="3" name="conclusionB" style="width:100%;"></textarea>
+                    {% endif %}    	
                     </td>
                 </tr>
             </tbody>
@@ -242,6 +265,7 @@
             	</tr>
             </thead>
             <tbody>
+                {% set cont = 0 %}
                 {% for preguntaC in preguntasC %}
                 <tr>
                     <td>
@@ -250,28 +274,52 @@
                     <td align="center">
                         {% if preguntaC.padre == null or preguntaC.numeral == 15 or
                             preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
-                            <input type="number" name="{{'valor'~preguntaC.id}}" style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="0" readonly="true" />
+                            {% if existe == 'yes' %}
+                                <input type="number" name="{{'valor'~preguntaC.id}}" style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{respuestasC[cont].puntaje}}" readonly="true" />
+                            {% else %}
+                                <input type="number" name="{{'valor'~preguntaC.id}}" style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="0" readonly="true" />
+                            {% endif %}
+                            
                         {% else %}
-                            <input type="number" name="{{'valor'~preguntaC.id}}" onkeyup="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})" id="{{'valor'~ preguntaC.padre ~preguntaC.id}}" style="width:60px;" value="0" max="100" min="0" />
+                            {% if existe == 'yes' %}
+                                <input type="number" name="{{'valor'~preguntaC.id}}" onkeyup="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})" id="{{'valor'~ preguntaC.padre ~preguntaC.id}}" style="width:60px;" value="{{respuestasC[cont].puntaje}}" max="100" min="0" />
+                            {% else %}
+                                <input type="number" name="{{'valor'~preguntaC.id}}" onkeyup="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})" id="{{'valor'~ preguntaC.padre ~preguntaC.id}}" style="width:60px;" value="0" max="100" min="0" />
+                            {% endif %}
+                            
                         {% endif %}
                     </td>
                     <td>
-                        <textarea id="{{'observacion'~ preguntaC.id}}" name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;"></textarea>
+                        {% if existe == 'yes' %}
+                            <textarea id="{{'observacion'~ preguntaC.id}}" name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{respuestasC[cont].observacion}}</textarea>
+                        {% else %}
+                            <textarea id="{{'observacion'~ preguntaC.id}}" name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;"></textarea>
+                        {% endif %}
+                        
                     </td>
                 </tr>
+                {% set cont = cont + 1 %}
                 {% endfor %}
-
-
                 <tr>
                     <td align="center">
                         <h3><b>PREDIO CON NIVEL DE IMPLEMENTACIÓN DE <br/>
                         BUENAS PRACTICAS AGRÍCOLAS (BPA)</b></h3>
                     </td>
                     <td align="center">
-                        <input type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="0" readonly="true" />
+                        {% if existe == 'yes' %}
+                            <input type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="{{datosBpa[0].nivel_bpa}}" readonly="true" />
+                        {% else %}
+                            <input type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="0" readonly="true" />
+                        {% endif %}
+                        
                     </td>
                     <td>
-                        <textarea name="recomendacionFinal" style="width:240px; height:100%;"></textarea>
+                        {% if existe == 'yes' %}
+                            <textarea name="recomendacionFinal" style="width:240px; height:100%;">{{datosBpa[0].recomendacion}}</textarea>
+                        {% else %}
+                            <textarea name="recomendacionFinal" style="width:240px; height:100%;"></textarea>
+                        {% endif %}
+                        
                     </td>
                 </tr>
             </tbody>
