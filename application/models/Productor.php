@@ -17,7 +17,7 @@ class Productor extends MyModel
         $res = $this->nombre1;
         if($this->nombre2) $res .= ' '.$this->nombre2;
         $res .= ' '.$this->apellido1;
-        if($this->nombre2) $res .= ' '.$this->apellido2;
+        if($this->apellido2) $res .= ' '.$this->apellido2;
         return $res;
     }
 
