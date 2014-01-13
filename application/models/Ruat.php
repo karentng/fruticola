@@ -10,6 +10,12 @@ class Ruat extends ActiveRecord\Model
         array('seguir', 'class_name'=>'PersonaAsociada', 'foreign_key'=>'seguir_id'),
     );
 
+    static $has_one = array(
+        array('bpa', 'class_name'=>'BuenasPracticas', 'foreign_key' => 'ruat_id'),
+        array('cosecha', 'class_name'=>'Cosecha', 'foreign_key' => 'ruat_id'),
+
+    );
+
     public function soloLectura(&$controller)
     {
         if($controller->ion_auth->in_group('Digitador')) {

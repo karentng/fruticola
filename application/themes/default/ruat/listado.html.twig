@@ -30,9 +30,10 @@
             <td>{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</td>
             <td>{{row.creado | date("Y-m-d  H:i")}}</td>
             <td align="center">
-                <a class="btn btn-sm btn-warning" href="{{site_url(['ruata','index',row.id])}}">RUAT</a>
-                {#<a class="btn btn-sm btn-default" href="{{site_url(['diagnosticosecha','index',row.id])}}">Cosecha</a>
-                <a class="btn btn-sm btn-primary" href="{{site_url(['bpa','index',row.id])}}">BPA</a>#}
+                <a class="btn btn-sm btn-warning tip" href="{{site_url(['ruata','index',row.id])}}" title="Registro Único de Usuarios de Asitencia Técnica">RUAT</a>
+                {#% set cls = row.cosecha ? 'primary' : 'default' %#}
+                <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['diagnosticosecha','index',row.id])}}" title="Diagnóstico Manejo de Cosecha">Cosecha</a>
+                <a class="btn btn-sm btn-default tip" href="{{site_url(['bpa','index',row.id])}}" title="Buenas Prácticas Agropecuarias">BPA</a>
             </td>
         </tr>
         {% endfor %}
