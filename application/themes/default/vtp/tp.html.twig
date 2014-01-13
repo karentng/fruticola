@@ -101,7 +101,7 @@
                         <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
                         <div class="col-sm-8">
                             <div class="input-group date datepicker autostart">
-                                <input size="16" name="fecha" value="{{ set_value('fecha')}}" class="form-control" type="text" required>
+                                <input size="16" name="fecha" value="{{ set_value('fecha')}}" class="form-control" type="text">
                                 <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                             </div>
                         </div>
@@ -113,22 +113,12 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label">CÓDIGO DEL BENEFICIARIO:</label>
                         <div class="col-sm-7">
-                            <input size="16" name="codigoBenegiciario" value="{{ set_value('codigoBenegiciario')}}" class="form-control" type="text" required>
+                            <input size="16" name="codigoBenegiciario" value="{{ set_value('codigoBenegiciario')}}" class="form-control" type="text">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                <h4>A. DATOS DE IDENTIFICACIÓN DEL BENEFICIARIO</h4>
-                <a href="#" class="minimize"></a>
-            </div><!-- End .panel-heading -->
-
-        </div><!-- panel default -->
-
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -142,8 +132,10 @@
                         <div class="col-md-3">
                             <div class="container">
                                 <div class="form-group">
-                                    <label class="control-label">Área Total del Predio (has)</label><br/>
-                                    <input type="text" class="form-control" name="primerNombre" />
+                                    <label class="control-label">Área Total del Predio (has)</label>
+                                    {{form_error('area_predio')}}
+                                    <br/>
+                                    <input type="text" class="form-control" name="area_predio" value="{{set_value('area_predio', respuesta_b.area_predio)}}"/>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +143,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Valor de la UAF del Municipio (has)</label>
-                                    <input type="text" class="form-control" name="segundoNombre"  />
+                                    {{form_error('valor_uaf')}}
+                                    <input type="text" class="form-control" name="valor_uaf"  value="{{set_value('valor_uaf', respuesta_b.valor_uaf)}}"/>
                                 </div>
                             </div>
                         </div>
@@ -159,9 +152,16 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Productor Según la UAF</label>
+                                    {{form_error('tipo_productor_uaf')}}
                                     <div style="text-align:center;">
-                                        <input type="radio" class="" name="" />
-                                        <input type="radio" class="" name="" />
+                                        {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 1 ? 'checked' : ''%}
+                                        <label for="tipo_productor_uaf">Pequeño Productor</label>
+                                        <input type="radio" class="" name="tipo_productor_uaf" value="1" {{set_radio('tipo_productor_uaf', 1) ? set_radio('tipo_productor_uaf', 1) : respuesta_checked_bd}}/>
+                                        
+                                        {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 2 ? 'checked' : ''%}
+                                        <label for="tipo_productor_uaf">Mediano Productor</label>
+                                        <input type="radio" class="" name="tipo_productor_uaf" value="2" {{set_radio('tipo_productor_uaf', 2) ? set_radio('tipo_productor_uaf', 2) : respuesta_checked_bd}}/>
+                                        
                                     </div>                    
                                 </div>
                             </div>
@@ -170,9 +170,15 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Clasificación productor según UAF</label>
+                                    {{form_error('clasificacion_productor_uaf')}}
                                     <div style="text-align:center;">
-                                        <input type="radio" class="" name="" />
-                                        <input type="radio" class="" name="" />
+                                        {% set respuesta_checked_bd =  respuesta_b.clasificacion_productor_uaf == 1 ? 'checked' : ''%}
+                                        <label for="clasificacion_productor_uaf">Resolución 1132 del 21/Jun/2013 expedida por el INCODER</label>
+                                        <input type="radio" class="" name="clasificacion_productor_uaf" value="1" {{set_radio('clasificacion_productor_uaf', 1) ? set_radio('clasificacion_productor_uaf', 1) : respuesta_checked_bd}}/>
+                                        
+                                        {% set respuesta_checked_bd =  respuesta_b.clasificacion_productor_uaf == 2 ? 'checked' : ''%}
+                                        <label for="clasificacion_productor_uaf">Resolución  041 del 24/Sep/1996 expedida por el INCODER</label>
+                                        <input type="radio" class="" name="clasificacion_productor_uaf" value="2" {{set_radio('clasificacion_productor_uaf', 2) ? set_radio('clasificacion_productor_uaf', 2) : respuesta_checked_bd}}/>
                                     </div>
                                 </div>
                             </div>
@@ -408,7 +414,7 @@
         </div><!-- panel default -->
 
         <div class="form-actions full">
-            <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
+            <button class="btn btn-lg btn-success pull-right" type="submit">Guardar</button>
         </div>
 
         {{ form_close() }}          
