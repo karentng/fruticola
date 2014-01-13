@@ -38,7 +38,7 @@
  
 
     <!-- app stylesheets -->
-    <link href="{{ base_url('assets/css/app.css') }}" rel="stylesheet" /> 
+    <link href="{{ base_url('assets/css/app.css?v=2') }}" rel="stylesheet" /> 
 
     <!-- Custom stylesheets ( Put your own changes here ) -->
     <link href="{{ base_url('assets/css/custom.css?v=2') }}" rel="stylesheet" /> 
@@ -97,10 +97,11 @@
 
     <!-- Init plugins -->
     <script src="{{ base_url('assets/js/app.js') }}"></script><!-- Core js functions -->
-    <script src="{{ base_url('assets/js/pages/domready.js?v=1') }}"></script><!-- Init plugins only for page -->
+    <script src="{{ base_url('assets/js/pages/domready.js?v=2') }}"></script><!-- Init plugins only for page -->
 
     {% block html_head %}{% endblock %}
-
+    
+    {{ flash_notif() }}
   </head>
   <body>
   {% block html_body %}

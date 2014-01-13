@@ -13,13 +13,45 @@ class DiagnostiCosecha extends CI_Controller {
         if(!$ruat_id) die("Acceso Invalido");
 
         $preguntas = CosechaPregunta::all(array(order=>'numero', 'include'=> 'opciones_respuesta'));
-        //var_dump($preguntas);
-        /*foreach($preguntas as $preg) {
-            echo "<b>".$preg->texto."</b><br/>";
-            foreach($preg->opciones_respuesta as $op) {
-                echo $op->texto . "<br/>";
+
+        $this->load->library('form_validation');
+        foreach($preguntas as $preg)
+            $this->form_validation->set_rules("preg_{$preg->id}[]", "", "required");
+        
+
+        if($this->form_validation->run()) {
+            $cosecha = Cosecha::find_by_ruat_id($ruat_id);
+            if(!$cosecha) {
+                $cosecha = new Cosecha;
+                $cosecha->ruat_id = $ruat_id;
             }
-        }*/
+            else {
+                CosechaRespuesta::delete_all(array('conditions' => array('cosecha_id'=>$cosecha->id)));
+            }
+
+            $cosecha->observaciones = $this->input->post('observaciones');
+            $cosecha->save();
+
+            foreach($preguntas as $preg) {
+                $res_ids = $this->input->post("preg_{$preg->id}");
+
+                foreach($res_ids as $res_id) {
+                    $otro = $this->input->post("otro_{$preg->id}") ?: null;
+
+                    CosechaRespuesta::create(array(
+                        'cosecha_id'   => $cosecha->id,
+                        'pregunta_id'  => $preg->id,
+                        'opcion_id'    => $res_id,
+                        'otro'         => $otro  ));
+                }
+            }
+            $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario Cosecha guardado exitósamente'));
+            redirect('listadoruats');
+        }
+        else if(validation_errors()) {
+            $this->twiggy->set('notif',array('type'=>'error', 'text'=> "Debe responder todas las preguntas. <br> Revise los recuadros rojos"));
+        }
+        
 
         $bloques = array(
             0 => array(array('inicio' => 0, 'fin' => 1), array('inicio'=>2, 'fin'=>2)),
@@ -32,9 +64,21 @@ class DiagnostiCosecha extends CI_Controller {
             7 => array(array('inicio' => 0, 'fin' => 2), array('inicio'=>3, 'fin'=>5)),
         );
 
+        $productor = Productor::find_by_id(Ruat::find($ruat_id)->productor_id, array('include' => array('tipo_documento')));
+        
+        $respuestas_bd = array();
+        $observaciones = "";
+        $cosecha = Cosecha::find_by_ruat_id($ruat_id);
+        if($cosecha) { //ya existe, cargar datos previamente guardados
+            $respuestas_bd = extract_prop(CosechaRespuesta::find_all_by_cosecha_id($cosecha->id), 'opcion_id');
+            $observaciones = $cosecha->observaciones;
+        }
 
-        $this->twiggy->set("bloques", $bloques);
         $this->twiggy->set("preguntas", $preguntas);
+        $this->twiggy->set("bloques", $bloques);
+        $this->twiggy->set("productor", $productor);
+        $this->twiggy->set("respuestas_bd", $respuestas_bd);
+        $this->twiggy->set("observaciones", $observaciones);
         $this->twiggy->template("diagnosticosecha/index");
         $this->twiggy->display();
     }

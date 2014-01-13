@@ -29,7 +29,10 @@
             <td>{{row.productor.nombre_completo()}}</td>
             <td>{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</td>
             <td>{{row.creado | date("Y-m-d  H:i")}}</td>
-            <td><a class="act act-warning" href="{{site_url(['ruata','index',row.id])}}">Editar</a></td>
+            <td align="center">
+                <a class="btn btn-sm btn-warning" href="{{site_url(['ruata','index',row.id])}}">RUAT</a>
+                <a class="btn btn-sm btn-default" href="{{site_url(['diagnosticosecha','index',row.id])}}">Cosecha</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

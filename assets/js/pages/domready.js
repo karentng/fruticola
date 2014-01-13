@@ -15,8 +15,6 @@ var count = function(obj) {
 
 function notif(msg) {
     if(typeof msg == 'string') msg = {type:'success', text:msg};
-    
-    
         $.jGrowl(msg.text, {
             theme: msg.type,
             life:6000,

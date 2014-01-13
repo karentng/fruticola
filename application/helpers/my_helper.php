@@ -144,4 +144,15 @@ if(! function_exists('my_input'))
 
         return $output;
     }
+
+    function flash_notif()
+    {
+        $ci = &get_instance();
+        $msg = $ci->session->flashdata('notif');
+        if($msg) {
+            $json = json_encode($msg);
+            return "<script>$(function(){ notif($json) });</script>";
+        }
+        return "";
+    }
 }
