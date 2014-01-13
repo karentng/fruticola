@@ -487,10 +487,10 @@
                 <div class="col-md-4">
                     <div class="container">
                         <div class="form-group">
-                            <label class="control-label col-sm-6">Ingreso Mensual Familiar </label>
+                            <label class="control-label col-sm-6">Ingreso Anual Familiar </label>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    <span class="input-group-addon">$</span>
+                                    <span class="input-group-addon">$/año</span>
                                     <input type="text" money class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-disabled="soloLectura" ng-model="economia.ingreso_familiar" required/>
                                 </div>
                             </div>
@@ -515,7 +515,7 @@
                             <label class="control-label col-sm-7">Ingreso de Actividad Agropecuaria</label>
                             <div class="col-sm-5">
                                 <div class="input-group">
-                                    <span class="input-group-addon">$</span>
+                                    <span class="input-group-addon">$/año</span>
                                     <input type="text" money  class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-disabled="soloLectura" ng-model="economia.ingreso_agropecuario" required/>
                                 </div>
                                 <label class="error" ng-show="myForm.ingreso_agropecuario.$dirty && myForm.ingreso_agropecuario.$error.required">Requerido</label>

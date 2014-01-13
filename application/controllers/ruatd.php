@@ -13,7 +13,7 @@ class RuatD extends CI_Controller {
 
     public function index($ruat_id = null) {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('observacion', 'Observación', 'required');
+        $this->form_validation->set_rules('observacion');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
 
         //$ruat_id = 1; /// sacarlo de session o algo, pendiente definir
@@ -33,7 +33,7 @@ class RuatD extends CI_Controller {
         $upload_result_ruat = $upload_result_documento_identidad = '';
         if ($this->form_validation->run()) {
             $observacion->ruat_id = $ruat_id;
-            $observacion->observacion = $this->input->post('observacion');
+            $observacion->observacion = $this->input->post('observacion') ?: '';
             
             //var_dump($_FILES);
             $ok = true;
