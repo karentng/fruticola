@@ -67,11 +67,12 @@
                             
                             <input type="file" name="archivo_formulario" id="archivo_formulario" {{disabled}}>
                             {{upload_result_ruat}}
-                            <label for="archivo_formulario" class="col-lg-12"  >DOCUMENTO DEL BENEFICIARIO</label>
+                            <label for="archivo_formulario" class="col-lg-12"  >RUAT DIGITALIZADO</label>
                         </div>
                         <div class="col-lg-4">
                         </div>
-                        <div class="col-lg-4">
+                        {#<div class="col-lg-4">
+                        
                             {% if productor.adjunto_cedula %}
                                 <span class="box1 col-lg-12">
                                     <i aria-hidden="true" class="i-vcard"></i>
@@ -83,7 +84,8 @@
                             <input type="file" name="archivo_documento_identificacion" id="archivo_documento_identificacion" {{disabled}}>
                             {{upload_result_documento_identidad}}
                             <label for="archivo_documento_identificacion" class="col-lg-12" >RUAT DIGITALIZADO</label>
-                        </div>
+
+                        </div>#}
                     </div>
                 
 
