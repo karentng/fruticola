@@ -98,25 +98,37 @@
 </script>
 
 {% endblock %}
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      <li><strong class="text-success">BUENAS PRÁCTICAS AGRICOLAS</strong></li>
+    </ul>
+{% endblock %}
 
 {% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> BPA &#187; DISEÑO DE PLANES DE IMPLEMENTACIÓN DE BUENAS PRÁCTICAS AGRICOLAS </h1> {% endblock %}
 
 {% block contenido %}
 
-{{ form_open(null, {role:'form'}) }}
+{{ form_open(null, {role:'form', class:'form-horizontal'}) }}
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div class="container">
             <div class="form-group">
                 <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
                 <div class="col-sm-8">
                     <div class="input-group date datepicker autostart">
-                        {% if existe == 'yes' %}
-                            <input size="16" name="fecha" class="form-control" type="text" value="{{datosBpa[0].fecha}}" required>
+                        {#% if existe == 'yes' %}
+                            <input size="16" name="fecha" class="form-control" type="text" value="{{datosBPA.fecha}}" required>
                         {% else %}
                             <input size="16" name="fecha" class="form-control" type="text" required>
-                        {% endif %}
+                        {% endif %#}
+
+
+                        {% set errorFecha = form_error('fecha') %}
+                        <input size="16" name="fecha" class="form-control {{errorFecha? 'error':''}}" type="text"
+                            value="{{set_value('fecha', datosBPA['fecha'])}}" required>
+                        <label class="error">{{errorFecha}}</label>
                         
                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                     </div>
@@ -124,12 +136,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div class="container">
             <div class="form-group">
-                <label class="col-sm-4 control-label">ID. RUAT:</label>
-                <div class="col-sm-8">
-                    <input size="16" name="idRuat" class="form-control" value="{{ruat_id}}" type="number" readonly="true">
+                
+                <label class="col-sm-10 control-label">Número del formulario RUAT:</label>
+                <div class="col-sm-2">
+                    <input name="idRuat" class="form-control" value="{{numForm}}" type="text" style="text-align:center;color:red;" readonly="true">
                 </div>
             </div>
         </div>
@@ -137,6 +150,7 @@
 </div>
 <br/    >
 
+{#
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
@@ -147,22 +161,26 @@
     <div class="panel-body"><div class="container">
         <div class="row">
         	<div class="col-md-12">
-        		<div class="panel panel-default">
-				    <div class="panel-heading" align="center">
-				        <h4>A.INTRODUCCIÓN SOBRE LAS BUENAS PRÁCTICAS AGRÍCOLAS (BPA)</h4>
-				    </div><!-- End .panel-heading -->
-				    <div class="panel-body"><div class="container">
-						<div class="row">
-							<div class="col-mod-12">
-								La responsabilidad que tenemos como agroempresarios es precisamente garantizar que los consumidores reciban alimentos inocuos, sanos y de comprobada calidad, que no contengan sustancias perjudiciales para la salud y que ayuden a mejorar la nutrición de toda la familia. Como agroempresarios es importante hacer una planeación de lo que vamos a producir con el fin de determinar los factores que pueden favorecer o afectar el éxito de nuestra empresa.  Cuando hacemos la planeación del cultivo podemos decidir si es conveniente o no cultivar desde el punto de vista técnico y económico, por lo tanto, miremos los siguientes aspectos:
-							</div>
-						</div>
-					</div></div>
-				</div>
+        		
         	</div>
         </div>
     </div></div><!-- .container and .panel-body -->
 </div><!-- panel default -->
+#}
+
+<div class="panel panel-default">
+    <div class="panel-heading" align="center">
+        <h4>A.INTRODUCCIÓN SOBRE LAS BUENAS PRÁCTICAS AGRÍCOLAS (BPA)</h4>
+    </div><!-- End .panel-heading -->
+    <div class="panel-body"><div class="container">
+        <div class="row">
+            <div class="col-mod-12" align="justify">
+                La responsabilidad que tenemos como agroempresarios es precisamente garantizar que los consumidores reciban alimentos inocuos, sanos y de comprobada calidad, que no contengan sustancias perjudiciales para la salud y que ayuden a mejorar la nutrición de toda la familia. Como agroempresarios es importante hacer una planeación de lo que vamos a producir con el fin de determinar los factores que pueden favorecer o afectar el éxito de nuestra empresa.  Cuando hacemos la planeación del cultivo podemos decidir si es conveniente o no cultivar desde el punto de vista técnico y económico, por lo tanto, miremos los siguientes aspectos:
+            </div>
+        </div>
+    </div></div>
+</div>
+<br/>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -209,11 +227,16 @@
                         </div>
                     </td>
                     <td>
-                        {% if existe == 'yes' %}
+                        {#% if existe == 'yes' %}
                             <input id="{{'respuesta'~ preguntaB.id}}" value="{{respuestasB[cont].observacion}}" name="{{'recomendacion'~preguntaB.id}}" type="text" class="form-control" placeholder="" style="width:240px;"/>
                         {% else %}
                             <input id="{{'respuesta'~ preguntaB.id}}" name="{{'recomendacion'~preguntaB.id}}" type="text" class="form-control" placeholder="" style="width:240px;"/>
-                        {% endif %}
+                        {% endif %#}
+                        
+                        <input type="text" class="form-control" style="width:240px;"
+                                id="{{'respuesta'~ preguntaB.id}}" 
+                                name="recomendacion{{preguntaB.id}}" 
+                                value="{{set_value('recomendacion'~preguntaB.id,respuestasB[cont].observacion)}}"  />
                     </td>
                 </tr>
                 {% set cont = cont +1 %}
@@ -228,12 +251,11 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="4">
-                    {% if existe == 'yes' %}
-                        <textarea rows="3" name="conclusionB" style="width:100%;">{{datosBpa[0].conclusion}}</textarea>
-                    {% else %}
-                        <textarea rows="3" name="conclusionB" style="width:100%;"></textarea>
-                    {% endif %}    	
+                    <td colspan="4"> 	
+                        {% set errorConclusionB = form_error('conclusionB') %}
+                        <textarea class="form-control  {{errorConclusionB? 'error':''}}" rows="3" name="conclusionB" style="width:100%;">{{set_value("conclusionB",datosBPA['conclusion'])}}</textarea>
+                        <label class="error">{{errorConclusionB}}</label>
+
                     </td>
                 </tr>
             </tbody>
@@ -241,7 +263,7 @@
     		
     </div></div><!-- .container and .panel-body -->
 </div><!-- panel default -->
-
+<br/>
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
@@ -275,27 +297,40 @@
                         {% if preguntaC.padre == null or preguntaC.numeral == 15 or
                             preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
                             {% if existe == 'yes' %}
-                                <input type="number" name="{{'valor'~preguntaC.id}}" style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{respuestasC[cont].puntaje}}" readonly="true" />
+                                <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
+                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,respuestasC[cont].puntaje)}}" readonly="true" />
                             {% else %}
-                                <input type="number" name="{{'valor'~preguntaC.id}}" style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="0" readonly="true" />
+                                <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
+                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,0)}}" readonly="true" />
                             {% endif %}
+
+                            
                             
                         {% else %}
                             {% if existe == 'yes' %}
-                                <input type="number" name="{{'valor'~preguntaC.id}}" onkeyup="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})" id="{{'valor'~ preguntaC.padre ~preguntaC.id}}" style="width:60px;" value="{{respuestasC[cont].puntaje}}" max="100" min="0" />
+                                <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
+                                onchange="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})"
+                                id="{{'valor'~ preguntaC.padre ~preguntaC.id}}"
+                                style="width:60px;"
+                                value="{{set_value('valor'~preguntaC.id,respuestasC[cont].puntaje)}}" max="100" min="0" />
                             {% else %}
-                                <input type="number" name="{{'valor'~preguntaC.id}}" onkeyup="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})" id="{{'valor'~ preguntaC.padre ~preguntaC.id}}" style="width:60px;" value="0" max="100" min="0" />
+                                <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
+                                onchange="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})"
+                                id="{{'valor'~ preguntaC.padre ~preguntaC.id}}"
+                                style="width:60px;"
+                                value="{{set_value('valor'~preguntaC.id,0)}}" max="100" min="0" />
                             {% endif %}
                             
                         {% endif %}
                     </td>
                     <td>
                         {% if existe == 'yes' %}
-                            <textarea id="{{'observacion'~ preguntaC.id}}" name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{respuestasC[cont].observacion}}</textarea>
+                            <textarea class="form-control" id="{{'observacion'~ preguntaC.id}}"
+                            name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,respuestasC[cont].observacion)}}</textarea>
                         {% else %}
-                            <textarea id="{{'observacion'~ preguntaC.id}}" name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;"></textarea>
-                        {% endif %}
-                        
+                            <textarea class="form-control" id="{{'observacion'~ preguntaC.id}}"
+                            name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,"")}}</textarea>
+                        {% endif %}                    
                     </td>
                 </tr>
                 {% set cont = cont + 1 %}
@@ -307,34 +342,36 @@
                     </td>
                     <td align="center">
                         {% if existe == 'yes' %}
-                            <input type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="{{datosBpa[0].nivel_bpa}}" readonly="true" />
+                            <input class="form-control" type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="{{datosBPA.nivel_bpa}}" readonly="true" required/>
                         {% else %}
-                            <input type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="0" readonly="true" />
+                            <input class="form-control" type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="0" readonly="true" />
                         {% endif %}
                         
                     </td>
                     <td>
-                        {% if existe == 'yes' %}
-                            <textarea name="recomendacionFinal" style="width:240px; height:100%;">{{datosBpa[0].recomendacion}}</textarea>
+                        {#% if existe == 'yes' %}
+                            <textarea name="recomendacionFinal" style="width:240px; height:100%;">{{datosBPA.recomendacion}}</textarea>
                         {% else %}
                             <textarea name="recomendacionFinal" style="width:240px; height:100%;"></textarea>
-                        {% endif %}
+                        {% endif %#}
                         
+                        
+                        {% set errorRecomendacionFinal = form_error('recomendacionFinal') %}
+                        <textarea class="form-control {{errorRecomendacionFinal? 'error':''}}"
+                            name="recomendacionFinal" style="width:240px; height:100%;">{{set_value("recomendacionFinal",datosBPA['recomendacion'])}}</textarea>
+                        <label class="error">{{errorRecomendacionFinal}}</label>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div></div><!-- .container and .panel-body -->
 </div><!-- panel default -->
-
-<div class="form-actions full">
-
-    
-    <!---div class="col-md-4 pull-right">
-        <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
-        
-    </div-->
-    <button  class="btn btn-lg btn-success pull-right" type="submit">Guardar<i class="icon16 i-arrow-right"></i></button>
+<br/>
+<div class="form-group">
+    <div class="col-md-offset-4 col-md-5">
+        <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
+        <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
+    </div>
 </div>
 {{ form_close() }}
 

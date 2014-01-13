@@ -1,7 +1,9 @@
 CREATE TABLE bpa (
 	id serial NOT NULL PRIMARY KEY,
 	ruat_id integer REFERENCES ruat(id),
-	fecha date NOT NULL,
+	creado timestamp NOT NULL default current_timestamp ,
+	creador_id integer NOT NULL references users(id),
+	fecha_visita date NOT NULL,
 	conclusion text,
 	nivel_bpa double precision,
 	recomendacion text
