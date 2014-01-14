@@ -32,15 +32,12 @@
             <td align="center">
                 <div class="btn-group">
                     <a class="btn btn-sm btn-warning tip" href="{{site_url(['ruata','index',row.id])}}" title="Registro Único de Usuarios de Asitencia Técnica">RUAT <i class="i-arrow-right-3"></i></a>
-                    <a class="btn btn-sm btn-info tip" title="Descargar RUAT Escaneado" 
-                        {% if row.observacion.ruta_formulario %}
-                             href="{{site_url("uploads/"~row.observacion.ruta_formulario)}}" target='_blank'
-                        {% else %}
-                            disabled="disabled"
-                        {% endif %} >
-                        <i class="i-file-download"></i>
-                    </a> 
-                        
+                     
+                    {% if row.observacion.ruta_formulario %}
+                        <a class="btn btn-sm btn-info tip" title="Descargar RUAT Escaneado" href="{{site_url("uploads/"~row.observacion.ruta_formulario)}}" target='_blank'><i class="i-file-download"></i></a>
+                    {% else %}
+                        <a class="btn btn-sm" disabled="disabled"><i class="i-file-download"></i></a>
+                    {% endif %}
                 </div>
                     {% set cls = row.cosecha ? 'warning' : 'default' %}
                     <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['diagnosticosecha','index',row.id])}}" title="Diagnóstico Manejo de Cosecha">Cosecha</a>
