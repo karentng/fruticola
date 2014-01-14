@@ -1,7 +1,13 @@
 {% extends "base.html.twig" %}
 
 {% block html_head %}
-
+<script>
+    $(function() {
+        {% if notif %}
+            notif({{notif|json_encode}});
+        {% endif %}
+    });
+</script>
 <script type="text/javascript">
     function calcularFinal(){
         var resultado = 0;
@@ -222,7 +228,7 @@
                                     <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" />
                                 {% endif %}
                             {% else %}
-                                <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" checked />
+                                <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" />
                             {% endif %}
                         </div>
                     </td>

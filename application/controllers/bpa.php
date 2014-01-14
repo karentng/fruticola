@@ -2,10 +2,10 @@
 
 class BPA extends CI_Controller {
 
-    public function index()
+    public function index($ruat_id)
     {
         //check_profile($this,"Administrador");
-        $ruat_id = 1;
+        //$ruat_id = 1;
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
@@ -136,8 +136,8 @@ class BPA extends CI_Controller {
             }
             $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario BPA guardado exitósamente'));
             redirect('listadoruats');
-        }else {
-            //echo validation_errors();
+        }else if(validation_errors()){
+            $this->twiggy->set('notif',array('type'=>'error', 'text'=> "Debe rellenar como mínimo la fecha, conclusión y recomendacion final. <br> Revise los recuadros rojos"));
         }
 
         
