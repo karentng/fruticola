@@ -40,7 +40,7 @@
                 </td>
                 <td> {{user.last_login|date('Y-m-d  H:i')}} </td>
                 <td align="center"> 
-                    <a href="#" class="act-warning">
+                    <a href="{{site_url(['auth','edit_user',user.id])}}" class="act-warning">
                         <i class="i-pencil"></i>
                         Editar
                     </a>

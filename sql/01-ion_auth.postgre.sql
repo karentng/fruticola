@@ -17,7 +17,7 @@ CREATE TABLE "users" (
     --"company" varchar(100),
     "phone" varchar(50),
     "identification" varchar(20),
-    "city" varchar(50)
+    "city" varchar(50),
   PRIMARY KEY("id")
 );
 

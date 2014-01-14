@@ -1,41 +1,6 @@
 
 {% extends "base.html.twig" %}
 
-{% block html_head %}
-    <script type="text/javascript">
-        function stripVowelAccent(str) //remover tildes
-        {
-            var rExps=[
-                {re:/[\xC0-\xC6]/g, ch:'A'},
-                {re:/[\xE0-\xE6]/g, ch:'a'},
-                {re:/[\xC8-\xCB]/g, ch:'E'},
-                {re:/[\xE8-\xEB]/g, ch:'e'},
-                {re:/[\xCC-\xCF]/g, ch:'I'},
-                {re:/[\xEC-\xEF]/g, ch:'i'},
-                {re:/[\xD2-\xD6]/g, ch:'O'},
-                {re:/[\xF2-\xF6]/g, ch:'o'},
-                {re:/[\xD9-\xDC]/g, ch:'U'},
-                {re:/[\xF9-\xFC]/g, ch:'u'},
-                {re:/[\xD1]/g, ch:'N'},
-                {re:/[\xF1]/g, ch:'n'} ];
-
-            for(var i=0, len=rExps.length; i<len; i++)
-                str=str.replace(rExps[i].re, rExps[i].ch);
-
-            return str;
-        }
-
-        function sugerirUsername()
-        {
-            var nombre = $('#first_name').val(), apellido=$('#last_name').val();
-            if(nombre.length && apellido.length) {
-                var sugerencia = nombre[0] + apellido.split(' ')[0];
-                sugerencia = stripVowelAccent(sugerencia).toLowerCase();
-                $('#username').val(sugerencia);
-            }
-        }
-    </script>
-{% endblock %}
 
 {% block titulo %} 
     <h1><i class="icon20 i-user-plus"></i> Crear Nuevo Usuario</h1>
@@ -49,10 +14,10 @@
     <div class="form-group">
         <label class="col-md-3 control-label">Nombre Completo:</label>
         <div class="col-md-3">
-            {{my_input('first_name',{'placeholder':'Nombre'})}}
+            {{form_input(first_name)}}
         </div>
         <div class="col-md-3">
-            {{my_input('last_name',{'placeholder':'Apellidos'})}}
+            {{form_input(last_name)}}
         </div>
     </div>
 
@@ -60,14 +25,14 @@
     <div class="form-group">
         <label class="col-md-3 control-label">E-mail:</label>
         <div class="col-md-6">
-            {{my_input('email', {'type':'email', placeholder:'Correo electrónico'})}}
+            {{form_input(email)}}
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-3 control-label">Teléfono:</label>
         <div class="col-md-3">
-            {{my_input('phone', {placeholder:'Teléfono'})}}
+            {{form_input(phone)}}
         </div>
     </div>
 
@@ -76,7 +41,7 @@
     <div class="form-group">
         <label class="col-md-3 control-label">Perfil:</label>
         <div class="col-md-5">
-            {{ form_dropdown('profile', perfiles, set_value('profile'), form_error('profile') ? 'class="error"' : '') }}
+            {{ form_dropdown('profile', perfiles, set_value('profile', currentProfile), form_error('profile') ? 'class="error"' : '') }}
             {% if form_error('profile') %}
                 <label class='error'>{{ form_error('profile') }}</label>
             {% endif %}
@@ -86,12 +51,7 @@
     <div class="form-group">
         <label class="col-md-3 control-label">Nombre de Usuario:</label>
         <div class="col-md-5">
-            <div class="input-group">
-                {{ form_input({'name':'username', 'id':'username' ,'value':set_value('username'), 'class':'form-control',  'placeholder':'Login'}) }}
-                <span class="input-group-btn">
-                    <button class="btn btn-info" type="button" onclick="sugerirUsername()">Sugerir</button>
-                </span>
-            </div>
+            {{ form_input(username)}}
             {% if form_error('username') %}
                 <label class='error'>{{ form_error('username') }}</label>
             {% endif %}
@@ -102,7 +62,7 @@
         <label class="col-md-3 control-label">Contraseña:</label>
         <div class="col-md-5">
             {# <input type="password" class="form-control" name="password" placeholder="Asigne una contraseña al nuevo usuario"> #}
-            {{ my_input('password',{'type':'password', 'placeholder':'Asigne una contraseña al nuevo usuario' }) }}
+            {{ my_input('password',{'type':'password', 'placeholder':'Digite una nueva contraseña para cambiarla' }) }}
         </div>
     </div>
 

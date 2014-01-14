@@ -92,12 +92,14 @@ class Auth extends CI_Controller {
                 'type' => 'text',
                 'value' => $this->form_validation->set_value('identity'),
                 'class' => 'form-control',
+                'style' => 'height:50px',
                 'placeholder' => 'Nombre de Usuario',
             );
             $this->data['password'] = array('name' => 'password',
                 'id' => 'password',
                 'type' => 'password',
                 'class' => 'form-control',
+                'style' => 'height:50px',
                 'placeholder' => 'Contraseña',
             );
 
@@ -190,7 +192,7 @@ class Auth extends CI_Controller {
     }
 
     //forgot password
-    function forgot_password()
+    private function forgot_password()
     {
         $this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required');
         if ($this->form_validation->run() == false)
@@ -240,7 +242,7 @@ class Auth extends CI_Controller {
     }
 
     //reset password - final step for forgotten password
-    public function reset_password($code = NULL)
+    private function reset_password($code = NULL)
     {
         if (!$code)
         {
@@ -331,7 +333,7 @@ class Auth extends CI_Controller {
 
 
     //activate the user
-    function activate($id, $code=false)
+    private function activate($id, $code=false)
     {
         if ($code !== false)
         {
@@ -450,9 +452,9 @@ class Auth extends CI_Controller {
                 $this->data['message'] = $this->ion_auth->errors();
             }
         }
-	    $perfiles = assoc($this->ion_auth->groups()->result(), 'id', 'name');
-        //var_dump($perfiles);
-	    $this->twiggy->set("perfiles",  $perfiles);
+	    
+        $perfiles = assoc($this->ion_auth->groups()->result(), 'id', 'name');
+        $this->twiggy->set("perfiles",  $perfiles);
         $this->twiggy->set($this->data, null);
         $this->twiggy->template("auth/create_user");
         $this->twiggy->display();
@@ -480,49 +482,40 @@ class Auth extends CI_Controller {
         }
 
         $user = $this->ion_auth->user($id)->row();
-        $groups=$this->ion_auth->groups()->result_array();
-        $currentGroups = $this->ion_auth->get_users_groups($id)->result();
+        $groups=$this->ion_auth->groups()->result();
+        //$currentGroups = $this->ion_auth->get_users_groups($id)->result();
 
         //validate form input
-        $this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
-        $this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
-        $this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required|xss_clean');
-        $this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required|xss_clean');
-        $this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'xss_clean');
+        //$this->form_validation->set_rules('username', 'Nombre de Usuario', 'trim|required|min_length[4]|max_length[50]|callback_islower|is_unique[users.username]');
+        $this->form_validation->set_message('is_unique', 'El %s ya está siendo usado. Escriba otro.');
+        $this->form_validation->set_rules('first_name', 'Nombre', 'trim|required');
+        $this->form_validation->set_rules('last_name', 'Apellidos', 'trim|required');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email');
+        $this->form_validation->set_rules('password', 'Contraseña', 'min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+        $this->form_validation->set_rules('password_confirm', 'Confirmación de Contraseña');
+        $this->form_validation->set_rules('profile', 'Perfil', 'required');
 
         if (isset($_POST) && !empty($_POST))
         {
-            // do we have a valid request?
-            if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
-            {
-                show_error($this->lang->line('error_csrf'));
-            }
-
             $data = array(
                 'first_name' => $this->input->post('first_name'),
                 'last_name'  => $this->input->post('last_name'),
-                'company'    => $this->input->post('company'),
                 'phone'      => $this->input->post('phone'),
             );
 
             //Update the groups user belongs to
-            $groupData = $this->input->post('groups');
+            $groupData = $this->input->post('profile');
 
             if (isset($groupData) && !empty($groupData)) {
-
                 $this->ion_auth->remove_from_group('', $id);
-
-                foreach ($groupData as $grp) {
-                    $this->ion_auth->add_to_group($grp, $id);
-                }
-
+                $this->ion_auth->add_to_group($groupData, $id);
             }
 
             //update the password if it was posted
             if ($this->input->post('password'))
             {
-                $this->form_validation->set_rules('password', $this->lang->line('edit_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-                $this->form_validation->set_rules('password_confirm', $this->lang->line('edit_user_validation_password_confirm_label'), 'required');
+                $this->form_validation->set_rules('password', "Contraseña", 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+                $this->form_validation->set_rules('password_confirm', "Confirmación de Contraseña", 'required');
 
                 $data['password'] = $this->input->post('password');
             }
@@ -530,10 +523,7 @@ class Auth extends CI_Controller {
             if ($this->form_validation->run() === TRUE)
             {
                 $this->ion_auth->update($user->id, $data);
-
-                //check to see if we are creating the user
-                //redirect them back to the admin page
-                $this->session->set_flashdata('message', "User Saved");
+                $this->session->set_flashdata('message', "Usuario actualizado exitosamente");
                 redirect("auth", 'refresh');
             }
         }
@@ -546,33 +536,48 @@ class Auth extends CI_Controller {
 
         //pass the user to the view
         $this->data['user'] = $user;
-        $this->data['groups'] = $groups;
-        $this->data['currentGroups'] = $currentGroups;
+        $this->data['perfiles'] = assoc($groups,'id','name');
+        $this->data['currentProfile'] = $this->ion_auth->get_users_groups($id)->row()->id;
+        //var_dump( $this->ion_auth->get_users_groups($id)->row());
+        //var_dump($groups);
+        //$this->data['currentGroups'] = $currentGroups;
+
+        
+        $this->data['username'] = array(
+            'name' => 'username',
+            'value' => set_value('username', $user->username),
+            'class' => 'form-control',
+            'disabled' => 'disabled',
+        );
+
+        $this->data['email'] = array(
+            'name' => 'email',
+            'value' => set_value('email', $user->email),
+            'class' => 'form-control',
+        );
 
         $this->data['first_name'] = array(
             'name'  => 'first_name',
             'id'    => 'first_name',
             'type'  => 'text',
             'value' => $this->form_validation->set_value('first_name', $user->first_name),
+            'class' => 'form-control',
         );
         $this->data['last_name'] = array(
             'name'  => 'last_name',
             'id'    => 'last_name',
             'type'  => 'text',
             'value' => $this->form_validation->set_value('last_name', $user->last_name),
-        );
-        $this->data['company'] = array(
-            'name'  => 'company',
-            'id'    => 'company',
-            'type'  => 'text',
-            'value' => $this->form_validation->set_value('company', $user->company),
+            'class' => 'form-control',
         );
         $this->data['phone'] = array(
             'name'  => 'phone',
             'id'    => 'phone',
             'type'  => 'text',
             'value' => $this->form_validation->set_value('phone', $user->phone),
+            'class' => 'form-control',
         );
+
         $this->data['password'] = array(
             'name' => 'password',
             'id'   => 'password',
@@ -584,7 +589,11 @@ class Auth extends CI_Controller {
             'type' => 'password'
         );
 
-        $this->_render_page('auth/edit_user', $this->data);
+        //$this->_render_page('auth/edit_user', $this->data);
+        //$this->twiggy->set("perfiles",  $perfiles);
+        $this->twiggy->set($this->data, null);
+        $this->twiggy->template("auth/edit_user");
+        $this->twiggy->display();
     }
 
     // create a new group

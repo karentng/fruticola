@@ -38,14 +38,15 @@ class RuatB extends CI_Controller {
             $this->twiggy->set('scope', $scope);
         }
 
-        $productor = $ruat->productor->to_array();
-        $productor['nombre_completo'] = $ruat->productor->nombre_completo();
-        $productor['tipo_documento']  = $ruat->productor->tipo_documento->descripcion;
-        $this->twiggy->set('productor', $productor);
+        $productor = $ruat->productor;
+        //$productor['nombre_completo'] = $ruat->productor->nombre_completo();
+        //$productor['tipo_documento']  = $ruat->productor->tipo_documento->descripcion;
+        $this->twiggy->set('productor', $ruat->productor);
         $this->twiggy->set('combos', $combos);
 
         $this->twiggy->set('ruat_id', $ruat_id);
 
+        $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(2, $ruat_id));
         $this->twiggy->template("ruat/ruatb");
         $this->twiggy->display();
     }
@@ -113,7 +114,9 @@ class RuatB extends CI_Controller {
     {
         $finca = Finca::find_by_ruat_id($ruat_id);
         $output = new StdClass;
-        $output->soloLectura = true;
+        
+        $output->soloLectura = Ruat::find($ruat_id)->soloLectura($this);
+
         $output->finca = $finca->to_array();
         $output->servicios = extract_prop(FincaServicio::find_all_by_finca_id($finca->id),'servicio_id');
         

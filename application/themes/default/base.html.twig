@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="utf-8">
-    <title>Plan Frutícola</title>
+    <title>Plan Frutícola del Valle del Cauca</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Universidad del Valle" />
     <meta name="description" content="Plan Fruticola del Valle" />
@@ -38,7 +38,7 @@
  
 
     <!-- app stylesheets -->
-    <link href="{{ base_url('assets/css/app.css') }}" rel="stylesheet" /> 
+    <link href="{{ base_url('assets/css/app.css?v=2') }}" rel="stylesheet" /> 
 
     <!-- Custom stylesheets ( Put your own changes here ) -->
     <link href="{{ base_url('assets/css/custom.css?v=2') }}" rel="stylesheet" /> 
@@ -97,16 +97,17 @@
 
     <!-- Init plugins -->
     <script src="{{ base_url('assets/js/app.js') }}"></script><!-- Core js functions -->
-    <script src="{{ base_url('assets/js/pages/domready.js') }}"></script><!-- Init plugins only for page -->
+    <script src="{{ base_url('assets/js/pages/domready.js?v=2') }}"></script><!-- Init plugins only for page -->
 
     {% block html_head %}{% endblock %}
-
+    
+    {{ flash_notif() }}
   </head>
   <body>
   {% block html_body %}
     <header id="header">
         <nav class="navbar navbar-default navbar-static-top" role="navigation">
-            <a class="navbar-brand" href="#"><img src="{{ base_url('assets/images/logo.png') }}" alt="Plan fruticola" class="img-responsive" style="height:40px"></a>
+            <a class="navbar-brand" href="#"><img src="{{ base_url('assets/images/logo.png?v=3') }}" alt="Plan fruticola" class="img-responsive" style="height:40px"></a>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle btn-danger" data-toggle="collapse" data-target="#navbar-to-collapse">
                     <span class="sr-only">Toggle right menu</span>
@@ -162,15 +163,16 @@
         #}
         <section id="contento">
             <div class="wrapper">
-                {#
+                
                 <div class="crumb">
+                    {% block breadcrumnb %}
                     <ul class="breadcrumb">
-                      <li><a href="#"><i class="icon16 i-home-4"></i>Home</a></li>
-                      <li><a href="#">Library</a></li>
-                      <li class="active">Data</li>
+                      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
                     </ul>
+                    {% endblock %}
+                    xyz
                 </div>
-                #}
+                
                 <div class="container-fluid">
                     <div id="heading" class="page-header">
                         

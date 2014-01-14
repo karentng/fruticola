@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class RuatA extends CI_Controller {
+class PlanVisitas extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
@@ -23,7 +23,7 @@ class RuatA extends CI_Controller {
         $data['tiposCredito']         = array_map('to_array',TipoCredito::sorted());
         $data['periodicidades']       = array_map('to_array',Periodicidad::sorted());
         $data['tiposConfianza']       = array_map('to_array',TipoConfianza::sorted());
-        $data['tiposInnovacion']      = array_map('to_array',TipoInnovacion::sorted());
+        $data['tiposActividadVisita'] = array_map('to_array',TipoActividadVisita::sorted());
         $data['fuentesInnovacion']    = array_map('to_array',FuenteInnovacion::sorted());
         $data['tiposRazonNoPertenecer'] = array_map('to_array',TipoRazonNoPertenecer::sorted());
         $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
@@ -43,8 +43,7 @@ class RuatA extends CI_Controller {
             $this->twiggy->set('ruat', json_encode($ruat));
         }
 
-        $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(1, $ruat_id));
-        $this->twiggy->template("ruat/ruata");
+        $this->twiggy->template("ruat/planvisitas");
         $this->twiggy->display();
     }
 
@@ -158,8 +157,7 @@ class RuatA extends CI_Controller {
     {
         $ruat = Ruat::find($ruat_id);
         $output = new StdClass;
-        $output->soloLectura = $ruat->soloLectura($this);
-
+        $output->soloLectura = true;
         $output->ruat_id = $ruat->id;
         $output->numero_formulario = $ruat->numero_formulario;
         $output->productor = $ruat->productor->to_array();

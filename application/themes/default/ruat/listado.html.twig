@@ -1,13 +1,44 @@
 {% extends "base.html.twig" %}
 
-{% block titulo %} <h1><i class="icon20 i-man"></i> Listado de RUATs </h1> {% endblock %}
+{% block html_head %}
+    <link href="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.css')}}" rel="stylesheet" /> 
+    <script src="js/plugins/tables/datatables/jquery.dataTables.min.js"></script>
+
+    <script>
+        /*$(function(){
+            $('#dataTable').dataTable( {
+                "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
+                "sPaginationType": "bootstrap",
+                "bJQueryUI": false,
+                "bAutoWidth": false,
+                "oLanguage": {
+                    "sSearch": "<span>Filter:</span> _INPUT_",
+                    "sLengthMenu": "<span>_MENU_ entries</span>",
+                    "oPaginate": { "sFirst": "First", "sLast": "Last" }
+                }
+            });
+
+            $('.dataTables_length select').uniform();
+            $('.dataTables_paginate > ul').addClass('pagination');
+        });*/
+    </script>
+
+{% endblock %}
+
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li class="active"><i class="icon16 i-home-4"></i>Inicio</li>
+    </ul>
+{% endblock %}
+
+{% block titulo %} <h1><i class="icon20 i-list-2"></i> Listado de RUATS Inscritos </h1> {% endblock %}
 
 {% block contenido %}
 
-<a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}">Crear Nuevo RUAT</a>
+<a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}"><i class="icon20 i-plus"></i> Crear Nuevo RUAT</a>
 <br/><br/>
 
-<table class="table table-bordered table-hover">
+<table id='dataTable' class="table table-bordered table-hover">
     <thead>
         <th>#</th>
         <th>Productor</th>
@@ -23,7 +54,22 @@
             <td>{{row.productor.nombre_completo()}}</td>
             <td>{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</td>
             <td>{{row.creado | date("Y-m-d  H:i")}}</td>
-            <td><a class="act act-warning" href="{{site_url(['ruata','index',row.id])}}">Editar</a></td>
+            <td align="center">
+                <div class="btn-group">
+                    <a class="btn btn-sm btn-warning tip" href="{{site_url(['ruata','index',row.id])}}" title="Registro Único de Usuarios de Asitencia Técnica">RUAT <i class="i-arrow-right-3"></i></a>
+                     
+                    {% if row.observacion.ruta_formulario %}
+                        <a class="btn btn-sm btn-info tip" title="Descargar RUAT Escaneado" href="{{site_url("uploads/"~row.observacion.ruta_formulario)}}" target='_blank'><i class="i-file-download"></i></a>
+                    {% else %}
+                        <a class="btn btn-sm" disabled="disabled"><i class="i-file-download"></i></a>
+                    {% endif %}
+                </div>
+                    {% set cls = row.cosecha ? 'warning' : 'default' %}
+                    <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['diagnosticosecha','index',row.id])}}" title="Diagnóstico Manejo de Cosecha">Cosecha</a>
+                    {% set cls = row.bpa ? 'warning' : 'default' %}
+                    <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['bpa','index',row.id])}}" title="Buenas Prácticas Agropecuarias">BPA</a>
+                
+            </td>
         </tr>
         {% endfor %}
     </tbody>

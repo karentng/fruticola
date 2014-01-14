@@ -118,4 +118,41 @@ if(! function_exists('my_input'))
                 $res[] = $obj->$prop;
         return $res;
     }
+
+    function ruat_breadcrumbs($step, $ruat_id)
+    {
+        $output = "<li>RUAT</li>";
+        $cond = array('ruat_id'=> $ruat_id ?: "0");
+        $linkA = site_url("ruata/index/$ruat_id");
+        $linkB = $ruat_id ? site_url("ruatb/index/$ruat_id") : null;
+        $linkC = Finca::exists($cond) ? site_url("ruatc/index/$ruat_id") : null;
+        $linkD = AprendizajeRespuesta::exists($cond) ? site_url("ruatd/index/$ruat_id") : null;
+
+        $sections = array(
+            array('step'=>1, 'title'=>'Sección A', 'link' => $linkA),
+            array('step'=>2, 'title'=>'Sección B', 'link' => $linkB),
+            array('step'=>3, 'title'=>'Sección C', 'link' => $linkC),
+            array('step'=>4, 'title'=>'Sección D', 'link' => $linkD),
+        );
+
+
+        foreach($sections as $section)
+            if($step==$section['step'])
+                $output .= "<li><strong class='text-success'>$section[title]</strong></a>";
+            elseif($section['link'])
+                $output .= "<li><a href='$section[link]'>$section[title]</a></li>";
+
+        return $output;
+    }
+
+    function flash_notif()
+    {
+        $ci = &get_instance();
+        $msg = $ci->session->flashdata('notif');
+        if($msg) {
+            $json = json_encode($msg);
+            return "<script>$(function(){ notif($json) });</script>";
+        }
+        return "";
+    }
 }
