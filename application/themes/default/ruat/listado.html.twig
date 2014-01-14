@@ -6,11 +6,11 @@
     </ul>
 {% endblock %}
 
-{% block titulo %} <h1><i class="icon20 i-man"></i> Listado de RUATS Inscritos </h1> {% endblock %}
+{% block titulo %} <h1><i class="icon20 i-list-2"></i> Listado de RUATS Inscritos </h1> {% endblock %}
 
 {% block contenido %}
 
-<a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}">Crear Nuevo RUAT</a>
+<a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}"><i class="icon20 i-plus"></i> Crear Nuevo RUAT</a>
 <br/><br/>
 
 <table class="table table-bordered table-hover">
@@ -30,11 +30,23 @@
             <td>{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</td>
             <td>{{row.creado | date("Y-m-d  H:i")}}</td>
             <td align="center">
-                <a class="btn btn-sm btn-warning tip" href="{{site_url(['ruata','index',row.id])}}" title="Registro Único de Usuarios de Asitencia Técnica">RUAT</a>
-                {% set cls = row.cosecha ? 'warning' : 'default' %}
-                <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['diagnosticosecha','index',row.id])}}" title="Diagnóstico Manejo de Cosecha">Cosecha</a>
-                {% set cls = row.bpa ? 'warning' : 'default' %}
-                <a class="btn btn-sm btn-default tip" href="{{site_url(['bpa','index',row.id])}}" title="Buenas Prácticas Agropecuarias">BPA</a>
+                <div class="btn-group">
+                    <a class="btn btn-sm btn-warning tip" href="{{site_url(['ruata','index',row.id])}}" title="Registro Único de Usuarios de Asitencia Técnica">RUAT <i class="i-arrow-right-3"></i></a>
+                    <a class="btn btn-sm btn-info tip" title="Descargar RUAT Escaneado" 
+                        {% if row.observacion.ruta_formulario %}
+                             href="{{site_url("uploads/"~row.observacion.ruta_formulario)}}" target='_blank'
+                        {% else %}
+                            disabled="disabled"
+                        {% endif %} >
+                        <i class="i-file-download"></i>
+                    </a> 
+                        
+                </div>
+                    {% set cls = row.cosecha ? 'warning' : 'default' %}
+                    <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['diagnosticosecha','index',row.id])}}" title="Diagnóstico Manejo de Cosecha">Cosecha</a>
+                    {% set cls = row.bpa ? 'warning' : 'default' %}
+                    <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['bpa','index',row.id])}}" title="Buenas Prácticas Agropecuarias">BPA</a>
+                
             </td>
         </tr>
         {% endfor %}

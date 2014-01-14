@@ -13,7 +13,7 @@ class Ruat extends ActiveRecord\Model
     static $has_one = array(
         array('bpa', 'class_name'=>'BuenasPracticas', 'foreign_key' => 'ruat_id'),
         array('cosecha', 'class_name'=>'Cosecha', 'foreign_key' => 'ruat_id'),
-
+        array('observacion', 'class_name'=>'Observacion', 'foreign_key' => 'ruat_id'),
     );
 
     public function soloLectura(&$controller)
