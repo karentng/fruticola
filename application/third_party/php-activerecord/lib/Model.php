@@ -339,21 +339,23 @@ class Model
 	 * @param string $attribute_name
 	 * @return boolean
 	 */
-	public function __isset($attribute_name)
+	public function __isset($name)
 	{
-		if($attribute_name=="created_at" || $attribute_name=="updated_at") return false;
-		$res = array_key_exists($attribute_name,$this->attributes) || array_key_exists($attribute_name,static::$alias_attribute);
-		if($res) return $res;
-
+		//if($name=='created_at' || $name=='updated_at') return false;
 		if (method_exists($this, "get_$name"))
         {
-            //$name = "get_$name";
-            //$value = $this->$name();
-            //return $value;
-            return true;
+            $name = "get_$name";
+            $value = $this->$name();
+            return $value;
         }
 
-        return $this->read_attribute($attribute_name);
+        try {
+        	$this->read_attribute($name);
+        	return true;
+        } catch(UndefinedPropertyException $ex) {
+        	return false;
+        }
+        //return $this->read_attribute($name);
 	}
 
 	/**

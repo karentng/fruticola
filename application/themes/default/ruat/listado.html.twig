@@ -31,8 +31,9 @@
             <td>{{row.creado | date("Y-m-d  H:i")}}</td>
             <td align="center">
                 <a class="btn btn-sm btn-warning tip" href="{{site_url(['ruata','index',row.id])}}" title="Registro Único de Usuarios de Asitencia Técnica">RUAT</a>
-                {#% set cls = row.cosecha ? 'primary' : 'default' %#}
+                {% set cls = row.cosecha ? 'warning' : 'default' %}
                 <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['diagnosticosecha','index',row.id])}}" title="Diagnóstico Manejo de Cosecha">Cosecha</a>
+                {% set cls = row.bpa ? 'warning' : 'default' %}
                 <a class="btn btn-sm btn-default tip" href="{{site_url(['bpa','index',row.id])}}" title="Buenas Prácticas Agropecuarias">BPA</a>
             </td>
         </tr>
