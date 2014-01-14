@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class TipoProductor extends CI_Controller {
 
-    public function index($id = null, $ruat_id = null) {
-        $id = $ruat_id = 1;
+    public function index($ruat_id = null) {
+        $ruat_id = 1;
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
@@ -16,11 +16,15 @@ class TipoProductor extends CI_Controller {
         
         ///Consulto la info de la visita
         $visitaTipoProductor = VisitaTipoProductor::first(array(
-                    'conditions' => array('id = ?', $id)
+                    'conditions' => array('ruat_id = ?', $ruat_id)
         ));
         $this->form_validation->set_rules("fecha", ' ', 'required');
         $this->form_validation->set_rules("observacion", ' ', 'required');
         $this->form_validation->set_rules("credito_agricola", ' ', 'required');
+        
+        $id = null;
+        if($visitaTipoProductor)
+            $id = $visitaTipoProductor->id;
         
         ///Consulto los datos del productor, a partir del ruat
         $ruat = Ruat::find($ruat_id, array('joins' => array('productor')));
@@ -81,7 +85,6 @@ class TipoProductor extends CI_Controller {
         $this->form_validation->set_rules("criterio4", ' ', 'required|is_natural');
         
         
-        
         ///Si las validaciones son correctas procedo a guardar
         if ($this->form_validation->run()) {
             
@@ -101,6 +104,7 @@ class TipoProductor extends CI_Controller {
                     $upload_result = $arr_upload_result['error']; 
             }            
             $visitaTipoProductor->save();
+            $id = $visitaTipoProductor->id;
 
             ///GUARDANDO RESPUESTAS B
             $respuesta_b = ($respuesta_b) ? $respuesta_b : new TPBRespuesta;
@@ -135,8 +139,6 @@ class TipoProductor extends CI_Controller {
                     $objTPCRespuesta->save();
                 }
             }
-            
-            
         }
         
         $this->twiggy->register_function('form_open_multipart');
