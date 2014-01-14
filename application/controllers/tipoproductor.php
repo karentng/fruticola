@@ -6,6 +6,7 @@ class TipoProductor extends CI_Controller {
 
     public function index($ruat_id = null) {
         $ruat_id = 1;
+        $user_id = current_user('id');
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
@@ -94,6 +95,7 @@ class TipoProductor extends CI_Controller {
             $visitaTipoProductor->fecha = $this->input->post('fecha');
             $visitaTipoProductor->observaciones = $this->input->post('observacion');
             $visitaTipoProductor->credito_agricola = $this->input->post('credito_agricola');
+            $visitaTipoProductor->creador_id = $user_id;
             
             ///SUBO EL ARCHIVO
             if(isset($_FILES["archivo_formulario"]) && !empty($_FILES["archivo_formulario"]["name"])) {
@@ -104,6 +106,8 @@ class TipoProductor extends CI_Controller {
                     $upload_result = $arr_upload_result['error']; 
             }            
             $visitaTipoProductor->save();
+            
+            ///obtengo el id de la visita luego de guardar/editar
             $id = $visitaTipoProductor->id;
 
             ///GUARDANDO RESPUESTAS B

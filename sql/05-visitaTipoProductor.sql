@@ -10,7 +10,9 @@ CREATE TABLE visita_tipo_productor (
 	fecha date NOT NULL,
 	observaciones text,
         credito_agricola bit,
-	archivo_fisico text
+	archivo_fisico text,
+        creado timestamp NOT NULL default current_timestamp,
+	creador_id integer NOT NULL references users(id)
 );
 
 CREATE TABLE tp_b_respuesta(
