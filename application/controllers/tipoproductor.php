@@ -91,6 +91,15 @@ class TipoProductor extends CI_Controller {
             $visitaTipoProductor->fecha = $this->input->post('fecha');
             $visitaTipoProductor->observaciones = $this->input->post('observacion');
             $visitaTipoProductor->credito_agricola = $this->input->post('credito_agricola');
+            
+            ///SUBO EL ARCHIVO
+            if(isset($_FILES["archivo_formulario"]) && !empty($_FILES["archivo_formulario"]["name"])) {
+                $arr_upload_result = $this->do_upload($id);
+                if(!isset($arr_upload_result['error']) && isset($arr_upload_result['upload_data']))
+                    $visitaTipoProductor->archivo_fisico = 'vtp/'.$arr_upload_result['upload_data']['file_name'];
+                else
+                    $upload_result = $arr_upload_result['error']; 
+            }            
             $visitaTipoProductor->save();
 
             ///GUARDANDO RESPUESTAS B
@@ -100,8 +109,7 @@ class TipoProductor extends CI_Controller {
             $respuesta_b->valor_uaf =$this->input->post('valor_uaf');
             $respuesta_b->tipo_productor_uaf =$this->input->post('tipo_productor_uaf');
             $respuesta_b->clasificacion_productor_uaf =$this->input->post('clasificacion_productor_uaf');
-            $respuesta_b->save();
-            
+            $respuesta_b->save();            
             
             ///GUARDANDO RESPUESTAS D
             $respuesta_d = ($respuesta_d) ? $respuesta_d : new TPDRespuesta;
@@ -111,7 +119,6 @@ class TipoProductor extends CI_Controller {
             $respuesta_d->criterio3 =$this->input->post('criterio3');
             $respuesta_d->criterio4 =$this->input->post('criterio4');
             $respuesta_d->save();
-
 
             ///GUARDANDO RESPUESTAS C
             foreach ($preguntas_c as $obj) {
@@ -128,6 +135,8 @@ class TipoProductor extends CI_Controller {
                     $objTPCRespuesta->save();
                 }
             }
+            
+            
         }
         
         $this->twiggy->register_function('form_open_multipart');
@@ -141,9 +150,26 @@ class TipoProductor extends CI_Controller {
         $this->twiggy->set('preguntas_activos', $preguntas_activos);
         $this->twiggy->set('preguntas_totales', $preguntas_totales);
         $this->twiggy->set('respuesta_d', $respuesta_d);
+        $this->twiggy->set('upload_result', $upload_result);
 
         $this->twiggy->template("tipoproductor/tipo_productor");
         $this->twiggy->display();
+    }
+    
+    private function do_upload($id) {
+        $config['upload_path'] = './uploads/vtp';
+        $config['allowed_types'] = 'pdf|png';
+        $config['max_size'] = '10240';/// 10MiB
+        $config['overwrite'] = true;/// 10MiB
+        $config['file_name'] = $id;/// 10MiB
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('archivo_formulario')) {
+            return array('error' => $this->upload->display_errors('<div><label class="error">', '</label></div>'));
+        } else {
+            return array('upload_data' => $this->upload->data());
+        }
     }
 
 }

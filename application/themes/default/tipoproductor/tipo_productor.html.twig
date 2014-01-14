@@ -101,7 +101,7 @@
                         <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
                         <div class="col-sm-8">
                             <div class="input-group date datepicker autostart">
-                                <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha)}}" class="form-control" type="text">
+                                <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha | date('Y-m-d'))}}" class="form-control" type="text">
                                 {{form_error('fecha')}}
                                 <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                             </div>
@@ -462,35 +462,21 @@
                     <hr class="seperator">
                     <div class="form-group">
 
-                        <div class="col-lg-4">                            
-                            {% if observacion.ruta_formulario %}
+                        <div class="col-lg-8">                            
+                            {% if visitaTipoProductor.archivo_fisico %}
                             <span class="box1 col-lg-12">
                                 <i aria-hidden="true" class="i-file"></i>
-                                <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~ observacion.ruta_formulario}}">{{observacion.ruta_formulario}} </a>
+                                <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~ visitaTipoProductor.archivo_fisico}}">{{visitaTipoProductor.archivo_fisico}} </a>
                             </span>      
                             <br/><br/><br/>
                             {% endif %}
 
 
                             <input type="file" name="archivo_formulario" id="archivo_formulario" >
-                            {{upload_result_ruat}}
-                            <label for="archivo_formulario" class="col-lg-12"  >DOCUMENTO DEL BENEFICIARIO</label>
+                            {{upload_result}}
+                            <label for="archivo_formulario" class="col-lg-12"  >DOCUMENTO DIGITALIZADO</label>
                         </div>
-                        <div class="col-lg-4">
-                        </div>
-                        <div class="col-lg-4">
-                            {% if productor.adjunto_cedula %}
-                            <span class="box1 col-lg-12">
-                                <i aria-hidden="true" class="i-vcard"></i>
-                                <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~productor.adjunto_cedula}}">{{productor.adjunto_cedula}} </a>
-                            </span>      
-                            <br/><br/><br/>
-                            {% endif %}
-
-                            <input type="file" name="archivo_documento_identificacion" id="archivo_documento_identificacion" >
-                            {{upload_result_documento_identidad}}
-                            <label for="archivo_documento_identificacion" class="col-lg-12" >RUAT DIGITALIZADO</label>
-                        </div>
+                        
                     </div>
 
 
