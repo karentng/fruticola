@@ -8,8 +8,8 @@ CREATE TABLE visita_tipo_productor (
 	id serial NOT NULL PRIMARY KEY,
 	ruat_id integer REFERENCES ruat(id),
 	fecha date NOT NULL,
-	obervaciones text,
-    credito_agricola bit,
+	observaciones text,
+        credito_agricola bit,
 	archivo_fisico text
 );
 

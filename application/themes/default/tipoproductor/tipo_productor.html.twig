@@ -4,33 +4,33 @@
 
 <script type="text/javascript">
 
-    
+
     /*
      * Utilidad es igual a ingresos menos egresos     
      */
-    function calcularUtilidad(){         
-        
+    function calcularUtilidad() {
+
         var total_ingresos = parseFloat($('.respuestas_ingresos[readonly]').val());
         var total_egresos = parseFloat($('.respuestas_egresos[readonly]').val());
         var objUtilidad = $('.respuestas_c_totales').first();//primero de dos
         objUtilidad.val(total_ingresos - total_egresos);
-        
+
         ///recalculo la relacion beneficio-costo
         calcularBeneficioCosto();
     }
-    
+
     /*
      * La relacion beneficio-costo es igual al total de ingresos dividio la utilidad  
      */
-    function calcularBeneficioCosto(){         
-        
+    function calcularBeneficioCosto() {
+
         var total_ingresos = parseFloat($('.respuestas_ingresos[readonly]').val());
         var utilidad = parseFloat($('.respuestas_c_totales').first().val());
         var objBeneficioCosto = $('.respuestas_c_totales').last();//ultimo de dos
-        
-        console.log('en calcular beneficios'+(total_ingresos / utilidad));
-        
-        if(utilidad)
+
+        console.log('en calcular beneficios' + (total_ingresos / utilidad));
+
+        if (utilidad)
             objBeneficioCosto.val(total_ingresos / utilidad);
     }
 
@@ -46,7 +46,7 @@
         });
         $('.respuestas_activos[readonly]').val(total);
     }
-    
+
     function calcularTotalIngresos() {
         var total = 0;
         $('.respuestas_ingresos').each(function() {
@@ -57,11 +57,11 @@
                 total += parseFloat(obj.val());
         });
         $('.respuestas_ingresos[readonly]').val(total);
-        
+
         ///recalculo las utilidad
         calcularUtilidad();
     }
-    
+
     function calcularTotalEgresos() {
         var total = 0;
         $('.respuestas_egresos').each(function() {
@@ -72,7 +72,7 @@
                 total += parseFloat(obj.val());
         });
         $('.respuestas_egresos[readonly]').val(total);
-        
+
         ///recalculo las utilidad
         calcularUtilidad();
     }
@@ -92,7 +92,7 @@
 
 <div>
     <div>
-       {{ form_open(null, {role:'form'}) }}
+       {{ form_open_multipart(null, {role:'form'}) }}
 
         <div class="row">
             <div class="col-md-6">
@@ -101,7 +101,8 @@
                         <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
                         <div class="col-sm-8">
                             <div class="input-group date datepicker autostart">
-                                <input size="16" name="fecha" value="{{ set_value('fecha')}}" class="form-control" type="text">
+                                <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha)}}" class="form-control" type="text">
+                                {{form_error('fecha')}}
                                 <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                             </div>
                         </div>
@@ -119,6 +120,7 @@
                 </div>
             </div>
         </div>
+        <br />
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -157,11 +159,11 @@
                                         {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 1 ? 'checked' : ''%}
                                         <label for="tipo_productor_uaf">Pequeño Productor</label>
                                         <input type="radio" class="" name="tipo_productor_uaf" value="1" {{set_radio('tipo_productor_uaf', 1) ? set_radio('tipo_productor_uaf', 1) : respuesta_checked_bd}}/>
-                                        
+
                                         {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 2 ? 'checked' : ''%}
                                         <label for="tipo_productor_uaf">Mediano Productor</label>
                                         <input type="radio" class="" name="tipo_productor_uaf" value="2" {{set_radio('tipo_productor_uaf', 2) ? set_radio('tipo_productor_uaf', 2) : respuesta_checked_bd}}/>
-                                        
+
                                     </div>                    
                                 </div>
                             </div>
@@ -175,7 +177,7 @@
                                         {% set respuesta_checked_bd =  respuesta_b.clasificacion_productor_uaf == 1 ? 'checked' : ''%}
                                         <label for="clasificacion_productor_uaf">Resolución 1132 del 21/Jun/2013 expedida por el INCODER</label>
                                         <input type="radio" class="" name="clasificacion_productor_uaf" value="1" {{set_radio('clasificacion_productor_uaf', 1) ? set_radio('clasificacion_productor_uaf', 1) : respuesta_checked_bd}}/>
-                                        
+
                                         {% set respuesta_checked_bd =  respuesta_b.clasificacion_productor_uaf == 2 ? 'checked' : ''%}
                                         <label for="clasificacion_productor_uaf">Resolución  041 del 24/Sep/1996 expedida por el INCODER</label>
                                         <input type="radio" class="" name="clasificacion_productor_uaf" value="2" {{set_radio('clasificacion_productor_uaf', 2) ? set_radio('clasificacion_productor_uaf', 2) : respuesta_checked_bd}}/>
@@ -341,7 +343,7 @@
                                             {% set respuesta_checked_bd =  respuesta_d.criterio1 == 1 ? 'checked' : ''%}                                            
                                             <input type="radio" class="" name="criterio1" value="1" {{set_radio('criterio1', 1) ? set_radio('criterio1', 1) : respuesta_checked_bd}}/>
                                             <label for="criterio1">SI</label>
-                                            
+
                                             {% set respuesta_checked_bd =  respuesta_d.criterio1 == 2 ? 'checked' : ''%}                                            
                                             <input type="radio" class="" name="criterio1" value="2" {{set_radio('criterio1', 2) ? set_radio('criterio1', 2) : respuesta_checked_bd}}/>
                                             <label for="criterio1">NO</label>
@@ -360,7 +362,7 @@
                                             {% set respuesta_checked_bd =  respuesta_d.criterio2 == 1 ? 'checked' : ''%}                                            
                                             <input type="radio" class="" name="criterio2" value="1" {{set_radio('criterio2', 1) ? set_radio('criterio2', 1) : respuesta_checked_bd}}/>
                                             <label for="criterio2">PEQUEÑO PRODUCTOR</label>
-                                            
+
                                             {% set respuesta_checked_bd =  respuesta_d.criterio2 == 2 ? 'checked' : ''%}                                            
                                             <input type="radio" class="" name="criterio2" value="2" {{set_radio('criterio2', 2) ? set_radio('criterio2', 2) : respuesta_checked_bd}}/>
                                             <label for="criterio2">MEDIANO PRODUCTOR</label>                                        
@@ -379,7 +381,7 @@
                                             {% set respuesta_checked_bd =  respuesta_d.criterio3 == 1 ? 'checked' : ''%}                                            
                                             <input type="radio" class="" name="criterio3" value="1" {{set_radio('criterio3', 1) ? set_radio('criterio3', 1) : respuesta_checked_bd}}/>
                                             <label for="criterio3">PEQUEÑO PRODUCTOR</label>
-                                            
+
                                             {% set respuesta_checked_bd =  respuesta_d.criterio3 == 2 ? 'checked' : ''%}                                            
                                             <input type="radio" class="" name="criterio3" value="2" {{set_radio('criterio3', 2) ? set_radio('criterio3', 2) : respuesta_checked_bd}}/>
                                             <label for="criterio3">MEDIANO PRODUCTOR</label>  
@@ -398,7 +400,7 @@
                                             {% set respuesta_checked_bd =  respuesta_d.criterio4 == 1 ? 'checked' : ''%}                                            
                                             <input type="radio" class="" name="criterio4" value="1" {{set_radio('criterio4', 1) ? set_radio('criterio4', 1) : respuesta_checked_bd}}/>
                                             <label for="criterio4">PEQUEÑO PRODUCTOR</label>
-                                            
+
                                             {% set respuesta_checked_bd =  respuesta_d.criterio4 == 2 ? 'checked' : ''%}                                            
                                             <input type="radio" class="" name="criterio4" value="2" {{set_radio('criterio4', 2) ? set_radio('criterio4', 2) : respuesta_checked_bd}}/>
                                             <label for="criterio4">MEDIANO PRODUCTOR</label>  
@@ -422,11 +424,79 @@
                 <a href="#" class="minimize"></a>
             </div><!-- End .panel-heading -->
 
-            <div class="panel-body"><div class="container">
-                    <div class="row">
+            <div class="panel-body" style="display: block;">
+                <div class="container">            
+                    <!-- begin -->
+                    <div class="row">                        
+                        <div>
+                            <label for="credito_agricola">Está interesado en una solicitud de crédito agrícola:</label>
+                            {% set respuesta_checked_bd =  visitaTipoProductor.credito_agricola == 1 ? 'checked' : ''%}                                            
+                            <input type="radio" class="" name="credito_agricola" value="1" {{set_radio('credito_agricola', 1) ? set_radio('credito_agricola', 1) : respuesta_checked_bd}}/>
+                            <label for="credito_agricola">SI</label>
 
+                            {% set respuesta_checked_bd =  visitaTipoProductor.credito_agricola == 0 ? 'checked' : ''%}                                            
+                            <input type="radio" class="" name="credito_agricola" value="0" {{set_radio('credito_agricola', 0) ? set_radio('credito_agricola', 0) : respuesta_checked_bd}}/>
+                            <label for="credito_agricola">NO</label>
+                        </div>  
+                        <label for="observacion">Describa su interés de crédito </label>
+                        {{form_error('observacion')}}
+                        <textarea class="form-control" id="textarea" name="observacion" rows="3" >{{ set_value('observacion', visitaTipoProductor.observaciones) }}</textarea>
                     </div>
-                </div></div><!-- .container and .panel-body -->
+                    <br/>
+
+                    <div class="form-group">
+
+                        <div class="col-lg-4">
+                            <input id="beneficiario" class="form-control" style="text-align: center;" type="text" value="{{productor.nombre1}} {{productor.nombre2}} {{productor.apellido1}} {{productor.apellido2}}" disabled>
+                            <label for="beneficiario" class="col-lg-12" style="text-align: center;" >BENEFICIARIO</label>
+                        </div>
+                        <div class="col-lg-4">                      
+                        </div>
+                        <div class="col-lg-4">
+                            <input id="responsable" class="form-control" style="text-align: center;" type="text" value="{{usuaioSesion.first_name}} {{usuaioSesion.last_name}}" disabled>
+                            <label for="responsable" class="col-lg-12" style="text-align: center;" >FUNCIONARIO RESPONSABLE</label>
+                        </div>
+                    </div>
+
+                    <div class="center">&nbsp;</div>
+                    <hr class="seperator">
+                    <div class="form-group">
+
+                        <div class="col-lg-4">                            
+                            {% if observacion.ruta_formulario %}
+                            <span class="box1 col-lg-12">
+                                <i aria-hidden="true" class="i-file"></i>
+                                <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~ observacion.ruta_formulario}}">{{observacion.ruta_formulario}} </a>
+                            </span>      
+                            <br/><br/><br/>
+                            {% endif %}
+
+
+                            <input type="file" name="archivo_formulario" id="archivo_formulario" >
+                            {{upload_result_ruat}}
+                            <label for="archivo_formulario" class="col-lg-12"  >DOCUMENTO DEL BENEFICIARIO</label>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+                        <div class="col-lg-4">
+                            {% if productor.adjunto_cedula %}
+                            <span class="box1 col-lg-12">
+                                <i aria-hidden="true" class="i-vcard"></i>
+                                <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~productor.adjunto_cedula}}">{{productor.adjunto_cedula}} </a>
+                            </span>      
+                            <br/><br/><br/>
+                            {% endif %}
+
+                            <input type="file" name="archivo_documento_identificacion" id="archivo_documento_identificacion" >
+                            {{upload_result_documento_identidad}}
+                            <label for="archivo_documento_identificacion" class="col-lg-12" >RUAT DIGITALIZADO</label>
+                        </div>
+                    </div>
+
+
+                    <!-- end -->
+                </div> <!-- .container -->
+            </div><!-- End .panel-body -->
         </div><!-- panel default -->
 
         <div class="form-actions full">

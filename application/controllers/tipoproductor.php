@@ -4,11 +4,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class TipoProductor extends CI_Controller {
 
-    public function index($id = null) {
-        $id = 1;
+    public function index($id = null, $ruat_id = null) {
+        $id = $ruat_id = 1;
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
+        
+        
+        ///Obtengo los datos del usuario en session
+        $usuaioSesion = $this->ion_auth->user()->row();
+        
+        ///Consulto la info de la visita
+        $visitaTipoProductor = VisitaTipoProductor::first(array(
+                    'conditions' => array('id = ?', $id)
+        ));
+        $this->form_validation->set_rules("fecha", ' ', 'required');
+        $this->form_validation->set_rules("observacion", ' ', 'required');
+        $this->form_validation->set_rules("credito_agricola", ' ', 'required');
+        
+        ///Consulto los datos del productor, a partir del ruat
+        $ruat = Ruat::find($ruat_id, array('joins' => array('productor')));
+        $productor = $ruat->productor;
 
 
         ///consulo las respuestas B
@@ -68,6 +84,14 @@ class TipoProductor extends CI_Controller {
         
         ///Si las validaciones son correctas procedo a guardar
         if ($this->form_validation->run()) {
+            
+            ///GUARDANDO LA VISITA
+            $visitaTipoProductor = ($visitaTipoProductor) ? $visitaTipoProductor : new VisitaTipoProductor;
+            $visitaTipoProductor->ruat_id = $ruat_id;
+            $visitaTipoProductor->fecha = $this->input->post('fecha');
+            $visitaTipoProductor->observaciones = $this->input->post('observacion');
+            $visitaTipoProductor->credito_agricola = $this->input->post('credito_agricola');
+            $visitaTipoProductor->save();
 
             ///GUARDANDO RESPUESTAS B
             $respuesta_b = ($respuesta_b) ? $respuesta_b : new TPBRespuesta;
@@ -105,7 +129,12 @@ class TipoProductor extends CI_Controller {
                 }
             }
         }
+        
+        $this->twiggy->register_function('form_open_multipart');
 
+        $this->twiggy->set('usuaioSesion', $usuaioSesion);
+        $this->twiggy->set('productor', $productor);
+        $this->twiggy->set('visitaTipoProductor', $visitaTipoProductor);
         $this->twiggy->set('respuesta_b', $respuesta_b);
         $this->twiggy->set('preguntas_ingresos', $preguntas_ingresos);
         $this->twiggy->set('preguntas_egresos', $preguntas_egresos);
