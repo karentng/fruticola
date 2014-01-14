@@ -202,7 +202,7 @@
 
 {% block contenido %}
 
-<h3>{{productor.nombre_completo}} <small>{{productor.tipo_documento}}: {{productor.numero_documento}}</small></h3>
+<h3>{{productor.nombre_completo()}} <small>{{productor.tipo_documento.descripcion}}: {{productor.numero_documento}}</small></h3>
 
 {% raw %}
 

@@ -11,7 +11,7 @@
 {% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> RUAT &#187; Apropiación de Aprendizajes </h1> {% endblock %}
 
 {% block contenido %}
-<h3>{{productor.nombre_completo}} <small>{{productor.tipo_documento}}: {{productor.numero_documento}}</small></h3>
+<h3>{{productor.nombre_completo()}} <small>{{productor.tipo_documento.descripcion}}: {{productor.numero_documento}}</small></h3>
 
 <link href="{{ base_url('assets/css/preguntas.css') }}" rel="stylesheet" />
 

@@ -38,10 +38,10 @@ class RuatB extends CI_Controller {
             $this->twiggy->set('scope', $scope);
         }
 
-        $productor = $ruat->productor->to_array();
-        $productor['nombre_completo'] = $ruat->productor->nombre_completo();
-        $productor['tipo_documento']  = $ruat->productor->tipo_documento->descripcion;
-        $this->twiggy->set('productor', $productor);
+        $productor = $ruat->productor;
+        //$productor['nombre_completo'] = $ruat->productor->nombre_completo();
+        //$productor['tipo_documento']  = $ruat->productor->tipo_documento->descripcion;
+        $this->twiggy->set('productor', $ruat->productor);
         $this->twiggy->set('combos', $combos);
 
         $this->twiggy->set('ruat_id', $ruat_id);

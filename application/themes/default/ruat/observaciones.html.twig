@@ -10,6 +10,7 @@
 {% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> RUAT &#187; Observaciones </h1> {% endblock %}
 
 {% block contenido %}
+<h3>{{productor.nombre_completo()}} <small>{{productor.tipo_documento.descripcion}}: {{productor.numero_documento}}</small></h3>
 
 {{ form_open_multipart(null, {role:'form'}) }}
 <!-- Cuando el $_POST esta vacio, form_validation->run() retorna false sin errores :/ -->
