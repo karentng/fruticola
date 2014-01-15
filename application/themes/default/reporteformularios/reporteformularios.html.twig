@@ -3,3 +3,86 @@
 {% block html_head %}
     <link href="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.css')}}" rel="stylesheet" /> 
     <script src="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.min.js')}}"></script>
+
+    <script>
+        $(function(){
+            myDataTable('#dataTable');
+
+            $('#div_fecha_inicio, #div_fecha_fin').datepicker({autoclose:true, language: "es", format:'yyyy-mm-dd'});
+        });
+    </script>
+
+{% endblock %}
+
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      <li><strong class="text-success">Reporte de Formularios</strong></li>
+    </ul>
+{% endblock %}
+
+{% block titulo %} <h1><i class="icon20 i-bars-4"></i> Reporte de Formularios </h1> {% endblock %}
+
+{% block contenido %}
+
+
+<div class="row">
+    {{ form_open(null, {class:'form-horizontal', role:'form'}) }}
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label col-xs-5">Fecha Inicio</label>
+                <div class="col-xs-7">
+                    <div class="input-group date {{form_error('fecha_inicio')?'has-error':''}}" id="div_fecha_inicio">
+                        <input type="text" readonly name="fecha_inicio" value="{{ set_value('fecha_inicio') }}" class="form-control" />
+                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label col-xs-5">Fecha Fin</label>
+                <div class="col-xs-7">
+                    <div class="input-group date {{form_error('fecha_fin')?'has-error':''}}" id="div_fecha_fin">
+                        <input type="text" readonly name="fecha_fin" value="{{ set_value('fecha_fin') }}" class="form-control" />
+                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" name="filtrar" class="btn btn-info"><i class="i-filter"></i>Filtrar</button>
+        </div>
+    {{ form_close() }}
+</div>
+
+<table id='dataTable' class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>RUAT</th>
+            <th>Cosecha</th>
+            <th>BPA</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{usuario.first_name}} {{usuario.last_name}}</td>
+            <td align="right">{{porUsuario[usuario.id].ruat    | default('0') }}</td>
+            <td align="right">{{porUsuario[usuario.id].cosecha | default('0') }}</td>
+            <td align="right">{{porUsuario[usuario.id].bpa     | default('0') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Totales <small>(todas las páginas)</small></th>
+            <td align="right">{{totales.ruat}}</th>
+            <td align="right">{{totales.cosecha}}</th>
+            <td align="right">{{totales.bpa}}</th>
+        </tr>
+    </tfoot>
+</table>
+
+{% endblock %}
