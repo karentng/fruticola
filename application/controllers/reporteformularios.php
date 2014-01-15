@@ -15,12 +15,13 @@ class ReporteFormularios extends CI_Controller {
 
         $fecha_inicio = $this->input->post('fecha_inicio');
         $fecha_fin    = $this->input->post('fecha_fin');
+        if($fecha_fin) $fecha_fin = new DateTime($fecha_fin);
         if($fecha_inicio && $fecha_fin)
-            $query['conditions'] = array('creado >= ? and creado < ?', $fecha_inicio, (new DateTime($fecha_fin))->modify('+1 day') );
+            $query['conditions'] = array('creado >= ? and creado < ?', $fecha_inicio, $fecha_fin->modify('+1 day') );
         elseif($fecha_inicio)
             $query['conditions'] = array('creado >= ?', $fecha_inicio);
         elseif($fecha_fin)
-            $query['conditions'] = array('creado < ?', (new DateTime($fecha_fin))->modify('+1 day'));
+            $query['conditions'] = array('creado < ?', $fecha_fin->modify('+1 day'));
         
 
         $porUsuario = array('ruat' => 0, 'bpa' => 0, 'cosecha' => 0);
