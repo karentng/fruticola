@@ -3,6 +3,13 @@ $(document).ready(function() {
     //$('select.select2.with-filter').select2({allowClear:true, placeholder:'-'});
     //$('select.select2.without-filter').select2({allowClear:true, placeholder:'-', minimumResultsForSearch: -1});
     $('.switch').bootstrapSwitch();
+
+    $("body").on('keypress', "input[type='text'][data-uppercase]", function() {
+        var input = $(this);
+        setTimeout(function() {
+            input.val(input.val().toUpperCase());
+        },1);
+    });
 });
 
 var count = function(obj) {
@@ -73,4 +80,7 @@ function myDataTable(selector, additionalOptions)
     $(selector).dataTable(options);
     $('.dataTables_length select').uniform();
     $('.dataTables_paginate > ul').addClass('pagination');
+    $('.dataTables_filter input').attr('data-uppercase', '');
+    console.log($('.dataTables_filter input'));
 }
+

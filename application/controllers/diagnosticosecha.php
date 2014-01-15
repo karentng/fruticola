@@ -96,7 +96,7 @@ class DiagnostiCosecha extends CI_Controller {
         $this->twiggy->set("productor", $productor);
         $this->twiggy->set("respuestas_bd", $respuestas_bd);
         $this->twiggy->set("cosecha", $cosecha);
-        $this->twiggy->template("diagnosticosecha/index");
+        $this->twiggy->template("diagnosticosecha/diagnosticosecha");
         $this->twiggy->display();
     }
 }
