@@ -15,8 +15,11 @@ class DiagnostiCosecha extends CI_Controller {
         $preguntas = CosechaPregunta::all(array(order=>'numero', 'include'=> 'opciones_respuesta'));
 
         $this->load->library('form_validation');
-        foreach($preguntas as $preg)
+        $this->form_validation->set_rules('fecha_visita', 'Fecha de Visita', 'required');
+        foreach($preguntas as $preg) {
             $this->form_validation->set_rules("preg_{$preg->id}[]", "", "required");
+            $this->form_validation->set_rules("otro_{$preg->id}");
+        }
         
 
         if($this->form_validation->run()) {
@@ -24,12 +27,14 @@ class DiagnostiCosecha extends CI_Controller {
             if(!$cosecha) {
                 $cosecha = new Cosecha;
                 $cosecha->ruat_id = $ruat_id;
+                $cosecha->creador_id = current_user('id');
             }
             else {
                 CosechaRespuesta::delete_all(array('conditions' => array('cosecha_id'=>$cosecha->id)));
             }
 
             $cosecha->observaciones = $this->input->post('observaciones');
+            $cosecha->fecha_visita = $this->input->post('fecha_visita');
             $cosecha->save();
 
             foreach($preguntas as $preg) {
@@ -67,18 +72,30 @@ class DiagnostiCosecha extends CI_Controller {
         $productor = Productor::find_by_id(Ruat::find($ruat_id)->productor_id, array('include' => array('tipo_documento')));
         
         $respuestas_bd = array();
-        $observaciones = "";
+        
         $cosecha = Cosecha::find_by_ruat_id($ruat_id);
         if($cosecha) { //ya existe, cargar datos previamente guardados
-            $respuestas_bd = extract_prop(CosechaRespuesta::find_all_by_cosecha_id($cosecha->id), 'opcion_id');
+            $resps = CosechaRespuesta::find_all_by_cosecha_id($cosecha->id);
+            $otro = array();
+            foreach($resps as $r)
+                if($r->otro) $otro[$r->pregunta_id] = $r->otro;
+            $this->twiggy->set('otro', $otro);
+            
+            $respuestas_bd = extract_prop($resps, 'opcion_id');
             $observaciones = $cosecha->observaciones;
+
+            //$cosecha->fecha_visita = $cosecha->fecha_visita->format("Y-m-d");
+            //die($cosecha->fecha_visita->format("Y-m-d"));
+        }
+        else {
+            $cosecha = array("fecha_visita" => new DateTime());
         }
 
         $this->twiggy->set("preguntas", $preguntas);
         $this->twiggy->set("bloques", $bloques);
         $this->twiggy->set("productor", $productor);
         $this->twiggy->set("respuestas_bd", $respuestas_bd);
-        $this->twiggy->set("observaciones", $observaciones);
+        $this->twiggy->set("cosecha", $cosecha);
         $this->twiggy->template("diagnosticosecha/index");
         $this->twiggy->display();
     }

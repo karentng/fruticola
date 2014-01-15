@@ -16,6 +16,8 @@ create table cosecha(
     id               serial primary key not null,
     ruat_id          integer not null references ruat(id),
     creado           timestamp not null default current_timestamp,
+    creador_id       integer not null references users(id),
+    fecha_visita     date not null,
     observaciones    text not null default ''
 );
 
