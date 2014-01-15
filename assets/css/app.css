@@ -21,7 +21,7 @@
 ----------------------------------------- */
 
 /* html,body {min-height:100%;height:auto !important;height:100%;} */
-html {background: url(../images/patterns/debut_light.png) repeat; height: 100%; }
+html {background: url(../images/patterns/debut_light.png?v=1) repeat; height: 100%; }
 body {min-height: 100%;}
 body {display: inline-block; overflow-x: hidden;}
 
@@ -1831,7 +1831,7 @@ border-color: #c9c9c9;
 		cursor: move;
 		border-bottom: 1px solid #c9c9c9;
 	}
-		.panel .panel-heading.pattern1 {background: url(../images/patterns/debut_light.png) repeat;}
+		.panel .panel-heading.pattern1 {background: url(../images/patterns/debut_light.png?v=1) repeat;}
 		.panel.plain .panel-heading {border-bottom: none; box-shadow: none; background: none;padding: 2px 0 3px;filter: none;}
 		.panel .panel-heading h4 {margin-top: 0; margin-bottom: 0; font-weight: 700; color: #777777; display: inline-block;padding:11px 0 11px 50px;}
 		.panel.plain .panel-heading h4 {padding-left: 0;}
@@ -2011,7 +2011,7 @@ border-color: #c9c9c9;
 		margin-bottom: 10px;
 		margin-right: 10px;
 		text-align: center;
-		background: url(../images/patterns/debut_light.png) repeat;
+		background: url(../images/patterns/debut_light.png?v=1) repeat;
 		-webkit-box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 1), 0px 1px 1px 0px rgba(255, 255, 255, 1);
 		box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 1), 0px 1px 1px 0px rgba(255, 255, 255, 1);
 		-webkit-transition: 0.15s all ease-in; -moz-transition: 0.15s all ease-in;
@@ -2072,7 +2072,7 @@ border-color: #c9c9c9;
 	float: left; 
 	width: 152px; height: 50px; 
 	border:1px solid #d7d7d7; 
-	background: url(../images/patterns/debut_light.png) repeat;
+	background: url(../images/patterns/debut_light.png?v=1) repeat;
 	-webkit-box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 1), 0px 1px 1px 0px rgba(255, 255, 255, 1);
 	box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 1), 0px 1px 1px 0px rgba(255, 255, 255, 1);
 	-webkit-transition: 0.15s all ease-in; -moz-transition: 0.15s all ease-in;
@@ -2453,7 +2453,7 @@ border-color: #c9c9c9;
 
 /* ------------------jpreloader Styles--------------------*/
 #jpreOverlay {
-	background: url(../images/patterns/debut_light.png) repeat;
+	background: url(../images/patterns/debut_light.png?v=1) repeat;
 }
 #jpreLoader{width:100%;height:5px;}
 #jpreBar{background-color:#62aeef;}
@@ -2783,7 +2783,7 @@ ol.linenums li { padding-left: 12px; color: #bebec5; line-height: 20px; text-sha
    Login page
 ----------------------------------------- */
 html.loginPage {
-	background: url(../images/patterns/debut_light.png) repeat;
+	background: url(../images/patterns/debut_light.png?v=1) repeat;
 	height: auto;
 }
 
@@ -2877,7 +2877,7 @@ html.loginPage {
 	Error pages and offline page
 ----------------------------------------- */
 html.errorPage {
-	background: url(../images/patterns/debut_light.png) repeat;
+	background: url(../images/patterns/debut_light.png?v=1) repeat;
 }
 
 .errorContainer {
@@ -3059,8 +3059,8 @@ html.errorPage {
 
 /* ------------------ Fixed with styles --------------------*/
 html.fixedWidth {background: url(../images/patterns/cream_dust.png) repeat;}
-html.fixedWidth body {display: block; background: url(../images/patterns/debut_light.png) repeat;border-left: 1px solid #c9c9c9;border-right: 1px solid #c4c4c4;}
-html.fixedWidth.loginPage{background: url(../images/patterns/debut_light.png) repeat;}
+html.fixedWidth body {display: block; background: url(../images/patterns/debut_light.png?v=1) repeat;border-left: 1px solid #c9c9c9;border-right: 1px solid #c4c4c4;}
+html.fixedWidth.loginPage{background: url(../images/patterns/debut_light.png?v=1) repeat;}
 html.fixedWidth.loginPage body {border-left: none;border-right: none;background: none;}
 html.fixedWidth #sidebar:after {
 	content: "";
