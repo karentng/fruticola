@@ -42,20 +42,21 @@
 
 <table id='dataTable' class="table table-bordered table-hover">
     <thead>
-        <th>#</th>
         <th>Productor</th>
-        <th>Identificación</th>
         <th>Creado</th>
+        <th>Ingresado por</th>
         <th></th>
     </thead>
     <tbody>
         {% for row in ruats %}
         {% set theid = row.__get('id') %}
         <tr>
-            <td>{{row.id}}</td>
-            <td>{{row.productor.nombre_completo()}}</td>
-            <td>{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</td>
+            <td>
+                {{row.productor.nombre_completo()}}
+                <br/> <small class="text-muted">{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</small>
+            </td>
             <td>{{row.creado | date("Y-m-d  H:i")}}</td>
+            <td>{{row.creador.first_name}} {{row.creador.last_name}}</td>
             <td align="center">
                 <div class="btn-group">
                     <a class="btn btn-sm btn-warning tip" href="{{site_url(['ruata','index',row.id])}}" title="Registro Único de Usuarios de Asitencia Técnica">RUAT <i class="i-arrow-right-3"></i></a>
