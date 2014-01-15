@@ -63,7 +63,10 @@ class RuatD extends CI_Controller {
             
             $observacion->save();
             
-            if($ok) redirect("listadoruats");
+            if($ok) {
+                $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'RUAT guardado exitósamente'));
+                redirect("listadoruats");
+            }
         }
         
         ///Obtengo los datos del usuario en session

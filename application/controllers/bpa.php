@@ -2,6 +2,13 @@
 
 class BPA extends CI_Controller {
 
+    public function __construct()
+    {
+        parent::__construct();
+        
+        check_profile($this, "Administrador", "Coordinador", "Digitador");
+    }
+
     public function index($ruat_id)
     {
         //check_profile($this,"Administrador");
