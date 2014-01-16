@@ -6,6 +6,24 @@
         {% if notif %}
             notif({{notif|json_encode}});
         {% endif %}
+
+        $("input[type=number]").keydown(function(event) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ( $.inArray(event.keyCode,[46,8,9,27,13,190]) !== -1 ||
+                 // Allow: Ctrl+A
+                (event.keyCode == 65 && event.ctrlKey === true) || 
+                 // Allow: home, end, left, right
+                (event.keyCode >= 35 && event.keyCode <= 39)) {
+                     // let it happen, don't do anything
+                     return;
+            }
+            else {
+                // Ensure that it is a number and stop the keypress
+                if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+                    event.preventDefault(); 
+                }   
+            }
+        });
     });
 </script>
 <script type="text/javascript">
@@ -154,25 +172,6 @@
         </div>
     </div>
 </div>
-<br/    >
-
-{#
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>A. DATOS DE IDENTIFICACIÓN DEL BENEFICIARIO</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body"><div class="container">
-        <div class="row">
-        	<div class="col-md-12">
-        		
-        	</div>
-        </div>
-    </div></div><!-- .container and .panel-body -->
-</div><!-- panel default -->
-#}
 
 <div class="panel panel-default">
     <div class="panel-heading" align="center">

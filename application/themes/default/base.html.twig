@@ -34,7 +34,7 @@
     <link href="{{ base_url('assets/js/plugins/forms/datepicker/datepicker.css') }}" rel="stylesheet" /> 
     <link href="{{ base_url('assets/js/plugins/forms/select2/select2.css') }}" rel="stylesheet" />
     <link href="{{ base_url('assets/js/plugins/forms/multiselect/ui.multiselect.css') }}" rel="stylesheet" />
-    <link href="{{ base_url('assets/js/plugins/ui/jgrowl/jquery.jgrowl.css') }}" rel="stylesheet" /> 
+    <link href="{{ base_url('assets/js/plugins/ui/jgrowl/jquery.jgrowl.css?v=1') }}" rel="stylesheet" /> 
  
 
     <!-- app stylesheets -->
@@ -71,6 +71,7 @@
     <script src="{{ base_url('assets/js/conditionizr.min.js') }}"></script>  
     <script src="{{ base_url('assets/js/plugins/core/nicescroll/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ base_url('assets/js/plugins/core/jrespond/jRespond.min.js') }}"></script>
+    <script src="{{ base_url('assets/js/plugins/forms/jquery.price_format.min.js')}}"></script>
     <script src="{{ base_url('assets/js/jquery.genyxAdmin.js') }}"></script>
 
     <!-- Form plugins -->
@@ -97,7 +98,7 @@
 
     <!-- Init plugins -->
     <script src="{{ base_url('assets/js/app.js') }}"></script><!-- Core js functions -->
-    <script src="{{ base_url('assets/js/pages/domready.js?v=2') }}"></script><!-- Init plugins only for page -->
+    <script src="{{ base_url('assets/js/pages/domready.js?v=3') }}"></script><!-- Init plugins only for page -->
 
     {% block html_head %}{% endblock %}
     
@@ -117,14 +118,6 @@
 
 
             <div class="collapse navbar-collapse" id="navbar-to-collapse">  
-                {#<ul class="nav navbar-nav navbar-form">
-                    
-                    
-                    <li class="active">
-                        <a href="#" class="disabled">{% block titulo %} Titulo {% endblock %}</a>
-                    </li>
-                </ul>#}
-
                 <ul class="nav navbar-nav pull-right">
                     <li class="disabled">
                         <a href="#" class="disabled">
@@ -144,7 +137,8 @@
     </header> <!-- End #header  -->
     
     <div class="main">
-        {#
+        {% if is_profile('Administrador') or is_profile('Coordinador') %}
+        {% set container_name = "content" %}
         <aside id="sidebar">
             <div class="side-options">
                 <ul>
@@ -154,14 +148,18 @@
             
             <div class="sidebar-wrapper">
                 <nav id="mainnav">
-                    {% include "menus/admin.html.twig" %}
+                    {% if is_profile("Administrador") %}
+                        {% include "menus/admin.html.twig" %}
+                    {% elseif is_profile("Coordinador") %}
+                        {% include "menus/coord.html.twig" %}
+                    {% endif %}
                 </nav> <!-- End #mainnav -->
             </div> <!-- End .sidebar-wrapper  -->
             
             
         </aside><!-- End #sidebar  -->
-        #}
-        <section id="contento">
+        {% endif %}
+        <section id="{{container_name}}">
             <div class="wrapper">
                 
                 <div class="crumb">
@@ -186,6 +184,7 @@
                         {% block contenido %}
                             
                         {% endblock %}
+                        <div class="row" style="height:80px"></div> <!--para evitar que el señalador de "ir arriba" tape el boton siguiente -->
                     </div>
                         
                     
@@ -194,6 +193,8 @@
             </div> <!-- End .wrapper  -->
         </section>
     </div><!-- End .main  -->
+
+    
   </body>
 {% endblock %}
 </html>

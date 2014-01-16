@@ -8,6 +8,7 @@ class Ruat extends ActiveRecord\Model
         array('productor', 'class_name'=>'Productor', 'foreign_key'=>'productor_id'),
         array('asociado', 'class_name'=>'PersonaAsociada', 'foreign_key'=>'asociado_id'),
         array('seguir', 'class_name'=>'PersonaAsociada', 'foreign_key'=>'seguir_id'),
+        array('creador', 'class_name'=>'Usuario', 'foreign_key'=>'creador_id'),
     );
 
     static $has_one = array(
@@ -19,6 +20,8 @@ class Ruat extends ActiveRecord\Model
     public function soloLectura(&$controller)
     {
         if($controller->ion_auth->in_group('Digitador')) {
+            if($this->creador_id != current_user('id')) return true;
+            
             $dt = new DateTime();
             $tm2 = $dt->getTimestamp();
             $tm1 = $this->creado->getTimestamp();

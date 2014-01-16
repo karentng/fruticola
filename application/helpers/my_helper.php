@@ -99,6 +99,13 @@ if(! function_exists('my_input'))
         show_error('No tiene acceso a esta seccion del sistema. Consulte al administrador.');
     }
 
+    function is_profile($prof)
+    {
+        $CI =& get_instance();
+
+        return $CI->ion_auth->in_group($prof);
+    }
+
 
     function assoc(array $arreglo, $keyField="id", $valueField="descripcion")
     {

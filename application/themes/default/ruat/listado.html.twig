@@ -2,25 +2,12 @@
 
 {% block html_head %}
     <link href="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.css')}}" rel="stylesheet" /> 
-    <script src="js/plugins/tables/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.min.js')}}"></script>
 
     <script>
-        /*$(function(){
-            $('#dataTable').dataTable( {
-                "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
-                "sPaginationType": "bootstrap",
-                "bJQueryUI": false,
-                "bAutoWidth": false,
-                "oLanguage": {
-                    "sSearch": "<span>Filter:</span> _INPUT_",
-                    "sLengthMenu": "<span>_MENU_ entries</span>",
-                    "oPaginate": { "sFirst": "First", "sLast": "Last" }
-                }
-            });
-
-            $('.dataTables_length select').uniform();
-            $('.dataTables_paginate > ul').addClass('pagination');
-        });*/
+        $(function(){
+            myDataTable('#dataTable');
+        });
     </script>
 
 {% endblock %}
@@ -36,24 +23,24 @@
 {% block contenido %}
 
 <a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}"><i class="icon20 i-plus"></i> Crear Nuevo RUAT</a>
-<br/><br/>
+
 
 <table id='dataTable' class="table table-bordered table-hover">
     <thead>
-        <th>#</th>
         <th>Productor</th>
-        <th>Identificación</th>
         <th>Creado</th>
+        <th>Ingresado por</th>
         <th></th>
     </thead>
     <tbody>
         {% for row in ruats %}
-        {% set theid = row.__get('id') %}
         <tr>
-            <td>{{row.id}}</td>
-            <td>{{row.productor.nombre_completo()}}</td>
-            <td>{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</td>
+            <td>
+                {{row.productor.nombre_completo()}}
+                <br/> <small class="text-muted">{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</small>
+            </td>
             <td>{{row.creado | date("Y-m-d  H:i")}}</td>
+            <td>{{row.creador.first_name}} {{row.creador.last_name}}</td>
             <td align="center">
                 <div class="btn-group">
                     <a class="btn btn-sm btn-warning tip" href="{{site_url(['ruata','index',row.id])}}" title="Registro Único de Usuarios de Asitencia Técnica">RUAT <i class="i-arrow-right-3"></i></a>
