@@ -1,6 +1,6 @@
 <?php
 
-class Cosecha extends ActiveRecord\Model
+class Cosecha extends MyModel
 {
     static $table_name = "cosecha";
 }

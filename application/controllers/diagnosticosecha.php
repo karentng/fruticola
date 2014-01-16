@@ -84,8 +84,7 @@ class DiagnostiCosecha extends CI_Controller {
             $respuestas_bd = extract_prop($resps, 'opcion_id');
             $observaciones = $cosecha->observaciones;
 
-            //$cosecha->fecha_visita = $cosecha->fecha_visita->format("Y-m-d");
-            //die($cosecha->fecha_visita->format("Y-m-d"));
+            $this->twiggy->set('soloLectura', $cosecha->soloLectura($this));
         }
         else {
             $cosecha = array("fecha_visita" => new DateTime());
