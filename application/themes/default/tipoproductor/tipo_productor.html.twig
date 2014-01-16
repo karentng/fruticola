@@ -8,6 +8,9 @@
         notif({{notif|json_encode}});
         {% endif %}
 
+        $("input[type='radio'], input[type='checkbox']").uniform();
+        
+
         $("input[type=number]").keydown(function(event) {
             // Allow: backspace, delete, tab, escape, enter and .
             if ($.inArray(event.keyCode, [46, 8, 9, 27, 13, 190, 110]) !== -1 ||
