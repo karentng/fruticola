@@ -12,8 +12,9 @@ class Ruat extends MyModel
     );
 
     static $has_one = array(
+        array('observacion', 'class_name'=>'Observacion', 'foreign_key' => 'ruat_id'),
         array('bpa', 'class_name'=>'BuenasPracticas', 'foreign_key' => 'ruat_id'),
         array('cosecha', 'class_name'=>'Cosecha', 'foreign_key' => 'ruat_id'),
-        array('observacion', 'class_name'=>'Observacion', 'foreign_key' => 'ruat_id'),
+        array('visita_tipo_productor', 'class_name'=>'VisitaTipoProductor', 'foreign_key' => 'ruat_id'),
     );
 }

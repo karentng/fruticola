@@ -51,10 +51,12 @@
                         <a class="btn btn-sm" disabled="disabled"><i class="i-file-download"></i></a>
                     {% endif %}
                 </div>
-                    {% set cls = row.cosecha ? 'warning' : 'default' %}
-                    <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['diagnosticosecha','index',row.id])}}" title="Diagnóstico Manejo de Cosecha">Cosecha</a>
-                    {% set cls = row.bpa ? 'warning' : 'default' %}
-                    <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['bpa','index',row.id])}}" title="Buenas Prácticas Agropecuarias">BPA</a>
+                {% set cls = row.cosecha ? 'warning' : 'default' %}
+                <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['diagnosticosecha','index',row.id])}}" title="Diagnóstico Manejo de Cosecha">Cosecha</a>
+                {% set cls = row.bpa ? 'warning' : 'default' %}
+                <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['bpa','index',row.id])}}" title="Buenas Prácticas Agropecuarias">BPA</a>
+                {% set cls = row.visita_tipo_productor ? 'warning' : 'default' %}
+                <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['tipoproductor','index',row.id])}}" title="Visita Tipo Productor">T. Productor</a>
                 
             </td>
         </tr>
