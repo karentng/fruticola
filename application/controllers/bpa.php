@@ -34,6 +34,8 @@ class BPA extends CI_Controller {
             $arreglo = $datosBPA->to_array();
             $arreglo['fecha'] = $datosBPA->fecha_visita->format("Y-m-d");
             $this->twiggy->set("datosBPA", $arreglo);
+
+            $this->twiggy->set('soloLectura', $datosBPA->soloLectura($this));
         }
         else {
             $datosBPA = array('fecha' => date('Y-m-d'), 'conclusion' => '', 'recomendacion' => '', 'nivel_bpa' => 0);
@@ -149,17 +151,7 @@ class BPA extends CI_Controller {
 
         
         if($existePreviamente){
-
-            /*$idsB = array();
-            foreach($preguntasB as $pregunta){
-                array_push($idsB, $pregunta->id);
-            }*/
             $idsB = extract_prop($preguntasB, "id");
-            
-            /*$idsC = array();
-            foreach($preguntasC as $pregunta){
-                array_push($idsC, $pregunta->id);
-            }*/
             $idsC = extract_prop($preguntasC, "id");
             $respuestasB = BpaRespuesta::all(array(
                     'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $datosBPA->id, $idsB), 'order' => 'id'));
@@ -174,47 +166,16 @@ class BPA extends CI_Controller {
 
         }
 
-
-        
-
-        //var_dump($bpaActual[0]->id);
-
-        //var_dump($preguntasC);
         $ruatNumFormulario = Ruat::find($ruat_id)->numero_formulario;
-        //$this->twiggy->set('numero_formulario',);
         $this->twiggy->set('numForm', $ruatNumFormulario);
         $this->twiggy->set('preguntasB', $preguntasB);
         $this->twiggy->set('preguntasC', $preguntasC);
         $this->twiggy->set('tamaño', count($preguntasC)+count($preguntasB));
-        $this->twiggy->set('soloLectura', BuenasPracticas::find($ruat_id)->soloLectura($this)); //
-        //$this->twiggy->set($data, NULL);
-        //$this->twiggy->set('combos', json_encode($data));
-        //$this->twiggy->set('combos', $combos);
+
+        
+        
         $this->twiggy->template("bpa/bpa");
         $this->twiggy->display();
-        /*
-        $bpa = Bpa::find_by_ruat_id($ruat_id);
-        if($bpa) {
-            $bpa = $bpa->to_array();
-        }
-        else {
-            $bpa = array('fecha' => '', 'observacion' => '');
-        }
-
-        $this->tiggy->set("bpa", $bpa);
-
-        set_value("fecha", bpa['fecha'])
-
-
-        array( id => '')
-
-        foreach(Persona::find_all_by(fami)  as $per) {
-        $recomendaciones[$per->id] =  $persona;
-        }
-        $this->twiggy->set(recomendacionse)
-
-        set_value("recomendacion"~preg.id, recomendaciones[$preg.id])
-        */
     }
 
     public function guardar() //si viene como parametro: $ruat_id

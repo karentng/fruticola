@@ -372,14 +372,18 @@
     </div></div><!-- .container and .panel-body -->
 </div><!-- panel default -->
 <br/>
-{% if not(soloLectura) %}
+
 <div class="form-group">
     <div class="col-md-offset-4 col-md-5">
-        <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
-        <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
+        {% if soloLectura %}
+            <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a>
+        {% else %}
+            <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
+            <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
+        {% endif %}
     </div>
 </div>
-{% endif %}
+
 {{ form_close() }}
 
 {% endblock %}
