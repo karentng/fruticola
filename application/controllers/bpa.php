@@ -186,7 +186,7 @@ class BPA extends CI_Controller {
         $this->twiggy->set('preguntasB', $preguntasB);
         $this->twiggy->set('preguntasC', $preguntasC);
         $this->twiggy->set('tamaño', count($preguntasC)+count($preguntasB));
-
+        $this->twiggy->set('soloLectura', BuenasPracticas::find($ruat_id)->soloLectura($this)); //
         //$this->twiggy->set($data, NULL);
         //$this->twiggy->set('combos', json_encode($data));
         //$this->twiggy->set('combos', $combos);

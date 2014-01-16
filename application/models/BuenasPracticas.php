@@ -1,6 +1,6 @@
 <?php
 
-class BuenasPracticas extends ActiveRecord\Model
+class BuenasPracticas extends MyModel
 {
     static $table_name = "bpa";
 }

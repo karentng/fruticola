@@ -1,8 +1,8 @@
-DROP TABLE tp_b_respuesta;
+/*DROP TABLE tp_b_respuesta;
 DROP TABLE tp_c_respuesta;
 DROP TABLE tp_d_respuesta;
 DROP TABLE tp_c_pregunta;
-DROP TABLE visita_tipo_productor;
+DROP TABLE visita_tipo_productor;*/
 
 CREATE TABLE visita_tipo_productor (
 	id serial NOT NULL PRIMARY KEY,

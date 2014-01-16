@@ -17,4 +17,22 @@ class MyModel extends ActiveRecord\Model
 
         return $obj;
     }
+
+    public function soloLectura(&$controller)
+    {
+        if($controller->ion_auth->in_group('Digitador')) {
+            if($this->creador_id != current_user('id')) return true;
+            
+            $dt = new DateTime();
+            $tm2 = $dt->getTimestamp();
+            $tm1 = $this->creado->getTimestamp();
+            $dif_horas = ($tm2-$tm1)/60.0/60.0;
+            //echo "diferencia ".$dif_horas;
+            //die();
+            if($dif_horas>=5.0) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

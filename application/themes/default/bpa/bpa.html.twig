@@ -134,7 +134,6 @@
 {% block contenido %}
 
 {{ form_open(null, {role:'form', class:'form-horizontal'}) }}
-
 <div class="row">
     <div class="col-md-5">
         <div class="container">
@@ -151,7 +150,7 @@
 
                         {% set errorFecha = form_error('fecha') %}
                         <input size="16" name="fecha" class="form-control {{errorFecha? 'error':''}}" type="text"
-                            value="{{set_value('fecha', datosBPA['fecha'])}}" required>
+                            value="{{set_value('fecha', datosBPA['fecha'])}}" {% if soloLectura %} disabled="disabled" {% endif %} required>
                         <label class="error">{{errorFecha}}</label>
                         
                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
@@ -222,9 +221,9 @@
                         <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>" >
                             {% if existe == 'yes' %}
                                 {% if respuestasB[cont].puntaje == 1 %}
-                                    <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" checked />
+                                    <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" checked {% if soloLectura %} disabled="disabled" {% endif %}/>
                                 {% else %}
-                                    <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" />
+                                    <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" {% if soloLectura %} disabled="disabled" {% endif %} />
                                 {% endif %}
                             {% else %}
                                 <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" />
@@ -240,7 +239,8 @@
                         
                         <input type="text" class="form-control" style="width:240px;"
                                 id="{{'respuesta'~ preguntaB.id}}" 
-                                name="recomendacion{{preguntaB.id}}" 
+                                name="recomendacion{{preguntaB.id}}"
+                                {% if soloLectura %} disabled="disabled" {% endif %}
                                 value="{{set_value('recomendacion'~preguntaB.id,respuestasB[cont].observacion)}}"  />
                     </td>
                 </tr>
@@ -258,7 +258,7 @@
                 <tr>
                     <td colspan="4"> 	
                         {% set errorConclusionB = form_error('conclusionB') %}
-                        <textarea class="form-control  {{errorConclusionB? 'error':''}}" rows="3" name="conclusionB" style="width:100%;">{{set_value("conclusionB",datosBPA['conclusion'])}}</textarea>
+                        <textarea class="form-control  {{errorConclusionB? 'error':''}}" {% if soloLectura %} disabled="disabled" {% endif %} rows="3" name="conclusionB" style="width:100%;">{{set_value("conclusionB",datosBPA['conclusion'])}}</textarea>
                         <label class="error">{{errorConclusionB}}</label>
 
                     </td>
@@ -303,10 +303,10 @@
                             preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
                             {% if existe == 'yes' %}
                                 <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
-                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,respuestasC[cont].puntaje)}}" readonly="true" />
+                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,respuestasC[cont].puntaje)}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
                             {% else %}
                                 <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
-                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,0)}}" readonly="true" />
+                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,0)}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
                             {% endif %}
 
                             
@@ -317,12 +317,14 @@
                                 onchange="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})"
                                 id="{{'valor'~ preguntaC.padre ~preguntaC.id}}"
                                 style="width:60px;"
+                                {% if soloLectura %} disabled="disabled" {% endif %}
                                 value="{{set_value('valor'~preguntaC.id,respuestasC[cont].puntaje)}}" max="100" min="0" />
                             {% else %}
                                 <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
                                 onchange="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})"
                                 id="{{'valor'~ preguntaC.padre ~preguntaC.id}}"
                                 style="width:60px;"
+                                {% if soloLectura %} disabled="disabled" {% endif %}
                                 value="{{set_value('valor'~preguntaC.id,0)}}" max="100" min="0" />
                             {% endif %}
                             
@@ -331,10 +333,9 @@
                     <td>
                         {% if existe == 'yes' %}
                             <textarea class="form-control" id="{{'observacion'~ preguntaC.id}}"
-                            name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,respuestasC[cont].observacion)}}</textarea>
+                            name="{{'observacion'~ preguntaC.id}}" {% if soloLectura %} disabled="disabled" {% endif %} style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,respuestasC[cont].observacion)}}</textarea>
                         {% else %}
-                            <textarea class="form-control" id="{{'observacion'~ preguntaC.id}}"
-                            name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,"")}}</textarea>
+                            <textarea class="form-control" id="{{'observacion'~ preguntaC.id}}" {% if soloLectura %} disabled="disabled" {% endif %} name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,"")}}</textarea>
                         {% endif %}                    
                     </td>
                 </tr>
@@ -347,9 +348,9 @@
                     </td>
                     <td align="center">
                         {% if existe == 'yes' %}
-                            <input class="form-control" type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="{{datosBPA.nivel_bpa}}" readonly="true" required/>
+                            <input class="form-control" type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="{{datosBPA.nivel_bpa}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} required/>
                         {% else %}
-                            <input class="form-control" type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="0" readonly="true" />
+                            <input class="form-control" type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="0" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %}/>
                         {% endif %}
                         
                     </td>
@@ -362,8 +363,7 @@
                         
                         
                         {% set errorRecomendacionFinal = form_error('recomendacionFinal') %}
-                        <textarea class="form-control {{errorRecomendacionFinal? 'error':''}}"
-                            name="recomendacionFinal" style="width:240px; height:100%;">{{set_value("recomendacionFinal",datosBPA['recomendacion'])}}</textarea>
+                        <textarea class="form-control {{errorRecomendacionFinal? 'error':''}}" {% if soloLectura %} disabled="disabled" {% endif %} name="recomendacionFinal" style="width:240px; height:100%;">{{set_value("recomendacionFinal",datosBPA['recomendacion'])}}</textarea>
                         <label class="error">{{errorRecomendacionFinal}}</label>
                     </td>
                 </tr>
@@ -372,12 +372,14 @@
     </div></div><!-- .container and .panel-body -->
 </div><!-- panel default -->
 <br/>
+{% if not(soloLectura) %}
 <div class="form-group">
     <div class="col-md-offset-4 col-md-5">
         <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
         <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
     </div>
 </div>
+{% endif %}
 {{ form_close() }}
 
 {% endblock %}

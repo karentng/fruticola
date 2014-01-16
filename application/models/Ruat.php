@@ -1,6 +1,6 @@
 <?php
 
-class Ruat extends ActiveRecord\Model
+class Ruat extends MyModel
 {
     static $table_name = "ruat";
 
@@ -16,22 +16,4 @@ class Ruat extends ActiveRecord\Model
         array('cosecha', 'class_name'=>'Cosecha', 'foreign_key' => 'ruat_id'),
         array('observacion', 'class_name'=>'Observacion', 'foreign_key' => 'ruat_id'),
     );
-
-    public function soloLectura(&$controller)
-    {
-        if($controller->ion_auth->in_group('Digitador')) {
-            if($this->creador_id != current_user('id')) return true;
-            
-            $dt = new DateTime();
-            $tm2 = $dt->getTimestamp();
-            $tm1 = $this->creado->getTimestamp();
-            $dif_horas = ($tm2-$tm1)/60.0/60.0;
-            //echo "diferencia ".$dif_horas;
-            //die();
-            if($dif_horas>=5.0) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
