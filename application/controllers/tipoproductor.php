@@ -5,11 +5,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class TipoProductor extends CI_Controller {
 
     public function index($ruat_id = null) {
-        $ruat_id = 1;
+//        $ruat_id = 1;
         $user_id = current_user('id');
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
+        
+        
+        ///Para mostrar el numero del formulario ruat
+        $ruatNumFormulario = Ruat::find($ruat_id)->numero_formulario;
         
         
         ///Obtengo los datos del usuario en session
@@ -143,10 +147,16 @@ class TipoProductor extends CI_Controller {
                     $objTPCRespuesta->save();
                 }
             }
+            
+            $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario Tipo Productor guardado exitósamente'));
+            redirect('listadoruats');
+        }else if(validation_errors()){
+            $this->twiggy->set('notif',array('type'=>'error', 'text'=> "Se encontraron errores al procesar el formulario. <br> Revise los recuadros rojos"));
         }
         
         $this->twiggy->register_function('form_open_multipart');
 
+        $this->twiggy->set('numForm', $ruatNumFormulario);
         $this->twiggy->set('usuaioSesion', $usuaioSesion);
         $this->twiggy->set('productor', $productor);
         $this->twiggy->set('visitaTipoProductor', $visitaTipoProductor);
