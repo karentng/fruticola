@@ -136,7 +136,8 @@ class TipoProductor extends CI_Controller {
             foreach ($preguntas_c as $obj) {
 
                 ///Valido si la respuesta viene por post
-                if (!empty($this->input->post('pregunta_c_' . $obj->id))) {
+                //if (!empty($this->input->post('pregunta_c_' . $obj->id))) {
+                if ($this->input->post('pregunta_c_' . $obj->id)) { // compatibilidad con version vieja de php. Es equivalente???...
 
                     $valor = $this->input->post('pregunta_c_' . $obj->id);
                     ///si estoy editando o nueva respuesta
