@@ -1,50 +1,119 @@
 {% extends "base.html.twig" %}
 
+{% block html_head %}
+    <style>
+        html {background: url('{{base_url("assets/images/patterns/debut_light13.png")}}') repeat !important; height: 100%; }
+        body {height:100%;}
+        #wrap {
+            min-height:100%;
+            height:auto;
+            margin: 0 auto -120px;
+            padding: 0 0 120px;
+        }
+
+        #footer {
+            height: 120px;
+            background-color: #f5f5f5;
+        }
+
+        .bg {
+          background: url('{{base_url("assets/images/frutas.png")}}') no-repeat; /* center center;*/
+          background-position: bottom;
+        }
+
+        .jumbotron {
+          /*height: 350px;*/
+          border-radius: 15px;
+          color: #2E2E2E;
+          text-shadow: #444 0 1px 1px;
+          background:rgba(240,240,240,0.5);
+
+        }
+    </style>
+
+    <script>
+        /*$(function(){
+            var jumboHeight = $('.jumbotron').outerHeight();
+            function parallax(){
+                var scrolled = $(window).scrollTop();
+                $('.bg').css('height', (jumboHeight-scrolled) + 'px');
+            }
+
+            $(window).scroll(function(e){
+                parallax();
+            });
+        });*/
+    </script>
+{% endblock %}
+
 {% block html_body %}
+<div id="wrap">
 <br/>
 
 <center> <h1 class="text-info"> Plan Frutícola del Valle del Cauca</h1></center>
-<br/>
 
-<div class="well" style="width:400px; margin-left:auto; margin-right:auto">
-    <div class="container">
-        <center><h3>Acceso al Sistema</h3></center>
-        <hr>
-        {{form_open(null, {'class':'form-horizontal', 'role':'form'}) }}
-            
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="icon20 i-user"></i></span>
-                    {{ form_input(identity) }}
-                </div>
-            </div>
 
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon"><div class="icon"><i class="icon20 i-key"></i></div></span>
-                    {{ form_input(password) }}
-                </div>
-            </div>
+<div class="row">
+    <div class="col-md-5 col-md-offset-1">
+        <br/><br>
+        <div class="well" style="width:400px; margin-left:auto; margin-right:auto">
+            <div class="container">
+                <center><h3>Acceso al Sistema</h3></center>
+                <hr>
+                {{form_open(null, {'class':'form-horizontal', 'role':'form'}) }}
+                    
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon20 i-user"></i></span>
+                            {{ form_input(identity) }}
+                        </div>
+                    </div>
 
-            <div class="form-group relative ">
-                <button id="loginBtn" type="submit" class="btn btn-lg btn-primary pull-right col-lg-5">Ingresar</button>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><div class="icon"><i class="icon20 i-key"></i></div></span>
+                            {{ form_input(password) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group relative ">
+                        <button id="loginBtn" type="submit" class="btn btn-lg btn-primary pull-right col-lg-5">Ingresar</button>
+                    </div>
+                    
+                {{form_close()}}
+                
+                
+                <hr class="seperator">
+                {% if message %}
+                    <div class="alert alert-danger">Usuario o Contraseña Incorrecta</div>
+                {% endif %}
             </div>
-            
-        {{form_close()}}
-        
-        
-        <hr class="seperator">
-        {% if message %}
-            <div class="alert alert-danger">Usuario o Contraseña Incorrecta</div>
-        {% endif %}
+        </div>
     </div>
+
+    <div class="col-md-5">
+        <div class="bg">
+        <div class="jumbotron" style="">
+            <small>
+            El Plan Frutícola para el Valle del Cauca pretende reunir aspectos como la asistencia técnica, la transferencia tecnológica,
+            el desarrollo de canales de abastecimientos, la logística de comercialización y transporte, los distritos de riego y la compra
+            de semillas de calidad con el propósito de promover la siempra, la cosecha, la transformación y la comercialización de los frutales
+            de mayor perspectiva en los mercados nacionales e internacionales.</small>
+        
+        </div></div>
+    </div>
+    
 </div>
-</br>
-</br>
-</br>
-</br>
-</br>
-<center><img src="{{base_url('assets/images/logos-min.png')}}" class="img-responsive"/></center>
+
+       
+</div>
+
+
+<div id="footer">
+
+    <center><img src="{{base_url('assets/images/logos-min.png?v=1')}}" class="img-responsive" style="max-height:120px" /></center>
+   
+</div>
    
 
 {% endblock %}
