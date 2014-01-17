@@ -78,13 +78,13 @@ class BPA extends CI_Controller {
             ///SUBO EL ARCHIVO (revisar)
             if(isset($_FILES["archivo_formulario"]) && !empty($_FILES["archivo_formulario"]["name"])) {
                 $arr_upload_result = $this->do_upload($bpa->id);
-                if(!isset($arr_upload_result['error']) && isset($arr_upload_result['upload_data']))
+                if(!isset($arr_upload_result['error']) && isset($arr_upload_result['upload_data'])){
                     $bpa->archivo_fisico = 'bpa/'.$arr_upload_result['upload_data']['file_name'];
-                else
+                    $bpa->save();
+                }else{
                     $upload_result = $arr_upload_result['error']; 
+                }
             }
-
-            $bpa->save();
 
             $conteoB = count($preguntasB);
             $conteoC = count($preguntasC);
@@ -178,6 +178,7 @@ class BPA extends CI_Controller {
         }
 
         $ruatNumFormulario = Ruat::find($ruat_id)->numero_formulario;
+        $this->twiggy->register_function('form_open_multipart');
         $this->twiggy->set('numForm', $ruatNumFormulario);
         $this->twiggy->set('preguntasB', $preguntasB);
         $this->twiggy->set('preguntasC', $preguntasC);
@@ -199,4 +200,20 @@ class BPA extends CI_Controller {
         //if(!$finca) 
         
     }
+
+    private function do_upload($ruat_id) {
+        $config['upload_path'] = './uploads/bpa';
+        $config['allowed_types'] = 'pdf|png';
+        $config['max_size'] = '10240';/// 10MiB
+        $config['overwrite'] = true;/// 10MiB
+        $config['file_name'] = $ruat_id;/// 10MiB
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('archivo_formulario')) {
+            return array('error' => $this->upload->display_errors('<div><label class="error">', '</label></div>'));
+        } else {
+            return array('upload_data' => $this->upload->data());
+        }
+    }   
 }
