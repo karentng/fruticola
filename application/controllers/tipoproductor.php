@@ -3,6 +3,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class TipoProductor extends CI_Controller {
+    
+    public function __construct()
+    {
+        parent::__construct();
+        
+        check_profile($this, "Administrador", "Coordinador", "Digitador");
+    }
 
     public function index($ruat_id = null) {
 //        $ruat_id = 1;
@@ -28,19 +35,22 @@ class TipoProductor extends CI_Controller {
         $this->form_validation->set_rules("credito_agricola", ' ', 'required');
         
         $id = null;
-        if($visitaTipoProductor)
+        if($visitaTipoProductor){
+            $this->twiggy->set('soloLectura', $visitaTipoProductor->soloLectura($this));
             $id = $visitaTipoProductor->id;
+        }
         
         ///Consulto los datos del productor, a partir del ruat
         $ruat = Ruat::find($ruat_id, array('joins' => array('productor')));
         $productor = $ruat->productor;
+        $finca = $ruat->finca;
 
 
         ///consulo las respuestas B
         $respuesta_b = TPBRespuesta::first(array(
                     'conditions' => array('visita_id = ?', $id)
         ));
-        $this->form_validation->set_rules("area_predio", ' ', 'required|numeric');
+        //$this->form_validation->set_rules("area_predio", ' ', 'required|numeric');
         $this->form_validation->set_rules("valor_uaf", ' ', 'required|numeric');
         $this->form_validation->set_rules("tipo_productor_uaf", ' ', 'required|is_natural');
         $this->form_validation->set_rules("clasificacion_productor_uaf", ' ', 'required|is_natural');
@@ -117,7 +127,7 @@ class TipoProductor extends CI_Controller {
             ///GUARDANDO RESPUESTAS B
             $respuesta_b = ($respuesta_b) ? $respuesta_b : new TPBRespuesta;
             $respuesta_b->visita_id = $id;
-            $respuesta_b->area_predio =$this->input->post('area_predio');
+            //$respuesta_b->area_predio =$this->input->post('area_predio');
             $respuesta_b->valor_uaf =$this->input->post('valor_uaf');
             $respuesta_b->tipo_productor_uaf =$this->input->post('tipo_productor_uaf');
             $respuesta_b->clasificacion_productor_uaf =$this->input->post('clasificacion_productor_uaf');
@@ -160,6 +170,7 @@ class TipoProductor extends CI_Controller {
         $this->twiggy->set('numForm', $ruatNumFormulario);
         $this->twiggy->set('usuaioSesion', $usuaioSesion);
         $this->twiggy->set('productor', $productor);
+        $this->twiggy->set('finca', $finca);
         $this->twiggy->set('visitaTipoProductor', $visitaTipoProductor);
         $this->twiggy->set('respuesta_b', $respuesta_b);
         $this->twiggy->set('preguntas_ingresos', $preguntas_ingresos);
