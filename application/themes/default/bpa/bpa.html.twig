@@ -369,6 +369,20 @@
                 </tr>
             </tbody>
         </table>
+        <br />
+        <div class="form-group">
+                <div class="col-lg-8">                            
+                {#% if visitaTipoProductor.archivo_fisico %}
+                    <span class="box1 col-lg-12">
+                        <i aria-hidden="true" class="i-file"></i>
+                        <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~ visitaTipoProductor.archivo_fisico}}">{{visitaTipoProductor.archivo_fisico}} </a>
+                    </span>      
+                    <br/><br/><br/>
+                {% endif %#}
+                    <input type="file" name="archivo_formulario" id="archivo_formulario" >
+                    <label for="archivo_formulario" class="col-lg-12"  >DOCUMENTO DIGITALIZADO</label>
+                </div>
+            </div>
     </div></div><!-- .container and .panel-body -->
 </div><!-- panel default -->
 <br/>
