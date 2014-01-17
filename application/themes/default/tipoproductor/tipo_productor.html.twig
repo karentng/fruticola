@@ -2,32 +2,19 @@
 
 {% block html_head %}
 
+
 <script>
     $(function() {
         {% if notif %}
         notif({{notif|json_encode}});
         {% endif %}
 
+        {% if soloLectura %}
+            $('input, textarea, button').attr('disabled', 'disabled');
+        {% endif %}
+
         $("input[type='radio'], input[type='checkbox']").uniform();
 
-
-        $("input[type=number]").keydown(function(event) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(event.keyCode, [46, 8, 9, 27, 13, 190, 110]) !== -1 ||
-                    // Allow: Ctrl+A
-                            (event.keyCode == 65 && event.ctrlKey === true) ||
-                            // Allow: home, end, left, right
-                                    (event.keyCode >= 35 && event.keyCode <= 39)) {
-                        // let it happen, don't do anything
-                        return;
-                    }
-                    else {
-                        // Ensure that it is a number and stop the keypress
-                        if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
-                            event.preventDefault();
-                        }
-                    }
-                });
     });
 </script>
 
@@ -111,6 +98,9 @@
         $('.respuestas_activos').change(calcularTotalActivos);
         $('.respuestas_ingresos').change(calcularTotalIngresos);
         $('.respuestas_egresos').change(calcularTotalEgresos);
+
+        $('.money').priceFormat({centsLimit:0, prefix: '', thousandsSeparator: ''});
+       
     });
 
 </script>
@@ -168,64 +158,78 @@
 
     <div class="panel-body"><div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="container">
                     <div class="col-md-6" style="text-align: center;">
                         <div class="">
                             <label class="control-label">Área Total del Predio (has)</label>                                    
                             <br/>
-                            <input type="number" class="form-control {{form_error('area_predio')? 'error':''}}" name="area_predio" value="{{set_value('area_predio', respuesta_b.area_predio)}}"/>
-                            {{form_error('area_predio')}}
+                            <input type="number" class="form-control"  value="{{finca.area_total}}" disabled="disabled"/>
                         </div>
                     </div>
 
                     <div class="col-md-6" style="text-align: center;">
                         <div class="">
                             <label class="control-label">Valor de la UAF del Municipio (has)</label>                                    
-                            <input type="number" class="form-control {{form_error('valor_uaf')? 'error':''}}" name="valor_uaf"  value="{{set_value('valor_uaf', respuesta_b.valor_uaf)}}"/>
+                            <input type="text" class="form-control {{form_error('valor_uaf')? 'error':''}}" name="valor_uaf"  value="{{set_value('valor_uaf', respuesta_b.valor_uaf)}}"/>
                             {{form_error('valor_uaf')}}
                         </div>
                     </div>
 
                 </div>
 
-                <div class="col-md-12">
-                </div>
-
-                <div class="col-md-12">
-                    <div class="col-md-6" style="text-align: center; padding-top: 20px">
+                <div class="col-md-12"  style="padding-top: 20px;">
+                    <div class="col-md-6" style="text-align: center;">
                         <div class="form-group">
                             <label class="control-label">Tipo de Productor Según la UAF</label>
                                     
                             <div style="text-align:center;">
-                                        {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 1 ? 'checked' : ''%}
-                                <label for="tipo_productor_uaf">Pequeño Productor</label>
-                                <input type="radio" class="{{form_error('tipo_productor_uaf')? 'error':''}}" name="tipo_productor_uaf" value="1" {{set_radio('tipo_productor_uaf', 1) ? set_radio('tipo_productor_uaf', 1) : respuesta_checked_bd}}/>
-                                
-                                <br/>
 
-                                        {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 2 ? 'checked' : ''%}
-                                <label for="tipo_productor_uaf">Mediano Productor</label>
-                                <input type="radio" class="{{form_error('tipo_productor_uaf')? 'error':''}}" name="tipo_productor_uaf" value="2" {{set_radio('tipo_productor_uaf', 2) ? set_radio('tipo_productor_uaf', 2) : respuesta_checked_bd}}/>
-                                {{form_error('tipo_productor_uaf')}}
-                            </div>                    
+                                <label class="control-label col-xs-8">Pequeño Productor</label>
+                                <div class="col-xs-4">
+                                    {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 1 ? 'checked' : ''%}
+                                    <label class="radio-inline">
+                                        <input type="radio" class="{{form_error('tipo_productor_uaf')? 'error':''}}" name="tipo_productor_uaf" value="1" {{set_radio('tipo_productor_uaf', 1) ? set_radio('tipo_productor_uaf', 1) : respuesta_checked_bd}}/>
+                                    </label>
+                                </div>
+
+                                <label class="control-label col-xs-8">Pequeño Productor</label>
+                                <div class="col-xs-4">
+                                    {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 2 ? 'checked' : ''%}
+                                    <label class="radio-inline">
+                                        <input type="radio" class="{{form_error('tipo_productor_uaf')? 'error':''}}" name="tipo_productor_uaf" value="2" {{set_radio('tipo_productor_uaf', 2) ? set_radio('tipo_productor_uaf', 2) : respuesta_checked_bd}}/>
+                                    </label>
+                                    {{form_error('tipo_productor_uaf')}}
+                                </div>
+
+                            </div>
+                            
+                                                
                         </div>
                     </div>
 
-                    <div class="col-md-6" style="text-align: center; padding-top: 20px">
+                    <div class="col-md-6" style="text-align: center;">
                         <div class="form-group">
                             <label class="control-label">Clasificación productor según UAF</label>
                                     
                             <div style="text-align:center;">
-                                        {% set respuesta_checked_bd =  respuesta_b.clasificacion_productor_uaf == 1 ? 'checked' : ''%}
-                                <label for="clasificacion_productor_uaf">Resolución 1132 del 21/Jun/2013 expedida por el INCODER</label>
-                                <input type="radio" class="{{form_error('clasificacion_productor_uaf')? 'error':''}}" name="clasificacion_productor_uaf" value="1" {{set_radio('clasificacion_productor_uaf', 1) ? set_radio('clasificacion_productor_uaf', 1) : respuesta_checked_bd}}/>
-                               
-                                <br/>
 
-                                        {% set respuesta_checked_bd =  respuesta_b.clasificacion_productor_uaf == 2 ? 'checked' : ''%}
-                                <label for="clasificacion_productor_uaf">Resolución  041 del 24/Sep/1996 expedida por el INCODER</label>
-                                <input type="radio" class="{{form_error('clasificacion_productor_uaf')? 'error':''}}" name="clasificacion_productor_uaf" value="2" {{set_radio('clasificacion_productor_uaf', 2) ? set_radio('clasificacion_productor_uaf', 2) : respuesta_checked_bd}}/>
-                                {{form_error('clasificacion_productor_uaf')}}
+                                <label class="control-label col-xs-8">Resolución 1132 del 21/Jun/2013 expedida por el INCODER</label>
+                                <div class="col-xs-4">
+                                    {% set respuesta_checked_bd =  respuesta_b.clasificacion_productor_uaf == 1 ? 'checked' : ''%}
+                                    <label class="radio-inline" style="text-align: center;" >
+                                        <input type="radio" class="{{form_error('clasificacion_productor_uaf')? 'error':''}}" name="clasificacion_productor_uaf" value="1" {{set_radio('clasificacion_productor_uaf', 1) ? set_radio('clasificacion_productor_uaf', 1) : respuesta_checked_bd}}/>
+                                    </label>
+                                </div>
+
+                                <label class="control-label col-xs-8">Resolución  041 del 24/Sep/1996 expedida por el INCODER</label>
+                                <div class="col-xs-4">
+                                    {% set respuesta_checked_bd =  respuesta_b.clasificacion_productor_uaf == 2 ? 'checked' : ''%}
+                                    <label class="radio-inline" style="text-align: center;" >
+                                        <input type="radio" class="{{form_error('clasificacion_productor_uaf')? 'error':''}}" name="clasificacion_productor_uaf" value="2" {{set_radio('clasificacion_productor_uaf', 2) ? set_radio('clasificacion_productor_uaf', 2) : respuesta_checked_bd}}/>
+                                    </label>
+                                    {{form_error('clasificacion_productor_uaf')}}
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -253,7 +257,7 @@
                             <th align="center">
                                 DESCRIPCION DE LOS ACTIVOS ($)
                             </th>
-                            <th align="center" style="width: 100px;">
+                            <th align="center" style="width: 130px;">
                             </th>
                         </tr>
                     </thead>
@@ -262,10 +266,10 @@
                         <tr>
                             <td>
                                 {{pa.enunciado}}
+                                {{form_error('pregunta_c_'~pa.id)}}
                             </td>
                             <td>
-                                <input type="number" class="form-control respuestas_activos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
-                                {{form_error('pregunta_c_'~pa.id)}}
+                                <input type="text" class="money form-control respuestas_activos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
                             </td>
                         </tr>
                         {% endfor %}
@@ -279,7 +283,7 @@
                             <th align="center">
                                 DESCRIPCION DE LOS INGRESOS ($/Año)
                             </th>
-                            <th align="center" style="width: 100px;">
+                            <th align="center" style="width: 130px;">
                             </th>
                         </tr>
                     </thead>
@@ -288,10 +292,10 @@
                         <tr>
                             <td>
                                 {{pa.enunciado}}
+                                {{form_error('pregunta_c_'~pa.id)}}
                             </td>
                             <td>
-                                <input type="number" class="form-control respuestas_ingresos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
-                                {{form_error('pregunta_c_'~pa.id)}}
+                                <input type="text" class="money form-control respuestas_ingresos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
                             </td>
                         </tr>
                         {% endfor %}                                   
@@ -304,7 +308,7 @@
                             <th align="center">
                                 DESCRIPCION DE LOS EGRESOS ($/Año)
                             </th>
-                            <th align="center" style="width: 100px;">
+                            <th align="center" style="width: 130px;">
                             </th>
                         </tr>
                     </thead>
@@ -313,10 +317,10 @@
                         <tr>
                             <td>
                                 {{pa.enunciado}}
+                                {{form_error('pregunta_c_'~pa.id)}}
                             </td>
                             <td>
-                                <input type="number" class="form-control respuestas_egresos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
-                                {{form_error('pregunta_c_'~pa.id)}}
+                                <input type="text" class="money form-control respuestas_egresos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
                             </td>
                         </tr>
                         {% endfor %}   
@@ -330,10 +334,10 @@
                         <tr>
                             <td>
                                 {{pa.enunciado}}
+                                {{form_error('pregunta_c_'~pa.id)}}
                             </td>
                             <td>
-                                <input type="number" class="form-control respuestas_c_totales {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}} />
-                                {{form_error('pregunta_c_'~pa.id)}}
+                                <input type="text" class="money form-control respuestas_c_totales {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}} />
                             </td>
                         </tr>
                         {% endfor %}   

@@ -16,5 +16,6 @@ class Ruat extends MyModel
         array('bpa', 'class_name'=>'BuenasPracticas', 'foreign_key' => 'ruat_id'),
         array('cosecha', 'class_name'=>'Cosecha', 'foreign_key' => 'ruat_id'),
         array('visita_tipo_productor', 'class_name'=>'VisitaTipoProductor', 'foreign_key' => 'ruat_id'),
+        array('finca', 'class_name'=>'Finca', 'foreign_key' => 'ruat_id'),
     );
 }
