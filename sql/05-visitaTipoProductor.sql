@@ -18,7 +18,6 @@ CREATE TABLE visita_tipo_productor (
 CREATE TABLE tp_b_respuesta(
 	id serial NOT NULL PRIMARY KEY,
 	visita_id  integer NOT NULL REFERENCES visita_tipo_productor(id),
-    area_predio double precision NOT NULL,
     valor_uaf double precision NOT NULL,
     tipo_productor_uaf int NOT NULL,
     clasificacion_productor_uaf int NOT NULL
