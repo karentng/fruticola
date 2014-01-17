@@ -6,7 +6,8 @@ CREATE TABLE bpa (
 	fecha_visita date NOT NULL,
 	conclusion text,
 	nivel_bpa double precision,
-	recomendacion text
+	recomendacion text,
+	archivo_fisico text
 );
 
 CREATE TABLE bpa_pregunta(

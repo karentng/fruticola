@@ -75,6 +75,17 @@ class BPA extends CI_Controller {
             $bpa->recomendacion = $this->input->post('recomendacionFinal');
             $bpa->save();
 
+            ///SUBO EL ARCHIVO (revisar)
+            if(isset($_FILES["archivo_formulario"]) && !empty($_FILES["archivo_formulario"]["name"])) {
+                $arr_upload_result = $this->do_upload($bpa->id);
+                if(!isset($arr_upload_result['error']) && isset($arr_upload_result['upload_data']))
+                    $bpa->archivo_fisico = 'bpa/'.$arr_upload_result['upload_data']['file_name'];
+                else
+                    $upload_result = $arr_upload_result['error']; 
+            }
+
+            $bpa->save();
+
             $conteoB = count($preguntasB);
             $conteoC = count($preguntasC);
             $conteo = $conteoB + $conteoC;
