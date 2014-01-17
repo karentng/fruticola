@@ -54,6 +54,12 @@ class RuatA extends CI_Controller {
         $input = json_decode(file_get_contents("php://input"));
         
         if(empty($input->ruat_id)) {
+            if($this->documento_usado($input->productor->numero_documento)) {
+                echo json_encode(array('success'=>false, 'message'=> array('type'=>'error', 
+                    'text'=>'Fallo al Guardar RUAT. <br> Ya hay un productor registrado con este número de documento')));
+                return;
+            }
+
             $ruat = new Ruat;
             $ruat->numero_formulario= $input->numero_formulario;
             $ruat->creador_id = current_user('id');
@@ -62,6 +68,11 @@ class RuatA extends CI_Controller {
             $ruat->save();
         }
         else {
+            if($this->documento_usado($input->productor->numero_documento, $input->productor->id)) {
+                echo json_encode(array('success'=>false, 'message'=> array('type'=>'error', 
+                    'text'=>'Fallo al Guardar RUAT. <br> Hay otro productor registrado con este número de documento')));
+                return;
+            }
             $ruat = Ruat::find($input->ruat_id);
             $ruat->numero_formulario = $input->numero_formulario;
             $ruat->modificado = time();
@@ -153,6 +164,17 @@ class RuatA extends CI_Controller {
         echo json_encode($response);
     }
 
+
+    private function documento_usado($cedula, $productor_id=NULL)
+    {
+        $cond = $productor_id
+            ? array("numero_documento = ? and id <> ?", $cedula, $productor_id)
+            : array("numero_documento = ?", $cedula);
+
+        return Productor::exists(array('conditions' => $cond));
+    }
+
+    
 
     public function cargar($ruat_id, $do_echo=false)
     {

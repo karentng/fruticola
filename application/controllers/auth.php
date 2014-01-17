@@ -333,7 +333,7 @@ class Auth extends CI_Controller {
 
 
     //activate the user
-    private function activate($id, $code=false)
+    public function activate($id, $code=false)
     {
         if ($code !== false)
         {
