@@ -111,9 +111,33 @@
         calcularUtilidad();
     }
     
+    var validacionUAF = false;
+    function validacionesUAF(){
+                
+        var area_total = obtenerNumeroInput($('#area_total'));
+        var valor_uaf = obtenerNumeroInput($('#valor_uaf option:selected'));
+        
+        console.log(area_total);
+        console.log(valor_uaf);
+        if( (valor_uaf * 2) < area_total ){
+            validacionUAF = true;
+            $('#error_validacion_uaf').html('');
+        }else{
+            validacionUAF = false;
+            $('#error_validacion_uaf').html('No cumple con la validacion UAF, no se puede continuar.');
+        }
+        
+        
+    }
+    
     function validarFormulario(){
         if(porcentajeOtrasActividadesRenglonProductivo <= 70){
             alert('No es productor pequeño apto, no se puede continuar.');
+            return false;
+        }
+        
+        if(!validacionUAF){
+            alert('No cumple con la validacion UAF, no se puede continuar.');
             return false;
         }
     }
@@ -125,7 +149,13 @@
 
         $('.money').priceFormat({centsLimit:0, prefix: '', thousandsSeparator: ''});
         
+        $('#valor_uaf').change(validacionesUAF);
         calcularTotalIngresos();
+        
+        {% if municipios_uaf|length < 2 %}
+                validacionesUAF();
+        {% endif %}
+        
         
         $('form').submit(validarFormulario);
        
@@ -191,18 +221,28 @@
                         <div class="">
                             <label class="control-label">Área Total del Predio (has)</label>                                    
                             <br/>
-                            <input type="number" class="form-control"  value="{{finca.area_total}}" disabled="disabled"/>
+                            <input type="number" class="form-control"  id="area_total" value="{{finca.area_total}}" disabled="disabled"/>
                         </div>
                     </div>
 
                     <div class="col-md-6" style="text-align: center;">
                         <div class="">
-                            <label class="control-label">Valor de la UAF del Municipio (has)</label>                                    
-                            <input type="text" class="form-control {{form_error('valor_uaf')? 'error':''}}" name="valor_uaf"  value="{{set_value('valor_uaf', respuesta_b.valor_uaf)}}"/>
-                            {{form_error('valor_uaf')}}
+                            <label class="control-label">Valor de la UAF del Municipio (has)</label>     
+                            <select class="form-control" name="valor_uaf" id="valor_uaf">
+                                {% for muaf in municipios_uaf %}
+                                    <option value="{{muaf.valor}}">{{muaf.descripcion}} ({{muaf.valor}})</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
 
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="col-md-12" style="text-align: center;">
+                            <div><label class="error" id="error_validacion_uaf"></label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-12"  style="padding-top: 20px;">
@@ -220,7 +260,7 @@
                                     </label>
                                 </div>
 
-                                <label class="control-label col-xs-8">Pequeño Productor</label>
+                                <label class="control-label col-xs-8">Mediano Productor</label>
                                 <div class="col-xs-4">
                                     {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 2 ? 'checked' : ''%}
                                     <label class="radio-inline">

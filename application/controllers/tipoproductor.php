@@ -44,8 +44,9 @@ class TipoProductor extends CI_Controller {
         $ruat = Ruat::find($ruat_id, array('joins' => array('productor')));
         $productor = $ruat->productor;
         $finca = $ruat->finca;
-
-
+        $municipio = $finca->municipio;
+        $municipios_uaf = $municipio->municipios_uaf;
+        
         ///consulo las respuestas B
         $respuesta_b = TPBRespuesta::first(array(
                     'conditions' => array('visita_id = ?', $id)
@@ -167,6 +168,8 @@ class TipoProductor extends CI_Controller {
         
         $this->twiggy->register_function('form_open_multipart');
 
+        $this->twiggy->set('municipio', $municipio);
+        $this->twiggy->set('municipios_uaf', $municipios_uaf);
         $this->twiggy->set('numForm', $ruatNumFormulario);
         $this->twiggy->set('usuaioSesion', $usuaioSesion);
         $this->twiggy->set('productor', $productor);
