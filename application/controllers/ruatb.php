@@ -102,7 +102,7 @@ class RuatB extends CI_Controller {
                 
         $response = array(
             'success'=>true, 
-            'message'=> array('type'=>'success', 'text'=>'Guardado Exitoso'),
+            'message'=> array('type'=>'success', 'text'=>'Guardado Exitoso <br/> Cargando siguiente sección...'),
             'scope'=>$this->cargar($ruat->id)
         );
 

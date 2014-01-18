@@ -164,16 +164,13 @@
                     notif(response.message);
                     if(response.success) {
                         angular.extend($scope, response.scope);
-                        //$scope.postLoad();
-                        $scope.siguiente();
+                        setTimeout(function(){
+                            $scope.siguiente();
+                        }, 1600);
                     }
                 }
-                else {
-                    alert("Error en comunicacion con el servidor. Intente nuevamente.");
-                }
+                else alert("Error en comunicacion con el servidor. Intente nuevamente.");
             });
-
-
         };
 
         $scope.anterior = function() {

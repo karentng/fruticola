@@ -38,7 +38,7 @@ insert into cosecha_pregunta(numero, texto, tipo_respuesta) values
     (5, 'PERSONAL DE COSECHA', 'UNICA'),
     (6, 'CUENTA CON UN SITIO ESPECÍFICO PARA ALMACENAR LA COSECHA EN SU FINCA (ZONA DE SOMBRA Ó CUARTO DE ALMACENAMIENTO TEMPORAL O ACOPIO)', 'UNICA'),
     (7, 'TIPO DE TRANSPORTE INTERNO UTILIZADO DURANTE LA COSECHA', 'MULTIPLE'),
-    (8, 'PROTECCIÓN  DEL FRUTO', 'UNICA');
+    (8, 'PROTECCIÓN  DEL FRUTO', 'MULTIPLE');
 
 
 insert into cosecha_opcionrespuesta(pregunta_id, letra, texto) values

@@ -8,6 +8,12 @@
         $(function(){
             myDataTable('#dataTable');
         });
+
+        function eliminarRuat(ruat_id) {
+            if(confirm("Está a punto de eliminar un RUAT y toda su información relacionada. \nEsta Operación no es reversible")) {
+                window.location = "{{site_url('listadoruats/eliminar_ruat')}}/" + ruat_id;
+            }
+        }
     </script>
 
 {% endblock %}
@@ -27,6 +33,7 @@
 
 <table id='dataTable' class="table table-bordered table-hover">
     <thead>
+        <th>Nro</th>
         <th>Productor</th>
         <th>Creado</th>
         <th>Ingresado por</th>
@@ -35,6 +42,12 @@
     <tbody>
         {% for row in ruats %}
         <tr>
+            <td>
+                {% if isAdmin %}
+                    <button class="btn btn-danger btn-xs tip" title="Eliminar RUAT" onclick="eliminarRuat({{row.id}})">-</button>
+                {% endif %}
+                {{row.numero_formulario}}
+            </td>
             <td>
                 {{row.productor.nombre_completo()}}
                 <br/> <small class="text-muted">{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</small>
