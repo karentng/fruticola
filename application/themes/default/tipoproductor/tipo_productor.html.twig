@@ -137,11 +137,11 @@
 {% block breadcrumnb %}
 <ul class="breadcrumb">
     <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
-    <li><strong class="text-success">VISITA TIPO PRODUCTOR</strong></li>
+    <li><strong class="text-success">CLASIFICACIÓN TIPO PRODUCTOR</strong></li>
 </ul>
 {% endblock %}
 
-{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> VTP &#187; VISITA TIPO PRODUCTOR </h1> {% endblock %}
+{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> VTP &#187; CLASIFICACIÓN TIPO PRODUCTOR </h1> {% endblock %}
 
 {% block contenido %}
 
@@ -154,7 +154,7 @@
                 <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
                 <div class="col-sm-8">
                     <div class="input-group date datepicker autostart">
-                        <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha | date('Y-m-d'))}}" class="form-control {{form_error('fecha')? 'error':''}}" type="text">
+                        <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha)}}" class="form-control {{form_error('fecha')? 'error':''}}" type="text">
                         {{form_error('fecha')}}
                         <label class="error"></label>
 
