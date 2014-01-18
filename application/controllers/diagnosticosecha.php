@@ -87,7 +87,7 @@ class DiagnostiCosecha extends CI_Controller {
             $this->twiggy->set('soloLectura', $cosecha->soloLectura($this));
         }
         else {
-            $cosecha = array("fecha_visita" => new DateTime());
+            $cosecha = array();
         }
 
         $this->twiggy->set("preguntas", $preguntas);
