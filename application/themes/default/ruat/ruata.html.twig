@@ -187,14 +187,15 @@
 
 
             $http.post(urls.guardar, data).success(function(response,status) {
-                //console.log(response);
+                
                 if(response.success!==undefined) {
                     notif(response.message);
                     if(response.success) {
                         angular.extend($scope, response.scope);
-                        $scope.siguiente();
+                        setTimeout(function(){
+                            $scope.siguiente();
+                        }, 1600);
                     }
-                    //$scope.myForm.$setPristine();
                 }
                 else {
                     alert("Error en comunicacion con el servidor. Intente nuevamente.");

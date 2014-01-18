@@ -157,7 +157,7 @@ class RuatA extends CI_Controller {
         $ruat->save();
         $response = array(
             'success'=>true, 
-            'message'=> array('type'=>'success', 'text'=>'Guardado Exitoso'),
+            'message'=> array('type'=>'success', 'text'=>'Guardado Exitoso <br/> Cargando siguiente sección...'),
             'scope'=>$this->cargar($ruat->id)
         );
         
@@ -230,15 +230,16 @@ class RuatA extends CI_Controller {
         }
 
         $output->innovaciones = array();
+        $output->realizaInnovacion = false;
         foreach(TipoInnovacion::sorted() as $t) {
-            if(isset($inno_map[$t->id]))
+            if(isset($inno_map[$t->id])) {
                 $output->innovaciones[] = $inno_map[$t->id];
+                $output->realizaInnovacion = true;
+            }
             else 
                 $output->innovaciones[] = array('tipo_id'=>$t->id);
         }
 
-        $output->realizaInnovacion = (bool)count($output->innovaciones);
-        
         if($do_echo) echo json_encode($output);
         return $output;
     }
