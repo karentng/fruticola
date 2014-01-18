@@ -61,12 +61,17 @@
         }
 
         valores[0] = valores[0] / 10;
-        valores[1] = valores[1] / 4;
         valores[2] = valores[2] / 5;
         $("#valor15f").val(valores[0].toFixed(2));
-        $("#valor26f").val(valores[1].toFixed(2));
         $("#valor31f").val(valores[2].toFixed(2));
 
+        //alert($("#excepcion42").is(':checked'));
+        if(!$("#excepcion42").is(':checked')){    
+            $("#valor14f").val(((+valores[0]+valores[2])/2).toFixed(2));
+            return;
+        }
+        valores[1] = valores[1] / 4;
+        $("#valor26f").val(valores[1].toFixed(2));
         $("#valor14f").val(((+valores[0]+valores[1]+valores[2])/3).toFixed(2));
     }
 
@@ -100,6 +105,7 @@
                 numSubSecciones = 6;
                 break;
             case 7:
+         
                 numSubSecciones = 5;
                 break;
             case 8:
@@ -118,7 +124,19 @@
         resultado = resultado / numSubSecciones;
         $("#valor"+padre+"f").val(resultado.toFixed(2));
         calcularFinal();
-    }    
+    }
+
+    function cambiarExcepcion(){
+        var estado = $("#excepcion42").is(':checked'); //true-> activo, false-> inactivo
+        for(var i = 1;i<=4;i++){
+            var id_valor = "#valor26"+(26+i);
+            var id_observacion = "#observacion"+(26+i);
+            $(id_valor).prop("disabled", !estado);
+            $(id_observacion).prop("disabled", !estado);
+            calcularSeccionCuatro();
+            calcularFinal();
+        }
+    }
 </script>
 
 {% endblock %}
@@ -138,7 +156,7 @@
     <div class="col-md-5">
         <div class="container">
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
+                <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha de Visita:</label>
                 <div class="col-sm-8">
                     <div class="input-group date datepicker autostart">
                         {#% if existe == 'yes' %}
@@ -150,7 +168,7 @@
 
                         {% set errorFecha = form_error('fecha') %}
                         <input size="16" name="fecha" class="form-control {{errorFecha? 'error':''}}" type="text"
-                            value="{{set_value('fecha', datosBPA['fecha'])}}" {% if soloLectura %} disabled="disabled" {% endif %} required>
+                            value="{{set_value('fecha', datosBPA['fecha'])}}"{% if soloLectura %} disabled="disabled" {% endif %} required>
                         <label class="error">{{errorFecha}}</label>
                         
                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
@@ -215,6 +233,7 @@
                     <td>
                         {{preguntaB.enunciado}}
                     </td>
+
                     <td style="text-align:center; width:100px;">
                         <!--<input bs-switch switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">-->
@@ -259,7 +278,6 @@
                     <td colspan="4"> 	
                         {% set errorConclusionB = form_error('conclusionB') %}
                         <textarea class="form-control  {{errorConclusionB? 'error':''}}" {% if soloLectura %} disabled="disabled" {% endif %} rows="3" name="conclusionB" style="width:100%;">{{set_value("conclusionB",datosBPA['conclusion'])}}</textarea>
-                        <label class="error">{{errorConclusionB}}</label>
 
                     </td>
                 </tr>
@@ -301,6 +319,11 @@
                     <td align="center">
                         {% if preguntaC.padre == null or preguntaC.numeral == 15 or
                             preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
+                            {% if preguntaC.numeral == 26 %}
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>" >
+                                    <input onchange="cambiarExcepcion(this)" id="excepcion42" name="excepcion42" class="toggle" type="checkbox" checked/>
+                                </div>
+                            {% endif %}
                             {% if existe == 'yes' %}
                                 <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
                                 style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,respuestasC[cont].puntaje)}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
@@ -311,7 +334,7 @@
 
                             
                             
-                        {% else %}
+                        {% else %}                            
                             {% if existe == 'yes' %}
                                 <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
                                 onchange="calcular({{preguntaC.seccionnumero}},{{preguntaC.padre}})"
@@ -331,12 +354,18 @@
                         {% endif %}
                     </td>
                     <td>
+
+                        {% set errorRecomendacion = form_error("{{'observacion'~preguntaC.id}}") %}
+                        
+                        
+
                         {% if existe == 'yes' %}
-                            <textarea class="form-control" id="{{'observacion'~ preguntaC.id}}"
+                            <textarea class="form-control {{errorRecomendacion? 'error':''}}" id="{{'observacion'~ preguntaC.id}}"
                             name="{{'observacion'~ preguntaC.id}}" {% if soloLectura %} disabled="disabled" {% endif %} style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,respuestasC[cont].observacion)}}</textarea>
                         {% else %}
-                            <textarea class="form-control" id="{{'observacion'~ preguntaC.id}}" {% if soloLectura %} disabled="disabled" {% endif %} name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,"")}}</textarea>
-                        {% endif %}                    
+                            <textarea class="form-control {{errorRecomendacion? 'error':''}}" id="{{'observacion'~ preguntaC.id}}" {% if soloLectura %} disabled="disabled" {% endif %} name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,"")}}</textarea>
+                        {% endif %}
+                        <label class="error">{{errorRecomendacion}}</label>
                     </td>
                 </tr>
                 {% set cont = cont + 1 %}
@@ -360,8 +389,7 @@
                         {% else %}
                             <textarea name="recomendacionFinal" style="width:240px; height:100%;"></textarea>
                         {% endif %#}
-                        
-                        
+
                         {% set errorRecomendacionFinal = form_error('recomendacionFinal') %}
                         <textarea class="form-control {{errorRecomendacionFinal? 'error':''}}" {% if soloLectura %} disabled="disabled" {% endif %} name="recomendacionFinal" style="width:240px; height:100%;">{{set_value("recomendacionFinal",datosBPA['recomendacion'])}}</textarea>
                         <label class="error">{{errorRecomendacionFinal}}</label>
@@ -380,7 +408,7 @@
                     <br/><br/><br/>
                 {% endif %#}
                     <input type="file" name="archivo_formulario" id="archivo_formulario" >
-                    <label for="archivo_formulario" class="col-lg-12"  >DOCUMENTO DIGITALIZADO</label>
+                    <label for="archivo_formulario" class="col-lg-12"  >Certificación de Visita Digitalizada</label>
                 </div>
             </div>
     </div></div><!-- .container and .panel-body -->
