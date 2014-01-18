@@ -63,17 +63,34 @@
         });
         $('.respuestas_activos[readonly]').val(total);
     }
+    
+    function obtenerNumeroInput(obj){
+        var value = obj.val();
+        if(isNaN(value) || !value){
+            return 0;
+        }else{
+            return parseFloat(value);
+        }        
+    }
 
+    var porcentajeOtrasActividadesRenglonProductivo= 0;    
     function calcularTotalIngresos() {
-        var total = 0;
-        $('.respuestas_ingresos').each(function() {
-            var obj = $(this);
-
-            ///El unico readonly debe ser el del total
-            if (!obj.is('[readonly]') && obj.val())
-                total += parseFloat(obj.val());
-        });
-        $('.respuestas_ingresos[readonly]').val(total);
+        
+        var cantidadProducto = obtenerNumeroInput($($('.respuestas_ingresos')[0]));
+        var precioProducto = obtenerNumeroInput($($('.respuestas_ingresos')[1]));
+        
+        ///Ingresos renglon productivo= Precio venta * Cantidad
+        var renglonProductivo =  cantidadProducto + precioProducto;
+        $($('.respuestas_ingresos')[2]).val(renglonProductivo);
+        
+        var otrasActividades= obtenerNumeroInput($($('.respuestas_ingresos')[3]));
+        var otrosIngresos = obtenerNumeroInput($($('.respuestas_ingresos')[4]));
+        
+        ///Total ingresos del productor = ingresos renglon productivo + ingresos otras actividades agropecuarias + otros ingresos
+        var total = renglonProductivo + otrasActividades + otrosIngresos;
+        $($('.respuestas_ingresos')[5]).val(total);
+        
+        porcentajeOtrasActividadesRenglonProductivo = ((renglonProductivo + otrasActividades) / total) * 100;        
 
         ///recalculo las utilidad
         calcularUtilidad();
@@ -93,6 +110,13 @@
         ///recalculo las utilidad
         calcularUtilidad();
     }
+    
+    function validarFormulario(){
+        if(porcentajeOtrasActividadesRenglonProductivo <= 70){
+            alert('No es productor pequeño apto, no se puede continuar.');
+            return false;
+        }
+    }
 
     $(document).ready(function() {
         $('.respuestas_activos').change(calcularTotalActivos);
@@ -100,6 +124,10 @@
         $('.respuestas_egresos').change(calcularTotalEgresos);
 
         $('.money').priceFormat({centsLimit:0, prefix: '', thousandsSeparator: ''});
+        
+        calcularTotalIngresos();
+        
+        $('form').submit(validarFormulario);
        
     });
 
