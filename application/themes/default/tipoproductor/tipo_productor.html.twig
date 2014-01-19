@@ -120,10 +120,13 @@
 {{ form_open(null, {role:'form', class:'form-horizontal'}) }}
 
 <div class="row">
+    <div class="col-md-7">
+        {% include "partials/info_productor.html.twig" with {'ruat':ruat} %}
+    </div>
     <div class="col-md-5">
         <div class="container">
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
+                <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha de Visita:</label>
                 <div class="col-sm-8">
                     <div class="input-group date datepicker autostart">
                         <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha | date('Y-m-d'))}}" class="form-control {{form_error('fecha')? 'error':''}}" type="text">
@@ -132,17 +135,6 @@
 
                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                     </div>                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-7">
-        <div class="container">
-            <div class="form-group">
-
-                <label class="col-sm-10 control-label">Número del formulario RUAT:</label>
-                <div class="col-sm-2">
-                    <input name="idRuat" class="form-control" value="{{numForm}}" type="text" style="text-align:center;color:red;" readonly="true">
                 </div>
             </div>
         </div>

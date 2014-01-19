@@ -153,37 +153,20 @@
 
 {{ form_open_multipart(null, {role:'form', class:'form-horizontal'}) }}
 <div class="row">
-    <div class="col-md-5">
-        <div class="container">
-            <div class="form-group">
-                <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha de Visita:</label>
-                <div class="col-sm-8">
-                    <div class="input-group date datepicker autostart">
-                        {#% if existe == 'yes' %}
-                            <input size="16" name="fecha" class="form-control" type="text" value="{{datosBPA.fecha}}" required>
-                        {% else %}
-                            <input size="16" name="fecha" class="form-control" type="text" required>
-                        {% endif %#}
-
-
-                        {% set errorFecha = form_error('fecha') %}
-                        <input size="16" name="fecha" class="form-control {{errorFecha? 'error':''}}" type="text"
-                            value="{{set_value('fecha', datosBPA['fecha'])}}"{% if soloLectura %} disabled="disabled" {% endif %} required>
-                        <label class="error">{{errorFecha}}</label>
-                        
-                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-md-7">
-        <div class="container">
-            <div class="form-group">
-                
-                <label class="col-sm-10 control-label">Número del formulario RUAT:</label>
-                <div class="col-sm-2">
-                    <input name="idRuat" class="form-control" value="{{numForm}}" type="text" style="text-align:center;color:red;" readonly="true">
+        {% include "partials/info_productor.html.twig" with {'ruat':ruat} %}
+    </div>
+    <div class="col-md-5">
+        <div class="form-group">
+            <label class="col-sm-5 control-label" for="fecha_nacimiento">Fecha de Visita:</label>
+            <div class="col-sm-6">
+                <div class="input-group date datepicker autostart">
+                    {% set errorFecha = form_error('fecha') %}
+                    <input size="16" name="fecha" class="form-control {{errorFecha? 'error':''}}" type="text"
+                        value="{{set_value('fecha', datosBPA['fecha'])}}"{% if soloLectura %} disabled="disabled" {% endif %} required>
+                    <label class="error">{{errorFecha}}</label>
+                    
+                    <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                 </div>
             </div>
         </div>
