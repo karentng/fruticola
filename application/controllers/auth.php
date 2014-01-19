@@ -61,6 +61,13 @@ class Auth extends CI_Controller {
 
         if ($this->input->post())
         {
+            $this->load->library("user_agent");
+            if(true || ($this->agent->browser() == 'Internet Explorer' and $this->agent->version() <= 9)) {
+                $this->twiggy->template("auth/unsupported");
+                $this->twiggy->display();
+                return;
+            }
+            
             //check to see if the user is logging in
             //check for "remember me"
             $remember = (bool) $this->input->post('remember');
@@ -104,6 +111,8 @@ class Auth extends CI_Controller {
             );
 
             //$this->_render_page('auth/login', $this->data);
+            
+            $this->twiggy->set("old_ie", $old_ie);
             $this->twiggy->set($this->data, null);
             $this->twiggy->template('auth/login');
             $this->twiggy->display();

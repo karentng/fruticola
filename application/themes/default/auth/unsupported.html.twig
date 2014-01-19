@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block html_body %}
+<div id="wrap">
+<br/>
+
+<center> <h1 class="text-danger"> Navegador Web No Soportado</h1></center>
+
+<hr/>
+
+<div class="jumbotron">
+    <div class="container">
+        Su navegador web está desactualizado y no es soportado por esta aplicación.<br/>
+        Para un mejor rendimiento, le recomendamos actualizar a la versión más reciente ó instalar uno de los
+        siguientes navegadores
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-4 col-sm-2">
+            <a class="btn btn-default" href="https://www.google.com/intl/es-419/chrome/browser/">
+            <img class="img-responsive" style="max-height:150px" src="//upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Google_Chrome_icon_%282011%29.svg/200px-Google_Chrome_icon_%282011%29.svg.png">
+            <br/>
+            <h4 class="text-primary">Google Chrome</h4>
+            </a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-default" href="http://www.mozilla.org/es-ES/firefox/new/">
+            <img class="img-responsive" style="max-height:150px" src="//upload.wikimedia.org/wikipedia/commons/f/ff/Mozilla_Firefox_logo_2013.png">
+            <br/>
+            <h4 class="text-primary">Mozilla Firefox</h4>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
