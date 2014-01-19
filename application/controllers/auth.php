@@ -455,20 +455,56 @@ class Auth extends CI_Controller {
         //show: email, first_name, last_name, phone, identification
         //edit: email, phone, password, identification
         $this->load->library('form_validation');
-        $min_pass = $this->config->item('min_password_length', 'ion_auth');
-        $this->form_validation->set_rules(array(
-            array('email', "Email", "email"),
-            array('phone'),
-            array('identification'),
-            array('password', 'Contraseña', "min_length[$min_pass]"),
-            array('password_confirm', 'Confirmar Contraseña', "matches[pass]"),
-        ));
+        
+        $this->form_validation->set_rules('email', "Email", "valid_email");
+        $this->form_validation->set_rules('phone');
+
+        if($this->form_validation->run()) 
+        {
+            $ok = true;
+            $pass_changed = false;
+            $this->user_id = $this->session->userdata('user_id');
+            $user_data = array(
+                'email' => $this->input->post('email'),
+                'phone' => $this->input->post('phone'),
+            );
+
+            if($this->input->post('new_password')) {
+                $min_pass = $this->config->item('min_password_length', 'ion_auth');
+                $this->form_validation->set_rules('cur_password', 'Contraseña Actual', 'required|callback__cur_password_check');
+                $this->form_validation->set_rules('new_password', 'Contraseña Nueva', "required|min_length[$min_pass]");
+                $this->form_validation->set_rules('new_password_confirm', 'Confirmar Contraseña Nueva',"matches[new_password]");
+                
+                if($ok = $this->form_validation->run()) {
+                    $user_data['password'] = $this->input->post('new_password');
+                    $pass_changed = true;
+                }
+            }
+
+            if($ok) {
+                $this->ion_auth->update($this->user_id, $user_data);
+                $msg = 'Información Personal Actualizada Exitosamente';
+                if($pass_changed) $msg .= "<br> Contraseña Cambiada";
+                $this->session->set_flashdata("notif", array('type'=>'success', 'text' => $msg));
+                redirect("/");
+            }
+        }
 
 
-        $this->twiggy->set("user", $this->ion_auth->user());
+        $this->twiggy->set("user", $this->ion_auth->user()->row());
+        $this->twiggy->set("group", $this->ion_auth->groups()->row());
 
         $this->twiggy->template("auth/personal_info");
         $this->twiggy->display();
         
+    }
+
+    function _cur_password_check($pass)
+    {
+        if($this->ion_auth->hash_password_db($this->user_id, $pass))
+            return true;
+
+        $this->form_validation->set_message("_cur_password_check", "Contraseña Incorrecta");
+        return false;
     }
 }

@@ -119,12 +119,17 @@
 
             <div class="collapse navbar-collapse" id="navbar-to-collapse">  
                 <ul class="nav navbar-nav pull-right">
-                    <li class="disabled">
-                        <a href="#" class="disabled">
+                    <li class="dropdown user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="icon16 i-user-7"></i>
                             {{current_user('username')}}
-                            
+                            <span class="more"><i class="icon16 i-arrow-down-2"></i></span>
                         </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><a href="{{site_url('auth/personal_info')}}" class=""><i class="icon16 i-user"></i> Información Personal</a></li>
+                            <li role="presentation"><a href="{{site_url('auth/personal_info')}}" class=""><i class="icon16 i-cogs"></i> Cambiar Contraseña</a></li>
+                        </ul>
+
                     </li>
                     <li class="divider-vertical"></li>
                     <li>
