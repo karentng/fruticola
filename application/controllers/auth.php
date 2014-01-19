@@ -62,7 +62,7 @@ class Auth extends CI_Controller {
         if ($this->input->post())
         {
             $this->load->library("user_agent");
-            if(true || ($this->agent->browser() == 'Internet Explorer' and $this->agent->version() <= 9)) {
+            if(($this->agent->browser() == 'Internet Explorer' and $this->agent->version() <= 9)) {
                 $this->twiggy->template("auth/unsupported");
                 $this->twiggy->display();
                 return;
