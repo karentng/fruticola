@@ -21,7 +21,7 @@ class BPA extends CI_Controller {
         $preguntasB = BpaPregunta::sortedB();
         $preguntasC = BpaPregunta::sortedC();
 
-        $this->form_validation->set_rules('conclusionB', 'Conclusión', 'required');
+        $this->form_validation->set_rules('conclusionB', 'Conclusión');
         $this->form_validation->set_rules('recomendacionFinal', 'Recomendación', 'required');
         $this->form_validation->set_rules('fecha', 'Fecha', 'required');
 
@@ -38,7 +38,8 @@ class BPA extends CI_Controller {
             $this->twiggy->set('soloLectura', $datosBPA->soloLectura($this));
         }
         else {
-            $datosBPA = array('fecha' => date('Y-m-d'), 'conclusion' => '', 'recomendacion' => '', 'nivel_bpa' => 0);
+            //$datosBPA = array('fecha' => date('Y-m-d'), 'conclusion' => '', 'recomendacion' => '', 'nivel_bpa' => 0);
+            $datosBPA = array('fecha' => '', 'conclusion' => '', 'recomendacion' => '', 'nivel_bpa' => 0);
             $this->twiggy->set("datosBPA", $datosBPA);
         }
 
@@ -51,13 +52,21 @@ class BPA extends CI_Controller {
 
         //$preguntasC = BpaPregunta::find_all_by_seccion('C');
         foreach($preguntasC as $preg) {
-            $this->form_validation->set_rules("observacion".$preg->id);
+            
+            if(!$this->input->post('excepcion42')=='on'){
+                if($preg->id == 26 || $preg->id == 27 || $preg->id == 28 || $preg->id == 29 || $preg->id == 30){
+                    $this->form_validation->set_rules("observacion".$preg->id);
+                }else{
+                    $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');    
+                }
+            }else{
+                $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');
+            }
         }
 
 
 
         if ($this->form_validation->run()) {
-
             //$bpa = $bpa_id ? BuenasPracticas::find($bpa_id) : new BuenasPracticas();
             
             if($existePreviamente){// existe
@@ -157,7 +166,7 @@ class BPA extends CI_Controller {
             $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario BPA guardado exitósamente'));
             redirect('listadoruats');
         }else if(validation_errors()){
-            $this->twiggy->set('notif',array('type'=>'error', 'text'=> "Debe rellenar como mínimo la fecha, conclusión y recomendacion final. <br> Revise los recuadros rojos"));
+            $this->twiggy->set('notif',array('type'=>'error', 'text'=> "Debe rellenar la fecha, y las recomendaciones de la parte C. <br> Revise los recuadros rojos"));
         }
 
         

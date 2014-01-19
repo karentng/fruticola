@@ -1,0 +1,87 @@
+
+{% extends "base.html.twig" %}
+
+
+{% block titulo %} 
+    <h1><i class="icon20 i-user-plus"></i> Información Personal </h1>
+{% endblock %}
+
+{% block contenido %}
+
+
+{{form_open(null, {'class':'form-horizontal'})}}
+<div class="container">
+    <div class="form-group">
+        <label class="col-md-3 control-label">Nombre Completo:</label>
+        <div class="col-md-3">
+            <h4 class="form-control-static">{{user.first_name}} {{user.last_name}}</h4>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Nombre de Usuario:</label>
+        <div class="col-md-3">
+            <h4 class="form-control-static text-success">{{user.username}}</h4>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Perfil:</label>
+        <div class="col-md-3">
+            <h4 class="form-control-static text-info">{{group.description}}</h4>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">E-mail:</label>
+        <div class="col-md-4">
+            {{ my_input('email', {name:'email', type:'email',  default:user.email}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Teléfono:</label>
+        <div class="col-md-3">
+            {{form_input('phone', set_value('phone', user.phone))}}
+        </div>
+    </div>
+
+    <hr/>
+    <h3 class="text-primary">Cambiar Contraseña <br/><small>Ingrese la siguiente información si desea cambiar su contraseña</h3>
+    
+
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Contraseña Actual:</label>
+        <div class="col-md-4">
+            {{ my_input('cur_password',{'type':'password', 'placeholder':'Ingrese su contraseña actual' }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Contraseña Nueva:</label>
+        <div class="col-md-4">
+            {# <input type="password" class="form-control" name="password" placeholder="Asigne una contraseña al nuevo usuario"> #}
+            {{ my_input('new_password',{'type':'password', 'placeholder':'Ingrese la nueva contraseña' }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Confirmar Contraseña Nueva:</label>
+        <div class="col-md-4">
+            {# <input type="password" class="form-control" name="password" placeholder="Reescriba la contraseña que desea asignar"> #}
+            {{ my_input('new_password_confirm', {'type':'password', 'placeholder':'Vuelva a ingresar la nueva contraseña' }) }}
+        </div>
+    </div>
+
+    <br/>
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-5">
+            <button type="submit" name="submit" class="btn btn-lg btn-success">Guardar</button>
+            <a href="{{site_url("/")}}" class="btn btn-lg btn-default">Cancelar</a>
+        </div>
+    </div>
+</div>
+{{form_close()}}
+
+{% endblock %}
