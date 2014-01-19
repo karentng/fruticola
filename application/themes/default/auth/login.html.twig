@@ -13,7 +13,7 @@
 
         #footer {
             height: 120px;
-            
+            text-align:center;
         }
 
         .bg {
@@ -23,27 +23,15 @@
 
         .jumbotron {
           /*height: 350px;*/
+          padding-top: 15px;
+          padding-bottom:15px;
           border-radius: 15px;
           color: #2E2E2E;
           text-shadow: #444 0 1px 1px;
           background:rgba(240,240,240,0.5);
-
         }
     </style>
 
-    <script>
-        /*$(function(){
-            var jumboHeight = $('.jumbotron').outerHeight();
-            function parallax(){
-                var scrolled = $(window).scrollTop();
-                $('.bg').css('height', (jumboHeight-scrolled) + 'px');
-            }
-
-            $(window).scroll(function(e){
-                parallax();
-            });
-        });*/
-    </script>
 {% endblock %}
 
 {% block html_body %}
@@ -55,7 +43,7 @@
 
 <div class="row">
     <div class="col-md-5 col-md-offset-1">
-        <br/><br>
+        <br/>
         <div class="well" style="width:400px; margin-left:auto; margin-right:auto">
             <div class="container">
                 <center><h3>Acceso al Sistema</h3></center>
@@ -97,7 +85,7 @@
             <small>
             El Plan Frutícola para el Valle del Cauca pretende reunir aspectos como la asistencia técnica, la transferencia tecnológica,
             el desarrollo de canales de abastecimientos, la logística de comercialización y transporte, los distritos de riego y la compra
-            de semillas de calidad con el propósito de promover la siempra, la cosecha, la transformación y la comercialización de los frutales
+            de semillas de calidad con el propósito de promover la siembra, la cosecha, la transformación y la comercialización de los frutales
             de mayor perspectiva en los mercados nacionales e internacionales.</small>
         
         </div></div>
@@ -111,7 +99,7 @@
 
 <div id="footer">
 
-    <center><img src="{{base_url('assets/images/logos-min.png?v=1')}}" class="img-responsive" style="max-height:120px" /></center>
+    <img src="{{base_url('assets/images/logos-min.png?v=1')}}" class="img-responsive" style="max-height:118px; margin-left:auto; margin-right:auto" />
    
 </div>
    

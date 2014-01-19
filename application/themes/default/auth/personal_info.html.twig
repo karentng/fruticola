@@ -10,22 +10,32 @@
 
 
 {{form_open(null, {'class':'form-horizontal'})}}
+<div class="container">
     <div class="form-group">
         <label class="col-md-3 control-label">Nombre Completo:</label>
         <div class="col-md-3">
-            
-        </div>
-        <div class="col-md-3">
-            
+            <h4 class="form-control-static">{{user.first_name}} {{user.last_name}}</h4>
         </div>
     </div>
 
+    <div class="form-group">
+        <label class="col-md-3 control-label">Nombre de Usuario:</label>
+        <div class="col-md-3">
+            <h4 class="form-control-static text-success">{{user.username}}</h4>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Perfil:</label>
+        <div class="col-md-3">
+            <h4 class="form-control-static text-info">{{group.description}}</h4>
+        </div>
+    </div>
 
     <div class="form-group">
         <label class="col-md-3 control-label">E-mail:</label>
-        <div class="col-md-6">
-            {{ form_input({name:'email', type:'email', class:'',  value:set_value('email', user.email)}) }}
-            <label class="error">{{form_error('email')}}</label>
+        <div class="col-md-4">
+            {{ my_input('email', {name:'email', type:'email',  default:user.email}) }}
         </div>
     </div>
 
@@ -37,50 +47,41 @@
     </div>
 
     <hr/>
+    <h3 class="text-primary">Cambiar Contraseña <br/><small>Ingrese la siguiente información si desea cambiar su contraseña</h3>
+    
+
 
     <div class="form-group">
-        <label class="col-md-3 control-label">Perfil:</label>
-        <div class="col-md-5">
-            {{ form_dropdown('profile', perfiles, set_value('profile', currentProfile), form_error('profile') ? 'class="error"' : '') }}
-            {% if form_error('profile') %}
-                <label class='error'>{{ form_error('profile') }}</label>
-            {% endif %}
+        <label class="col-md-3 control-label">Contraseña Actual:</label>
+        <div class="col-md-4">
+            {{ my_input('cur_password',{'type':'password', 'placeholder':'Ingrese su contraseña actual' }) }}
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-md-3 control-label">Nombre de Usuario:</label>
-        <div class="col-md-5">
-            {{ form_input(username)}}
-            {% if form_error('username') %}
-                <label class='error'>{{ form_error('username') }}</label>
-            {% endif %}
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-3 control-label">Contraseña:</label>
-        <div class="col-md-5">
+        <label class="col-md-3 control-label">Contraseña Nueva:</label>
+        <div class="col-md-4">
             {# <input type="password" class="form-control" name="password" placeholder="Asigne una contraseña al nuevo usuario"> #}
-            {{ my_input('password',{'type':'password', 'placeholder':'Digite una nueva contraseña para cambiarla' }) }}
+            {{ my_input('new_password',{'type':'password', 'placeholder':'Ingrese la nueva contraseña' }) }}
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-md-3 control-label">Confirmar Contraseña:</label>
-        <div class="col-md-5">
+        <label class="col-md-3 control-label">Confirmar Contraseña Nueva:</label>
+        <div class="col-md-4">
             {# <input type="password" class="form-control" name="password" placeholder="Reescriba la contraseña que desea asignar"> #}
-            {{ my_input('password_confirm', {'type':'password', 'placeholder':'Reescriba la contraseña que desea asignar' }) }}
+            {{ my_input('new_password_confirm', {'type':'password', 'placeholder':'Vuelva a ingresar la nueva contraseña' }) }}
         </div>
     </div>
 
     <br/>
     <div class="form-group">
         <div class="col-md-offset-3 col-md-5">
-            <button type="submit" class="btn btn-lg btn-success">Guardar</button>
-            <a href="{{site_url("auth")}}" class="btn btn-lg btn-default">Cancelar</a>
+            <button type="submit" name="submit" class="btn btn-lg btn-success">Guardar</button>
+            <a href="{{site_url("/")}}" class="btn btn-lg btn-default">Cancelar</a>
         </div>
     </div>
+</div>
 {{form_close()}}
 
 {% endblock %}

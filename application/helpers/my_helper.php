@@ -9,7 +9,8 @@ if(! function_exists('my_input'))
         if(empty($attrs['type'])) $attrs['type']='text';
 
         $attrs['id'] = $attrs['name'] = $name;
-        $attrs['value'] = set_value($name);
+        $attrs['value'] = set_value($name, $attrs['default']?:'' );
+        unset($attrs['default']);
 
         $attrs['class'] .= ' form-control'. ($error?' error':'');
         $output = form_input($attrs);
