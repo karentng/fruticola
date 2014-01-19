@@ -11,6 +11,7 @@ class Productor extends MyModel
 
     static $belongs_to = array(
         array('tipo_documento', 'class_name'=>'TipoDocumento', 'foreign_key'=>'tipo_documento_id'),
+        array('renglon_productivo', 'class_name'=>'RenglonProductivo', 'foreign_key'=>'renglon_productivo_id'),
     );
 
     public function nombre_completo() {
@@ -20,13 +21,4 @@ class Productor extends MyModel
         if($this->apellido2) $res .= ' '.$this->apellido2;
         return $res;
     }
-
-    /*
-    public function to_array() {
-        $res = parent::to_array();
-        $res['nombre_completo'] = $this->nombre_completo();
-        $res['tipo_documento'] = $this->tipo_documento->descripcion;
-        return $res;
-    }
-    */
 }

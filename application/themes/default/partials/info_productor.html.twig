@@ -1,0 +1,49 @@
+
+<h3>{{ruat.productor.nombre_completo()}} 
+    <a href="#" id="info_productor" type="button" class="act act-info  tip" title="Información del Productor"><i class="i-info-2"></i></a>
+</h3>
+<div id="info_contenido" class="hidden" >
+    <table cellpadding="5px">
+        <tr>
+            <td align="right"><strong>Identificación</strong></td>
+            <td>{{ruat.productor.numero_documento}}</td>
+        </tr>
+        <tr>
+            <td align="right"><strong>Municipio</strong></td>
+            <td>{{ruat.finca.municipio.nombre}}</td>
+        </tr>
+        <tr>
+            <td align="right"><strong>Vereda</strong></td>
+            <td>{{ruat.finca.vereda}}</td>
+        </tr>
+
+        {% if ruat.productor.contacto.telefono %}
+        <tr>
+            <td align="right"><strong>Teléfono</strong></td>
+            <td>{{ruat.productor.contacto.telefono }}</td>
+        </tr>
+        {% endif %}
+        {% if ruat.productor.contacto.celular %}
+        <tr>
+            <td align="right"><strong>Celular</strong></td>
+            <td>{{ruat.productor.contacto.celular }}</td>
+        </tr>
+        <tr>
+            <td align="right"><strong>Renglón</strong></td>
+            <td>{{ruat.productor.renglon_productivo.descripcion }}</td>
+        </tr>
+        {% endif %}
+
+    </table>
+</div>
+
+<script>
+    $(function(){
+        $('#info_productor').popover({
+            placement:'right',
+            html:true,
+            content:$('#info_contenido').html(),
+            container:'body',
+        });
+    });
+</script>

@@ -90,9 +90,12 @@ class DiagnostiCosecha extends CI_Controller {
             $cosecha = array();
         }
 
+        $ruat = Ruat::find($ruat_id);
+        $this->twiggy->set('ruat', $ruat);
+
         $this->twiggy->set("preguntas", $preguntas);
         $this->twiggy->set("bloques", $bloques);
-        $this->twiggy->set("productor", $productor);
+        //$this->twiggy->set("productor", $productor);
         $this->twiggy->set("respuestas_bd", $respuestas_bd);
         $this->twiggy->set("cosecha", $cosecha);
         $this->twiggy->template("diagnosticosecha/diagnosticosecha");
