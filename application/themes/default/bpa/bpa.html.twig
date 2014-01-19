@@ -355,7 +355,8 @@
                     </td>
                     <td>
 
-                        {% set errorRecomendacion = form_error("{{'observacion'~preguntaC.id}}") %}
+                        {#% set errorRecomendacion = form_error("{{'observacion'~preguntaC.id}}") %#}
+                        {% set errorRecomendacion = form_error('observacion'~preguntaC.id) %}
                         
                         
 

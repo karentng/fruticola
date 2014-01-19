@@ -52,13 +52,21 @@ class BPA extends CI_Controller {
 
         //$preguntasC = BpaPregunta::find_all_by_seccion('C');
         foreach($preguntasC as $preg) {
-            $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');
+            
+            if(!$this->input->post('excepcion42')=='on'){
+                if($preg->id == 26 || $preg->id == 27 || $preg->id == 28 || $preg->id == 29 || $preg->id == 30){
+                    $this->form_validation->set_rules("observacion".$preg->id);
+                }else{
+                    $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');    
+                }
+            }else{
+                $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');
+            }
         }
 
 
 
         if ($this->form_validation->run()) {
-
             //$bpa = $bpa_id ? BuenasPracticas::find($bpa_id) : new BuenasPracticas();
             
             if($existePreviamente){// existe
