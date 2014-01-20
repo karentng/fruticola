@@ -28,7 +28,7 @@ class ListadoRuats extends CI_Controller {
 
     public function eliminar_ruat($ruat_id=NULL) {
         if(!$ruat_id) show_404();
-        check_profile($this, "Administrador");
+        check_profile($this, "Administrador", "Coordinador");
 
 
         Ruat::find($ruat_id)->eliminar();
@@ -48,31 +48,20 @@ class ListadoRuats extends CI_Controller {
 
     public function datatable()
     {
-        check_profile($this, "Administrador");
-        //var_dump($this->input->get());
+        check_profile($this, "Administrador", "Coordinador", "Digitador");
 
-        $offset = $this->input->get('iDisplayStart');
-        $limit  = $this->input->get('iDisplayLength');
-        $search = $this->input->get('sSearch');
-        $order_idx  = (int)$this->input->get('iSortCol_0');
-        $order_dir  = $this->input->get('sSortDir_0');
-        $limit  = $this->input->get('iDisplayLength');
-        $limit  = $this->input->get('iDisplayLength');
-        $sEcho = (int)$this->input->get('sEcho');
+        $offset    = $this->input->get('iDisplayStart');
+        $limit     = $this->input->get('iDisplayLength');
+        $search    = $this->input->get('sSearch');
+        $order_idx = (int)$this->input->get('iSortCol_0');
+        $order_dir = $this->input->get('sSortDir_0');
+        $limit     = $this->input->get('iDisplayLength');
+        $limit     = $this->input->get('iDisplayLength');
+        $sEcho     = (int)$this->input->get('sEcho');
 
-        
         $numTotalResults = ViewListadoRuats::count();
-        
-
-        
         $options = array();
-
-
-        
-        //sleep(2);
-        
-
-        
+       
         if($search) {
             $options['conditions'] = array('numero_formulario = ? or nombre_productor ilike ? or creado::text like ? or ingresado_por ilike ?',
                 $search, "%$search%", "%$search%", "%$search%");
@@ -81,8 +70,6 @@ class ListadoRuats extends CI_Controller {
         else {
             $numFilteredResults = $numTotalResults;
         }
-
-        
 
         if($order_idx>3 || ($order_dir!='asc' && $order_dir!='desc')) show_404();
 
@@ -96,24 +83,19 @@ class ListadoRuats extends CI_Controller {
         $options['limit']  = $limit;
         $options['order'] = $orders[$order_idx].' '.$order_dir;
 
-        //$options['include'] = array('observacion');
         $rows = array();
-
         foreach(ViewListadoRuats::all($options) as $item) {
             $url = site_url("ruata/index/".$item->id);
             $actions = "<div class='btn-group'>".
                 "<a class='btn btn-sm btn-warning tip' href='$url' title='Registro Único de Usuarios de Asitencia Técnica'>RUAT <i class='i-arrow-right-3'></i></a>";
 
-            if(false) { //$item->observacion->ruta_formulario) {
-                $url = site_url("uploads/"."44");//$item->observacion->ruta_formulario);
+            if($item->ruta_formulario) {
+                $url = site_url("uploads/". $item->ruta_formulario);
                 $actions .= "<a class='btn btn-sm btn-info tip' title='Descargar RUAT Escaneado' href='$url' target='_blank'><i class='i-file-download'></i></a>";
             }
-            else {
-                $actions .= '<a class="btn btn-sm" disabled="disabled"><i class="i-file-download"></i></a>';
-            }
+            else $actions .= '<a class="btn btn-sm" disabled="disabled"><i class="i-file-download"></i></a>';
+
             $actions .="</div>";
-
-
 
             $cls = $item->cosecha_id ? 'btn-warning' : 'btn-default';
             $url = site_url("diagnosticosecha/index/$item->id");
@@ -136,14 +118,6 @@ class ListadoRuats extends CI_Controller {
             );
             $rows[] = $row;
         }
-        //var_dump($rows);
-
-        /*if(!$search) {
-            $resultSet = Ruat::all(array(
-                'offset' =>))
-        }*/
-
-        
 
         $output = array(
             'iTotalRecords' => $numTotalResults,
