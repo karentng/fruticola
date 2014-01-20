@@ -97,14 +97,15 @@ class ListadoRuats extends CI_Controller {
             $url = site_url("diagnosticosecha/index/$item->id");
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Diagnóstico Manejo de Cosecha'>Cosecha</a>";
 
+
             $cls = $item->bpa_id ? 'btn-warning' : 'btn-default';
             $url = site_url("bpa/index/$item->id");
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Buenas Prácticas Agropecuarias'>BPA</a>";
-
+            /*
             $cls = $item->vtp_id ? 'btn-warning' : 'btn-default';
             $url = site_url("tipoproductor/index/$item->id");
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Clasificación Productor'>C. Productor</a>";
-
+            */
 
             
             $btnEliminar = $puedeEliminar? "<button class='btn btn-danger btn-xs tip' title='Eliminar RUAT' onclick='eliminarRuat({$item->id})'>-</button> " :"";
