@@ -112,7 +112,7 @@ class ListadoRuats extends CI_Controller {
 
             $row = array($btnEliminar . $item->numero_formulario, 
                 $item->nombre_productor, 
-                $item->creado->format('Y-m-d  H:i'),
+                $item->creado->format('Y-m-d  H:i:s'),
                 $item->ingresado_por,
                 $actions,
             );
