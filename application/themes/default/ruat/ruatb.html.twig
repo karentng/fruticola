@@ -159,7 +159,9 @@
             if(!$scope.manejaResidsPeligrosos) data.finca.residuos_peligrosos=null;
             if(!$scope.manejaResidsOtros)      data.finca.residuos_otro=null;
 
+            $('#loadingMask').modal();
             $http.post(urls.guardar, data).success(function(response,status) {
+                $('#loadingMask').modal('hide');
                 if(response.success!==undefined) {
                     notif(response.message);
                     if(response.success) {

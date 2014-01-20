@@ -199,7 +199,16 @@
         </section>
     </div><!-- End .main  -->
 
-    
+    <div id="loadingMask" class="modal " id="loadingMask" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h4 class="modal-title" id="myModalLabel">Procesando... por favor espere</h4>
+            <div class="progress progress-striped active"><div class="progress-bar" role="progressbar" style="width: 100%;"></div></div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal --> 
   </body>
 {% endblock %}
 </html>

@@ -35,7 +35,7 @@
 {% block contenido %}
 {% set disabled = soloLectura ? 'disabled="disabled"' : '' %}
 
-{{ form_open(null, {class:'form-horizontal', role:'form'}) }}
+{{ form_open(null, {class:'form-horizontal', role:'form', 'onsubmit':"$('#loadingMask').modal()"}) }}
     <div class="row">
         <div class="col-md-7">
             {% include "partials/info_productor.html.twig" with {'ruat':ruat} %}

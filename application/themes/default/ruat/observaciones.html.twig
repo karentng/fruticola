@@ -12,7 +12,7 @@
 {% block contenido %}
 <h3>{{productor.nombre_completo()}} <small>{{productor.tipo_documento.descripcion}}: {{productor.numero_documento}}</small></h3>
 
-{{ form_open_multipart(null, {role:'form'}) }}
+{{ form_open_multipart(null, {role:'form', onsubmit:"$('#loadingMask').modal()"}) }}
 <!-- Cuando el $_POST esta vacio, form_validation->run() retorna false sin errores :/ -->
 <input type="hidden" name="para_validar" value="1" />
 
