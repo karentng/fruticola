@@ -73,8 +73,9 @@ class Ruat extends MyModel
         if($this->seguir) $this->seguir->delete();
 
         //elimnar productor
-        $this->productor->contacto->delete();
-        $this->productor->economia->delete();
+
+        if($this->productor->contacto) $this->productor->contacto->delete();
+        if($this->productor->economia) $this->productor->economia->delete();
         $this->productor->delete();
     }
 }
