@@ -1,0 +1,83 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+    <link href="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.css')}}" rel="stylesheet" /> 
+    <script src="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.min.js')}}"></script>
+
+    <script>
+        $(function(){
+            myDataTable('#dataTable', {
+                bServerSide:true, 
+                sAjaxSource: "{{site_url('listadoruats/datatable')}}",
+            });
+        });
+
+        function eliminarRuat(ruat_id) {
+            if(confirm("Está a punto de eliminar un RUAT y toda su información relacionada. \nEsta Operación no es reversible")) {
+                window.location = "{{site_url('listadoruats/eliminar_ruat')}}/" + ruat_id;
+            }
+        }
+    </script>
+
+{% endblock %}
+
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li class="active"><i class="icon16 i-home-4"></i>Inicio</li>
+    </ul>
+{% endblock %}
+
+{% block titulo %} <h1><i class="icon20 i-list-2"></i> Listado de RUATS Inscritos </h1> {% endblock %}
+
+{% block contenido %}
+
+<a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}"><i class="icon20 i-plus"></i> Crear Nuevo RUAT</a>
+
+
+<table id='dataTable' class="table table-bordered table-hover">
+    <thead>
+        <th>Nro</th>
+        <th>Productor</th>
+        <th>Creado</th>
+        <th>Ingresado por</th>
+        <th></th>
+    </thead>
+    <tbody>
+        {% for row in ruats %}
+        <tr>
+            <td>
+                {% if isAdmin %}
+                    <button class="btn btn-danger btn-xs tip" title="Eliminar RUAT" onclick="eliminarRuat({{row.id}})">-</button>
+                {% endif %}
+                {{row.numero_formulario}}
+            </td>
+            <td>
+                {{row.productor.nombre_completo()}}
+                <br/> <small class="text-muted">{{row.productor.tipo_documento.descripcion}}: {{row.productor.numero_documento}}</small>
+            </td>
+            <td>{{row.creado | date("Y-m-d  H:i")}}</td>
+            <td>{{row.creador.first_name}} {{row.creador.last_name}}</td>
+            <td align="center">
+                <div class="btn-group">
+                    <a class="btn btn-sm btn-warning tip" href="{{site_url(['ruata','index',row.id])}}" title="Registro Único de Usuarios de Asitencia Técnica">RUAT <i class="i-arrow-right-3"></i></a>
+                     
+                    {% if row.observacion.ruta_formulario %}
+                        <a class="btn btn-sm btn-info tip" title="Descargar RUAT Escaneado" href="{{site_url("uploads/"~row.observacion.ruta_formulario)}}" target='_blank'><i class="i-file-download"></i></a>
+                    {% else %}
+                        <a class="btn btn-sm" disabled="disabled"><i class="i-file-download"></i></a>
+                    {% endif %}
+                </div>
+                {% set cls = row.cosecha ? 'warning' : 'default' %}
+                <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['diagnosticosecha','index',row.id])}}" title="Diagnóstico Manejo de Cosecha">Cosecha</a>
+                {% set cls = row.bpa ? 'warning' : 'default' %}
+                <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['bpa','index',row.id])}}" title="Buenas Prácticas Agropecuarias">BPA</a>
+                {% set cls = row.visita_tipo_productor ? 'warning' : 'default' %}
+                <a class="btn btn-sm btn-{{cls}} tip" href="{{site_url(['tipoproductor','index',row.id])}}" title="Visita Tipo Productor">T. Productor</a>
+                
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
