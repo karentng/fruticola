@@ -11,11 +11,7 @@ class BPA extends CI_Controller {
 
     public function index($ruat_id)
     {
-        //check_profile($this,"Administrador");
-        //$ruat_id = 1;
-
         $this->load->library('form_validation');
-        $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
 
         $data = array();
         $preguntasB = BpaPregunta::sortedB();
@@ -53,8 +49,8 @@ class BPA extends CI_Controller {
         //$preguntasC = BpaPregunta::find_all_by_seccion('C');
         foreach($preguntasC as $preg) {
             
-            if(!$this->input->post('excepcion42')=='on'){
-                if($preg->id == 26 || $preg->id == 27 || $preg->id == 28 || $preg->id == 29 || $preg->id == 30){
+            if(!($this->input->post('excepcion42')=='on')){
+                if($preg->id >= 26 && $preg->id <= 30){
                     $this->form_validation->set_rules("observacion".$preg->id);
                 }else{
                     $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');    
@@ -156,11 +152,26 @@ class BPA extends CI_Controller {
                 }else{
                     $bpaR = new BpaRespuesta();
                     $bpaR->bpa_id = $bpa->id;
-
                 }
                 $bpaR->pregunta_id = $i;
                 $bpaR->puntaje = $this->input->post('valor'.$i);
-                $bpaR->observacion = $this->input->post('observacion'.$i);
+
+                if(!($this->input->post('excepcion42')=='on')){
+                    //var_dump($i);
+                    if($i >= 26 && $i <= 30){ //26 -30
+                        $bpaR->puntaje = 0;
+                        $bpaR->observacion = "";
+                    }else{
+                        $bpaR->observacion = $this->input->post('observacion'.$i);
+                        //$this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');    
+                    }
+                }else{
+                    //$this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');
+                    $bpaR->observacion = $this->input->post('observacion'.$i);
+                }
+
+                //$bpaR->observacion = $this->input->post('observacion'.$i);
+                
                 $bpaR->save();
             }
             $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario BPA guardado exitósamente'));
@@ -186,7 +197,9 @@ class BPA extends CI_Controller {
 
         }
 
-        $ruatNumFormulario = Ruat::find($ruat_id)->numero_formulario;
+        $ruat = Ruat::find($ruat_id);
+        $this->twiggy->set('ruat', $ruat); //necesario para el encabezado info_productor
+
         $this->twiggy->register_function('form_open_multipart');
         $this->twiggy->set('numForm', $ruatNumFormulario);
         $this->twiggy->set('preguntasB', $preguntasB);
@@ -197,17 +210,6 @@ class BPA extends CI_Controller {
         
         $this->twiggy->template("bpa/bpa");
         $this->twiggy->display();
-    }
-
-    public function guardar() //si viene como parametro: $ruat_id
-    {
-        $input = json_decode(file_get_contents("php://input"));
-        echo "me llego ";
-        var_dump($input);
-
-        //$finca = Finca::find_by_ruat_id($ruat_id);
-        //if(!$finca) 
-        
     }
 
     private function do_upload($ruat_id) {

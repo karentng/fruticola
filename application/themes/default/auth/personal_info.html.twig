@@ -9,7 +9,7 @@
 {% block contenido %}
 
 
-{{form_open(null, {'class':'form-horizontal'})}}
+{{form_open(null, {'class':'form-horizontal', 'onsubmit':"$('#loadingMask').modal()"})}}
 <div class="container">
     <div class="form-group">
         <label class="col-md-3 control-label">Nombre Completo:</label>

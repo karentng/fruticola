@@ -14,9 +14,7 @@
         var checked = $('#check_otro_'+preg_id).prop('checked');
         var text = $('#otro_'+preg_id)
         var dis=!checked;
-    {% if soloLectura %}
-        dis=true;
-    {% endif %}
+        {% if soloLectura %} dis=true; {% endif %}
         text.prop('disabled',dis);
         if(!checked) text.val("");
     }
@@ -37,10 +35,10 @@
 {% block contenido %}
 {% set disabled = soloLectura ? 'disabled="disabled"' : '' %}
 
-{{ form_open(null, {class:'form-horizontal', role:'form'}) }}
+{{ form_open(null, {class:'form-horizontal', role:'form', 'onsubmit':"$('#loadingMask').modal()"}) }}
     <div class="row">
         <div class="col-md-7">
-            <h3>{{productor.nombre_completo()}} <small>{{productor.tipo_documento.descripcion}}: {{productor.numero_documento}}</small></h3>
+            {% include "partials/info_productor.html.twig" with {'ruat':ruat} %}
         </div>
     
         <div class="col-md-5">
@@ -48,7 +46,7 @@
                 <label class="control-label col-md-5">Fecha de Visita</label>
                 <div class="col-md-6">
                     <div class="input-group date datepicker autostart {{form_error('fecha_visita')?'has-error':''}}">
-                        <input type="text" {{disabled}} name="fecha_visita" value="{{ set_value('fecha_visita', cosecha.fecha_visita|date('Y-m-d')) }}" class="form-control" />
+                        <input type="text" {{disabled}} name="fecha_visita" value="{{ set_value('fecha_visita', cosecha.fecha_visita ? cosecha.fecha_visita.format('Y-m-d') : '') }}" class="form-control" />
                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                     </div>
                     <div class="help-block"><small>Formato AAAA-MM-DD</small></div>

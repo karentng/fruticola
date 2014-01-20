@@ -9,7 +9,7 @@
 
 <div>
     <div>
-       {{ form_open(null, {role:'form'}) }}
+       {{ form_open(null, {role:'form', 'onsubmit':"$('#loadingMask').modal()"}) }}
 
         <div class="row">
             <div class="col-md-6">

@@ -19,10 +19,6 @@ class TipoProductor extends CI_Controller {
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
         
         
-        ///Para mostrar el numero del formulario ruat
-        $ruatNumFormulario = Ruat::find($ruat_id)->numero_formulario;
-        
-        
         ///Obtengo los datos del usuario en session
         $usuaioSesion = $this->ion_auth->user()->row();
         
