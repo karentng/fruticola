@@ -97,7 +97,7 @@ class ListadoRuats extends CI_Controller {
             $url = site_url("diagnosticosecha/index/$item->id");
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Diagnóstico Manejo de Cosecha'>Cosecha</a>";
 
-
+            /*
             $cls = $item->bpa_id ? 'btn-warning' : 'btn-default';
             $url = site_url("bpa/index/$item->id");
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Buenas Prácticas Agropecuarias'>BPA</a>";
