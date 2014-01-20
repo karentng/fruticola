@@ -6,7 +6,7 @@
 
     <script>
         $(function(){
-            myDataTable('#dataTable');
+            myDataTable('#dataTableUsuarios');
         });
     </script>
 {% endblock %}
@@ -19,7 +19,7 @@
     
     <a href="{{site_url("auth/create_user")}}" class="btn btn-primary"><i class="i-user-plus"></i>Crear Nuevo Usuario</a> <br/><br/>
 
-    <table id="dataTable" class="table table-bordered table-hover">
+    <table id="dataTableUsuarios" class="table table-bordered table-hover">
         <thead>
         <tr>
             <th>Login</th>

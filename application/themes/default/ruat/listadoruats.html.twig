@@ -6,7 +6,7 @@
 
     <script>
         $(function(){
-            myDataTable('#dataTable', {
+            myDataTable('#dataTableRuats', {
                 bServerSide:true,
                 bProcessing:true, 
                 sAjaxSource: "{{site_url('listadoruats/datatable')}}",
@@ -16,7 +16,7 @@
         function eliminarRuat(ruat_id) {
             if(confirm("Está a punto de eliminar un RUAT \ny toda su información relacionada. \n\nEsta Operación NO es reversible")) {
                 $.get("{{site_url('listadoruats/eliminar_ruat')}}/" + ruat_id, function(data) {
-                    $('#dataTable').dataTable().fnDraw(false);
+                    $('#dataTableRuats').dataTable().fnDraw(false);
 
                     notif($.parseJSON(data));
                 });
@@ -39,7 +39,7 @@
 <a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}"><i class="icon20 i-plus"></i> Crear Nuevo RUAT</a>
 
 
-<table id='dataTable' class="table table-bordered table-hover">
+<table id='dataTableRuats' class="table table-bordered table-hover">
     <thead>
         <th>Nro</th>
         <th>Productor</th>

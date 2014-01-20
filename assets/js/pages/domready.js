@@ -69,6 +69,7 @@ function myDataTable(selector, additionalOptions)
         "bJQueryUI": false,
         "bAutoWidth": false,
         'iDisplayLength':20,
+        "bStateSave" : true,
         'oLanguage': oLanguage,
     };
 
