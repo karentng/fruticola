@@ -177,7 +177,7 @@ class BPA extends CI_Controller {
                 
                 $bpaR->save();
             }
-            $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario BPA guardado exitósamente'));
+            $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario BPA guardado exitosamente'));
             redirect('listadoruats');
         }else if(validation_errors()){
             $this->twiggy->set('notif',array('type'=>'error', 'text'=> "Debe rellenar la fecha, y las recomendaciones de la parte C. <br> Revise los recuadros rojos"));

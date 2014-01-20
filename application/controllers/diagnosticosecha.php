@@ -50,7 +50,7 @@ class DiagnostiCosecha extends CI_Controller {
                         'otro'         => $otro  ));
                 }
             }
-            $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario Cosecha guardado exitósamente'));
+            $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario Cosecha guardado exitosamente'));
             redirect('listadoruats');
         }
         else if(validation_errors()) {

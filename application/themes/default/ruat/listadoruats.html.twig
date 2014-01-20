@@ -14,8 +14,12 @@
         });
 
         function eliminarRuat(ruat_id) {
-            if(confirm("Está a punto de eliminar un RUAT y toda su información relacionada. \nEsta Operación no es reversible")) {
-                window.location = "{{site_url('listadoruats/eliminar_ruat')}}/" + ruat_id;
+            if(confirm("Está a punto de eliminar un RUAT \ny toda su información relacionada. \n\nEsta Operación NO es reversible")) {
+                $.get("{{site_url('listadoruats/eliminar_ruat')}}/" + ruat_id, function(data) {
+                    $('#dataTable').dataTable().fnDraw(false);
+
+                    notif($.parseJSON(data));
+                });
             }
         }
     </script>

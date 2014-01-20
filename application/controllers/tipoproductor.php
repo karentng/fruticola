@@ -156,7 +156,7 @@ class TipoProductor extends CI_Controller {
                 }
             }
             
-            $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario Tipo Productor guardado exitósamente'));
+            $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario Tipo Productor guardado exitosamente'));
             redirect('listadoruats');
         }else if(validation_errors()){
             $this->twiggy->set('notif',array('type'=>'error', 'text'=> "Se encontraron errores al procesar el formulario. <br> Revise los recuadros rojos"));

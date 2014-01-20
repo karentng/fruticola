@@ -30,10 +30,9 @@ class ListadoRuats extends CI_Controller {
         if(!$ruat_id) show_404();
         check_profile($this, "Administrador", "Coordinador");
 
-
         Ruat::find($ruat_id)->eliminar();
-        $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'RUAT eliminado exitósamente'));
-        redirect("listadoruats");
+        
+        echo json_encode(array('type'=>'success', 'text' => 'RUAT eliminado exitosamente'));
     }
 
     public function test()
@@ -73,15 +72,12 @@ class ListadoRuats extends CI_Controller {
 
         if($order_idx>3 || ($order_dir!='asc' && $order_dir!='desc')) show_404();
 
-        $orders = array(
-            0 => 'numero_formulario',
-            1 => 'nombre_productor',
-            2 => 'creado',
-            3 => 'ingresado_por'
-        );
+        $orders = array('numero_formulario','nombre_productor','creado','ingresado_por');
         $options['offset'] = $offset;
         $options['limit']  = $limit;
         $options['order'] = $orders[$order_idx].' '.$order_dir;
+
+        $puedeEliminar = $this->ion_auth->in_group("Coordinador") || $this->ion_auth->in_group("Administrador");
 
         $rows = array();
         foreach(ViewListadoRuats::all($options) as $item) {
@@ -110,7 +106,11 @@ class ListadoRuats extends CI_Controller {
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Clasificación Productor'>C. Productor</a>";
 
 
-            $row = array($item->numero_formulario, 
+            
+            $btnEliminar = $puedeEliminar? "<button class='btn btn-danger btn-xs tip' title='Eliminar RUAT' onclick='eliminarRuat({$item->id})'>-</button> " :"";
+            
+
+            $row = array($btnEliminar . $item->numero_formulario, 
                 $item->nombre_productor, 
                 $item->creado->format('Y-m-d  H:i'),
                 $item->ingresado_por,
