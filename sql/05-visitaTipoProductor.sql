@@ -64,8 +64,8 @@ INSERT INTO tp_c_pregunta(ordenamiento, enunciado, categoria, editable) VALUES
     
 	(1, 'Cantidad de producto vendido (kg/Año) del renglón productivo', 'B', true),
 	(2, 'Precio de venta promedio en el año anterior ($/Kg)', 'B', true),
-	(3, 'INGRESOS RENGLON PRODUCTIVO ($/Año)', 'B', true),
-	(4, 'INGRESOS OTRAS ACTIVIDADES AGROPECUARIAS ($/Año)', 'B', true),
+	(3, 'INGRESOS RENGLON PRODUCTIVO ($/Año)', 'B', false),
+	(4, 'INGRESOS OTRAS ACTIVIDADES AGROPECUARIAS ($/Año)', 'B', false),
 	(5, 'OTROS INGRESOS ($/Año)', 'B', true),
 	(6, 'TOTAL INGRESOS DEL PRODUCTOR ($/Año)', 'B', false),
     
