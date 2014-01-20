@@ -52,11 +52,14 @@ class BPA extends CI_Controller {
             if(!($this->input->post('excepcion42')=='on')){
                 if($preg->id >= 26 && $preg->id <= 30){
                     $this->form_validation->set_rules("observacion".$preg->id);
+                    $this->form_validation->set_rules("valor".$preg->id);
                 }else{
-                    $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');    
+                    $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');
+                    $this->form_validation->set_rules("valor".$preg->id, 'Recomendación requerida', 'required');
                 }
             }else{
                 $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');
+                $this->form_validation->set_rules("valor".$preg->id, 'Recomendación requerida', 'required');
             }
         }
 
@@ -190,11 +193,21 @@ class BPA extends CI_Controller {
                     'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $datosBPA->id, $idsC), 'order' => 'id'));
             $this->twiggy->set('existe', 'yes');
             //$this->twiggy->set('datosBpa', $datosBPA);
+
+            $condicionExcepcion = BpaRespuesta::all(array(
+                    'conditions' => array('bpa_id = ? AND pregunta_id = ?', $datosBPA->id, 26), 'order' => 'id'));
+            
+            if($condicionExcepcion->observacion == '' && $condicionExcepcion->puntaje == 0){
+                $this->twiggy->set('exception42', false);
+            }else{
+                $this->twiggy->set('exception42', true);
+            }
+            
             $this->twiggy->set('respuestasB', $respuestasB);
-            $this->twiggy->set('respuestasC', $respuestasC);    
+            $this->twiggy->set('respuestasC', $respuestasC);
         }else{
             $this->twiggy->set('existe', 'not');
-
+            $this->twiggy->set('exception42', true);
         }
 
         $ruat = Ruat::find($ruat_id);
