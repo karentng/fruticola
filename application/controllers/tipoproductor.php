@@ -164,6 +164,7 @@ class TipoProductor extends CI_Controller {
         
         $this->twiggy->register_function('form_open_multipart');
 
+        $this->twiggy->set('ruat', $ruat);
         $this->twiggy->set('municipio', $municipio);
         $this->twiggy->set('municipios_uaf', $municipios_uaf);
         $this->twiggy->set('numForm', $ruatNumFormulario);
