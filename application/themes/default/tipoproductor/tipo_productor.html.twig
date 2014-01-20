@@ -182,11 +182,17 @@
             $('#error_validacion_uaf').html('');
             $('input:radio[name=criterio2]')[0].checked = true;
             $.uniform.update('input:radio[name=criterio2]');
+
+            //se habilitan todos los inputs
+            $('input, textarea, button').removeAttr('disabled');
         } else {
             validacionUAF = false;
-            $('#error_validacion_uaf').html('No cumple con la validacion UAF, no se puede continuar.');
+            $('#error_validacion_uaf').html('No cumple con la validación UAF, no se puede continuar.');
             $('input:radio[name=criterio2]')[1].checked = true;
             $.uniform.update('input:radio[name=criterio2]');
+
+            //se desabilitan todos los inputs
+            $('input, textarea, button').attr('disabled', 'disabled');
         }
     }
     
@@ -221,7 +227,7 @@
         }
 
         if (!validacionUAF) {
-            alert('No cumple con la validacion UAF, no se puede continuar.');
+            alert('No cumple con la validación UAF, no se puede continuar.');
             return false;
         }
         
@@ -276,7 +282,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>B.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN LA UNIDAD AGRÍCOLA FAMILIAR (UAF).</h4>
+        <h4>A.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN LA UNIDAD AGRÍCOLA FAMILIAR (UAF).</h4>
         <a href="#" class="minimize"></a>
     </div><!-- End .panel-heading -->
 
@@ -314,14 +320,20 @@
 
 
                 <div class="col-md-12"  style="padding-top: 20px;">
-                    <div class="col-md-12" style="text-align: center;">
+
+                    <div class="col-md-4"></div>
+                    
+                    <div class="col-md-4" style="text-align: center;">
                         <div class="form-group">
-                            <label class="control-label">Normatividad Aplicada para la clasificación del productor según la UAF</label>
+                            <label class="control-label" style="text-align:center;">Normatividad Aplicada para la clasificación del productor según la UAF</label>
                             <div style="text-align:center;">
-                                <input type="text" class="" name=""  value="{{municipio.resolucion_uaf}}" readonly=""/>
+                                <input class="form-control" type="text" style="text-align: center;"  value="{{municipio.resolucion_uaf}}" readonly=""/>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-md-4"></div>
+                                        
                 </div>
             </div>
         </div></div><!-- .container and .panel-body -->
@@ -333,7 +345,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>C.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
+        <h4>B.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
         <a href="#" class="minimize"></a>
     </div>
     <!-- End .panel-heading -->
@@ -455,7 +467,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>D.  REVISIÓN DE TODOS LOS CRITERIOS DE CLASIFICACION DEL PRODUCTOR AGROPECUARIO</h4>
+        <h4>C.  REVISIÓN DE TODOS LOS CRITERIOS DE CLASIFICACION DEL PRODUCTOR AGROPECUARIO</h4>
         <a href="#" class="minimize"></a>
     </div>
     <!-- End .panel-heading -->
@@ -520,22 +532,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <b>Revisados todos los criterios de clasificación de productores agropecuarios, el BENEFICIARIO clasifica como</b>
-                                {{form_error('criterio4')}}
-                            </td>
-                            <td>
-                                <div style="text-align:center;">
-                                    {% set respuesta_checked_bd =  respuesta_d.criterio4 == 1 ? 'checked' : ''%}                                            
-                                    <input type="radio" class="{{form_error('criterio4')? 'error':''}}" name="criterio4" value="1" {{set_radio('criterio4', 1) ? set_radio('criterio4', 1) : respuesta_checked_bd}}/>
-                                    <label for="criterio4">PEQUEÑO PRODUCTOR</label><br/>
-                                    {% set respuesta_checked_bd =  respuesta_d.criterio4 == 2 ? 'checked' : ''%}                                            
-                                    <input type="radio" class="{{form_error('criterio4')? 'error':''}}" name="criterio4" value="2" {{set_radio('criterio4', 2) ? set_radio('criterio4', 2) : respuesta_checked_bd}}/>
-                                    <label for="criterio4">MEDIANO PRODUCTOR</label>  
-                                </div>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -550,7 +546,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>E. OBSERVACIONES</h4>
+        <h4>D. OBSERVACIONES</h4>
         <a href="#" class="minimize"></a>
     </div>
     <!-- End .panel-heading -->
