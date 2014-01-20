@@ -128,7 +128,6 @@
 
     function cambiarExcepcion(){
         var estado = $("#excepcion42").is(':checked'); //true-> activo, false-> inactivo
-        $("#valor26f").attr('readonly', !estado);
         $("#observacion26").attr('readonly', !estado);
         for(var i = 1;i<=4;i++){
             var id_valor = "#valor26"+(26+i);
@@ -141,7 +140,10 @@
             calcularFinal();
         }
     }
-    calcularSeccionCuatro();
+    $( document ).ready(function() {
+        cambiarExcepcion();
+        calcularSeccionCuatro();
+    });
 </script>
 
 {% endblock %}
@@ -308,16 +310,16 @@
                         {% if preguntaC.padre == null or preguntaC.numeral == 15 or
                             preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
                             {% if preguntaC.numeral == 26 %}
-                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>" >
-                                    <input onchange="cambiarExcepcion(this)" id="excepcion42" name="excepcion42" class="toggle" type="checkbox" checked/>
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input onchange="cambiarExcepcion(this)" id="excepcion42" name="excepcion42" class="toggle" type="checkbox" {{set_checkbox('excepcion42',true, exception42)}}/>
                                 </div>
                             {% endif %}
                             {% if existe == 'yes' %}
-                                <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
+                                <input class="form-control" type="text" name="{{'valor'~preguntaC.id}}"
                                 style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,respuestasC[cont].puntaje)}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
                             {% else %}
-                                <input class="form-control" type="number" name="{{'valor'~preguntaC.id}}"
-                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,0)}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
+                                <input class="form-control" type="text" name="{{'valor'~preguntaC.id}}"
+                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id)}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
                             {% endif %}
 
                             
@@ -336,7 +338,7 @@
                                 id="{{'valor'~ preguntaC.padre ~preguntaC.id}}"
                                 style="width:60px;"
                                 {% if soloLectura %} disabled="disabled" {% endif %}
-                                value="{{set_value('valor'~preguntaC.id,0)}}" max="100" min="0" />
+                                value="{{set_value('valor'~preguntaC.id)}}" max="100" min="0" />
                             {% endif %}
                             
                         {% endif %}
@@ -344,17 +346,18 @@
                     <td>
 
                         {#% set errorRecomendacion = form_error("{{'observacion'~preguntaC.id}}") %#}
-                        {% set errorRecomendacion = form_error('observacion'~preguntaC.id) %}
+                        {#% set errorRecomendacion = form_error('observacion'~preguntaC.id) %#}
                         
                         
 
                         {% if existe == 'yes' %}
-                            <textarea class="form-control {{errorRecomendacion? 'error':''}}" id="{{'observacion'~ preguntaC.id}}"
+                            <textarea class="form-control" id="{{'observacion'~ preguntaC.id}}"
                             name="{{'observacion'~ preguntaC.id}}" {% if soloLectura %} disabled="disabled" {% endif %} style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,respuestasC[cont].observacion)}}</textarea>
                         {% else %}
-                            <textarea class="form-control {{errorRecomendacion? 'error':''}}" id="{{'observacion'~ preguntaC.id}}" {% if soloLectura %} disabled="disabled" {% endif %} name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,"")}}</textarea>
+                            <textarea class="form-control" id="{{'observacion'~ preguntaC.id}}" {% if soloLectura %} disabled="disabled" {% endif %} name="{{'observacion'~ preguntaC.id}}" style="width:240px; height:100%;">{{set_value('observacion'~ preguntaC.id,"")}}</textarea>
                         {% endif %}
-                        <label class="error">{{errorRecomendacion}}</label>
+                        {% if form_error('observacion'~preguntaC.id) %} <label class="error">Requerido</label> {% endif %}
+                        <!--<label class="error">{{errorRecomendacion}}</label>-->
                     </td>
                 </tr>
                 {% set cont = cont + 1 %}
@@ -366,9 +369,9 @@
                     </td>
                     <td align="center">
                         {% if existe == 'yes' %}
-                            <input class="form-control" type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="{{datosBPA.nivel_bpa}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} required/>
+                            <input class="form-control" type="tetx" style="width:60px;" id="valorFinal" name="valorFinal" value="{{datosBPA.nivel_bpa}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} required/>
                         {% else %}
-                            <input class="form-control" type="number" style="width:60px;" id="valorFinal" name="valorFinal" value="0" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %}/>
+                            <input class="form-control" type="text" style="width:60px;" id="valorFinal" name="valorFinal" value="0" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %}/>
                         {% endif %}
                         
                     </td>

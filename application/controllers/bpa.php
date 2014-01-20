@@ -190,11 +190,21 @@ class BPA extends CI_Controller {
                     'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $datosBPA->id, $idsC), 'order' => 'id'));
             $this->twiggy->set('existe', 'yes');
             //$this->twiggy->set('datosBpa', $datosBPA);
+
+            $condicionExcepcion = BpaRespuesta::all(array(
+                    'conditions' => array('bpa_id = ? AND pregunta_id = ?', $datosBPA->id, 26), 'order' => 'id'));
+            
+            if($condicionExcepcion->observacion == '' && $condicionExcepcion->puntaje == 0){
+                $this->twiggy->set('exception42', false);
+            }else{
+                $this->twiggy->set('exception42', true);
+            }
+            
             $this->twiggy->set('respuestasB', $respuestasB);
-            $this->twiggy->set('respuestasC', $respuestasC);    
+            $this->twiggy->set('respuestasC', $respuestasC);
         }else{
             $this->twiggy->set('existe', 'not');
-
+            $this->twiggy->set('exception42', true);
         }
 
         $ruat = Ruat::find($ruat_id);
