@@ -2,6 +2,8 @@
 
 {% block html_head %}
 
+<script src="{{ base_url('assets/js/autoNumeric.js')}}"></script>
+
 
 <script>
     $(function() {
@@ -10,7 +12,7 @@
         {% endif %}
 
         {% if soloLectura %}
-            $('input, textarea, button').attr('disabled', 'disabled');
+        $('input, textarea, button').attr('disabled', 'disabled');
         {% endif %}
 
         $("input[type='radio'], input[type='checkbox']").uniform();
@@ -20,6 +22,31 @@
 
 
 <script type="text/javascript">
+
+    $(document).ready(function() {
+        $('.money').autoNumeric('init', {
+            aSep: '.',
+            aDec: ',',
+            //aSign: '$',
+            vMin: '0.00',
+        });
+
+        $('.respuestas_activos').change(calcularTotalActivos);
+        $('.respuestas_ingresos').change(calcularTotalIngresos);
+        $('.respuestas_egresos').change(calcularTotalEgresos);
+
+        $('#valor_uaf').change(validacionesUAF);
+
+        calcularTotalIngresos();
+
+        validacionesUAF();
+        
+        validacionesTotalActivos();
+
+
+        $('form').submit(validarFormulario);
+
+    });
 
 
     /*
@@ -45,8 +72,6 @@
         var utilidad = parseFloat($('.respuestas_c_totales').first().val());
         var objBeneficioCosto = $('.respuestas_c_totales').last();//ultimo de dos
 
-        console.log('en calcular beneficios' + (total_ingresos / utilidad));
-
         if (utilidad)
             objBeneficioCosto.val(total_ingresos / utilidad);
     }
@@ -59,22 +84,74 @@
 
             ///El unico readonly debe ser el del total
             if (!obj.is('[readonly]') && obj.val())
-                total += parseFloat(obj.val());
+                total += obtenerNumeroInput(obj);
         });
-        $('.respuestas_activos[readonly]').val(total);
+        asignarNumeroInput($('.respuestas_activos[readonly]'), total);
+        
+        validacionesTotalActivos();
     }
 
+    function obtenerNumeroInput(obj) {
+
+        var value = obj.val();
+        if (obj.hasClass('money')) {
+            ///por alguna razon no llegan inicializados los inputs 
+            obj.autoNumeric('init', {
+                aSep: '.',
+                aDec: ',',
+                aSign: '$',
+                vMin: '0.00',
+            });
+
+            value = obj.autoNumeric('get');
+        }
+
+        if (isNaN(value) || !value) {
+            return 0;
+        } else {
+            return parseFloat(value);
+        }
+    }
+
+
+    function asignarNumeroInput(obj, valor) {
+        obj.autoNumeric('set', valor);
+        
+    }
+
+
+    var porcentajeOtrasActividadesRenglonProductivo = 0;
     function calcularTotalIngresos() {
-        var total = 0;
-        $('.respuestas_ingresos').each(function() {
-            var obj = $(this);
 
-            ///El unico readonly debe ser el del total
-            if (!obj.is('[readonly]') && obj.val())
-                total += parseFloat(obj.val());
-        });
-        $('.respuestas_ingresos[readonly]').val(total);
 
+        var cantidadProducto = obtenerNumeroInput($($('.respuestas_ingresos')[0]));
+        var precioProducto = obtenerNumeroInput($($('.respuestas_ingresos')[1]));
+
+        ///Ingresos renglon productivo= Precio venta * Cantidad
+        var renglonProductivo = cantidadProducto * precioProducto;
+        asignarNumeroInput($($('.respuestas_ingresos')[2]), renglonProductivo);
+
+        var otrasActividades = obtenerNumeroInput($($('.respuestas_ingresos')[3]));
+        var otrosIngresos = obtenerNumeroInput($($('.respuestas_ingresos')[4]));
+
+        ///Total ingresos del productor = ingresos renglon productivo + ingresos otras actividades agropecuarias + otros ingresos
+        var total = renglonProductivo + otrasActividades + otrosIngresos;
+        asignarNumeroInput($($('.respuestas_ingresos')[5]), total);
+
+        porcentajeOtrasActividadesRenglonProductivo = ((renglonProductivo + otrasActividades) / total) * 100;
+        asignarNumeroInput($('#porcentaje_ingresos'), porcentajeOtrasActividadesRenglonProductivo);
+        if(porcentajeOtrasActividadesRenglonProductivo <= 70){
+            $('#porcentaje_ingresos').addClass('error');
+            $('#porcentaje_ingresos_error').html('El porcentaje es menor al 70%, no se podrá continuar.');
+            $('input:radio[name=criterio1]')[1].checked = true;
+            $.uniform.update('input:radio[name=criterio1]');
+        }else{
+            $('#porcentaje_ingresos').removeClass('error');
+            $('#porcentaje_ingresos_error').html(''); 
+            $('input:radio[name=criterio1]')[0].checked = true;
+            $.uniform.update('input:radio[name=criterio1]');
+        }
+        
         ///recalculo las utilidad
         calcularUtilidad();
     }
@@ -94,14 +171,69 @@
         calcularUtilidad();
     }
 
-    $(document).ready(function() {
-        $('.respuestas_activos').change(calcularTotalActivos);
-        $('.respuestas_ingresos').change(calcularTotalIngresos);
-        $('.respuestas_egresos').change(calcularTotalEgresos);
+    var validacionUAF = false;
+    function validacionesUAF() {
 
-        $('.money').priceFormat({centsLimit:0, prefix: '', thousandsSeparator: ''});
-       
-    });
+        var area_total = obtenerNumeroInput($('#area_total'));
+        var valor_uaf = obtenerNumeroInput($('#valor_uaf option:selected'));
+
+        if ((valor_uaf * 2) < area_total) {
+            validacionUAF = true;
+            $('#error_validacion_uaf').html('');
+            $('input:radio[name=criterio2]')[0].checked = true;
+            $.uniform.update('input:radio[name=criterio2]');
+        } else {
+            validacionUAF = false;
+            $('#error_validacion_uaf').html('No cumple con la validacion UAF, no se puede continuar.');
+            $('input:radio[name=criterio2]')[1].checked = true;
+            $.uniform.update('input:radio[name=criterio2]');
+        }
+    }
+    
+    var validacionTotalActivos = false;
+    function validacionesTotalActivos() {
+
+        var totalActivos = obtenerNumeroInput($($('.respuestas_activos[readonly]')[0]));
+        
+        console.log('totalActivos' + totalActivos);
+        
+        if(totalActivos < 85477500){
+            ///pequeño y es bueno
+            validacionTotalActivos = true;
+            $('#error_validacion_total_activos').html('');
+            $('#pregunta_c_13').removeClass('error');
+            $('input:radio[name=criterio3]')[0].checked = true;
+            $.uniform.update('input:radio[name=criterio3]');
+        }else{
+            ///mediano y no se continua
+            validacionTotalActivos = false;
+            $('#error_validacion_total_activos').html('Total de Activos mayor a $85.477.500, no se puede continuar.');
+            $('#pregunta_c_13').addClass('error');
+            $('input:radio[name=criterio3]')[1].checked = true;
+            $.uniform.update('input:radio[name=criterio3]');
+        }
+    }
+
+    function validarFormulario() {
+        if (porcentajeOtrasActividadesRenglonProductivo <= 70) {
+            alert('El porcentaje es menor al 70%, no se podrá continuar.');
+            return false;
+        }
+
+        if (!validacionUAF) {
+            alert('No cumple con la validacion UAF, no se puede continuar.');
+            return false;
+        }
+        
+        if (!validacionTotalActivos) {
+            alert('Total de Activos mayor a $85.477.500, no se puede continuar.');
+            return false;
+        }
+
+        $(".money").each(function(index) {
+            $(this).autoNumeric('set', $(this).autoNumeric('get'));
+        });
+    }
 
 </script>
 
@@ -109,11 +241,11 @@
 {% block breadcrumnb %}
 <ul class="breadcrumb">
     <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
-    <li><strong class="text-success">VISITA TIPO PRODUCTOR</strong></li>
+    <li><strong class="text-success">CLASIFICACIÓN TIPO PRODUCTOR</strong></li>
 </ul>
 {% endblock %}
 
-{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> VTP &#187; VISITA TIPO PRODUCTOR </h1> {% endblock %}
+{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> VTP &#187; CLASIFICACIÓN TIPO PRODUCTOR </h1> {% endblock %}
 
 {% block contenido %}
 
@@ -129,7 +261,7 @@
                 <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha de Visita:</label>
                 <div class="col-sm-8">
                     <div class="input-group date datepicker autostart">
-                        <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha | date('Y-m-d'))}}" class="form-control {{form_error('fecha')? 'error':''}}" type="text">
+                        <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha)}}" class="form-control {{form_error('fecha')? 'error':''}}" type="text">
                         {{form_error('fecha')}}
                         <label class="error"></label>
 
@@ -144,7 +276,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>A.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN LA UNIDAD AGRÍCOLA FAMILIAR (UAF).</h4>
+        <h4>B.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN LA UNIDAD AGRÍCOLA FAMILIAR (UAF).</h4>
         <a href="#" class="minimize"></a>
     </div><!-- End .panel-heading -->
 
@@ -155,73 +287,38 @@
                         <div class="">
                             <label class="control-label">Área Total del Predio (has)</label>                                    
                             <br/>
-                            <input type="number" class="form-control"  value="{{finca.area_total}}" disabled="disabled"/>
+                            <input type="text" class="form-control"  id="area_total" value="{{finca.area_total}}" disabled="disabled"/>
                         </div>
                     </div>
 
                     <div class="col-md-6" style="text-align: center;">
                         <div class="">
-                            <label class="control-label">Valor de la UAF del Municipio (has)</label>                                    
-                            <input type="text" class="form-control {{form_error('valor_uaf')? 'error':''}}" name="valor_uaf"  value="{{set_value('valor_uaf', respuesta_b.valor_uaf)}}"/>
-                            {{form_error('valor_uaf')}}
+                            <label class="control-label">Valor de la UAF del Municipio (has)</label>     
+                            <select class="form-control" name="valor_uaf" id="valor_uaf">
+                                {% for muaf in municipios_uaf %}
+                                <option value="{{muaf.valor}}">{{muaf.descripcion}} ({{muaf.valor}})</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
 
                 </div>
-
-                <div class="col-md-12"  style="padding-top: 20px;">
-                    <div class="col-md-6" style="text-align: center;">
-                        <div class="form-group">
-                            <label class="control-label">Tipo de Productor Según la UAF</label>
-                                    
-                            <div style="text-align:center;">
-
-                                <label class="control-label col-xs-8">Pequeño Productor</label>
-                                <div class="col-xs-4">
-                                    {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 1 ? 'checked' : ''%}
-                                    <label class="radio-inline">
-                                        <input type="radio" class="{{form_error('tipo_productor_uaf')? 'error':''}}" name="tipo_productor_uaf" value="1" {{set_radio('tipo_productor_uaf', 1) ? set_radio('tipo_productor_uaf', 1) : respuesta_checked_bd}}/>
-                                    </label>
-                                </div>
-
-                                <label class="control-label col-xs-8">Pequeño Productor</label>
-                                <div class="col-xs-4">
-                                    {% set respuesta_checked_bd =  respuesta_b.tipo_productor_uaf == 2 ? 'checked' : ''%}
-                                    <label class="radio-inline">
-                                        <input type="radio" class="{{form_error('tipo_productor_uaf')? 'error':''}}" name="tipo_productor_uaf" value="2" {{set_radio('tipo_productor_uaf', 2) ? set_radio('tipo_productor_uaf', 2) : respuesta_checked_bd}}/>
-                                    </label>
-                                    {{form_error('tipo_productor_uaf')}}
-                                </div>
-
-                            </div>
-                            
-                                                
+                
+                <div class="row">
+                    <div class="container">
+                        <div class="col-md-12" style="text-align: center;">
+                            <div><label class="error" id="error_validacion_uaf"></label></div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-md-6" style="text-align: center;">
+
+                <div class="col-md-12"  style="padding-top: 20px;">
+                    <div class="col-md-12" style="text-align: center;">
                         <div class="form-group">
-                            <label class="control-label">Clasificación productor según UAF</label>
-                                    
+                            <label class="control-label">Normatividad Aplicada para la clasificación del productor según la UAF</label>
                             <div style="text-align:center;">
-
-                                <label class="control-label col-xs-8">Resolución 1132 del 21/Jun/2013 expedida por el INCODER</label>
-                                <div class="col-xs-4">
-                                    {% set respuesta_checked_bd =  respuesta_b.clasificacion_productor_uaf == 1 ? 'checked' : ''%}
-                                    <label class="radio-inline" style="text-align: center;" >
-                                        <input type="radio" class="{{form_error('clasificacion_productor_uaf')? 'error':''}}" name="clasificacion_productor_uaf" value="1" {{set_radio('clasificacion_productor_uaf', 1) ? set_radio('clasificacion_productor_uaf', 1) : respuesta_checked_bd}}/>
-                                    </label>
-                                </div>
-
-                                <label class="control-label col-xs-8">Resolución  041 del 24/Sep/1996 expedida por el INCODER</label>
-                                <div class="col-xs-4">
-                                    {% set respuesta_checked_bd =  respuesta_b.clasificacion_productor_uaf == 2 ? 'checked' : ''%}
-                                    <label class="radio-inline" style="text-align: center;" >
-                                        <input type="radio" class="{{form_error('clasificacion_productor_uaf')? 'error':''}}" name="clasificacion_productor_uaf" value="2" {{set_radio('clasificacion_productor_uaf', 2) ? set_radio('clasificacion_productor_uaf', 2) : respuesta_checked_bd}}/>
-                                    </label>
-                                    {{form_error('clasificacion_productor_uaf')}}
-                                </div>
-
+                                <input type="text" class="" name=""  value="{{municipio.resolucion_uaf}}" readonly=""/>
                             </div>
                         </div>
                     </div>
@@ -236,7 +333,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>B.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
+        <h4>C.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
         <a href="#" class="minimize"></a>
     </div>
     <!-- End .panel-heading -->
@@ -259,6 +356,9 @@
                             <td>
                                 {{pa.enunciado}}
                                 {{form_error('pregunta_c_'~pa.id)}}
+                                {% if loop.last%}
+                                    <div><label class="error" id="error_validacion_total_activos"></label></div>
+                                {% endif %}
                             </td>
                             <td>
                                 <input type="text" class="money form-control respuestas_activos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
@@ -290,7 +390,16 @@
                                 <input type="text" class="money form-control respuestas_ingresos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
                             </td>
                         </tr>
-                        {% endfor %}                                   
+                        {% endfor %}         
+                        <tr>
+                            <td>
+                                PORCENTAJE TOTAL DE INGRESOS DE RENGLON PRODUCTIVO Y OTRAS ACTIVIDADES (%)
+                                <div><label class="error" id="porcentaje_ingresos_error"></label></div>
+                            </td>
+                            <td>
+                                <input type="text" class="money form-control" placeholder="" id="porcentaje_ingresos" readonly/>                                
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <div style="padding-top: 10px;"></div>
@@ -309,7 +418,7 @@
                         <tr>
                             <td>
                                 {{pa.enunciado}}
-                                {{form_error('pregunta_c_'~pa.id)}}
+                                {{form_error('pregunta_c_'~pa.id)}}                                
                             </td>
                             <td>
                                 <input type="text" class="money form-control respuestas_egresos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
@@ -346,7 +455,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>C.  REVISIÓN DE TODOS LOS CRITERIOS DE CLASIFICACION DEL PRODUCTOR AGROPECUARIO</h4>
+        <h4>D.  REVISIÓN DE TODOS LOS CRITERIOS DE CLASIFICACION DEL PRODUCTOR AGROPECUARIO</h4>
         <a href="#" class="minimize"></a>
     </div>
     <!-- End .panel-heading -->
@@ -441,7 +550,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>D. OBSERVACIONES</h4>
+        <h4>E. OBSERVACIONES</h4>
         <a href="#" class="minimize"></a>
     </div>
     <!-- End .panel-heading -->
@@ -462,7 +571,7 @@
             {{form_error('observacion')}}
                 <textarea class="form-control {{form_error('observacion')? 'error':''}}" id="textarea" name="observacion" rows="3" >{{ set_value('observacion', visitaTipoProductor.observaciones) }}</textarea>
             </div>
-            
+
             <div style="text-align: center;">
                 <b>
                     CONFIDENCIALIDAD DE LA INFORMACIÓN RECOLECTADA EN LOS INSTRUMENTOS
@@ -471,8 +580,8 @@
             <div style="text-align: justify;">
                 En este instrumento se deben registrar todos los pequeños y medianos productores usuarios del servicio de asistencia técnica en cada municipio o asociación de municipios. Se solicita información del usuario y su actividad productiva. Toda la información aquí recolectada es confidencial y para uso estrictamente estadístico y en ningún caso tienen fines fiscales ni pueden utilizarse como prueba judicial, de conformidad a lo establecido en el artículo 2 de Ley 1266 de 2008.”
             </div>
-            
-            
+
+
             <br/>
             <div class="form-group">
                 <div class="col-lg-4">
