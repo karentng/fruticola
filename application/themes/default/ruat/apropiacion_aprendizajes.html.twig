@@ -16,7 +16,7 @@
 <link href="{{ base_url('assets/css/preguntas.css') }}" rel="stylesheet" />
 
 
-{{ form_open(null, {role:'form'}) }}
+{{ form_open(null, {role:'form', 'onsubmit':"$('#loadingMask').modal()"}) }}
 <!-- Cuando el $_POST esta vacio, form_validation->run() retorna false sin errores :/ -->
 <input type="hidden" name="para_validar" value="1" />
 <div class="panel panel-default">

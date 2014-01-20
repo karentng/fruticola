@@ -19,10 +19,6 @@ class TipoProductor extends CI_Controller {
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
         
         
-        ///Para mostrar el numero del formulario ruat
-        $ruatNumFormulario = Ruat::find($ruat_id)->numero_formulario;
-        
-        
         ///Obtengo los datos del usuario en session
         $usuaioSesion = $this->ion_auth->user()->row();
         
@@ -167,7 +163,7 @@ class TipoProductor extends CI_Controller {
         
         $this->twiggy->register_function('form_open_multipart');
 
-        $this->twiggy->set('numForm', $ruatNumFormulario);
+        $this->twiggy->set('ruat', $ruat);
         $this->twiggy->set('usuaioSesion', $usuaioSesion);
         $this->twiggy->set('productor', $productor);
         $this->twiggy->set('finca', $finca);

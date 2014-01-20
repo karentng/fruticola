@@ -10,7 +10,7 @@
 
 <!--{{validation_errors()}}--> {# for debugging purposes #}
 
-{{form_open(null, {'class':'form-horizontal'})}}
+{{form_open(null, {'class':'form-horizontal', 'onsubmit':"$('#loadingMask').modal()"})}}
     <div class="form-group">
         <label class="col-md-3 control-label">Nombre Completo:</label>
         <div class="col-md-3">

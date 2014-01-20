@@ -11,11 +11,7 @@ class BPA extends CI_Controller {
 
     public function index($ruat_id)
     {
-        //check_profile($this,"Administrador");
-        //$ruat_id = 1;
-
         $this->load->library('form_validation');
-        $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
 
         $data = array();
         $preguntasB = BpaPregunta::sortedB();
@@ -201,7 +197,9 @@ class BPA extends CI_Controller {
 
         }
 
-        $ruatNumFormulario = Ruat::find($ruat_id)->numero_formulario;
+        $ruat = Ruat::find($ruat_id);
+        $this->twiggy->set('ruat', $ruat); //necesario para el encabezado info_productor
+
         $this->twiggy->register_function('form_open_multipart');
         $this->twiggy->set('numForm', $ruatNumFormulario);
         $this->twiggy->set('preguntasB', $preguntasB);
@@ -212,17 +210,6 @@ class BPA extends CI_Controller {
         
         $this->twiggy->template("bpa/bpa");
         $this->twiggy->display();
-    }
-
-    public function guardar() //si viene como parametro: $ruat_id
-    {
-        $input = json_decode(file_get_contents("php://input"));
-        echo "me llego ";
-        var_dump($input);
-
-        //$finca = Finca::find_by_ruat_id($ruat_id);
-        //if(!$finca) 
-        
     }
 
     private function do_upload($ruat_id) {
