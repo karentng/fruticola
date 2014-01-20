@@ -46,7 +46,7 @@
                 <label class="control-label col-md-5">Fecha de Visita</label>
                 <div class="col-md-6">
                     <div class="input-group date datepicker autostart {{form_error('fecha_visita')?'has-error':''}}">
-                        <input type="text" {{disabled}} name="fecha_visita" value="{{ set_value('fecha_visita', cosecha.fecha_visita|date('Y-m-d')) }}" class="form-control" />
+                        <input type="text" {{disabled}} name="fecha_visita" value="{{ set_value('fecha_visita', cosecha.fecha_visita ? cosecha.fecha_visita.format('Y-m-d') : '') }}" class="form-control" />
                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                     </div>
                     <div class="help-block"><small>Formato AAAA-MM-DD</small></div>
