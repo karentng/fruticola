@@ -101,8 +101,8 @@ class ListadoRuats extends CI_Controller {
             $url = site_url("bpa/index/$item->id");
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Buenas Prácticas Agropecuarias'>BPA</a>";
 
-            $cls = $item->bpa_id ? 'btn-warning' : 'btn-default';
-            $url = site_url("bpa/index/$item->id");
+            $cls = $item->vtp_id ? 'btn-warning' : 'btn-default';
+            $url = site_url("tipoproductor/index/$item->id");
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Clasificación Productor'>C. Productor</a>";
 
 
