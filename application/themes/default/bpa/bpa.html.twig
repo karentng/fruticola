@@ -342,6 +342,7 @@
                             {% endif %}
                             
                         {% endif %}
+                        {% if form_error('valor'~preguntaC.id) %} <label class="error">Requerido</label> {% endif %}
                     </td>
                     <td>
 

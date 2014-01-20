@@ -52,11 +52,14 @@ class BPA extends CI_Controller {
             if(!($this->input->post('excepcion42')=='on')){
                 if($preg->id >= 26 && $preg->id <= 30){
                     $this->form_validation->set_rules("observacion".$preg->id);
+                    $this->form_validation->set_rules("valor".$preg->id);
                 }else{
-                    $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');    
+                    $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');
+                    $this->form_validation->set_rules("valor".$preg->id, 'Recomendación requerida', 'required');
                 }
             }else{
                 $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');
+                $this->form_validation->set_rules("valor".$preg->id, 'Recomendación requerida', 'required');
             }
         }
 
