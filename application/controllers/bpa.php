@@ -53,8 +53,8 @@ class BPA extends CI_Controller {
         //$preguntasC = BpaPregunta::find_all_by_seccion('C');
         foreach($preguntasC as $preg) {
             
-            if(!$this->input->post('excepcion42')=='on'){
-                if($preg->id == 26 || $preg->id == 27 || $preg->id == 28 || $preg->id == 29 || $preg->id == 30){
+            if(!($this->input->post('excepcion42')=='on')){
+                if($preg->id >= 26 && $preg->id <= 30){
                     $this->form_validation->set_rules("observacion".$preg->id);
                 }else{
                     $this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');    
@@ -156,11 +156,26 @@ class BPA extends CI_Controller {
                 }else{
                     $bpaR = new BpaRespuesta();
                     $bpaR->bpa_id = $bpa->id;
-
                 }
                 $bpaR->pregunta_id = $i;
                 $bpaR->puntaje = $this->input->post('valor'.$i);
-                $bpaR->observacion = $this->input->post('observacion'.$i);
+
+                if(!($this->input->post('excepcion42')=='on')){
+                    //var_dump($i);
+                    if($i >= 26 && $i <= 30){ //26 -30
+                        $bpaR->puntaje = 0;
+                        $bpaR->observacion = "";
+                    }else{
+                        $bpaR->observacion = $this->input->post('observacion'.$i);
+                        //$this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');    
+                    }
+                }else{
+                    //$this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');
+                    $bpaR->observacion = $this->input->post('observacion'.$i);
+                }
+
+                //$bpaR->observacion = $this->input->post('observacion'.$i);
+                
                 $bpaR->save();
             }
             $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario BPA guardado exitósamente'));

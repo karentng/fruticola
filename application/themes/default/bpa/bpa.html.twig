@@ -128,15 +128,20 @@
 
     function cambiarExcepcion(){
         var estado = $("#excepcion42").is(':checked'); //true-> activo, false-> inactivo
+        $("#valor26f").attr('readonly', !estado);
+        $("#observacion26").attr('readonly', !estado);
         for(var i = 1;i<=4;i++){
             var id_valor = "#valor26"+(26+i);
             var id_observacion = "#observacion"+(26+i);
-            $(id_valor).prop("disabled", !estado);
-            $(id_observacion).prop("disabled", !estado);
+            //$(id_valor).prop("disabled", !estado);
+            //$(id_observacion).prop("disabled", !estado);
+            $(id_valor).attr('readonly', !estado);
+            $(id_observacion).attr('readonly', !estado);
             calcularSeccionCuatro();
             calcularFinal();
         }
     }
+    calcularSeccionCuatro();
 </script>
 
 {% endblock %}
