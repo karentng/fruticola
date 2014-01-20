@@ -39,7 +39,7 @@ function notif(msg) {
 function myDataTable(selector, additionalOptions)
 {
     var oLanguage = {
-        "sProcessing":     "Procesando...",
+        "sProcessing":     "<label class='text-info' style='margin-top:10px;'>Cargando...</label>",
         "sLengthMenu":     "",//"<span>Mostrar _MENU_ registros</span>",
         "sZeroRecords":    "No se encontraron resultados",
         "sEmptyTable":     "Ningún dato disponible en esta tabla",
@@ -64,7 +64,7 @@ function myDataTable(selector, additionalOptions)
     }
 
     var options = {
-        "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
+        "sDom": "<'row'<'col-lg-6'r><'col-lg-6'f>>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
         "sPaginationType": "bootstrap",
         "bJQueryUI": false,
         "bAutoWidth": false,
@@ -80,6 +80,7 @@ function myDataTable(selector, additionalOptions)
     $(selector).dataTable(options);
     $('.dataTables_length select').uniform();
     $('.dataTables_paginate > ul').addClass('pagination');
+    $('.dataTables_processing').css({'text-align':'right'});
     $('.dataTables_filter input').attr('data-uppercase', '');
     console.log($('.dataTables_filter input'));
 }

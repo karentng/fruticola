@@ -3,7 +3,7 @@
 
 class ListadoRuats extends CI_Controller {
 
-    public function index()
+    public function index_old()
     {
         check_profile($this, "Administrador", "Coordinador", "Digitador");
         //if($this->ion_auth->in_group("Digitador"))
@@ -19,7 +19,7 @@ class ListadoRuats extends CI_Controller {
         $this->twiggy->display();
     }
 
-    public function index2()
+    public function index()
     {
         check_profile($this, "Administrador", "Coordinador", "Digitador");
         $this->twiggy->template("ruat/listadoruats");
@@ -69,12 +69,12 @@ class ListadoRuats extends CI_Controller {
 
 
         
-
+        //sleep(2);
         
 
         
         if($search) {
-            $options['conditions'] = array('numero_formulario = ? or nombre_productor ilike ? or creado like ? or ingresado_por ilike ?',
+            $options['conditions'] = array('numero_formulario = ? or nombre_productor ilike ? or creado::text like ? or ingresado_por ilike ?',
                 $search, "%$search%", "%$search%", "%$search%");
             $numFilteredResults = ViewListadoRuats::count($options);
         }
@@ -96,15 +96,43 @@ class ListadoRuats extends CI_Controller {
         $options['limit']  = $limit;
         $options['order'] = $orders[$order_idx].' '.$order_dir;
 
-
+        //$options['include'] = array('observacion');
         $rows = array();
 
         foreach(ViewListadoRuats::all($options) as $item) {
+            $url = site_url("ruata/index/".$item->id);
+            $actions = "<div class='btn-group'>".
+                "<a class='btn btn-sm btn-warning tip' href='$url' title='Registro Único de Usuarios de Asitencia Técnica'>RUAT <i class='i-arrow-right-3'></i></a>";
+
+            if(false) { //$item->observacion->ruta_formulario) {
+                $url = site_url("uploads/"."44");//$item->observacion->ruta_formulario);
+                $actions .= "<a class='btn btn-sm btn-info tip' title='Descargar RUAT Escaneado' href='$url' target='_blank'><i class='i-file-download'></i></a>";
+            }
+            else {
+                $actions .= '<a class="btn btn-sm" disabled="disabled"><i class="i-file-download"></i></a>';
+            }
+            $actions .="</div>";
+
+
+
+            $cls = $item->cosecha_id ? 'btn-warning' : 'btn-default';
+            $url = site_url("diagnosticosecha/index/$item->id");
+            $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Diagnóstico Manejo de Cosecha'>Cosecha</a>";
+
+            $cls = $item->bpa_id ? 'btn-warning' : 'btn-default';
+            $url = site_url("bpa/index/$item->id");
+            $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Buenas Prácticas Agropecuarias'>BPA</a>";
+
+            $cls = $item->bpa_id ? 'btn-warning' : 'btn-default';
+            $url = site_url("bpa/index/$item->id");
+            $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Clasificación Productor'>C. Productor</a>";
+
+
             $row = array($item->numero_formulario, 
                 $item->nombre_productor, 
                 $item->creado->format('Y-m-d  H:i'),
                 $item->ingresado_por,
-                'hl'
+                $actions,
             );
             $rows[] = $row;
         }
