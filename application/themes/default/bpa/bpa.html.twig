@@ -400,14 +400,17 @@
         <br />
         <div class="form-group">
                 <div class="col-lg-8">                            
-                {#% if visitaTipoProductor.archivo_fisico %}
+                {% if datosBPA.archivo_fisico %}
                     <span class="box1 col-lg-12">
                         <i aria-hidden="true" class="i-file"></i>
-                        <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~ visitaTipoProductor.archivo_fisico}}">{{visitaTipoProductor.archivo_fisico}} </a>
+                        <a type="button" target="_new" href="{{base_url() ~ 'uploads/' ~ datosBPA.archivo_fisico}}">{{datosBPA.archivo_fisico}} </a>
                     </span>      
                     <br/><br/><br/>
-                {% endif %#}
+                {% endif %}
                     <input type="file" name="archivo_formulario" id="archivo_formulario" {% if soloLectura %} disabled="disabled" {% endif %}>
+                    {% if upload_result %}
+                        <label class="error">{{upload_result}}</label>
+                    {% endif %}
                     <label for="archivo_formulario" class="col-lg-12"  >Certificación de Visita Digitalizada</label>
                 </div>
             </div>

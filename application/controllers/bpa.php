@@ -11,6 +11,9 @@ class BPA extends CI_Controller {
 
     public function index($ruat_id)
     {
+        //var_dump($_FILES);
+        //    die();
+
         $this->load->library('form_validation');
 
         $data = array();
@@ -84,6 +87,7 @@ class BPA extends CI_Controller {
             $bpa->recomendacion = $this->input->post('recomendacionFinal');
             $bpa->save();
 
+
             ///SUBO EL ARCHIVO (revisar)
             if(isset($_FILES["archivo_formulario"]) && !empty($_FILES["archivo_formulario"]["name"])) {
                 $arr_upload_result = $this->do_upload($bpa->id);
@@ -92,6 +96,9 @@ class BPA extends CI_Controller {
                     $bpa->save();
                 }else{
                     $upload_result = $arr_upload_result['error']; 
+                    $this->twiggy->set("notif", array('type'=>'error', 'text' => $upload_result));
+                    $this->twiggy->set("upload_result", $upload_result);
+                    //die($upload_result);
                 }
             }
 
@@ -178,8 +185,11 @@ class BPA extends CI_Controller {
                 
                 $bpaR->save();
             }
-            $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario BPA guardado exitosamente'));
-            redirect('listadoruats');
+            
+            if(empty($upload_result)) {
+                $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario BPA guardado exitosamente'));
+                redirect('listadoruats');
+            }
         }else if(validation_errors()){
             $this->twiggy->set('notif',array('type'=>'error', 'text'=> "Formulario incompleto. <br> Revise los recuadros rojos"));
         }
@@ -248,7 +258,7 @@ class BPA extends CI_Controller {
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload('archivo_formulario')) {
-            return array('error' => $this->upload->display_errors('<div><label class="error">', '</label></div>'));
+            return array('error' => $this->upload->display_errors('', ''));
         } else {
             return array('upload_data' => $this->upload->data());
         }

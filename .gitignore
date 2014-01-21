@@ -10,5 +10,11 @@ application/logs/*
 
 .nfs*
 
-uploads/ruat/*
 uploads/documentos_identificacion/*
+!uploads/documentos_identificacion/index.html
+uploads/ruat/*
+!uploads/ruat/index.html
+uploads/bpa/*
+!uploads/bpa/index.html
+uploads/vtp/*
+!uploads/vtp/index.html
