@@ -20,7 +20,7 @@ class TipoProductor extends CI_Controller {
         
         
         ///Obtengo los datos del usuario en session
-        $usuaioSesion = $this->ion_auth->user()->row();
+        $usuaioSesion = $this->ion_auth->user( Ruat::find($ruat_id)->creador_id )->row();
         
         ///Consulto la info de la visita
         $visitaTipoProductor = VisitaTipoProductor::first(array(

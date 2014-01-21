@@ -69,9 +69,19 @@ class RuatD extends CI_Controller {
             }
         }
         
-        ///Obtengo los datos del usuario en session
-        $usuaioSesion = $this->ion_auth->user()->row();
+        ///Obtengo los datos del usuario creador del ruat
+        $usuaioSesion = $this->ion_auth->user( Ruat::find($ruat_id)->creador_id )->row();
+        //$usuaioSesion = $usuarioSesion == null ? $this->ion_auth->user()->row() : $this->ion_auth->user($usuaioSesion)->row();
 
+        //$usuaioSesion = Ruat::find($ruat_id)->creador_id;
+
+
+        /*echo('<pre>');
+        //var_dump(Ruat::find($ruat_id)->creador_id);
+        var_dump($usuaioSesion);
+        echo('</pre>');
+        die;*/
+        
         $this->twiggy->register_function('form_open_multipart');
         $this->twiggy->set('soloLectura', Ruat::find($ruat_id)->soloLectura($this));
         $this->twiggy->set('url_ruatc', site_url("ruatc/index/$ruat_id"));
