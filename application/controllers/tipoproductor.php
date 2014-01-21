@@ -44,13 +44,13 @@ class TipoProductor extends CI_Controller {
         $municipios_uaf = $municipio->municipios_uaf;
         
         ///consulo las respuestas B
-        $respuesta_b = TPBRespuesta::first(array(
-                    'conditions' => array('visita_id = ?', $id)
-        ));
+//        $respuesta_b = TPBRespuesta::first(array(
+//                    'conditions' => array('visita_id = ?', $id)
+//        ));
         //$this->form_validation->set_rules("area_predio", ' ', 'required|numeric');
-        $this->form_validation->set_rules("valor_uaf", ' ', 'required|numeric');
-        $this->form_validation->set_rules("tipo_productor_uaf", ' ', 'required|is_natural');
-        $this->form_validation->set_rules("clasificacion_productor_uaf", ' ', 'required|is_natural');
+        //$this->form_validation->set_rules("valor_uaf", ' ', 'required|numeric');
+        //$this->form_validation->set_rules("tipo_productor_uaf", ' ', 'required|is_natural');
+        //$this->form_validation->set_rules("clasificacion_productor_uaf", ' ', 'required|is_natural');
 
 
         ///consulto las preguntas C para cargarlas dinamicamente
@@ -122,13 +122,13 @@ class TipoProductor extends CI_Controller {
             $id = $visitaTipoProductor->id;
 
             ///GUARDANDO RESPUESTAS B
-            $respuesta_b = ($respuesta_b) ? $respuesta_b : new TPBRespuesta;
-            $respuesta_b->visita_id = $id;
+//            $respuesta_b = ($respuesta_b) ? $respuesta_b : new TPBRespuesta;
+//            $respuesta_b->visita_id = $id;
             //$respuesta_b->area_predio =$this->input->post('area_predio');
-            $respuesta_b->valor_uaf =$this->input->post('valor_uaf');
-            $respuesta_b->tipo_productor_uaf =$this->input->post('tipo_productor_uaf');
-            $respuesta_b->clasificacion_productor_uaf =$this->input->post('clasificacion_productor_uaf');
-            $respuesta_b->save();            
+//            $respuesta_b->valor_uaf =$this->input->post('valor_uaf');
+//            $respuesta_b->tipo_productor_uaf =$this->input->post('tipo_productor_uaf');
+//            $respuesta_b->clasificacion_productor_uaf =$this->input->post('clasificacion_productor_uaf');
+//            $respuesta_b->save();            
             
             ///GUARDANDO RESPUESTAS D
 //            $respuesta_d = ($respuesta_d) ? $respuesta_d : new TPDRespuesta;
@@ -172,7 +172,7 @@ class TipoProductor extends CI_Controller {
         $this->twiggy->set('productor', $productor);
         $this->twiggy->set('finca', $finca);
         $this->twiggy->set('visitaTipoProductor', $visitaTipoProductor);
-        $this->twiggy->set('respuesta_b', $respuesta_b);
+//        $this->twiggy->set('respuesta_b', $respuesta_b);
         $this->twiggy->set('preguntas_ingresos', $preguntas_ingresos);
         $this->twiggy->set('preguntas_egresos', $preguntas_egresos);
         $this->twiggy->set('preguntas_activos', $preguntas_activos);

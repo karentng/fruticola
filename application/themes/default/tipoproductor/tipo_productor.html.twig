@@ -242,8 +242,10 @@
         }
 
         $(".money").each(function(index) {
-            $(this).autoNumeric('set', $(this).autoNumeric('get'));
+            var valor = $(this).autoNumeric('get');
+            $(this).val(valor);
         });
+        
 
         $('#loadingMask').modal();
     }
