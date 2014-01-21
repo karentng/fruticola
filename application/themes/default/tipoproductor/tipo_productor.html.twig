@@ -28,7 +28,7 @@
             aSep: '.',
             aDec: ',',
             //aSign: '$',
-            vMin: '0.00',
+            vMin: '-999999999.99',
         });
 
         $('.respuestas_activos').change(calcularTotalActivos);
@@ -54,10 +54,10 @@
      */
     function calcularUtilidad() {
 
-        var total_ingresos = parseFloat($('.respuestas_ingresos[readonly]').val());
-        var total_egresos = parseFloat($('.respuestas_egresos[readonly]').val());
+        var total_ingresos = obtenerNumeroInput($('.respuestas_ingresos[readonly]').last());
+        var total_egresos = obtenerNumeroInput($('.respuestas_egresos[readonly]').last());
         var objUtilidad = $('.respuestas_c_totales').first();//primero de dos
-        objUtilidad.val(total_ingresos - total_egresos);
+        asignarNumeroInput(objUtilidad, total_ingresos - total_egresos );
 
         ///recalculo la relacion beneficio-costo
         calcularBeneficioCosto();
@@ -68,12 +68,12 @@
      */
     function calcularBeneficioCosto() {
 
-        var total_ingresos = parseFloat($('.respuestas_ingresos[readonly]').val());
-        var utilidad = parseFloat($('.respuestas_c_totales').first().val());
+        var total_ingresos = obtenerNumeroInput($('.respuestas_ingresos[readonly]'));
+        var utilidad = obtenerNumeroInput($('.respuestas_c_totales').first());
         var objBeneficioCosto = $('.respuestas_c_totales').last();//ultimo de dos
 
         if (utilidad)
-            objBeneficioCosto.val(total_ingresos / utilidad);
+            asignarNumeroInput(objBeneficioCosto, total_ingresos / utilidad );
     }
 
 
@@ -100,7 +100,7 @@
                 aSep: '.',
                 aDec: ',',
                 aSign: '$',
-                vMin: '0.00',
+                vMin: '-999999999.99',
             });
 
             value = obj.autoNumeric('get');
@@ -184,7 +184,7 @@
             $.uniform.update('input:radio[name=criterio2]');
 
             //se habilitan todos los inputs
-            $('input, textarea, button').removeAttr('disabled');
+            $('input[type!="radio"], textarea, button').removeAttr('disabled');
         } else {
             validacionUAF = false;
             $('#error_validacion_uaf').html('No cumple con la validación UAF, no se puede continuar.');
@@ -192,7 +192,7 @@
             $.uniform.update('input:radio[name=criterio2]');
 
             //se desabilitan todos los inputs
-            $('input, textarea, button').attr('disabled', 'disabled');
+            $('input[type!="radio"], textarea, button').attr('disabled', 'disabled');
         }
     }
     
