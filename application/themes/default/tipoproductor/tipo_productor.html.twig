@@ -71,11 +71,11 @@
      * La relacion beneficio-costo es igual al total de ingresos dividio la utilidad  
      */
     function calcularBeneficioCosto() {
-
-        var total_ingresos = obtenerNumeroInput($('.respuestas_ingresos[readonly]'));
+        
+        var total_ingresos = obtenerNumeroInput($('.respuestas_ingresos[readonly]').last());
         var utilidad = obtenerNumeroInput($('.respuestas_c_totales').first());
         var objBeneficioCosto = $('.respuestas_c_totales').last();//ultimo de dos
-
+        
         if (utilidad)
             asignarNumeroInput(objBeneficioCosto, total_ingresos / utilidad );
     }
