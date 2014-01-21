@@ -177,7 +177,7 @@
         var area_total = obtenerNumeroInput($('#area_total'));
         var valor_uaf = obtenerNumeroInput($('#valor_uaf option:selected'));
 
-        if ((valor_uaf * 2) < area_total) {
+        if ((valor_uaf * 2) > area_total) {
             validacionUAF = true;
             $('#error_validacion_uaf').html('');
             $('input:radio[name=criterio2]')[0].checked = true;
@@ -487,15 +487,12 @@
                         <tr>
                             <td>
                                 El BENEFICIARIO cumple con la condición de productor agropecuario según sus INGRESOS INVERTIDOS en el sector agropecuario? (Mínimo el 70% de los ingresos los obtiene de la actividad agropecuaria).
-                                {{form_error('criterio1')}}
                             </td>
                             <td>
                                 <div style="text-align:center;">
-                                    {% set respuesta_checked_bd =  respuesta_d.criterio1 == 1 ? 'checked' : ''%}                                            
-                                    <input type="radio" class="{{form_error('criterio1')? 'error':''}}" name="criterio1" value="1" {{set_radio('criterio1', 1) ? set_radio('criterio1', 1) : respuesta_checked_bd}}/>
+                                    <input type="radio" class="" name="criterio1" value="1" disabled/>
                                     <label for="criterio1">SI</label><br/>
-                                    {% set respuesta_checked_bd =  respuesta_d.criterio1 == 2 ? 'checked' : ''%}                                            
-                                    <input type="radio" class="{{form_error('criterio1')? 'error':''}}" name="criterio1" value="2" {{set_radio('criterio1', 2) ? set_radio('criterio1', 2) : respuesta_checked_bd}}/>
+                                    <input type="radio" class="" name="criterio1" value="2" disabled/>
                                     <label for="criterio1">NO</label>
                                 </div>
                             </td>
@@ -503,15 +500,12 @@
                         <tr>
                             <td>
                                 El productor según LA UAF (Unidad Agrícola Familiar) clasifica como:
-                                {{form_error('criterio2')}}
                             </td>
                             <td>
                                 <div style="text-align:center;">
-                                    {% set respuesta_checked_bd =  respuesta_d.criterio2 == 1 ? 'checked' : ''%}                                            
-                                    <input type="radio" class="{{form_error('criterio2')? 'error':''}}" name="criterio2" value="1" {{set_radio('criterio2', 1) ? set_radio('criterio2', 1) : respuesta_checked_bd}}/>
+                                    <input type="radio" class="" name="criterio2" value="1" disabled/>
                                     <label for="criterio2">PEQUEÑO PRODUCTOR</label><br/>
-                                    {% set respuesta_checked_bd =  respuesta_d.criterio2 == 2 ? 'checked' : ''%}                                            
-                                    <input type="radio" class="{{form_error('criterio2')? 'error':''}}" name="criterio2" value="2" {{set_radio('criterio2', 2) ? set_radio('criterio2', 2) : respuesta_checked_bd}}/>
+                                    <input type="radio" class="" name="criterio2" value="2" disabled/>
                                     <label for="criterio2">MEDIANO PRODUCTOR</label>                                        
                                 </div>
                             </td>
@@ -523,11 +517,9 @@
                             </td>
                             <td>
                                 <div style="text-align:center;">
-                                    {% set respuesta_checked_bd =  respuesta_d.criterio3 == 1 ? 'checked' : ''%}                                            
-                                    <input type="radio" class="{{form_error('criterio3')? 'error':''}}" name="criterio3" value="1" {{set_radio('criterio3', 1) ? set_radio('criterio3', 1) : respuesta_checked_bd}}/>
+                                    <input type="radio" class="" name="criterio3" value="1" disabled/>
                                     <label for="criterio3">PEQUEÑO PRODUCTOR</label><br/>
-                                    {% set respuesta_checked_bd =  respuesta_d.criterio3 == 2 ? 'checked' : ''%}                                            
-                                    <input type="radio" class="{{form_error('criterio3')? 'error':''}}" name="criterio3" value="2" {{set_radio('criterio3', 2) ? set_radio('criterio3', 2) : respuesta_checked_bd}}/>
+                                    <input type="radio" class="" name="criterio3" value="2" disabled/>
                                     <label for="criterio3">MEDIANO PRODUCTOR</label>  
                                 </div>
                             </td>
