@@ -317,7 +317,7 @@
                             preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
                             {% if preguntaC.numeral == 26 %}
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input onchange="cambiarExcepcion(this)" id="excepcion42" name="excepcion42" class="toggle" type="checkbox" {{set_checkbox('excepcion42',true, excepcion42)}}/>
+                                    <input onchange="cambiarExcepcion(this)" id="excepcion42" name="excepcion42" class="toggle" type="checkbox" {% if soloLectura %} disabled="disabled" {% endif %} {{set_checkbox('excepcion42',true, excepcion42)}}/>
                                 </div>
                             {% endif %}
                             {% if existe == 'yes' %}
