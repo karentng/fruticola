@@ -88,13 +88,13 @@ class TipoProductor extends CI_Controller {
         
         
         ///consulo las respuestas D
-        $respuesta_d = TPDRespuesta::first(array(
-                    'conditions' => array('visita_id = ?', $id)
-        ));
-        $this->form_validation->set_rules("criterio1", ' ', 'required|is_natural');
-        $this->form_validation->set_rules("criterio2", ' ', 'required|is_natural');
-        $this->form_validation->set_rules("criterio3", ' ', 'required|is_natural');
-        $this->form_validation->set_rules("criterio4", ' ', 'required|is_natural');
+//        $respuesta_d = TPDRespuesta::first(array(
+//                    'conditions' => array('visita_id = ?', $id)
+//        ));
+//        $this->form_validation->set_rules("criterio1", ' ', 'required|is_natural');
+//        $this->form_validation->set_rules("criterio2", ' ', 'required|is_natural');
+//        $this->form_validation->set_rules("criterio3", ' ', 'required|is_natural');
+//        $this->form_validation->set_rules("criterio4", ' ', 'required|is_natural');
         
         
         ///Si las validaciones son correctas procedo a guardar
@@ -131,13 +131,13 @@ class TipoProductor extends CI_Controller {
             $respuesta_b->save();            
             
             ///GUARDANDO RESPUESTAS D
-            $respuesta_d = ($respuesta_d) ? $respuesta_d : new TPDRespuesta;
-            $respuesta_d->visita_id = $id;
-            $respuesta_d->criterio1 =$this->input->post('criterio1');
-            $respuesta_d->criterio2 =$this->input->post('criterio2');
-            $respuesta_d->criterio3 =$this->input->post('criterio3');
-            $respuesta_d->criterio4 =$this->input->post('criterio4');
-            $respuesta_d->save();
+//            $respuesta_d = ($respuesta_d) ? $respuesta_d : new TPDRespuesta;
+//            $respuesta_d->visita_id = $id;
+//            $respuesta_d->criterio1 =$this->input->post('criterio1');
+//            $respuesta_d->criterio2 =$this->input->post('criterio2');
+//            $respuesta_d->criterio3 =$this->input->post('criterio3');
+//            $respuesta_d->criterio4 =$this->input->post('criterio4');
+//            $respuesta_d->save();
 
             ///GUARDANDO RESPUESTAS C
             foreach ($preguntas_c as $obj) {
@@ -177,7 +177,7 @@ class TipoProductor extends CI_Controller {
         $this->twiggy->set('preguntas_egresos', $preguntas_egresos);
         $this->twiggy->set('preguntas_activos', $preguntas_activos);
         $this->twiggy->set('preguntas_totales', $preguntas_totales);
-        $this->twiggy->set('respuesta_d', $respuesta_d);
+//        $this->twiggy->set('respuesta_d', $respuesta_d);
         $this->twiggy->set('upload_result', $upload_result);
 
         $this->twiggy->template("tipoproductor/tipo_productor");

@@ -38,14 +38,15 @@ CREATE TABLE tp_c_respuesta(
     valor double precision NOT NULL
 );
 
-CREATE TABLE tp_d_respuesta(
-	id serial NOT NULL PRIMARY KEY,
-	visita_id  integer NOT NULL REFERENCES visita_tipo_productor(id),
-    criterio1 int NOT NULL,
-    criterio2 int NOT NULL,
-    criterio3 int NOT NULL,
-    criterio4 int NOT NULL
-);
+
+-- CREATE TABLE tp_d_respuesta(
+-- 	id serial NOT NULL PRIMARY KEY,
+-- 	visita_id  integer NOT NULL REFERENCES visita_tipo_productor(id),
+--     criterio1 int NOT NULL,
+--     criterio2 int NOT NULL,
+--     criterio3 int NOT NULL,
+--     criterio4 int NOT NULL
+-- );
 
 INSERT INTO tp_c_pregunta(ordenamiento, enunciado, categoria, editable) VALUES
 	(1, 'Dinero en Caja y/o Bancos', 'A', true),
@@ -65,7 +66,7 @@ INSERT INTO tp_c_pregunta(ordenamiento, enunciado, categoria, editable) VALUES
 	(1, 'Cantidad de producto vendido (kg/Año) del renglón productivo', 'B', true),
 	(2, 'Precio de venta promedio en el año anterior ($/Kg)', 'B', true),
 	(3, 'INGRESOS RENGLON PRODUCTIVO ($/Año)', 'B', false),
-	(4, 'INGRESOS OTRAS ACTIVIDADES AGROPECUARIAS ($/Año)', 'B', false),
+	(4, 'INGRESOS OTRAS ACTIVIDADES AGROPECUARIAS ($/Año)', 'B', true),
 	(5, 'OTROS INGRESOS ($/Año)', 'B', true),
 	(6, 'TOTAL INGRESOS DEL PRODUCTOR ($/Año)', 'B', false),
     
