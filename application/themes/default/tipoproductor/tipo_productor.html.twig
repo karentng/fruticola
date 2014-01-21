@@ -163,9 +163,9 @@
 
             ///El unico readonly debe ser el del total
             if (!obj.is('[readonly]') && obj.val())
-                total += parseFloat(obj.val());
+                total += obtenerNumeroInput(obj);
         });
-        $('.respuestas_egresos[readonly]').val(total);
+        asignarNumeroInput($('.respuestas_egresos[readonly]'), total);
 
         ///recalculo las utilidad
         calcularUtilidad();
