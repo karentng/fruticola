@@ -44,8 +44,9 @@ class BPA extends CI_Controller {
         //$preguntasB = BpaPregunta::find_all_by_seccion('B');
         foreach($preguntasB as $preg) {
             $this->form_validation->set_rules("recomendacion".$preg->id);
+            $this->form_validation->set_rules("sino".$preg->id);
         }
-
+        $this->form_validation->set_rules("excepcion42");
         //$preguntasC = BpaPregunta::find_all_by_seccion('C');
         foreach($preguntasC as $preg) {
             
@@ -189,6 +190,16 @@ class BPA extends CI_Controller {
             $idsC = extract_prop($preguntasC, "id");
             $respuestasB = BpaRespuesta::all(array(
                     'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $datosBPA->id, $idsB), 'order' => 'id'));
+            for($i = 0;$i<count($respuestasB);$i++){
+                //$this->twiggy->set('sino'.$respuestasB[$i]->pregunta_id, $respuestasB[$i]->puntaje);
+                //var_dump('sino'.$respuestasB[$i]->id);
+                if($respuestasB[$i]->puntaje == 1){
+                    $respuestasB[$i]->puntaje = true;
+                }else{
+                    $respuestasB[$i]->puntaje = false;
+                }
+            }
+            
             $respuestasC = BpaRespuesta::all(array(
                     'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $datosBPA->id, $idsC), 'order' => 'id'));
             $this->twiggy->set('existe', 'yes');
@@ -198,16 +209,18 @@ class BPA extends CI_Controller {
                     'conditions' => array('bpa_id = ? AND pregunta_id = ?', $datosBPA->id, 26), 'order' => 'id'));
             
             if($condicionExcepcion->observacion == '' && $condicionExcepcion->puntaje == 0){
-                $this->twiggy->set('exception42', false);
+                $this->twiggy->set('excepcion42', false);
             }else{
-                $this->twiggy->set('exception42', true);
+                $this->twiggy->set('excepcion42', true);
             }
             
             $this->twiggy->set('respuestasB', $respuestasB);
+            
             $this->twiggy->set('respuestasC', $respuestasC);
         }else{
             $this->twiggy->set('existe', 'not');
-            $this->twiggy->set('exception42', true);
+            $this->twiggy->set('excepcion42', true);
+
         }
 
         $ruat = Ruat::find($ruat_id);

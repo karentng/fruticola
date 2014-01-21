@@ -228,15 +228,21 @@
                         <!--<input bs-switch switch-on="info" switch-off="warning" switch-size="small"
                                 switch-on-label="SI" switch-off-label="NO">-->
                         <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>" >
-                            {% if existe == 'yes' %}
+                            {#% if existe == 'yes' %}
                                 {% if respuestasB[cont].puntaje == 1 %}
-                                    <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" checked {% if soloLectura %} disabled="disabled" {% endif %}/>
+                                    <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" checked {% if soloLectura %} disabled="disabled" {% endif %} {{set_checkbox('sino'~preguntaB.id,true, 'sino'~respuestasB.pregunta_id)}}/>
                                 {% else %}
-                                    <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" {% if soloLectura %} disabled="disabled" {% endif %} />
+                                    <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" {% if soloLectura %} disabled="disabled" {% endif %} {{set_checkbox('sino'~preguntaB.id,true, 'sino'~preguntaB.id)}}/>
                                 {% endif %}
                             {% else %}
-                                <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" />
+                                <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" {{set_checkbox('sino'~preguntaB.id,true, 'sino'~preguntaB.id)}}/>
+                            {% endif %#}
+                            {% if respuestasB[cont].puntaje == 1 %}
+                            <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" {% if soloLectura %} disabled="disabled" {% endif %} {{set_checkbox('sino'~preguntaB.id, true, true)}}/>
+                            {% else %}
+                                <input name="{{'sino'~preguntaB.id}}" class="toggle" type="checkbox" {% if soloLectura %} disabled="disabled" {% endif %} {{set_checkbox('sino'~preguntaB.id, true, false)}}/>
                             {% endif %}
+                        
                         </div>
                     </td>
                     <td>
@@ -311,7 +317,7 @@
                             preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
                             {% if preguntaC.numeral == 26 %}
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input onchange="cambiarExcepcion(this)" id="excepcion42" name="excepcion42" class="toggle" type="checkbox" {{set_checkbox('excepcion42',true, exception42)}}/>
+                                    <input onchange="cambiarExcepcion(this)" id="excepcion42" name="excepcion42" class="toggle" type="checkbox" {{set_checkbox('excepcion42',true, excepcion42)}}/>
                                 </div>
                             {% endif %}
                             {% if existe == 'yes' %}
@@ -400,7 +406,7 @@
                     </span>      
                     <br/><br/><br/>
                 {% endif %#}
-                    <input type="file" name="archivo_formulario" id="archivo_formulario" >
+                    <input type="file" name="archivo_formulario" id="archivo_formulario" {% if soloLectura %} disabled="disabled" {% endif %}>
                     <label for="archivo_formulario" class="col-lg-12"  >Certificación de Visita Digitalizada</label>
                 </div>
             </div>
