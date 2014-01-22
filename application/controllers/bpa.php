@@ -14,6 +14,8 @@ class BPA extends CI_Controller {
         //var_dump($_FILES);
         //    die();
 
+        if(!$ruat_id) show_404();
+
         $this->load->library('form_validation');
 
         $data = array();

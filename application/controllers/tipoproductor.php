@@ -13,6 +13,8 @@ class TipoProductor extends CI_Controller {
     }
 
     public function index($ruat_id = null) {
+        if(!$ruat_id) show_404();
+        
         $user_id = current_user('id');
 
         $this->load->library('form_validation');

@@ -10,7 +10,7 @@ class DiagnostiCosecha extends CI_Controller {
 
     public function index($ruat_id=NULL)
     {
-        if(!$ruat_id) die("Acceso Invalido");
+        if(!$ruat_id) show_404();
 
         $preguntas = CosechaPregunta::all(array(order=>'numero', 'include'=> 'opciones_respuesta'));
 

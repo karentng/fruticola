@@ -20,16 +20,7 @@ class ListadoRuats extends CI_Controller {
         echo json_encode(array('type'=>'success', 'text' => 'RUAT eliminado exitosamente'));
     }
 
-    public function test()
-    {
-        $resultSet = Ruat::all(array(
-
-            'joins' => array('productor', 'creador'),
-        ));
-        echo $resultSet[0]->to_json();
-        var_dump(Ruat::connection()->last_query);
-    }
-
+    
     public function datatable()
     {
         check_profile(array("Administrador", "Coordinador", "Digitador","Consultas"));
@@ -62,7 +53,9 @@ class ListadoRuats extends CI_Controller {
         $options['limit']  = $limit;
         $options['order'] = $orders[$order_idx].' '.$order_dir;
 
-        $puedeEliminar = $this->ion_auth->in_group("Coordinador") || $this->ion_auth->in_group("Administrador");
+        $puedeEliminar = check_profile(array("Administrador","Coordinador"), false);
+
+        $puedeCrearForms = check_profile(array("Administrador","Coordinador","Digitador"),false);
 
         $rows = array();
         foreach(ViewListadoRuats::all($options) as $item) {
@@ -79,17 +72,38 @@ class ListadoRuats extends CI_Controller {
             $actions .="</div>";
 
             $cls = $item->cosecha_id ? 'btn-warning' : 'btn-default';
-            $url = site_url("diagnosticosecha/index/$item->id");
-            $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Diagnóstico Manejo de Cosecha'>Cosecha</a>";
+            if($puedeCrearForms || $item->cosecha_id) {
+                $url = site_url("diagnosticosecha/index/$item->id");
+                $disabled = '';
+            } else {
+                $url = "";
+                $disabled = 'disabled="disabled"';
+            }
+
+            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Diagnóstico Manejo de Cosecha'>Cosecha</a>";
 
             
             $cls = $item->bpa_id ? 'btn-warning' : 'btn-default';
-            $url = site_url("bpa/index/$item->id");
-            $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Buenas Prácticas Agropecuarias'>BPA</a>";
+            if($puedeCrearForms || $item->bpa_id) {
+                $url = site_url("bpa/index/$item->id");
+                $disabled = '';
+            } else {
+                $url = "";
+                $disabled = 'disabled="disabled"';
+            }
+
+            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Buenas Prácticas Agropecuarias'>BPA</a>";
             
             $cls = $item->vtp_id ? 'btn-warning' : 'btn-default';
-            $url = site_url("tipoproductor/index/$item->id");
-            $actions .= " <a class='btn btn-sm $cls tip' href='$url' title='Clasificación Productor'>C. Productor</a>";
+            if($puedeCrearForms || $item->vtp_id) {
+                $url = site_url("tipoproductor/index/$item->id");
+                $disabled = '';
+            } else {
+                $url = "";
+                $disabled = 'disabled="disabled"';
+            }
+
+            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Productor</a>";
             
 
             
