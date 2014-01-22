@@ -56,13 +56,14 @@
     {{ form_close() }}
 </div>
 
-<table id='dataTable' class="table table-bordered table-hover">
+<table id='dataTable' class="table table-bordered table-hover table-responsive">
     <thead>
         <tr>
             <th>Usuario</th>
             <th>RUAT</th>
             <th>Cosecha</th>
             <th>BPA</th>
+            <th>C. Productor</th>
         </tr>
     </thead>
     <tbody>
@@ -72,6 +73,7 @@
             <td align="right">{{porUsuario[usuario.id].ruat    | default('0') }}</td>
             <td align="right">{{porUsuario[usuario.id].cosecha | default('0') }}</td>
             <td align="right">{{porUsuario[usuario.id].bpa     | default('0') }}</td>
+            <td align="right">{{porUsuario[usuario.id].tp      | default('0') }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -81,6 +83,7 @@
             <td align="right">{{totales.ruat}}</th>
             <td align="right">{{totales.cosecha}}</th>
             <td align="right">{{totales.bpa}}</th>
+            <td align="right">{{totales.tp}}</th>
         </tr>
     </tfoot>
 </table>
