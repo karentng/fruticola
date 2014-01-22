@@ -49,6 +49,8 @@
 
 
         $('form').submit(validarFormulario);
+        
+        $('select').select2();
 
     });
 
@@ -264,7 +266,7 @@
 
 {% block contenido %}
 
-{{ form_open(null, {role:'form', class:'form-horizontal'}) }}
+{{ form_open_multipart(null, {role:'form', class:'form-horizontal'}) }}
 
 <div class="row">
     <div class="col-md-7">
@@ -276,7 +278,7 @@
                 <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha de Visita:</label>
                 <div class="col-sm-8">
                     <div class="input-group date datepicker autostart">
-                        <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha)}}" class="form-control {{form_error('fecha')? 'error':''}}" type="text">
+                        <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha) | date('Y-m-d')}}" class="form-control {{form_error('fecha')? 'error':''}}" type="text">
                         {{form_error('fecha')}}
                         <label class="error"></label>
 
@@ -309,7 +311,7 @@
                     <div class="col-md-6" style="text-align: center;">
                         <div class="">
                             <label class="control-label">Valor de la UAF del Municipio (has)</label>     
-                            <select class="form-control" name="valor_uaf" id="valor_uaf">
+                            <select class="" name="valor_uaf" id="valor_uaf">
                                 {% for muaf in municipios_uaf %}
                                 <option value="{{muaf.valor}}">{{muaf.descripcion}} ({{muaf.valor}})</option>
                                 {% endfor %}
