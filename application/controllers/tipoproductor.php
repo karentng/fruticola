@@ -18,7 +18,7 @@ class TipoProductor extends CI_Controller {
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
 
         ///Obtengo los datos del usuario creador del vtp, sino existe sace el usuario actualmente logueado
-        $usuaioSesion = VisitaTipoProductor::find($ruat_id)->creador_id;
+        $usuaioSesion = VisitaTipoProductor::find(array('conditions' => array('ruat_id = ?', $ruat_id)))->creador_id;
         $usuaioSesion = $usuaioSesion == null ? $this->ion_auth->user($user_id)->row(): $this->ion_auth->user($usuaioSesion)->row();
 
         ///Consulto la info de la visita
