@@ -19,7 +19,7 @@ class Auth extends CI_Controller {
     //redirect if needed, otherwise display the user list
     function index()
     {
-        check_profile($this, "Administrador");
+        check_profile(array("Administrador"));
         
         if (!$this->ion_auth->logged_in())
         {
@@ -240,7 +240,7 @@ class Auth extends CI_Controller {
     //create a new user
     function create_user()
     {
-        check_profile($this, "Administrador");
+        check_profile(array("Administrador"));
         
         $this->data['title'] = "Create User";
 

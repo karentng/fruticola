@@ -5,7 +5,7 @@ class ReporteFormularios extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        check_profile($this, "Administrador", "Coordinador");
+        check_profile(array("Administrador", "Coordinador", "Consultas"));
     }
 
     public function index()

@@ -8,11 +8,10 @@ class TipoProductor extends CI_Controller {
     {
         parent::__construct();
         
-        check_profile($this, "Administrador", "Coordinador", "Digitador");
+        check_profile(array("Administrador", "Coordinador", "Digitador", "Consultas"));
     }
 
     public function index($ruat_id = null) {
-//        $ruat_id = 1;
         $user_id = current_user('id');
 
         $this->load->library('form_validation');

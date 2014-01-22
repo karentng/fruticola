@@ -3,25 +3,10 @@
 
 class ListadoRuats extends CI_Controller {
 
-    public function index_old()
-    {
-        check_profile($this, "Administrador", "Coordinador", "Digitador");
-        //if($this->ion_auth->in_group("Digitador"))
-        //    $ruats = Ruat::find_all_by_creador_id(current_user('id'), array('include' => array('bpa','cosecha','observacion')));
-        //else
-            $ruats = Ruat::all(array('include' => array('bpa','cosecha', 'visita_tipo_productor'  ,'observacion', 'creador')));
-
-        //foreach($ruats as $r) echo $r->observacion->ruta_formulario;
-        $this->twiggy->set('isAdmin', $this->ion_auth->in_group('Administrador'));
-
-        $this->twiggy->set("ruats", $ruats);
-        $this->twiggy->template("ruat/listado");
-        $this->twiggy->display();
-    }
-
     public function index()
     {
-        check_profile($this, "Administrador", "Coordinador", "Digitador");
+        check_profile(array("Administrador", "Coordinador", "Digitador", "Consultas"));
+        $this->twiggy->set("puedeCrearRuats", check_profile(array("Administrador","Coordinador","Digitador"), false));
         $this->twiggy->template("ruat/listadoruats");
         $this->twiggy->display();
     }
@@ -47,7 +32,7 @@ class ListadoRuats extends CI_Controller {
 
     public function datatable()
     {
-        check_profile($this, "Administrador", "Coordinador", "Digitador");
+        check_profile(array("Administrador", "Coordinador", "Digitador","Consultas"));
 
         $offset    = $this->input->get('iDisplayStart');
         $limit     = $this->input->get('iDisplayLength');

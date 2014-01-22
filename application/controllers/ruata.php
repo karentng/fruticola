@@ -5,12 +5,14 @@ class RuatA extends CI_Controller {
     {
         parent::__construct();
         
-        check_profile($this, "Administrador", "Coordinador", "Digitador");
+        check_profile(array("Administrador", "Coordinador", "Digitador", "Consultas"));
     }
 
     public function index($ruat_id=NULL)
     {
-                        
+        if (!$ruat_id) check_profile(array("Administrador", "Coordinador", "Digitador"));        
+        
+
         function to_array($model) { return $model->to_array(); }
 
         $data = array();

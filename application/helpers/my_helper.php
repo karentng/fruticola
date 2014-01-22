@@ -82,22 +82,23 @@ if(! function_exists('my_input'))
         else return $_current_user_->$prop;
     }
 
-    function check_profile(& $controller, $profile1, $profile2=null, $profile3=null)
+    function check_profile(array $profiles, $locker=true)
     {
-        if(!$controller->ion_auth->logged_in()) 
+        $CI = &get_instance();
+        if(!$CI->ion_auth->logged_in()) 
             redirect("auth/login");
 
         if(!current_user()->active)
             show_error('Su usuario se encuentra desactivado. Consulte con el administrador.');
 
-        if($controller->ion_auth->in_group($profile1)) return;
+        $prof = $CI->ion_auth->get_users_groups()->row()->name;
 
-        if($profile2 && $controller->ion_auth->in_group($profile2)) return;
-        
-        if($profile3 && $controller->ion_auth->in_group($profile3)) return;
-
-
-        show_error('No tiene acceso a esta seccion del sistema. Consulte al administrador.');
+        if(in_array($prof, $profiles))
+            return true;
+        elseif($locker) 
+            show_error('No tiene acceso a esta seccion del sistema. Consulte al administrador.');
+        else 
+            return false;
     }
 
     function is_profile($prof)

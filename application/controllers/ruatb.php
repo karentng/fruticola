@@ -6,13 +6,12 @@ class RuatB extends CI_Controller {
     {
         parent::__construct();
         
-        check_profile($this, "Administrador", "Coordinador", "Digitador");
+        check_profile(array("Administrador", "Coordinador", "Digitador", "Consultas"));
     }
 
     public function index($ruat_id)
     {
-        if(!$ruat_id) die("Invalid URL");
-        //check_profile($this,"Administrador");
+        if(!$ruat_id) show_404();
 
         function to_array($model) { return $model->to_array(); }
 

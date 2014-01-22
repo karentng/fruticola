@@ -36,8 +36,9 @@
 
 {% block contenido %}
 
-<a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}"><i class="icon20 i-plus"></i> Crear Nuevo RUAT</a>
-
+{% if puedeCrearRuats %}
+    <a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}"><i class="icon20 i-plus"></i> Crear Nuevo RUAT</a>
+{% endif %}
 
 <table id='dataTableRuats' class="table table-bordered table-hover table-responsive">
     <thead>
