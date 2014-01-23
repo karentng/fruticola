@@ -278,7 +278,8 @@
                 <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha de Visita:</label>
                 <div class="col-sm-8">
                     <div class="input-group date datepicker autostart">
-                        <input size="16" name="fecha" value="{{ set_value('fecha', visitaTipoProductor.fecha) | date('Y-m-d')}}" class="form-control {{form_error('fecha')? 'error':''}}" type="text">
+                        {%set valor_fecha = set_value('fecha', visitaTipoProductor.fecha) ? set_value('fecha', visitaTipoProductor.fecha) | date('Y-m-d') : '' %}
+                        <input size="16" name="fecha" value="{{ valor_fecha }}" class="form-control {{form_error('fecha')? 'error':''}}" type="text">
                         {{form_error('fecha')}}
                         <label class="error"></label>
 
