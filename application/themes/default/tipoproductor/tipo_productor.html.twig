@@ -15,7 +15,7 @@
         {% endif %}
 
         {% if soloLectura %}
-        $('input, textarea, button').attr('disabled', 'disabled');
+        $('input, textarea').attr('disabled', 'disabled');
         {% endif %}
 
         $("input[type='radio'], input[type='checkbox']").uniform();
@@ -217,7 +217,10 @@
             $.uniform.update('input:radio[name=criterio2]');
 
             //se habilitan todos los inputs
-            $('input[type!="radio"], textarea, button').removeAttr('disabled');
+            {% if soloLectura == false %}
+                $('input[type!="radio"], textarea, button').removeAttr('disabled');
+            {% endif %}
+
         } else {
             validacionUAF = false;
             $('#error_validacion_uaf').html('No cumple con la validación UAF, no se puede continuar.');
@@ -662,9 +665,16 @@
 <br/>
 <div class="form-group">
     <div class="col-md-offset-4 col-md-5">
-        <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
-        <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
+        {% if soloLectura %}
+            <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a>
+        {% else %}
+            <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
+            <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
+        {% endif %}
     </div>
+</div>
+
+    
 </div>
 
 
