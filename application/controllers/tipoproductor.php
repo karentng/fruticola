@@ -89,7 +89,7 @@ class TipoProductor extends CI_Controller {
             $subirArchivo = true;
             ///SUBO EL ARCHIVO
             if (isset($_FILES["archivo_formulario"]) && !empty($_FILES["archivo_formulario"]["name"])) {
-                $arr_upload_result = $this->do_upload($id);
+                $arr_upload_result = $this->do_upload($ruat_id);
                 if (!isset($arr_upload_result['error']) && isset($arr_upload_result['upload_data']))
                     $visitaTipoProductor->archivo_fisico = 'vtp/' . $arr_upload_result['upload_data']['file_name'];
                 else {
