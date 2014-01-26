@@ -30,7 +30,7 @@ class ReporteFormularios extends CI_Controller {
         foreach(Ruat::all($query) as $ruat)               { $porUsuario[$ruat->creador_id]['ruat']++;        $totales['ruat']++; }
         foreach(Cosecha::all($query) as $cosecha)         { $porUsuario[$cosecha->creador_id]['cosecha']++;  $totales['cosecha']++; }
         foreach(BuenasPracticas::all($query) as $bpa)     { $porUsuario[$bpa->creador_id]['bpa']++;          $totales['bpa']++; } 
-        foreach(VisitaTipoProductor::all($query) as $tp)  { $porUsuario[$bpa->creador_id]['tp']++;           $totales['tp']++; } 
+        foreach(VisitaTipoProductor::all($query) as $tp)  { $porUsuario[$tp->creador_id]['tp']++;            $totales['tp']++; } 
 
         $this->twiggy->set('usuarios', Usuario::all());
         $this->twiggy->set('porUsuario', $porUsuario);
