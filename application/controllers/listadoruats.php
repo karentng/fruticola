@@ -13,7 +13,7 @@ class ListadoRuats extends CI_Controller {
 
     public function eliminar_ruat($ruat_id=NULL) {
         if(!$ruat_id) show_404();
-        check_profile($this, "Administrador", "Coordinador");
+        check_profile(array("Administrador", "Coordinador"));
 
         Ruat::find($ruat_id)->eliminar();
         
