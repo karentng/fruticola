@@ -492,7 +492,7 @@ class Auth extends CI_Controller {
 
 
         $this->twiggy->set("user", $this->ion_auth->user()->row());
-        $this->twiggy->set("group", $this->ion_auth->groups()->row());
+        $this->twiggy->set("group", $this->ion_auth->get_users_groups()->row());
 
         $this->twiggy->template("auth/personal_info");
         $this->twiggy->display();
