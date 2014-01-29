@@ -187,19 +187,19 @@
 
             $('#loadingMask').modal();
             $http.post(urls.guardar, data).success(function(response,status) {
-                $('#loadingMask').modal('hide');
+                
                 if(response.success!==undefined) {
                     notif(response.message);
                     if(response.success) {
                         angular.extend($scope, response.scope);
-                        setTimeout(function(){
-                            $scope.siguiente();
-                        }, 1600);
+                        $scope.siguiente();
+                        return;
                     }
                 }
                 else {
                     alert("Error en comunicacion con el servidor. Intente nuevamente.");
                 }
+                $('#loadingMask').modal('hide');
             });
         };
 
@@ -241,7 +241,7 @@
             <label  class="control-label col-sm-8">Número de Formulario</label>
             <div class="col-sm-4">
                 <input type="text" ng-model="numero_formulario" class="form-control" style="color:red; text-align:center" maxlength="4" ng-disabled="soloLectura"/>
-            </div>
+            </div> 
         </div>
     </div>
 </div>
@@ -462,7 +462,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="focused">Dirección de Residencia:</label>
                         <div class="col-md-9">
-                            <input type="text" capitalize class="form-control" name="direccion" ng-model="contacto.direccion" ng-disabled="soloLectura" required>
+                            <input type="text" capitalize class="form-control" name="direccion" ng-model="contacto.direccion" ng-disabled="soloLectura" required maxlength="100">
                             <label class="error" ng-show="myForm.direccion.$dirty && myForm.direccion.$error.required">Requerido</label>
 
                         </div>

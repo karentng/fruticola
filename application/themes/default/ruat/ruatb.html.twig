@@ -161,17 +161,18 @@
 
             $('#loadingMask').modal();
             $http.post(urls.guardar, data).success(function(response,status) {
-                $('#loadingMask').modal('hide');
+                
                 if(response.success!==undefined) {
                     notif(response.message);
                     if(response.success) {
                         angular.extend($scope, response.scope);
-                        setTimeout(function(){
-                            $scope.siguiente();
-                        }, 1600);
+                        $scope.siguiente();
+                        return;
                     }
                 }
                 else alert("Error en comunicacion con el servidor. Intente nuevamente.");
+
+                $('#loadingMask').modal('hide');
             });
         };
 
