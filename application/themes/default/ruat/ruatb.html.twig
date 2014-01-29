@@ -232,7 +232,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Nombre de la finca</label>
-                        <input type="text" capitalize class="form-control" name="nombreFinca" ng-model="finca.nombre" ng-disabled="soloLectura" required />
+                        <input type="text" capitalize class="form-control" name="nombreFinca" maxlength="50" ng-model="finca.nombre" ng-disabled="soloLectura" required />
                         <label class="error" ng-show="myForm.nombreFinca.$dirty && myForm.nombreFinca.$error.required">Requerido</label>
                     </div>
                 </div>
@@ -241,7 +241,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Identificaci&oacute;n Catastral</label>
-                        <input type="text" capitalize class="form-control" name="identif_catastral" ng-disabled="soloLectura" ng-model="finca.identif_catastral" />
+                        <input type="text" capitalize class="form-control" name="identif_catastral" maxlength="30" ng-disabled="soloLectura" ng-model="finca.identif_catastral" />
                     </div>
                 </div>
             </div>
@@ -288,7 +288,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Vereda / Corregimiento</label>
-                        <input type="text" capitalize class="form-control" name="veredaFinca" ng-disabled="soloLectura" ng-model="finca.vereda" />
+                        <input type="text" capitalize class="form-control" name="veredaFinca" maxlength="50"ng-disabled="soloLectura" ng-model="finca.vereda" />
                         <!--label class="error" ng-show="myForm.veredaFinca.$dirty && myForm.veredaFinca.$error.required">Requerido</label-->
                     </div>
                 </div>
@@ -297,7 +297,7 @@
                 <div class="container">
                     <div class="form-group">
                         <label class="control-label">Sector</label>
-                        <input type="text" capitalize class="form-control" name="sector" ng-disabled="soloLectura" ng-model="finca.sector" />
+                        <input type="text" capitalize class="form-control" name="sector" maxlength="50" ng-disabled="soloLectura" ng-model="finca.sector" />
                         <!--label class="error" ng-show="myForm.sector.$dirty && myForm.sector.$error.required">Requerido</label-->
                     </div>
                 </div>
@@ -373,7 +373,7 @@
 
                 </td>
                 <td>
-                    <input type="text" capitalize name="residuosOrdinarios" ng-disabled="soloLectura" ng-model="finca.residuos_ordinarios" placeholder="Descripción" 
+                    <input type="text" capitalize name="residuosOrdinarios" maxlength="100" ng-disabled="soloLectura" ng-model="finca.residuos_ordinarios" placeholder="Descripción" 
                             ng-required='manejaResidsOrdinarios' ng-show="manejaResidsOrdinarios" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosOrdinarios.$dirty && myForm.residuosOrdinarios.$error.required">
                         <label class="error">Requerido</label>
@@ -387,7 +387,7 @@
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-active="{{!soloLectura}}"/>
                 </td>
                 <td>
-                    <input type="text" capitalize name="residuosPeligrosos" ng-disabled="soloLectura" ng-model="finca.residuos_peligrosos" placeholder="Descripción" 
+                    <input type="text" capitalize name="residuosPeligrosos" maxlength="100" ng-disabled="soloLectura" ng-model="finca.residuos_peligrosos" placeholder="Descripción" 
                             ng-required='manejaResidsPeligrosos' ng-disabled="soloLectura" ng-show="manejaResidsPeligrosos" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosPeligrosos.$dirty && myForm.residuosPeligrosos.$error.required">
                         <label class="error">Requerido</label>
@@ -401,7 +401,7 @@
                             switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-active="{{!soloLectura}}"/>
                 </td>
                 <td>
-                    <input type="text" capitalize name="residuosOtros" class="form-control" ng-disabled="soloLectura" ng-model="finca.residuos_otro" placeholder="Descripción" ng-required='manejaResidsOtros' ng-show="manejaResidsOtros" style="width:100%" />
+                    <input type="text" capitalize name="residuosOtros" maxlength="100" class="form-control" ng-disabled="soloLectura" ng-model="finca.residuos_otro" placeholder="Descripción" ng-required='manejaResidsOtros' ng-show="manejaResidsOtros" style="width:100%" />
                     <span class="help-block" ng-show="myForm.residuosOtros.$dirty && myForm.residuosOtros.$error.required">
                         <label class="error">Requerido</label>
                     </span>
@@ -503,11 +503,11 @@
                     <th><button type="button" ng-click="productos.splice($index,1)" ng-disabled="soloLectura" class="btn btn-danger btn-xs" title="Remover fila">-</button> {{$index+1}}
                     </th>
                     <td>
-                        <input type="text" capitalize class="form-control" name="nombreProd" ng-disabled="soloLectura" ng-model="prod.nombre" required />
+                        <input type="text" capitalize class="form-control" name="nombreProd" maxlength="100" ng-disabled="soloLectura" ng-model="prod.nombre" required />
                         <label class="error" ng-show="subForm.nombreProd.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" capitalize class="form-control" name="variedadProd" ng-disabled="soloLectura" ng-model="prod.variedad" />
+                        <input type="text" capitalize class="form-control" name="variedadProd" maxlength="100" ng-disabled="soloLectura" ng-model="prod.variedad" />
                     </td>
                     <td>
                         <input bs-switch ng-model="prod.semilla_certificada" switch-on="primary" switch-off="warning" switch-active="{{!soloLectura}}"
@@ -606,7 +606,7 @@
                         <label class="error" ng-show="subForm.vende.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" capitalize class="form-control" name="vende_nombre" ng-disabled="soloLectura"  ng-model="prod.vende_nombre" placeholder="Nombre y Apellido">
+                        <input type="text" capitalize class="form-control" name="vende_nombre" maxlength="100" ng-disabled="soloLectura"  ng-model="prod.vende_nombre" placeholder="Nombre y Apellido">
                     </td>
                 </tr>
             </tbody>
@@ -649,7 +649,7 @@
                         <label class="error" ng-show="subForm.formaPago.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" capitalize name="subproducto" ng-disabled="soloLectura"  ng-model="prod.subproducto" placeholder="Subproducto">
+                        <input type="text" class="form-control" capitalize name="subproducto" maxlength="50" ng-disabled="soloLectura"  ng-model="prod.subproducto" placeholder="Subproducto">
                     </td>
                     <td>
                         <input type="text" class="form-control" capitalize name="subproducto_uso" ng-model="prod.subproducto_uso" ng-disabled="soloLectura" placeholder="Uso">
@@ -658,11 +658,11 @@
                         <input bs-switch ng-model="prod.perteneceProgAsistencia" switch-on="info" switch-off="warning" switch-size="small" switch-on-label="SI" switch-off-label="NO" switch-active="{{!soloLectura}}">
                     </td>
                     <td>
-                        <input type="text" class="form-control" capitalize name="programa" ng-model="prod.asistencia_programa" ng-required="prod.perteneceProgAsistencia" ng-disabled="!prod.perteneceProgAsistencia || soloLectura" placeholder="{{prod.perteneceProgAsistencia?'Programa':''}}" />
+                        <input type="text" class="form-control" capitalize name="programa" maxlength="50" ng-model="prod.asistencia_programa" ng-required="prod.perteneceProgAsistencia" ng-disabled="!prod.perteneceProgAsistencia || soloLectura" placeholder="{{prod.perteneceProgAsistencia?'Programa':''}}" />
                         <label class="error" ng-show="subForm.programa.$error.required">Requerido</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" capitalize name="entidad" ng-model="prod.asistencia_entidad" ng-required="prod.perteneceProgAsistencia" ng-disabled="!prod.perteneceProgAsistencia || soloLectura" placeholder="{{prod.perteneceProgAsistencia?'Entidad':''}}" />
+                        <input type="text" class="form-control" capitalize name="entidad" maxlength="50" ng-model="prod.asistencia_entidad" ng-required="prod.perteneceProgAsistencia" ng-disabled="!prod.perteneceProgAsistencia || soloLectura" placeholder="{{prod.perteneceProgAsistencia?'Entidad':''}}" />
                         <label class="error" ng-show="subForm.entidad.$error.required">Requerido</label>
                     </td>
                 </tr>
