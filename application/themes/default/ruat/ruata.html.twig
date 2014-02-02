@@ -240,7 +240,7 @@
         <div class="input-group">
             <label  class="control-label col-sm-8">Número de Formulario</label>
             <div class="col-sm-4">
-                <input type="text" ng-model="numero_formulario" class="form-control" style="color:red; text-align:center" maxlength="4" ng-disabled="soloLectura"/>
+                <input type="text" ng-model="numero_formulario" maxlength="10" class="form-control" style="color:red; text-align:center" maxlength="4" ng-disabled="soloLectura"/>
             </div> 
         </div>
     </div>
@@ -261,7 +261,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Primer Nombre</label>
-                            <input type="text" capitalize class="form-control" name="nombre1" ng-model="productor.nombre1" ng-disabled="soloLectura" required />
+                            <input type="text" capitalize class="form-control" name="nombre1" maxlength="30" ng-model="productor.nombre1" ng-disabled="soloLectura" required />
                             <label class="error" ng-show="myForm.nombre1.$dirty && myForm.nombre1.$error.required">Requerido</label>
                         </div>
                     </div>
@@ -270,7 +270,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Segundo Nombre</label>
-                            <input type="text" capitalize class="form-control" ng-model="productor.nombre2"  ng-disabled="soloLectura"/>
+                            <input type="text" capitalize class="form-control" maxlength="30" ng-model="productor.nombre2"  ng-disabled="soloLectura"/>
                         </div>
                     </div>
                 </div>
@@ -278,7 +278,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Primer Apellido</label>
-                            <input type="text"  capitalize class="form-control" name="apellido1" ng-model="productor.apellido1" ng-disabled="soloLectura" required />
+                            <input type="text"  capitalize class="form-control" name="apellido1" maxlength="30" ng-model="productor.apellido1" ng-disabled="soloLectura" required />
                             <label class="error" ng-show="myForm.apellido1.$dirty && myForm.apellido1.$error.required">Requerido</label>
 
                         </div>
@@ -288,7 +288,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Segundo Apellido</label>
-                            <input type="text" capitalize class="form-control" ng-model="productor.apellido2"  ng-disabled="soloLectura"/>
+                            <input type="text" capitalize class="form-control" maxlength="30" ng-model="productor.apellido2"  ng-disabled="soloLectura"/>
                         </div>
                     </div>
                 </div>
@@ -306,7 +306,7 @@
                             <label class="error" ng-show="myForm.tipo_documento_id.$dirty && myForm.tipo_documento_id.$error.required">Requerido</label>
                         </div>
                         <div class="col-xs-6" style="padding-left:0px !important">
-                            <input type="text" class="form-control" name="numero_documento" ng-model="productor.numero_documento" ng-disabled="soloLectura" required />
+                            <input type="text" class="form-control" name="numero_documento" maxlength="20" ng-model="productor.numero_documento" ng-disabled="soloLectura" required />
                             <span class="help-block" ng-show="myForm.numero_documento.$dirty && myForm.numero_documento.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -398,7 +398,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Telefono Fijo</label>
-                            <input type="text" class="form-control" name="telefono" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                            <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
                             <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -407,7 +407,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Celular</label>
-                            <input type="text" class="form-control" name="celular" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                            <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
                             <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -416,7 +416,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" name="email" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                            <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
                             <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Debe ser un Email Válido</label></span>
                         </div>
                     </div>
@@ -451,7 +451,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Vereda / Corregimiento</label>
-                            <input type="text" capitalize class="form-control" name="vereda" ng-model="contacto.vereda" ng-disabled="soloLectura"/>
+                            <input type="text" capitalize class="form-control" name="vereda" maxlength="100maxlength="100" " ng-model="contacto.vereda" ng-disabled="soloLectura"/>
                             <span class="help-block" ng-show="myForm.vereda.$dirty && myForm.vereda.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
@@ -462,7 +462,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="focused">Dirección de Residencia:</label>
                         <div class="col-md-9">
-                            <input type="text" capitalize class="form-control" name="direccion" ng-model="contacto.direccion" ng-disabled="soloLectura" required maxlength="100">
+                            <input type="text" capitalize class="form-control" name="direccion" maxlength="100" ng-model="contacto.direccion" ng-disabled="soloLectura" required maxlength="100">
                             <label class="error" ng-show="myForm.direccion.$dirty && myForm.direccion.$error.required">Requerido</label>
 
                         </div>
@@ -604,7 +604,7 @@
                         
                     </td>
                     <td>
-                        <input type="text" capitalize class="form-control" name="descripcion" ng-model="innovaciones[$index].descripcion"
+                        <input type="text" capitalize class="form-control" name="descripcion" maxlength="100" ng-model="innovaciones[$index].descripcion"
                             placeholder="{{innovaciones[$index].fuente_id?'Ingrese aqui la Descripción':''}}" ng-required="innovaciones[$index].fuente_id" ng-disabled="!innovaciones[$index].fuente_id || soloLectura" />
                         <label class="error" ng-show="subForm.descripcion.$error.required">Requerido</label>
                     </td>
@@ -656,7 +656,7 @@
                          <span class="help-block" ng-show="subForm.clase.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td>
-                        <input type="text" capitalize class="form-control" name="nombre" ng-model="fila.nombre" ng-disabled="soloLectura" ng-required="true" placeholder="Organización"/>
+                        <input type="text" capitalize class="form-control" name="nombre" maxlength="100" ng-model="fila.nombre" ng-disabled="soloLectura" ng-required="true" placeholder="Organización"/>
                          <span class="help-block" ng-show="subForm.nombre.$error.required"><label class="error">Requerido</label></span>
                     </td>
                     <td><select multiple name="beneficios" ng-required="asociacion.cooperativa.asociado" ng-model="fila.beneficios" style="min-width:150px" ng-disabled="soloLectura"
@@ -716,7 +716,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Nombre del Productor en Asocio</label>
-                                <input type="text" capitalize class="form-control" name="nombreSocio" ng-model="asociacion.otroProductor.nombre" ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
+                                <input type="text" capitalize class="form-control" name="nombreSocio" maxlength="50" ng-model="asociacion.otroProductor.nombre" ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
                                 <label class="error" ng-show="myForm.nombreSocio.$dirty && myForm.nombreSocio.$error.required ">Requerido</label>
                             </div>
                         </div>
@@ -725,7 +725,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Apellidos del Productor en Asocio</label>
-                                <input type="text" capitalize class="form-control" name="apellidoSocio" ng-model="asociacion.otroProductor.apellido"  ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
+                                <input type="text" capitalize class="form-control" name="apellidoSocio" maxlength="50" ng-model="asociacion.otroProductor.apellido"  ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
                                 <label class="error" ng-show="myForm.apellidoSocio.$dirty && myForm.apellidoSocio.$error.required ">Requerido</label>
                             </div>
                         </div>
@@ -734,7 +734,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Vereda/Corregimiento de Ubicación</label>
-                                <input type="text" capitalize class="form-control" name="veredaAsocio" ng-model="asociacion.otroProductor.vereda" ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
+                                <input type="text" capitalize class="form-control" name="veredaAsocio" maxlength="100" ng-model="asociacion.otroProductor.vereda" ng-disabled="soloLectura" ng-required="asociacion.otroProductor.asociado"/>
                                 <label class="error" ng-show="myForm.veredaAsocio.$dirty && myForm.veredaAsocio.$error.required ">Requerido</label>
 
                             </div>
@@ -765,7 +765,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Nombre del Productor a Seguir</label>
-                                <input type="text" capitalize class="form-control" name="nombreSeguir" ng-model="asociacion.sigue.nombre" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
+                                <input type="text" capitalize class="form-control" name="nombreSeguir" maxlength="50" ng-model="asociacion.sigue.nombre" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
                                 <label class="error" ng-show="myForm.nombreSeguir.$dirty && myForm.nombreSeguir.$error.required ">Requerido</label>
 
                             </div>
@@ -775,7 +775,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Apellidos del Productor a Seguir</label>
-                                <input type="text" capitalize class="form-control" name="apellidoSeguir" ng-model="asociacion.sigue.apellido" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
+                                <input type="text" capitalize class="form-control" name="apellidoSeguir" maxlength="50" ng-model="asociacion.sigue.apellido" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
                                 <label class="error" ng-show="myForm.apellidoSeguir.$dirty && myForm.apellidoSeguir.$error.required ">Requerido</label>
                             </div>
                         </div>
@@ -784,7 +784,7 @@
                         <div class="container">
                             <div class="form-group">
                                 <label for="" class="control-label">Vereda/Corregimiento de Ubicación</label>
-                                <input type="text" capitalize class="form-control" name="veredaSeguir" ng-model="asociacion.sigue.vereda" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
+                                <input type="text" capitalize class="form-control" name="veredaSeguir" maxlength="100" ng-model="asociacion.sigue.vereda" ng-required="asociacion.sigue.asociado" ng-disabled="soloLectura"/>
                                 <label class="error" ng-show="myForm.veredaSeguir.$dirty && myForm.veredaSeguir.$error.required ">Requerido</label>
 
                             </div>

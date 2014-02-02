@@ -46,13 +46,13 @@ create table productor(
 create table contacto(
     id                  serial not null primary key,
     productor_id        integer not null unique references productor(id),
-    telefono            varchar(20),
-    celular             varchar(20),
-    email               varchar(60),
+    telefono            varchar(100),
+    celular             varchar(100),
+    email               varchar(100),
     departamento_id     integer references departamento(id),
     municipio_id        integer references municipio(id),
-    vereda              varchar(50),
-    direccion           varchar(100)
+    vereda              varchar(100),
+    direccion           varchar(200)
 );
 
 
