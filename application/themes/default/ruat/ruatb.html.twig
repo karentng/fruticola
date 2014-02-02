@@ -652,7 +652,7 @@
                         <input type="text" class="form-control" capitalize name="subproducto" maxlength="50" ng-disabled="soloLectura"  ng-model="prod.subproducto" placeholder="Subproducto">
                     </td>
                     <td>
-                        <input type="text" class="form-control" capitalize name="subproducto_uso" ng-model="prod.subproducto_uso" ng-disabled="soloLectura" placeholder="Uso">
+                        <input type="text" class="form-control" capitalize name="subproducto_uso" maxlength="50" ng-model="prod.subproducto_uso" ng-disabled="soloLectura" placeholder="Uso">
                     </td>
                     <td style="text-align:center">
                         <input bs-switch ng-model="prod.perteneceProgAsistencia" switch-on="info" switch-off="warning" switch-size="small" switch-on-label="SI" switch-off-label="NO" switch-active="{{!soloLectura}}">

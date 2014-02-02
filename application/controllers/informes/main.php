@@ -11,7 +11,9 @@ class Main extends CI_Controller {
     {
         $informes = array(
             array('url' => 'informes/prueba', 'title' => 'Reportico', 'icon' => 'i-file-8', 'color' => 'green'),
+            array('url' => 'informes/ruatImprimible', 'title' => 'Imprimir Ruat', 'icon' => 'i-file-8', 'color' => 'blue'),
             array('url' => 'informes/oto', 'title' => 'Oto Reporte', 'icon' => 'i-file-7', 'color' => 'red')
+
         );
 
         $this->twiggy->set('informes', $informes);
