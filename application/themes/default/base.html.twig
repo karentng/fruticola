@@ -116,13 +116,17 @@
                 </button>
             </div>
 
-
+            {% if current_user() %}
             <div class="collapse navbar-collapse" id="navbar-to-collapse">  
+            
                 <ul class="nav navbar-nav pull-right">
+                    
                     <li class="dropdown user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="icon16 i-user-7"></i>
+                            
                             {{current_user('username')}}
+                            
                             <span class="more"><i class="icon16 i-arrow-down-2"></i></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -138,6 +142,7 @@
                     <li class="divider-vertical"></li>
                 </ul>
             </div><!--/.nav-collapse -->
+            {% endif %}
         </nav>
     </header> <!-- End #header  -->
     
@@ -166,7 +171,7 @@
         {% endif %}
         <section id="{{container_name}}">
             <div class="wrapper">
-                
+                {% block breadcrumb_container %}
                 <div class="crumb">
                     {% block breadcrumnb %}
                     <ul class="breadcrumb">
@@ -175,13 +180,14 @@
                     {% endblock %}
                     xyz
                 </div>
+                {% endblock %}
                 
                 <div class="container-fluid">
+                    {% block title_container %}
                     <div id="heading" class="page-header">
-                        
                         {% block titulo %}<h1><i class="icon20 i-file-7"></i> Titulo </h1>{% endblock %}
-                        
                     </div>
+                    {% endblock %}
                     
 
                     <div style="margin-left:10px; margin-right:10px">

@@ -1,0 +1,93 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+    <style>
+    .stats-buttons li a {
+        height:100px;
+    }
+
+    .seleccionado {
+        background:  white !important; /*#4e525d*/
+    }
+    </style>
+
+    <script>
+        function cargar_informe(url, id) 
+        {
+            console.log("car");
+            $('.enlace-informe').removeClass('seleccionado');
+            $('#'+id).addClass('seleccionado');
+            var div_contenido = $('#contenido_informe');
+
+            div_contenido.html("<h2 class='text-muted'><em>Cargando...</em></h2>");
+            div_contenido.load(url);
+        }
+    </script>
+{% endblock %}
+
+{% block breadcrumb_container %}{% endblock %}
+{% block title_container %}{% endblock %}
+
+{% block contenido %}
+<h1 class="page-header">
+    Informes Plan Fruticola del Valle
+</h1>
+
+<div class="container">
+
+    <div class="stats-buttons btn-group" data-toggle="buttons">
+        <ul class="list-unstyled">
+        {% for inf in informes %}
+            <li class="center">
+                <a href="#" id="informe_{{loop.index}}" onclick="cargar_informe('{{site_url(inf.url)}}','informe_{{loop.index}}')" class="clearfix enlace-informe">
+                    <span class="icon {{inf.color}}"><i class="icon24 {{inf.icon}}"></i></span>
+                    <span class="txt">{{inf.title}}</span>
+                </a>
+            </li>
+        {% endfor %}
+        {#
+            <li class="center">
+                <a href="#" class="clearfix">
+                    <span class="icon blue"><i class="icon24 i-point-up"></i></span>
+                    <span class="txt">click-throughs</span>
+                </a>
+            </li>
+            <li class="center">
+                <a href="#" class="clearfix">
+                    <span class="icon yellow"><i class="icon24 i-eye-2"></i></span>
+                    <span class="txt">ad impressions</span>
+                </a>
+            </li>
+            <li class="center">
+                <a href="#" class="clearfix">
+                    <span class="icon gray"><i class="icon24 i-envelop-2"></i></span>
+                    
+                    <span class="txt">newsletter registred</span>
+                </a>
+            </li>
+            <li class="center">
+                <a href="#" class="clearfix">
+                    <span class="icon"><i class="icon24 i-coin"></i></span>
+                    
+                    <span class="txt">campaign value</span>
+                </a>
+            </li>
+            <li class="center">
+                <a href="#" class="clearfix">
+                    <span class="icon green"><i class="icon24 i-user-plus"></i></span>
+                    
+                    <span class="txt">users registred</span>
+                </a>
+            </li>
+        #}
+        </ul>
+    </div><!-- End .stats-buttons  -->
+
+
+</div>
+
+<div id="contenido_informe" class="container">
+
+</div>
+
+{% endblock %}
