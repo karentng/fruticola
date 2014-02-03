@@ -128,6 +128,7 @@
                     {% for i in 0..7 %}
                         <td>
                             <input id="{{'mes'~pregunta.orden~i}}" name="{{'mes'~pregunta.orden~i}}" type="number" style="width:100%;" value="{{set_value('mes'~pregunta.orden~i, valoresIntermedios[cont][i])}}" onchange="calcularFila({{pregunta.orden}})" />
+                            {% if form_error('mes'~pregunta.orden~i) %} <label class="error">Requerido</label> {% endif %}
                         </td>
                     {% endfor %}
 

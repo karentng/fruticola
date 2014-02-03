@@ -26,7 +26,7 @@ class Metascomplementarias extends CI_Controller {
             $this->form_validation->set_rules('total'.$pregunta->orden, 'Total '. $pregunta->orden);
             $this->form_validation->set_rules('porcentaje'.$pregunta->orden, 'Porcentaje '. $pregunta->orden);
             for($i = 0;$i<8;$i++){
-                $this->form_validation->set_rules('mes'.$pregunta->orden.$i, 'Mes '. $pregunta->orden);
+                $this->form_validation->set_rules('mes'.$pregunta->orden.$i, 'Mes '. $pregunta->orden, 'required');
             }
             
         }
@@ -62,7 +62,7 @@ class Metascomplementarias extends CI_Controller {
                         $respuesta->valor = $this->input->post('mes'.$preguntas[$i]->orden.$j);
 
                         
-                        $respuesta->mes = $j;
+                        //$respuesta->mes = $j;
                         $respuesta->save();
                     }
                 }else{
@@ -71,12 +71,14 @@ class Metascomplementarias extends CI_Controller {
                         $respuesta->meta_id = $meta->id;
                         $respuesta->pregunta = $preguntas[$i]->id;
                         $respuesta->valor = $this->input->post('mes'.$preguntas[$i]->orden.$j);
-                        $respuesta->mes = $j;
+                        //$respuesta->mes = $j;
                         $respuesta->save();
                     }
                     
                 }
             }
+
+            // Todo bien, para donde lo mando? :D
         }
 
         if($existe){
