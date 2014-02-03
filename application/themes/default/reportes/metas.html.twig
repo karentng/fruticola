@@ -3,7 +3,7 @@
 {% block html_head %}
 <style type="text/css">
     .tamanoMeta{
-        min-width: 100px;
+        width: 65px;
     }
 </style>
 <script>
@@ -112,7 +112,7 @@
                 </tr>
             </thead>
             <tbody>
-                {#% set cont = 0 %#}
+                {% set cont = 0 %}
                 {% for pregunta in preguntas %}
                 <tr>
                     <td>
@@ -122,22 +122,25 @@
                         {{pregunta.concepto}}
                     </td>
                     <td>
-                        <input id="{{'fila'~pregunta.orden}}" name="{{'fila'~pregunta.orden}}" style="width:100%; height;100%" type="number" value="{{set_value('fila'~pregunta.orden, 100000)}}" />
+                        <input type="text" id="{{'fila'~pregunta.orden}}" style="width:100%; height;100%" value="{{pregunta.meta}}" readonly />
                     </td>
 
                     {% for i in 0..7 %}
                         <td>
-                            <input id="{{'mes'~pregunta.orden~i}}" name="{{'mes'~pregunta.orden~i}}" type="number" style="width:100%;" value="{{set_value('mes'~pregunta.orden~i, 0)}}" onchange="calcularFila({{pregunta.orden}})" />
+                            <input id="{{'mes'~pregunta.orden~i}}" name="{{'mes'~pregunta.orden~i}}" type="number" style="width:100%;" value="{{set_value('mes'~pregunta.orden~i, valoresIntermedios[cont][i])}}" onchange="calcularFila({{pregunta.orden}})" />
                         </td>
                     {% endfor %}
 
                     <td>
-                        <input type="text" id="{{'total'~pregunta.orden}}" name="{{'total'~pregunta.orden}}" readonly style="width:100%" value="{{set_value('total'~pregunta.orden, 0)}}" />
+
+                        <input type="text" id="{{'total'~pregunta.orden}}" name="{{'total'~pregunta.orden}}" readonly style="width:100%" value="{{set_value('total'~pregunta.orden, valoresFinales[cont]['total'])}}" />
+                    
                     </td>
                     <td>
-                        <input type="text" id="{{'porcentaje'~pregunta.orden}}" name="{{'porcentaje'~pregunta.orden}}" readonly style="width:100%" value="{{set_value('porcentaje'~pregunta.orden, 0)}}" />
+                        <input type="text" id="{{'porcentaje'~pregunta.orden}}" name="{{'porcentaje'~pregunta.orden}}" readonly style="width:100%" value="{{set_value('porcentaje'~pregunta.orden, valoresFinales[cont]['porcentaje'])}}" />
                     </td>
                 </tr>
+                {% set cont = cont + 1 %}
                 {% endfor %}
             </tbody>
         </table>

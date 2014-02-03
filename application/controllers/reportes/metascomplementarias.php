@@ -31,9 +31,94 @@ class Metascomplementarias extends CI_Controller {
             
         }
 
-        if ($this->form_validation->run()) {
+        $existe = false;
+        $metas = Metacomplementaria::find('all');
+        
+        if(count($metas) > 0){
+            $existe = true;
         }
 
+        if ($this->form_validation->run()) {
+
+            for($i = 0; $i < count($preguntas) ; $i++){
+                $meta;
+                if($existe){
+                    $meta = $metas[$i];
+                }else{
+                    $meta = new Metacomplementaria();
+                    $meta->fila = $i;
+                }
+
+                $meta->total = $this->input->post('total'.$preguntas[$i]->orden);
+                $meta->porcentaje = $this->input->post('porcentaje'.$preguntas[$i]->orden);
+                $meta->save();
+
+                if($existe){
+                    $respuestas = MetaComplementariaRespuesta::find('all', array('order' => 'id'));
+                    for($j = 0; $j < 8 ; $j++){
+                        $respuesta = $respuestas[$j];
+                        //$respuesta->meta_id = $meta->id;
+                        //$respuesta->pregunta = $preguntas[$i]->id;
+                        $respuesta->valor = $this->input->post('mes'.$preguntas[$i]->orden.$j);
+
+                        
+                        $respuesta->mes = $j;
+                        $respuesta->save();
+                    }
+                }else{
+                    for($j = 0; $j < 8 ; $j++){
+                        $respuesta = new MetaComplementariaRespuesta();
+                        $respuesta->meta_id = $meta->id;
+                        $respuesta->pregunta = $preguntas[$i]->id;
+                        $respuesta->valor = $this->input->post('mes'.$preguntas[$i]->orden.$j);
+                        $respuesta->mes = $j;
+                        $respuesta->save();
+                    }
+                    
+                }
+            }
+        }
+
+        if($existe){
+            $valoresIntermedios = array();
+            $valoresFinales = array();
+
+            for($i = 0 ; $i < count($metas) ; $i++){
+                // valores del medio
+                $aux = array();
+                $valoresPorFila = MetaComplementariaRespuesta::find('all', array('order' => 'id', 'conditions' => array('meta_id = ?', $metas[$i]->id)));
+                for($j = 0 ; $j <= count($valoresPorFila) ; $j++){
+                    $aux[$j] = $valoresPorFila[$j]->valor;
+                }
+                array_push($valoresIntermedios, $aux);
+
+                // valores definitivos
+                $valoresFinales[$i]['total'] = $metas[$i]->total;
+                $valoresFinales[$i]['porcentaje'] = $metas[$i]->porcentaje;
+            }
+
+            $this->twiggy->set('valoresIntermedios', $valoresIntermedios);
+            $this->twiggy->set('valoresFinales', $valoresFinales);
+        }else{
+            $valoresIntermedios = array();
+            $valoresFinales = array();
+
+            for($i = 0 ; $i < 14 ; $i++){
+                // valores del medio
+                $aux = array();
+                for($j = 0 ; $j <= 7 ; $j++){
+                    $aux[$j] = 0;
+                }
+                array_push($valoresIntermedios, $aux);
+
+                // valores definitivos
+                $valoresFinales[$i]['total'] = 0;
+                $valoresFinales[$i]['porcentaje'] = 0;
+            }
+
+            $this->twiggy->set('valoresIntermedios', $valoresIntermedios);
+            $this->twiggy->set('valoresFinales', $valoresFinales);
+        }
         
         $this->twiggy->set('preguntas', $preguntas);
         $this->twiggy->set('tamaño', count($preguntas));
