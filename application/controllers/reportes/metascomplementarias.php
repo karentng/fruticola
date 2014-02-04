@@ -53,16 +53,18 @@ class Metascomplementarias extends CI_Controller {
                 $meta->porcentaje = $this->input->post('porcentaje'.$preguntas[$i]->orden);
                 $meta->save();
 
-                if($existe){
-                    $respuestas = MetaComplementariaRespuesta::find('all', array('order' => 'id'));
-                    for($j = 0; $j < 8 ; $j++){
+                if($existe){// mes 1 0-->mes 1 7  mes 2 0-->mes 2 7....
+                    $respuestas = MetaComplementariaRespuesta::find('all', array('order' => 'id', 'conditions' => array('pregunta = ?', $preguntas[$i]->id)));
+                    for($j = 0; $j < count($respuestas) ; $j++){
                         $respuesta = $respuestas[$j];
                         //$respuesta->meta_id = $meta->id;
                         //$respuesta->pregunta = $preguntas[$i]->id;
+
                         $respuesta->valor = $this->input->post('mes'.$preguntas[$i]->orden.$j);
 
                         
                         //$respuesta->mes = $j;
+                        
                         $respuesta->save();
                     }
                 }else{
@@ -101,6 +103,9 @@ class Metascomplementarias extends CI_Controller {
 
             $this->twiggy->set('valoresIntermedios', $valoresIntermedios);
             $this->twiggy->set('valoresFinales', $valoresFinales);
+
+            $this->twiggy->set('valoresFinalesJSON', json_encode($valoresFinales));
+            $this->twiggy->set('valoresIntermediosJSON', json_encode($valoresIntermedios));
         }else{
             $valoresIntermedios = array();
             $valoresFinales = array();
@@ -120,9 +125,20 @@ class Metascomplementarias extends CI_Controller {
 
             $this->twiggy->set('valoresIntermedios', $valoresIntermedios);
             $this->twiggy->set('valoresFinales', $valoresFinales);
+
+            $this->twiggy->set('valoresFinalesJSON', json_encode($valoresFinales));
+            $this->twiggy->set('valoresIntermediosJSON', json_encode($valoresIntermedios));
         }
         
         $this->twiggy->set('preguntas', $preguntas);
+
+        $result = array();
+        foreach($preguntas as $pregunta){
+            array_push($result, $pregunta->to_array());
+        }
+
+        $this->twiggy->set('preguntasJSON', json_encode($result));
+
         $this->twiggy->set('tamaño', count($preguntas));
 
         $this->twiggy->template("reportes/metas");

@@ -1,11 +1,155 @@
 {% extends "base.html.twig" %}
 
 {% block html_head %}
+
+<script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
+<script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
+
+<script src="{{ base_url('assets/amcharts/exporting/amexport.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/rgbcolor.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/canvg.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/jspdf.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/filesaver.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
+
 <style type="text/css">
     .tamanoMeta{
         width: 65px;
     }
 </style>
+
+<script type="text/javascript">
+    var filaPrevia = 0;
+    var totales = {{valoresFinalesJSON}};
+    var intermedios = {{valoresIntermediosJSON}};
+    var preguntas = {{preguntasJSON}};
+    var colores = ["#FF0F00", "#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09","#04D215","#0D8ECF","#0D52D1","#2A0CD0","#8A0CCF","#CD0D74","#754DEB","#DDDDDD"];
+    var titulos = ["Año 2013", "Ene-14","Feb-14","Mar-14","Abr-14","May-14","Jun-14","Jul-14"];
+
+    var chart;
+
+    var chartData = [];
+
+    for(var i = 0;i<14;i++){
+        var aux = {
+            "country": "No."+(i+1),
+            "total": totales[i].total,
+            "color": colores[i]
+        };
+        chartData.push(aux);
+    }
+
+    var chart = AmCharts.makeChart("chartdiv", {
+        type: "serial",
+        dataProvider: chartData,
+        categoryField: "country",
+        depth3D: 20,
+        angle: 30,
+
+        categoryAxis: {
+            labelRotation: 90,
+            gridPosition: "start"
+        },
+
+        valueAxes: [{
+            title: "Total"
+        }],
+
+        graphs: [{
+
+            valueField: "total",
+            colorField: "color",
+            type: "column",
+            lineAlpha: 0,
+            fillAlphas: 1
+        }],
+
+        chartCursor: {
+            cursorAlpha: 0,
+            zoomable: false,
+            categoryBalloonEnabled: false
+        },
+
+        exportConfig: {
+            menuTop: "21px",
+            menuBottom: "auto",
+            menuRight: "21px",
+            backgroundColor: "#efefef",
+
+            menuItemStyle   : {
+            backgroundColor         : '#EFEFEF',
+            rollOverBackgroundColor : '#DDDDDD'},
+
+            menuItems: [{
+                textAlign: 'center',
+                icon: "{{ base_url('assets/amcharts/images/export.png') }}",
+                onclick:function(){},
+                items: [{
+                    title: 'JPG',
+                    format: 'jpg'
+                }, {
+                    title: 'PNG',
+                    format: 'png'
+                }, {
+                    title: 'SVG',
+                    format: 'svg'
+                }, {
+                    title: 'PDF',
+                    format: 'pdf'
+                }]
+            }]
+        }
+    });
+
+function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica los valores que se quieren mostrar de acuerdo al select,
+    // pero a su vez quitando los valores previamente puestos.
+    var chartDatax;
+    var quitar = 0;
+    var fila = $("#grafico").val();
+    
+    if(fila == 0){ // escogieron general
+        if(filaPrevia == 0) return;
+        filaPrevia = 0;
+        quitar = 8;
+        for(var i = 0;i<14;i++){
+            var aux = {
+                "country": "No."+(i+1),
+                "total": totales[i].total,
+                "color": colores[i]
+            };
+            chartData.push(aux);
+        }
+
+    }else{
+        if(filaPrevia == fila){
+            return;
+        }
+        if(filaPrevia == 0){
+            quitar = 14;
+        }else{
+            quitar = 8;
+        }
+        filaPrevia = fila;
+        var aux = intermedios[fila-1];
+        
+        for(var i = 0;i<8;i++){
+            
+            var obj = {
+                "country": titulos[i],
+                "total": parseInt(aux[i]),
+                "color": colores[i]
+            };
+            chartData.push(obj);
+        }
+    }
+
+    for(var i = 0;i<quitar;i++){
+        chart.dataProvider.shift();
+    }
+    chart.validateData();
+}
+</script>
+
 <script>
     $(function() {
         {% if notif %}
@@ -160,5 +304,29 @@
 </div>
 
 {{ form_close() }}
+
+<select id="grafico" onchange="cambiarGrafico()">
+    <option value="0">General</option>
+    {% set cont = 1 %}
+    {% for pregunta in preguntas %}
+        <option value="{{cont}}">
+            {{pregunta.concepto}}
+        </option>
+        {% set cont = cont + 1 %}
+    {% endfor %}
+</select>
+
+<div id="chartdiv" style="width: 100%; height: 400px;"></div>
+<!--<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv1" style="width: 100%; height: 400px;"></div>-->
 
 {% endblock %}
