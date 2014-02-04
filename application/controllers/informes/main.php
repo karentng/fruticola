@@ -11,7 +11,6 @@ class Main extends CI_Controller {
     {
         $informes = array(
             array('url' => 'informes/prueba', 'title' => 'Reportico', 'icon' => 'i-file-8', 'color' => 'green'),
-            array('url' => 'informes/ruatImprimible', 'title' => 'Imprimir Ruat', 'icon' => 'i-print', 'color' => 'blue'),
             array('url' => 'informes/oto', 'title' => 'Oto Reporte', 'icon' => 'i-file-7', 'color' => 'red')
 
         );

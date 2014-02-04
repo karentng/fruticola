@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <meta charset="utf-8"> 
+        <title>Imprimir Ruat</title>
+    </head>
+    <body>
+
+        <h4 style="text-align:right">Número de Formulario: {{ruat.numero_formulario}}</h4>
+        <h4>Datos Personales:</h4>        
+        <table>
+            
+            <tr> 
+                <td>Nombre:</td>
+                <td colspan="3" rowspan="2">{{ruat.productor.nombre_completo}}</td>
+            </tr> 
+            <tr></tr>
+            <tr>
+                 <td>Documento:</td>
+                 <td>{{ruat.productor.tipo_documento.descripcion}}{{ruat.productor.numero_documento}}</td>
+                 <td>Fecha de Nacimiento: </td>
+                 <td>{{ruat.productor.fecha_nacimiento|date("Y/m/d")}}</td>
+            </tr>
+            <tr>
+                <td>Sexo: </td>
+                {% if ruat.productor.sexo=='F' %}
+                    <td>Femenino</td>
+                {% elseif ruat.productor=='M' %}   
+                    <td>Masculino</td>
+                {% endif %}
+                <td>Nivel Educativo: </td>
+                <td>{{ruat.productor.nivel_educativo.descripcion}}</td>
+            </tr>
+            <tr>
+                <td>Tipo de Productor: </td>
+                <td>{{ruat.productor.tipo_productor.descripcion}}</td>
+                <td>Renglón Productivo:</td>
+                <td>{{ruat.productor.renglon_productivo.descripcion}}</td>
+            </tr>
+        </table>
+
+        <h4>Datos de Contacto:</h4>        
+        <table> 
+            <tr>
+                 <td rowspan="2" >Teléfono Fijo:</td>
+                 <td rowspan="2">{{ruat.productor.contacto.telefono}}</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td >Célular: </td>
+                <td >{{ruat.productor.contacto.celular}}</td>
+            </tr>
+            <tr>
+                <td>Departamento: </td>
+                <td>{{ruat.productor.contacto.departamento.descripcion</td>
+            </tr>
+            
+        </table>
+        
+
+    </body>
+
+</html>
