@@ -32,7 +32,7 @@ class Metascomplementarias extends CI_Controller {
         }
 
         $existe = false;
-        $metas = Metacomplementaria::find('all');
+        $metas = MetaComplementaria::find('all');
         
         if(count($metas) > 0){
             $existe = true;
