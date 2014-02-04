@@ -11,6 +11,8 @@ class Productor extends MyModel
 
     static $belongs_to = array(
         array('tipo_documento', 'class_name'=>'TipoDocumento', 'foreign_key'=>'tipo_documento_id'),
+        array('tipo_productor', 'class_name'=>'TipoProductor', 'foreign_key'=>'tipo_productor_id'),
+        array('nivel_educativo', 'cass_name'=>'NivelEducativo', 'foreign_key'=>'nivel_educativo_id'),
         array('renglon_productivo', 'class_name'=>'RenglonProductivo', 'foreign_key'=>'renglon_productivo_id'),
     );
 
