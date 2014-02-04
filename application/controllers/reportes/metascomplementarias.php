@@ -45,7 +45,7 @@ class Metascomplementarias extends CI_Controller {
                 if($existe){
                     $meta = $metas[$i];
                 }else{
-                    $meta = new Metacomplementaria();
+                    $meta = new MetaComplementaria();
                     $meta->fila = $i;
                 }
 
