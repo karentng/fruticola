@@ -183,7 +183,7 @@ create table finca_maquinaria(
 create table producto(
     id                              serial not null primary key,
     ruat_id                         integer not null references ruat(id),
-    nombre                          varchar(100) not null,
+    nombre                          varchar(100),
     variedad                        varchar(100) not null,
     semilla_certificada             boolean not null,
     area_cosechada                  double precision not null,

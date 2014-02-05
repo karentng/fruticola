@@ -173,6 +173,48 @@
             <h4 style="font-weight:normal">No hay productor a seguir.</h4>
         {% endif %}
 
+        <h3>B1 Datos Generales de la Finca:</h3> 
+
+        <table> 
+            <tr>
+                <td>Nombre de la Finca: </td>
+                <td><b>{{ruat.finca.nombre}}</b></td>
+                <td>Identificación Catastral: </td>
+                <td><b>{{ruat.finca.identif_catastral}}</b></td>
+                <td>Tenencia:</td>
+                <td><b>{{ruat.finca.tenencia.descripcion}}</b></td>
+            </tr>
+            <tr>
+                <td>Departamento: </td>
+                <td colspan="2"><b>{{ruat.finca.municipio.departamento.nombre}}</b></td>
+                <td align="right">Municipio: </td>
+                <td colspan="2"><b>{{ruat.finca.municipio.nombre}}</b></td>
+                <td>Vereda: </td>
+                <td colspan="3"><b>{{ruat.finca.vereda}}</b></td>
+            </tr>
+            <tr>
+                <td>Sector: </td>
+                <td colspan="2"><b>{{ruat.finca.sector}}</b></td>
+                <td colspan="2">Área Total: </td>
+                <td><b>{{ruat.finca.area_total |number_format(2, ',', '')}}</b></td>
+            </tr>
+            <tr>
+                <td rowspan="2" >Disponibilidad de Servicios Públicos:</td>
+                <td rowspan="2" colspan="6">
+                {% for servicio in ruat.finca.finca_servicio %}
+                    <b>{{servicio.tipo_servicio.descripcion}}</b>,
+                {% endfor %}
+                
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td>Estado de las Vias de Acceso:</td>
+                <td><b>{{ruat.finca.tipo_via.descripcion}}, </b></td>
+                <td><b>{{ruat.finca.via_estado.descripcion}}</b></td>
+            </tr>
+        </table>
+
     </body>
 
 </html>
