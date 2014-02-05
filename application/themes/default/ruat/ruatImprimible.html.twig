@@ -5,57 +5,101 @@
     </head>
     <body>
 
-        <h4 style="text-align:right">Número de Formulario: {{ruat.numero_formulario}}</h4>
-        <h4>Datos Personales:</h4>        
+        <h3 align="right">Número de Formulario: {{ruat.numero_formulario}}</h3>
+        <h3>A1 Datos Personales:</h3>        
         <table>
             
             <tr> 
                 <td>Nombre:</td>
-                <td colspan="3" rowspan="2">{{ruat.productor.nombre_completo}}</td>
+                <td colspan="4" rowspan="2"><b>{{ruat.productor.nombre_completo}}</b></td>
             </tr> 
             <tr></tr>
             <tr>
-                 <td>Documento:</td>
-                 <td>{{ruat.productor.tipo_documento.descripcion}}{{ruat.productor.numero_documento}}</td>
-                 <td>Fecha de Nacimiento: </td>
-                 <td>{{ruat.productor.fecha_nacimiento|date("Y/m/d")}}</td>
-            </tr>
-            <tr>
-                <td>Sexo: </td>
+                 <td >Documento:</td>
+                 <td><b>{{ruat.productor.tipo_documento.descripcion}}{{ruat.productor.numero_documento}}</b></td>
+                 <td align="right">Fecha de Nacimiento: </td>
+                 <td><b>{{ruat.productor.fecha_nacimiento|date("Y/m/d")}}</b></td>
+                 <td align="right">Sexo: </td>
                 {% if ruat.productor.sexo=='F' %}
-                    <td>Femenino</td>
+                    <td><b>Femenino</b></td>
                 {% elseif ruat.productor=='M' %}   
-                    <td>Masculino</td>
+                    <td><b>Masculino</b></td>
                 {% endif %}
-                <td>Nivel Educativo: </td>
-                <td>{{ruat.productor.nivel_educativo.descripcion}}</td>
             </tr>
             <tr>
-                <td>Tipo de Productor: </td>
-                <td>{{ruat.productor.tipo_productor.descripcion}}</td>
-                <td>Renglón Productivo:</td>
-                <td>{{ruat.productor.renglon_productivo.descripcion}}</td>
+                
+                <td align="right">Nivel Educativo: </td>
+                <td><b>{{ruat.productor.nivel_educativo.descripcion}}</b></td>
+                <td align="right">Tipo de Productor: </td>
+                <td><b>{{ruat.productor.tipo_productor.descripcion}}</b></td>
+                <td align="right">Renglón Productivo:</td>
+                <td><b>{{ruat.productor.renglon_productivo.descripcion}}</b></td>
             </tr>
         </table>
 
-        <h4>Datos de Contacto:</h4>        
+        <h3>A2 Datos de Contacto:</h3>        
         <table> 
             <tr>
-                 <td rowspan="2" >Teléfono Fijo:</td>
-                 <td rowspan="2">{{ruat.productor.contacto.telefono}}</td>
+                <td>Teléfono Fijo: </td>
+                <td><b>{{ruat.productor.contacto.telefono}}</b></td>
+                <td >Célular:</td>
+                <td ><b>{{ruat.productor.contacto.celular}}</b></td>
+                <td>Email:  </td>
+                <td><b>{{ruat.productor.contacto.email}}</b></td>
             </tr>
-            <tr></tr>
             <tr>
-                <td >Célular: </td>
-                <td >{{ruat.productor.contacto.celular}}</td>
+                <td >Departamento: </td>
+                <td><b>{{ruat.productor.contacto.departamento.nombre}}</b></td>
+                <td>Municipio: </td>
+                <td><b>{{ruat.productor.contacto.municipio.nombre}}</b></td>
+                <td >Sector </td>
+                <td><b>{{ruat.productor.contacto.vereda}}</b></td>
             </tr>
             <tr>
-                <td>Departamento: </td>
-                <td>{{ruat.productor.contacto.departamento.descripcion</td>
+                <td>Dirección: </td>
+                <td colspan="4"><b>{{ruat.productor.contacto.direccion}}</b></td>
+            </tr>
+        </table>
+        <h3>A3 Datos Económicos:</h3>        
+        <table> 
+            <tr>
+                <td>Ingreso Anual Familiar: </td>
+                <td><b>{{ruat.productor.economia.ingreso_familiar |number_format(0, ',', '.')}}</b></td>
+                <td >Personas a Cargo: </td>
+                <td ><b>{{ruat.productor.economia.personas_dependientes}}</b></td>
+                <td>Ingresos de Actividad Agropecuaria  </td>
+                <td><b>{{ruat.productor.economia.ingreso_agropecuario |number_format(0, ',', '.')}}</b></td>
+            </tr>
+            <tr>
+                {% if ruat.productor.economia.credito_id is not null %}
+                <td colspan="2">Procedencia del Crédito: </td>
+                <td colspan="2"><b>{{ruat.productor.economia.tipo_credito.descripcion}}</b></td>
+                {% endif %}
+                
             </tr>
             
         </table>
-        
+        <h3>A4 Participación del Usuario en Procesos de Transferencia e Innovación:</h3> 
+
+        {% if ruat.innovacion.tipo_id is not null %}     
+        <table border="3"> 
+            <tr>
+                <td align="center"><b>Actividad</b></td>
+                <td align="center"><b>Fuente</b></td>
+                <td align="center"><b>Descripción</b></td>
+            </tr>
+            {% for innovacion in innovaciones %}
+            <tr>
+                <td>{{innovacion.actividad.descripcion}}</td>
+                <td>{{innovacion.fuente.descripcion}}</td>
+                <td>{{innovacion.descripcion}}</td>
+                
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <h4>No hay procesos de Innovación</h4>
+        {% endif %}
 
     </body>
 
