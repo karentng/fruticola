@@ -32,9 +32,10 @@
 
     for(var i = 0;i<14;i++){
         var aux = {
-            "country": "No."+(i+1),
+            "country": "Meta No."+(i+1),
             "total": totales[i].total,
-            "color": colores[i]
+            "color": colores[i],
+            "meta": preguntas[i].meta
         };
         chartData.push(aux);
     }
@@ -56,7 +57,7 @@
         }],
 
         graphs: [{
-
+            balloonText: "[[total]] de [[meta]]",
             valueField: "total",
             colorField: "color",
             type: "column",
@@ -113,9 +114,10 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
         quitar = 8;
         for(var i = 0;i<14;i++){
             var aux = {
-                "country": "No."+(i+1),
+                "country": "Meta No."+(i+1),
                 "total": totales[i].total,
-                "color": colores[i]
+                "color": colores[i],
+                "meta": preguntas[i].meta
             };
             chartData.push(aux);
         }
@@ -137,7 +139,8 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
             var obj = {
                 "country": titulos[i],
                 "total": parseInt(aux[i]),
-                "color": colores[i]
+                "color": colores[i],
+                "meta": totales[fila-1].total
             };
             chartData.push(obj);
         }
@@ -271,7 +274,7 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
 
                     {% for i in 0..7 %}
                         <td>
-                            <input id="{{'mes'~pregunta.orden~i}}" name="{{'mes'~pregunta.orden~i}}" type="number" style="width:100%;" value="{{set_value('mes'~pregunta.orden~i, valoresIntermedios[cont][i])}}" onchange="calcularFila({{pregunta.orden}})" />
+                            <input id="{{'mes'~pregunta.orden~i}}" name="{{'mes'~pregunta.orden~i}}" type="text" style="width:100%;" value="{{set_value('mes'~pregunta.orden~i, valoresIntermedios[cont][i])}}" onchange="calcularFila({{pregunta.orden}})" />
                             {% if form_error('mes'~pregunta.orden~i) %} <label class="error">Requerido</label> {% endif %}
                         </td>
                     {% endfor %}
@@ -317,16 +320,5 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
 </select>
 
 <div id="chartdiv" style="width: 100%; height: 400px;"></div>
-<!--<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
-<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
-<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
-<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
-<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
-<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
-<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
-<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
-<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
-<div id="chartdiv1" style="width: 100%; height: 400px;"></div>
-<div id="chartdiv1" style="width: 100%; height: 400px;"></div>-->
 
 {% endblock %}
