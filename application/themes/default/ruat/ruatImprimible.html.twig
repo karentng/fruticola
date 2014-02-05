@@ -4,8 +4,8 @@
         <title>Imprimir Ruat</title>
     </head>
     <body>
-
-        <h3 align="right">Número de Formulario: {{ruat.numero_formulario}}</h3>
+        <h2 align="left">RUAT</h2>
+        <h3 align="right" style="font-weight:normal">Número de Formulario: <b>{{ruat.numero_formulario}}</b></h3>
         <h3>A1 Datos Personales:</h3>        
         <table>
             
@@ -98,8 +98,122 @@
             {% endfor %}
         </table>
         {% else %}
-        <h4>No hay procesos de Innovación</h4>
+        <h4 style="font-weight:normal">No hay procesos de transferencia e innovación.</h4>
         {% endif %}
+
+        <h3>A5 Asociatividad del Usuario:</h3> 
+
+        {% if ruat.asociacion.periodicidad_id is not null %}     
+        <table border="3"> 
+            <tr>
+                <td align="center"><b>Clase</b></td>
+                <td align="center"><b>Organización</b></td>
+                <td align="center"><b>Beneficio</b></td>
+                <td align="center"><b>Periodicidad de Asistencia</b></td>
+                <td align="center"><b>Labor que Realiza</b></td>
+            </tr>
+            {% for asociacion in asociaciones %}
+            <tr>
+                <td> 
+                {% for clase in asociacion.clases%}
+                    {{clase.categoria.descripcion}},
+                {% endfor %}
+                </td>
+                <td>{{asociacion.nombre}}</td>
+                <td> 
+                {% for beneficio in asociacion.beneficios %}
+                    {{beneficio.categoria.descripcion}},
+                {% endfor %}
+                </td>
+                <td>{{asociacion.periodicidad.descripcion}}</td>
+                <td>{{asociacion.membresia}}</td>
+                
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <h4 style="font-weight:normal">No hay asociaciones.</h4>
+        {% endif %}
+
+        {% if ruat.asociado_id is not null %}
+        <br>
+        <table>
+            <tr>
+                <td>Nombre del Productor en Asocio:</td>
+                <td><b>{{ruat.asociado.nombre}} {{ruat.asociado.apellido}}</b></td>
+            </tr>
+            <tr>
+                <td>Vereda: </td>
+                <td><b>{{ruat.asociado.vereda}}</b></td>
+                <td>Grado de Confianza: </td>
+                <td><b>{{ruat.asociado.tipo_confianza.descripcion}}</b></td>
+            </tr>
+        </table>
+
+        {% else %}
+            <h4 style="font-weight:normal">No hay productor asociado.</h4>
+        {% endif %}
+
+        {% if ruat.seguir_id is not null %}
+        <br>
+        <table>
+            <tr>
+                <td>Nombre del Productor a Seguir:</td>
+                <td><b>{{ruat.seguir.nombre}} {{ruat.seguir.apellido}}</b></td>
+            </tr>
+            <tr>
+                <td>Vereda: </td>
+                <td><b>{{ruat.seguir.vereda}}</b></td>
+                <td>Grado de Confianza: </td>
+                <td><b>{{ruat.seguir.tipo_confianza.descripcion}}</b></td>
+            </tr>
+        </table>
+
+        {% else %}
+            <h4 style="font-weight:normal">No hay productor a seguir.</h4>
+        {% endif %}
+
+        <h3>B1 Datos Generales de la Finca:</h3> 
+
+        <table> 
+            <tr>
+                <td>Nombre de la Finca: </td>
+                <td><b>{{ruat.finca.nombre}}</b></td>
+                <td>Identificación Catastral: </td>
+                <td><b>{{ruat.finca.identif_catastral}}</b></td>
+                <td>Tenencia:</td>
+                <td><b>{{ruat.finca.tenencia.descripcion}}</b></td>
+            </tr>
+            <tr>
+                <td>Departamento: </td>
+                <td colspan="2"><b>{{ruat.finca.municipio.departamento.nombre}}</b></td>
+                <td align="right">Municipio: </td>
+                <td colspan="2"><b>{{ruat.finca.municipio.nombre}}</b></td>
+                <td>Vereda: </td>
+                <td colspan="3"><b>{{ruat.finca.vereda}}</b></td>
+            </tr>
+            <tr>
+                <td>Sector: </td>
+                <td colspan="2"><b>{{ruat.finca.sector}}</b></td>
+                <td colspan="2">Área Total: </td>
+                <td><b>{{ruat.finca.area_total |number_format(2, ',', '')}}</b></td>
+            </tr>
+            <tr>
+                <td rowspan="2" >Disponibilidad de Servicios Públicos:</td>
+                <td rowspan="2" colspan="6">
+                {% for servicio in ruat.finca.finca_servicio %}
+                    <b>{{servicio.tipo_servicio.descripcion}}</b>,
+                {% endfor %}
+                
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td>Estado de las Vias de Acceso:</td>
+                <td><b>{{ruat.finca.tipo_via.descripcion}}, </b></td>
+                <td><b>{{ruat.finca.via_estado.descripcion}}</b></td>
+            </tr>
+        </table>
 
     </body>
 
