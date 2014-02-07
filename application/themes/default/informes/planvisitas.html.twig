@@ -84,6 +84,8 @@
 <h1><i class="icon20 i-stack-checkmark"></i> VTP &#187; CLASIFICACIÓN TIPO PRODUCTOR </h1>
 {% endblock %}
 {% block contenido %}
+
+{{ form_open() }}
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
@@ -101,13 +103,6 @@
             <div id='' class="tab-content">
             
                 <div class="tab-pane active" id="reporte1">
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                <h4>A.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN LA UNIDAD AGRÍCOLA FAMILIAR (UAF).</h4>
-                <a href="#" class="minimize"></a>
-            </div><!-- End .panel-heading -->
 
                         <table class="table table-bordered animate-show-hide">
                         <thead>
@@ -160,8 +155,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                                    </div>
-
                 </div>
                 
                 <div class="tab-pane" id="reporte2">
