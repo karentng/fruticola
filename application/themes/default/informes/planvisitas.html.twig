@@ -149,72 +149,89 @@
 
     var chart = null;
 
+
     AmCharts.ready(function() {
 
-        chartData = getChartData();
-
-        var chart = new AmCharts.AmStockChart();
-        chart.pathToImages = base_url + "assets/amcharts/images/";
-
-        var dataSet = new AmCharts.DataSet();
-        dataSet.dataProvider = chartData;
-        dataSet.fieldMappings = [
-            {fromField: "base", toField: "base"},
-            {fromField: "actividad1", toField: "actividad1"},
-            {fromField: "actividad2", toField: "actividad2"},
-        ];
-        dataSet.categoryField = "base";
-        chart.dataSets = [dataSet];
-
-        var stockPanel = new AmCharts.StockPanel();
-        chart.panels = [stockPanel];
-
-        var panelsSettings = new AmCharts.PanelsSettings();
-        panelsSettings.startDuration = 1;
-        chart.panelsSettings = panelsSettings;
-
-        var graph = new AmCharts.StockGraph();
-        graph.valueField = "base";
-        graph.type = "column";
-        graph.fillAlphas = 1;
-        graph.title = "Value"
-
-        stockPanel.addStockGraph(graph);
-
-        chart.write("chartdiv");
 
         /*
          
          
-         chart = new AmCharts.AmSerialChart();
-         chart.dataProvider = chartData;
-         chart.categoryField = "base";
+         var chart = new AmCharts.AmStockChart();
+         chart.pathToImages = base_url + "assets/amcharts/images/";
          
-         for (var j in actividades) {
-         var valor_actividad = actividades[j];
+         var dataSet = new AmCharts.DataSet();
+         dataSet.dataProvider = chartData;
+         dataSet.fieldMappings = [
+         {fromField: "base", toField: "base"},
+         {fromField: "actividad1", toField: "actividad1"},
+         {fromField: "actividad2", toField: "actividad2"},
+         ];
+         dataSet.categoryField = "base";
+         chart.dataSets = [dataSet];
          
-         var graph = new AmCharts.AmGraph();
-         graph.valueField = valor_actividad;
+         var stockPanel = new AmCharts.StockPanel();
+         chart.panels = [stockPanel];
+         
+         var panelsSettings = new AmCharts.PanelsSettings();
+         panelsSettings.startDuration = 1;
+         chart.panelsSettings = panelsSettings;
+         
+         var graph = new AmCharts.StockGraph();
+         graph.valueField = "base";
          graph.type = "column";
-         graph.fillAlphas = 0.8;
-         graph.title = valor_actividad;
-         graph.balloonText = "[[title]] in [[category]]:<b>[[value]]</b>";
-         chart.addGraph(graph);
-         }
+         graph.fillAlphas = 1;
+         graph.title = "Value"
          
-         chart.angle = 30;
-         chart.depth3D = 15;
+         stockPanel.addStockGraph(graph);
          
-         var categoryAxis = chart.categoryAxis;
-         categoryAxis.autoGridCount  = false;
-         categoryAxis.gridCount = chartData.length;
-         categoryAxis.gridPosition = "start";
-         categoryAxis.labelRotation = 90;
-         
-         chart.write('chartdiv');
-         
-         $('#botonsito').click(refreshChart);
+         chart.write("chartdiv");
          */
+
+
+
+        chartData = getChartData();
+        
+        chart = new AmCharts.AmSerialChart();
+        chart.rotate = true
+        chart.dataProvider = chartData;
+        chart.categoryField = "base";
+        chart.legend = {
+            "horizontalGap": 10,
+            "maxColumns": 1,
+            "position": "right",
+            "useGraphSettings": true,
+            "markerSize": 10
+        }
+        chart.valueAxes = [{
+                "stackType": "regular",
+                "axisAlpha": 0.3,
+                "gridAlpha": 0
+            }]
+        for (var j in actividades) {
+            var valor_actividad = actividades[j];
+
+            var graph = new AmCharts.AmGraph();
+            graph.valueField = valor_actividad;
+            graph.type = "column";
+            graph.fillAlphas = 0.8;
+            graph.title = valor_actividad;
+            graph.balloonText = "[[title]] in [[category]]:<b>[[value]]</b>";
+            chart.addGraph(graph);
+        }
+
+        chart.angle = 30;
+        chart.depth3D = 15;
+
+        var categoryAxis = chart.categoryAxis;
+        categoryAxis.autoGridCount = false;
+        categoryAxis.gridCount = chartData.length;
+        categoryAxis.gridPosition = "start";
+        categoryAxis.labelRotation = 90;
+
+        chart.write('chartdiv');
+
+        $('#botonsito').click(refreshChart);
+
 
     });
 
@@ -229,7 +246,7 @@
             }
             for (var j in actividades) {
                 var valor_actividad = actividades[j];
-                obj[valor_actividad] = Math.round(Math.random() * 100) + 1000;
+                obj[valor_actividad] = Math.round(Math.random() * 100);
             }
 
             chartData.push(obj);
