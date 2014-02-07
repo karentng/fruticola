@@ -1,31 +1,24 @@
 {% extends "base.html.twig" %}
-
 {% block html_head %}
-
 <script src="{{ base_url('assets/js/autoNumeric.js')}}"></script>
-
 <style>
     .money { text-align: right;}
 </style>
-
 <script>
     $(function() {
         {% if notif %}
         notif({{notif|json_encode}});
         {% endif %}
-
+    
         {% if soloLectura %}
         $('input, textarea').attr('disabled', 'disabled');
         {% endif %}
-
+    
         $("input[type='radio'], input[type='checkbox']").uniform();
-
+    
     });
 </script>
-
-
 <script type="text/javascript">
-
     $(document).ready(function() {
         $('.money').autoNumeric('init', {
             aSep: '.',
@@ -34,18 +27,17 @@
             wEmpty: 'zero',
             vMin: '-9999999999',
         });
-
+    
         $(".money").each(function(index) {
             var valor = $(this).autoNumeric('get');
             $(this).val(valor);
         });
         
-
+    
         $('#loadingMask').modal();
     }
-
+    
 </script>
-
 {% endblock %}
 {% block breadcrumnb %}
 <ul class="breadcrumb">
@@ -53,11 +45,10 @@
     <li><strong class="text-success">CLASIFICACIÓN TIPO PRODUCTOR</strong></li>
 </ul>
 {% endblock %}
-
-{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> VTP &#187; CLASIFICACIÓN TIPO PRODUCTOR </h1> {% endblock %}
-
+{% block titulo %} 
+<h1><i class="icon20 i-stack-checkmark"></i> VTP &#187; CLASIFICACIÓN TIPO PRODUCTOR </h1>
+{% endblock %}
 {% block contenido %}
-
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
@@ -65,59 +56,199 @@
         <a href="#" class="minimize"></a>
     </div>
     <!-- End .panel-heading -->
-    
     <div class="panel-body">
         <div class="container">
-            <div class="col-md-12">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th align="center">
-                                DESCRIPCION DE LOS ACTIVOS ($)
-                            </th>
-                            <th align="center" style="width: 130px;">
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for pa in preguntas_activos %}
-                        <tr>
-                            <td>
-                                {{pa.enunciado}}
-                                {{form_error('pregunta_c_'~pa.id)}}
-                                {% if loop.last%}
-                                    <div><label class="error" id="error_validacion_total_activos"></label></div>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <input type="text" class="money form-control respuestas_activos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+            <ul class="nav nav-pills nav-justified">
+                <li class="active"><a href="#reporte1" data-toggle="tab">RELACION DE VISITAS</a></li>
+                <li><a href="#reporte2" data-toggle="tab">REPORTE TOTAL DE VISITAS</a></li>
+                <li><a href="#reposrte3" data-toggle="tab">REPORTE DE ACTIVIDADES</a></li>
+            </ul>
+            <div id='' class="tab-content">
+                <div class="tab-pane active" id="reporte1">
 
+                        <table class="table table-bordered animate-show-hide">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Actividad</th>
+                                <th rowspan="2">Total Visitas</th>
+                                <th colspan="7" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
+                            </tr>
+                            <tr>
+                                <th>5.441 Productores Totales</th>
+                                <th>544 Productores BPA (preestablecidas)</th>
+                                <th>2.176 Productores CREDITO (promedio definidas)</th>
+                                <th>891 Productores PIÑA (grupales)</th>
+                                <th>100 Productores MANGO (grupales)</th>
+                                <th>250 Productores FRESA (grupales)</th>
+                                <th>600 Productores MORA (grupales)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pa in respuestas_relacion_visitas %}
+                            <tr>
+                                <td style="text-align: justify;"    >
+                                    {{pa.descripcion}}
+                                </td>
+                                <td>
+                                    <input class="form-control respuestas_relacion_visitas" name="respuestas_relacion_visitas{{pa.id}}" value="{{set_value('respuestas_relacion_visitas'~pa.id, pa.respuesta_bd)}}" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control respuestas_relacion_visitas" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control respuestas_relacion_visitas" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control respuestas_relacion_visitas" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control respuestas_relacion_visitas" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control respuestas_relacion_visitas" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-pane" id="reporte2">
+
+                        <table class="table table-bordered animate-show-hide">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Actividad</th>
+                                <th rowspan="2">Total Visitas</th>
+                                <th colspan="7" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
+                             </tr>
+                            <tr>
+                                <th >5.441 Productores de Totales</th>
+                                <th >544 Productores BPA (preestablecidas)</th>
+                                <th >2.176 Productores CREDITO (promedio definidas)</th>
+                                <th >891 Productores PIÑA (grupales)</th>
+                                <th >100 Productores MANGO (grupales)</th>
+                                <th >250 Productores FRESA (grupales)</th>
+                                <th >600 Productores MORA (grupales)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pa in respuestas_visitas %}
+                            <tr>
+                                <td style="text-align: justify;">
+                                    {{pa.descripcion}}
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+                
+                <div class="tab-pane" id="reposrte3">
+
+                        <table class="table table-bordered animate-show-hide">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Actividad</th>
+                                <th rowspan="2">Total Visitas</th>
+                                <th colspan="7" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
+                             </tr>
+                            <tr>
+                                <th>5.441 Productores Totales</th>
+                                <th>544 Productores BPA (preestablecidas)</th>
+                                <th>2.176 Productores CREDITO (promedio definidas)</th>
+                                <th>891 Productores PIÑA (grupales)</th>
+                                <th>100 Productores MANGO (grupales)</th>
+                                <th>250 Productores FRESA (grupales)</th>
+                                <th>600 Productores MORA (grupales)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pa in respuestas_actividades %}
+                            <tr>
+                                <td style="text-align: justify;">
+                                    {{pa.descripcion}}
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text"/>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
         </div>
     </div>
-    
     <!-- .container and .panel-body -->
-</div><!-- panel default -->
+</div>
+<!-- panel default -->
 
 <br/>
+
 <div class="form-group">
     <div class="col-md-offset-4 col-md-5">
         {% if soloLectura %}
-            <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a>
+        <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a>
         {% else %}
-            <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
-            <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
+        <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
+        <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
         {% endif %}
     </div>
 </div>
-   
 </div>
-
-
 {{ form_close() }}
 {% endblock %}
