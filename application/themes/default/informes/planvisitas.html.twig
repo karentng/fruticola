@@ -1,6 +1,9 @@
 {% extends "base.html.twig" %}
 {% block html_head %}
 <script src="{{ base_url('assets/js/autoNumeric.js')}}"></script>
+<script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
+<script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
+
 <style>
     .money { text-align: right;}
 </style>
@@ -30,6 +33,27 @@
             var valor = $(this).autoNumeric('get');
             $(this).val(valor);
         });
+        
+        $('.respuestas_relacion_visitas').change( function(e){
+            var tabla = 'respuestas_relacion_visitas';
+            var columna = 'col' + ($(this).attr('name')).split("_")[1];
+            calcularCol( columna, tabla )       
+        });
+
+        $('.respuestas_visitas').change( function(e){
+            var tabla = 'respuestas_visitas';
+            var columna = 'col' + ($(this).attr('name')).split("_")[1];
+            calcularCol( columna, tabla )       
+        });
+
+        $('.respuestas_actividades').change( function(e){
+            var tabla = 'respuestas_actividades';
+            var columna = 'col' + ($(this).attr('name')).split("_")[1];
+            calcularCol( columna, tabla )       
+        });
+
+        $('form').submit(validarFormulario);
+
     });
  
     function asignarNumeroInput(obj, valor) {
@@ -59,9 +83,10 @@
         }            
     }
 
-    function calcularCol1() {
+    function calcularCol( columna, tabla ) {
         var total = 0;
-        $('.respuestas_activos').each(function() {
+
+        $('.'+tabla+'.'+columna).each(function() {
             var obj = $(this);
 
             ///El unico readonly debe ser el del total
@@ -69,10 +94,118 @@
                 total += obtenerNumeroInput(obj);
         });
         
-        asignarNumeroInput($('.respuestas_activos[readonly]'), total);
+        asignarNumeroInput($('.'+tabla+'.'+columna+'.total'), total);
     }
     
+    function validarFormulario() {
+        $(".money").each(function(index) {
+            var valor = $(this).autoNumeric('get');
+            $(this).val(valor);
+        });
+
+        $('#loadingMask').modal();
+    }
+
+    
 </script>
+
+<script type="text/javascript">
+
+
+    var base = [
+        'Total Visitas',
+        '5.441 Productores Totales',
+        '544 Productores BPA (preestablecidas)',
+        '2.176 Productores CREDITO (promedio definidas)',
+        '891 Productores PIÑA (grupales)',
+        '100 Productores MANGO (grupales)',
+        '250 Productores FRESA (grupales)',
+        '600 Productores MORA (grupales)'
+    ];
+
+    var actividades = [
+        'actividad1',
+        'actividad2',
+        'actividad3',
+        'actividad4',
+        'actividad5',
+        'actividad6',
+        'actividad7',
+        'actividad8',
+        'actividad9',
+        'actividad10',
+        'actividad11',
+        'actividad12',
+        'actividad13',
+        'actividad14',
+        'actividad15',
+        'actividad16'
+    ]
+
+    var chart = null;
+
+    AmCharts.ready(function() {
+        
+        chartData = getChartData();
+        chart = new AmCharts.AmSerialChart();
+        chart.dataProvider = chartData;
+        chart.categoryField = "base";
+
+        for (var j in actividades) {
+            var valor_actividad = actividades[j];
+
+            var graph = new AmCharts.AmGraph();
+            graph.valueField = valor_actividad;
+            graph.type = "column";
+            graph.fillAlphas = 0.8;
+            graph.title = valor_actividad;
+            graph.balloonText = "[[title]] in [[category]]:<b>[[value]]</b>";
+            chart.addGraph(graph);
+        }
+
+        chart.angle = 30;
+        chart.depth3D = 15;
+        
+        var categoryAxis = chart.categoryAxis;
+        categoryAxis.autoGridCount  = false;
+        categoryAxis.gridCount = chartData.length;
+        categoryAxis.gridPosition = "start";
+        categoryAxis.labelRotation = 90;
+
+        chart.write('chartdiv');
+        
+        $('#botonsito').click(refreshChart);
+
+    });
+
+    function getChartData() {
+
+        var chartData = [];
+
+        for (var i in base) {
+            var valor_base = base[i];
+            var obj = {
+                base: valor_base
+            }
+            for (var j in actividades) {
+                var valor_actividad = actividades[j];
+                obj[valor_actividad] = Math.round(Math.random() * 100) + 1000;
+            }
+
+            chartData.push(obj);
+        }
+
+        console.log(chartData);
+        return chartData;
+    }
+
+    function refreshChart() {
+        chart.dataProvider = getChartData();
+        chart.validateData();
+    }
+
+</script>
+
 {% endblock %}
 {% block breadcrumnb %}
 <ul class="breadcrumb">
@@ -128,34 +261,65 @@
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name="{{'columna_1_'~pa.id}}"/>
+                                    <input class="form-control col1 money respuestas_relacion_visitas" type="text" name="{{'columna_1_'~pa.id}}"  readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name="{{'columna_2_'~pa.id}}"/>
+                                    <input class="form-control col2 money respuestas_relacion_visitas" type="text" name="{{'columna_2_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name="{{'columna_3_'~pa.id}}"/>
+                                    <input class="form-control col3 money respuestas_relacion_visitas" type="text" name="{{'columna_3_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name="{{'columna_4_'~pa.id}}"/>
+                                    <input class="form-control col4 money respuestas_relacion_visitas" type="text" name="{{'columna_4_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name="{{'columna_5_'~pa.id}}"/>
+                                    <input class="form-control col5 money respuestas_relacion_visitas" type="text" name="{{'columna_5_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name="{{'columna_6_'~pa.id}}"/>
+                                    <input class="form-control col6 money respuestas_relacion_visitas" type="text" name="{{'columna_6_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name="{{'columna_7_'~pa.id}}"/>
+                                    <input class="form-control col7 money respuestas_relacion_visitas" type="text" name="{{'columna_7_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name="{{'columna_8_'~pa.id}}"/>
+                                    <input class="form-control col8 money respuestas_relacion_visitas" type="text" name="{{'columna_8_'~pa.id}}"/>
                                 </td>
                             </tr>
                             {% endfor %}
-                            
+                            <tr>
+                                <td style="text-align: center;">
+                                    TOTALES
+                                </td>
+                                <td>
+                                    <input class="form-control col1 money respuestas_relacion_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col2 money respuestas_relacion_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col3 money respuestas_relacion_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col4 money respuestas_relacion_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col5 money respuestas_relacion_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col6 money respuestas_relacion_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col7 money respuestas_relacion_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col8 money respuestas_relacion_visitas total" type="text" id=""/>
+                                </td>
+                            </tr>                            
                         </tbody>
                     </table>
+                    
+                    <div id="chartdiv" style="width: 1000px; height: 600px;"></div>
+
                 </div>
                 
                 <div class="tab-pane" id="reporte2">
@@ -168,7 +332,7 @@
                                 <th colspan="7" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
                              </tr>
                             <tr>
-                                <th >5.441 Productores de Totales</th>
+                                <th >5.441 Productores Totales</th>
                                 <th >544 Productores BPA (preestablecidas)</th>
                                 <th >2.176 Productores CREDITO (promedio definidas)</th>
                                 <th >891 Productores PIÑA (grupales)</th>
@@ -183,33 +347,62 @@
                                 <td style="text-align: justify;">
                                     {{pa.descripcion}}
                                 </td>
-                                <td>
-                                    <input class="form-control respuestas_visitas money" type="text" name="{{'columna_1_'~pa.id}}"/>
+                                  <td>
+                                    <input class="form-control col1 money respuestas_visitas" type="text" name="{{'columna_1_'~pa.id}}"  readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_visitas money" type="text" name="{{'columna_2_'~pa.id}}"/>
+                                    <input class="form-control col2 money respuestas_visitas" type="text" name="{{'columna_2_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_visitas money" type="text" name="{{'columna_3_'~pa.id}}"/>
+                                    <input class="form-control col3 money respuestas_visitas" type="text" name="{{'columna_3_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_visitas money" type="text" name="{{'columna_4_'~pa.id}}"/>
+                                    <input class="form-control col4 money respuestas_visitas" type="text" name="{{'columna_4_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_visitas money" type="text" name="{{'columna_5_'~pa.id}}"/>
+                                    <input class="form-control col5 money respuestas_visitas" type="text" name="{{'columna_5_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_visitas money" type="text" name="{{'columna_6_'~pa.id}}"/>
+                                    <input class="form-control col6 money respuestas_visitas" type="text" name="{{'columna_6_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_visitas money" type="text" name="{{'columna_7_'~pa.id}}"/>
+                                    <input class="form-control col7 money respuestas_visitas" type="text" name="{{'columna_7_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_visitas money" type="text" name="{{'columna_8_'~pa.id}}"/>
+                                    <input class="form-control col8 money respuestas_visitas" type="text" name="{{'columna_8_'~pa.id}}"/>
                                 </td>
                             </tr>
                             {% endfor %}
-                        </tbody>
+                            <tr>
+                                <td style="text-align: center;">
+                                    TOTALES
+                                </td>
+                                <td>
+                                    <input class="form-control col1 money respuestas_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col2 money respuestas_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col3 money respuestas_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col4 money respuestas_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col5 money respuestas_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col6 money respuestas_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col7 money respuestas_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col8 money respuestas_visitas total" type="text" id=""/>
+                                </td>
+                            </tr>                            
+                      </tbody>
                     </table>
 
                 </div>
@@ -239,32 +432,61 @@
                                 <td style="text-align: justify;">
                                     {{pa.descripcion}}
                                 </td>
-                                <td>
-                                    <input class="form-control respuestas_actividades money" type="text" name="{{'columna_1_'~pa.id}}"/>
+                                  <td>
+                                    <input class="form-control col1 money respuestas_actividades" type="text" name="{{'columna_1_'~pa.id}}"  readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_actividades money" type="text" name="{{'columna_2_'~pa.id}}"/>
+                                    <input class="form-control col2 money respuestas_actividades" type="text" name="{{'columna_2_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_actividades money" type="text" name="{{'columna_3_'~pa.id}}"/>
+                                    <input class="form-control col3 money respuestas_actividades" type="text" name="{{'columna_3_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_actividades money" type="text" name="{{'columna_4_'~pa.id}}"/>
+                                    <input class="form-control col4 money respuestas_actividades" type="text" name="{{'columna_4_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_actividades money" type="text" name="{{'columna_5_'~pa.id}}"/>
+                                    <input class="form-control col5 money respuestas_actividades" type="text" name="{{'columna_5_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_actividades money" type="text" name="{{'columna_6_'~pa.id}}"/>
+                                    <input class="form-control col6 money respuestas_actividades" type="text" name="{{'columna_6_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_actividades money" type="text" name="{{'columna_7_'~pa.id}}"/>
+                                    <input class="form-control col7 money respuestas_actividades" type="text" name="{{'columna_7_'~pa.id}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_actividades money" type="text" name="{{'columna_8_'~pa.id}}"/>
+                                    <input class="form-control col8 money respuestas_actividades" type="text" name="{{'columna_8_'~pa.id}}"/>
                                 </td>
                             </tr>
                             {% endfor %}
+                            <tr>
+                                <td style="text-align: center;">
+                                    TOTALES
+                                </td>
+                                <td>
+                                    <input class="form-control col1 money respuestas_actividades total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col2 money respuestas_actividades total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col3 money respuestas_actividades total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col4 money respuestas_actividades total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col5 money respuestas_actividades total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col6 money respuestas_actividades total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col7 money respuestas_actividades total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col8 money respuestas_actividades total" type="text" id=""/>
+                                </td>
+                            </tr>  
                         </tbody>
                     </table>
 
