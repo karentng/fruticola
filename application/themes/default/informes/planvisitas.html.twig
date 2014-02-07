@@ -11,10 +11,8 @@
         {% endif %}
     
         {% if soloLectura %}
-        $('input, textarea').attr('disabled', 'disabled');
+        $('input').attr('disabled', 'disabled');
         {% endif %}
-    
-        $("input[type='radio'], input[type='checkbox']").uniform();
     
     });
 </script>
@@ -25,16 +23,53 @@
             aDec: ',',
             mDec:0,
             wEmpty: 'zero',
-            vMin: '-9999999999',
+            vMin: '0',
         });
     
         $(".money").each(function(index) {
             var valor = $(this).autoNumeric('get');
             $(this).val(valor);
         });
+    });
+ 
+    function asignarNumeroInput(obj, valor) {
+        obj.autoNumeric('set', valor);
+    }
+
+    function obtenerNumeroInput(obj) {
+        var value = obj.val();
+
+        if(obj.hasClass('money')) {
+            ///por alguna razon no llegan inicializados los inputs 
+            obj.autoNumeric('init', {
+                aSep: '.',
+                aDec: ',',
+                mDec:0,
+                wEmpty: 'zero',
+                vMin: '0',
+            });
+        }
         
-    
-        $('#loadingMask').modal();
+        value = obj.autoNumeric('get');
+
+        if (isNaN(value) || !value) {
+            return 0;
+        } else {
+            return parseFloat(value);
+        }            
+    }
+
+    function calcularCol1() {
+        var total = 0;
+        $('.respuestas_activos').each(function() {
+            var obj = $(this);
+
+            ///El unico readonly debe ser el del total
+            if (!obj.is('[readonly]') && obj.val())
+                total += obtenerNumeroInput(obj);
+        });
+        
+        asignarNumeroInput($('.respuestas_activos[readonly]'), total);
     }
     
 </script>
@@ -86,32 +121,32 @@
                         <tbody>
                             {% for pa in respuestas_relacion_visitas %}
                             <tr>
-                                <td style="text-align: justify;"    >
+                                <td style="text-align: justify;">
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas" name="respuestas_relacion_visitas{{pa.id}}" value="{{set_value('respuestas_relacion_visitas'~pa.id, pa.respuesta_bd)}}" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_1_'~{{pa.id}} readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_2_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_3_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_4_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_5_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_6_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_7_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_8_'~{{pa.id}}/>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -145,28 +180,28 @@
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_1_'~{{pa.id}} readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_2_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_3_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_4_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_5_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_6_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_7_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_8_'~{{pa.id}}/>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -201,28 +236,28 @@
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_1_'~{{pa.id}} readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_2_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_3_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_4_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_5_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_6_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_7_'~{{pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text"/>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name='columna_8_'~{{pa.id}}/>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -242,10 +277,9 @@
 <div class="form-group">
     <div class="col-md-offset-4 col-md-5">
         {% if soloLectura %}
-        <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a>
+        <!--a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a-->
         {% else %}
         <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
-        <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
         {% endif %}
     </div>
 </div>
