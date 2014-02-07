@@ -1,0 +1,123 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+
+<script src="{{ base_url('assets/js/autoNumeric.js')}}"></script>
+
+<style>
+    .money { text-align: right;}
+</style>
+
+<script>
+    $(function() {
+        {% if notif %}
+        notif({{notif|json_encode}});
+        {% endif %}
+
+        {% if soloLectura %}
+        $('input, textarea').attr('disabled', 'disabled');
+        {% endif %}
+
+        $("input[type='radio'], input[type='checkbox']").uniform();
+
+    });
+</script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('.money').autoNumeric('init', {
+            aSep: '.',
+            aDec: ',',
+            mDec:0,
+            wEmpty: 'zero',
+            vMin: '-9999999999',
+        });
+
+        $(".money").each(function(index) {
+            var valor = $(this).autoNumeric('get');
+            $(this).val(valor);
+        });
+        
+
+        $('#loadingMask').modal();
+    }
+
+</script>
+
+{% endblock %}
+{% block breadcrumnb %}
+<ul class="breadcrumb">
+    <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+    <li><strong class="text-success">CLASIFICACIÓN TIPO PRODUCTOR</strong></li>
+</ul>
+{% endblock %}
+
+{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> VTP &#187; CLASIFICACIÓN TIPO PRODUCTOR </h1> {% endblock %}
+
+{% block contenido %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>B.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
+        <a href="#" class="minimize"></a>
+    </div>
+    <!-- End .panel-heading -->
+    
+    <div class="panel-body">
+        <div class="container">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th align="center">
+                                DESCRIPCION DE LOS ACTIVOS ($)
+                            </th>
+                            <th align="center" style="width: 130px;">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pa in preguntas_activos %}
+                        <tr>
+                            <td>
+                                {{pa.enunciado}}
+                                {{form_error('pregunta_c_'~pa.id)}}
+                                {% if loop.last%}
+                                    <div><label class="error" id="error_validacion_total_activos"></label></div>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <input type="text" class="money form-control respuestas_activos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- .container and .panel-body -->
+</div><!-- panel default -->
+
+<br/>
+<div class="form-group">
+    <div class="col-md-offset-4 col-md-5">
+        {% if soloLectura %}
+            <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a>
+        {% else %}
+            <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
+            <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
+        {% endif %}
+    </div>
+</div>
+   
+</div>
+
+
+{{ form_close() }}
+{% endblock %}

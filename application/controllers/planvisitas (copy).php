@@ -8,21 +8,40 @@ class PlanVisitas extends CI_Controller {
         check_profile(array("Administrador", "Coordinador", "Digitador","Consultas"));
     }
 
-    public function index() {
+    public function index($ruat_id=NULL)
+    {
+                        
+        function to_array($model) { return $model->to_array(); }
 
-        $preguntasTipoactividadVisita = TipoActividadVisita::sorted();
-        
-        var_dump($preguntasTipoactividadVisita); die;
+        $data = array();
+        $data['tiposDocumento']       = array_map('to_array',TipoDocumento::sorted());
+        $data['nivelesEducativos']    = array_map('to_array',NivelEducativo::sorted());
+        $data['tiposProductor']       = array_map('to_array',TipoProductor::sorted());
+        $data['renglonesProductivos'] = array_map('to_array',RenglonProductivo::sorted());
+        $data['clasesOrganizaciones'] = array_map('to_array',ClaseOrganizacion::sorted());
+        $data['tiposBeneficio']       = array_map('to_array',TipoBeneficio::sorted());
+        $data['tiposCredito']         = array_map('to_array',TipoCredito::sorted());
+        $data['periodicidades']       = array_map('to_array',Periodicidad::sorted());
+        $data['tiposConfianza']       = array_map('to_array',TipoConfianza::sorted());
+        $data['tiposActividadVisita'] = array_map('to_array',TipoActividadVisita::sorted());
+        $data['fuentesInnovacion']    = array_map('to_array',FuenteInnovacion::sorted());
+        $data['tiposRazonNoPertenecer'] = array_map('to_array',TipoRazonNoPertenecer::sorted());
+        $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
+        $deptos_municipios = array();
+        foreach($deptos as $depto) {
+            $deptos_municipios[$depto->id] = array('nombre'=>$depto->nombre, 'municipios'=>array());
+            foreach($depto->municipios as $mun)
+                $deptos_municipios[$depto->id]['municipios'][] = array('id' => $mun->id, 'nombre'=>$mun->nombre);
+        }
 
-        $this->twiggy->set('usuaioSesion', $usuaRioSesion);
-        $this->twiggy->set('respuestas_relacion_visitas', $respuestas_relacion_visitas);
-        $this->twiggy->set('respuestas_visitas', $respuestas_visitas);
-        $this->twiggy->set('respuestas_actividades', $respuestas_actividades);
+        $data['departamentos'] = $deptos_municipios;
 
+        $this->twiggy->set('combos', json_encode($data));
 
-        $this->twiggy->set('preguntas_relacion_visitas', $preguntas_relacion_visitas);
-        $this->twiggy->set('preguntas_visitas', $preguntas_visitas);
-        $this->twiggy->set('preguntas_actividades', $preguntas_actividades);
+        if($ruat_id) {
+            $ruat = $this->cargar($ruat_id);
+            $this->twiggy->set('ruat', json_encode($ruat));
+        }
 
         $this->twiggy->template("informes/planvisitas");
         $this->twiggy->display();
