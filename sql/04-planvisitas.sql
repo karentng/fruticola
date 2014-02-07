@@ -1,5 +1,5 @@
 create table tipoactividadvisita    (id serial not null primary key, descripcion text not null, orden integer not null, categoria integer not null);
-create table respuestactividadvisita    (id serial not null primary key, id tipoactividad not null references tipoactividadvisita(id), columna1 double, columna2 double, columna3 double, columna4 double, columna5 double, columna6 double, columna7 double, columna8 double);
+create table respuestactividadvisita    (id serial not null primary key, idtipoactividad integer not null references tipoactividadvisita(id), columna1 float, columna2 float, columna3 float, columna4 float, columna5 float, columna6 float, columna7 float, columna8 float);
 
 insert into tipoactividadvisita(descripcion, orden, categoria) values
     ('Socializar y caracterizar a los productores y a las unidades productivas beneficiarias del proyecto (RUAT)', 1, 1),
