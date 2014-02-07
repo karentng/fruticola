@@ -99,7 +99,15 @@
                 <li><a href="#reposrte3" data-toggle="tab">REPORTE DE ACTIVIDADES</a></li>
             </ul>
             <div id='' class="tab-content">
+            
                 <div class="tab-pane active" id="reporte1">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>A.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN LA UNIDAD AGRÍCOLA FAMILIAR (UAF).</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
 
                         <table class="table table-bordered animate-show-hide">
                         <thead>
@@ -145,10 +153,15 @@
                                 <td>
                                     <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_7_'~pa.id}}/>
                                 </td>
+                                <td>
+                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_8_'~pa.id}}/>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                                    </div>
+
                 </div>
                 
                 <div class="tab-pane" id="reporte2">
@@ -177,25 +190,28 @@
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_1_'~pa.id}}/>
+                                    <input class="form-control respuestas_visitas money" type="text" name={{'columna_1_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_2_'~pa.id}}/>
+                                    <input class="form-control respuestas_visitas money" type="text" name={{'columna_2_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_3_'~pa.id}}/>
+                                    <input class="form-control respuestas_visitas money" type="text" name={{'columna_3_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_4_'~pa.id}}/>
+                                    <input class="form-control respuestas_visitas money" type="text" name={{'columna_4_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_5_'~pa.id}}/>
+                                    <input class="form-control respuestas_visitas money" type="text" name={{'columna_5_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_6_'~pa.id}}/>
+                                    <input class="form-control respuestas_visitas money" type="text" name={{'columna_6_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_7_'~pa.id}}/>
+                                    <input class="form-control respuestas_visitas money" type="text" name={{'columna_7_'~pa.id}}/>
+                                </td>
+                                <td>
+                                    <input class="form-control respuestas_visitas money" type="text" name={{'columna_8_'~pa.id}}/>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -230,25 +246,28 @@
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_1_'~pa.id}}/>
+                                    <input class="form-control respuestas_actividades money" type="text" name={{'columna_1_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_2_'~pa.id}}/>
+                                    <input class="form-control respuestas_actividades money" type="text" name={{'columna_2_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_3_'~pa.id}}/>
+                                    <input class="form-control respuestas_actividades money" type="text" name={{'columna_3_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_4_'~pa.id}}/>
+                                    <input class="form-control respuestas_actividades money" type="text" name={{'columna_4_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_5_'~pa.id}}/>
+                                    <input class="form-control respuestas_actividades money" type="text" name={{'columna_5_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_6_'~pa.id}}/>
+                                    <input class="form-control respuestas_actividades money" type="text" name={{'columna_6_'~pa.id}}/>
                                 </td>
                                 <td>
-                                    <input class="form-control respuestas_relacion_visitas money" type="text" name={{'columna_7_'~pa.id}}/>
+                                    <input class="form-control respuestas_actividades money" type="text" name={{'columna_7_'~pa.id}}/>
+                                </td>
+                                <td>
+                                    <input class="form-control respuestas_actividades money" type="text" name={{'columna_8_'~pa.id}}/>
                                 </td>
                             </tr>
                             {% endfor %}
