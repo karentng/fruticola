@@ -96,7 +96,7 @@ class ListadoRuats extends CI_Controller {
             
             $cls = $item->vtp_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->vtp_id) {
-                $url = site_url("tipoproductor/index/$item->id");
+                $url = site_url("vtp/index/$item->id");
                 $disabled = '';
             } else {
                 $url = "";
