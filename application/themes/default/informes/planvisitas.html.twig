@@ -16,11 +16,11 @@
         {% if notif %}
         notif({{notif|json_encode}});
         {% endif %}
-    
+
         {% if soloLectura %}
         $('input').attr('disabled', 'disabled');
         {% endif %}
-    
+
     });
 </script>
 <script type="text/javascript">
@@ -29,38 +29,38 @@
         $('.money').autoNumeric('init', {
             aSep: '.',
             aDec: ',',
-            mDec:0,
+            mDec: 0,
             wEmpty: 'zero',
             vMin: '0',
         });
-    
+
         $(".money").each(function(index) {
             var valor = $(this).autoNumeric('get');
             $(this).val(valor);
         });
-        
-        $('.respuestas_relacion_visitas').change( function(e){
+
+        $('.respuestas_relacion_visitas').change(function(e) {
             var tabla = 'respuestas_relacion_visitas';
             var columna = 'col' + ($(this).attr('name')).split("_")[1];
-            calcularCol( columna, tabla )       
+            calcularCol(columna, tabla)
         });
 
-        $('.respuestas_visitas').change( function(e){
+        $('.respuestas_visitas').change(function(e) {
             var tabla = 'respuestas_visitas';
             var columna = 'col' + ($(this).attr('name')).split("_")[1];
-            calcularCol( columna, tabla )       
+            calcularCol(columna, tabla)
         });
 
-        $('.respuestas_actividades').change( function(e){
+        $('.respuestas_actividades').change(function(e) {
             var tabla = 'respuestas_actividades';
             var columna = 'col' + ($(this).attr('name')).split("_")[1];
-            calcularCol( columna, tabla )       
+            calcularCol(columna, tabla)
         });
 
         $('form').submit(validarFormulario);
 
     });
- 
+
     function asignarNumeroInput(obj, valor) {
         obj.autoNumeric('set', valor);
     }
@@ -68,40 +68,40 @@
     function obtenerNumeroInput(obj) {
         var value = obj.val();
 
-        if(obj.hasClass('money')) {
+        if (obj.hasClass('money')) {
             ///por alguna razon no llegan inicializados los inputs 
             obj.autoNumeric('init', {
                 aSep: '.',
                 aDec: ',',
-                mDec:0,
+                mDec: 0,
                 wEmpty: 'zero',
                 vMin: '0',
             });
         }
-        
+
         value = obj.autoNumeric('get');
 
         if (isNaN(value) || !value) {
             return 0;
         } else {
             return parseFloat(value);
-        }            
+        }
     }
 
-    function calcularCol( columna, tabla ) {
+    function calcularCol(columna, tabla) {
         var total = 0;
 
-        $('.'+tabla+'.'+columna).each(function() {
+        $('.' + tabla + '.' + columna).each(function() {
             var obj = $(this);
 
             ///El unico readonly debe ser el del total
             if (!obj.is('[readonly]') && obj.val())
                 total += obtenerNumeroInput(obj);
         });
-        
-        asignarNumeroInput($('.'+tabla+'.'+columna+'.total'), total);
+
+        asignarNumeroInput($('.' + tabla + '.' + columna + '.total'), total);
     }
-    
+
     function validarFormulario() {
         $(".money").each(function(index) {
             var valor = $(this).autoNumeric('get');
@@ -111,7 +111,7 @@
         $('#loadingMask').modal();
     }
 
-    
+
 </script>
 
 <script type="text/javascript">
@@ -150,47 +150,71 @@
     var chart = null;
 
     AmCharts.ready(function() {
-        
+
         chartData = getChartData();
-        
+
         var chart = new AmCharts.AmStockChart();
         chart.pathToImages = base_url + "assets/amcharts/images/";
-        
+
         var dataSet = new AmCharts.DataSet();
         dataSet.dataProvider = chartData;
-        
+        dataSet.fieldMappings = [
+            {fromField: "base", toField: "base"},
+            {fromField: "actividad1", toField: "actividad1"},
+            {fromField: "actividad2", toField: "actividad2"},
+        ];
+        dataSet.categoryField = "base";
+        chart.dataSets = [dataSet];
+
+        var stockPanel = new AmCharts.StockPanel();
+        chart.panels = [stockPanel];
+
+        var panelsSettings = new AmCharts.PanelsSettings();
+        panelsSettings.startDuration = 1;
+        chart.panelsSettings = panelsSettings;
+
+        var graph = new AmCharts.StockGraph();
+        graph.valueField = "base";
+        graph.type = "column";
+        graph.fillAlphas = 1;
+        graph.title = "Value"
+
+        stockPanel.addStockGraph(graph);
+
+        chart.write("chartdiv");
+
         /*
-        
-        
-        chart = new AmCharts.AmSerialChart();
-        chart.dataProvider = chartData;
-        chart.categoryField = "base";
-
-        for (var j in actividades) {
-            var valor_actividad = actividades[j];
-
-            var graph = new AmCharts.AmGraph();
-            graph.valueField = valor_actividad;
-            graph.type = "column";
-            graph.fillAlphas = 0.8;
-            graph.title = valor_actividad;
-            graph.balloonText = "[[title]] in [[category]]:<b>[[value]]</b>";
-            chart.addGraph(graph);
-        }
-
-        chart.angle = 30;
-        chart.depth3D = 15;
-        
-        var categoryAxis = chart.categoryAxis;
-        categoryAxis.autoGridCount  = false;
-        categoryAxis.gridCount = chartData.length;
-        categoryAxis.gridPosition = "start";
-        categoryAxis.labelRotation = 90;
-
-        chart.write('chartdiv');
-        
-        $('#botonsito').click(refreshChart);
-        */
+         
+         
+         chart = new AmCharts.AmSerialChart();
+         chart.dataProvider = chartData;
+         chart.categoryField = "base";
+         
+         for (var j in actividades) {
+         var valor_actividad = actividades[j];
+         
+         var graph = new AmCharts.AmGraph();
+         graph.valueField = valor_actividad;
+         graph.type = "column";
+         graph.fillAlphas = 0.8;
+         graph.title = valor_actividad;
+         graph.balloonText = "[[title]] in [[category]]:<b>[[value]]</b>";
+         chart.addGraph(graph);
+         }
+         
+         chart.angle = 30;
+         chart.depth3D = 15;
+         
+         var categoryAxis = chart.categoryAxis;
+         categoryAxis.autoGridCount  = false;
+         categoryAxis.gridCount = chartData.length;
+         categoryAxis.gridPosition = "start";
+         categoryAxis.labelRotation = 90;
+         
+         chart.write('chartdiv');
+         
+         $('#botonsito').click(refreshChart);
+         */
 
     });
 
@@ -250,10 +274,10 @@
                 <li><a href="#reposrte3" data-toggle="tab">REPORTE DE ACTIVIDADES</a></li>
             </ul>
             <div id='' class="tab-content">
-            
+
                 <div class="tab-pane active" id="reporte1">
 
-                        <table class="table table-bordered animate-show-hide">
+                    <table class="table table-bordered animate-show-hide">
                         <thead>
                             <tr>
                                 <th rowspan="2">Actividad</th>
@@ -333,20 +357,20 @@
                             </tr>                            
                         </tbody>
                     </table>
-                    
+
                     <div id="chartdiv" style="width: 1000px; height: 600px;"></div>
 
                 </div>
-                
+
                 <div class="tab-pane" id="reporte2">
 
-                        <table class="table table-bordered animate-show-hide">
+                    <table class="table table-bordered animate-show-hide">
                         <thead>
                             <tr>
                                 <th rowspan="2">Actividad</th>
                                 <th rowspan="2">Total Visitas</th>
                                 <th colspan="7" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
-                             </tr>
+                            </tr>
                             <tr>
                                 <th >5.441 Productores Totales</th>
                                 <th >544 Productores BPA (preestablecidas)</th>
@@ -363,7 +387,7 @@
                                 <td style="text-align: justify;">
                                     {{pa.descripcion}}
                                 </td>
-                                  <td>
+                                <td>
                                     <input class="form-control col1 money respuestas_visitas" type="text" name="{{'columna_1_'~pa.id}}"  readonly/>
                                 </td>
                                 <td>
@@ -418,20 +442,20 @@
                                     <input class="form-control col8 money respuestas_visitas total" type="text" id=""/>
                                 </td>
                             </tr>                            
-                      </tbody>
+                        </tbody>
                     </table>
 
                 </div>
-                
+
                 <div class="tab-pane" id="reposrte3">
 
-                        <table class="table table-bordered animate-show-hide">
+                    <table class="table table-bordered animate-show-hide">
                         <thead>
                             <tr>
                                 <th rowspan="2">Actividad</th>
                                 <th rowspan="2">Total Visitas</th>
                                 <th colspan="7" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
-                             </tr>
+                            </tr>
                             <tr>
                                 <th>5.441 Productores Totales</th>
                                 <th>544 Productores BPA (preestablecidas)</th>
@@ -448,7 +472,7 @@
                                 <td style="text-align: justify;">
                                     {{pa.descripcion}}
                                 </td>
-                                  <td>
+                                <td>
                                     <input class="form-control col1 money respuestas_actividades" type="text" name="{{'columna_1_'~pa.id}}"  readonly/>
                                 </td>
                                 <td>
