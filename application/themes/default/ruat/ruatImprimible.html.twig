@@ -232,8 +232,8 @@
                 <td><b>{{ruat.finca.via_estado.descripcion}}</b></td>
             </tr>
         </table>
-        <br>
-        {% if ruat.finca.residuos_ordinarios is not null or ruat.finca.residuos_peligrosos is not null or ruat.finca.residuos_otro is not null%}     
+        {% if ruat.finca.residuos_ordinarios is not null or ruat.finca.residuos_peligrosos is not null or ruat.finca.residuos_otro is not null%}
+        <br>     
         <table border="3"> 
             <tr>
                 <td align="center" colspan="2"><b>Manejo de Programa de Residuos </b></td>
@@ -278,8 +278,8 @@
                 <td colspan="6"><b>{{ruat.finca.forma_llegar}}</b></td>
             </tr>
         </table>
-        <br>
-        {% if ruat.finca.finca_maquinaria is not empty %}     
+        {% if ruat.finca.finca_maquinaria is not empty %} 
+        <br>    
         <table border="3"> 
             <tr>
                 <td align="center" colspan="2"><b>Maquinaria y equipo para la realización de actividades productivas y comercialización</b></td>
@@ -316,8 +316,8 @@
             <tr>
                 <td>{{producto.nombre}}</td>
                 <td>{{producto.variedad}}</td>
-                <td>{{producto.semilla_certificada}}</td>
-                <td>{{producto.area_cosechada}}</td>
+                <td>{{producto.semilla.descripcion}}</td>
+                <td align="center">{{producto.area_cosechada}}</td>
                 <td>{{producto.prod_semestre_a}}</td>
                 <td>{{producto.prod_semestre_b}}</td>
                 <td>{{producto.prod_semestre_a + producto.prod_semestre_b}}</td>
@@ -342,18 +342,61 @@
             <tr>
                 <td>{{producto.costo_establecimiento}}</td>
                 <td>{{producto.costo_sostenimiento}}</td>
-                <td>{{producto.prod_mercado}}</td>
-                <td>{{producto.sitio_venta_id}}</td>
-                <td>{{producto.vende_tipo_id}}</td>
+                <td align="center">{{producto.prod_mercado}}</td>
+                <td>{{producto.sitio_venta.descripcion}}</td>
+                <td>{{producto.vende_tipo.descripcion}}</td>
                 <td>{{producto.vende_nombre}}</td>
             </tr>
             {% endfor %}
         </table>
-
+        <br>
+        <table border="3">
+            <tr>
+                <td align="center" rowspan="2"><b>Precio de Venta</b></td>
+                <td align="center" rowspan="2"><b>Forma de Pago</b></td>
+                <td align="center" colspan="2"><b>SubProductos del Cultivo</b></td>
+                <td align="center" colspan="2"><b>Pertenencia a Programas de Asistencia Técnicae</b></td>
+            </tr>
+            <tr>
+                <td align="center"><b>Cúal</b></td>
+                <td align="center"><b>Uso</b></td>
+                <td align="center"><b>Programa</b></td>
+                <td align="center"><b>Entidad</b></td>
+            </tr>
+            {% for producto in ruat.producto %}
+            <tr>
+                <td>{{producto.precio_promedio}}</td>
+                <td>{{producto.forma_pago.descripcion}}</td>
+                <td>{{producto.subproducto}}</td>
+                <td>{{producto.subproducto_uso}}</td>
+                <td>{{producto.asistencia_programa}}</td>
+                <td>{{producto.asistencia_entidad}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
         {% else %}
         <h4 style="font-weight:normal">No hay productos con perspectiva comercial.</h4>
-
         {% endif %}
+
+        <h3>Georreferenciación del Predio de Ubicación del Cultivo:</h3>
+        <table>
+            <tr>
+                <td>Latitud Norte (N):</td>
+                <td><b>{{ruat.finca.geo_latitud |number_format(6, ',', '')}}</b></td>
+                <td>Longitud Occidente (W):</td>
+                <td><b>{{ruat.finca.geo_longitud |number_format(6, ',', '')}}</b></td>
+                <td>Altura Sobre el Nivel del Mar:</td>
+                <td><b>{{ruat.finca.geo_altura}}</b></td>
+            </tr>
+        </table>
+
+        <h3>OBSERVACIONES</h3>
+        <table>
+            <tr>
+                <td>{{ruat.observacion.observacion}}</td>
+            </tr>
+        </table>
 
     </body>
 
