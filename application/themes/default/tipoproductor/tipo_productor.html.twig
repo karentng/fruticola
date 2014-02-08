@@ -76,7 +76,7 @@
         var objBeneficioCosto = $('.respuestas_c_totales').last();//ultimo de dos
         
         if (utilidad)
-            asignarNumeroInput(objBeneficioCosto, total_ingresos / utilidad );
+            objBeneficioCosto.val( (total_ingresos / utilidad).toFixed(2) );
     }
 
 
@@ -494,7 +494,11 @@
                                 {{form_error('pregunta_c_'~pa.id)}}
                             </td>
                             <td>
-                                <input type="text" class="money form-control respuestas_c_totales {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}} />
+                                {% if loop.last%}
+                                    <input type="text" class="form-control respuestas_c_totales {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}  style="text-align: right;"/>
+                                {% else %}
+                                    <input type="text" class="money form-control respuestas_c_totales {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}   
