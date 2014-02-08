@@ -21,6 +21,11 @@ class Ruat extends MyModel
         array('finca', 'class_name'=>'Finca', 'foreign_key' => 'ruat_id'),
     );
 
+    static $has_many = array(
+        array('razones', 'class_name'=>'RazonNoPertenecer', 'foreign_key' => 'ruat_id'),
+        array('producto', 'class_name'=>'Producto', 'foreign_key'=> 'ruat_id')
+    );
+
     public function eliminar()
     {
         function cond($field, $value) {

@@ -13,6 +13,8 @@ class Finca extends MyModel
     );
 
     static $has_many = array(
-        array('finca_servicio', 'class_name'=>'FincaServicio', 'foreign_key' => 'finca_id')
+        array('finca_servicio', 'class_name'=>'FincaServicio', 'foreign_key' => 'finca_id'),
+        array('finca_transporte', 'class_name'=>'FincaTransporte', 'foreign_key' => 'finca_id'),
+        array('finca_maquinaria', 'class_name'=>'FincaMaquinaria', 'foreign_key' => 'finca_id')
     );
 }

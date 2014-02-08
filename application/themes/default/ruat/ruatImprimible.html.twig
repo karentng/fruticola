@@ -101,8 +101,26 @@
         <h4 style="font-weight:normal">No hay procesos de transferencia e innovación.</h4>
         {% endif %}
 
-        <h3>A5 Asociatividad del Usuario:</h3> 
+        <h3>A5 Asociatividad del Usuario:</h3>  
 
+        {% if ruat.asociacion.periodicidad_id is null %}
+        <table>
+            <tr>
+                <td>Razones de no pertenecer:</td>
+                {% for razon in ruat.razones %}
+                <td><b>{{razon.tipo_razon.descripcion}}, </b></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Entidades a las que no que esté asociado pero que presten apoyo:</td>
+                {% for entidad in organizaciones %}
+                <td><b>{{entidad}}, </b></td>
+                {% endfor %}
+            </tr>
+        </table>
+        {% else %}
+            <h4 style="font-weight:normal">No hay razones de no pertenecer a una asociación ni entidades que presten apoyo.</h4>
+        {% endif %}
         {% if ruat.asociacion.periodicidad_id is not null %}     
         <table border="3"> 
             <tr>
@@ -178,16 +196,16 @@
         <table> 
             <tr>
                 <td>Nombre de la Finca: </td>
-                <td><b>{{ruat.finca.nombre}}</b></td>
+                <td colspan="2"><b>{{ruat.finca.nombre}}</b></td>
                 <td>Identificación Catastral: </td>
-                <td><b>{{ruat.finca.identif_catastral}}</b></td>
+                <td colspan="2"><b>{{ruat.finca.identif_catastral}}</b></td>
                 <td>Tenencia:</td>
-                <td><b>{{ruat.finca.tenencia.descripcion}}</b></td>
+                <td colspan="2"><b>{{ruat.finca.tenencia.descripcion}}</b></td>
             </tr>
             <tr>
                 <td>Departamento: </td>
                 <td colspan="2"><b>{{ruat.finca.municipio.departamento.nombre}}</b></td>
-                <td align="right">Municipio: </td>
+                <td >Municipio: </td>
                 <td colspan="2"><b>{{ruat.finca.municipio.nombre}}</b></td>
                 <td>Vereda: </td>
                 <td colspan="3"><b>{{ruat.finca.vereda}}</b></td>
@@ -199,8 +217,8 @@
                 <td><b>{{ruat.finca.area_total |number_format(2, ',', '')}}</b></td>
             </tr>
             <tr>
-                <td rowspan="2" >Disponibilidad de Servicios Públicos:</td>
-                <td rowspan="2" colspan="6">
+                <td >Disponibilidad de Servicios Públicos:</td>
+                <td colspan="6">
                 {% for servicio in ruat.finca.finca_servicio %}
                     <b>{{servicio.tipo_servicio.descripcion}}</b>,
                 {% endfor %}
@@ -214,6 +232,128 @@
                 <td><b>{{ruat.finca.via_estado.descripcion}}</b></td>
             </tr>
         </table>
+        <br>
+        {% if ruat.finca.residuos_ordinarios is not null or ruat.finca.residuos_peligrosos is not null or ruat.finca.residuos_otro is not null%}     
+        <table border="3"> 
+            <tr>
+                <td align="center" colspan="2"><b>Manejo de Programa de Residuos </b></td>
+            </tr>
+            {% if ruat.finca.residuos_ordinarios is not null %}
+            <tr>
+                <td>Ordinarios</td>
+                <td>{{ruat.finca.residuos_ordinarios}}</td>
+            </tr>
+            {% endif %} 
+            {% if ruat.finca.residuos_peligrosos is not null %}
+            <tr>
+                <td>Peligrosos</td>
+                <td>{{ruat.finca.residuos_peligrosos}}</td>
+            </tr>
+            {% endif %}
+            {% if ruat.finca.residuos_otro is not null %}
+            <tr>
+                <td>Otro</td>
+                <td>{{ruat.finca.residuos_otro}}</td>
+            </tr>
+            {% endif %}
+        </table>
+        {% else %}
+        <h4 style="font-weight:normal">No hay manejo de residuos.</h4>
+        {% endif %}
+        <br>
+        <table> 
+            <tr>
+                <td >Distancia de la finca a la cabecera municipal: </td>
+                <td ><b>{{ruat.finca.dist_cabecera_mpal |number_format(2, ',', '')}}</b></td>
+            
+                <td >Medios de Transporte: </td>
+                <td colspan="4">
+                {% for transporte in ruat.finca.finca_transporte %}
+                <b>{{transporte.tipo_transporte.descripcion}}, </b>
+                {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Forma de llegar al predio: </td>
+                <td colspan="6"><b>{{ruat.finca.forma_llegar}}</b></td>
+            </tr>
+        </table>
+        <br>
+        {% if ruat.finca.finca_maquinaria is not empty %}     
+        <table border="3"> 
+            <tr>
+                <td align="center" colspan="2"><b>Maquinaria y equipo para la realización de actividades productivas y comercialización</b></td>
+            </tr>
+            {% for maquina in ruat.finca.finca_maquinaria %}
+            <tr>
+                <td>{{maquina.tipo_maquinaria.descripcion}}</td>
+                <td>{{maquina.descripcion}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        {% else %}
+        <h4 style="font-weight:normal">No hay manejo de maquinaria.</h4>
+        {% endif %}
+        
+        <h3>B2 Productos Agropecuarios:</h3> 
+
+        {% if ruat.producto is not empty %}
+        <table border="3">
+            <tr>
+                <td align="center" rowspan="2"><b>Producto</b></td>
+                <td align="center" rowspan="2"><b>Variedad</b></td>
+                <td align="center" rowspan="2"><b>Semilla</b></td>
+                <td align="center" rowspan="2"><b>Área Cosechada</b></td>
+                <td align="center" colspan="3"><b>Producción Total (kilos/año)</b></td>
+            </tr>
+            <tr>
+                <td align="center"><b>Semestre A</b></td>
+                <td align="center"><b>Semestre B</b></td>
+                <td align="center"><b>Total</b></td>
+            </tr>
+            {% for producto in ruat.producto %}
+            <tr>
+                <td>{{producto.nombre}}</td>
+                <td>{{producto.variedad}}</td>
+                <td>{{producto.semilla_certificada}}</td>
+                <td>{{producto.area_cosechada}}</td>
+                <td>{{producto.prod_semestre_a}}</td>
+                <td>{{producto.prod_semestre_b}}</td>
+                <td>{{producto.prod_semestre_a + producto.prod_semestre_b}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <table border="3">
+            <tr>
+                <td align="center" colspan="2"><b>Costos</b></td>
+                <td align="center" rowspan="2"><b>Producción destinada al mercado</b></td>
+                <td align="center" rowspan="2"><b>Sitio Venta</b></td>
+                <td align="center" colspan="2"><b>A quien le vende</b></td>
+            </tr>
+            <tr>
+                <td align="center"><b>Establecimiento</b></td>
+                <td align="center"><b>Sostenimiento</b></td>
+                <td align="center"><b>Tipo</b></td>
+                <td align="center"><b>Nombre y Apellido</b></td>
+            </tr>
+            {% for producto in ruat.producto %}
+            <tr>
+                <td>{{producto.costo_establecimiento}}</td>
+                <td>{{producto.costo_sostenimiento}}</td>
+                <td>{{producto.prod_mercado}}</td>
+                <td>{{producto.sitio_venta_id}}</td>
+                <td>{{producto.vende_tipo_id}}</td>
+                <td>{{producto.vende_nombre}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% else %}
+        <h4 style="font-weight:normal">No hay productos con perspectiva comercial.</h4>
+
+        {% endif %}
 
     </body>
 
