@@ -1,12 +1,9 @@
 {% extends "base.html.twig" %}
 {% block html_head %}
 
-<link rel="stylesheet" href="{{ base_url('assets/amcharts/style.css') }}" type="text/css">
-
 <script src="{{ base_url('assets/js/autoNumeric.js')}}"></script>
 <script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
 <script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
-<script src="{{ base_url('assets/amcharts/amstock.js') }}" type="text/javascript"></script>
 
 <style>
     .money { text-align: right;}
@@ -152,72 +149,21 @@
 
     AmCharts.ready(function() {
 
-
-        /*
-         
-         
-         var chart = new AmCharts.AmStockChart();
-         chart.pathToImages = base_url + "assets/amcharts/images/";
-         
-         var dataSet = new AmCharts.DataSet();
-         dataSet.dataProvider = chartData;
-         dataSet.fieldMappings = [
-         {fromField: "base", toField: "base"},
-         {fromField: "actividad1", toField: "actividad1"},
-         {fromField: "actividad2", toField: "actividad2"},
-         ];
-         dataSet.categoryField = "base";
-         chart.dataSets = [dataSet];
-         
-         var stockPanel = new AmCharts.StockPanel();
-         chart.panels = [stockPanel];
-         
-         var panelsSettings = new AmCharts.PanelsSettings();
-         panelsSettings.startDuration = 1;
-         chart.panelsSettings = panelsSettings;
-         
-         var graph = new AmCharts.StockGraph();
-         graph.valueField = "base";
-         graph.type = "column";
-         graph.fillAlphas = 1;
-         graph.title = "Value"
-         
-         stockPanel.addStockGraph(graph);
-         
-         chart.write("chartdiv");
-         */
-
-
-
         chartData = getChartData();
-        
+
         chart = new AmCharts.AmSerialChart();
-        chart.rotate = true
         chart.dataProvider = chartData;
         chart.categoryField = "base";
-        chart.legend = {
-            "horizontalGap": 10,
-            "maxColumns": 1,
-            "position": "right",
-            "useGraphSettings": true,
-            "markerSize": 10
-        }
-        chart.valueAxes = [{
-                "stackType": "regular",
-                "axisAlpha": 0.3,
-                "gridAlpha": 0
-            }]
-        for (var j in actividades) {
-            var valor_actividad = actividades[j];
 
-            var graph = new AmCharts.AmGraph();
-            graph.valueField = valor_actividad;
-            graph.type = "column";
-            graph.fillAlphas = 0.8;
-            graph.title = valor_actividad;
-            graph.balloonText = "[[title]] in [[category]]:<b>[[value]]</b>";
-            chart.addGraph(graph);
-        }
+
+        var graph = new AmCharts.AmGraph();
+        graph.valueField = 'actividad';
+        graph.type = "column";
+        graph.fillAlphas = 0.8;
+        graph.title = 'Actividad'; /// TODO: consultar el nombre de la actividad
+        graph.balloonText = "[[title]] in [[category]]:<b>[[value]]</b>";
+        chart.addGraph(graph);
+
 
         chart.angle = 30;
         chart.depth3D = 15;
@@ -230,23 +176,23 @@
 
         chart.write('chartdiv');
 
-        $('#botonsito').click(refreshChart);
-
-
     });
 
-    function getChartData() {
+  function getChartData(actividad) {
 
+        actividad = actividad || 0;/// Actividad por defecto
+        
         var chartData = [];
 
         for (var i in base) {
             var valor_base = base[i];
+            var input = '#columna_' + i + '_' + actividad;
+            console.log(input+': '+$(input).val());
             var obj = {
-                base: valor_base
-            }
-            for (var j in actividades) {
-                var valor_actividad = actividades[j];
-                obj[valor_actividad] = Math.round(Math.random() * 100);
+                base: valor_base,
+                /// TODO: cambiar para buscar en los inputs segun la actividad
+                
+                actividad: $(input).val()
             }
 
             chartData.push(obj);
@@ -257,7 +203,9 @@
     }
 
     function refreshChart() {
-        chart.dataProvider = getChartData();
+        ///consulto cual actividad mostrar, en el select
+        var actividad = $('#select_chart').val();
+        chart.dataProvider = getChartData(actividad);
         chart.validateData();
     }
 
@@ -297,18 +245,20 @@
                     <table class="table table-bordered animate-show-hide">
                         <thead>
                             <tr>
-                                <th rowspan="2">Actividad</th>
-                                <th rowspan="2">Total Visitas</th>
-                                <th colspan="7" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
+                                <th rowspan="2">Actividades</th>
+                                <th rowspan="2">{{nombres_columnas.columna_1}}</th>
+                                <th colspan="10" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
                             </tr>
                             <tr>
-                                <th>5.441 Productores Totales</th>
-                                <th>544 Productores BPA (preestablecidas)</th>
-                                <th>2.176 Productores CREDITO (promedio definidas)</th>
-                                <th>891 Productores PIÑA (grupales)</th>
-                                <th>100 Productores MANGO (grupales)</th>
-                                <th>250 Productores FRESA (grupales)</th>
-                                <th>600 Productores MORA (grupales)</th>
+                                <th>{{nombres_columnas.columna_2}}</th>
+                                <th>{{nombres_columnas.columna_3}}</th>
+                                <th>{{nombres_columnas.columna_4}}</th>
+                                <th>{{nombres_columnas.columna_5}}</th>
+                                <th>{{nombres_columnas.columna_6}}</th>
+                                <th>{{nombres_columnas.columna_7}}</th>
+                                <th>{{nombres_columnas.columna_8}}</th>
+                                <th>{{nombres_columnas.columna_9}}</th>
+                                <th>{{nombres_columnas.columna_10}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -318,28 +268,34 @@
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control col1 money respuestas_relacion_visitas" type="text" name="{{'columna_1_'~pa.id}}"  readonly/>
+                                    <input class="form-control col1 money respuestas_relacion_visitas" type="text" name="{{'columna_1_'~pa.id}}" id="{{'columna_1_'~pa.id}}" value="{{set_value('columna_1_'~pa.id}}, respuestas_bd_input['columna_1_'~pa.id]}}" readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control col2 money respuestas_relacion_visitas" type="text" name="{{'columna_2_'~pa.id}}"/>
+                                    <input class="form-control col2 money respuestas_relacion_visitas" type="text" name="{{'columna_2_'~pa.id}}" id="{{'columna_2_'~pa.id}}" value="{{set_value('columna_2_'~pa.id}}, respuestas_bd_input['columna_2_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col3 money respuestas_relacion_visitas" type="text" name="{{'columna_3_'~pa.id}}"/>
+                                    <input class="form-control col3 money respuestas_relacion_visitas" type="text" name="{{'columna_3_'~pa.id}}" id="{{'columna_3_'~pa.id}}" value="{{set_value('columna_3_'~pa.id}}, respuestas_bd_input['columna_3_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col4 money respuestas_relacion_visitas" type="text" name="{{'columna_4_'~pa.id}}"/>
+                                    <input class="form-control col4 money respuestas_relacion_visitas" type="text" name="{{'columna_4_'~pa.id}}" id="{{'columna_4_'~pa.id}}" value="{{set_value('columna_4_'~pa.id}}, respuestas_bd_input['columna_4_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col5 money respuestas_relacion_visitas" type="text" name="{{'columna_5_'~pa.id}}"/>
+                                    <input class="form-control col5 money respuestas_relacion_visitas" type="text" name="{{'columna_5_'~pa.id}}" id="{{'columna_5_'~pa.id}}" value="{{set_value('columna_5_'~pa.id}}, respuestas_bd_input['columna_5_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col6 money respuestas_relacion_visitas" type="text" name="{{'columna_6_'~pa.id}}"/>
+                                    <input class="form-control col6 money respuestas_relacion_visitas" type="text" name="{{'columna_6_'~pa.id}}" id="{{'columna_6_'~pa.id}}" value="{{set_value('columna_6_'~pa.id}}, respuestas_bd_input['columna_6_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col7 money respuestas_relacion_visitas" type="text" name="{{'columna_7_'~pa.id}}"/>
+                                    <input class="form-control col7 money respuestas_relacion_visitas" type="text" name="{{'columna_7_'~pa.id}}" id="{{'columna_7_'~pa.id}}" value="{{set_value('columna_7_'~pa.id}}, respuestas_bd_input['columna_7_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col8 money respuestas_relacion_visitas" type="text" name="{{'columna_8_'~pa.id}}"/>
+                                    <input class="form-control col8 money respuestas_relacion_visitas" type="text" name="{{'columna_8_'~pa.id}}" id="{{'columna_8_'~pa.id}}" value="{{set_value('columna_8_'~pa.id}}, respuestas_bd_input['columna_8_'~pa.id]}}"/>
+                                </td>
+                                <td>
+                                    <input class="form-control col9 money respuestas_relacion_visitas" type="text" name="{{'columna_9_'~pa.id}}" id="{{'columna_9_'~pa.id}}" value="{{set_value('columna_9_'~pa.id}}, respuestas_bd_input['columna_9_'~pa.id]}}"/>
+                                </td>
+                                <td>
+                                    <input class="form-control col10 money respuestas_relacion_visitas" type="text" name="{{'columna_10_'~pa.id}}" id="{{'columna_10_'~pa.id}}" value="{{set_value('columna_10_'~pa.id}}, respuestas_bd_input['columna_10_'~pa.id]}}"/>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -369,14 +325,27 @@
                                     <input class="form-control col7 money respuestas_relacion_visitas total" type="text" readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control col8 money respuestas_relacion_visitas total" type="text" id=""/>
+                                    <input class="form-control col8 money respuestas_relacion_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col9 money respuestas_relacion_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col10 money respuestas_relacion_visitas total" type="text" readonly/>
                                 </td>
                             </tr>                            
                         </tbody>
                     </table>
 
-                    <div id="chartdiv" style="width: 1000px; height: 600px;"></div>
-
+                    <select id="select_chart" name="select_chart">
+                        <option value="0">Totales</option>
+                    
+                        {% for pa in respuestas_relacion_visitas %}
+                            <option value="{{pa.id}}">{{pa.descripcion}}</option>
+                        {% endfor %}
+                                            
+                    </select>
+                    <div id="chartdiv" style="width: 100%; height: 600px;"></div>
                 </div>
 
                 <div class="tab-pane" id="reporte2">
@@ -384,18 +353,20 @@
                     <table class="table table-bordered animate-show-hide">
                         <thead>
                             <tr>
-                                <th rowspan="2">Actividad</th>
-                                <th rowspan="2">Total Visitas</th>
-                                <th colspan="7" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
+                                <th rowspan="2">Actividades</th>
+                                <th rowspan="2">{{nombres_columnas.columna_1}}</th>
+                                <th colspan="10" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
                             </tr>
                             <tr>
-                                <th >5.441 Productores Totales</th>
-                                <th >544 Productores BPA (preestablecidas)</th>
-                                <th >2.176 Productores CREDITO (promedio definidas)</th>
-                                <th >891 Productores PIÑA (grupales)</th>
-                                <th >100 Productores MANGO (grupales)</th>
-                                <th >250 Productores FRESA (grupales)</th>
-                                <th >600 Productores MORA (grupales)</th>
+                                <th>{{nombres_columnas.columna_2}}</th>
+                                <th>{{nombres_columnas.columna_3}}</th>
+                                <th>{{nombres_columnas.columna_4}}</th>
+                                <th>{{nombres_columnas.columna_5}}</th>
+                                <th>{{nombres_columnas.columna_6}}</th>
+                                <th>{{nombres_columnas.columna_7}}</th>
+                                <th>{{nombres_columnas.columna_8}}</th>
+                                <th>{{nombres_columnas.columna_9}}</th>
+                                <th>{{nombres_columnas.columna_10}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -405,28 +376,34 @@
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control col1 money respuestas_visitas" type="text" name="{{'columna_1_'~pa.id}}"  readonly/>
+                                    <input class="form-control col1 money respuestas_visitas" type="text" name="{{'columna_1_'~pa.id}}" id="{{'columna_1_'~pa.id}}" value="{{set_value('columna_1_'~pa.id}}, respuestas_bd_input['columna_1_'~pa.id]}}" readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control col2 money respuestas_visitas" type="text" name="{{'columna_2_'~pa.id}}"/>
+                                    <input class="form-control col2 money respuestas_visitas" type="text" name="{{'columna_2_'~pa.id}}" id="{{'columna_2_'~pa.id}}" value="{{set_value('columna_2_'~pa.id}}, respuestas_bd_input['columna_2_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col3 money respuestas_visitas" type="text" name="{{'columna_3_'~pa.id}}"/>
+                                    <input class="form-control col3 money respuestas_visitas" type="text" name="{{'columna_3_'~pa.id}}" id="{{'columna_3_'~pa.id}}" value="{{set_value('columna_3_'~pa.id}}, respuestas_bd_input['columna_3_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col4 money respuestas_visitas" type="text" name="{{'columna_4_'~pa.id}}"/>
+                                    <input class="form-control col4 money respuestas_visitas" type="text" name="{{'columna_4_'~pa.id}}" id="{{'columna_4_'~pa.id}}" value="{{set_value('columna_4_'~pa.id}}, respuestas_bd_input['columna_4_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col5 money respuestas_visitas" type="text" name="{{'columna_5_'~pa.id}}"/>
+                                    <input class="form-control col5 money respuestas_visitas" type="text" name="{{'columna_5_'~pa.id}}" id="{{'columna_5_'~pa.id}}" value="{{set_value('columna_5_'~pa.id}}, respuestas_bd_input['columna_5_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col6 money respuestas_visitas" type="text" name="{{'columna_6_'~pa.id}}"/>
+                                    <input class="form-control col6 money respuestas_visitas" type="text" name="{{'columna_6_'~pa.id}}" id="{{'columna_6_'~pa.id}}" value="{{set_value('columna_6_'~pa.id}}, respuestas_bd_input['columna_6_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col7 money respuestas_visitas" type="text" name="{{'columna_7_'~pa.id}}"/>
+                                    <input class="form-control col7 money respuestas_visitas" type="text" name="{{'columna_7_'~pa.id}}" id="{{'columna_7_'~pa.id}}" value="{{set_value('columna_7_'~pa.id}}, respuestas_bd_input['columna_7_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col8 money respuestas_visitas" type="text" name="{{'columna_8_'~pa.id}}"/>
+                                    <input class="form-control col8 money respuestas_visitas" type="text" name="{{'columna_8_'~pa.id}}" id="{{'columna_8_'~pa.id}}" value="{{set_value('columna_8_'~pa.id}}, respuestas_bd_input['columna_8_'~pa.id]}}"/>
+                                </td>
+                                <td>
+                                    <input class="form-control col9 money respuestas_visitas" type="text" name="{{'columna_9_'~pa.id}}" id="{{'columna_9_'~pa.id}}" value="{{set_value('columna_9_'~pa.id}}, respuestas_bd_input['columna_9_'~pa.id]}}"/>
+                                </td>
+                                <td>
+                                    <input class="form-control col10 money respuestas_visitas" type="text" name="{{'columna_10_'~pa.id}}" id="{{'columna_10_'~pa.id}}" value="{{set_value('columna_10_'~pa.id}}, respuestas_bd_input['columna_10_'~pa.id]}}"/>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -456,7 +433,13 @@
                                     <input class="form-control col7 money respuestas_visitas total" type="text" readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control col8 money respuestas_visitas total" type="text" id=""/>
+                                    <input class="form-control col8 money respuestas_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col9 money respuestas_visitas total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col10 money respuestas_visitas total" type="text" readonly/>
                                 </td>
                             </tr>                            
                         </tbody>
@@ -469,18 +452,20 @@
                     <table class="table table-bordered animate-show-hide">
                         <thead>
                             <tr>
-                                <th rowspan="2">Actividad</th>
-                                <th rowspan="2">Total Visitas</th>
-                                <th colspan="7" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
+                                <th rowspan="2">Actividades</th>
+                                <th rowspan="2">{{nombres_columnas.columna_1}}</th>
+                                <th colspan="10" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
                             </tr>
                             <tr>
-                                <th>5.441 Productores Totales</th>
-                                <th>544 Productores BPA (preestablecidas)</th>
-                                <th>2.176 Productores CREDITO (promedio definidas)</th>
-                                <th>891 Productores PIÑA (grupales)</th>
-                                <th>100 Productores MANGO (grupales)</th>
-                                <th>250 Productores FRESA (grupales)</th>
-                                <th>600 Productores MORA (grupales)</th>
+                                <th>{{nombres_columnas.columna_2}}</th>
+                                <th>{{nombres_columnas.columna_3}}</th>
+                                <th>{{nombres_columnas.columna_4}}</th>
+                                <th>{{nombres_columnas.columna_5}}</th>
+                                <th>{{nombres_columnas.columna_6}}</th>
+                                <th>{{nombres_columnas.columna_7}}</th>
+                                <th>{{nombres_columnas.columna_8}}</th>
+                                <th>{{nombres_columnas.columna_9}}</th>
+                                <th>{{nombres_columnas.columna_10}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -490,28 +475,34 @@
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control col1 money respuestas_actividades" type="text" name="{{'columna_1_'~pa.id}}"  readonly/>
+                                    <input class="form-control col1 money respuestas_actividades" type="text" name="{{'columna_1_'~pa.id}}" id="{{'columna_1_'~pa.id}}" value="{{set_value('columna_1_'~pa.id}}, respuestas_bd_input['columna_1_'~pa.id]}}" readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control col2 money respuestas_actividades" type="text" name="{{'columna_2_'~pa.id}}"/>
+                                    <input class="form-control col2 money respuestas_actividades" type="text" name="{{'columna_2_'~pa.id}}" id="{{'columna_2_'~pa.id}}" value="{{set_value('columna_2_'~pa.id}}, respuestas_bd_input['columna_2_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col3 money respuestas_actividades" type="text" name="{{'columna_3_'~pa.id}}"/>
+                                    <input class="form-control col3 money respuestas_actividades" type="text" name="{{'columna_3_'~pa.id}}" id="{{'columna_3_'~pa.id}}" value="{{set_value('columna_3_'~pa.id}}, respuestas_bd_input['columna_3_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col4 money respuestas_actividades" type="text" name="{{'columna_4_'~pa.id}}"/>
+                                    <input class="form-control col4 money respuestas_actividades" type="text" name="{{'columna_4_'~pa.id}}" id="{{'columna_4_'~pa.id}}" value="{{set_value('columna_4_'~pa.id}}, respuestas_bd_input['columna_4_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col5 money respuestas_actividades" type="text" name="{{'columna_5_'~pa.id}}"/>
+                                    <input class="form-control col5 money respuestas_actividades" type="text" name="{{'columna_5_'~pa.id}}" id="{{'columna_5_'~pa.id}}" value="{{set_value('columna_5_'~pa.id}}, respuestas_bd_input['columna_5_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col6 money respuestas_actividades" type="text" name="{{'columna_6_'~pa.id}}"/>
+                                    <input class="form-control col6 money respuestas_actividades" type="text" name="{{'columna_6_'~pa.id}}" id="{{'columna_6_'~pa.id}}" value="{{set_value('columna_6_'~pa.id}}, respuestas_bd_input['columna_6_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col7 money respuestas_actividades" type="text" name="{{'columna_7_'~pa.id}}"/>
+                                    <input class="form-control col7 money respuestas_actividades" type="text" name="{{'columna_7_'~pa.id}}" id="{{'columna_7_'~pa.id}}" value="{{set_value('columna_7_'~pa.id}}, respuestas_bd_input['columna_7_'~pa.id]}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col8 money respuestas_actividades" type="text" name="{{'columna_8_'~pa.id}}"/>
+                                    <input class="form-control col8 money respuestas_actividades" type="text" name="{{'columna_8_'~pa.id}}" id="{{'columna_8_'~pa.id}}" value="{{set_value('columna_8_'~pa.id}}, respuestas_bd_input['columna_8_'~pa.id]}}"/>
+                                </td>
+                                <td>
+                                    <input class="form-control col9 money respuestas_actividades" type="text" name="{{'columna_9_'~pa.id}}" id="{{'columna_9_'~pa.id}}" value="{{set_value('columna_9_'~pa.id}}, respuestas_bd_input['columna_9_'~pa.id]}}"/>
+                                </td>
+                                <td>
+                                    <input class="form-control col10 money respuestas_actividades" type="text" name="{{'columna_10_'~pa.id}}" id="{{'columna_10_'~pa.id}}" value="{{set_value('columna_10_'~pa.id}}, respuestas_bd_input['columna_10_'~pa.id]}}"/>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -541,7 +532,13 @@
                                     <input class="form-control col7 money respuestas_actividades total" type="text" readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control col8 money respuestas_actividades total" type="text" id=""/>
+                                    <input class="form-control col8 money respuestas_actividades total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col9 money respuestas_actividades total" type="text" readonly/>
+                                </td>
+                                <td>
+                                    <input class="form-control col10 money respuestas_actividades total" type="text" readonly/>
                                 </td>
                             </tr>  
                         </tbody>

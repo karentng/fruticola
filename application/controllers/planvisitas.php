@@ -24,7 +24,7 @@ class PlanVisitas extends CI_Controller {
         ///consulto las respuestas si existen en la BD (edicion)
         $respuestas_bd_aux = RespuestaActividadVisita::all();
         
-        var_dump(count($respuestas_bd_aux));
+        //var_dump(count($respuestas_bd_aux));
         ///las acomodo para poder acceder mas facil a cada input
         $respuestas_bd_input = $respuestas_bd = array();
         foreach ($respuestas_bd_aux as $obj) {
@@ -70,15 +70,22 @@ class PlanVisitas extends CI_Controller {
             }
         }
 
-        $this->twiggy->set('usuaioSesion', $usuaRioSesion);
+        $nombres_columnas['columna_1'] = 'Total Visitas-Meta';
+        $nombres_columnas['columna_2'] = 'Avance Productores';
+        $nombres_columnas['columna_3'] = 'Corte Diciembre 2013';
+        $nombres_columnas['columna_4'] = 'Ene-14';
+        $nombres_columnas['columna_5'] = 'Feb-14';
+        $nombres_columnas['columna_6'] = 'Mar-14';
+        $nombres_columnas['columna_7'] = 'Abr-14';
+        $nombres_columnas['columna_8'] = 'May-14';
+        $nombres_columnas['columna_9'] = 'Jun-14';
+        $nombres_columnas['columna_10'] = 'Jul-14';
+
+        // Aunque el nombre es "respuestas" referencian las preguntas
         $this->twiggy->set('respuestas_relacion_visitas', $respuestas_relacion_visitas);
         $this->twiggy->set('respuestas_visitas', $respuestas_visitas);
         $this->twiggy->set('respuestas_actividades', $respuestas_actividades);
-
-
-        $this->twiggy->set('preguntas_relacion_visitas', $preguntas_relacion_visitas);
-        $this->twiggy->set('preguntas_visitas', $preguntas_visitas);
-        $this->twiggy->set('preguntas_actividades', $preguntas_actividades);
+        $this->twiggy->set('nombres_columnas', $nombres_columnas);
         $this->twiggy->set('respuestas_bd_input', $respuestas_bd_input);
 
         $this->twiggy->template("informes/planvisitas");
