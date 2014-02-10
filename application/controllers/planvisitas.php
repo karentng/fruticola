@@ -15,15 +15,18 @@ class PlanVisitas extends CI_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
 
+        function to_array($model) {
+            return $model->to_array();
+        }
 
-        $respuestas_relacion_visitas = TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 1)));
-        $respuestas_visitas = TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 2)));
-        $respuestas_actividades = TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 3)));
+        $respuestas_relacion_visitas = array_map('to_array', TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 1))));
+        $respuestas_visitas = array_map('to_array', TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 2))));
+        $respuestas_actividades = array_map('to_array', TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 3))));
 
 
         ///consulto las respuestas si existen en la BD (edicion)
         $respuestas_bd_aux = RespuestaActividadVisita::all();
-        
+
         //var_dump(count($respuestas_bd_aux));
         ///las acomodo para poder acceder mas facil a cada input
         $respuestas_bd_input = $respuestas_bd = array();
@@ -37,13 +40,15 @@ class PlanVisitas extends CI_Controller {
             $respuestas_bd_input['columna_6_' . $obj->id] = $obj->columna6;
             $respuestas_bd_input['columna_7_' . $obj->id] = $obj->columna7;
             $respuestas_bd_input['columna_8_' . $obj->id] = $obj->columna8;
+            $respuestas_bd_input['columna_7_' . $obj->id] = $obj->columna9;
+            $respuestas_bd_input['columna_8_' . $obj->id] = $obj->columna10;
         }
 
 
         ///creo las reglas para los inputs
         $arr_aux = array_merge($respuestas_relacion_visitas, $respuestas_visitas, $respuestas_actividades);
         foreach ($arr_aux as $value) {
-            for ($i = 1; $i <= 8; $i++) {
+            for ($i = 1; $i <= 10; $i++) {
                 $nombreInput = "columna_{$i}_{$value->id}";
                 $this->form_validation->set_rules($nombreInput, ' ', 'required|numeric');
             }
@@ -53,9 +58,9 @@ class PlanVisitas extends CI_Controller {
 
             ///itero por todas las actividades
             foreach ($arr_aux as $value) {
-                
+
                 ///si ya tiene datos edito, si no, creo
-                $objRespuestaActividadVisita = isset($respuestas_bd[$value->id]) ? $respuestas_bd[$value->id]: new RespuestaActividadVisita;
+                $objRespuestaActividadVisita = isset($respuestas_bd[$value->id]) ? $respuestas_bd[$value->id] : new RespuestaActividadVisita;
                 $objRespuestaActividadVisita->idtipoactividad = $value->id;
                 $objRespuestaActividadVisita->columna1 = $this->input->post("columna_1_{$value->id}");
                 $objRespuestaActividadVisita->columna2 = $this->input->post("columna_2_{$value->id}");
@@ -65,7 +70,9 @@ class PlanVisitas extends CI_Controller {
                 $objRespuestaActividadVisita->columna6 = $this->input->post("columna_6_{$value->id}");
                 $objRespuestaActividadVisita->columna7 = $this->input->post("columna_7_{$value->id}");
                 $objRespuestaActividadVisita->columna8 = $this->input->post("columna_8_{$value->id}");
-                
+                $objRespuestaActividadVisita->columna9 = $this->input->post("columna_9_{$value->id}");
+                $objRespuestaActividadVisita->columna10 = $this->input->post("columna_10_{$value->id}");
+
                 $objRespuestaActividadVisita->save();
             }
         }
