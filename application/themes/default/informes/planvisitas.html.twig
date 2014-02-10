@@ -56,6 +56,7 @@
 
         $('form').submit(validarFormulario);
 
+        $('#select_chart').change(refreshChart);
     });
 
     function asignarNumeroInput(obj, valor) {
