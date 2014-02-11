@@ -129,12 +129,17 @@
 
 <script type="text/javascript">
 
+    {% if soloLectura %}
+        $('input').attr('disabled', 'disabled');
+    {% endif %}
+
+
     var base = {{nombres_columnas|json_encode}}
     var actividades = {{respuestas_relacion_visitas|json_encode}}
     var actividades2 = {{respuestas_visitas|json_encode}}
     var actividades3 = {{respuestas_actividades|json_encode}}
-    
-    var colores = ["#FF0F00", "#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09","#04D215","#0D8ECF","#0D52D1","#2A0CD0","#8A0CCF","#CD0D74","#754DEB","#DDDDDD"];
+
+    var colores = ["#FF0F00", "#FF6600", "#FF9E01", "#FCD202", "#F8FF01", "#B0DE09", "#04D215", "#0D8ECF", "#0D52D1", "#2A0CD0", "#8A0CCF", "#CD0D74", "#754DEB", "#DDDDDD"];
 
     var chart = null;
     var chart2 = null;
@@ -143,34 +148,33 @@
 
     AmCharts.ready(function() {
 
-        var exportConfig= {
+        var exportConfig = {
             menuTop: "21px",
             menuBottom: "auto",
             menuRight: "21px",
             backgroundColor: "#efefef",
-
-            menuItemStyle   : {
-            backgroundColor         : '#EFEFEF',
-            rollOverBackgroundColor : '#DDDDDD'},
-
+            menuItemStyle: {
+                backgroundColor: '#EFEFEF',
+                rollOverBackgroundColor: '#DDDDDD'},
             menuItems: [{
-                textAlign: 'center',
-                icon: "{{ base_url('assets/amcharts/images/export.png') }}",
-                onclick:function(){},
-                items: [{
-                    title: 'JPG',
-                    format: 'jpg'
-                }, {
-                    title: 'PNG',
-                    format: 'png'
-                }, {
-                    title: 'SVG',
-                    format: 'svg'
-                }, {
-                    title: 'PDF',
-                    format: 'pdf'
+                    textAlign: 'center',
+                    icon: "{{ base_url('assets/amcharts/images/export.png') }}",
+                    onclick: function() {
+                    },
+                    items: [{
+                            title: 'JPG',
+                            format: 'jpg'
+                        }, {
+                            title: 'PNG',
+                            format: 'png'
+                        }, {
+                            title: 'SVG',
+                            format: 'svg'
+                        }, {
+                            title: 'PDF',
+                            format: 'pdf'
+                        }]
                 }]
-            }]
         }
 
         /// CHART 1
@@ -183,7 +187,7 @@
 
         var graph = new AmCharts.AmGraph();
         graph.valueField = 'actividad';
-        graph.colorField= "color";
+        graph.colorField = "color";
         graph.type = "column";
         graph.fillAlphas = 0.8;
         graph.title = 'Actividad';
@@ -212,7 +216,7 @@
 
         var graph2 = new AmCharts.AmGraph();
         graph2.valueField = 'actividad';
-        graph2.colorField= "color";
+        graph2.colorField = "color";
         graph2.type = "column";
         graph2.fillAlphas = 0.8;
         graph2.title = 'Actividad';
@@ -241,7 +245,7 @@
 
         var graph3 = new AmCharts.AmGraph();
         graph3.valueField = 'actividad';
-        graph3.colorField= "color";
+        graph3.colorField = "color";
         graph3.type = "column";
         graph3.fillAlphas = 0.8;
         graph3.title = 'Actividad';
@@ -713,7 +717,7 @@
         {% if soloLectura %}
         <!--a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a-->
         {% else %}
-        <button type="submit" name=""guardar" class="btn btn-lg btn-success">Guardar</button>
+        <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
         {% endif %}
     </div>
 </div>

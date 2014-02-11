@@ -82,7 +82,6 @@ class PlanVisitas extends CI_Controller {
             }
         }
         
-        echo validation_errors();
 
         $nombres_columnas['columna_1'] = 'Total Visitas-Meta';
         $nombres_columnas['columna_2'] = 'Avance Productores';
@@ -94,6 +93,12 @@ class PlanVisitas extends CI_Controller {
         $nombres_columnas['columna_8'] = 'May-14';
         $nombres_columnas['columna_9'] = 'Jun-14';
         $nombres_columnas['columna_10'] = 'Jul-14';
+        
+        $soloLectura = true;
+        if( $this->ion_auth->get_users_groups()->row()->name === 'Coordinador')
+            $soloLectura = false;
+            
+        $this->twiggy->set('soloLectura', $soloLectura);
 
         // Aunque el nombre es "respuestas" referencian las preguntas
         $this->twiggy->set('respuestas_relacion_visitas', $respuestas_relacion_visitas);
