@@ -396,13 +396,13 @@ $.fn.storeLocator = function(options) {
                   }
 
                   if(!locationData['distance']){
-                    locationData['distance'] = GeoCodeCalc.CalcDistance(orig_lat,orig_lng,locationData['lat'],locationData['lng'], GeoCodeCalc.EarthRadius);
+                    locationData['distance'] = "";//GeoCodeCalc.CalcDistance(orig_lat,orig_lng,locationData['lat'],locationData['lng'], GeoCodeCalc.EarthRadius);
                   }
 
                 //Create the array
                 if(settings.maxDistance === true && firstRun !== true && maxDistance){
                   if(locationData['distance'] < maxDistance){
-                    locationset[i] = locationData;
+                    locationset[i] = "";//locationData;
                   }
                   else{
                     return;
