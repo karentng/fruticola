@@ -1,227 +1,114 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 class PlanVisitas extends CI_Controller {
-    public function __construct()
-    {
+
+    public function __construct() {
         parent::__construct();
-        
-        check_profile(array("Administrador", "Coordinador", "Digitador","Consultas"));
+
+        check_profile(array("Administrador", "Coordinador", "Digitador", "Consultas"));
     }
 
-    public function index($ruat_id=NULL)
-    {
-                        
-        function to_array($model) { return $model->to_array(); }
+    public function index() {
 
-        $data = array();
-        $data['tiposDocumento']       = array_map('to_array',TipoDocumento::sorted());
-        $data['nivelesEducativos']    = array_map('to_array',NivelEducativo::sorted());
-        $data['tiposProductor']       = array_map('to_array',TipoProductor::sorted());
-        $data['renglonesProductivos'] = array_map('to_array',RenglonProductivo::sorted());
-        $data['clasesOrganizaciones'] = array_map('to_array',ClaseOrganizacion::sorted());
-        $data['tiposBeneficio']       = array_map('to_array',TipoBeneficio::sorted());
-        $data['tiposCredito']         = array_map('to_array',TipoCredito::sorted());
-        $data['periodicidades']       = array_map('to_array',Periodicidad::sorted());
-        $data['tiposConfianza']       = array_map('to_array',TipoConfianza::sorted());
-        $data['tiposActividadVisita'] = array_map('to_array',TipoActividadVisita::sorted());
-        $data['fuentesInnovacion']    = array_map('to_array',FuenteInnovacion::sorted());
-        $data['tiposRazonNoPertenecer'] = array_map('to_array',TipoRazonNoPertenecer::sorted());
-        $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
-        $deptos_municipios = array();
-        foreach($deptos as $depto) {
-            $deptos_municipios[$depto->id] = array('nombre'=>$depto->nombre, 'municipios'=>array());
-            foreach($depto->municipios as $mun)
-                $deptos_municipios[$depto->id]['municipios'][] = array('id' => $mun->id, 'nombre'=>$mun->nombre);
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
+
+        function to_array($model) {
+            return $model->to_array();
         }
 
-        $data['departamentos'] = $deptos_municipios;
+        $respuestas_relacion_visitas = array_map('to_array', TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 1))));
+        $respuestas_visitas = array_map('to_array', TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 2))));
+        $respuestas_actividades = array_map('to_array', TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 3))));
 
-        $this->twiggy->set('combos', json_encode($data));
 
-        if($ruat_id) {
-            $ruat = $this->cargar($ruat_id);
-            $this->twiggy->set('ruat', json_encode($ruat));
+        ///consulto las respuestas si existen en la BD (edicion)
+        $respuestas_bd_aux = RespuestaActividadVisita::all();
+
+        //var_dump(count($respuestas_bd_aux));
+        ///las acomodo para poder acceder mas facil a cada input
+        $respuestas_bd_input = $respuestas_bd = array();
+        foreach ($respuestas_bd_aux as $obj) {
+            $respuestas_bd[$obj->idtipoactividad] = $obj;
+            $respuestas_bd_input['columna_1_' . $obj->id] = $obj->columna1;
+            $respuestas_bd_input['columna_2_' . $obj->id] = $obj->columna2;
+            $respuestas_bd_input['columna_3_' . $obj->id] = $obj->columna3;
+            $respuestas_bd_input['columna_4_' . $obj->id] = $obj->columna4;
+            $respuestas_bd_input['columna_5_' . $obj->id] = $obj->columna5;
+            $respuestas_bd_input['columna_6_' . $obj->id] = $obj->columna6;
+            $respuestas_bd_input['columna_7_' . $obj->id] = $obj->columna7;
+            $respuestas_bd_input['columna_8_' . $obj->id] = $obj->columna8;
+            $respuestas_bd_input['columna_7_' . $obj->id] = $obj->columna9;
+            $respuestas_bd_input['columna_8_' . $obj->id] = $obj->columna10;
+        }
+        
+        
+
+
+        ///creo las reglas para los inputs
+        $arr_aux = array_merge($respuestas_relacion_visitas, $respuestas_visitas, $respuestas_actividades);
+        foreach ($arr_aux as $value) {
+//            echo $value['id'].'<br>';
+            for ($i = 1; $i <= 10; $i++) {
+                $nombreInput = "columna_{$i}_{$value['id']}";
+                $this->form_validation->set_rules($nombreInput, $nombreInput, 'required|numeric');
+            }
         }
 
-        $this->twiggy->template("ruat/planvisitas");
+        if ($this->form_validation->run()) {
+            
+//            var_dump($_POST);
+
+            ///itero por todas las actividades
+            foreach ($arr_aux as $value) {
+                $idActividad = $value['id'];
+                ///si ya tiene datos edito, si no, creo
+                $objRespuestaActividadVisita = isset($respuestas_bd[$idActividad]) ? $respuestas_bd[$idActividad] : new RespuestaActividadVisita;
+                $objRespuestaActividadVisita->idtipoactividad = $idActividad;
+                $objRespuestaActividadVisita->columna1 = $this->input->post("columna_1_{$idActividad}");
+                $objRespuestaActividadVisita->columna2 = $this->input->post("columna_2_{$idActividad}");
+                $objRespuestaActividadVisita->columna3 = $this->input->post("columna_3_{$idActividad}");
+                $objRespuestaActividadVisita->columna4 = $this->input->post("columna_4_{$idActividad}");
+                $objRespuestaActividadVisita->columna5 = $this->input->post("columna_5_{$idActividad}");
+                $objRespuestaActividadVisita->columna6 = $this->input->post("columna_6_{$idActividad}");
+                $objRespuestaActividadVisita->columna7 = $this->input->post("columna_7_{$idActividad}");
+                $objRespuestaActividadVisita->columna8 = $this->input->post("columna_8_{$idActividad}");
+                $objRespuestaActividadVisita->columna9 = $this->input->post("columna_9_{$idActividad}");
+                $objRespuestaActividadVisita->columna10 = $this->input->post("columna_10_{$idActividad}");
+
+                $objRespuestaActividadVisita->save();
+            }
+        }
+        
+
+        $nombres_columnas['columna_1'] = 'Total Visitas-Meta';
+        $nombres_columnas['columna_2'] = 'Avance Productores';
+        $nombres_columnas['columna_3'] = 'Corte Diciembre 2013';
+        $nombres_columnas['columna_4'] = 'Ene-14';
+        $nombres_columnas['columna_5'] = 'Feb-14';
+        $nombres_columnas['columna_6'] = 'Mar-14';
+        $nombres_columnas['columna_7'] = 'Abr-14';
+        $nombres_columnas['columna_8'] = 'May-14';
+        $nombres_columnas['columna_9'] = 'Jun-14';
+        $nombres_columnas['columna_10'] = 'Jul-14';
+        
+        $soloLectura = true;
+        if( $this->ion_auth->get_users_groups()->row()->name === 'Coordinador')
+            $soloLectura = false;
+            
+        $this->twiggy->set('soloLectura', $soloLectura);
+
+        // Aunque el nombre es "respuestas" referencian las preguntas
+        $this->twiggy->set('respuestas_relacion_visitas', $respuestas_relacion_visitas);
+        $this->twiggy->set('respuestas_visitas', $respuestas_visitas);
+        $this->twiggy->set('respuestas_actividades', $respuestas_actividades);
+        $this->twiggy->set('nombres_columnas', $nombres_columnas);
+        $this->twiggy->set('respuestas_bd_input', $respuestas_bd_input);
+
+        $this->twiggy->template("informes/planvisitas");
         $this->twiggy->display();
     }
 
-
-    public function guardar()
-    {
-        $input = json_decode(file_get_contents("php://input"));
-        
-        if(empty($input->ruat_id)) {
-            $ruat = new Ruat;
-            $ruat->numero_formulario= $input->numero_formulario;
-            $ruat->creador_id = current_user('id');
-            $productor = Productor::create((array)$input->productor);
-            $ruat->productor_id = $productor->id;
-            $ruat->save();
-        }
-        else {
-            $ruat = Ruat::find($input->ruat_id);
-            $ruat->numero_formulario = $input->numero_formulario;
-            $ruat->modificado = time();
-            $ruat->modificador_id = current_user('id');
-            $ruat->save();
-            $productor = $ruat->productor;
-            $productor->set_attributes((array)$input->productor);
-            $productor->save();
-        }
-
-        $input->contacto->productor_id = $productor->id;
-        Contacto::create_or_update((array)$input->contacto);
-
-        $econo = $input->economia;
-        if(!$econo->usaCredito) $econo->credito_id = null;
-        if($econo->credito_id!=7)  $econo->otro_credito = null;
-        unset($econo->usaCredito);
-        $econo->productor_id = $productor->id;
-        Economia::create_or_update((array)$econo);
-        
-        Innovacion::table()->delete(array('ruat_id' => $ruat->id));
-        foreach($input->innovaciones as $innova) {
-            if(!$innova->fuente_id) continue;
-            $innova->ruat_id = $ruat->id;
-            if($innova->fuente_id!=6) $innova->otra_fuente = null;
-            Innovacion::create((array)$innova);
-        }
-
-        Orgasociada::table()->delete(array('ruat_id' => $ruat->id));
-        RazonNoPertenecer::table()->delete(array('ruat_id' => $ruat->id));
-        
-        foreach($input->asociacion->cooperativa->filas as $org) {
-            $clases = $org->clases;
-            $beneficios = $org->beneficios;
-            $directivo = $org->directivo;
-            unset($org->clases, $org->beneficios, $org->directivo);
-            $org->ruat_id = $ruat->id;
-            $org->membresia = $org->directivo ? 'Directivo' : 'Participante';
-
-            $orgasociada = Orgasociada::create((array)$org);
-
-            foreach($clases as $cls)
-                OrgasociadaClase::create(array(
-                    'orgasociada_id' => $orgasociada->id, 'clase_id' => $cls) );
-
-            foreach($beneficios as $bnf)
-                OrgasociadaBeneficio::create(array(
-                    'orgasociada_id' => $orgasociada->id, 'beneficio_id' => $bnf) );
-        }
-
-        foreach ($input->asociacion->cooperativa->razones as $razon)
-            RazonNoPertenecer::create(array('ruat_id' => $ruat->id, 'razon_id' => $razon));
-        
-        $ruat->orgs_apoyan = json_encode($input->asociacion->cooperativa->orgs_apoyan);
-
-        if($input->asociacion->otroProductor->asociado) {
-            $asoc = $input->asociacion->otroProductor;
-            unset($asoc->asociado);
-            $per = PersonaAsociada::create_or_update((array)$asoc);
-            $ruat->asociado_id = $per->id;
-        }
-        else if($ruat->asociado_id) {
-            $id_to_delete = $ruat->asociado_id;
-            $ruat->asociado_id = null;
-            $ruat->save();
-            PersonaAsociada::table()->delete(array('id' => $id_to_delete));
-        }
-
-        if($input->asociacion->sigue->asociado) {
-            $asoc = $input->asociacion->sigue;
-            unset($asoc->asociado);
-            $per = PersonaAsociada::create_or_update((array)$asoc);
-            $ruat->seguir_id = $per->id;
-        }
-        else if($ruat->seguir_id) {
-            $id_to_delete = $ruat->seguir_id;
-            $ruat->seguir_id = null;
-            $ruat->save();
-            PersonaAsociada::table()->delete(array('id' => $id_to_delete));
-        }  
-
-        $ruat->save();
-        $response = array(
-            'success'=>true, 
-            'message'=> array('type'=>'success', 'text'=>'Guardado Exitoso'),
-            'scope'=>$this->cargar($ruat->id)
-        );
-        
-        echo json_encode($response);
-    }
-
-
-    public function cargar($ruat_id, $do_echo=false)
-    {
-        $ruat = Ruat::find($ruat_id);
-        $output = new StdClass;
-        $output->soloLectura = true;
-        $output->ruat_id = $ruat->id;
-        $output->numero_formulario = $ruat->numero_formulario;
-        $output->productor = $ruat->productor->to_array();
-        $output->productor['fecha_nacimiento'] = $this->datefmt($ruat->productor->fecha_nacimiento);
-        $output->contacto = $ruat->productor->contacto->to_array();
-        $output->economia = $ruat->productor->economia->to_array();
-        $output->economia['usaCredito'] = (bool)($output->economia['credito_id']);
-        $output->asociacion = array(
-            'cooperativa'   => array('filas' => array()),
-            'otroProductor' => array('asociado' => false),
-            'sigue'         => array('asociado' => false),
-        );
-            
-        $coops = Orgasociada::find_all_by_ruat_id($ruat->id, array('include' =>array('clases','beneficios')));
-        foreach($coops as $org) {
-            $orgasociada = $org->to_array();
-            $orgasociada['directivo']  = $orgasociada['membresia']=='Directivo';
-            $orgasociada['clases']     = extract_prop($org->clases, 'clase_id');
-            $orgasociada['beneficios'] = extract_prop($org->beneficios, 'beneficio_id');
-            $output->asociacion['cooperativa']['filas'][] = $orgasociada;
-        }
-
-
-        if(!count($output->asociacion['cooperativa']['filas'])) {
-            $output->asociacion['cooperativa']['filas'][] = new StdClass; //filita vacia
-            $output->asociacion['cooperativa']['asociado'] = false;
-        }
-        else
-            $output->asociacion['cooperativa']['asociado'] = true;
-
-        $output->asociacion['cooperativa']['orgs_apoyan'] = json_decode($ruat->orgs_apoyan);
-        $output->asociacion['cooperativa']['razones'] = extract_prop(RazonNoPertenecer::find_all_by_ruat_id($ruat->id),'razon_id');
-
-        if($ruat->asociado_id) {
-            $output->asociacion['otroProductor'] = PersonaAsociada::find($ruat->asociado_id)->to_array();
-            $output->asociacion['otroProductor']['asociado'] = true;
-        }
-        if($ruat->seguir_id) {
-            $output->asociacion['sigue'] = PersonaAsociada::find($ruat->seguir_id)->to_array();
-            $output->asociacion['sigue']['asociado'] = true;
-        }
-        
-        $inno_map = array();
-        foreach(Innovacion::find_all_by_ruat_id($ruat->id) as $inno) {
-            $inno_map[$inno->tipo_id] = $inno->to_array();
-        }
-
-        $output->innovaciones = array();
-        foreach(TipoInnovacion::sorted() as $t) {
-            if(isset($inno_map[$t->id]))
-                $output->innovaciones[] = $inno_map[$t->id];
-            else 
-                $output->innovaciones[] = array('tipo_id'=>$t->id);
-        }
-
-        $output->realizaInnovacion = (bool)count($output->innovaciones);
-        
-        if($do_echo) echo json_encode($output);
-        return $output;
-    }
-
-
-    private function datefmt($f) 
-    {
-        return $f ? $f->format('Y-m-d') : '';
-    }
 }
