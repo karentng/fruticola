@@ -4,7 +4,7 @@ class Metascomplementarias extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        //check_profile(array("Administrador", "Coordinador", "Consultas"));
+        check_profile(array("Administrador", "Coordinador", "Consultas"));
     }
 
     public function index()
@@ -140,6 +140,12 @@ class Metascomplementarias extends CI_Controller {
         $this->twiggy->set('preguntasJSON', json_encode($result));
 
         $this->twiggy->set('tamaño', count($preguntas));
+
+        if(check_profile(array("Administrador","Coordinador"), false)){
+            $this->twiggy->set('soloLectura', false);
+        }else{
+            $this->twiggy->set('soloLectura', true);
+        }
 
         $this->twiggy->template("reportes/metas");
         $this->twiggy->display();
