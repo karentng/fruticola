@@ -5,6 +5,13 @@
 <script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
 <script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
 
+<script src="{{ base_url('assets/amcharts/exporting/amexport.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/rgbcolor.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/canvg.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/jspdf.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/filesaver.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
+
 <style>
     .money { text-align: right;}
 </style>
@@ -61,9 +68,9 @@
         $('#select_chart3').change(refreshChart3);
 
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-           chart.invalidateSize();
-           chart2.invalidateSize();
-           chart3.invalidateSize();
+            chart.invalidateSize();
+            chart2.invalidateSize();
+            chart3.invalidateSize();
         })
     });
 
@@ -126,6 +133,8 @@
     var actividades = {{respuestas_relacion_visitas|json_encode}}
     var actividades2 = {{respuestas_visitas|json_encode}}
     var actividades3 = {{respuestas_actividades|json_encode}}
+    
+    var colores = ["#FF0F00", "#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09","#04D215","#0D8ECF","#0D52D1","#2A0CD0","#8A0CCF","#CD0D74","#754DEB","#DDDDDD"];
 
     var chart = null;
     var chart2 = null;
@@ -134,6 +143,35 @@
 
     AmCharts.ready(function() {
 
+        var exportConfig= {
+            menuTop: "21px",
+            menuBottom: "auto",
+            menuRight: "21px",
+            backgroundColor: "#efefef",
+
+            menuItemStyle   : {
+            backgroundColor         : '#EFEFEF',
+            rollOverBackgroundColor : '#DDDDDD'},
+
+            menuItems: [{
+                textAlign: 'center',
+                icon: "{{ base_url('assets/amcharts/images/export.png') }}",
+                onclick:function(){},
+                items: [{
+                    title: 'JPG',
+                    format: 'jpg'
+                }, {
+                    title: 'PNG',
+                    format: 'png'
+                }, {
+                    title: 'SVG',
+                    format: 'svg'
+                }, {
+                    title: 'PDF',
+                    format: 'pdf'
+                }]
+            }]
+        }
 
         /// CHART 1
         var chartData = getChartData($('#select_chart').val());
@@ -141,9 +179,11 @@
         chart = new AmCharts.AmSerialChart();
         chart.dataProvider = chartData;
         chart.categoryField = "base";
+        chart.exportConfig = exportConfig;
 
         var graph = new AmCharts.AmGraph();
         graph.valueField = 'actividad';
+        graph.colorField= "color";
         graph.type = "column";
         graph.fillAlphas = 0.8;
         graph.title = 'Actividad';
@@ -168,9 +208,11 @@
         chart2 = new AmCharts.AmSerialChart();
         chart2.dataProvider = chartData;
         chart2.categoryField = "base";
+        chart2.exportConfig = exportConfig;
 
         var graph2 = new AmCharts.AmGraph();
         graph2.valueField = 'actividad';
+        graph2.colorField= "color";
         graph2.type = "column";
         graph2.fillAlphas = 0.8;
         graph2.title = 'Actividad';
@@ -195,9 +237,11 @@
         chart3 = new AmCharts.AmSerialChart();
         chart3.dataProvider = chartData;
         chart3.categoryField = "base";
+        chart3.exportConfig = exportConfig;
 
         var graph3 = new AmCharts.AmGraph();
         graph3.valueField = 'actividad';
+        graph3.colorField= "color";
         graph3.type = "column";
         graph3.fillAlphas = 0.8;
         graph3.title = 'Actividad';
@@ -230,7 +274,8 @@
             //console.log(input+': '+$(input).val());
             var obj = {
                 base: valor_base,
-                actividad: $(input).val()
+                actividad: $(input).val(),
+                color: colores[numero_columna],
             }
 
             chartData.push(obj);
@@ -279,7 +324,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>B.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
+        <h4>CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
         <a href="#" class="minimize"></a>
     </div>
     <!-- End .panel-heading -->
@@ -389,15 +434,27 @@
                         </tbody>
                     </table>
 
-                    <select id="select_chart" name="select_chart">
-                        <!--<option value="0">Totales</option> -->
+                    <br/>
+                    <div class="panel panel-default">
 
-                        {% for pa in respuestas_relacion_visitas %}
-                        <option value="{{pa.id}}">{{pa.descripcion}}</option>
-                        {% endfor %}
+                        <div class="panel-heading">
+                            <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                            <h4>GRÁFICO RELACIÓN DE VISITAS</h4>
+                        </div>                    
+                        <br/>
+                        <div class="col-lg-12">
+                            <select id="select_chart" class="form-control" name="select_chart">
+                                <!--<option value="0">Totales</option> -->
 
-                    </select>
-                    <div id="chartdiv" style="width: 100%; height: 600px;"></div>
+                                        {% for pa in respuestas_relacion_visitas %}
+                                <option value="{{pa.id}}">{{pa.descripcion}}</option>
+                                        {% endfor %}
+                            </select>
+                        </div>
+                        <br/>
+                        <div id="chartdiv" style="width: 100%; height: 600px;"></div>
+                    </div>
+
                 </div>
 
                 <div class="tab-pane" id="reporte2">
@@ -497,15 +554,27 @@
                         </tbody>
                     </table>
 
-                    <select id="select_chart2" name="select_chart2">
-                        <!--<option value="0">Totales</option> -->
+                    <br/>
+                    <div class="panel panel-default">
 
-                        {% for pa in respuestas_visitas %}
-                        <option value="{{pa.id}}">{{pa.descripcion}}</option>
-                        {% endfor %}
+                        <div class="panel-heading">
+                            <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                            <h4>GRÁFICO REPORTE TOTAL DE VISITAS</h4>
+                        </div>                    
+                        <br/>
+                        <div class="col-lg-12">
 
-                    </select>
-                    <div id="chartdiv2" style="width: 100%; height: 600px;"></div>
+                            <select id="select_chart2" class="form-control" name="select_chart2">
+                                <!--<option value="0">Totales</option> -->
+
+                                        {% for pa in respuestas_visitas %}
+                                <option value="{{pa.id}}">{{pa.descripcion}}</option>
+                                        {% endfor %}
+                            </select>
+                        </div>
+                        <br/>
+                        <div id="chartdiv2" style="width: 100%; height: 600px;"></div>
+                    </div>
 
                 </div>
 
@@ -606,15 +675,28 @@
                         </tbody>
                     </table>
 
-                    <select id="select_chart3" name="select_chart3">
-                        <!--<option value="0">Totales</option> -->
+                    <br/>
+                    <div class="panel panel-default">
 
-                        {% for pa in respuestas_actividades %}
-                        <option value="{{pa.id}}">{{pa.descripcion}}</option>
-                        {% endfor %}
+                        <div class="panel-heading">
+                            <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                            <h4>GRÁFICO REPORTE REPORTE DE ACTIVIDADES</h4>
+                        </div>                    
+                        <br/>
+                        <div class="col-lg-12">
 
-                    </select>
-                    <div id="chartdiv3" style="width: 100%; height: 600px;"></div>
+                            <select id="select_chart3" class="form-control" name="select_chart3">
+                                <!--<option value="0">Totales</option> -->
+
+                                        {% for pa in respuestas_actividades %}
+                                <option value="{{pa.id}}">{{pa.descripcion}}</option>
+                                        {% endfor %}
+
+                            </select>
+                        </div>
+                        <br/>
+                        <div id="chartdiv3" style="width: 100%; height: 600px;"></div>
+                    </div>
 
                 </div>
             </div>
@@ -627,7 +709,7 @@
 <br"/>
 
 <div class="form-group">
-    <div class="col-md-offset-4 col-md-5">
+    <div class="col-md-offset-5 col-md-5">
         {% if soloLectura %}
         <!--a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a-->
         {% else %}

@@ -43,39 +43,46 @@ class PlanVisitas extends CI_Controller {
             $respuestas_bd_input['columna_7_' . $obj->id] = $obj->columna9;
             $respuestas_bd_input['columna_8_' . $obj->id] = $obj->columna10;
         }
+        
+        
 
 
         ///creo las reglas para los inputs
         $arr_aux = array_merge($respuestas_relacion_visitas, $respuestas_visitas, $respuestas_actividades);
         foreach ($arr_aux as $value) {
+//            echo $value['id'].'<br>';
             for ($i = 1; $i <= 10; $i++) {
-                $nombreInput = "columna_{$i}_{$value->id}";
-                $this->form_validation->set_rules($nombreInput, ' ', 'required|numeric');
+                $nombreInput = "columna_{$i}_{$value['id']}";
+                $this->form_validation->set_rules($nombreInput, $nombreInput, 'required|numeric');
             }
         }
 
         if ($this->form_validation->run()) {
+            
+//            var_dump($_POST);
 
             ///itero por todas las actividades
             foreach ($arr_aux as $value) {
-
+                $idActividad = $value['id'];
                 ///si ya tiene datos edito, si no, creo
-                $objRespuestaActividadVisita = isset($respuestas_bd[$value->id]) ? $respuestas_bd[$value->id] : new RespuestaActividadVisita;
-                $objRespuestaActividadVisita->idtipoactividad = $value->id;
-                $objRespuestaActividadVisita->columna1 = $this->input->post("columna_1_{$value->id}");
-                $objRespuestaActividadVisita->columna2 = $this->input->post("columna_2_{$value->id}");
-                $objRespuestaActividadVisita->columna3 = $this->input->post("columna_3_{$value->id}");
-                $objRespuestaActividadVisita->columna4 = $this->input->post("columna_4_{$value->id}");
-                $objRespuestaActividadVisita->columna5 = $this->input->post("columna_5_{$value->id}");
-                $objRespuestaActividadVisita->columna6 = $this->input->post("columna_6_{$value->id}");
-                $objRespuestaActividadVisita->columna7 = $this->input->post("columna_7_{$value->id}");
-                $objRespuestaActividadVisita->columna8 = $this->input->post("columna_8_{$value->id}");
-                $objRespuestaActividadVisita->columna9 = $this->input->post("columna_9_{$value->id}");
-                $objRespuestaActividadVisita->columna10 = $this->input->post("columna_10_{$value->id}");
+                $objRespuestaActividadVisita = isset($respuestas_bd[$idActividad]) ? $respuestas_bd[$idActividad] : new RespuestaActividadVisita;
+                $objRespuestaActividadVisita->idtipoactividad = $idActividad;
+                $objRespuestaActividadVisita->columna1 = $this->input->post("columna_1_{$idActividad}");
+                $objRespuestaActividadVisita->columna2 = $this->input->post("columna_2_{$idActividad}");
+                $objRespuestaActividadVisita->columna3 = $this->input->post("columna_3_{$idActividad}");
+                $objRespuestaActividadVisita->columna4 = $this->input->post("columna_4_{$idActividad}");
+                $objRespuestaActividadVisita->columna5 = $this->input->post("columna_5_{$idActividad}");
+                $objRespuestaActividadVisita->columna6 = $this->input->post("columna_6_{$idActividad}");
+                $objRespuestaActividadVisita->columna7 = $this->input->post("columna_7_{$idActividad}");
+                $objRespuestaActividadVisita->columna8 = $this->input->post("columna_8_{$idActividad}");
+                $objRespuestaActividadVisita->columna9 = $this->input->post("columna_9_{$idActividad}");
+                $objRespuestaActividadVisita->columna10 = $this->input->post("columna_10_{$idActividad}");
 
                 $objRespuestaActividadVisita->save();
             }
         }
+        
+        echo validation_errors();
 
         $nombres_columnas['columna_1'] = 'Total Visitas-Meta';
         $nombres_columnas['columna_2'] = 'Avance Productores';
