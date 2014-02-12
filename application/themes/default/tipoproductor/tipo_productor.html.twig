@@ -72,11 +72,13 @@
     function calcularBeneficioCosto() {
         
         var total_ingresos = obtenerNumeroInput($('.respuestas_ingresos[readonly]').last());
-        var utilidad = obtenerNumeroInput($('.respuestas_c_totales').first());
+        //var utilidad = obtenerNumeroInput($('.respuestas_c_totales').first());
+        var egresos = obtenerNumeroInput($('.respuestas_egresos[readonly]'));
+        
         var objBeneficioCosto = $('.respuestas_c_totales').last();//ultimo de dos
         
-        if (utilidad)
-            objBeneficioCosto.val( (total_ingresos / utilidad).toFixed(2) );
+        if (egresos)
+            objBeneficioCosto.val( (total_ingresos / egresos ).toFixed(2) );
     }
 
 
