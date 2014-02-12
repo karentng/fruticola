@@ -29,7 +29,8 @@ class MyModel extends ActiveRecord\Model
             $tm2 = $dt->getTimestamp();
             $tm1 = $this->creado->getTimestamp();
             $dif_horas = ($tm2-$tm1)/60.0/60.0;
-            return ($dif_horas>5.0);
+            //return ($dif_horas>5.0);
+            return false;
         }
         if($controller->ion_auth->in_group('Consultas')) {
             return true;
