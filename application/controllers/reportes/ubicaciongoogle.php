@@ -18,7 +18,8 @@ class Ubicaciongoogle extends CI_Controller {
         
         $this->twiggy->set('informes', $informes);*/
         $result = array();
-        $fincas = Finca::find('all', array('order' => 'nombre'));
+        $fincas = Finca::find('all', array('order' => 'nombre', 'conditions' => array('(geo_latitud > ? OR geo_latitud < ?) 
+            AND (geo_longitud > ? OR geo_longitud < ?)', 0, 0, 0, 0)));
 
         foreach($fincas as $finca){
             array_push($result, $finca->to_array());
@@ -30,7 +31,6 @@ class Ubicaciongoogle extends CI_Controller {
         $this->crearArchivoJSON($result);
         $this->twiggy->template("reportes/ubicaciongoogle");
         $this->twiggy->display();
-        
     }
     public function crearArchivoJSON($fincas){
         $result = array();
@@ -38,13 +38,13 @@ class Ubicaciongoogle extends CI_Controller {
             $aux = array();
             $aux['name'] = $fincas[$i]['nombre'];
             $aux['address'] = Municipio::find_by_id($fincas[$i]['municipio'])->nombre;
-            $aux['city'] = $fincas[$i]['vereda'];
-            $aux['state'] = $fincas[$i]['sector'];
-            $aux['postal'] = "Área total: ".$fincas[$i]['area_total'];
+            $aux['city'] = "Vereda: ".$fincas[$i]['vereda'];
+            $aux['state'] = "Sector: ".$fincas[$i]['sector'];
+            $aux['postal'] = "";//"Área total: ".$fincas[$i]['area_total'];
             $aux['phone'] = "";
             $aux['web'] = "";
             $aux['lat'] = $fincas[$i]['geo_latitud'];
-            $aux['lng'] = $fincas[$i]['geo_logitud'];
+            $aux['lng'] = $fincas[$i]['geo_longitud'];
             array_push($result, $aux);
         }
         $fp = fopen('assets/google_maps/results.json', 'w');

@@ -211,6 +211,8 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
 
 {% block contenido %}
 
+{% include "reportes/toolbar_reportes.html.twig" %}
+
 {{ form_open(null, {name: 'miform', role:'form',class:'form-horizontal'}) }}
 
 <div class="row">

@@ -13,9 +13,9 @@
         llenarFincas();
     });
     function enviar(){
+        console.log("a");
         $( "#submit" ).submit();
     }
-    window.onload = enviar;
 </script>
 <script type="text/javascript">
     $(function() {
@@ -66,7 +66,7 @@
 
 {% block contenido %}
 
-
+{% include "reportes/toolbar_reportes.html.twig" %}
 
 
 
@@ -107,7 +107,7 @@
               <input type="text" id="address" name="address" value="1" />
              </div>
             
-            <button id="submit" type="submit">Submit</button><button type="button" onclick="enviar()">enviar</button>
+            <button id="submit" type="submit">Submit</button>
         </form>
       </div>
 
