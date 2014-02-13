@@ -63,6 +63,9 @@ class ListadoRuats extends CI_Controller {
             $actions = "<div class='btn-group'>".
                 "<a class='btn btn-sm btn-warning tip' href='$url' title='Registro Único de Usuarios de Asitencia Técnica'>RUAT <i class='i-arrow-right-3'></i></a>";
 
+            $url = site_url("ruatImprimible/index/".$item->id);
+            $actions .= "<a class='btn btn-sm btn-info tip' href='$url' title='Versión Imprimible RUAT' target='_blank'><i class='i-print'></i></a>";
+
             if($item->ruta_formulario) {
                 $url = site_url("uploads/". $item->ruta_formulario);
                 $actions .= "<a class='btn btn-sm btn-info tip' title='Descargar RUAT Escaneado' href='$url' target='_blank'><i class='i-file-download'></i></a>";
