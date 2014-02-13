@@ -2,15 +2,31 @@
 
 {% block html_head %}
     <link href="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.css')}}" rel="stylesheet" /> 
+    <link href="{{base_url('assets/js/plugins/tables/datatables/TableTools.css')}}" rel="stylesheet" /> 
     <script src="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{base_url('assets/js/plugins/tables/datatables/TableTools.min.js')}}"></script>
 
     <script>
         $(function(){
-            myDataTable('#dataTable');
+            //myDataTable('#dataTable');
+            myDataTable('#dataTable', {
+                "sDom": "<'row'<'col-md-6'T><'col-md-6'f>>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
+                "oTableTools": {
+                    aButtons:["xls", "pdf"],
+                    "sSwfPath": "{{base_url('assets/js/plugins/tables/datatables/copy_csv_xls_pdf.swf')}}"
+
+                }
+            });
 
             $('#div_fecha_inicio, #div_fecha_fin').datepicker({autoclose:true, language: "es", format:'yyyy-mm-dd'});
         });
     </script>
+
+    <style>
+        .DTTT_container {
+            float:left !important;
+        }
+    </style>
 
 {% endblock %}
 
