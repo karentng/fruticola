@@ -43,8 +43,17 @@
 
 {% include "reportes/toolbar_reportes.html.twig" %}
 
-<div class="row">
+<div class="row well">
     {{ form_open(null, {class:'form-horizontal', role:'form'}) }}
+    
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label col-xs-5">Renglón Productivo:</label>
+                <div class="col-xs-7">
+                    {{form_dropdown('renglon', renglones, set_value('renglon'), 'class="form-control"')}}
+                </div>
+            </div>
+        </div>
         <div class="col-md-3">
             <div class="form-group">
                 <label class="control-label col-xs-5">Fecha Inicio</label>
@@ -70,6 +79,7 @@
         <div class="col-md-1">
             <button type="submit" name="filtrar" class="btn btn-info tip" title="Buscar en Rango de Fechas"><i class="i-filter"></i>Filtrar</button>
         </div>
+    
     {{ form_close() }}
 </div>
 
@@ -85,13 +95,16 @@
     </thead>
     <tbody>
         {% for usuario in usuarios %}
-        <tr>
-            <td>{{usuario.first_name}} {{usuario.last_name}}</td>
-            <td align="right">{{porUsuario[usuario.id].ruat    | default('0') }}</td>
-            <td align="right">{{porUsuario[usuario.id].cosecha | default('0') }}</td>
-            <td align="right">{{porUsuario[usuario.id].bpa     | default('0') }}</td>
-            <td align="right">{{porUsuario[usuario.id].tp      | default('0') }}</td>
-        </tr>
+            {% set d = porUsuario[usuario.id] %}
+            {% if d.ruat+d.cosecha+d.pa+d.tp %}
+            <tr>
+                <td>{{usuario.first_name}} {{usuario.last_name}}</td>
+                <td align="right">{{porUsuario[usuario.id].ruat    | default('0') }}</td>
+                <td align="right">{{porUsuario[usuario.id].cosecha | default('0') }}</td>
+                <td align="right">{{porUsuario[usuario.id].bpa     | default('0') }}</td>
+                <td align="right">{{porUsuario[usuario.id].tp      | default('0') }}</td>
+            </tr>
+            {% endif %}
         {% endfor %}
     </tbody>
     <tfoot>
