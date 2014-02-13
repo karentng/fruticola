@@ -2,402 +2,445 @@
     <head>
         <meta charset="utf-8"> 
         <title>Imprimir Ruat</title>
-    </head>
-    <body>
-        <h2 align="left">RUAT</h2>
-        <h3 align="right" style="font-weight:normal">Número de Formulario: <b>{{ruat.numero_formulario}}</b></h3>
-        <h3>A1 Datos Personales:</h3>        
-        <table>
-            
-            <tr> 
-                <td>Nombre:</td>
-                <td colspan="4" rowspan="2"><b>{{ruat.productor.nombre_completo}}</b></td>
-            </tr> 
-            <tr></tr>
-            <tr>
-                 <td >Documento:</td>
-                 <td><b>{{ruat.productor.tipo_documento.descripcion}}{{ruat.productor.numero_documento}}</b></td>
-                 <td align="right">Fecha de Nacimiento: </td>
-                 <td><b>{{ruat.productor.fecha_nacimiento|date("Y/m/d")}}</b></td>
-                 <td align="right">Sexo: </td>
-                {% if ruat.productor.sexo=='F' %}
-                    <td><b>Femenino</b></td>
-                {% elseif ruat.productor=='M' %}   
-                    <td><b>Masculino</b></td>
-                {% endif %}
-            </tr>
-            <tr>
-                
-                <td align="right">Nivel Educativo: </td>
-                <td><b>{{ruat.productor.nivel_educativo.descripcion}}</b></td>
-                <td align="right">Tipo de Productor: </td>
-                <td><b>{{ruat.productor.tipo_productor.descripcion}}</b></td>
-                <td align="right">Renglón Productivo:</td>
-                <td><b>{{ruat.productor.renglon_productivo.descripcion}}</b></td>
-            </tr>
-        </table>
-
-        <h3>A2 Datos de Contacto:</h3>        
-        <table> 
-            <tr>
-                <td>Teléfono Fijo: </td>
-                <td><b>{{ruat.productor.contacto.telefono}}</b></td>
-                <td >Célular:</td>
-                <td ><b>{{ruat.productor.contacto.celular}}</b></td>
-                <td>Email:  </td>
-                <td><b>{{ruat.productor.contacto.email}}</b></td>
-            </tr>
-            <tr>
-                <td >Departamento: </td>
-                <td><b>{{ruat.productor.contacto.departamento.nombre}}</b></td>
-                <td>Municipio: </td>
-                <td><b>{{ruat.productor.contacto.municipio.nombre}}</b></td>
-                <td >Sector </td>
-                <td><b>{{ruat.productor.contacto.vereda}}</b></td>
-            </tr>
-            <tr>
-                <td>Dirección: </td>
-                <td colspan="4"><b>{{ruat.productor.contacto.direccion}}</b></td>
-            </tr>
-        </table>
-        <h3>A3 Datos Económicos:</h3>        
-        <table> 
-            <tr>
-                <td>Ingreso Anual Familiar: </td>
-                <td><b>{{ruat.productor.economia.ingreso_familiar |number_format(0, ',', '.')}}</b></td>
-                <td >Personas a Cargo: </td>
-                <td ><b>{{ruat.productor.economia.personas_dependientes}}</b></td>
-                <td>Ingresos de Actividad Agropecuaria  </td>
-                <td><b>{{ruat.productor.economia.ingreso_agropecuario |number_format(0, ',', '.')}}</b></td>
-            </tr>
-            <tr>
-                {% if ruat.productor.economia.credito_id is not null %}
-                <td colspan="2">Procedencia del Crédito: </td>
-                <td colspan="2"><b>{{ruat.productor.economia.tipo_credito.descripcion}}</b></td>
-                {% endif %}
-                
-            </tr>
-            
-        </table>
-        <h3>A4 Participación del Usuario en Procesos de Transferencia e Innovación:</h3> 
-
-        {% if ruat.innovacion.tipo_id is not null %}     
-        <table border="3"> 
-            <tr>
-                <td align="center"><b>Actividad</b></td>
-                <td align="center"><b>Fuente</b></td>
-                <td align="center"><b>Descripción</b></td>
-            </tr>
-            {% for innovacion in innovaciones %}
-            <tr>
-                <td>{{innovacion.actividad.descripcion}}</td>
-                <td>{{innovacion.fuente.descripcion}}</td>
-                <td>{{innovacion.descripcion}}</td>
-                
-            </tr>
-            {% endfor %}
-        </table>
-        {% else %}
-        <h4 style="font-weight:normal">No hay procesos de transferencia e innovación.</h4>
-        {% endif %}
-
-        <h3>A5 Asociatividad del Usuario:</h3>  
-
-        {% if ruat.asociacion.periodicidad_id is null %}
-        <table>
-            <tr>
-                <td>Razones de no pertenecer:</td>
-                {% for razon in ruat.razones %}
-                <td><b>{{razon.tipo_razon.descripcion}}, </b></td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <td>Entidades a las que no que esté asociado pero que presten apoyo:</td>
-                {% for entidad in organizaciones %}
-                <td><b>{{entidad}}, </b></td>
-                {% endfor %}
-            </tr>
-        </table>
-        {% else %}
-            <h4 style="font-weight:normal">No hay razones de no pertenecer a una asociación ni entidades que presten apoyo.</h4>
-        {% endif %}
-        {% if ruat.asociacion.periodicidad_id is not null %}     
-        <table border="3"> 
-            <tr>
-                <td align="center"><b>Clase</b></td>
-                <td align="center"><b>Organización</b></td>
-                <td align="center"><b>Beneficio</b></td>
-                <td align="center"><b>Periodicidad de Asistencia</b></td>
-                <td align="center"><b>Labor que Realiza</b></td>
-            </tr>
-            {% for asociacion in asociaciones %}
-            <tr>
-                <td> 
-                {% for clase in asociacion.clases%}
-                    {{clase.categoria.descripcion}},
-                {% endfor %}
-                </td>
-                <td>{{asociacion.nombre}}</td>
-                <td> 
-                {% for beneficio in asociacion.beneficios %}
-                    {{beneficio.categoria.descripcion}},
-                {% endfor %}
-                </td>
-                <td>{{asociacion.periodicidad.descripcion}}</td>
-                <td>{{asociacion.membresia}}</td>
-                
-            </tr>
-            {% endfor %}
-        </table>
-        {% else %}
-        <h4 style="font-weight:normal">No hay asociaciones.</h4>
-        {% endif %}
-
-        {% if ruat.asociado_id is not null %}
-        <br>
-        <table>
-            <tr>
-                <td>Nombre del Productor en Asocio:</td>
-                <td><b>{{ruat.asociado.nombre}} {{ruat.asociado.apellido}}</b></td>
-            </tr>
-            <tr>
-                <td>Vereda: </td>
-                <td><b>{{ruat.asociado.vereda}}</b></td>
-                <td>Grado de Confianza: </td>
-                <td><b>{{ruat.asociado.tipo_confianza.descripcion}}</b></td>
-            </tr>
-        </table>
-
-        {% else %}
-            <h4 style="font-weight:normal">No hay productor asociado.</h4>
-        {% endif %}
-
-        {% if ruat.seguir_id is not null %}
-        <br>
-        <table>
-            <tr>
-                <td>Nombre del Productor a Seguir:</td>
-                <td><b>{{ruat.seguir.nombre}} {{ruat.seguir.apellido}}</b></td>
-            </tr>
-            <tr>
-                <td>Vereda: </td>
-                <td><b>{{ruat.seguir.vereda}}</b></td>
-                <td>Grado de Confianza: </td>
-                <td><b>{{ruat.seguir.tipo_confianza.descripcion}}</b></td>
-            </tr>
-        </table>
-
-        {% else %}
-            <h4 style="font-weight:normal">No hay productor a seguir.</h4>
-        {% endif %}
-
-        <h3>B1 Datos Generales de la Finca:</h3> 
-
-        <table> 
-            <tr>
-                <td>Nombre de la Finca: </td>
-                <td colspan="2"><b>{{ruat.finca.nombre}}</b></td>
-                <td>Identificación Catastral: </td>
-                <td colspan="2"><b>{{ruat.finca.identif_catastral}}</b></td>
-                <td>Tenencia:</td>
-                <td colspan="2"><b>{{ruat.finca.tenencia.descripcion}}</b></td>
-            </tr>
-            <tr>
-                <td>Departamento: </td>
-                <td colspan="2"><b>{{ruat.finca.municipio.departamento.nombre}}</b></td>
-                <td >Municipio: </td>
-                <td colspan="2"><b>{{ruat.finca.municipio.nombre}}</b></td>
-                <td>Vereda: </td>
-                <td colspan="3"><b>{{ruat.finca.vereda}}</b></td>
-            </tr>
-            <tr>
-                <td>Sector: </td>
-                <td colspan="2"><b>{{ruat.finca.sector}}</b></td>
-                <td colspan="2">Área Total: </td>
-                <td><b>{{ruat.finca.area_total |number_format(2, ',', '')}}</b></td>
-            </tr>
-            <tr>
-                <td >Disponibilidad de Servicios Públicos:</td>
-                <td colspan="6">
-                {% for servicio in ruat.finca.finca_servicio %}
-                    <b>{{servicio.tipo_servicio.descripcion}}</b>,
-                {% endfor %}
-                
-                </td>
-            </tr>
-            <tr></tr>
-            <tr>
-                <td>Estado de las Vias de Acceso:</td>
-                <td><b>{{ruat.finca.tipo_via.descripcion}}, </b></td>
-                <td><b>{{ruat.finca.via_estado.descripcion}}</b></td>
-            </tr>
-        </table>
-        {% if ruat.finca.residuos_ordinarios is not null or ruat.finca.residuos_peligrosos is not null or ruat.finca.residuos_otro is not null%}
-        <br>     
-        <table border="3"> 
-            <tr>
-                <td align="center" colspan="2"><b>Manejo de Programa de Residuos </b></td>
-            </tr>
-            {% if ruat.finca.residuos_ordinarios is not null %}
-            <tr>
-                <td>Ordinarios</td>
-                <td>{{ruat.finca.residuos_ordinarios}}</td>
-            </tr>
-            {% endif %} 
-            {% if ruat.finca.residuos_peligrosos is not null %}
-            <tr>
-                <td>Peligrosos</td>
-                <td>{{ruat.finca.residuos_peligrosos}}</td>
-            </tr>
-            {% endif %}
-            {% if ruat.finca.residuos_otro is not null %}
-            <tr>
-                <td>Otro</td>
-                <td>{{ruat.finca.residuos_otro}}</td>
-            </tr>
-            {% endif %}
-        </table>
-        {% else %}
-        <h4 style="font-weight:normal">No hay manejo de residuos.</h4>
-        {% endif %}
-        <br>
-        <table> 
-            <tr>
-                <td >Distancia de la finca a la cabecera municipal: </td>
-                <td ><b>{{ruat.finca.dist_cabecera_mpal |number_format(2, ',', '')}}</b></td>
-            
-                <td >Medios de Transporte: </td>
-                <td colspan="4">
-                {% for transporte in ruat.finca.finca_transporte %}
-                <b>{{transporte.tipo_transporte.descripcion}}, </b>
-                {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <td>Forma de llegar al predio: </td>
-                <td colspan="6"><b>{{ruat.finca.forma_llegar}}</b></td>
-            </tr>
-        </table>
-        {% if ruat.finca.finca_maquinaria is not empty %} 
-        <br>    
-        <table border="3"> 
-            <tr>
-                <td align="center" colspan="2"><b>Maquinaria y equipo para la realización de actividades productivas y comercialización</b></td>
-            </tr>
-            {% for maquina in ruat.finca.finca_maquinaria %}
-            <tr>
-                <td>{{maquina.tipo_maquinaria.descripcion}}</td>
-                <td>{{maquina.descripcion}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <br>
-        {% else %}
-        <h4 style="font-weight:normal">No hay manejo de maquinaria.</h4>
-        {% endif %}
+        <style type="text/css" media="print">
+            .noprint { display: none; }
+        </style>
+    
+        <style type="text/css" media="all">
+            body, td, div {
+                font-family: Sans-serif;
+                font-size: 10pt;
+            }
         
-        <h3>B2 Productos Agropecuarios:</h3> 
+        </style>
 
-        {% if ruat.producto is not empty %}
-        <table border="3">
-            <tr>
-                <td align="center" rowspan="2"><b>Producto</b></td>
-                <td align="center" rowspan="2"><b>Variedad</b></td>
-                <td align="center" rowspan="2"><b>Semilla</b></td>
-                <td align="center" rowspan="2"><b>Área Cosechada</b></td>
-                <td align="center" colspan="3"><b>Producción Total (kilos/año)</b></td>
-            </tr>
-            <tr>
-                <td align="center"><b>Semestre A</b></td>
-                <td align="center"><b>Semestre B</b></td>
-                <td align="center"><b>Total</b></td>
-            </tr>
-            {% for producto in ruat.producto %}
-            <tr>
-                <td>{{producto.nombre}}</td>
-                <td>{{producto.variedad}}</td>
-                <td>{{producto.semilla.descripcion}}</td>
-                <td align="center">{{producto.area_cosechada}}</td>
-                <td>{{producto.prod_semestre_a}}</td>
-                <td>{{producto.prod_semestre_b}}</td>
-                <td>{{producto.prod_semestre_a + producto.prod_semestre_b}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <br>
-        <table border="3">
-            <tr>
-                <td align="center" colspan="2"><b>Costos</b></td>
-                <td align="center" rowspan="2"><b>Producción destinada al mercado</b></td>
-                <td align="center" rowspan="2"><b>Sitio Venta</b></td>
-                <td align="center" colspan="2"><b>A quien le vende</b></td>
-            </tr>
-            <tr>
-                <td align="center"><b>Establecimiento</b></td>
-                <td align="center"><b>Sostenimiento</b></td>
-                <td align="center"><b>Tipo</b></td>
-                <td align="center"><b>Nombre y Apellido</b></td>
-            </tr>
-            {% for producto in ruat.producto %}
-            <tr>
-                <td>{{producto.costo_establecimiento}}</td>
-                <td>{{producto.costo_sostenimiento}}</td>
-                <td align="center">{{producto.prod_mercado}}</td>
-                <td>{{producto.sitio_venta.descripcion}}</td>
-                <td>{{producto.vende_tipo.descripcion}}</td>
-                <td>{{producto.vende_nombre}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <br>
-        <table border="3">
-            <tr>
-                <td align="center" rowspan="2"><b>Precio de Venta</b></td>
-                <td align="center" rowspan="2"><b>Forma de Pago</b></td>
-                <td align="center" colspan="2"><b>SubProductos del Cultivo</b></td>
-                <td align="center" colspan="2"><b>Pertenencia a Programas de Asistencia Técnicae</b></td>
-            </tr>
-            <tr>
-                <td align="center"><b>Cúal</b></td>
-                <td align="center"><b>Uso</b></td>
-                <td align="center"><b>Programa</b></td>
-                <td align="center"><b>Entidad</b></td>
-            </tr>
-            {% for producto in ruat.producto %}
-            <tr>
-                <td>{{producto.precio_promedio}}</td>
-                <td>{{producto.forma_pago.descripcion}}</td>
-                <td>{{producto.subproducto}}</td>
-                <td>{{producto.subproducto_uso}}</td>
-                <td>{{producto.asistencia_programa}}</td>
-                <td>{{producto.asistencia_entidad}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <br>
-        {% else %}
-        <h4 style="font-weight:normal">No hay productos con perspectiva comercial.</h4>
-        {% endif %}
 
-        <h3>Georreferenciación del Predio de Ubicación del Cultivo:</h3>
-        <table>
-            <tr>
-                <td>Latitud Norte (N):</td>
-                <td><b>{{ruat.finca.geo_latitud |number_format(6, ',', '')}}</b></td>
-                <td>Longitud Occidente (W):</td>
-                <td><b>{{ruat.finca.geo_longitud |number_format(6, ',', '')}}</b></td>
-                <td>Altura Sobre el Nivel del Mar:</td>
-                <td><b>{{ruat.finca.geo_altura}}</b></td>
-            </tr>
-        </table>
+    </head>
+    <body style="text-align:center" >
+        <input type="button" style="font-size: 18pt" class="noprint" value="Imprimir" onclick="window.print()"/>
 
-        <h3>OBSERVACIONES</h3>
-        <table>
-            <tr>
-                <td>{{ruat.observacion.observacion}}</td>
-            </tr>
-        </table>
+        <div style="width:670px; margin-left:auto; margin-right:auto; text-align:left">
+            <table width="100%">
+                <tr>
+                    <td align="center" valign="middle">
+                        <h3>REGISTRO ÚNICO DE USUARIOS DE ASISTENCIA TÉCNICA –  R.U.A.T.</h3>
+                    </td>
+                    <td valign="middle"><img src="{{base_url('assets/images/logos-imprimir.png')}}" height="80"></td>
+                </tr>
+            </table>     
+            <h3 align="right" style="font-weight:normal">Número de Formulario: <b>{{ruat.numero_formulario}}</b></h3>
+            <h3>A1 Datos Personales:</h3>        
+            <table>
+                
+                <tr> 
+                    <td>Nombre:</td>
+                    <td colspan="4" rowspan="2"><b>{{ruat.productor.nombre_completo}}</b></td>
+                </tr> 
+                <tr></tr>
+                <tr>
+                     <td >Documento:</td>
+                     <td><b>{{ruat.productor.tipo_documento.descripcion}}{{ruat.productor.numero_documento}}</b></td>
+                     <td align="right">Fecha de Nacimiento: </td>
+                     <td><b>{{ruat.productor.fecha_nacimiento|date("Y/m/d")}}</b></td>
+                     <td align="right">Sexo: </td>
+                    {% if ruat.productor.sexo=='F' %}
+                        <td><b>Femenino</b></td>
+                    {% elseif ruat.productor=='M' %}   
+                        <td><b>Masculino</b></td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    
+                    <td align="right">Nivel Educativo: </td>
+                    <td><b>{{ruat.productor.nivel_educativo.descripcion}}</b></td>
+                    <td align="right">Tipo de Productor: </td>
+                    <td><b>{{ruat.productor.tipo_productor.descripcion}}</b></td>
+                    <td align="right">Renglón Productivo:</td>
+                    <td><b>{{ruat.productor.renglon_productivo.descripcion}}</b></td>
+                </tr>
+            </table>
 
+            <h3>A2 Datos de Contacto:</h3>        
+            <table> 
+                <tr>
+                    <td>Teléfono Fijo: </td>
+                    <td><b>{{ruat.productor.contacto.telefono}}</b></td>
+                    <td >Célular:</td>
+                    <td ><b>{{ruat.productor.contacto.celular}}</b></td>
+                    <td>Email:  </td>
+                    <td><b>{{ruat.productor.contacto.email}}</b></td>
+                </tr>
+                <tr>
+                    <td >Departamento: </td>
+                    <td><b>{{ruat.productor.contacto.departamento.nombre}}</b></td>
+                    <td>Municipio: </td>
+                    <td><b>{{ruat.productor.contacto.municipio.nombre}}</b></td>
+                    <td >Sector </td>
+                    <td><b>{{ruat.productor.contacto.vereda}}</b></td>
+                </tr>
+                <tr>
+                    <td>Dirección: </td>
+                    <td colspan="4"><b>{{ruat.productor.contacto.direccion}}</b></td>
+                </tr>
+            </table>
+            <h3>A3 Datos Económicos:</h3>        
+            <table> 
+                <tr>
+                    <td>Ingreso Anual Familiar: </td>
+                    <td><b>{{ruat.productor.economia.ingreso_familiar |number_format(0, ',', '.')}}</b></td>
+                    <td >Personas a Cargo: </td>
+                    <td ><b>{{ruat.productor.economia.personas_dependientes}}</b></td>
+                    <td>Ingresos de Actividad Agropecuaria  </td>
+                    <td><b>{{ruat.productor.economia.ingreso_agropecuario |number_format(0, ',', '.')}}</b></td>
+                </tr>
+                <tr>
+                    {% if ruat.productor.economia.credito_id is not null %}
+                    <td colspan="2">Procedencia del Crédito: </td>
+                    <td colspan="2"><b>{{ruat.productor.economia.tipo_credito.descripcion}}</b></td>
+                    {% endif %}
+                    
+                </tr>
+                
+            </table>
+
+            <h3>A4 Participación del Usuario en Procesos de Transferencia e Innovación:</h3> 
+
+            {% if ruat.innovacion.tipo_id is not null %}
+
+             
+            <table width="100%" border="1" cellspacing="0" cellpadding="4">
+                <tr style="background-color:lightgray">
+                    <td align="center"><b>Actividad</b></td>
+                    <td align="center"><b>Fuente</b></td>
+                    <td align="center"><b>Descripción</b></td>
+                </tr>
+                {% for innovacion in innovaciones %}
+                <tr>
+                    <td>{{innovacion.actividad.descripcion}}</td>
+                    <td>{{innovacion.fuente.descripcion}}</td>
+                    <td>{{innovacion.descripcion}}</td>
+                    
+                </tr>
+                {% endfor %}
+            </table>
+        
+            {% else %}
+            <h4 style="font-weight:normal">No hay procesos de transferencia e innovación.</h4>
+            {% endif %}
+
+            <h3>A5 Asociatividad del Usuario:</h3>  
+
+            {% if ruat.asociacion.periodicidad_id is null %}
+            <table>
+                <tr>
+                    <td>Razones de no pertenecer:</td>
+                    {% for razon in ruat.razones %}
+                    <td><b>{{razon.tipo_razon.descripcion}}, </b></td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Entidades a las que no que esté asociado pero que presten apoyo:</td>
+                    {% for entidad in organizaciones %}
+                    <td><b>{{entidad}}, </b></td>
+                    {% endfor %}
+                </tr>
+            </table>
+            {% else %}
+                <h4 style="font-weight:normal">No hay razones de no pertenecer a una asociación ni entidades que presten apoyo.</h4>
+            {% endif %}
+            {% if ruat.asociacion.periodicidad_id is not null %}     
+                <table width="100%" border="1" cellspacing="0" cellpadding="4">
+                    <tr style="background-color:lightgray">
+                        <td align="center"><b>Clase</b></td>
+                        <td align="center"><b>Organización</b></td>
+                        <td align="center"><b>Beneficio</b></td>
+                        <td align="center"><b>Periodicidad de Asistencia</b></td>
+                        <td align="center"><b>Labor que Realiza</b></td>
+                    </tr>
+                    {% for asociacion in asociaciones %}
+                    <tr>
+                        <td> 
+                        {% for clase in asociacion.clases%}
+                            {{clase.categoria.descripcion}},
+                        {% endfor %}
+                        </td>
+                        <td>{{asociacion.nombre}}</td>
+                        <td> 
+                        {% for beneficio in asociacion.beneficios %}
+                            {{beneficio.categoria.descripcion}},
+                        {% endfor %}
+                        </td>
+                        <td>{{asociacion.periodicidad.descripcion}}</td>
+                        <td>{{asociacion.membresia}}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+            <h4 style="font-weight:normal">No hay asociaciones.</h4>
+            {% endif %}
+
+            {% if ruat.asociado_id is not null %}
+            <br>
+            <table>
+                <tr>
+                    <td>Nombre del Productor en Asocio:</td>
+                    <td><b>{{ruat.asociado.nombre}} {{ruat.asociado.apellido}}</b></td>
+                </tr>
+                <tr>
+                    <td>Vereda: </td>
+                    <td><b>{{ruat.asociado.vereda}}</b></td>
+                    <td>Grado de Confianza: </td>
+                    <td><b>{{ruat.asociado.tipo_confianza.descripcion}}</b></td>
+                </tr>
+            </table>
+
+            {% else %}
+                <h4 style="font-weight:normal">No hay productor asociado.</h4>
+            {% endif %}
+
+            {% if ruat.seguir_id is not null %}
+            <br>
+            <table>
+                <tr>
+                    <td>Nombre del Productor a Seguir:</td>
+                    <td><b>{{ruat.seguir.nombre}} {{ruat.seguir.apellido}}</b></td>
+                </tr>
+                <tr>
+                    <td>Vereda: </td>
+                    <td><b>{{ruat.seguir.vereda}}</b></td>
+                    <td>Grado de Confianza: </td>
+                    <td><b>{{ruat.seguir.tipo_confianza.descripcion}}</b></td>
+                </tr>
+            </table>
+
+            {% else %}
+                <h4 style="font-weight:normal">No hay productor a seguir.</h4>
+            {% endif %}
+
+            <h3>B1 Datos Generales de la Finca:</h3> 
+
+            <table> 
+                <tr>
+                    <td>Nombre de la Finca: </td>
+                    <td colspan="2"><b>{{ruat.finca.nombre}}</b></td>
+                    <td>Identificación Catastral: </td>
+                    <td colspan="2"><b>{{ruat.finca.identif_catastral}}</b></td>
+                    <td>Tenencia:</td>
+                    <td colspan="2"><b>{{ruat.finca.tenencia.descripcion}}</b></td>
+                </tr>
+                <tr>
+                    <td>Departamento: </td>
+                    <td colspan="2"><b>{{ruat.finca.municipio.departamento.nombre}}</b></td>
+                    <td >Municipio: </td>
+                    <td colspan="2"><b>{{ruat.finca.municipio.nombre}}</b></td>
+                    <td>Vereda: </td>
+                    <td colspan="3"><b>{{ruat.finca.vereda}}</b></td>
+                </tr>
+                <tr>
+                    <td>Sector: </td>
+                    <td colspan="2"><b>{{ruat.finca.sector}}</b></td>
+                    <td colspan="2">Área Total: </td>
+                    <td><b>{{ruat.finca.area_total |number_format(2, ',', '')}}</b></td>
+                </tr>
+                <tr>
+                    <td >Disponibilidad de Servicios Públicos:</td>
+                    <td colspan="6">
+                    {% for servicio in ruat.finca.finca_servicio %}
+                        <b>{{servicio.tipo_servicio.descripcion}}</b>,
+                    {% endfor %}
+                    
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <td>Estado de las Vias de Acceso:</td>
+                    <td><b>{{ruat.finca.tipo_via.descripcion}}, </b></td>
+                    <td><b>{{ruat.finca.via_estado.descripcion}}</b></td>
+                </tr>
+            </table>
+            {% if ruat.finca.residuos_ordinarios is not null or ruat.finca.residuos_peligrosos is not null or ruat.finca.residuos_otro is not null%}
+            <br>     
+            <table width="100%" border="1" cellspacing="0" cellpadding="4"> 
+                <tr>
+                    <td align="center" colspan="2" style="background-color:lightgray" ><b>Manejo de Programa de Residuos </b></td>
+                </tr>
+                {% if ruat.finca.residuos_ordinarios is not null %}
+                <tr>
+                    <td><b>Ordinarios</b></td>
+                    <td>{{ruat.finca.residuos_ordinarios}}</td>
+                </tr>
+                {% endif %} 
+                {% if ruat.finca.residuos_peligrosos is not null %}
+                <tr>
+                    <td><b>Peligrosos</b></td>
+                    <td>{{ruat.finca.residuos_peligrosos}}</td>
+                </tr>
+                {% endif %}
+                {% if ruat.finca.residuos_otro is not null %}
+                <tr>
+                    <td><b>Otro</b></td>
+                    <td>{{ruat.finca.residuos_otro}}</td>
+                </tr>
+                {% endif %}
+            </table>
+            {% else %}
+            <h4 style="font-weight:normal">No hay manejo de residuos.</h4>
+            {% endif %}
+            <br>
+            <table> 
+                <tr>
+                    <td >Distancia de la finca a la cabecera municipal: </td>
+                    <td ><b>{{ruat.finca.dist_cabecera_mpal |number_format(2, ',', '')}}</b></td>
+                
+                    <td >Medios de Transporte: </td>
+                    <td colspan="4">
+                    {% for transporte in ruat.finca.finca_transporte %}
+                    <b>{{transporte.tipo_transporte.descripcion}}, </b>
+                    {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Forma de llegar al predio: </td>
+                    <td colspan="6"><b>{{ruat.finca.forma_llegar}}</b></td>
+                </tr>
+            </table>
+            {% if ruat.finca.finca_maquinaria is not empty %} 
+            <br>    
+            <table width="100%" border="1" cellspacing="0" cellpadding="4"> 
+                <tr>
+                    <td align="center" colspan="2"><b>Maquinaria y equipo para la realización de actividades productivas y comercialización</b></td>
+                </tr>
+                {% for maquina in ruat.finca.finca_maquinaria %}
+                <tr>
+                    <td>{{maquina.tipo_maquinaria.descripcion}}</td>
+                    <td>{{maquina.descripcion}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            {% else %}
+            <h4 style="font-weight:normal">No hay manejo de maquinaria.</h4>
+            {% endif %}
+            
+            <h3>B2 Productos Agropecuarios:</h3> 
+
+            {% if ruat.producto is not empty %}
+            <table width="100%" border="1" cellspacing="0" cellpadding="4">
+                <tr style="background-color:lightgray">
+                    <td align="center" rowspan="2"><b>Producto</b></td>
+                    <td align="center" rowspan="2"><b>Variedad</b></td>
+                    <td align="center" rowspan="2"><b>Semilla</b></td>
+                    <td align="center" rowspan="2"><b>Área Cosechada</b></td>
+                    <td align="center" colspan="3"><b>Producción Total (kilos/año)</b></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Semestre A</b></td>
+                    <td align="center"><b>Semestre B</b></td>
+                    <td align="center"><b>Total</b></td>
+                </tr>
+                {% for producto in ruat.producto %}
+                <tr>
+                    <td>{{producto.nombre}}</td>
+                    <td>{{producto.variedad}}</td>
+                    <td>{{producto.semilla.descripcion}}</td>
+                    <td align="center">{{producto.area_cosechada}}</td>
+                    <td>{{producto.prod_semestre_a}}</td>
+                    <td>{{producto.prod_semestre_b}}</td>
+                    <td>{{producto.prod_semestre_a + producto.prod_semestre_b}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <table width="100%" border="1" cellspacing="0" cellpadding="4">
+                <tr style="background-color:lightgray">
+                    <td align="center" colspan="2"><b>Costos</b></td>
+                    <td align="center" rowspan="2"><b>Producción destinada al mercado</b></td>
+                    <td align="center" rowspan="2"><b>Sitio Venta</b></td>
+                    <td align="center" colspan="2"><b>A quien le vende</b></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Establecimiento</b></td>
+                    <td align="center"><b>Sostenimiento</b></td>
+                    <td align="center"><b>Tipo</b></td>
+                    <td align="center"><b>Nombre y Apellido</b></td>
+                </tr>
+                {% for producto in ruat.producto %}
+                <tr>
+                    <td>{{producto.costo_establecimiento}}</td>
+                    <td>{{producto.costo_sostenimiento}}</td>
+                    <td align="center">{{producto.prod_mercado}}</td>
+                    <td>{{producto.sitio_venta.descripcion}}</td>
+                    <td>{{producto.vende_tipo.descripcion}}</td>
+                    <td>{{producto.vende_nombre}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <table width="100%" border="1" cellspacing="0" cellpadding="4">
+                <tr style="background-color:lightgray">
+                    <td align="center" rowspan="2"><b>Precio de Venta</b></td>
+                    <td align="center" rowspan="2"><b>Forma de Pago</b></td>
+                    <td align="center" colspan="2"><b>SubProductos del Cultivo</b></td>
+                    <td align="center" colspan="2"><b>Pertenencia a Programas de Asistencia Técnicae</b></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Cúal</b></td>
+                    <td align="center"><b>Uso</b></td>
+                    <td align="center"><b>Programa</b></td>
+                    <td align="center"><b>Entidad</b></td>
+                </tr>
+                {% for producto in ruat.producto %}
+                <tr>
+                    <td>{{producto.precio_promedio}}</td>
+                    <td>{{producto.forma_pago.descripcion}}</td>
+                    <td>{{producto.subproducto}}</td>
+                    <td>{{producto.subproducto_uso}}</td>
+                    <td>{{producto.asistencia_programa}}</td>
+                    <td>{{producto.asistencia_entidad}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            {% else %}
+            <h4 style="font-weight:normal">No hay productos con perspectiva comercial.</h4>
+            {% endif %}
+
+            <h3>Georreferenciación del Predio de Ubicación del Cultivo:</h3>
+            <table>
+                <tr>
+                    <td>Latitud Norte (N):</td>
+                    <td><b>{{ruat.finca.geo_latitud |number_format(6, ',', '')}}</b></td>
+                    <td>Longitud Occidente (W):</td>
+                    <td><b>{{ruat.finca.geo_longitud |number_format(6, ',', '')}}</b></td>
+                    <td>Altura Sobre el Nivel del Mar:</td>
+                    <td><b>{{ruat.finca.geo_altura}}</b></td>
+                </tr>
+            </table>
+            {% if ruat.observacion.observacion is not null %}
+            <h3>OBSERVACIONES</h3>
+            <table>
+                <tr>
+                    <td>{{ruat.observacion.observacion}}</td>
+                </tr>
+            </table>
+            {% endif %}
+            <br/><br/><br/><br/><br/><br/>
+            <table width="100%">
+                <tr>
+                    <td>
+                        ____________________________ <br/>
+                        {{ruat.productor.nombre_completo}} <br/>
+                        BENEFICIARIO
+                    </td>
+                    <td align="right">
+                        ____________________________ <br/>
+                        {{ruat.creador.first_name}} {{ruat.creador.last_name}} <br/>
+                        FUNCIONARIO RESPONSABLE
+                    </td>
+                </tr>
+            </table>
+        </div>
     </body>
 
 </html>
