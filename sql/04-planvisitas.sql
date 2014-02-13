@@ -43,3 +43,43 @@ insert into tipoactividadvisita(descripcion, orden, categoria) values
     ('Demostraciones de método sobre practicas adecuadas de cosecha', 3, 3),
     ('Demostraciones de método sobre practicas adecuadas de poscosecha', 4, 3),
     ('Giras técnicas para el mejoramiento de los rendimientos productivos', 5, 3);
+
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (16, 16, 250, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (17, 17, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (18, 18, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (19, 19, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (39, 39, 54, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (20, 20, 3265, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (21, 21, 10882, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (22, 22, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (23, 23, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (24, 24, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (25, 25, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (1, 1, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (2, 2, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (3, 3, 3265, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (4, 4, 10882, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (5, 5, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (6, 6, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (7, 7, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (8, 8, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (9, 9, 10882, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (10, 10, 10882, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (11, 11, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (12, 12, 10882, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (13, 13, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (14, 14, 891, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (15, 15, 200, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (26, 26, 10882, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (27, 27, 10882, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (28, 28, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (29, 29, 10882, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (30, 30, 5441, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (31, 31, 891, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (32, 32, 200, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (33, 33, 250, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (34, 34, 600, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (35, 35, 109, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (36, 36, 109, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (37, 37, 109, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO respuestactividadvisita (id, idtipoactividad, columna1, columna2, columna3, columna4, columna5, columna6, columna7, columna8, columna9, columna10) VALUES (38, 38, 109, 0, 0, 0, 0, 0, 0, 0, 0, 0);
