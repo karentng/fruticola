@@ -1,0 +1,34 @@
+{% macro boton(url,title,icon,color) %}
+    {% if url in current_url() %}
+        {% set seleccionado = 'seleccionado' %}
+    {% endif %}
+    <li class="center">
+        <a href="{{site_url(url)}}" class="clearfix enlace-informe {{seleccionado}}">
+            <span class="icon {{color}}"><i class="icon24 {{icon}}"></i></span>
+            <span class="txt">{{title}}</span>
+        </a>
+    </li>
+{% endmacro %}
+
+{% import _self as tb %}
+
+<style>
+    .stats-buttons li a {
+        height:100px;
+    }
+
+    .seleccionado {
+        background:  white !important; /*#4e525d*/
+    }
+</style>    
+
+<div class="container">
+    <div class="stats-buttons btn-group">
+        <ul class="list-unstyled">
+            {{tb.boton('reporteformularios','Formularios Ingresados', 'i-file-8', 'green')}}
+            {{tb.boton('main','Plan de Visitas', 'i-file-8', 'red')}}
+            {{tb.boton('main','Metas Complementarias', 'i-file-8', 'yellow')}}
+        </ul>
+    </div>
+</div>
+<br/>
