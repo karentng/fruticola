@@ -18,7 +18,8 @@ class Ubicaciongoogle extends CI_Controller {
         
         $this->twiggy->set('informes', $informes);*/
         $result = array();
-        $fincas = Finca::find('all', array('order' => 'nombre'));
+        $fincas = Finca::find('all', array('order' => 'nombre', 'conditions' => array('(geo_latitud > ? OR geo_latitud < ?) 
+            AND (geo_longitud > ? OR geo_longitud < ?)', 0, 0, 0, 0)));
 
         foreach($fincas as $finca){
             array_push($result, $finca->to_array());
@@ -30,14 +31,10 @@ class Ubicaciongoogle extends CI_Controller {
         $this->crearArchivoJSON($result);
         $this->twiggy->template("reportes/ubicaciongoogle");
         $this->twiggy->display();
-        
     }
     public function crearArchivoJSON($fincas){
         $result = array();
         for($i = 0; $i < count($fincas); $i++){
-            if($fincas[$i]['geo_latitud'] == 0 && $fincas[$i]['geo_longitud'] == 0){
-                continue;
-            }
             $aux = array();
             $aux['name'] = $fincas[$i]['nombre'];
             $aux['address'] = Municipio::find_by_id($fincas[$i]['municipio'])->nombre;
