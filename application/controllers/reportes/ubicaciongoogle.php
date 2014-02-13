@@ -38,9 +38,9 @@ class Ubicaciongoogle extends CI_Controller {
             $aux = array();
             $aux['name'] = $fincas[$i]['nombre'];
             $aux['address'] = Municipio::find_by_id($fincas[$i]['municipio'])->nombre;
-            $aux['city'] = $fincas[$i]['vereda'];
-            $aux['state'] = $fincas[$i]['sector'];
-            $aux['postal'] = "Área total: ".$fincas[$i]['area_total'];
+            $aux['city'] = "Vereda: ".$fincas[$i]['vereda'];
+            $aux['state'] = "Sector: ".$fincas[$i]['sector'];
+            $aux['postal'] = "";//"Área total: ".$fincas[$i]['area_total'];
             $aux['phone'] = "";
             $aux['web'] = "";
             $aux['lat'] = $fincas[$i]['geo_latitud'];
