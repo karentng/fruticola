@@ -35,6 +35,9 @@ class Ubicaciongoogle extends CI_Controller {
     public function crearArchivoJSON($fincas){
         $result = array();
         for($i = 0; $i < count($fincas); $i++){
+            if($fincas[$i]['geo_latitud'] == 0 && $fincas[$i]['geo_longitud'] == 0){
+                continue;
+            }
             $aux = array();
             $aux['name'] = $fincas[$i]['nombre'];
             $aux['address'] = Municipio::find_by_id($fincas[$i]['municipio'])->nombre;
@@ -44,7 +47,7 @@ class Ubicaciongoogle extends CI_Controller {
             $aux['phone'] = "";
             $aux['web'] = "";
             $aux['lat'] = $fincas[$i]['geo_latitud'];
-            $aux['lng'] = $fincas[$i]['geo_logitud'];
+            $aux['lng'] = $fincas[$i]['geo_longitud'];
             array_push($result, $aux);
         }
         $fp = fopen('assets/google_maps/results.json', 'w');
