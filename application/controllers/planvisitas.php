@@ -20,7 +20,7 @@ class PlanVisitas extends CI_Controller {
         }
 
         $respuestas_relacion_visitas = array_map('to_array', TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 1))));
-        $respuestas_visitas = array_map('to_array', TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 2))));
+        //$respuestas_visitas = array_map('to_array', TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 2))));
         $respuestas_actividades = array_map('to_array', TipoActividadVisita::all(array('select' => 'id,descripcion', 'order' => 'orden', 'conditions' => array('categoria = ?', 3))));
 
 
@@ -48,7 +48,7 @@ class PlanVisitas extends CI_Controller {
 
 
         ///creo las reglas para los inputs
-        $arr_aux = array_merge($respuestas_relacion_visitas, $respuestas_visitas, $respuestas_actividades);
+        $arr_aux = array_merge($respuestas_relacion_visitas, /*$respuestas_visitas,*/ $respuestas_actividades);
         foreach ($arr_aux as $value) {
 //            echo $value['id'].'<br>';
             for ($i = 1; $i <= 10; $i++) {
@@ -102,7 +102,7 @@ class PlanVisitas extends CI_Controller {
 
         // Aunque el nombre es "respuestas" referencian las preguntas
         $this->twiggy->set('respuestas_relacion_visitas', $respuestas_relacion_visitas);
-        $this->twiggy->set('respuestas_visitas', $respuestas_visitas);
+        //$this->twiggy->set('respuestas_visitas', $respuestas_visitas);
         $this->twiggy->set('respuestas_actividades', $respuestas_actividades);
         $this->twiggy->set('nombres_columnas', $nombres_columnas);
         $this->twiggy->set('respuestas_bd_input', $respuestas_bd_input);

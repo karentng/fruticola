@@ -23,7 +23,8 @@ class Ruat extends MyModel
 
     static $has_many = array(
         array('razones', 'class_name'=>'RazonNoPertenecer', 'foreign_key' => 'ruat_id'),
-        array('producto', 'class_name'=>'Producto', 'foreign_key'=> 'ruat_id')
+        array('producto', 'class_name'=>'Producto', 'foreign_key'=> 'ruat_id'),
+        array('aprendizaje', 'class_name'=>'AprendizajeRespuesta', 'foreign_key'=> 'ruat_id')
     );
 
     public function eliminar()

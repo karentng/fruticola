@@ -15,20 +15,13 @@
 <script type="text/javascript">
 
    var base = [
-        "CITRICOS",
-        "AGUACATE",
-        "MORA",
-        "PAPAYA",
-        "MELON",
-        "MARACUYA",
-        "PIÑA",
-        "LULO",
-        "MANGO",
-        "CHONTADURO",
-        "BANANITO",
-        "FRESA",
-        "VID"
     ];
+    
+    var renglones_productivos = {{renglones_productivos|json_encode}}
+    for (var i in renglones_productivos){
+        var aux = renglones_productivos[i];
+        base[aux.id] = aux.descripcion;
+    }
 
     var actividades = [
         "Promedio de activos por productor anual",
@@ -106,15 +99,12 @@
         var chartData = [];
 
         ///recorro los nombres de las columnas
-        for (var i=0; i<base.length; i++) {
+        for (var i in base) {
+            
             var valor_base = base[i];
 
-            var numero_columna = i;
-
-            console.debug(colores[numero_columna]);
-
             var cell = '#' + actividad + '_' + i;
-            var obj = { base: valor_base, actividad: $(cell).text(), color: colores[numero_columna] }
+            var obj = { base: valor_base, actividad: $(cell).text(), color: colores[i] }
 
             chartData.push(obj);
         }
@@ -168,48 +158,29 @@
                         <th align="center">
                             INDICADOR
                         </th>
-                        <th align="center">
-                            CITRICOS
-                        </th>
-                        <th align="center">
-                            AGUACATE
-                        </th>
-                        <th align="center">
-                            MORA
-                        </th>
-                        <th align="center">
-                            PAPAYA
-                        </th>
-                        <th align="center">
-                            MELON
-                        </th>
-                        <th align="center">
-                            MARACUYA
-                        </th>
-                        <th align="center">
-                            PIÑA
-                        </th>
-                        <th align="center">
-                            LULO
-                        </th>
-                        <th align="center">
-                            MANGO
-                        </th>
-                        <th align="center">
-                            CHONTADURO
-                        </th>
-                        <th align="center">
-                            BANANITO
-                        </th>
-                        <th align="center">
-                            FRESA
-                        </th>
-                        <th align="center">
-                            VID
-                        </th>
+                        {% for obj in renglones_productivos %}
+                            <th align="center">
+                                {{obj.descripcion}}
+                            </th>
+                        {% endfor %}                        
                     </tr>
                 </thead>
                 <tbody>
+                    {% set i = 0 %}
+                    {% for row in data %}
+                        <tr>
+                            <td id="">{{row[0]}}</td>
+                            {% for obj in renglones_productivos %}                        
+                                
+                                <td id="{{i~'_'~obj.id}}">{{row[obj.id]}}</td>
+
+                            {% endfor %}
+                        </tr>
+                        {% set i = i+1 %}
+                    {% endfor %}  
+                    
+                    
+                    <!--
                     {% set i = 0 %}
                     {% for row in data %}
                     <tr>
@@ -221,7 +192,8 @@
                     </tr>
                     {% set i = i+1 %}
                     {% endfor %}
-                </tbody>
+                    -->
+                </tbody> 
             </table>
             
             <br/>
