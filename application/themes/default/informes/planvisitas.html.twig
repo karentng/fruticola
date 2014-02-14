@@ -64,12 +64,10 @@
         $('form').submit(validarFormulario);
 
         $('#select_chart').change(refreshChart);
-        $('#select_chart2').change(refreshChart2);
         $('#select_chart3').change(refreshChart3);
 
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
             chart.invalidateSize();
-            chart2.invalidateSize();
             chart3.invalidateSize();
         })
     });
@@ -136,13 +134,11 @@
 
     var base = {{nombres_columnas|json_encode}}
     var actividades = {{respuestas_relacion_visitas|json_encode}}
-    var actividades2 = {{respuestas_visitas|json_encode}}
     var actividades3 = {{respuestas_actividades|json_encode}}
 
     var colores = ["#FF0F00", "#FF6600", "#FF9E01", "#FCD202", "#F8FF01", "#B0DE09", "#04D215", "#0D8ECF", "#0D52D1", "#2A0CD0", "#8A0CCF", "#CD0D74", "#754DEB", "#DDDDDD"];
 
     var chart = null;
-    var chart2 = null;
     var chart3 = null;
 
 
@@ -204,36 +200,7 @@
         categoryAxis.labelRotation = 90;
 
         chart.write('chartdiv');
-
-
-        /// CHART 2
-        var chartData = getChartData($('#select_chart2').val());
-
-        chart2 = new AmCharts.AmSerialChart();
-        chart2.dataProvider = chartData;
-        chart2.categoryField = "base";
-        chart2.exportConfig = exportConfig;
-
-        var graph2 = new AmCharts.AmGraph();
-        graph2.valueField = 'actividad';
-        graph2.colorField = "color";
-        graph2.type = "column";
-        graph2.fillAlphas = 0.8;
-        graph2.title = 'Actividad';
-        graph2.balloonText = "[[category]]:<b>[[value]]</b>";
-        chart2.addGraph(graph2);
-
-        chart2.angle = 30;
-        chart2.depth3D = 15;
-
-        var categoryAxis = chart2.categoryAxis;
-        categoryAxis.autoGridCount = false;
-        categoryAxis.gridCount = chartData.length;
-        categoryAxis.gridPosition = "start";
-        categoryAxis.labelRotation = 90;
-
-        chart2.write('chartdiv2');
-
+        
 
         /// CHART 3
         var chartData = getChartData($('#select_chart3').val());
@@ -296,13 +263,6 @@
         chart.validateData();
     }
 
-    function refreshChart2() {
-        ///consulto cual actividad mostrar, en el select
-        var actividad = $('#select_chart2').val();
-        chart2.dataProvider = getChartData(actividad);
-        chart2.validateData();
-    }
-
     function refreshChart3() {
         ///consulto cual actividad mostrar, en el select
         var actividad = $('#select_chart3').val();
@@ -337,9 +297,8 @@
     <div class="panel-body">
         <div class="container">
             <ul class="nav nav-pills nav-justified">
-                <li class="active"><a href="#reporte1" data-toggle="tab">RELACION DE VISITAS</a></li>
-                <li><a href="#reporte2" data-toggle="tab">REPORTE TOTAL DE VISITAS</a></li>
-                <li><a href="#reposrte3" data-toggle="tab">REPORTE DE ACTIVIDADES</a></li>
+                <li class="active"><a href="#reporte1" data-toggle="tab">ACTIVIDADES INDIVIDUALES</a></li>
+                <li><a href="#reporte3" data-toggle="tab">ACTIVIDADES GRUPALES</a></li>
             </ul>
             <div id='' class="tab-content">
 
@@ -445,16 +404,16 @@
 
                         <div class="panel-heading">
                             <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                            <h4>GRÁFICO RELACIÓN DE VISITAS</h4>
+                            <h4>GRÁFICO ACTIVIDADES INDIVIDUALES</h4>
                         </div>                    
                         <br/>
                         <div class="col-lg-12">
                             <select id="select_chart" class="form-control" name="select_chart">
                                 <!--<option value="0">Totales</option> -->
 
-                                        {% for pa in respuestas_relacion_visitas %}
+                                {% for pa in respuestas_relacion_visitas %}
                                 <option value="{{pa.id}}">{{pa.descripcion}}</option>
-                                        {% endfor %}
+                                {% endfor %}
                             </select>
                         </div>
                         <br/>
@@ -463,128 +422,7 @@
 
                 </div>
 
-                <div class="tab-pane" id="reporte2">
-
-                    <table class="table table-bordered animate-show-hide">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">Actividades</th>
-                                <th rowspan="2">{{nombres_columnas.columna_1}}</th>
-                                <th colspan="10" align="center">RELACION DE VISITAS QUE RECIBIRÁ CADA PRODUCTOR DE ACUERDO A LAS ACTIVIDADES DEL PROYECTO</th>
-                            </tr>
-                            <tr>
-                                <th>{{nombres_columnas.columna_2}}</th>
-                                <th>{{nombres_columnas.columna_3}}</th>
-                                <th>{{nombres_columnas.columna_4}}</th>
-                                <th>{{nombres_columnas.columna_5}}</th>
-                                <th>{{nombres_columnas.columna_6}}</th>
-                                <th>{{nombres_columnas.columna_7}}</th>
-                                <th>{{nombres_columnas.columna_8}}</th>
-                                <th>{{nombres_columnas.columna_9}}</th>
-                                <th>{{nombres_columnas.columna_10}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for pa in respuestas_visitas %}
-                            <tr>
-                                <td style="text-align: justify;">
-                                    {{pa.descripcion}}
-                                </td>
-                                <td>
-                                    <input class="form-control col1 money respuestas_visitas" type="text" name="{{'columna_1_'~pa.id}}" id="{{'columna_1_'~pa.id}}" value="{{set_value('columna_1_'~pa.id, respuestas_bd_input['columna_1_'~pa.id])}}" readonly/>
-                                </td>
-                                <td>
-                                    <input class="form-control col2 money respuestas_visitas" type="text" name="{{'columna_2_'~pa.id}}" id="{{'columna_2_'~pa.id}}" value="{{set_value('columna_2_'~pa.id, respuestas_bd_input['columna_2_'~pa.id])}}"/>
-                                </td>
-                                <td>
-                                    <input class="form-control col3 money respuestas_visitas" type="text" name="{{'columna_3_'~pa.id}}" id="{{'columna_3_'~pa.id}}" value="{{set_value('columna_3_'~pa.id, respuestas_bd_input['columna_3_'~pa.id])}}"/>
-                                </td>
-                                <td>
-                                    <input class="form-control col4 money respuestas_visitas" type="text" name="{{'columna_4_'~pa.id}}" id="{{'columna_4_'~pa.id}}" value="{{set_value('columna_4_'~pa.id, respuestas_bd_input['columna_4_'~pa.id])}}"/>
-                                </td>
-                                <td>
-                                    <input class="form-control col5 money respuestas_visitas" type="text" name="{{'columna_5_'~pa.id}}" id="{{'columna_5_'~pa.id}}" value="{{set_value('columna_5_'~pa.id, respuestas_bd_input['columna_5_'~pa.id])}}"/>
-                                </td>
-                                <td>
-                                    <input class="form-control col6 money respuestas_visitas" type="text" name="{{'columna_6_'~pa.id}}" id="{{'columna_6_'~pa.id}}" value="{{set_value('columna_6_'~pa.id, respuestas_bd_input['columna_6_'~pa.id])}}"/>
-                                </td>
-                                <td>
-                                    <input class="form-control col7 money respuestas_visitas" type="text" name="{{'columna_7_'~pa.id}}" id="{{'columna_7_'~pa.id}}" value="{{set_value('columna_7_'~pa.id, respuestas_bd_input['columna_7_'~pa.id])}}"/>
-                                </td>
-                                <td>
-                                    <input class="form-control col8 money respuestas_visitas" type="text" name="{{'columna_8_'~pa.id}}" id="{{'columna_8_'~pa.id}}" value="{{set_value('columna_8_'~pa.id, respuestas_bd_input['columna_8_'~pa.id])}}"/>
-                                </td>
-                                <td>
-                                    <input class="form-control col9 money respuestas_visitas" type="text" name="{{'columna_9_'~pa.id}}" id="{{'columna_9_'~pa.id}}" value="{{set_value('columna_9_'~pa.id, respuestas_bd_input['columna_9_'~pa.id])}}"/>
-                                </td>
-                                <td>
-                                    <input class="form-control col10 money respuestas_visitas" type="text" name="{{'columna_10_'~pa.id}}" id="{{'columna_10_'~pa.id}}" value="{{set_value('columna_10_'~pa.id, respuestas_bd_input['columna_10_'~pa.id])}}"/>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td style="text-align: center;">
-                                    TOTALES
-                                </td>
-                                <td>
-                                    <input class="form-control col1 money respuestas_visitas total" type="text" readonly/>
-                                </td>
-                                <td>
-                                    <input class="form-control col2 money respuestas_visitas total" type="text" readonly/>
-                                </td>
-                                <td>
-                                    <input class="form-control col3 money respuestas_visitas total" type="text" readonly/>
-                                </td>
-                                <td>
-                                    <input class="form-control col4 money respuestas_visitas total" type="text" readonly/>
-                                </td>
-                                <td>
-                                    <input class="form-control col5 money respuestas_visitas total" type="text" readonly/>
-                                </td>
-                                <td>
-                                    <input class="form-control col6 money respuestas_visitas total" type="text" readonly/>
-                                </td>
-                                <td>
-                                    <input class="form-control col7 money respuestas_visitas total" type="text" readonly/>
-                                </td>
-                                <td>
-                                    <input class="form-control col8 money respuestas_visitas total" type="text" readonly/>
-                                </td>
-                                <td>
-                                    <input class="form-control col9 money respuestas_visitas total" type="text" readonly/>
-                                </td>
-                                <td>
-                                    <input class="form-control col10 money respuestas_visitas total" type="text" readonly/>
-                                </td>
-                            </tr>                            
-                        </tbody>
-                    </table>
-
-                    <br/>
-                    <div class="panel panel-default">
-
-                        <div class="panel-heading">
-                            <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                            <h4>GRÁFICO REPORTE TOTAL DE VISITAS</h4>
-                        </div>                    
-                        <br/>
-                        <div class="col-lg-12">
-
-                            <select id="select_chart2" class="form-control" name="select_chart2">
-                                <!--<option value="0">Totales</option> -->
-
-                                        {% for pa in respuestas_visitas %}
-                                <option value="{{pa.id}}">{{pa.descripcion}}</option>
-                                        {% endfor %}
-                            </select>
-                        </div>
-                        <br/>
-                        <div id="chartdiv2" style="width: 100%; height: 600px;"></div>
-                    </div>
-
-                </div>
-
-                <div class="tab-pane" id="reposrte3">
+                <div class="tab-pane" id="reporte3">
 
                     <table class="table table-bordered animate-show-hide">
                         <thead>
@@ -686,7 +524,7 @@
 
                         <div class="panel-heading">
                             <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                            <h4>GRÁFICO REPORTE REPORTE DE ACTIVIDADES</h4>
+                            <h4>GRÁFICO ACTIVIDADES GRUPALES</h4>
                         </div>                    
                         <br/>
                         <div class="col-lg-12">
@@ -694,9 +532,9 @@
                             <select id="select_chart3" class="form-control" name="select_chart3">
                                 <!--<option value="0">Totales</option> -->
 
-                                        {% for pa in respuestas_actividades %}
+                                {% for pa in respuestas_actividades %}
                                 <option value="{{pa.id}}">{{pa.descripcion}}</option>
-                                        {% endfor %}
+                                {% endfor %}
 
                             </select>
                         </div>
