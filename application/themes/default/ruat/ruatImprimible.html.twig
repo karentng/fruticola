@@ -417,6 +417,41 @@
                     <td><b>{{ruat.finca.geo_altura}}</b></td>
                 </tr>
             </table>
+            <h3>C Apropiación de Aprendizajes:</h3> 
+
+            {% if ruat.aprendizaje is not empty %}
+            <table width="100%" border="1" cellspacing="0" cellpadding="4">
+                <tr style="background-color:lightgray">
+                    <td align="center"><b>Pregunta</b></td>
+                    <td align="center"><b>Respuesta</b></td>
+                </tr>
+                {% for pregunta in ruat.aprendizaje %}
+                <tr>
+                    <td>{{pregunta.pregunta.descripcion}}</td>
+                    <td align="center">{{pregunta.respuesta_id}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <table>
+                <tr>
+                    <td>1=</td>
+                    <td>Totalmente en desacuerdo  </td>
+                    <td>4=</td>
+                    <td>De acuerdo  </td>
+                </tr>
+                <tr>
+                    <td>2=</td>
+                    <td>En desacuerdo </td>
+                    <td>5=</td>
+                    <td>Totalmente de Acuerdo</td>
+                </tr>
+                <tr>
+                    <td>3=</td>
+                    <td>Ni en Acuerdo ni en Desacuerdo</td>
+                </tr>
+            </table>
+            {% endif %}
             {% if ruat.observacion.observacion is not null %}
             <h3>OBSERVACIONES</h3>
             <table>
