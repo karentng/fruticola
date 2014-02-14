@@ -31,6 +31,7 @@ class Ruat extends MyModel
         function cond($field, $value) {
             $res = array('conditions' => array());
             $res['conditions'][$field] = $value;
+            return $res;
         }
 
         //eliminar finca
