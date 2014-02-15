@@ -343,7 +343,11 @@
                 <tr>
                     <td>{{producto.nombre}}</td>
                     <td>{{producto.variedad}}</td>
-                    <td>{{producto.semilla.descripcion}}</td>
+                    {% if producto.semilla_certificada==true %}
+                    <td>Certificada</td>
+                    {% elseif producto.semilla_certificada==false %}
+                    <td>No certificada</td>
+                    {% endif %}
                     <td align="center">{{producto.area_cosechada}}</td>
                     <td>{{producto.prod_semestre_a}}</td>
                     <td>{{producto.prod_semestre_b}}</td>
