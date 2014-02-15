@@ -58,6 +58,25 @@ class RuatB extends CI_Controller {
         unset($input->finca->esFinca);
         $input->finca->ruat_id = $ruat->id;
         if(!$input->finca->identif_catastral) $input->finca->identif_catastral=""; //evitar NULL
+
+        $lat = (double)$input->finca->geo_latitud;
+        $lon = (double)$input->finca->geo_longitud;
+        if($lat==0.0 && $lon==0.0) {
+            $lat = null;
+            $lon = null;
+        }
+        else {
+            $lon = -abs($lon); //longitud occidente
+        }
+
+        //$alt = (double)$input->finca->geo_altura;
+        //if($alt==0.0) $alt=null;
+
+        $input->finca->geo_latitud = $lat;
+        $input->finca->geo_longitud = $lon;
+        //$input->finca->geo_altura = $alt;
+
+
         $input->finca->via_disponibilidad = $input->finca->via_disponibilidad ? 't' : 'f';
         if($input->finca->via_disponibilidad=='f') {
             $input->finca->via_tipo_id=null;
@@ -117,6 +136,8 @@ class RuatB extends CI_Controller {
         $output->soloLectura = Ruat::find($ruat_id)->soloLectura($this);
 
         $output->finca = $finca->to_array();
+        if($output->finca['geo_longitud']) $output->finca['geo_longitud']=abs($output->finca['geo_longitud']); //no mostrar el negativo. Este se pone al guardar
+
         $output->servicios = extract_prop(FincaServicio::find_all_by_finca_id($finca->id),'servicio_id');
         
         $output->mediosTransporte = extract_prop(FincaTransporte::find_all_by_finca_id($finca->id), 'transporte_id');
