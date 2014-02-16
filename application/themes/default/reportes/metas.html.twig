@@ -54,7 +54,7 @@
     }],
     "graphs": [{
         "id":"g1",
-        "balloonText": "[[category]]<br /><b><span style='font-size:14px;'>value: [[value]] de [[max]]</span></b>",
+        "balloonText": "[[category]]<br /><b><span style='font-size:14px;'>[[value]] de [[max]]</span></b>",
         "bullet": "round",
         "bulletBorderAlpha": 1,
         "bulletColor":"#FFFFFF",
@@ -89,7 +89,7 @@
 });
 
 chart.addListener("rendered", zoomChart);
-chart.startDuration = 0; // animacion
+chart.startDuration = 5; // animacion
 zoomChart();
 
 // this method is called when chart is first inited as we listen for "dataUpdated" event
