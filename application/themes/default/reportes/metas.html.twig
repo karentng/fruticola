@@ -18,6 +18,7 @@
     }
 </style>
 
+
 <script type="text/javascript">
     var filaPrevia = 0;
     var totales = {{valoresFinalesJSON}};
@@ -26,82 +27,77 @@
     var colores = ["#FF0F00", "#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09","#04D215","#0D8ECF","#0D52D1","#2A0CD0","#8A0CCF","#CD0D74","#754DEB","#DDDDDD"];
     var titulos = ["Año 2013", "Ene-14","Feb-14","Mar-14","Abr-14","May-14","Jun-14","Jul-14"];
 
-    var chart;
-
+    //var chartData = generateChartData();
     var chartData = [];
-
-    for(var i = 0;i<14;i++){
+    for(var i = 0;i<totales.length;i++){
+        var newDate = new Date();
+        newDate.setDate(newDate.getDate() + i);
         var aux = {
-            "country": "Meta No."+(i+1),
-            "total": totales[i].total,
-            "color": colores[i],
-            "meta": preguntas[i].meta
+            "date": "Meta N."+(i+1),
+            "visits": totales[i].total,
+            "max": preguntas[i].meta,
+            //"meta": preguntas[i].meta
         };
         chartData.push(aux);
     }
 
-    var chart = AmCharts.makeChart("chartdiv", {
-        type: "serial",
-        dataProvider: chartData,
-        categoryField: "country",
-        depth3D: 20,
-        angle: 30,
+    var chart = AmCharts.makeChart("chartdiv2", {
+    "type": "serial",
+    "theme": "none",
+    "pathToImages": "http://www.amcharts.com/lib/3/images/",
+    "dataProvider": chartData,
+    "valueAxes": [{
+        "axisAlpha": 0.2,
+        "dashLength": 1,
+        "position": "left",
+        'title': 'total'
+    }],
+    "graphs": [{
+        "id":"g1",
+        "balloonText": "[[category]]<br /><b><span style='font-size:14px;'>value: [[value]] de [[max]]</span></b>",
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+        "bulletColor":"#FFFFFF",
+        "hideBulletsCount": 50,
+        "title": "red line",
+        "valueField": "visits",
+        "useLineColorForBulletBorder":true
+    }],
+    "chartScrollbar": {
+        "autoGridCount": true,
+        "graph": "g1",
+        "scrollbarHeight": 40
+    },
+    "chartCursor": {
+        "cursorPosition": "mouse"
+    },
+    "categoryField": "date",
+    "categoryAxis": {
+        "parseDates": false,
+        "axisColor": "#DADADA",
+        "dashLength": 1,
+        "minorGridEnabled": true
+    },
+    "exportConfig":{
+      menuRight: '20px',
+      menuBottom: '30px',
+      menuItems: [{
+      icon: 'http://www.amcharts.com/lib/3/images/export.png',
+      format: 'png'   
+      }]  
+    }
+});
 
-        categoryAxis: {
-            labelRotation: 90,
-            gridPosition: "start"
-        },
+chart.addListener("rendered", zoomChart);
+chart.startDuration = 0; // animacion
+zoomChart();
 
-        valueAxes: [{
-            title: "Total"
-        }],
+// this method is called when chart is first inited as we listen for "dataUpdated" event
+function zoomChart() {
+    // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+    chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
+}
 
-        graphs: [{
-            balloonText: "[[total]] de [[meta]]",
-            valueField: "total",
-            colorField: "color",
-            type: "column",
-            lineAlpha: 0,
-            fillAlphas: 1
-        }],
-
-        chartCursor: {
-            cursorAlpha: 0,
-            zoomable: false,
-            categoryBalloonEnabled: false
-        },
-
-        exportConfig: {
-            menuTop: "21px",
-            menuBottom: "auto",
-            menuRight: "21px",
-            backgroundColor: "#efefef",
-
-            menuItemStyle   : {
-            backgroundColor         : '#EFEFEF',
-            rollOverBackgroundColor : '#DDDDDD'},
-
-            menuItems: [{
-                textAlign: 'center',
-                icon: "{{ base_url('assets/amcharts/images/export.png') }}",
-                onclick:function(){},
-                items: [{
-                    title: 'JPG',
-                    format: 'jpg'
-                }, {
-                    title: 'PNG',
-                    format: 'png'
-                }, {
-                    title: 'SVG',
-                    format: 'svg'
-                }, {
-                    title: 'PDF',
-                    format: 'pdf'
-                }]
-            }]
-        }
-    });
-    chart.startDuration = 10; // animacion
 
 function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica los valores que se quieren mostrar de acuerdo al select,
     // pero a su vez quitando los valores previamente puestos.
@@ -113,12 +109,12 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
         if(filaPrevia == 0) return;
         filaPrevia = 0;
         quitar = 8;
-        for(var i = 0;i<14;i++){
+        for(var i = 0;i<totales.length;i++){
             var aux = {
-                "country": "Meta No."+(i+1),
-                "total": totales[i].total,
-                "color": colores[i],
-                "meta": preguntas[i].meta
+                "date": "Meta N."+(i+1),
+                "visits": totales[i].total,
+                "max": preguntas[i].meta,
+                //"meta": preguntas[i].meta
             };
             chartData.push(aux);
         }
@@ -128,7 +124,7 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
             return;
         }
         if(filaPrevia == 0){
-            quitar = 14;
+            quitar = 29;
         }else{
             quitar = 8;
         }
@@ -138,10 +134,9 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
         for(var i = 0;i<8;i++){
             
             var obj = {
-                "country": titulos[i],
-                "total": parseInt(aux[i]),
-                "color": colores[i],
-                "meta": totales[fila-1].total
+                "date": titulos[i],
+                "visits": parseInt(aux[i]),
+                "max": totales[fila-1].total
             };
             chartData.push(obj);
         }
@@ -269,6 +264,19 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
             <tbody>
                 {% set cont = 0 %}
                 {% for pregunta in preguntas %}
+                {% if cont == 0 %}
+                    <tr>
+                        <td colspan="13" align="center"><b>PROYECTOS DE ASISTENCIA TÉCNICA ESPECIALIZADA Y TRANSFERENCIA TECNOLÓGICA</b></td>
+                    </tr>
+                {% elseif cont == 17 %}
+                    <tr>
+                        <td colspan="13" align="center"><b>PROYECTO DE DESARROLLO TECNOLOGICO</b></td>
+                    </tr>
+                {% elseif cont == 25 %}
+                    <tr>
+                        <td colspan="13" align="center"><b>PROYECTO DE ACTUALIZACIÓN TECNOLÓGICA A EXTENSIONISTAS</b></td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <td>
                         <label>{{pregunta.orden}}</label>
@@ -304,22 +312,29 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
 </div>
 
 <div class="form-group">
-    <div class="col-md-offset-4 col-md-5">
+    <div class="col-md-offset-5 col-md-5">
         {% if soloLectura %}
             <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a>
         {% else %}
             <button type="button" name="guardar" class="btn btn-lg btn-success" onclick="confirmar()">Guardar</button>
-            <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
         {% endif %}
     </div>
 </div>
 
 {{ form_close() }}
 <label>Seleccione la Meta:</label><br/>
+
 <select id="grafico" onchange="cambiarGrafico()">
     <option value="0">General</option>
     {% set cont = 1 %}
     {% for pregunta in preguntas %}
+        {% if cont == 1 %}
+            <optgroup label="PROYECTOS DE ASISTENCIA TÉCNICA ESPECIALIZADA Y TRANSFERENCIA TECNOLÓGICA"></optgroup>
+        {% elseif cont == 18 %}
+            <optgroup label="PROYECTO DE DESARROLLO TECNOLOGICO"></optgroup>
+        {% elseif cont == 26 %}
+            <optgroup label="PROYECTO DE ACTUALIZACIÓN TECNOLÓGICA A EXTENSIONISTAS"></optgroup>
+        {% endif %}
         <option value="{{cont}}">
             {{pregunta.concepto}}
         </option>
@@ -327,6 +342,6 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
     {% endfor %}
 </select>
 
-<div id="chartdiv" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv2" style="width: 100%; height: 400px;"></div>
 
 {% endblock %}

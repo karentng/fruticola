@@ -32,14 +32,13 @@ class Metascomplementarias extends CI_Controller {
         }
 
         $existe = false;
-        $metas = MetaComplementaria::find('all');
+        $metas = MetaComplementaria::find('all', array('order' => 'fila'));
         
         if(count($metas) > 0){
             $existe = true;
         }
 
         if ($this->form_validation->run()) {
-
             for($i = 0; $i < count($preguntas) ; $i++){
                 $meta;
                 if($existe){
@@ -54,18 +53,28 @@ class Metascomplementarias extends CI_Controller {
                 $meta->save();
 
                 if($existe){// mes 1 0-->mes 1 7  mes 2 0-->mes 2 7....
+                    //var_dump($preguntas[$i]->id);
                     $respuestas = MetaComplementariaRespuesta::find('all', array('order' => 'id', 'conditions' => array('pregunta = ?', $preguntas[$i]->id)));
-                    for($j = 0; $j < count($respuestas) ; $j++){
-                        $respuesta = $respuestas[$j];
-                        //$respuesta->meta_id = $meta->id;
-                        //$respuesta->pregunta = $preguntas[$i]->id;
-
-                        $respuesta->valor = $this->input->post('mes'.$preguntas[$i]->orden.$j);
-
-                        
-                        //$respuesta->mes = $j;
-                        
-                        $respuesta->save();
+                    
+                    if(count($respuestas) > 0){
+                        for($j = 0; $j < count($respuestas) ; $j++){
+                            $respuesta = $respuestas[$j];
+                            //$respuesta->meta_id = $meta->id;
+                            //$respuesta->pregunta = $preguntas[$i]->id;
+                            //var_dump($preguntas[$i]->orden);
+                            $respuesta->valor = $this->input->post('mes'.$preguntas[$i]->orden.$j);
+                            //$respuesta->mes = $j;
+                            $respuesta->save();
+                        }
+                    }else{
+                        for($j = 0; $j < 8 ; $j++){
+                        $respuesta = new MetaComplementariaRespuesta();
+                            $respuesta->meta_id = $meta->id;
+                            $respuesta->pregunta = $preguntas[$i]->id;
+                            $respuesta->valor = $this->input->post('mes'.$preguntas[$i]->orden.$j);
+                            //$respuesta->mes = $j;
+                            $respuesta->save();
+                        }
                     }
                 }else{
                     for($j = 0; $j < 8 ; $j++){
@@ -91,9 +100,17 @@ class Metascomplementarias extends CI_Controller {
                 // valores del medio
                 $aux = array();
                 $valoresPorFila = MetaComplementariaRespuesta::find('all', array('order' => 'id', 'conditions' => array('meta_id = ?', $metas[$i]->id)));
-                for($j = 0 ; $j <= count($valoresPorFila) ; $j++){
-                    $aux[$j] = $valoresPorFila[$j]->valor;
+                //var_dump($valoresPorFila);
+                if(count($valoresPorFila) > 0){
+                    for($j = 0 ; $j <= count($valoresPorFila) ; $j++){
+                        $aux[$j] = $valoresPorFila[$j]->valor;
+                    }
+                }else{
+                    for($j = 0 ; $j <= 7 ; $j++){
+                        $aux[$j] = 0;
+                    }
                 }
+                
                 array_push($valoresIntermedios, $aux);
 
                 // valores definitivos
@@ -110,7 +127,7 @@ class Metascomplementarias extends CI_Controller {
             $valoresIntermedios = array();
             $valoresFinales = array();
 
-            for($i = 0 ; $i < 14 ; $i++){
+            for($i = 0 ; $i < count($preguntas) ; $i++){
                 // valores del medio
                 $aux = array();
                 for($j = 0 ; $j <= 7 ; $j++){
