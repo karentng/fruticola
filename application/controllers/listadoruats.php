@@ -54,7 +54,6 @@ class ListadoRuats extends CI_Controller {
         $options['order'] = $orders[$order_idx].' '.$order_dir;
 
         $puedeEliminar = check_profile(array("Administrador","Coordinador"), false);
-
         $puedeCrearForms = check_profile(array("Administrador","Coordinador","Digitador"),false);
 
         $rows = array();
@@ -84,7 +83,6 @@ class ListadoRuats extends CI_Controller {
             }
 
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Diagnóstico Manejo de Cosecha'>Cosecha</a>";
-
             
             $cls = $item->bpa_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->bpa_id) {
@@ -107,11 +105,7 @@ class ListadoRuats extends CI_Controller {
             }
 
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Productor</a>";
-            
-
-            
             $btnEliminar = $puedeEliminar? "<button class='btn btn-danger btn-xs tip' title='Eliminar RUAT' onclick='eliminarRuat({$item->id})'>-</button> " :"";
-            
 
             $row = array($btnEliminar . $item->numero_formulario, 
                 $item->nombre_productor, 
@@ -130,6 +124,5 @@ class ListadoRuats extends CI_Controller {
         );
         
         echo json_encode($output);
- 
     }
 }
