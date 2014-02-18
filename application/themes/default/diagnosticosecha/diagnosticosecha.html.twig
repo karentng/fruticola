@@ -35,6 +35,8 @@
 {% block contenido %}
 {% set disabled = soloLectura ? 'disabled="disabled"' : '' %}
 
+
+
 {{ form_open(null, {class:'form-horizontal', role:'form', 'onsubmit':"$('#loadingMask').modal()"}) }}
     <div class="row">
         <div class="col-md-7">
@@ -55,6 +57,8 @@
         </div>
     </div>
 
+    <p class="text-info lead">Para guardar el formulario en blanco ingrese únicamente la fecha y las observaciones. <br/>Luego presione el botón <em><b>Guardar en Blanco</b></em></p>
+    
     {% for idxpreg in 0..7 %}
         {% set pregunta = preguntas[idxpreg] %}
         {% set fieldname = 'preg_'~pregunta.id~'[]' %}
@@ -112,19 +116,21 @@
     <br/>
     <div class="container">
         <h3>Observaciones</h3>
-        <textarea {{disabled}} rows="5" class="form-control" name="observaciones" placeholder="Observaciones...">{{cosecha.observaciones}}</textarea>
+        <textarea {{disabled}} rows="5" class="form-control" name="observaciones" placeholder="Observaciones...">{{set_value('observaciones',cosecha.observaciones)}}</textarea>
     </div>
 
     <br/></br>
-    <div class="form-group">
-        <div class="col-md-offset-4 col-md-5">
+    <div class="container text-center">
+        {#<div class="col-md-offset-3 col-md-5">#}
             {% if soloLectura %}
                 <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a>
             {% else %}
-                <button type="submit" name="guardar" class="btn btn-lg btn-success">Guardar</button>
+                <button type="submit" name="accion" value="guardarBlanco" style="float:left" class="btn btn-lg btn-primary">Guardar en Blanco</button>
+                
+                <button type="submit" name="accion" value="guardar" class="btn btn-lg btn-success">Guardar</button>
                 <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
             {% endif %}
-        </div>
+        {#</div>#}
     </div>
 {{ form_close() }}
 

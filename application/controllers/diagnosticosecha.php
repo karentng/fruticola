@@ -8,6 +8,30 @@ class DiagnostiCosecha extends CI_Controller {
         check_profile(array("Administrador","Coordinador", "Digitador", "Consultas"));
     }
 
+    private function guardarObjCosecha($ruat_id) 
+    {
+        $cosecha =Cosecha::find_by_ruat_id($ruat_id);
+        if(!$cosecha) {
+            $cosecha = new Cosecha;
+            $cosecha->ruat_id = $ruat_id;
+            $cosecha->creador_id = current_user('id');
+        }
+        else {
+            CosechaRespuesta::delete_all(array('conditions' => array('cosecha_id'=>$cosecha->id)));
+        }
+
+        $cosecha->observaciones = $this->input->post('observaciones');
+        $cosecha->fecha_visita = $this->input->post('fecha_visita');
+        $cosecha->save();
+        return $cosecha;
+    }
+
+    private function redireccionar()
+    {
+        $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario Cosecha guardado exitosamente'));
+        redirect('listadoruats');
+    }
+
     public function index($ruat_id=NULL)
     {
         if(!$ruat_id) show_404();
@@ -16,47 +40,42 @@ class DiagnostiCosecha extends CI_Controller {
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('fecha_visita', 'Fecha de Visita', 'required');
-        foreach($preguntas as $preg) {
-            $this->form_validation->set_rules("preg_{$preg->id}[]", "", "required");
-            $this->form_validation->set_rules("otro_{$preg->id}");
+        $this->form_validation->set_rules('observaciones');
+
+        if($this->input->post('accion')=='guardarBlanco') {
+            if($this->form_validation->run() && count($this->input->post())==3) { //fecha, observaciones y boton
+                $this->guardarObjCosecha($ruat_id);
+                $this->redireccionar();
+            }
+            else
+                $this->twiggy->set('notif',array('type'=>'error', 
+                    'text'=> "Para guardar el formulario en blanco debe <b>ingresar únicamente la fecha y las observaciones</b>"));
         }
-        
-
-        if($this->form_validation->run()) {
-            $cosecha = Cosecha::find_by_ruat_id($ruat_id);
-            if(!$cosecha) {
-                $cosecha = new Cosecha;
-                $cosecha->ruat_id = $ruat_id;
-                $cosecha->creador_id = current_user('id');
-            }
-            else {
-                CosechaRespuesta::delete_all(array('conditions' => array('cosecha_id'=>$cosecha->id)));
-            }
-
-            $cosecha->observaciones = $this->input->post('observaciones');
-            $cosecha->fecha_visita = $this->input->post('fecha_visita');
-            $cosecha->save();
-
+        else {
             foreach($preguntas as $preg) {
-                $res_ids = $this->input->post("preg_{$preg->id}");
+                $this->form_validation->set_rules("preg_{$preg->id}[]", "", "required");
+                $this->form_validation->set_rules("otro_{$preg->id}");
+            }            
 
-                foreach($res_ids as $res_id) {
-                    $otro = $this->input->post("otro_{$preg->id}") ?: null;
-
-                    CosechaRespuesta::create(array(
-                        'cosecha_id'   => $cosecha->id,
-                        'pregunta_id'  => $preg->id,
-                        'opcion_id'    => $res_id,
-                        'otro'         => $otro  ));
+            if($this->form_validation->run()) {
+                $cosecha = $this->guardarObjCosecha($ruat_id);
+                foreach($preguntas as $preg) {
+                    $res_ids = $this->input->post("preg_{$preg->id}");
+                    foreach($res_ids as $res_id) {
+                        $otro = $this->input->post("otro_{$preg->id}") ?: null;
+                        CosechaRespuesta::create(array(
+                            'cosecha_id'   => $cosecha->id,
+                            'pregunta_id'  => $preg->id,
+                            'opcion_id'    => $res_id,
+                            'otro'         => $otro  ));
+                    }
                 }
+                $this->redireccionar();
             }
-            $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario Cosecha guardado exitosamente'));
-            redirect('listadoruats');
-        }
-        else if(validation_errors()) {
-            $this->twiggy->set('notif',array('type'=>'error', 'text'=> "Debe responder todas las preguntas. <br> Revise los recuadros rojos"));
-        }
-        
+            else if(validation_errors())
+                $this->twiggy->set('notif',array('type'=>'error', 
+                    'text'=> "Debe responder todas las preguntas. <br> Revise los recuadros rojos"));
+        }        
 
         $bloques = array(
             0 => array(array('inicio' => 0, 'fin' => 1), array('inicio'=>2, 'fin'=>2)),
@@ -70,9 +89,7 @@ class DiagnostiCosecha extends CI_Controller {
         );
 
         $productor = Productor::find_by_id(Ruat::find($ruat_id)->productor_id, array('include' => array('tipo_documento')));
-        
-        $respuestas_bd = array();
-        
+        $respuestas_bd = array();       
         $cosecha = Cosecha::find_by_ruat_id($ruat_id);
         if($cosecha) { //ya existe, cargar datos previamente guardados
             $resps = CosechaRespuesta::find_all_by_cosecha_id($cosecha->id);
@@ -92,10 +109,8 @@ class DiagnostiCosecha extends CI_Controller {
 
         $ruat = Ruat::find($ruat_id);
         $this->twiggy->set('ruat', $ruat);
-
         $this->twiggy->set("preguntas", $preguntas);
         $this->twiggy->set("bloques", $bloques);
-        //$this->twiggy->set("productor", $productor);
         $this->twiggy->set("respuestas_bd", $respuestas_bd);
         $this->twiggy->set("cosecha", $cosecha);
         $this->twiggy->template("diagnosticosecha/diagnosticosecha");
