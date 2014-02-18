@@ -47,7 +47,7 @@
         var fincas = {{fincas}};
 
         var mapOptions = {
-            zoom: 2,
+            zoom: 7,
             center: new google.maps.LatLng(3.4205556, -76.5222221999999)
         };
 
@@ -124,7 +124,7 @@
         });
 
         var mapOptions = {
-            zoom: 2,
+            zoom: 7,
             center: new google.maps.LatLng(municipios[idPredio-1].latitud, municipios[idPredio-1].longitud)
         };
 
@@ -132,7 +132,6 @@
         
 
         for(var i=0;i<fincas.length;i++){
-            console.log(fincas[i]);
             var position1 = new google.maps.LatLng(fincas[i].geo_latitud,fincas[i].geo_longitud);
             var marker1 = new google.maps.Marker({ position: position1, map: map});
             marker1.setTitle(fincas[i].nombre);
