@@ -1,22 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block html_head %}
-<link rel="stylesheet" type="text/css" href="{{ base_url('assets/google_maps/css/map.css')}}" />
-<script type="text/javascript">
-    $(document).ready(function() {
-        function llenarFincas(){
-            var fincas = {{fincas}};
-            for(var i = 0;i<fincas.length;i++){
-                $("#todasFincas").append("<option value="+fincas[i].id+">"+fincas[i].nombre+"</option>");
-            }
-        }
-        llenarFincas();
-    });
-    function enviar(){
-        console.log("a");
-        $( "#submit" ).submit();
+<style type="text/css">
+    #map-canvas{
+        width: 1100px;
+        height: 500px;
     }
-</script>
+</style>
 <script type="text/javascript">
     $(function() {
         {% if notif %}
@@ -43,14 +33,145 @@
     });
 </script>
 
-<script src="{{ base_url('assets/google_maps/js/handlebars-1.0.0.min.js')}}"></script>
-<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script src="{{ base_url('assets/google_maps/js/jquery.storelocator.js')}}"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
 <script>
-    $(function() {
-      $('#map-container').storeLocator();
-    });
-    </script>
+    var marks = [];
+    var infos = [];
+    var municipios = {{municipiosJSON}};
+    var productores = {{productoresJSON}};
+    var renglon = {{renglonJSON}};
+
+    function initialize() {
+        var fincas = {{fincas}};
+
+        var mapOptions = {
+            zoom: 2,
+            center: new google.maps.LatLng(3.4205556, -76.5222221999999)
+        };
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        
+
+        for(var i=0;i<fincas.length;i++){
+            var position1 = new google.maps.LatLng(fincas[i].geo_latitud,fincas[i].geo_longitud);
+            var marker1 = new google.maps.Marker({ position: position1, map: map});
+            marker1.setTitle(fincas[i].nombre);
+            marks.push(marker1);
+            var contentString1 = '<div style="width:200px" align="center"><h3><b>'+fincas[i].nombre+'</b></h3>'+
+                                    '<br/>';
+            if(productores[i] != ""){
+                contentString1 += "<b>Productor: </b>"+productores[i]+"<br/>";
+            }
+            if(fincas[i].vereda != ""){
+                contentString1 += "<b>Vereda: </b>"+fincas[i].vereda+"<br/>";
+            }
+            if(fincas[i].sector != ""){
+                contentString1 += "<b>Sector: </b>"+fincas[i].sector+"<br/>";
+            }
+            if(fincas[i].area_total != ""){
+                contentString1 += "<b>Área Total: </b>"+fincas[i].area_total+"<br/>";
+            }
+            if(renglon[i] != ""){
+                contentString1 += "<b>Renglón: </b>"+renglon[i]+"<br/>";   
+            }
+            
+            contentString1 += '</div>';
+
+            var infowindow1 = new google.maps.InfoWindow({ 
+                content: contentString1,
+                maxWidth: 220
+            })
+
+            infos.push(infowindow1);
+
+            google.maps.event.addListener(marker1, 'click', function() {
+                var pos = marks.indexOf(this);
+                infos[pos].open(this.get('map'), this);
+            });
+        }
+    }
+    function eliminar(){
+        for (var i = 0; i < marks.length; i++ ) {
+            marks[i].setMap(null);
+        }
+        for (var i = 0; i < infos.length; i++ ) {
+            infos[i].setMap(null);
+        }
+        infos.length = 0;
+        marks.length = 0;
+    }
+    function agregar(){
+        eliminar();
+        var idPredio = $("#predio").val();
+        
+        var fincas;
+
+        $.ajax({
+            async:false, 
+            cache:false, 
+            type: 'POST',   
+            url: "{{base_url('reportes/ubicaciongoogle/fincasPorMunicipio')}}",
+            data: {id: idPredio}, 
+            success:  function(data){
+                console.log($.parseJSON(data));
+                data = $.parseJSON(data);
+                fincas = data[0];
+                productores = data[1];
+                renglon = data[2];
+            }
+        });
+
+        var mapOptions = {
+            zoom: 2,
+            center: new google.maps.LatLng(municipios[idPredio-1].latitud, municipios[idPredio-1].longitud)
+        };
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        
+
+        for(var i=0;i<fincas.length;i++){
+            console.log(fincas[i]);
+            var position1 = new google.maps.LatLng(fincas[i].geo_latitud,fincas[i].geo_longitud);
+            var marker1 = new google.maps.Marker({ position: position1, map: map});
+            marker1.setTitle(fincas[i].nombre);
+            marks.push(marker1);
+            var contentString1 = '<div style="width:200px" align="center"><h3><b>'+fincas[i].nombre+'</b></h3>'+
+                                    '<br/>';
+            if(productores[i] != ""){
+                contentString1 += "<b>Productor: </b>"+productores[i]+"<br/>";
+            }
+            if(fincas[i].vereda != ""){
+                contentString1 += "<b>Vereda: </b>"+fincas[i].vereda+"<br/>";
+            }
+            if(fincas[i].sector != ""){
+                contentString1 += "<b>Sector: </b>"+fincas[i].sector+"<br/>";
+            }
+            if(fincas[i].area_total != ""){
+                contentString1 += "<b>Área Total: </b>"+fincas[i].area_total+"<br/>";
+            }
+            if(renglon[i] != ""){
+                contentString1 += "<b>Renglón: </b>"+renglon[i]+"<br/>";   
+            }
+
+            var infowindow1 = new google.maps.InfoWindow({ 
+                content: contentString1,
+                maxWidth: 220
+            })
+
+            infos.push(infowindow1);
+
+            google.maps.event.addListener(marker1, 'click', function() {
+                var pos = marks.indexOf(this);
+                infos[pos].open(this.get('map'), this);
+            });
+        }
+
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
 
 {% endblock %}
 {% block breadcrumnb %}
@@ -67,55 +188,13 @@
 {% block contenido %}
 
 {% include "reportes/toolbar_reportes.html.twig" %}
+Seleccione el Municipio del cual quiere ver los predios:
+<br />
 
-
-
-<div class="form-group">
-
-<!--<div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th colspan="2">Ubicación Geográfica de Predios</th>
-                    </tr>
-                    <tr>
-                        <th class="center" width="30%">Predios</th>
-                        
-                        <th class="center" width="70%">Ubicación</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="center">
-                            <select id="todasFincas" size="10">
-                            </select>
-                        </td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>-->
-
-<div id="form-container" onload="enviar()" style="display:none">
-        <form id="user-location" method="post" action="#">
-            <div id="form-input">
-              <label for="address">Enter Address or Zip Code:</label>
-              <input type="text" id="address" name="address" value="1" />
-             </div>
-            
-            <button id="submit" type="submit">Submit</button>
-        </form>
-      </div>
-
-      <div id="map-container">
-        <div id="loc-list">
-            <ul id="list"></ul>
-        </div>
-        <div id="map"></div>
-      </div>
-    </div>
+<select id="predio" style="margin-bottom:5px;" onchange="agregar()">
+    {% for m in municipios %}
+        <option value="{{m.id}}">{{m.nombre}}</option>
+    {% endfor %}
+</select>
+<div id="map-canvas"></div>
 {% endblock %}
