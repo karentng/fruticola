@@ -18,37 +18,63 @@ class Ubicaciongoogle extends CI_Controller {
         
         $this->twiggy->set('informes', $informes);*/
         $result = array();
+        $result2 = array();
+        $productores = array();
+        $renglon_productivo = array();
+
         $fincas = Finca::find('all', array('order' => 'nombre', 'conditions' => array('(geo_latitud > ? OR geo_latitud < ?) 
             AND (geo_longitud > ? OR geo_longitud < ?)', 0, 0, 0, 0)));
+        $municipios = Municipio::find('all');
 
         foreach($fincas as $finca){
+            
+            $ruat = Ruat::find_by_id($finca->ruat_id);
+            $prod = Productor::find_by_id($ruat->productor_id);
+
+            array_push($productores, $prod->nombre1 ." ". $prod->nombre2 ." ". $prod->apellido1 ." ". $prod->apellido2);
+
+            $renglon = RenglonProductivo::find_by_id($prod->renglon_productivo_id);
+
+            array_push($renglon_productivo, $renglon->descripcion);
+
             array_push($result, $finca->to_array());
         }
 
-        $this->twiggy->set('fincas', json_encode($result));
+        foreach($municipios as $m){
+            array_push($result2, $m->to_array());
+        }
 
-        ///$this->load->library('form_validation');
-        $this->crearArchivoJSON($result);
+        $this->twiggy->set('fincas', json_encode($result));
+        $this->twiggy->set('municipiosJSON', json_encode($result2));
+        
+        $this->twiggy->set('productoresJSON', json_encode($productores));
+        $this->twiggy->set('renglonJSON', json_encode($renglon_productivo));
+
+        $this->twiggy->set('municipios', $municipios);
+
         $this->twiggy->template("reportes/ubicaciongoogle");
         $this->twiggy->display();
     }
-    public function crearArchivoJSON($fincas){
+
+    public function fincasPorMunicipio(){
+        $id = $_POST['id'];
+
+        $productores = array();
+        $renglon_productivo = array();
+
+        $fincas = Finca::find('all', array('conditions' => array('municipio_id = ?', $id)));
         $result = array();
-        for($i = 0; $i < count($fincas); $i++){
-            $aux = array();
-            $aux['name'] = $fincas[$i]['nombre'];
-            $aux['address'] = Municipio::find_by_id($fincas[$i]['municipio'])->nombre;
-            $aux['city'] = "Vereda: ".$fincas[$i]['vereda'];
-            $aux['state'] = "Sector: ".$fincas[$i]['sector'];
-            $aux['postal'] = "";//"Área total: ".$fincas[$i]['area_total'];
-            $aux['phone'] = "";
-            $aux['web'] = "";
-            $aux['lat'] = $fincas[$i]['geo_latitud'];
-            $aux['lng'] = $fincas[$i]['geo_longitud'];
-            array_push($result, $aux);
+        foreach($fincas as $finca){
+            $ruat = Ruat::find_by_id($finca->ruat_id);
+            $prod = Productor::find_by_id($ruat->productor_id);
+
+            array_push($productores, $prod->nombre1 ." ". $prod->nombre2 ." ". $prod->apellido1 ." ". $prod->apellido2);
+
+            $renglon = RenglonProductivo::find_by_id($prod->renglon_productivo_id);
+
+            array_push($renglon_productivo, $renglon->descripcion);
+            array_push($result, $finca->to_array());
         }
-        $fp = fopen('assets/google_maps/results.json', 'w');
-        fwrite($fp, json_encode($result));
-        fclose($fp);
+        echo json_encode([$result, $productores, $renglon_productivo]);
     }
 }
