@@ -336,7 +336,7 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
             <optgroup label="PROYECTO DE ACTUALIZACIÓN TECNOLÓGICA A EXTENSIONISTAS"></optgroup>
         {% endif %}
         <option value="{{cont}}">
-            {{pregunta.concepto}}
+            {{cont~'. '~pregunta.concepto}}
         </option>
         {% set cont = cont + 1 %}
     {% endfor %}

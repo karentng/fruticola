@@ -75,6 +75,10 @@ class Ubicaciongoogle extends CI_Controller {
             array_push($renglon_productivo, $renglon->descripcion);
             array_push($result, $finca->to_array());
         }
-        echo json_encode([$result, $productores, $renglon_productivo]);
+        $final = array();
+        array_push($final, $result);
+        array_push($final, $productores);
+        array_push($final, $renglon_productivo);
+        echo json_encode($final);
     }
 }
