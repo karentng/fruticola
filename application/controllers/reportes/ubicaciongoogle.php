@@ -24,9 +24,14 @@ class Ubicaciongoogle extends CI_Controller {
 
         $fincas = Finca::find('all', array('order' => 'nombre', 'conditions' => array('(geo_latitud > ? OR geo_latitud < ?) 
             AND (geo_longitud > ? OR geo_longitud < ?)', 0, 0, 0, 0)));
-        $municipios = Municipio::find('all');
+        $municipios = Municipio::find('all', array('conditions' => array('departamento_id = ?', 30)));
+        $nombresMunicipio = array();
 
         foreach($fincas as $finca){
+            if($finca->geo_latitud == 0 || $finca->geo_latitud == null || $finca->geo_longitud == 0 || $finca->geo_longitud == null ){
+                continue;
+            }
+            array_push($nombresMunicipio, Municipio::find_by_id($finca->municipio_id)->to_array());
             
             $ruat = Ruat::find_by_id($finca->ruat_id);
             $prod = Productor::find_by_id($ruat->productor_id);
@@ -45,6 +50,7 @@ class Ubicaciongoogle extends CI_Controller {
         }
 
         $this->twiggy->set('fincas', json_encode($result));
+        $this->twiggy->set('nombresMunicipio', json_encode($nombresMunicipio));
         $this->twiggy->set('municipiosJSON', json_encode($result2));
         
         $this->twiggy->set('productoresJSON', json_encode($productores));
@@ -61,10 +67,13 @@ class Ubicaciongoogle extends CI_Controller {
 
         $productores = array();
         $renglon_productivo = array();
+        $nombresMunicipio = array();
 
         $fincas = Finca::find('all', array('conditions' => array('municipio_id = ?', $id)));
         $result = array();
         foreach($fincas as $finca){
+            array_push($nombresMunicipio, Municipio::find_by_id($finca->municipio_id)->to_array());
+
             $ruat = Ruat::find_by_id($finca->ruat_id);
             $prod = Productor::find_by_id($ruat->productor_id);
 
@@ -77,8 +86,8 @@ class Ubicaciongoogle extends CI_Controller {
         }
         $final = array();
         array_push($final, $result);
-        array_push($final, $productores);
         array_push($final, $renglon_productivo);
+        array_push($final, $nombresMunicipio);
         echo json_encode($final);
     }
 }

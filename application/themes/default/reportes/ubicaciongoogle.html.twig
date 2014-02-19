@@ -3,7 +3,7 @@
 {% block html_head %}
 <style type="text/css">
     #map-canvas{
-        width: 1100px;
+        width: 100%;
         height: 500px;
     }
 </style>
@@ -40,8 +40,8 @@
     var marks = [];
     var infos = [];
     var municipios = {{municipiosJSON}};
-    var productores = {{productoresJSON}};
     var renglon = {{renglonJSON}};
+    var nombresMunicipio = {{nombresMunicipio}};
 
     function initialize() {
         var fincas = {{fincas}};
@@ -59,25 +59,26 @@
             var marker1 = new google.maps.Marker({ position: position1, map: map});
             marker1.setTitle(fincas[i].nombre);
             marks.push(marker1);
+
             var contentString1 = '<div style="width:200px" align="center"><h3><b>'+fincas[i].nombre+'</b></h3>'+
-                                    '<br/>';
-            if(productores[i] != ""){
-                contentString1 += "<b>Productor: </b>"+productores[i]+"<br/>";
+                                    '<br/><table align="justify">';
+            if(nombresMunicipio[i].nombre != "" && nombresMunicipio[i].nombre != null){
+                contentString1 += "<tr><td><b>Municipio:</b></td><td>"+nombresMunicipio[i].nombre+"</td></tr>";
             }
-            if(fincas[i].vereda != ""){
-                contentString1 += "<b>Vereda: </b>"+fincas[i].vereda+"<br/>";
+            if(fincas[i].vereda != "" && fincas[i].vereda != null){
+                contentString1 += "<tr><td><b>Vereda: </b></td><td>"+fincas[i].vereda+"</td></tr>";
             }
-            if(fincas[i].sector != ""){
-                contentString1 += "<b>Sector: </b>"+fincas[i].sector+"<br/>";
+            if(fincas[i].sector != "" && fincas[i].sector != null){
+                contentString1 += "<tr><td><b>Sector: </b></td><td>"+fincas[i].sector+"</td></tr>";
             }
-            if(fincas[i].area_total != ""){
-                contentString1 += "<b>Área Total: </b>"+fincas[i].area_total+"<br/>";
+            if(fincas[i].area_total != "" && fincas[i].area_total != null){
+                contentString1 += "<tr><td><b>Área Total: </b></td><td>"+fincas[i].area_total+" ha</td></tr>";
             }
-            if(renglon[i] != ""){
-                contentString1 += "<b>Renglón: </b>"+renglon[i]+"<br/>";   
+            if(renglon[i] != "" && renglon[i] != null){
+                contentString1 += "<tr><td><b>Renglón: </b></td><td>"+renglon[i]+"</td></tr>";   
             }
             
-            contentString1 += '</div>';
+            contentString1 += "</table></div>";
 
             var infowindow1 = new google.maps.InfoWindow({ 
                 content: contentString1,
@@ -105,8 +106,10 @@
     function agregar(){
         eliminar();
         var idPredio = $("#predio").val();
+        var mytag = $("#predio").find('option:selected').attr('mytag');
         
         var fincas;
+        var nombresMuni;
 
         $.ajax({
             async:false, 
@@ -118,14 +121,14 @@
                 console.log($.parseJSON(data));
                 data = $.parseJSON(data);
                 fincas = data[0];
-                productores = data[1];
-                renglon = data[2];
+                renglon = data[1];
+                nombresMuni = data[2];
             }
         });
 
         var mapOptions = {
             zoom: 7,
-            center: new google.maps.LatLng(municipios[idPredio-1].latitud, municipios[idPredio-1].longitud)
+            center: new google.maps.LatLng(municipios[mytag-1].latitud, municipios[mytag-1].longitud)
         };
 
         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -137,23 +140,23 @@
             marker1.setTitle(fincas[i].nombre);
             marks.push(marker1);
             var contentString1 = '<div style="width:200px" align="center"><h3><b>'+fincas[i].nombre+'</b></h3>'+
-                                    '<br/>';
-            if(productores[i] != ""){
-                contentString1 += "<b>Productor: </b>"+productores[i]+"<br/>";
+                                    '<br/><table align="justify">';
+            if(nombresMuni[i].nombre != "" && nombresMuni[i].nombre != null){
+                contentString1 += "<tr><td><b>Municipio:</b></td><td>"+nombresMuni[i].nombre+"</td></tr>";
             }
-            if(fincas[i].vereda != ""){
-                contentString1 += "<b>Vereda: </b>"+fincas[i].vereda+"<br/>";
+            if(fincas[i].vereda != "" && fincas[i].vereda != null){
+                contentString1 += "<tr><td><b>Vereda: </b></td><td>"+fincas[i].vereda+"</td></tr>";
             }
-            if(fincas[i].sector != ""){
-                contentString1 += "<b>Sector: </b>"+fincas[i].sector+"<br/>";
+            if(fincas[i].sector != "" && fincas[i].sector != null){
+                contentString1 += "<tr><td><b>Sector: </b></td><td>"+fincas[i].sector+"</td></tr>";
             }
-            if(fincas[i].area_total != ""){
-                contentString1 += "<b>Área Total: </b>"+fincas[i].area_total+"<br/>";
+            if(fincas[i].area_total != "" && fincas[i].area_total != null){
+                contentString1 += "<tr><td><b>Área Total: </b></td><td>"+fincas[i].area_total+" ha</td></tr>";
             }
-            if(renglon[i] != ""){
-                contentString1 += "<b>Renglón: </b>"+renglon[i]+"<br/>";   
+            if(renglon[i] != "" && renglon[i] != null){
+                contentString1 += "<tr><td><b>Renglón: </b></td><td>"+renglon[i]+"</td></tr>";   
             }
-
+            contentString1 += "</table></div>";
             var infowindow1 = new google.maps.InfoWindow({ 
                 content: contentString1,
                 maxWidth: 220
@@ -166,7 +169,6 @@
                 infos[pos].open(this.get('map'), this);
             });
         }
-
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -191,8 +193,10 @@ Seleccione el Municipio del cual quiere ver los predios:
 <br />
 
 <select id="predio" style="margin-bottom:5px;" onchange="agregar()">
+    {% set cont = 0 %}
     {% for m in municipios %}
-        <option value="{{m.id}}">{{m.nombre}}</option>
+        <option value="{{m.id}}" mytag="{{cont}}">{{m.nombre}}</option>
+        {% set cont = cont + 1 %}
     {% endfor %}
 </select>
 <div id="map-canvas"></div>
