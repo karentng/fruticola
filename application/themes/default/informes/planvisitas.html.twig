@@ -14,6 +14,7 @@
 
 <style>
     .money { text-align: right;}
+
 </style>
 <script>
     $(function() {
@@ -46,19 +47,25 @@
         $('.respuestas_relacion_visitas').change(function(e) {
             var tabla = 'respuestas_relacion_visitas';
             var columna = 'col' + ($(this).attr('name')).split("_")[1];
+            var fila = 'fila' + ($(this).attr('name')).split("_")[2];
             calcularCol(columna, tabla)
+            calcularFila(fila, tabla)
         });
 
         $('.respuestas_visitas').change(function(e) {
             var tabla = 'respuestas_visitas';
             var columna = 'col' + ($(this).attr('name')).split("_")[1];
+            var fila = 'fila' + ($(this).attr('name')).split("_")[2];
             calcularCol(columna, tabla)
+            calcularFila(fila, tabla)
         });
 
         $('.respuestas_actividades').change(function(e) {
             var tabla = 'respuestas_actividades';
             var columna = 'col' + ($(this).attr('name')).split("_")[1];
+            var fila = 'fila' + ($(this).attr('name')).split("_")[2];
             calcularCol(columna, tabla)
+            calcularFila(fila, tabla)
         });
 
         $('form').submit(validarFormulario);
@@ -70,21 +77,30 @@
             chart.invalidateSize();
             chart3.invalidateSize();
         })
-        
+
         calcularTotales();
     });
-    
-    function calcularTotales(){
+
+    function calcularTotales() {
         var tablas = ['respuestas_relacion_visitas', 'respuestas_actividades']
-        
-        for(i in tablas){
+
+        for (i in tablas) {
             var tabla = tablas[i];
-            for(var j = 1; j <= 10; j++){
-                var columna = 'col'+j;
+            for (var j = 1; j <= 9; j++) {
+                var columna = 'col' + j;
                 calcularCol(columna, tabla);
             }
         }
-        
+
+        for (i in actividades) {
+            var fila = 'fila' + actividades[i].id;
+            calcularFila(fila, 'respuestas_relacion_visitas');
+        }
+
+        for (i in actividades3) {
+            var fila = 'fila' + actividades3[i].id;
+            calcularFila(fila, 'respuestas_actividades');
+        }
     }
 
     function asignarNumeroInput(obj, valor) {
@@ -116,18 +132,32 @@
 
     function calcularCol(columna, tabla) {
         var total = 0;
-        console.log('calculanto tabla : '+tabla+' columna : ' + columna);
         $('.' + tabla + '.' + columna).each(function() {
-            var obj = $(this);            
+            var obj = $(this);
 
             ///El unico readonly debe ser el del total
             if ((columna === 'col1' || !obj.is('[readonly]')) && obj.val())
                 total += obtenerNumeroInput(obj);
-            
+
         });
-        
-        console.log('total : ' + total);
+
         asignarNumeroInput($('.' + tabla + '.' + columna + '.total'), total);
+    }
+
+    function calcularFila(fila, tabla) {
+        var sumatotal = 0;
+        $('.' + tabla + '.' + fila).each(function() {
+            var obj = $(this);
+
+            if (!obj.hasClass('porcentaje') && !obj.hasClass('col1') && obj.val())
+                sumatotal += obtenerNumeroInput(obj);
+        });
+
+        ///consulto el valor total de la meta
+        var meta = obtenerNumeroInput($('.' + tabla + '.' + fila + '.col1'));
+        var total = (sumatotal / meta) * 100;
+
+        $('.' + tabla + '.' + fila + '.porcentaje').val(total.toFixed(2) + '%');
     }
 
     function validarFormulario() {
@@ -145,7 +175,7 @@
 <script type="text/javascript">
 
     {% if soloLectura %}
-        $('input').attr('disabled', 'disabled');
+    $('input').attr('disabled', 'disabled');
     {% endif %}
 
 
@@ -217,7 +247,7 @@
         categoryAxis.labelRotation = 90;
 
         chart.write('chartdiv');
-        
+
 
         /// CHART 3
         var chartData = getChartData($('#select_chart3').val());
@@ -337,7 +367,7 @@
                                 <th>{{nombres_columnas.columna_7}}</th>
                                 <th>{{nombres_columnas.columna_8}}</th>
                                 <th>{{nombres_columnas.columna_9}}</th>
-                                <th>{{nombres_columnas.columna_10}}</th>
+                                <th>% Avance </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -347,34 +377,34 @@
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control col1 money respuestas_relacion_visitas" type="text" name="{{'columna_1_'~pa.id}}" id="{{'columna_1_'~pa.id}}" value="{{set_value('columna_1_'~pa.id, respuestas_bd_input['columna_1_'~pa.id])}}" readonly/>
+                                    <input class="form-control col1 money respuestas_relacion_visitas fila{{pa.id}}" type="text" name="{{'columna_1_'~pa.id}}" id="{{'columna_1_'~pa.id}}" value="{{set_value('columna_1_'~pa.id, respuestas_bd_input['columna_1_'~pa.id])}}" readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control col2 money respuestas_relacion_visitas" type="text" name="{{'columna_2_'~pa.id}}" id="{{'columna_2_'~pa.id}}" value="{{set_value('columna_2_'~pa.id, respuestas_bd_input['columna_2_'~pa.id])}}"/>
+                                    <input class="form-control col2 money respuestas_relacion_visitas fila{{pa.id}}" type="text" name="{{'columna_2_'~pa.id}}" id="{{'columna_2_'~pa.id}}" value="{{set_value('columna_2_'~pa.id, respuestas_bd_input['columna_2_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col3 money respuestas_relacion_visitas" type="text" name="{{'columna_3_'~pa.id}}" id="{{'columna_3_'~pa.id}}" value="{{set_value('columna_3_'~pa.id, respuestas_bd_input['columna_3_'~pa.id])}}"/>
+                                    <input class="form-control col3 money respuestas_relacion_visitas fila{{pa.id}}" type="text" name="{{'columna_3_'~pa.id}}" id="{{'columna_3_'~pa.id}}" value="{{set_value('columna_3_'~pa.id, respuestas_bd_input['columna_3_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col4 money respuestas_relacion_visitas" type="text" name="{{'columna_4_'~pa.id}}" id="{{'columna_4_'~pa.id}}" value="{{set_value('columna_4_'~pa.id, respuestas_bd_input['columna_4_'~pa.id])}}"/>
+                                    <input class="form-control col4 money respuestas_relacion_visitas fila{{pa.id}}" type="text" name="{{'columna_4_'~pa.id}}" id="{{'columna_4_'~pa.id}}" value="{{set_value('columna_4_'~pa.id, respuestas_bd_input['columna_4_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col5 money respuestas_relacion_visitas" type="text" name="{{'columna_5_'~pa.id}}" id="{{'columna_5_'~pa.id}}" value="{{set_value('columna_5_'~pa.id, respuestas_bd_input['columna_5_'~pa.id])}}"/>
+                                    <input class="form-control col5 money respuestas_relacion_visitas fila{{pa.id}}" type="text" name="{{'columna_5_'~pa.id}}" id="{{'columna_5_'~pa.id}}" value="{{set_value('columna_5_'~pa.id, respuestas_bd_input['columna_5_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col6 money respuestas_relacion_visitas" type="text" name="{{'columna_6_'~pa.id}}" id="{{'columna_6_'~pa.id}}" value="{{set_value('columna_6_'~pa.id, respuestas_bd_input['columna_6_'~pa.id])}}"/>
+                                    <input class="form-control col6 money respuestas_relacion_visitas fila{{pa.id}}" type="text" name="{{'columna_6_'~pa.id}}" id="{{'columna_6_'~pa.id}}" value="{{set_value('columna_6_'~pa.id, respuestas_bd_input['columna_6_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col7 money respuestas_relacion_visitas" type="text" name="{{'columna_7_'~pa.id}}" id="{{'columna_7_'~pa.id}}" value="{{set_value('columna_7_'~pa.id, respuestas_bd_input['columna_7_'~pa.id])}}"/>
+                                    <input class="form-control col7 money respuestas_relacion_visitas fila{{pa.id}}" type="text" name="{{'columna_7_'~pa.id}}" id="{{'columna_7_'~pa.id}}" value="{{set_value('columna_7_'~pa.id, respuestas_bd_input['columna_7_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col8 money respuestas_relacion_visitas" type="text" name="{{'columna_8_'~pa.id}}" id="{{'columna_8_'~pa.id}}" value="{{set_value('columna_8_'~pa.id, respuestas_bd_input['columna_8_'~pa.id])}}"/>
+                                    <input class="form-control col8 money respuestas_relacion_visitas fila{{pa.id}}" type="text" name="{{'columna_8_'~pa.id}}" id="{{'columna_8_'~pa.id}}" value="{{set_value('columna_8_'~pa.id, respuestas_bd_input['columna_8_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col9 money respuestas_relacion_visitas" type="text" name="{{'columna_9_'~pa.id}}" id="{{'columna_9_'~pa.id}}" value="{{set_value('columna_9_'~pa.id, respuestas_bd_input['columna_9_'~pa.id])}}"/>
+                                    <input class="form-control col9 money respuestas_relacion_visitas fila{{pa.id}}" type="text" name="{{'columna_9_'~pa.id}}" id="{{'columna_9_'~pa.id}}" value="{{set_value('columna_9_'~pa.id, respuestas_bd_input['columna_9_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col10 money respuestas_relacion_visitas" type="text" name="{{'columna_10_'~pa.id}}" id="{{'columna_10_'~pa.id}}" value="{{set_value('columna_10_'~pa.id, respuestas_bd_input['columna_10_'~pa.id])}}"/>
+                                    <input class="form-control porcentaje respuestas_relacion_visitas fila{{pa.id}}" type="text" name="{{'porcentaje_'~pa.id}}" id="{{'porcentaje_'~pa.id}}" value="" readonly/>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -410,7 +440,7 @@
                                     <input class="form-control col9 money respuestas_relacion_visitas total" type="text" readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control col10 money respuestas_relacion_visitas total" type="text" readonly/>
+                                    <input class="form-control porcentaje respuestas_relacion_visitas total" type="text" readonly/>
                                 </td>
                             </tr>                            
                         </tbody>
@@ -457,7 +487,7 @@
                                 <th>{{nombres_columnas.columna_7}}</th>
                                 <th>{{nombres_columnas.columna_8}}</th>
                                 <th>{{nombres_columnas.columna_9}}</th>
-                                <th>{{nombres_columnas.columna_10}}</th>
+                                <th>% Avance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -467,34 +497,34 @@
                                     {{pa.descripcion}}
                                 </td>
                                 <td>
-                                    <input class="form-control col1 money respuestas_actividades" type="text" name="{{'columna_1_'~pa.id}}" id="{{'columna_1_'~pa.id}}" value="{{set_value('columna_1_'~pa.id, respuestas_bd_input['columna_1_'~pa.id])}}" readonly/>
+                                    <input class="form-control col1 money respuestas_actividades fila{{pa.id}}" type="text" name="{{'columna_1_'~pa.id}}" id="{{'columna_1_'~pa.id}}" value="{{set_value('columna_1_'~pa.id, respuestas_bd_input['columna_1_'~pa.id])}}" readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control col2 money respuestas_actividades" type="text" name="{{'columna_2_'~pa.id}}" id="{{'columna_2_'~pa.id}}" value="{{set_value('columna_2_'~pa.id, respuestas_bd_input['columna_2_'~pa.id])}}"/>
+                                    <input class="form-control col2 money respuestas_actividades fila{{pa.id}}" type="text" name="{{'columna_2_'~pa.id}}" id="{{'columna_2_'~pa.id}}" value="{{set_value('columna_2_'~pa.id, respuestas_bd_input['columna_2_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col3 money respuestas_actividades" type="text" name="{{'columna_3_'~pa.id}}" id="{{'columna_3_'~pa.id}}" value="{{set_value('columna_3_'~pa.id, respuestas_bd_input['columna_3_'~pa.id])}}"/>
+                                    <input class="form-control col3 money respuestas_actividades fila{{pa.id}}" type="text" name="{{'columna_3_'~pa.id}}" id="{{'columna_3_'~pa.id}}" value="{{set_value('columna_3_'~pa.id, respuestas_bd_input['columna_3_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col4 money respuestas_actividades" type="text" name="{{'columna_4_'~pa.id}}" id="{{'columna_4_'~pa.id}}" value="{{set_value('columna_4_'~pa.id, respuestas_bd_input['columna_4_'~pa.id])}}"/>
+                                    <input class="form-control col4 money respuestas_actividades fila{{pa.id}}" type="text" name="{{'columna_4_'~pa.id}}" id="{{'columna_4_'~pa.id}}" value="{{set_value('columna_4_'~pa.id, respuestas_bd_input['columna_4_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col5 money respuestas_actividades" type="text" name="{{'columna_5_'~pa.id}}" id="{{'columna_5_'~pa.id}}" value="{{set_value('columna_5_'~pa.id, respuestas_bd_input['columna_5_'~pa.id])}}"/>
+                                    <input class="form-control col5 money respuestas_actividades fila{{pa.id}}" type="text" name="{{'columna_5_'~pa.id}}" id="{{'columna_5_'~pa.id}}" value="{{set_value('columna_5_'~pa.id, respuestas_bd_input['columna_5_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col6 money respuestas_actividades" type="text" name="{{'columna_6_'~pa.id}}" id="{{'columna_6_'~pa.id}}" value="{{set_value('columna_6_'~pa.id, respuestas_bd_input['columna_6_'~pa.id])}}"/>
+                                    <input class="form-control col6 money respuestas_actividades fila{{pa.id}}" type="text" name="{{'columna_6_'~pa.id}}" id="{{'columna_6_'~pa.id}}" value="{{set_value('columna_6_'~pa.id, respuestas_bd_input['columna_6_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col7 money respuestas_actividades" type="text" name="{{'columna_7_'~pa.id}}" id="{{'columna_7_'~pa.id}}" value="{{set_value('columna_7_'~pa.id, respuestas_bd_input['columna_7_'~pa.id])}}"/>
+                                    <input class="form-control col7 money respuestas_actividades fila{{pa.id}}" type="text" name="{{'columna_7_'~pa.id}}" id="{{'columna_7_'~pa.id}}" value="{{set_value('columna_7_'~pa.id, respuestas_bd_input['columna_7_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col8 money respuestas_actividades" type="text" name="{{'columna_8_'~pa.id}}" id="{{'columna_8_'~pa.id}}" value="{{set_value('columna_8_'~pa.id, respuestas_bd_input['columna_8_'~pa.id])}}"/>
+                                    <input class="form-control col8 money respuestas_actividades fila{{pa.id}}" type="text" name="{{'columna_8_'~pa.id}}" id="{{'columna_8_'~pa.id}}" value="{{set_value('columna_8_'~pa.id, respuestas_bd_input['columna_8_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col9 money respuestas_actividades" type="text" name="{{'columna_9_'~pa.id}}" id="{{'columna_9_'~pa.id}}" value="{{set_value('columna_9_'~pa.id, respuestas_bd_input['columna_9_'~pa.id])}}"/>
+                                    <input class="form-control col9 money respuestas_actividades fila{{pa.id}}" type="text" name="{{'columna_9_'~pa.id}}" id="{{'columna_9_'~pa.id}}" value="{{set_value('columna_9_'~pa.id, respuestas_bd_input['columna_9_'~pa.id])}}"/>
                                 </td>
                                 <td>
-                                    <input class="form-control col10 money respuestas_actividades" type="text" name="{{'columna_10_'~pa.id}}" id="{{'columna_10_'~pa.id}}" value="{{set_value('columna_10_'~pa.id, respuestas_bd_input['columna_10_'~pa.id])}}"/>
+                                    <input class="form-control porcentaje respuestas_actividades fila{{pa.id}}" type="text" name="{{'porcentaje_'~pa.id}}" id="{{'porcentaje_'~pa.id}}" value="" readonly/>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -530,7 +560,7 @@
                                     <input class="form-control col9 money respuestas_actividades total" type="text" readonly/>
                                 </td>
                                 <td>
-                                    <input class="form-control col10 money respuestas_actividades total" type="text" readonly/>
+                                    <input class="form-control porcentaje respuestas_actividades total" type="text" readonly/>
                                 </td>
                             </tr>  
                         </tbody>
