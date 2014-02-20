@@ -54,7 +54,7 @@
         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
         
 
-        for(var i=0;i<fincas.length;i++){
+        /*for(var i=0;i<fincas.length;i++){ // poner para que inicie con todas las fincas
             var position1 = new google.maps.LatLng(fincas[i].geo_latitud,fincas[i].geo_longitud);
             var marker1 = new google.maps.Marker({ position: position1, map: map});
             marker1.setTitle(fincas[i].nombre);
@@ -91,7 +91,7 @@
                 var pos = marks.indexOf(this);
                 infos[pos].open(this.get('map'), this);
             });
-        }
+        }*/
     }
     function eliminar(){
         for (var i = 0; i < marks.length; i++ ) {
@@ -106,6 +106,9 @@
     function agregar(){
         eliminar();
         var idPredio = $("#predio").val();
+        if(idPredio == -1){
+            return;
+        }
         var mytag = $("#predio").find('option:selected').attr('mytag');
         
         var fincas;
@@ -189,15 +192,17 @@
 {% block contenido %}
 
 {% include "reportes/toolbar_reportes.html.twig" %}
-Seleccione el Municipio del cual quiere ver los predios:
-<br />
+<div class="form-group">
+<label class="control-label">Mostrar predios del municipio: </label>
 
 <select id="predio" style="margin-bottom:5px;" onchange="agregar()">
     {% set cont = 0 %}
+    <option value="-1" mytag="-1">-</option>
     {% for m in municipios %}
         <option value="{{m.id}}" mytag="{{cont}}">{{m.nombre}}</option>
         {% set cont = cont + 1 %}
     {% endfor %}
 </select>
 <div id="map-canvas"></div>
+<div></div>
 {% endblock %}
