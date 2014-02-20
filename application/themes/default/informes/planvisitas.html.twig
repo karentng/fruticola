@@ -70,7 +70,22 @@
             chart.invalidateSize();
             chart3.invalidateSize();
         })
+        
+        calcularTotales();
     });
+    
+    function calcularTotales(){
+        var tablas = ['respuestas_relacion_visitas', 'respuestas_actividades']
+        
+        for(i in tablas){
+            var tabla = tablas[i];
+            for(var j = 1; j <= 10; j++){
+                var columna = 'col'+j;
+                calcularCol(columna, tabla);
+            }
+        }
+        
+    }
 
     function asignarNumeroInput(obj, valor) {
         obj.autoNumeric('set', valor);
@@ -101,15 +116,17 @@
 
     function calcularCol(columna, tabla) {
         var total = 0;
-
+        console.log('calculanto tabla : '+tabla+' columna : ' + columna);
         $('.' + tabla + '.' + columna).each(function() {
-            var obj = $(this);
+            var obj = $(this);            
 
             ///El unico readonly debe ser el del total
-            if (!obj.is('[readonly]') && obj.val())
+            if ((columna === 'col1' || !obj.is('[readonly]')) && obj.val())
                 total += obtenerNumeroInput(obj);
+            
         });
-
+        
+        console.log('total : ' + total);
         asignarNumeroInput($('.' + tabla + '.' + columna + '.total'), total);
     }
 
