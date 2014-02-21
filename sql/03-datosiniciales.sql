@@ -119,10 +119,6 @@ insert into tipomediotransporte (descripcion, orden) values
     ('Planchón', 9),
     ('Otro', 10);
 
-insert into tiposemilla (descripcion, orden) values
-    ('Certificada', 1),
-    ('No Certificada', 2);
-
 insert into tipositioventa (descripcion, orden) values
     ('Finca', 1),
     ('Plaza', 2),
