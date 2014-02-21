@@ -5,6 +5,10 @@
 <script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
 <script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
 
+<script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+<script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
+<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
+
 <script src="{{ base_url('assets/amcharts/exporting/amexport.js') }}" type="text/javascript"></script>
 <script src="{{ base_url('assets/amcharts/exporting/rgbcolor.js') }}" type="text/javascript"></script>
 <script src="{{ base_url('assets/amcharts/exporting/canvg.js') }}" type="text/javascript"></script>
@@ -17,9 +21,389 @@
         width: 65px;
     }
 </style>
-
-
 <script type="text/javascript">
+var preguntas = {{preguntasJSON}}; // preguntas, con las metas
+var totales = {{valoresFinalesJSON}};
+var intermedios = {{valoresIntermediosJSON}};
+var titulos = ["Año 2013", "Ene-14","Feb-14","Mar-14","Abr-14","May-14","Jun-14","Jul-14"];
+
+var data = [];
+for(var i=0;i<17;i++){
+    var aux = {
+        "year": "Meta No. "+ (i+1),
+        "europe": parseInt((intermedios[i][0]/preguntas[i].meta)*100),
+        "namerica": parseInt((intermedios[i][1]/preguntas[i].meta)*100),
+        "asia": parseInt((intermedios[i][2]/preguntas[i].meta)*100),
+        "lamerica": parseInt((intermedios[i][3]/preguntas[i].meta)*100),
+        "meast": parseInt((intermedios[i][4]/preguntas[i].meta)*100),
+        "africa": parseInt((intermedios[i][5]/preguntas[i].meta)*100),
+        "africa2": parseInt((intermedios[i][6]/preguntas[i].meta)*100),
+        "africa3": parseInt((intermedios[i][7]/preguntas[i].meta)*100),
+
+    };
+    data.push(aux);
+}
+
+// grafico 2
+
+var data2 = [];
+for(var i=17;i<25;i++){
+    var aux = {
+        "year": "Meta No. "+ (i+1),
+        "europe": parseInt((intermedios[i][0]/preguntas[i].meta)*100),
+        "namerica": parseInt((intermedios[i][1]/preguntas[i].meta)*100),
+        "asia": parseInt((intermedios[i][2]/preguntas[i].meta)*100),
+        "lamerica": parseInt((intermedios[i][3]/preguntas[i].meta)*100),
+        "meast": parseInt((intermedios[i][4]/preguntas[i].meta)*100),
+        "africa": parseInt((intermedios[i][5]/preguntas[i].meta)*100),
+        "africa2": parseInt((intermedios[i][6]/preguntas[i].meta)*100),
+        "africa3": parseInt((intermedios[i][7]/preguntas[i].meta)*100),
+    };
+    data2.push(aux);
+}
+
+//grafico 3
+
+var data3 = [];
+for(var i=25;i<29;i++){
+    var aux = {
+        "year": "Meta No. "+ (i+1),
+        "europe": parseInt((intermedios[i][0]/preguntas[i].meta)*100),
+        "namerica": parseInt((intermedios[i][1]/preguntas[i].meta)*100),
+        "asia": parseInt((intermedios[i][2]/preguntas[i].meta)*100),
+        "lamerica": parseInt((intermedios[i][3]/preguntas[i].meta)*100),
+        "meast": parseInt((intermedios[i][4]/preguntas[i].meta)*100),
+        "africa": parseInt((intermedios[i][5]/preguntas[i].meta)*100),
+        "africa2": parseInt((intermedios[i][6]/preguntas[i].meta)*100),
+        "africa3": parseInt((intermedios[i][7]/preguntas[i].meta)*100),
+
+    };
+    data3.push(aux);
+}
+
+//generar
+
+var chart = AmCharts.makeChart("chartdiv", {
+        "type": "serial",
+        "theme": "none",
+        "legend": {
+        "horizontalGap": 100,
+        "maxColumns": 1,
+        "position": "right",
+        "useGraphSettings": true,
+        "markerSize": 10
+    },
+    "dataProvider": data,
+    "valueAxes": [{
+        "stackType": "regular",
+        "axisAlpha": 0.5,
+        "gridAlpha": 0
+    }],
+    "graphs": [{
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[0],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "europe"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[1],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "namerica"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[2],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "asia"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[3],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "lamerica"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[4],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "meast"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[5],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "africa"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[6],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "africa2"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[7],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "africa3"
+    }],
+    "rotate": true,
+    "categoryField": "year",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "axisAlpha": 0,
+        "gridAlpha": 0,
+        "position": "left"
+    },
+    "exportConfig":{
+      "menuTop":"0px",
+      "menuItems": [{
+      "icon": 'http://www.amcharts.com/lib/3/images/export.png',
+      "format": 'png'     
+      }]  
+    }
+});
+
+// grafico 2
+var chart2 = AmCharts.makeChart("chartdiv2", {
+        "type": "serial",
+        "theme": "none",
+        "legend": {
+        "horizontalGap": 100,
+        "maxColumns": 1,
+        "position": "right",
+        "useGraphSettings": true,
+        "markerSize": 10
+    },
+    "dataProvider": data2,
+    "valueAxes": [{
+        "stackType": "regular",
+        "axisAlpha": 0.5,
+        "gridAlpha": 0
+    }],
+    "graphs": [{
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[0],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "europe"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[1],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "namerica"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[2],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "asia"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[3],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "lamerica"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[4],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "meast"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[5],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "africa"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[6],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "africa2"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[7],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "africa3"
+    }],
+    "rotate": true,
+    "categoryField": "year",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "axisAlpha": 0,
+        "gridAlpha": 0,
+        "position": "left"
+    },
+    "exportConfig":{
+      "menuTop":"0px",
+      "menuItems": [{
+      "icon": 'http://www.amcharts.com/lib/3/images/export.png',
+      "format": 'png'     
+      }]  
+    }
+});
+// grafico 3
+var chart3 = AmCharts.makeChart("chartdiv3", {
+        "type": "serial",
+        "theme": "none",
+        "legend": {
+        "horizontalGap": 100,
+        "maxColumns": 1,
+        "position": "right",
+        "useGraphSettings": true,
+        "markerSize": 10
+    },
+    "dataProvider": data3,
+    "valueAxes": [{
+        "stackType": "regular",
+        "axisAlpha": 0.5,
+        "gridAlpha": 0
+    }],
+    "graphs": [{
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[0],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "europe"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[1],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "namerica"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[2],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "asia"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[3],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "lamerica"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[4],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "meast"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[5],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "africa"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[6],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "africa2"
+    }, {
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "fillAlphas": 0.8,
+        "labelText": "[[value]]",
+        "lineAlpha": 0.3,
+        "title": titulos[7],
+        "type": "column",
+        "color": "#000000",
+        "valueField": "africa3"
+    }],
+    "rotate": true,
+    "categoryField": "year",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "axisAlpha": 0,
+        "gridAlpha": 0,
+        "position": "left"
+    },
+    "exportConfig":{
+      "menuTop":"0px",
+      "menuItems": [{
+      "icon": 'http://www.amcharts.com/lib/3/images/export.png',
+      "format": 'png'     
+      }]  
+    }
+});
+</script>
+
+<!--<script type="text/javascript">
     var filaPrevia = 0;
     var totales = {{valoresFinalesJSON}};
     var intermedios = {{valoresIntermediosJSON}};
@@ -173,7 +557,7 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
             }
         });
     });
-</script>
+</script>-->
 <script type="text/javascript">
     function calcularFila(fila){
         var total = 0;
@@ -322,7 +706,7 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
 </div>
 
 {{ form_close() }}
-<label>Seleccione la Meta:</label><br/>
+<!--<label>Seleccione la Meta:</label><br/>
 
 <select id="grafico" onchange="cambiarGrafico()">
     <option value="0">General</option>
@@ -342,6 +726,36 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
     {% endfor %}
 </select>
 
-<div id="chartdiv2" style="width: 100%; height: 400px;"></div>
+<div id="chartdiv2" style="width: 100%; height: 400px;"></div>-->
 
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="icon"><i class="icon20 i-cube"></i></div> 
+          <h4>Resumen de las Metas Complementarias</h4>
+          <a href="#" class="minimize"></a>
+        </div><!-- End .panel-heading -->
+
+        <div class="row-fluid">
+            <div class="col-lg-12" align="center">
+                <label class="control-label">PROYECTOS DE ASISTENCIA TÉCNICA ESPECIALIZADA Y TRANSFERENCIA TECNOLÓGICA</label>
+                <div id="chartdiv" style="height:400px;width:100%"></div>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="col-lg-12" align="center">
+                <label class="control-label">PROYECTO DE DESARROLLO TECNOLOGICO</label>
+                <div id="chartdiv2" style="height:250px;width:100%"></div>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="col-lg-12" align="center">
+                <label class="control-label">PROYECTO DE ACTUALIZACIÓN TECNOLÓGICA A EXTENSIONISTAS</label>
+                <div id="chartdiv3" style="height:240px;width:100%"></div>
+            </div>
+        </div>
+    </div><!-- End .widget -->  
+</div><!-- End .col-lg-6  -->
 {% endblock %}
