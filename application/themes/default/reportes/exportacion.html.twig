@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+    
+{% endblock %}
+
+
+{% block titulo %} 
+<h1><i class="icon20 i-users"></i> Reportes  </h1>
+{% endblock %}
+
+
+{% block contenido %}
+
+<div class="container">
+    {% include "reportes/toolbar_reportes.html.twig" %}
+
+    <h2 class="page-header"> Exportar en formato Excel</h2>
+    {% for exp in exportables %}
+        <h4><a class="act act-success" href="{{exp.url}}"><i class="icon24 i-file-excel"></i> {{exp.title}}</a></h4>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
