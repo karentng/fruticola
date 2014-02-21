@@ -334,16 +334,16 @@
 {% include "reportes/toolbar_reportes.html.twig" %}
 
 {{ form_open() }}
-<div class="panel panel-default">
+{# <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
         <h4>CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
         <a href="#" class="minimize"></a>
     </div>
     <!-- End .panel-heading -->
-    <div class="panel-body">
+    <div class="panel-body"> #}
         <div class="container">
-            <ul class="nav nav-pills nav-justified">
+            <ul class="nav nav-tabs">
                 <li class="active"><a href="#reporte1" data-toggle="tab">ACTIVIDADES INDIVIDUALES</a></li>
                 <li><a href="#reporte3" data-toggle="tab">ACTIVIDADES GRUPALES</a></li>
             </ul>
@@ -592,12 +592,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    {#</div>
     <!-- .container and .panel-body -->
-</div>
+</div>#}
 <!-- panel default -->
 
-<br"/>
+<br/>
 
 <div class="form-group">
     <div class="col-md-offset-5 col-md-5">
