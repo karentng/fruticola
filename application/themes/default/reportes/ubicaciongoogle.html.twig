@@ -168,6 +168,9 @@
             infos.push(infowindow1);
 
             google.maps.event.addListener(marker1, 'click', function() {
+                for(var i=0;i<infos.length;i++){
+                    infos[i].close();
+                }
                 var pos = marks.indexOf(this);
                 infos[pos].open(this.get('map'), this);
             });
