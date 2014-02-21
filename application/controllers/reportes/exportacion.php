@@ -48,49 +48,49 @@ class Exportacion extends CI_Controller {
             inner join finca F on F.ruat_id=RUAT.id
             inner join municipio MF on MF.id=F.municipio_id
             left join
-                (select COS.id, string_agg(O.letra,',') as respuestas1
+                (select COS.id, string_agg(O.letra::text,',') as respuestas1
                 from cosecha COS
                 left join cosecha_respuesta CR on CR.cosecha_id=COS.id and CR.pregunta_id=1
                 left join cosecha_opcionrespuesta O on CR.opcion_id=O.id
                 group by COS.id) R1 ON R1.id=C.id
             left join
-                (select COS.id, string_agg(O.letra,',') as respuestas2
+                (select COS.id, string_agg(O.letra::text,',') as respuestas2
                 from cosecha COS
                 left join cosecha_respuesta CR on CR.cosecha_id=COS.id and CR.pregunta_id=2
                 left join cosecha_opcionrespuesta O on CR.opcion_id=O.id
                 group by COS.id) R2 ON R2.id=C.id
             left join
-                (select COS.id, string_agg(O.letra,',') as respuestas3
+                (select COS.id, string_agg(O.letra::text,',') as respuestas3
                 from cosecha COS
                 left join cosecha_respuesta CR on CR.cosecha_id=COS.id and CR.pregunta_id=3
                 left join cosecha_opcionrespuesta O on CR.opcion_id=O.id
                 group by COS.id) R3 ON R3.id=C.id
             left join 
-                (select COS.id, string_agg(O.letra,',') as respuestas4
+                (select COS.id, string_agg(O.letra::text,',') as respuestas4
                 from cosecha COS
                 left join cosecha_respuesta CR on CR.cosecha_id=COS.id and CR.pregunta_id=4
                 left join cosecha_opcionrespuesta O on CR.opcion_id=O.id
                 group by COS.id) R4 ON R4.id=C.id
             left join
-                (select COS.id, string_agg(O.letra,',') as respuestas5
+                (select COS.id, string_agg(O.letra::text,',') as respuestas5
                 from cosecha COS
                 left join cosecha_respuesta CR on CR.cosecha_id=COS.id and CR.pregunta_id=5
                 left join cosecha_opcionrespuesta O on CR.opcion_id=O.id
                 group by COS.id) R5 ON R5.id=C.id
             left join
-                (select COS.id, string_agg(O.letra,',') as respuestas6
+                (select COS.id, string_agg(O.letra::text,',') as respuestas6
                 from cosecha COS
                 left join cosecha_respuesta CR on CR.cosecha_id=COS.id and CR.pregunta_id=6
                 left join cosecha_opcionrespuesta O on CR.opcion_id=O.id
                 group by COS.id) R6 ON R6.id=C.id
             left join
-                (select COS.id, string_agg(O.letra,',') as respuestas7
+                (select COS.id, string_agg(O.letra::text,',') as respuestas7
                 from cosecha COS
                 left join cosecha_respuesta CR on CR.cosecha_id=COS.id and CR.pregunta_id=7
                 left join cosecha_opcionrespuesta O on CR.opcion_id=O.id
                 group by COS.id) R7 ON R7.id=C.id
             left join
-                (select COS.id, string_agg(O.letra,',') as respuestas8
+                (select COS.id, string_agg(O.letra::text,',') as respuestas8
                 from cosecha COS
                 left join cosecha_respuesta CR on CR.cosecha_id=COS.id and CR.pregunta_id=6
                 left join cosecha_opcionrespuesta O on CR.opcion_id=O.id
