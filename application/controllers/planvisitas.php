@@ -40,8 +40,7 @@ class PlanVisitas extends CI_Controller {
             $respuestas_bd_input['columna_6_' . $obj->id] = $obj->columna6;
             $respuestas_bd_input['columna_7_' . $obj->id] = $obj->columna7;
             $respuestas_bd_input['columna_8_' . $obj->id] = $obj->columna8;
-            $respuestas_bd_input['columna_7_' . $obj->id] = $obj->columna9;
-            $respuestas_bd_input['columna_8_' . $obj->id] = $obj->columna10;
+            $respuestas_bd_input['columna_9_' . $obj->id] = $obj->columna9;
         }
         
         
@@ -51,7 +50,7 @@ class PlanVisitas extends CI_Controller {
         $arr_aux = array_merge($respuestas_relacion_visitas, /*$respuestas_visitas,*/ $respuestas_actividades);
         foreach ($arr_aux as $value) {
 //            echo $value['id'].'<br>';
-            for ($i = 1; $i <= 10; $i++) {
+            for ($i = 1; $i <= 9; $i++) {
                 $nombreInput = "columna_{$i}_{$value['id']}";
                 $this->form_validation->set_rules($nombreInput, $nombreInput, 'required|numeric');
             }
@@ -76,7 +75,6 @@ class PlanVisitas extends CI_Controller {
                 $objRespuestaActividadVisita->columna7 = $this->input->post("columna_7_{$idActividad}");
                 $objRespuestaActividadVisita->columna8 = $this->input->post("columna_8_{$idActividad}");
                 $objRespuestaActividadVisita->columna9 = $this->input->post("columna_9_{$idActividad}");
-                $objRespuestaActividadVisita->columna10 = $this->input->post("columna_10_{$idActividad}");
 
                 $objRespuestaActividadVisita->save();
             }
@@ -84,15 +82,14 @@ class PlanVisitas extends CI_Controller {
         
 
         $nombres_columnas['columna_1'] = 'Total Visitas-Meta';
-        $nombres_columnas['columna_2'] = 'Avance Productores';
-        $nombres_columnas['columna_3'] = 'Corte Diciembre 2013';
-        $nombres_columnas['columna_4'] = 'Ene-14';
-        $nombres_columnas['columna_5'] = 'Feb-14';
-        $nombres_columnas['columna_6'] = 'Mar-14';
-        $nombres_columnas['columna_7'] = 'Abr-14';
-        $nombres_columnas['columna_8'] = 'May-14';
-        $nombres_columnas['columna_9'] = 'Jun-14';
-        $nombres_columnas['columna_10'] = 'Jul-14';
+        $nombres_columnas['columna_2'] = 'Corte Diciembre 2013';
+        $nombres_columnas['columna_3'] = 'Ene-14';
+        $nombres_columnas['columna_4'] = 'Feb-14';
+        $nombres_columnas['columna_5'] = 'Mar-14';
+        $nombres_columnas['columna_6'] = 'Abr-14';
+        $nombres_columnas['columna_7'] = 'May-14';
+        $nombres_columnas['columna_8'] = 'Jun-14';
+        $nombres_columnas['columna_9'] = 'Jul-14';
         
         $soloLectura = true;
         if( $this->ion_auth->get_users_groups()->row()->name === 'Coordinador')
