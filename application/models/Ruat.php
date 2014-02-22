@@ -15,7 +15,6 @@ class Ruat extends MyModel
         array('observacion', 'class_name'=>'Observacion', 'foreign_key' => 'ruat_id'),
         array('innovacion', 'class_name'=>'Innovacion', 'foreign_key' => 'ruat_id'),
         array('asociacion', 'class_name'=>'Orgasociada', 'foreign_key'=> 'ruat_id'),
-        array('bpa', 'class_name'=>'BuenasPracticas', 'foreign_key' => 'ruat_id'),
         array('cosecha', 'class_name'=>'Cosecha', 'foreign_key' => 'ruat_id'),
         array('visita_tipo_productor', 'class_name'=>'VisitaTipoProductor', 'foreign_key' => 'ruat_id'),
         array('finca', 'class_name'=>'Finca', 'foreign_key' => 'ruat_id'),
@@ -24,7 +23,8 @@ class Ruat extends MyModel
     static $has_many = array(
         array('razones', 'class_name'=>'RazonNoPertenecer', 'foreign_key' => 'ruat_id'),
         array('producto', 'class_name'=>'Producto', 'foreign_key'=> 'ruat_id'),
-        array('aprendizaje', 'class_name'=>'AprendizajeRespuesta', 'foreign_key'=> 'ruat_id')
+        array('aprendizaje', 'class_name'=>'AprendizajeRespuesta', 'foreign_key'=> 'ruat_id'),
+        array('bpas', 'class_name'=>'BuenasPracticas', 'foreign_key' => 'ruat_id'),
     );
 
     public function eliminar()
@@ -60,13 +60,15 @@ class Ruat extends MyModel
         
 
         //eliminar aprendizaje
-        AprendizajeRespuesta::delete_all(array('conditions' => array('ruat_id' => $this->id)));
+        AprendizajeRespuesta::delete_all(cond('ruat_id',$this->id));
 
         //eliminar observacion
         if($this->observacion) $this->observacion->delete();
 
         //eliminar bpa
-        if($this->bpa) $this->bpa->eliminar();
+        foreach($this->bpas as $bpa) {
+            $bpa->eliminar();
+        }
 
         //eliminar cosecha
         if($this->cosecha) $this->cosecha->eliminar();
