@@ -9,12 +9,17 @@ class BPA extends CI_Controller {
         check_profile(array("Administrador", "Coordinador", "Digitador", "Consultas"));
     }
 
-    public function index($ruat_id)
+    public function index($ruat_id, $nro_visita=null)
     {
-        //var_dump($_FILES);
-        //    die();
-
         if(!$ruat_id) show_404();
+
+        if($nro_visita===null) {
+            //seleccionar ultima BPA
+            $ultimo_bpa = BuenasPracticas::find_by_ruat_id($ruat_id, array('order' => 'nro_visita DESC'));
+            $nro_visita = $ultimo_bpa ? $ultimo_bpa->nro_visita : 0;
+            redirect(array("bpa","index",$ruat_id,$nro_visita));
+            return;
+        }
 
         $this->load->library('form_validation');
 
@@ -27,7 +32,7 @@ class BPA extends CI_Controller {
         $this->form_validation->set_rules('fecha', 'Fecha', 'required');
 
 
-        $datosBPA = BuenasPracticas::find_by_ruat_id($ruat_id);
+        $datosBPA = BuenasPracticas::find_by_ruat_id_and_nro_visita($ruat_id, $nro_visita);
         $existePreviamente = false;
         if($datosBPA) {
             $datosBPA = $datosBPA;
@@ -80,6 +85,7 @@ class BPA extends CI_Controller {
             }else{
                 $bpa = new BuenasPracticas();
                 $bpa->ruat_id = $ruat_id;
+                $bpa->nro_visita = $nro_visita;
                 $bpa->creador_id = current_user('id');
             }
 
@@ -234,7 +240,7 @@ class BPA extends CI_Controller {
             $this->twiggy->set('excepcion42', true);
 
         }
-
+ 
         $ruat = Ruat::find($ruat_id);
         $this->twiggy->set('ruat', $ruat); //necesario para el encabezado info_productor
 
@@ -243,11 +249,32 @@ class BPA extends CI_Controller {
         $this->twiggy->set('preguntasB', $preguntasB);
         $this->twiggy->set('preguntasC', $preguntasC);
         $this->twiggy->set('tamaño', count($preguntasC)+count($preguntasB));
-
-        
-        
+        $this->twiggy->set('lista_visitas', $this->gen_lista_visitas($ruat_id, $nro_visita));
         $this->twiggy->template("bpa/bpa");
         $this->twiggy->display();
+    }
+
+    private function gen_lista_visitas($ruat_id, $visita_actual)
+    {
+        $MAX_VISITAS=6;
+        $lista = array();
+        $agregar = function($nro) use (&$lista, $ruat_id, $visita_actual) {
+            $item = array();
+            $item['title'] = $nro===0 ? "BPA Inicial" : "Visita ".$nro;
+            $item['url'] = site_url(array("bpa","index",$ruat_id,$nro));
+            $item['active'] = $nro == $visita_actual;
+            $lista[] = $item;
+            //echo "Lista es ".json_encode($lista);
+        };
+
+        $bpas = BuenasPracticas::find_all_by_ruat_id($ruat_id, array('order' => 'nro_visita'));
+        $max = -1;
+        foreach($bpas as $bpa) {
+            $agregar($bpa->nro_visita);
+            $max = $bpa->nro_visita;
+        }
+        if($max<$MAX_VISITAS) $agregar($max+1);
+        return $lista;
     }
 
     private function do_upload($ruat_id) {

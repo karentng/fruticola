@@ -158,6 +158,25 @@
 
 {% block contenido %}
 
+<h3>
+    <ul id="links-visitas" class="nav nav-pills">
+
+        {% for link in lista_visitas %}
+            <li {% if link.active %} class="active" {% endif %}><a href="{{link.url}}">{{link.title}}</a></li>
+        {% endfor %}
+    </ul>
+</h3>
+<script>
+    $(function(){
+        $('input').change(function() {
+            $('#links-visitas li').addClass('disabled');
+            $('#links-visitas a').removeAttr('href').click(function(){
+                alert('Debe guardar o cancelar los cambios antes de pasar a otra visita');
+            });
+        })
+    })
+</script>
+
 {{ form_open_multipart(null, {role:'form', class:'form-horizontal', 'onsubmit':"$('#loadingMask').modal()"}) }}
 <div class="row">
     <div class="col-md-7">
