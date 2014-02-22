@@ -76,13 +76,16 @@ class ListadoRuats extends CI_Controller {
             $cls = $item->cosecha_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->cosecha_id) {
                 $url = site_url("diagnosticosecha/index/$item->id");
+                $url2 = site_url("cosechaImprimible/index/$item->id");
                 $disabled = '';
             } else {
                 $url = "";
+                $url2="";
                 $disabled = 'disabled="disabled"';
             }
 
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Diagnóstico Manejo de Cosecha'>Cosecha</a>";
+            $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' title='Versión Imprimible Cosecha' target='_blank'><i class='i-print'></i></a>";
             
             $cls = $item->bpa_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->bpa_id) {

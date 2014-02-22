@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <meta charset="utf-8"> 
+        <title>Imprimir Cosecha</title>
+        <style type="text/css" media="print">
+            .noprint { display: none; }
+        </style>
+    
+        <style type="text/css" media="all">
+            body, td, div {
+                font-family: Sans-serif;
+                font-size: 10pt;
+            }
+        
+        </style>
+
+
+    </head>
+    <body style="text-align:center" >
+        <input type="button" style="font-size: 18pt" class="noprint" value="Imprimir" onclick="window.print()"/>
+
+        <div style="width:670px; margin-left:auto; margin-right:auto; text-align:left">
+            <table width="100%">
+                <tr>
+                    <td align="center" valign="middle">
+                        <h3>DIAGNOSTICO MANEJO DE COSECHA</h3>
+                    </td>
+                    <td valign="middle"><img src="{{base_url('assets/images/logos-imprimir.png')}}" height="80"></td>
+                </tr>
+            </table>     
+            <h3 align="right" style="font-weight:normal">Fecha de Visita: <b>{{ruat.cosecha.fecha_visita|date("Y/m/d")}}</b></h3>
+            <table width="100%" border="1" cellspacing="0" cellpadding="4">
+                <tr style="background-color:lightgray"> 
+                    <td align="center"><b>Pregunta</b></td>
+                    <td align="center"><b>Respuesta</b></td>
+                </tr>
+                {% for cosecharespuesta in ruat.cosecha.cosecharespuestas %}
+                <tr>
+                    <td>{{cosecharespuesta.cosechapregunta.texto}}</td>
+                    <td><b>{{cosecharespuesta.cosechaopcionrespuesta.texto}}</b></td>
+                </tr>
+                {% endfor %}
+            </table>            
+            {% if ruat.cosecha.observaciones is not empty %}
+            <h3>OBSERVACIONES</h3>
+            <table>
+                <tr>
+                    <td>{{ruat.cosecha.observaciones}}</td>
+                </tr>
+            </table>
+            {% endif %}
+            <br/><br/><br/><br/><br/><br/>
+            <table width="100%">
+                <tr>
+                    <td>
+                        ____________________________ <br/>
+                        {{ruat.productor.nombre_completo}} <br/>
+                        BENEFICIARIO
+                    </td>
+                    <td align="right">
+                        ____________________________ <br/>
+                        {{ruat.creador.first_name}} {{ruat.creador.last_name}} <br/>
+                        FUNCIONARIO RESPONSABLE
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+
+</html>
