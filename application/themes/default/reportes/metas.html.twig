@@ -5,10 +5,6 @@
 <script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
 <script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
 
-<script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
-<script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
-<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
-
 <script src="{{ base_url('assets/amcharts/exporting/amexport.js') }}" type="text/javascript"></script>
 <script src="{{ base_url('assets/amcharts/exporting/rgbcolor.js') }}" type="text/javascript"></script>
 <script src="{{ base_url('assets/amcharts/exporting/canvg.js') }}" type="text/javascript"></script>
@@ -81,7 +77,6 @@ for(var i=25;i<29;i++){
 }
 
 //generar
-console.log(metas);
 var chart = AmCharts.makeChart("chartdiv", {
         "type": "serial",
         "theme": "none",
@@ -101,7 +96,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     "graphs": [{
         "balloonText": "<b><span style='font-size:14px'>: [[value]]%</span></b>-->[[title]]",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]%"],
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[0],
         "type": "column",
