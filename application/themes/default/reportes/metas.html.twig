@@ -76,22 +76,21 @@ for(var i=25;i<29;i++){
         "africa": parseInt((intermedios[i][5]/preguntas[i].meta)*100),
         "africa2": parseInt((intermedios[i][6]/preguntas[i].meta)*100),
         "africa3": parseInt((intermedios[i][7]/preguntas[i].meta)*100),
-
     };
     data3.push(aux);
 }
 
 //generar
-
+console.log(metas);
 var chart = AmCharts.makeChart("chartdiv", {
         "type": "serial",
         "theme": "none",
         "legend": {
-        "horizontalGap": 100,
+        "horizontalGap": 5,
         "maxColumns": 1,
         "position": "right",
         "useGraphSettings": true,
-        "markerSize": 10
+        "markerSize": 20
     },
     "dataProvider": data,
     "valueAxes": [{
@@ -100,9 +99,9 @@ var chart = AmCharts.makeChart("chartdiv", {
         "gridAlpha": 0
     }],
     "graphs": [{
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>: [[value]]%</span></b>-->[[title]]",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%"],
         "lineAlpha": 0.3,
         "title": titulos[0],
         "type": "column",
@@ -111,7 +110,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[1],
         "type": "column",
@@ -120,7 +119,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[2],
         "type": "column",
@@ -129,7 +128,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[3],
         "type": "column",
@@ -138,7 +137,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[4],
         "type": "column",
@@ -147,7 +146,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[5],
         "type": "column",
@@ -156,7 +155,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[6],
         "type": "column",
@@ -165,7 +164,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[7],
         "type": "column",
@@ -194,11 +193,11 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
         "type": "serial",
         "theme": "none",
         "legend": {
-        "horizontalGap": 100,
+        "horizontalGap": 5,
         "maxColumns": 1,
         "position": "right",
         "useGraphSettings": true,
-        "markerSize": 10
+        "markerSize": 20
     },
     "dataProvider": data2,
     "valueAxes": [{
@@ -209,7 +208,7 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
     "graphs": [{
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[0],
         "type": "column",
@@ -218,7 +217,7 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[1],
         "type": "column",
@@ -227,7 +226,7 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[2],
         "type": "column",
@@ -236,7 +235,7 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[3],
         "type": "column",
@@ -245,7 +244,7 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[4],
         "type": "column",
@@ -254,7 +253,7 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[5],
         "type": "column",
@@ -263,7 +262,7 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[6],
         "type": "column",
@@ -272,7 +271,7 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[7],
         "type": "column",
@@ -300,11 +299,11 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
         "type": "serial",
         "theme": "none",
         "legend": {
-        "horizontalGap": 100,
+        "horizontalGap": 5,
         "maxColumns": 1,
         "position": "right",
         "useGraphSettings": true,
-        "markerSize": 10
+        "markerSize": 20
     },
     "dataProvider": data3,
     "valueAxes": [{
@@ -315,7 +314,7 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
     "graphs": [{
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[0],
         "type": "column",
@@ -324,7 +323,7 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[1],
         "type": "column",
@@ -333,7 +332,7 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[2],
         "type": "column",
@@ -342,7 +341,7 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[3],
         "type": "column",
@@ -351,7 +350,7 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[4],
         "type": "column",
@@ -360,7 +359,7 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[5],
         "type": "column",
@@ -369,7 +368,7 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[6],
         "type": "column",
@@ -378,7 +377,7 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
     }, {
         "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
         "fillAlphas": 0.8,
-        "labelText": "[[value]]",
+        "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[7],
         "type": "column",
@@ -739,21 +738,21 @@ function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica 
         <div class="row-fluid">
             <div class="col-lg-12" align="center">
                 <label class="control-label">PROYECTOS DE ASISTENCIA TÉCNICA ESPECIALIZADA Y TRANSFERENCIA TECNOLÓGICA</label>
-                <div id="chartdiv" style="height:400px;width:100%"></div>
+                <div id="chartdiv" style="height:500px;width:100%"></div>
             </div>
         </div>
 
         <div class="row-fluid">
             <div class="col-lg-12" align="center">
                 <label class="control-label">PROYECTO DE DESARROLLO TECNOLOGICO</label>
-                <div id="chartdiv2" style="height:250px;width:100%"></div>
+                <div id="chartdiv2" style="height:350px;width:100%"></div>
             </div>
         </div>
 
         <div class="row-fluid">
             <div class="col-lg-12" align="center">
                 <label class="control-label">PROYECTO DE ACTUALIZACIÓN TECNOLÓGICA A EXTENSIONISTAS</label>
-                <div id="chartdiv3" style="height:240px;width:100%"></div>
+                <div id="chartdiv3" style="height:350px;width:100%"></div>
             </div>
         </div>
     </div><!-- End .widget -->  
