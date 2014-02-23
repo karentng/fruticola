@@ -17,17 +17,17 @@ class Ubicaciongoogle extends CI_Controller {
         );
         
         $this->twiggy->set('informes', $informes);*/
-        $result = array();
+        //$result = array();
         $result2 = array();
-        $productores = array();
-        $renglon_productivo = array();
+        //$productores = array();
+        //$renglon_productivo = array();
 
-        $fincas = Finca::find('all', array('order' => 'nombre', 'conditions' => array('(geo_latitud > ? OR geo_latitud < ?) 
-            AND (geo_longitud > ? OR geo_longitud < ?)', 0, 0, 0, 0)));
+        //$fincas = Finca::find('all', array('order' => 'nombre', 'conditions' => array('(geo_latitud > ? OR geo_latitud < ?) 
+        //    AND (geo_longitud > ? OR geo_longitud < ?)', 0, 0, 0, 0)));
         $municipios = Municipio::find('all', array('conditions' => array('departamento_id = ?', 30)));
-        $nombresMunicipio = array();
+        //$nombresMunicipio = array();
 
-        foreach($fincas as $finca){
+        /*foreach($fincas as $finca){
             if($finca->geo_latitud == 0 || $finca->geo_latitud == null || $finca->geo_longitud == 0 || $finca->geo_longitud == null ){
                 continue;
             }
@@ -43,18 +43,18 @@ class Ubicaciongoogle extends CI_Controller {
             array_push($renglon_productivo, $renglon->descripcion);
 
             array_push($result, $finca->to_array());
-        }
+        }*/
 
         foreach($municipios as $m){
             array_push($result2, $m->to_array());
         }
 
-        $this->twiggy->set('fincas', json_encode($result));
-        $this->twiggy->set('nombresMunicipio', json_encode($nombresMunicipio));
+        //$this->twiggy->set('fincas', json_encode($result));
+        //$this->twiggy->set('nombresMunicipio', json_encode($nombresMunicipio));
         $this->twiggy->set('municipiosJSON', json_encode($result2));
         
-        $this->twiggy->set('productoresJSON', json_encode($productores));
-        $this->twiggy->set('renglonJSON', json_encode($renglon_productivo));
+        //$this->twiggy->set('productoresJSON', json_encode($productores));
+        //$this->twiggy->set('renglonJSON', json_encode($renglon_productivo));
 
         $this->twiggy->set('municipios', $municipios);
 
