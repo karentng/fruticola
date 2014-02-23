@@ -1,0 +1,180 @@
+<html>
+    <head>
+        <meta charset="utf-8"> 
+        <title>Imprimir C. Tipo Productor</title>
+        <style type="text/css" media="print">
+            .noprint { display: none; }
+        </style>
+    
+        <style type="text/css" media="all">
+            body, td, div {
+                font-family: Sans-serif;
+                font-size: 10pt;
+            }
+        
+        </style>
+
+
+    </head>
+    <body style="text-align:center" >
+        <input type="button" style="font-size: 18pt" class="noprint" value="Imprimir" onclick="window.print()"/>
+
+        <div style="width:670px; margin-left:auto; margin-right:auto; text-align:left">
+            <table width="100%">
+                <tr>
+                    <td align="center" valign="middle">
+                        <h3>CLASIFICACIÓN DEL TIPO DE PRODUCTOR AGROPECUARIO</h3>
+                    </td>
+                    <td valign="middle"><img src="{{base_url('assets/images/logos-imprimir.png')}}" height="80"></td>
+                </tr>
+            </table>     
+            <h3 align="right" style="font-weight:normal">Fecha de Visita: <b>{{ruat.visita_tipo_productor.fecha|date("Y/m/d")}}</b></h3>
+            <h3>A.  Datos de Identificación del Beneficiario:</h3>        
+            <table>
+                
+                <tr> 
+                    <td>Nombre:</td>
+                    <td colspan="2"><b>{{ruat.productor.nombre_completo}}</b></td>
+                    <td>Documento:</td>
+                    <td><b>{{ruat.productor.tipo_documento.descripcion}}{{ruat.productor.numero_documento}}</b></td>
+                    <td>Célular:</td>
+                    <td><b>{{ruat.productor.contacto.celular}}</b></td>
+                </tr> 
+                <tr>
+                    <td colspan="2">Renglón Productivo:</td>
+                    <td><b>{{ruat.productor.renglon_productivo.descripcion}}</b></td>
+                    <td>Nombre del Predio: </td>
+                    <td><b>{{ruat.finca.nombre}}</b></td>
+                    <td colspan="2">Vereda / Corregimiento: </td>
+                    <td><b>{{ruat.finca.vereda}}</b></td>
+                </tr>
+                <tr>
+                    <td>Municipio: </td>
+                    <td><b>{{ruat.finca.municipio.nombre}}</b></td>
+                </tr>
+            </table>
+
+            <h3>B.  Clasificación del Productor Según la Unidad Agrícola Familiar (UAF):</h3>        
+            <table> 
+                <tr>
+                    <td >Área Total (has): </td>
+                    <td><b>{{ruat.finca.area_total |number_format(2, ',', '')}}</b></td>
+                    <td>Valor de la UAF del Municipio: </td>
+                    <td>
+                    {% for tipouaf in ruat.finca.municipio.municipios_uaf %}
+                        <b>{{tipouaf.valor}}</b>
+                    {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Normatividad Aplicada para la clasificación del productor según la UAF:  </td>
+                    <td><b>{{ruat.finca.municipio.resolucion_uaf}}</b></td>
+                </tr>
+            </table>
+            <h3>C.  Clasificación del Productor según sus Ingresos y Activos:</h3>        
+            <table width="100%" border="1" cellspacing="0" cellpadding="4"> 
+                <tr style="background-color:lightgray">
+                    <td align="center"><b>Descripción de los Activos ($)</b></td>
+                    <td></td>
+                </tr>
+                {% for respuesta in ruat.visita_tipo_productor.respuestasproductor %}
+                <tr>
+                    {% if respuesta.pregunta_c_id>=1 and respuesta.pregunta_c_id<=13 %}
+                    <td>{{respuesta.preguntas.enunciado}}</td>
+                    <td align="right">$ {{respuesta.valor|number_format(0, ',', '.')}}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <table width="100%" border="1" cellspacing="0" cellpadding="4"> 
+                <tr style="background-color:lightgray">
+                    <td align="center"><b>Descripción de los Ingresos ($/Año) ($)</b></td>
+                    <td></td>
+                </tr>
+                {% for respuesta in ruat.visita_tipo_productor.respuestasproductor %}
+                <tr>
+                    {% if respuesta.pregunta_c_id>=14 and respuesta.pregunta_c_id<=19 %}
+                    <td>{{respuesta.preguntas.enunciado}}</td>
+                    <td align="right">$ {{respuesta.valor|number_format(0, ',', '.')}}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <table width="100%" border="1" cellspacing="0" cellpadding="4"> 
+                <tr style="background-color:lightgray">
+                    <td align="center"><b>Descripción de los Egresos ($/Año) ($)</b></td>
+                    <td></td>
+                </tr>
+                {% for respuesta in ruat.visita_tipo_productor.respuestasproductor %}
+                <tr>
+                    {% if respuesta.pregunta_c_id>=20 and respuesta.pregunta_c_id<=25 %}
+                    <td>{{respuesta.preguntas.enunciado}}</td>
+                    <td align="right">$ {{respuesta.valor|number_format(0, ',', '.')}}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <table width="100%" border="1" cellspacing="0" cellpadding="4"> 
+                {% for respuesta in ruat.visita_tipo_productor.respuestasproductor %}
+                <tr>
+                    {% if respuesta.pregunta_c_id==26 %}
+                    <td>{{respuesta.preguntas.enunciado}}</td>
+                    <td align="right">$ {{respuesta.valor|number_format(0, ',', '.')}}</td>
+                    {% elseif respuesta.pregunta_c_id==27 %}
+                    <td>{{respuesta.preguntas.enunciado}}</td>
+                    <td align="right">{{respuesta.valor|number_format(2, '.', '.')}}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            <h3>D. Revisión de Todos los Criterios de Clasificación del Productor Agropecuario:</h3> 
+             
+            <table width="100%" border="1" cellspacing="0" cellpadding="4">
+                <tr>
+                    <td>El BENEFICIARIO cumple con la condición de productor agropecuario según sus INGRESOS INVERTIDOS en el sector agropecuario? (Mínimo el 70% de los ingresos los obtiene de la actividad agropecuaria).</td>
+                    <td></td>                    
+                </tr>
+                <tr>
+                    <td>El productor según LA UAF (Unidad Agrícola Familiar) clasifica como:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>El productor según TOTAL ACTIVOS, y de acuerdo a la clasficación de productores de FINAGRO clasifica como: (Activos Menores a $85.477.500 = Pequeño Productor Agropecuario).</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>El productor según TOTAL INGRESOS DEL PRODUCTOR ($/Año) clasifica como:</td>
+                    <td></td>
+                </tr>
+            </table>
+        
+            {% if ruat.visita_tipo_productor.observaciones is not empty%}
+            <h3>E. OBSERVACIONES</h3>
+            <table>
+                <tr>
+                    <td>{{ruat.visita_tipo_productor.observaciones}}</td>
+                </tr>
+            </table>
+            {% endif %}
+            <br/><br/><br/><br/><br/><br/>
+            <table width="100%">
+                <tr>
+                    <td>
+                        ____________________________ <br/>
+                        {{ruat.productor.nombre_completo}} <br/>
+                        BENEFICIARIO
+                    </td>
+                    <td align="right">
+                        ____________________________ <br/>
+                        {{ruat.creador.first_name}} {{ruat.creador.last_name}} <br/>
+                        FUNCIONARIO RESPONSABLE
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+
+</html>

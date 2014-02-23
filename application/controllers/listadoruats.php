@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 
 class ListadoRuats extends CI_Controller {
@@ -84,8 +84,14 @@ class ListadoRuats extends CI_Controller {
                 $disabled = 'disabled="disabled"';
             }
 
+            if($item->cosecha_id){
+                $disabled1 = '';
+            } else {
+                $disabled1 = 'disabled';
+            }
+
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Diagnóstico Manejo de Cosecha'>Cosecha</a>";
-            $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' title='Versión Imprimible Cosecha' target='_blank'><i class='i-print'></i></a>";
+            $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' $disabled1 title='Versión Imprimible Cosecha' target='_blank'><i class='i-print'></i></a>";
             
             $cls = $item->bpa_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->bpa_id) {
@@ -101,13 +107,21 @@ class ListadoRuats extends CI_Controller {
             $cls = $item->vtp_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->vtp_id) {
                 $url = site_url("vtp/index/$item->id");
+                $url3 = site_url("tipoProductorImprimible/index/$item->id");
                 $disabled = '';
             } else {
                 $url = "";
+                $url3 = "";
                 $disabled = 'disabled="disabled"';
+            }
+            if($item->vtp_id){
+                $disabled2 = '';
+            } else {
+                $disabled2 = 'disabled';
             }
 
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Productor</a>";
+            $actions .= "<a class='btn btn-sm btn-info tip' href='$url3' $disabled2 title='Versión Imprimible C.Tipo Productor' target='_blank'><i class='i-print'></i></a>";
             $btnEliminar = $puedeEliminar? "<button class='btn btn-danger btn-xs tip' title='Eliminar RUAT' onclick='eliminarRuat({$item->id})'>-</button> " :"";
 
             $row = array($btnEliminar . $item->numero_formulario, 
