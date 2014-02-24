@@ -4,6 +4,7 @@
 
 <script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
 <script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/pie.js') }}" type="text/javascript"></script>
 
 <script src="{{ base_url('assets/amcharts/exporting/amexport.js') }}" type="text/javascript"></script>
 <script src="{{ base_url('assets/amcharts/exporting/rgbcolor.js') }}" type="text/javascript"></script>
@@ -21,14 +22,14 @@
     var tipo_respuesta = {{respuestas|json_encode}};
     var tipo_pregunta = {{preguntas|json_encode}};
 
-    for (var i in tipo_respuesta){
+    for (var i in tipo_respuesta) {
         var aux = tipo_respuesta[i];
-        base[aux.id-1] = aux.descripcion;
+        base[aux.id - 1] = aux.descripcion;
     }
 
-    for (var i in tipo_pregunta){
+    for (var i in tipo_pregunta) {
         var aux = tipo_pregunta[i];
-        category[aux.id-1] = aux.descripcion;
+        category[aux.id - 1] = aux.descripcion;
     }
 
 
@@ -45,7 +46,7 @@
             menuItemStyle: {
                 backgroundColor: '#EFEFEF',
                 rollOverBackgroundColor: '#DDDDDD'},
-            menuItems: [{
+                menuItems: [{
                     textAlign: 'center',
                     icon: "{{ base_url('assets/amcharts/images/export.png') }}",
                     onclick: function() {
@@ -66,14 +67,32 @@
                 }]
         }
 
-        chart = new AmCharts.AmSerialChart();
+        chart = AmCharts.makeChart("chartdiv", {
+            "type": "pie",
+            "theme": "none",
+            "titles": [{
+                    "text": " Apropiación de Aprendizajes ",
+                    "size": 16
+                }],
+            "dataProvider": chartData,
+            "valueField": "actividad",
+            "titleField": 'base',
+            "labelRadius": 15,
+            "innerRadius": "50%",
+            "depth3D": 15,
+            "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+            "angle": 15,
+            "exportConfig": exportConfig
+        });
+
+        /*chart = new AmCharts.AmSerialChart();
         chart.dataProvider = chartData;
         chart.categoryField = "base";
         chart.exportConfig = exportConfig;
 
         var graph = new AmCharts.AmGraph();
         graph.valueField = 'actividad';
-        graph.type = "column";
+        graph.type = "pie";
         graph.colorField = "color";
         graph.fillAlphas = 0.8;
         graph.title = 'Actividad';
@@ -90,6 +109,7 @@
         categoryAxis.labelRotation = 90;
 
         chart.write('chartdiv');
+        */
     });
 
     function getChartData(actividad) {
@@ -98,16 +118,16 @@
 
         ///recorro los nombres de las columnas
         for (var i in base) {
-            
-            var valor_base = base[i];
-            
-            
 
-        console.debug(valor_base);
+            var valor_base = base[i];
+
+
+
+            console.debug(valor_base);
 
             var cell = '#' + actividad + '_' + i;
 
-            var obj = { base: valor_base, actividad: $(cell).text(), color: colores[i] }
+            var obj = {base: valor_base, actividad: $(cell).text(), color: colores[i]}
 
             chartData.push(obj);
         }
@@ -122,9 +142,9 @@
         chart.validateData();
     }
 
-   $(document).ready(function() {
+    $(document).ready(function() {
         $('#select_chart').change(refreshChart);
-   });                          
+    });
 
 </script>
 
@@ -133,10 +153,10 @@
 {% endblock %}
 
 {% block breadcrumnb %}
-    <ul class="breadcrumb">
-      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+<ul class="breadcrumb">
+    <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
       {{breadcrumbs}}
-    </ul>
+</ul>
 {% endblock %}
 
 
@@ -162,7 +182,7 @@
                         <th>Pregunta</th>
 
                         {% for respuesta in respuestas %}
-                            <th>{{ respuesta.descripcion }}</th>
+                        <th>{{ respuesta.descripcion }}</th>
                         {% endfor %}
 
                     </tr>
@@ -173,41 +193,41 @@
                     {% for pregunta in preguntas %}
 
                         {% set clase_pregunta = 0 %}
-                        <tr class="center">
-                            <td>{{ pregunta.descripcion }}</td>
-                            
+                    <tr class="center">
+                        <td>{{ pregunta.descripcion }}</td>
+
                             {% for respuesta in respuestas %}                                
-                                <td id="{{contador~"_"~clase_pregunta}}">
+                        <td id="{{contador~"_"~clase_pregunta}}">
                                     {{ matriz_promedios[contador][clase_pregunta] }}
-                                </td>
+                        </td>
                                 {% set clase_pregunta = clase_pregunta+1 %}
                             {% endfor %}
-                        </tr>
+                    </tr>
                         {% set contador  = contador+1 %}
 
                     {% endfor %}
                 </tbody>
             </table>
-            
+
             <br/>
             <div class="panel panel-default">
 
-                        <div class="panel-heading">
-                            <div class="icon"><i class="icon20 i-bars"></i></div>
-                            <h4>GRÁFICO ESTADISTICAS TIPO PRODUCTOR</h4>
-                        </div>                    
-                        <br/>
-                        <div class="col-lg-12">
-                            <select id="select_chart" class="form-control" name="select_chart">
+                <div class="panel-heading">
+                    <div class="icon"><i class="icon20 i-bars"></i></div>
+                    <h4>GRÁFICO ESTADISTICAS TIPO PRODUCTOR</h4>
+                </div>                    
+                <br/>
+                <div class="col-lg-12">
+                    <select id="select_chart" class="form-control" name="select_chart">
                                 {% set contador = 0 %}
                                 {% for pregunta in preguntas %}
-                                    <option value="{{contador}}">{{contador ~". "~ pregunta.descripcion }}</option>
+                        <option value="{{contador}}">{{contador ~". "~ pregunta.descripcion }}</option>
                                     {% set contador  = contador+1 %}
                                 {% endfor %}
-                            </select>
-                        </div>
-                        <br/>
-                        <div id="chartdiv" style="width: 100%; height: 600px;"></div>
+                    </select>
+                </div>
+                <br/>
+                <div id="chartdiv" style="width: 100%; height: 600px;"></div>
             </div>
 
         </div>
