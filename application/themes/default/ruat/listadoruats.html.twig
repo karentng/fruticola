@@ -7,10 +7,13 @@
     <script>
         $(function(){
             myDataTable('#dataTableRuats', {
+                "sDom": "<'row'<'col-lg-1 excel'><'col-lg-5'r><'col-lg-6'f>>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
                 bServerSide:true,
                 bProcessing:true, 
                 sAjaxSource: "{{site_url('listadoruats/datatable')}}",
             });
+
+            $('.excel').append("<a class='btn btn-default btn-sm' href='{{site_url("reportes/exportacion/listadoruats")}}'>Excel</a>")
         });
 
         function eliminarRuat(ruat_id) {
@@ -40,7 +43,7 @@
     <a class="btn btn-lg btn-primary" href="{{site_url("ruata/index")}}"><i class="icon20 i-plus"></i> Crear Nuevo RUAT</a>
     <br>
     <br>
-    <a class='btn btn-default btn-sm' href='{{site_url("reportes/exportacion/listadoruats")}}'>Excel</a>
+    {#<a class='btn btn-default btn-sm' href='{{site_url("reportes/exportacion/listadoruats")}}'>Excel</a>#}
 
 
 {% endif %}
