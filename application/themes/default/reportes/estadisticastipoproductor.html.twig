@@ -156,51 +156,35 @@
     <!-- End .panel-heading -->
     <div class="panel-body">
         <div class="container">
-
+            
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th align="center">
                             INDICADOR
                         </th>
-                        {% for obj in renglones_productivos %}
+                        {% for row in data %}
                             <th align="center">
-                                {{obj.descripcion}}
+                                {{row[0]}}
                             </th>
                         {% endfor %}                        
                     </tr>
                 </thead>
                 <tbody>
-                    {% set i = 0 %}
-                    {% for row in data %}
-                        <tr>
-                            <td id="">{{row[0]}}</td>
-                            {% for obj in renglones_productivos %}                        
-                                
-                                <td id="{{i~'_'~obj.id}}">{{row[obj.id]}}</td>
-
-                            {% endfor %}
-                        </tr>
-                        {% set i = i+1 %}
-                    {% endfor %}  
-                    
-                    
-                    <!--
-                    {% set i = 0 %}
-                    {% for row in data %}
+                    {% for obj in renglones_productivos %}  
                     <tr>
-                        {% set j = -1 %}
-                        {% for col in row %}
-                            <td id="{{i~'_'~j}}">{{col}}</td>
-                            {% set j = j+1 %}
+                        <td id="">{{obj.descripcion}}</td>
+                        
+                        {% set i = 0 %}
+                        {% for row in data %}
+                            <td id="{{i~'_'~obj.id}}">{{row[obj.id]}}</td>
+                            {% set i = i+1 %}
                         {% endfor %}
                     </tr>
-                    {% set i = i+1 %}
                     {% endfor %}
-                    -->
                 </tbody> 
             </table>
-            
+
             <br/>
             <div class="panel panel-default">
 
