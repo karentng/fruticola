@@ -60,25 +60,25 @@ class Estadisticastipoproductor extends CI_Controller {
         ///cargo desde la consulta los promedios
         foreach ($promedio_activos as $column) {
             $id = $column['id'];
-            $data[0][$id] = $column['avg'];
+            $data[0][$id] =  number_format($column['avg'], 2, ',', '.');
         }
 
         ///cargo desde la consulta los promedios
         foreach ($promedio_ingresos as $column) {
             $id = $column['id'];
-            $data[1][$id] = $column['avg'];
+            $data[1][$id] = number_format($column['avg'], 2, ',', '.');;
         }
 
         ///cargo desde la consulta los promedios
         foreach ($promedio_egresos as $column) {
             $id = $column['id'];
-            $data[2][$id] = $column['avg'];
+            $data[2][$id] = number_format($column['avg'], 2, ',', '.');;
         }
 
         ///cargo desde la consulta los promedios
         foreach ($promedio_utilidad as $column) {
             $id = $column['id'];
-            $data[3][$id] = $column['avg'];
+            $data[3][$id] = number_format($column['avg'], 2, ',', '.');;
         }
 
         $this->twiggy->set('renglones_productivos', $renglones_productivos);

@@ -84,7 +84,6 @@
 
         chart.angle = 30;
         chart.depth3D = 15;
-        chart.rotate = true;
 
         var categoryAxis = chart.categoryAxis;
         categoryAxis.autoGridCount = false;
@@ -105,7 +104,12 @@
             var valor_base = base[i];
 
             var cell = '#' + actividad + '_' + i;
-            var obj = { base: valor_base, actividad: $(cell).text(), color: colores[i] }
+
+            var value_column = $(cell).text().split('.').join('');
+                value_column = value_column.split(',').join('.')
+            console.debug(value_column);
+            
+            var obj = { base: valor_base, actividad: value_column, color: colores[i] }
 
             chartData.push(obj);
         }
