@@ -33,13 +33,13 @@ class Exportacion extends CI_Controller {
 
         $query = $this->db->query($sql);
         $this->headers_descargable("productores.csv");
-        echo $this->dbutil->csv_from_result($query);
+        echo $this->dbutil->csv_from_result($query,";");
     }
 
         public function listadoruats()
     {
         $sql = "
-            SELECT id, numero_formulario, nombre_productor, date(creado), ingresado_por,
+            SELECT  numero_formulario, nombre_productor, creado, ingresado_por,
             CASE WHEN cosecha_id IS NULL THEN 'No' ELSE 'Si' END as tiene_cosecha,
             CASE WHEN bpa_id IS NULL THEN 'No' ELSE 'Si' END as tiene_bpa,
             CASE WHEN vtp_id IS NULL THEN 'No' ELSE 'Si' END as tiene_vtp
@@ -48,7 +48,7 @@ class Exportacion extends CI_Controller {
 
         $query = $this->db->query($sql);
         $this->headers_descargable("listadosruats.csv");
-        echo $this->dbutil->csv_from_result($query);
+        echo $this->dbutil->csv_from_result($query,";");
     }
 
     public function cosechas()
@@ -113,7 +113,7 @@ class Exportacion extends CI_Controller {
         ";
         $query = $this->db->query($sql);
         $this->headers_descargable("cosechas.csv");
-        echo $this->dbutil->csv_from_result($query);
+        echo $this->dbutil->csv_from_result($query,";");
     }
 
 
