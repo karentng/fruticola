@@ -23,13 +23,14 @@
 
     for (var i in tipo_respuesta){
         var aux = tipo_respuesta[i];
-        base[aux.id] = aux.descripcion;
+        base[aux.id-1] = aux.descripcion;
     }
 
     for (var i in tipo_pregunta){
         var aux = tipo_pregunta[i];
-        category[aux.id] = aux.descripcion;
+        category[aux.id-1] = aux.descripcion;
     }
+
 
     AmCharts.ready(function() {
 
@@ -99,10 +100,12 @@
         for (var i in base) {
             
             var valor_base = base[i];
+            
+            
+
+        console.debug(valor_base);
 
             var cell = '#' + actividad + '_' + i;
-
-            console.debug(cell);
 
             var obj = { base: valor_base, actividad: $(cell).text(), color: colores[i] }
 
