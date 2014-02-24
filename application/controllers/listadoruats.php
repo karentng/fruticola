@@ -71,7 +71,9 @@ class ListadoRuats extends CI_Controller {
             }
             else $actions .= '<a class="btn btn-sm" disabled="disabled"><i class="i-file-download"></i></a>';
 
-            $actions .="</div>";
+            $actions .="</div>&nbsp;";
+
+            
 
             $cls = $item->cosecha_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->cosecha_id) {
@@ -90,9 +92,12 @@ class ListadoRuats extends CI_Controller {
                 $disabled1 = 'disabled';
             }
 
-            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Diagnóstico Manejo de Cosecha'>Cosecha</a>";
+            $actions .= "<div class='btn-group'>";
+            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Diagnóstico Manejo de Cosecha'>Cosecha <i class='i-arrow-right-3'></i></a>";
             $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' $disabled1 title='Versión Imprimible Cosecha' target='_blank'><i class='i-print'></i></a>";
-            
+            $actions .="</div>&nbsp;";
+
+
             $cls = $item->bpa_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->bpa_id) {
                 $url = site_url("bpa/index/$item->id");
@@ -120,8 +125,12 @@ class ListadoRuats extends CI_Controller {
                 $disabled2 = 'disabled';
             }
 
-            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Productor</a>";
+            $actions .= "<div class='btn-group'>";
+            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Productor<i class='i-arrow-right-3'></i></a>";
             $actions .= "<a class='btn btn-sm btn-info tip' href='$url3' $disabled2 title='Versión Imprimible C.Tipo Productor' target='_blank'><i class='i-print'></i></a>";
+            $actions .="</div>&nbsp;";
+
+
             $btnEliminar = $puedeEliminar? "<button class='btn btn-danger btn-xs tip' title='Eliminar RUAT' onclick='eliminarRuat({$item->id})'>-</button> " :"";
 
             $row = array($btnEliminar . $item->numero_formulario, 
