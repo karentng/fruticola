@@ -178,7 +178,7 @@
                         
                         {% set i = 0 %}
                         {% for row in data %}
-                            <td id="{{i~'_'~obj.id}}">{{row[obj.id]}}</td>
+                            <td id="{{i~'_'~obj.id}}" style="text-align: right">{{row[obj.id]}}</td>
                             {% set i = i+1 %}
                         {% endfor %}
                     </tr>
@@ -196,10 +196,10 @@
                         <br/>
                         <div class="col-lg-12">
                             <select id="select_chart" class="form-control" name="select_chart">
-                                <option value="0">1.Promedio de activos por productor anual</option>
-                                <option value="1">2.Promedio de ingresos por productor anual</option>
-                                <option value="2">3.Promedio de egresos por productor anual</option>
-                                <option value="3">4.Promedio de utilidad por productor anual</option>
+                                <option value="0">1. Promedio de activos por productor anual</option>
+                                <option value="1">2. Promedio de ingresos por productor anual</option>
+                                <option value="2">3. Promedio de egresos por productor anual</option>
+                                <option value="3">4. Promedio de utilidad por productor anual</option>
                             </select>
                         </div>
                         <br/>
