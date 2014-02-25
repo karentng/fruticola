@@ -27,15 +27,23 @@ var data = [];
 for(var i=0;i<17;i++){
     var aux = {
         "year": "Meta No. "+ (i+1),
-        "europe": parseInt((intermedios[i][0]/preguntas[i].meta)*100),
-        "namerica": parseInt((intermedios[i][1]/preguntas[i].meta)*100),
-        "asia": parseInt((intermedios[i][2]/preguntas[i].meta)*100),
-        "lamerica": parseInt((intermedios[i][3]/preguntas[i].meta)*100),
-        "meast": parseInt((intermedios[i][4]/preguntas[i].meta)*100),
-        "africa": parseInt((intermedios[i][5]/preguntas[i].meta)*100),
-        "africa2": parseInt((intermedios[i][6]/preguntas[i].meta)*100),
-        "africa3": parseInt((intermedios[i][7]/preguntas[i].meta)*100),
-
+        "2013": parseInt((intermedios[i][0]/preguntas[i].meta)*100),
+        "ene": parseInt((intermedios[i][1]/preguntas[i].meta)*100),
+        "feb": parseInt((intermedios[i][2]/preguntas[i].meta)*100),
+        "mar": parseInt((intermedios[i][3]/preguntas[i].meta)*100),
+        "abr": parseInt((intermedios[i][4]/preguntas[i].meta)*100),
+        "may": parseInt((intermedios[i][5]/preguntas[i].meta)*100),
+        "jun": parseInt((intermedios[i][6]/preguntas[i].meta)*100),
+        "jul": parseInt((intermedios[i][7]/preguntas[i].meta)*100),
+        "valor1": intermedios[i][0],
+        "valor2": intermedios[i][1],
+        "valor3": intermedios[i][2],
+        "valor4": intermedios[i][3],
+        "valor5": intermedios[i][4],
+        "valor6": intermedios[i][5],
+        "valor7": intermedios[i][6],
+        "valor8": intermedios[i][7],
+        "meta": preguntas[i].meta,
     };
     data.push(aux);
 }
@@ -46,14 +54,23 @@ var data2 = [];
 for(var i=17;i<25;i++){
     var aux = {
         "year": "Meta No. "+ (i+1),
-        "europe": parseInt((intermedios[i][0]/preguntas[i].meta)*100),
-        "namerica": parseInt((intermedios[i][1]/preguntas[i].meta)*100),
-        "asia": parseInt((intermedios[i][2]/preguntas[i].meta)*100),
-        "lamerica": parseInt((intermedios[i][3]/preguntas[i].meta)*100),
-        "meast": parseInt((intermedios[i][4]/preguntas[i].meta)*100),
-        "africa": parseInt((intermedios[i][5]/preguntas[i].meta)*100),
-        "africa2": parseInt((intermedios[i][6]/preguntas[i].meta)*100),
-        "africa3": parseInt((intermedios[i][7]/preguntas[i].meta)*100),
+        "2013": parseInt((intermedios[i][0]/preguntas[i].meta)*100),
+        "ene": parseInt((intermedios[i][1]/preguntas[i].meta)*100),
+        "feb": parseInt((intermedios[i][2]/preguntas[i].meta)*100),
+        "mar": parseInt((intermedios[i][3]/preguntas[i].meta)*100),
+        "abr": parseInt((intermedios[i][4]/preguntas[i].meta)*100),
+        "may": parseInt((intermedios[i][5]/preguntas[i].meta)*100),
+        "jun": parseInt((intermedios[i][6]/preguntas[i].meta)*100),
+        "jul": parseInt((intermedios[i][7]/preguntas[i].meta)*100),
+        "valor1": intermedios[i][0],
+        "valor2": intermedios[i][1],
+        "valor3": intermedios[i][2],
+        "valor4": intermedios[i][3],
+        "valor5": intermedios[i][4],
+        "valor6": intermedios[i][5],
+        "valor7": intermedios[i][6],
+        "valor8": intermedios[i][7],
+        "meta": preguntas[i].meta,
     };
     data2.push(aux);
 }
@@ -64,14 +81,23 @@ var data3 = [];
 for(var i=25;i<29;i++){
     var aux = {
         "year": "Meta No. "+ (i+1),
-        "europe": parseInt((intermedios[i][0]/preguntas[i].meta)*100),
-        "namerica": parseInt((intermedios[i][1]/preguntas[i].meta)*100),
-        "asia": parseInt((intermedios[i][2]/preguntas[i].meta)*100),
-        "lamerica": parseInt((intermedios[i][3]/preguntas[i].meta)*100),
-        "meast": parseInt((intermedios[i][4]/preguntas[i].meta)*100),
-        "africa": parseInt((intermedios[i][5]/preguntas[i].meta)*100),
-        "africa2": parseInt((intermedios[i][6]/preguntas[i].meta)*100),
-        "africa3": parseInt((intermedios[i][7]/preguntas[i].meta)*100),
+        "2013": parseInt((intermedios[i][0]/preguntas[i].meta)*100),
+        "ene": parseInt((intermedios[i][1]/preguntas[i].meta)*100),
+        "feb": parseInt((intermedios[i][2]/preguntas[i].meta)*100),
+        "mar": parseInt((intermedios[i][3]/preguntas[i].meta)*100),
+        "abr": parseInt((intermedios[i][4]/preguntas[i].meta)*100),
+        "may": parseInt((intermedios[i][5]/preguntas[i].meta)*100),
+        "jun": parseInt((intermedios[i][6]/preguntas[i].meta)*100),
+        "jul": parseInt((intermedios[i][7]/preguntas[i].meta)*100),
+        "valor1": intermedios[i][0],
+        "valor2": intermedios[i][1],
+        "valor3": intermedios[i][2],
+        "valor4": intermedios[i][3],
+        "valor5": intermedios[i][4],
+        "valor6": intermedios[i][5],
+        "valor7": intermedios[i][6],
+        "valor8": intermedios[i][7],
+        "meta": preguntas[i].meta,
     };
     data3.push(aux);
 }
@@ -123,77 +149,77 @@ var chart = AmCharts.makeChart("chartdiv", {
         "gridAlpha": 0
     }],
     "graphs": [{
-        "balloonText": "<b><span style='font-size:14px'>: [[value]]%</span></b>-->[[title]]",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor1]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[0],
         "type": "column",
         "color": "#000000",
-        "valueField": "europe"
+        "valueField": "2013"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor2]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[1],
         "type": "column",
         "color": "#000000",
-        "valueField": "namerica"
+        "valueField": "ene"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor3]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[2],
         "type": "column",
         "color": "#000000",
-        "valueField": "asia"
+        "valueField": "feb"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor4]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[3],
         "type": "column",
         "color": "#000000",
-        "valueField": "lamerica"
+        "valueField": "mar"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor5]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[4],
         "type": "column",
         "color": "#000000",
-        "valueField": "meast"
+        "valueField": "abr"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor6]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[5],
         "type": "column",
         "color": "#000000",
-        "valueField": "africa"
+        "valueField": "may"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor7]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[6],
         "type": "column",
         "color": "#000000",
-        "valueField": "africa2"
+        "valueField": "jun"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor8]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[7],
         "type": "column",
         "color": "#000000",
-        "valueField": "africa3"
+        "valueField": "jul"
     }],
     "rotate": true,
     "categoryField": "year",
@@ -224,77 +250,77 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
         "gridAlpha": 0
     }],
     "graphs": [{
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor1]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[0],
         "type": "column",
         "color": "#000000",
-        "valueField": "europe"
+        "valueField": "2013"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor2]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[1],
         "type": "column",
         "color": "#000000",
-        "valueField": "namerica"
+        "valueField": "ene"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor3]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[2],
         "type": "column",
         "color": "#000000",
-        "valueField": "asia"
+        "valueField": "feb"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor4]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[3],
         "type": "column",
         "color": "#000000",
-        "valueField": "lamerica"
+        "valueField": "mar"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor5]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[4],
         "type": "column",
         "color": "#000000",
-        "valueField": "meast"
+        "valueField": "abr"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor6]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[5],
         "type": "column",
         "color": "#000000",
-        "valueField": "africa"
+        "valueField": "may"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor7]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[6],
         "type": "column",
         "color": "#000000",
-        "valueField": "africa2"
+        "valueField": "jun"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor8]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[7],
         "type": "column",
         "color": "#000000",
-        "valueField": "africa3"
+        "valueField": "jul"
     }],
     "rotate": true,
     "categoryField": "year",
@@ -324,77 +350,77 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
         "gridAlpha": 0
     }],
     "graphs": [{
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor1]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[0],
         "type": "column",
         "color": "#000000",
-        "valueField": "europe"
+        "valueField": "2013"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor2]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[1],
         "type": "column",
         "color": "#000000",
-        "valueField": "namerica"
+        "valueField": "ene"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor3]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[2],
         "type": "column",
         "color": "#000000",
-        "valueField": "asia"
+        "valueField": "feb"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor4]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[3],
         "type": "column",
         "color": "#000000",
-        "valueField": "lamerica"
+        "valueField": "mar"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor5]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[4],
         "type": "column",
         "color": "#000000",
-        "valueField": "meast"
+        "valueField": "abr"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor6]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[5],
         "type": "column",
         "color": "#000000",
-        "valueField": "africa"
+        "valueField": "may"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor7]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[6],
         "type": "column",
         "color": "#000000",
-        "valueField": "africa2"
+        "valueField": "jun"
     }, {
-        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]%</span></b>",
+        "balloonText": "<b><span style='font-size:14px'>[[title]]: [[value]]% ([[valor8]] de [[meta]])</span></b>",
         "fillAlphas": 0.8,
         "labelText": "[[value]]%",
         "lineAlpha": 0.3,
         "title": titulos[7],
         "type": "column",
         "color": "#000000",
-        "valueField": "africa3"
+        "valueField": "jul"
     }],
     "rotate": true,
     "categoryField": "year",
@@ -408,136 +434,7 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
 });
 </script>
 
-<!--<script type="text/javascript">
-    var filaPrevia = 0;
-    var totales = {{valoresFinalesJSON}};
-    var intermedios = {{valoresIntermediosJSON}};
-    var preguntas = {{preguntasJSON}};
-    var colores = ["#FF0F00", "#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09","#04D215","#0D8ECF","#0D52D1","#2A0CD0","#8A0CCF","#CD0D74","#754DEB","#DDDDDD"];
-    var titulos = ["Año 2013", "Ene-14","Feb-14","Mar-14","Abr-14","May-14","Jun-14","Jul-14"];
-
-    //var chartData = generateChartData();
-    var chartData = [];
-    for(var i = 0;i<totales.length;i++){
-        var newDate = new Date();
-        newDate.setDate(newDate.getDate() + i);
-        var aux = {
-            "date": "Meta N."+(i+1),
-            "visits": totales[i].total,
-            "max": preguntas[i].meta,
-            //"meta": preguntas[i].meta
-        };
-        chartData.push(aux);
-    }
-
-    var chart = AmCharts.makeChart("chartdiv2", {
-    "type": "serial",
-    "theme": "none",
-    "pathToImages": "http://www.amcharts.com/lib/3/images/",
-    "dataProvider": chartData,
-    "valueAxes": [{
-        "axisAlpha": 0.2,
-        "dashLength": 1,
-        "position": "left",
-        'title': 'total'
-    }],
-    "graphs": [{
-        "id":"g1",
-        "balloonText": "[[category]]<br /><b><span style='font-size:14px;'>[[value]] de [[max]]</span></b>",
-        "bullet": "round",
-        "bulletBorderAlpha": 1,
-        "bulletColor":"#FFFFFF",
-        "hideBulletsCount": 50,
-        "title": "red line",
-        "valueField": "visits",
-        "useLineColorForBulletBorder":true
-    }],
-    "chartScrollbar": {
-        "autoGridCount": true,
-        "graph": "g1",
-        "scrollbarHeight": 40
-    },
-    "chartCursor": {
-        "cursorPosition": "mouse"
-    },
-    "categoryField": "date",
-    "categoryAxis": {
-        "parseDates": false,
-        "axisColor": "#DADADA",
-        "dashLength": 1,
-        "minorGridEnabled": true
-    },
-    "exportConfig":{
-      menuRight: '20px',
-      menuBottom: '30px',
-      menuItems: [{
-      icon: 'http://www.amcharts.com/lib/3/images/export.png',
-      format: 'png'   
-      }]  
-    }
-});
-
-chart.addListener("rendered", zoomChart);
-chart.startDuration = 5; // animacion
-zoomChart();
-
-// this method is called when chart is first inited as we listen for "dataUpdated" event
-function zoomChart() {
-    // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-    chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
-}
-
-
-function cambiarGrafico(){ // aqui lo que se hace es, ir agregando a la grafica los valores que se quieren mostrar de acuerdo al select,
-    // pero a su vez quitando los valores previamente puestos.
-    var chartDatax;
-    var quitar = 0;
-    var fila = $("#grafico").val();
-    
-    if(fila == 0){ // escogieron general
-        if(filaPrevia == 0) return;
-        filaPrevia = 0;
-        quitar = 8;
-        for(var i = 0;i<totales.length;i++){
-            var aux = {
-                "date": "Meta N."+(i+1),
-                "visits": totales[i].total,
-                "max": preguntas[i].meta,
-                //"meta": preguntas[i].meta
-            };
-            chartData.push(aux);
-        }
-
-    }else{
-        if(filaPrevia == fila){
-            return;
-        }
-        if(filaPrevia == 0){
-            quitar = 29;
-        }else{
-            quitar = 8;
-        }
-        filaPrevia = fila;
-        var aux = intermedios[fila-1];
-        
-        for(var i = 0;i<8;i++){
-            
-            var obj = {
-                "date": titulos[i],
-                "visits": parseInt(aux[i]),
-                "max": totales[fila-1].total
-            };
-            chartData.push(obj);
-        }
-    }
-
-    for(var i = 0;i<quitar;i++){
-        chart.dataProvider.shift();
-    }
-    chart.validateData();
-}
-</script>
-
+<!--
 <script>
     $(function() {
         {% if notif %}
