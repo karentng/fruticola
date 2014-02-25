@@ -18,7 +18,7 @@
     var base = [];
     var category = [];
     var chart = null;
-    var colores = ["#FF0F00", "#FF6600", "#FF9E01", "#FCD202", "#F8FF01", "#B0DE09", "#04D215", "#0D8ECF", "#0D52D1", "#2A0CD0", "#8A0CCF", "#CD0D74", "#754DEB", "#DDDDDD"];
+    var colores = ["#FF0F00", "#F8FF01", "#04D215", "#0D8ECF", "#8A0CCF", "#CD0D74", "#754DEB" ];
     var tipo_respuesta = {{respuestas|json_encode}};
     var tipo_pregunta = {{preguntas|json_encode}};
 
@@ -77,6 +77,7 @@
             "dataProvider": chartData,
             "valueField": "actividad",
             "titleField": 'base',
+            "colorField": "color",
             "labelRadius": 15,
             "innerRadius": "50%",
             "depth3D": 15,
@@ -85,31 +86,6 @@
             "exportConfig": exportConfig
         });
 
-        /*chart = new AmCharts.AmSerialChart();
-        chart.dataProvider = chartData;
-        chart.categoryField = "base";
-        chart.exportConfig = exportConfig;
-
-        var graph = new AmCharts.AmGraph();
-        graph.valueField = 'actividad';
-        graph.type = "pie";
-        graph.colorField = "color";
-        graph.fillAlphas = 0.8;
-        graph.title = 'Actividad';
-        graph.balloonText = "[[category]]:<b>[[value]]</b>";
-        chart.addGraph(graph);
-
-        chart.angle = 30;
-        chart.depth3D = 15;
-
-        var categoryAxis = chart.categoryAxis;
-        categoryAxis.autoGridCount = false;
-        categoryAxis.gridCount = chartData.length;
-        categoryAxis.gridPosition = "start";
-        categoryAxis.labelRotation = 90;
-
-        chart.write('chartdiv');
-        */
     });
 
     function getChartData(actividad) {
@@ -120,14 +96,14 @@
         for (var i in base) {
 
             var valor_base = base[i];
-
-
-
-            console.debug(valor_base);
+            console.debug(valor_base );
+            console.debug(colores[i]);
 
             var cell = '#' + actividad + '_' + i;
+            var value_column = $(cell).text().split('.').join('');
+                value_column = value_column.split(',').join('.')
 
-            var obj = {base: valor_base, actividad: $(cell).text(), color: colores[i]}
+            var obj = {base: valor_base, actividad: value_column, color: colores[i]}
 
             chartData.push(obj);
         }
@@ -194,12 +170,12 @@
                     {% for pregunta in preguntas %}
 
                         {% set clase_pregunta = 0 %}
-                    <tr class="center">
-                        <td>{{ pregunta.descripcion }}</td>
+                    <tr>
+                        <td style="text-align: left">{{ pregunta.descripcion }}</td>
 
                             {% for respuesta in respuestas %}                                
-                        <td id="{{contador~"_"~clase_pregunta}}">
-                                    {{ matriz_promedios[contador][clase_pregunta] }}
+                        <td id="{{contador~"_"~clase_pregunta}}"  style="text-align: right">
+                                    {{ matriz_promedios[contador][clase_pregunta] | number_format(0, ',', '.')}}
                         </td>
                                 {% set clase_pregunta = clase_pregunta+1 %}
                             {% endfor %}
