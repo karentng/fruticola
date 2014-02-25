@@ -75,7 +75,36 @@ for(var i=25;i<29;i++){
     };
     data3.push(aux);
 }
-
+var exportConfig = {
+    menuTop: "21px",
+    menuBottom: "auto",
+    menuRight: "21px",
+    backgroundColor: "#efefef",
+    menuItemStyle: {
+        backgroundColor: '#EFEFEF',
+        rollOverBackgroundColor: '#DDDDDD'},
+    menuItems: [{
+            textAlign: 'center',
+            icon: "{{ base_url('assets/amcharts/images/export.png') }}",
+            onclick: function() {
+            },
+            items: [{
+                    title: 'JPG',
+                    format: 'jpg'
+                }, {
+                    title: 'PNG',
+                    format: 'png'
+                }, {
+                    title: 'SVG',
+                    format: 'svg'
+                }, {
+                    title: 'PDF',
+                    format: 'pdf'
+                }]
+        }]
+}
+var exportConfig2 = exportConfig;
+var exportConfig3 = exportConfig;
 //generar
 var chart = AmCharts.makeChart("chartdiv", {
         "type": "serial",
@@ -174,13 +203,7 @@ var chart = AmCharts.makeChart("chartdiv", {
         "gridAlpha": 0,
         "position": "left"
     },
-    "exportConfig":{
-      "menuTop":"0px",
-      "menuItems": [{
-      "icon": 'http://www.amcharts.com/lib/3/images/export.png',
-      "format": 'png'     
-      }]  
-    }
+    "exportConfig":exportConfig
 });
 
 // grafico 2
@@ -281,13 +304,7 @@ var chart2 = AmCharts.makeChart("chartdiv2", {
         "gridAlpha": 0,
         "position": "left"
     },
-    "exportConfig":{
-      "menuTop":"0px",
-      "menuItems": [{
-      "icon": 'http://www.amcharts.com/lib/3/images/export.png',
-      "format": 'png'     
-      }]  
-    }
+    "exportConfig":exportConfig2
 });
 // grafico 3
 var chart3 = AmCharts.makeChart("chartdiv3", {
@@ -387,13 +404,7 @@ var chart3 = AmCharts.makeChart("chartdiv3", {
         "gridAlpha": 0,
         "position": "left"
     },
-    "exportConfig":{
-      "menuTop":"0px",
-      "menuItems": [{
-      "icon": 'http://www.amcharts.com/lib/3/images/export.png',
-      "format": 'png'     
-      }]  
-    }
+    "exportConfig":exportConfig3
 });
 </script>
 
