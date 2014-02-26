@@ -107,7 +107,7 @@ class ListadoRuats extends CI_Controller {
                 $disabled = 'disabled="disabled"';
             }
 
-            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Buenas Prácticas Agropecuarias'>BPA</a>";
+            $actions .= "<a class='btn btn-sm $cls tip' href='$url' $disabled title='Buenas Prácticas Agropecuarias'>BPA</a>&nbsp;";
             
             $cls = $item->vtp_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->vtp_id) {
@@ -126,7 +126,7 @@ class ListadoRuats extends CI_Controller {
             }
 
             $actions .= "<div class='btn-group'>";
-            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Productor<i class='i-arrow-right-3'></i></a>";
+            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Prod<i class='i-arrow-right-3'></i></a>";
             $actions .= "<a class='btn btn-sm btn-info tip' href='$url3' $disabled2 title='Versión Imprimible C.Tipo Productor' target='_blank'><i class='i-print'></i></a>";
             $actions .="</div>&nbsp;";
 
