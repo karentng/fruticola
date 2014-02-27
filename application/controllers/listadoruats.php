@@ -74,7 +74,6 @@ class ListadoRuats extends CI_Controller {
             $actions .="</div>&nbsp;";
 
             
-
             $cls = $item->cosecha_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->cosecha_id) {
                 $url = site_url("diagnosticosecha/index/$item->id");
@@ -86,15 +85,9 @@ class ListadoRuats extends CI_Controller {
                 $disabled = 'disabled="disabled"';
             }
 
-            if($item->cosecha_id){
-                $disabled1 = '';
-            } else {
-                $disabled1 = 'disabled';
-            }
-
             $actions .= "<div class='btn-group'>";
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Diagnóstico Manejo de Cosecha'>Cosecha <i class='i-arrow-right-3'></i></a>";
-            $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' $disabled1 title='Versión Imprimible Cosecha' target='_blank'><i class='i-print'></i></a>";
+            $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' $disabled title='Versión Imprimible Cosecha' target='_blank'><i class='i-print'></i></a>";
             $actions .="</div>&nbsp;";
 
 
@@ -107,7 +100,7 @@ class ListadoRuats extends CI_Controller {
                 $disabled = 'disabled="disabled"';
             }
 
-            $actions .= "<a class='btn btn-sm $cls tip' href='$url' $disabled title='Buenas Prácticas Agropecuarias'>BPA</a>&nbsp;";
+            $actions .= "<a class='btn btn-sm $cls tip' href='$url' $disabled title='Buenas Prácticas Agropecuarias'>BPA</a> ";
             
             $cls = $item->vtp_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->vtp_id) {
@@ -119,16 +112,23 @@ class ListadoRuats extends CI_Controller {
                 $url3 = "";
                 $disabled = 'disabled="disabled"';
             }
-            if($item->vtp_id){
-                $disabled2 = '';
-            } else {
-                $disabled2 = 'disabled';
-            }
 
             $actions .= "<div class='btn-group'>";
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Prod<i class='i-arrow-right-3'></i></a>";
-            $actions .= "<a class='btn btn-sm btn-info tip' href='$url3' $disabled2 title='Versión Imprimible C.Tipo Productor' target='_blank'><i class='i-print'></i></a>";
+            $actions .= "<a class='btn btn-sm btn-info tip' href='$url3' $disabled title='Versión Imprimible C.Tipo Productor' target='_blank'><i class='i-print'></i></a>";
             $actions .="</div>&nbsp;";
+
+            $cls = $item->postcosecha_id ? 'btn-warning' : 'btn-default';
+            if($puedeCrearForms || $item->postcosecha_id) {
+                $url = site_url("poscosecha/index/$item->id");
+                $disabled = '';
+            } else {
+                $url = '';
+                $disabled = 'disabled="disabled"';
+            }
+
+            $actions .= "<a class='btn btn-sm $cls tip' href='$url' $disabled title='Manejo de Poscosecha'>Poscosecha</a>";
+
 
 
             $btnEliminar = $puedeEliminar? "<button class='btn btn-danger btn-xs tip' title='Eliminar RUAT' onclick='eliminarRuat({$item->id})'>-</button> " :"";

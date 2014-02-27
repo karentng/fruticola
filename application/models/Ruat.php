@@ -16,6 +16,7 @@ class Ruat extends MyModel
         array('innovacion', 'class_name'=>'Innovacion', 'foreign_key' => 'ruat_id'),
         array('asociacion', 'class_name'=>'Orgasociada', 'foreign_key'=> 'ruat_id'),
         array('cosecha', 'class_name'=>'Cosecha', 'foreign_key' => 'ruat_id'),
+        array('postcosecha', 'class_name'=>'Postcosecha', 'foreign_key' => 'ruat_id'),
         array('visita_tipo_productor', 'class_name'=>'VisitaTipoProductor', 'foreign_key' => 'ruat_id'),
         array('finca', 'class_name'=>'Finca', 'foreign_key' => 'ruat_id'),
     );
@@ -56,9 +57,6 @@ class Ruat extends MyModel
         Innovacion::delete_all(cond('ruat_id', $this->id));
         RazonNoPertenecer::delete_all(cond('ruat_id', $this->id));
 
-
-        
-
         //eliminar aprendizaje
         AprendizajeRespuesta::delete_all(cond('ruat_id',$this->id));
 
@@ -76,6 +74,8 @@ class Ruat extends MyModel
         //eliminar visita tipo productor
         if($this->visita_tipo_productor) $this->visita_tipo_productor->eliminar();
 
+        //eliminar postcosecha
+        if($this->postcosecha) $this->postcosecha->eliminar();
 
         //eliminar ruat como tal
         $this->delete();
