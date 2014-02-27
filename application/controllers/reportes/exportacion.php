@@ -5,7 +5,7 @@ class Exportacion extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        check_profile(array("Administrador","Coordinador"));
+        check_profile(array("Administrador","Coordinador","Consultas"));
 
         $this->load->dbutil();
     }
@@ -13,8 +13,8 @@ class Exportacion extends CI_Controller {
     public function index()
     {
         $exportables = array(
-            array("title" => "Productores", "url" => site_url("reportes/exportacion/productores")),
-            array("title" => "Cosechas",    "url" => site_url("reportes/exportacion/cosechas")),
+            array("title" => "Listado de Productores Inscritos", "url" => site_url("reportes/exportacion/productores")),
+            //array("title" => "Cosechas",    "url" => site_url("reportes/exportacion/cosechas")),
         );
         $this->twiggy->set("exportables", $exportables);
         $this->twiggy->template("reportes/exportacion");
@@ -25,10 +25,12 @@ class Exportacion extends CI_Controller {
     {
         $sql = "
             select P.nombre1, P.nombre2, P.apellido1, P.apellido2,  P.numero_documento, 
-                REN.descripcion as renglon_productivo, C.telefono, C.celular, C.vereda, MUN.nombre as municipio
-            from productor P join renglonproductivo REN on REN.id=P.renglon_productivo_id
+                REN.descripcion as renglon_productivo, C.telefono, C.celular, F.vereda, MUN.nombre as municipio
+            from ruat R join productor P on P.id=R.productor_id
             join contacto C on C.productor_id = P.id
-            join municipio MUN on MUN.id=C.municipio_id
+            join finca F on F.ruat_id=R.id
+            join renglonproductivo REN on REN.id=P.renglon_productivo_id
+            join municipio MUN on MUN.id=F.municipio_id
         ";
 
         $query = $this->db->query($sql);
