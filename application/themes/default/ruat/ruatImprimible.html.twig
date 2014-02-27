@@ -28,8 +28,13 @@
                     </td>
                     <td valign="middle"><img src="{{base_url('assets/images/logos-imprimir.png')}}" height="80"></td>
                 </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td style="font-size: 11pt">Fecha Generado: <b>{{ "now"|date("Y/m/d") }}</b></td>
+                    <td style="font-size: 11pt" align="right">Número de Formulario: <b>{{ruat.numero_formulario}}</b></td>
+                </tr>
             </table>     
-            <h3 align="right" style="font-weight:normal">Número de Formulario: <b>{{ruat.numero_formulario}}</b></h3>
             <h3>A1 Datos Personales:</h3>        
             <table>
                 

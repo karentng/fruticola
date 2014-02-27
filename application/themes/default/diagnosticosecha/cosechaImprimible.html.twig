@@ -29,8 +29,15 @@
                     </td>
                     <td valign="middle"><img src="{{base_url('assets/images/logos-imprimir.png')}}" height="80"></td>
                 </tr>
-            </table>     
-            <h3 align="right" style="font-weight:normal">Fecha de Visita: <b>{{ruat.cosecha.fecha_visita|date("Y/m/d")}}</b></h3>
+            </table>
+            <br>
+            <table width="100%">
+                <tr>
+                    <td style="font-size: 11pt">Fecha Generado: <b>{{ "now"|date("Y/m/d") }}</b></td>
+                    <td style="font-size: 11pt" align="right">Fecha de Visita: <b>{{ruat.cosecha.fecha_visita|date("Y/m/d")}}</b></b></td>
+                </tr>
+            </table>
+            <br>
             <table width="100%" border="1" cellspacing="0" cellpadding="4">
                 <tr style="background-color:lightgray"> 
                     <td align="center"><b>Pregunta</b></td>
