@@ -24,7 +24,7 @@ class Ubicaciongoogle extends CI_Controller {
 
         //$fincas = Finca::find('all', array('order' => 'nombre', 'conditions' => array('(geo_latitud > ? OR geo_latitud < ?) 
         //    AND (geo_longitud > ? OR geo_longitud < ?)', 0, 0, 0, 0)));
-        $municipios = Municipio::find('all', array('conditions' => array('departamento_id = ?', 30)));
+        $municipios = Municipio::find('all', array('conditions' => array('departamento_id = ?', 30), 'order' => 'nombre'));
         //$nombresMunicipio = array();
 
         /*foreach($fincas as $finca){
