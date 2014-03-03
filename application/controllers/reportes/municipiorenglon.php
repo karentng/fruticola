@@ -38,7 +38,8 @@ class MunicipioRenglon extends CI_Controller {
             }
             
             foreach($ruats as $r){
-                $productor = Ruat::find('all', array('conditions' => array('id = ?', $r)))[0]->productor_id;
+                $productor = Ruat::find('all', array('conditions' => array('id = ?', $r)));
+                $productor = ($productor[0])->productor_id;
                 $ren = Productor::find('all', array('conditions' => array('id = ?', $productor), 'order' => 'renglon_productivo_id'))[0]->renglon_productivo_id;
                 $mun[$ren-1] += 1;
             }
