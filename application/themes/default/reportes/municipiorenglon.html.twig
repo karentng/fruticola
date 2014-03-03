@@ -228,7 +228,7 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body" align="center">
-                        <b>RESUMEN POR MUNICIPIO</b><br/>
+                        <b>RESUMEN RENGLÓN PRODUCTIVO POR MUNICIPIO</b><br/>
                         <select id="selectMunicipio" style="width:200px" onchange="actualizarMunicipio()">
                             {% set cont = 0 %}
                             {% for municipio in municipios %}
@@ -238,7 +238,7 @@
                         </select>
                         <div id="chartdiv" style="width: 100%; height: 600px;"></div>
 
-                        <b>RESUMEN POR RENGLÓN PRODUCTIVO</b><br/>
+                        <b>RESUMEN POR RENGLÓN PRODUCTIVO POR MUNICIPIO</b><br/>
                         <select id="selectRenglon" style="width:200px" onchange="actualizarRenglon()">
                             {% set cont = 0 %}
                             {% for renglon in renglones %}
