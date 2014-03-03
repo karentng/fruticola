@@ -77,33 +77,4 @@ class MunicipioRenglon extends CI_Controller {
         $this->twiggy->template("reportes/municipiorenglon");
         $this->twiggy->display();
     }
-
-    public function fincasPorMunicipio(){
-        $id = $_POST['id'];
-
-        $productores = array();
-        $renglon_productivo = array();
-        $nombresMunicipio = array();
-
-        $fincas = Finca::find('all', array('conditions' => array('municipio_id = ?', $id)));
-        $result = array();
-        foreach($fincas as $finca){
-            array_push($nombresMunicipio, Municipio::find_by_id($finca->municipio_id)->to_array());
-
-            $ruat = Ruat::find_by_id($finca->ruat_id);
-            $prod = Productor::find_by_id($ruat->productor_id);
-
-            array_push($productores, $prod->nombre1 ." ". $prod->nombre2 ." ". $prod->apellido1 ." ". $prod->apellido2);
-
-            $renglon = RenglonProductivo::find_by_id($prod->renglon_productivo_id);
-
-            array_push($renglon_productivo, $renglon->descripcion);
-            array_push($result, $finca->to_array());
-        }
-        $final = array();
-        array_push($final, $result);
-        array_push($final, $renglon_productivo);
-        array_push($final, $nombresMunicipio);
-        echo json_encode($final);
-    }
 }
