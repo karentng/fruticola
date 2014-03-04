@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+
+<script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
+<script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
+
+<script src="{{ base_url('assets/amcharts/exporting/amexport.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/rgbcolor.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/canvg.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/jspdf.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/filesaver.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block titulo %}
+    <h1><i class="icon20 i-stack-checkmark"></i> PERFIL GENERAL DEL PRODUCTOR </h1> 
+{% endblock %}
+
+{% block contenido %}
+
+{% include "reportes/toolbar_reportes.html.twig" %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-bars"></i></div>
+        <h4> PERFIL GENERAL DEL PRODUCTOR</h4>
+        <a href="#" class="minimize"></a>
+    </div>
+    <!-- End .panel-heading -->
+    <div class="panel-body">
+        <div class="container">
+            
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th align="center">
+                            INDICADOR
+                        </th>                   
+                    </tr>
+                </thead>
+                <tbody>
+                      
+                    <tr>
+                        <td id="">{{sexo[0]}}</td>
+                        <td id="">{{sexo[1]}}</td>
+                    </tr>
+                </tbody> 
+            </table>
+
+            <br/>
+            <div class="panel panel-default">
+
+                        <div class="panel-heading">
+                            <div class="icon"><i class="icon20 i-bars"></i></div>
+                            <h4>GRÁFICO ESTADISTICAS TIPO PRODUCTOR</h4>
+                        </div>                    
+                        <br/>
+                        <div class="col-lg-12">
+                            <select id="select_chart" class="form-control" name="select_chart">
+                                <option value="0">1. Promedio de activos por productor anual</option>
+                                <option value="1">2. Promedio de ingresos por productor anual</option>
+                                <option value="2">3. Promedio de egresos por productor anual</option>
+                                <option value="3">4. Promedio de utilidad por productor anual</option>
+                            </select>
+                        </div>
+                        <br/>
+                        <div id="chartdiv" style="width: 100%; height: 600px;"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
