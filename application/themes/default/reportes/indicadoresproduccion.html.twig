@@ -35,6 +35,9 @@
 
         $('#renglon_productivo').select2({
             data: renglones_productivos,
+            initSelection: function(element, callback) {
+                callback({id: renglones_productivos[0].id, text: renglones_productivos[0].text });
+            }
         });
 
         $('#minucipio').select2({
@@ -45,6 +48,8 @@
         $("#renglon_productivo, #minucipio").change(function() {
             refreshTable();
         });
+
+        refreshTable();
        
     });
 
@@ -102,6 +107,13 @@
     <div class="panel-body">
         <div class="container">
 
+            <div id="table_container" class="center">
+                <div id="table_message">
+                    <div>Seleccione renglón productivo y/o un municipio</div><br/>
+
+                </div>
+            </div>
+
             <div class="row">
                 <div class="form-group">
 
@@ -111,20 +123,18 @@
                     </div>
                     <div class="col-lg-6">
                         <input type="hidden" id="minucipio"/>
-                        <label for="minucipio" class="col-lg-12" style="text-align: center;" >Minucipio</label>
+                        <label for="minucipio" class="col-lg-12" style="text-align: center;" >Municipio</label>
                     </div>
                 </div>
             </div>
 
-            <div id="table_container" class="center">
-                <div id="table_message">
-                    <div>Seleccione renglón productivo y/o un municipio</div><br/>
+            <br/>
 
-                </div>
-
-                <br/>
+            <div class="row">
                 <div id="tabla_indicadores" style="width: 100%; height: 600px;"></div>
             </div>
+
+
         </div>
     </div>
 </div>

@@ -36,7 +36,8 @@ class Indicadoresproduccion extends CI_Controller {
         foreach ($datos as $dato) {
             $this->twiggy->set('datos', $dato);
         }
-        
+ 
+        $this->twiggy->register_function('number_format');
         $this->twiggy->template("reportes/indicadoresproducciontabla");
         $this->twiggy->display();
     }

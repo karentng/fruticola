@@ -9,37 +9,37 @@
     <tbody>
         <tr>
             <td>Area Fincas</td>
-            <td>{{datos.total_area_fincas}}</td>
-            <td>{{datos.avg_area_fincas}}</td>
+            <td>{{number_format(datos.total_area_fincas, 2, ',', '.')}}</td>
+            <td>{{number_format(datos.avg_area_fincas, 2, ',', '.')}}</td>
         </tr>
         <tr>
             <td>Area Cultivada</td>
-            <td>{{datos.total_area_cosechada}}</td>
-            <td>{{datos.avg_area_cosechada}}</td>
+            <td>{{number_format(datos.total_area_cosechada, 2, ',', '.')}}</td>
+            <td>{{number_format(datos.avg_area_cosechada, 2, ',', '.')}}</td>
         </tr>
         <tr>
             <td>Producción</td>
-            <td>{{datos.total_produccion}}</td>
-            <td>{{datos.avg_produccion}}</td>
+            <td>{{number_format(datos.total_produccion, 2, ',', '.')}}</td>
+            <td>{{number_format(datos.avg_produccion, 2, ',', '.')}}</td>
         </tr>
         <tr>
             <td>Costos de Establecimiento</td>
-            <td>{{datos.total_costo_establecimiento}}</td>
-            <td>{{datos.avg_costo_establecimiento}}</td>
+            <td>{{number_format(datos.total_costo_establecimiento, 2, ',', '.')}}</td>
+            <td>{{number_format(datos.avg_costo_establecimiento, 2, ',', '.')}}</td>
         </tr>
         <tr>
             <td>Costos de Sostenimiento</td>
-            <td>{{datos.total_costo_sostenimiento}}</td>
-            <td>{{datos.avg_costo_sostenimiento}}</td>
+            <td>{{number_format(datos.total_costo_sostenimiento, 2, ',', '.')}}</td>
+            <td>{{number_format(datos.avg_costo_sostenimiento, 2, ',', '.')}}</td>
         </tr>
         <tr>
             <td>Produccion Destinada al Mercado</td>
-            <td>{{datos.total_prod_mercado}}</td>
-            <td>{{datos.avg_prod_mercado}}</td>
+            <td>{{number_format(datos.total_prod_mercado, 2, ',', '.')}}</td>
+            <td>{{number_format(datos.avg_prod_mercado, 2, ',', '.')}}</td>
         </tr>
         <tr>
             <td>Precio Promedio</td>
-            <td colspan="2">{{datos.avg_precio_promedio}}</td>
+            <td colspan="2">{{number_format(datos.avg_precio_promedio, 2, ',', '.')}}</td>
         </tr>
     </tbody>
 </table>
