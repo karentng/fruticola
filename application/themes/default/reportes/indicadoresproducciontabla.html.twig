@@ -8,38 +8,38 @@
     </thead>
     <tbody>
         <tr>
-            <td>Area Fincas</td>
-            <td>{{number_format(datos.total_area_fincas, 2, ',', '.')}}</td>
-            <td>{{number_format(datos.avg_area_fincas, 2, ',', '.')}}</td>
+            <td>Area Fincas (HAS)</td>
+            <td align="right">{{number_format(datos.total_area_fincas, 2, ',', '.')}}</td>
+            <td align="right">{{number_format(datos.avg_area_fincas, 2, ',', '.')}}</td>
         </tr>
         <tr>
-            <td>Area Cultivada</td>
-            <td>{{number_format(datos.total_area_cosechada, 2, ',', '.')}}</td>
-            <td>{{number_format(datos.avg_area_cosechada, 2, ',', '.')}}</td>
+            <td>Area Cultivada (HAS)</td>
+            <td align="right">{{number_format(datos.total_area_cosechada, 2, ',', '.')}}</td>
+            <td align="right">{{number_format(datos.avg_area_cosechada, 2, ',', '.')}}</td>
         </tr>
         <tr>
-            <td>Producción</td>
-            <td>{{number_format(datos.total_produccion, 2, ',', '.')}}</td>
-            <td>{{number_format(datos.avg_produccion, 2, ',', '.')}}</td>
+            <td>Producción (KGS/AÑO)</td>
+            <td align="right">{{number_format(datos.total_produccion, 2, ',', '.')}}</td>
+            <td align="right">{{number_format(datos.avg_produccion, 2, ',', '.')}}</td>
         </tr>
         <tr>
-            <td>Costos de Establecimiento</td>
-            <td>{{number_format(datos.total_costo_establecimiento, 2, ',', '.')}}</td>
-            <td>{{number_format(datos.avg_costo_establecimiento, 2, ',', '.')}}</td>
+            <td>Costos de Establecimiento ($/HAS)</td>
+            <td align="right">{{number_format(datos.total_costo_establecimiento, 2, ',', '.')}}</td>
+            <td align="right">{{number_format(datos.avg_costo_establecimiento, 2, ',', '.')}}</td>
         </tr>
         <tr>
-            <td>Costos de Sostenimiento</td>
-            <td>{{number_format(datos.total_costo_sostenimiento, 2, ',', '.')}}</td>
-            <td>{{number_format(datos.avg_costo_sostenimiento, 2, ',', '.')}}</td>
+            <td>Costos de Sostenimiento  ($/HAS)</td>
+            <td align="right">{{number_format(datos.total_costo_sostenimiento, 2, ',', '.')}}</td>
+            <td align="right">{{number_format(datos.avg_costo_sostenimiento, 2, ',', '.')}}</td>
         </tr>
         <tr>
-            <td>Produccion Destinada al Mercado</td>
-            <td>{{number_format(datos.total_prod_mercado, 2, ',', '.')}}</td>
-            <td>{{number_format(datos.avg_prod_mercado, 2, ',', '.')}}</td>
+            <td>Produccion Destinada al Mercado (TONS)</td>
+            <td align="right">{{number_format(datos.total_prod_mercado, 2, ',', '.')}}</td>
+            <td align="right">{{number_format(datos.avg_prod_mercado, 2, ',', '.')}}</td>
         </tr>
         <tr>
             <td>Precio Promedio</td>
-            <td colspan="2">{{number_format(datos.avg_precio_promedio, 2, ',', '.')}}</td>
+            <td colspan="2" align="center">{{number_format(datos.avg_precio_promedio, 2, ',', '.')}}</td>
         </tr>
     </tbody>
 </table>
