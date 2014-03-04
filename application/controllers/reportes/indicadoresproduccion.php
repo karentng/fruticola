@@ -34,6 +34,14 @@ class Indicadoresproduccion extends CI_Controller {
         $datos = $this->consultarDatos($renglon, $municipios);
         
         foreach ($datos as $dato) {
+            $dato['total_rendimiento']= $dato['avg_rendimiento'] = 0;
+            
+            if($dato['total_area_cosechada'])
+                $dato['total_rendimiento'] = $dato['total_produccion'] / $dato['total_area_cosechada'];
+            
+            if($dato['avg_area_cosechada'])
+                $dato['avg_rendimiento'] = $dato['avg_produccion'] / $dato['avg_area_cosechada'];
+            
             $this->twiggy->set('datos', $dato);
         }
  
@@ -79,7 +87,9 @@ class Indicadoresproduccion extends CI_Controller {
             SUM(producto.prod_mercado) AS total_prod_mercado,
             AVG(producto.prod_mercado) AS avg_prod_mercado,
 
-            AVG(producto.precio_promedio) AS avg_precio_promedio
+            AVG(producto.precio_promedio) AS avg_precio_promedio,
+            
+            COUNT(productor.id) AS numero_productores
 
             FROM finca
             JOIN ruat ON finca.ruat_id = ruat.id
