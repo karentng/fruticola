@@ -15,10 +15,7 @@
 <script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
 
 <script type="text/javascript">
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-         chart.invalidateSize();
-         chart2.invalidateSize();
-    });
+
     var info = {{infoJSON}};
     var municipios = {{municipiosJSON}};
     var renglones = {{renglonesJSON}};
@@ -144,6 +141,14 @@
         }
         return data;
     }
+ 
+    $(document).ready(function() {   
+    
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+             chart.invalidateSize();
+             chart2.invalidateSize();
+        });
+    });
 </script>
 
 {% endblock %}

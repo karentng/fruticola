@@ -43,17 +43,16 @@
         });
 
         $("#renglon_productivo, #minucipio").change(function() {
-            //refreshTable();
-            console.debug($("#renglon_productivo").select2('data'));
             refreshTable();
         });
-        
-//        refreshTable();
+       
     });
 
     function refreshTable() {
 
-        if ($("#renglon_productivo").select2('data').id)
+        $("#error").remove();
+
+        if ( $("#renglon_productivo").select2('data') != null )
         {
             $.ajax({
                 url: url_tabla,
@@ -68,20 +67,14 @@
             }).done(function() {
                 console.debug("");
             });
-
         }
         else
-        {
-            $("#table_message").append('<div id="error class="error">El renglon productivo no puede ser vacío</div>');
-        }
+        { $("#table_message").append('<div id="error" class="alert alert-danger">El renglón productivo no puede ser vacío</div>'); }
 
 
     }
 
-
 </script>
-
-
 
 {% endblock %}
 
@@ -102,7 +95,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-bars"></i></div>
-        <h4> PERFIL FINANCIERO</h4>
+        <h4>INDICADORES PRODUCCIÓN</h4>
         <a href="#" class="minimize"></a>
     </div>
     <!-- End .panel-heading -->
@@ -114,7 +107,7 @@
 
                     <div class="col-lg-6">
                         <input type="hidden" id="renglon_productivo"/>
-                        <label for="renglon_productivo" class="col-lg-12" style="text-align: center;" >Renglo productivo</label>
+                        <label for="renglon_productivo" class="col-lg-12" style="text-align: center;" >Renglón productivo</label>
                     </div>
                     <div class="col-lg-6">
                         <input type="hidden" id="minucipio"/>
@@ -125,24 +118,15 @@
 
             <div id="table_container" class="center">
                 <div id="table_message">
-                    <div>Seleccione renglon productivo y/o un municipio</div>
-                    <div>
-                        <div>
+                    <div>Seleccione renglón productivo y/o un municipio</div><br/>
 
-                            <br/>
-                            <div class="panel panel-default">
-
-                                <div class="panel-heading">
-                                    <div class="icon"><i class="icon20 i-bars"></i></div>
-                                    <h4>INDICADORES PRODUCCIÓN</h4>
-                                </div>                    
-                                <br/>
-                                <br/>
-                                <div id="tabla_indicadores" style="width: 100%; height: 600px;"></div>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
+
+                <br/>
+                <div id="tabla_indicadores" style="width: 100%; height: 600px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
