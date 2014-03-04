@@ -25,11 +25,15 @@ class Indicadoresproduccion extends CI_Controller {
     
     public function tabla(){
         
-        $renglon = 1;
+        $renglon = $this->input->post('renglon_productivo');
+        $municipios = $this->input->post('municipios');
         
-        $datos = $this->consultarDatos($renglon);
+        if(!$municipios)
+            $municipios = array();        
+        
+        $datos = $this->consultarDatos($renglon, $municipios);
+        
         foreach ($datos as $dato) {
-//            var_dump($dato);
             $this->twiggy->set('datos', $dato);
         }
         
@@ -46,7 +50,7 @@ class Indicadoresproduccion extends CI_Controller {
 
         $aux = array();
         foreach ($municipios as $i => $municipio) {
-            $arr_condiciones[":municipio_{$i}"] = $municipio;
+            $arr_condiciones[":municipio_{$i}"] = (int)$municipio['id'];
             $aux[] = "finca.municipio_id = :municipio_{$i}";
         }
 
