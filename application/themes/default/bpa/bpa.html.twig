@@ -309,8 +309,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        {% set as = 100.98765 %}
-        <h4>{{as |number_format(2, '.', ',')}}C. ESTADO ACTUAL DE LA IMPLEMENTACIÓN DE LAS BPA {{100.98765|number_format(2, '.', ',')}}</h4>
+        <h4>C. ESTADO ACTUAL DE LA IMPLEMENTACIÓN DE LAS BPA</h4>
         <a href="#" class="minimize"></a>
     </div><!-- End .panel-heading -->
 
@@ -346,7 +345,7 @@
                             {% endif %}
                             {% if existe == 'yes' %}
                                 <input class="form-control" type="text" name="{{'valor'~preguntaC.id}}"
-                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id |number_format(2, '.', ','),respuestasC[cont].puntaje |number_format(2, '.', ','))}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
+                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="10" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
                             {% else %}
                                 <input class="form-control" type="text" name="{{'valor'~preguntaC.id}}"
                                 style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id)}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
