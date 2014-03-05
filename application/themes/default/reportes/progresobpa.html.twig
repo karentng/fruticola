@@ -19,6 +19,8 @@
                 "aaSorting": [[ 7, "desc" ]],
                 "aoColumns": [null,null,null,null,null,null,null,null,null,null,null,null,null,null],
             });
+
+            $('#mensaje_cargando').remove();
         });
     </script>
 
@@ -42,6 +44,6 @@
 
 {% include "reportes/toolbar_reportes.html.twig" %}
 
-
+<h3 id="mensaje_cargando" class="text-warning">Cargando. Por favor espere...</h3>
 {{tabla}}
 {% endblock %}
