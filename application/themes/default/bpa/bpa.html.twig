@@ -309,7 +309,8 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>C. ESTADO ACTUAL DE LA IMPLEMENTACIÓN DE LAS BPA</h4>
+        {% set as = 100.98765 %}
+        <h4>{{as |number_format(2, '.', ',')}}C. ESTADO ACTUAL DE LA IMPLEMENTACIÓN DE LAS BPA {{100.98765|number_format(2, '.', ',')}}</h4>
         <a href="#" class="minimize"></a>
     </div><!-- End .panel-heading -->
 
