@@ -345,7 +345,7 @@
                             {% endif %}
                             {% if existe == 'yes' %}
                                 <input class="form-control" type="text" name="{{'valor'~preguntaC.id}}"
-                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{(set_value('valor'~preguntaC.id, respuestasC[cont].puntaje) )|number_format(2, '.', ',')}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
+                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" step="0.01" value="{{(set_value('valor'~preguntaC.id, respuestasC[cont].puntaje) )|number_format(2, '.', ',')}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
                             {% else %}
                                 <input class="form-control" type="text" name="{{'valor'~preguntaC.id}}"
                                 style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id)}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
