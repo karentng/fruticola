@@ -65,17 +65,17 @@
 
         valores[0] = valores[0] / 10;
         valores[2] = valores[2] / 5;
-        $("#valor15f").val(valores[0].toFixed(2));
-        $("#valor31f").val(valores[2].toFixed(2));
+        $("#valor15f").val(valores[0]);
+        $("#valor31f").val(valores[2]);
 
         //alert($("#excepcion42").is(':checked'));
         if(!$("#excepcion42").is(':checked')){    
-            $("#valor14f").val(((valores[0]+valores[2])/2).toFixed(2));
+            $("#valor14f").val(((valores[0]+valores[2])/2));
             return;
         }
         valores[1] = valores[1] / 4;
-        $("#valor26f").val(valores[1].toFixed(2));
-        $("#valor14f").val(((valores[0]+valores[1]+valores[2])/3).toFixed(2));
+        $("#valor26f").val(valores[1]);
+        $("#valor14f").val(((valores[0]+valores[1]+valores[2])/3));
     }
 
     function calcular(seccion, padre){
@@ -125,7 +125,7 @@
         }
 
         resultado = resultado / numSubSecciones;
-        $("#valor"+padre+"f").val(resultado.toFixed(2));
+        $("#valor"+padre+"f").val(resultado);
         calcularFinal();
     }
 
@@ -345,7 +345,7 @@
                             {% endif %}
                             {% if existe == 'yes' %}
                                 <input class="form-control" type="text" name="{{'valor'~preguntaC.id}}"
-                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,respuestasC[cont].puntaje)}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
+                                style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id,respuestasC[cont].puntaje)|number_format(2, '.', ',')}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
                             {% else %}
                                 <input class="form-control" type="text" name="{{'valor'~preguntaC.id}}"
                                 style="width:60px;" id="{{'valor'~preguntaC.id~"f"}}" value="{{set_value('valor'~preguntaC.id)}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} />
