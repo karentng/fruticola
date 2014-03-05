@@ -32,12 +32,27 @@ class MunicipioRenglon extends CI_Controller {
             $fincas = Finca::find('all', array('conditions' => array('municipio_id = ?', $municipio->id)));
             $ruats = extract_prop($fincas, 'ruat_id');
             
+            
             if(count($ruats) == 0){
                 array_push($tabla, $mun);
                 continue;
             }
+
             
-            foreach($ruats as $r){
+            $productor = Ruat::find('all', array('conditions' => array('id in (?)', $ruats)));
+            $productor = extract_prop($productor, 'productor_id');
+            //$productor = $productor->productor_id;
+            $ren = Productor::find('all', array('conditions' => array('id in (?)', $productor), 'order' => 'renglon_productivo_id'));
+            $ren = extract_prop($ren, 'renglon_productivo_id');
+            //var_dump($ren);
+            //$ren = $ren->renglon_productivo_id;
+            foreach($ren as $r){
+                $mun[$r-1] += 1;    
+            }
+            
+
+            array_push($tabla, $mun);
+            /*foreach($ruats as $r){
                 $productor = Ruat::find('all', array('conditions' => array('id = ?', $r)));
                 $productor = $productor[0];
                 $productor = $productor->productor_id;
@@ -46,7 +61,7 @@ class MunicipioRenglon extends CI_Controller {
                 $ren = $ren->renglon_productivo_id;
                 $mun[$ren-1] += 1;
             }
-            array_push($tabla, $mun);
+            array_push($tabla, $mun);*/
         }
 
         for($i = 0 ; $i < count($tabla) ; $i++){
