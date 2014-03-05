@@ -60,6 +60,7 @@
     var chart = AmCharts.makeChart("chartdiv", {
         "type": "pie",  
         "theme": "none",
+        "startDuration": 2,
         "legend": {
             "markerType": "circle",
             "position": "right",
@@ -78,6 +79,7 @@
 
     var chart2 = AmCharts.makeChart("chartdiv2", {
     "theme": "none",
+    "startDuration": 2,
     "type": "serial",
     "dataProvider": dataR,
     "valueAxes": [{
@@ -222,6 +224,21 @@
                         </td>
                     </tr>
                 </tbody>
+                <thead>
+                    <tr>
+                        <td>
+                            <b>Municipio</b>
+                        </td>
+                        {% for renglon in renglones %}
+                            <td>
+                                <b>{{renglon.descripcion}}</b>
+                            </td>
+                        {% endfor %}
+                        <td>
+                            <b>Total</b>
+                        </td>
+                    </tr>
+                </thead>
             </table>
         </div>
 
@@ -234,7 +251,7 @@
 
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="home" align="center">
-                    <select id="selectMunicipio" style="width:200px" onchange="actualizarMunicipio()">
+                    <select class="form-control" id="selectMunicipio" style="width:200px" onchange="actualizarMunicipio()">
                         {% set cont = 0 %}
                         {% for municipio in municipios %}
                             <option value="{{cont}}">{{municipio.nombre}}</option>
@@ -244,7 +261,7 @@
                     <div id="chartdiv" style="width: 100%; height: 600px;"></div>
                 </div>
                 <div class="tab-pane fade" id="profile" align="center">
-                    <select id="selectRenglon" style="width:200px" onchange="actualizarRenglon()">
+                    <select class="form-control" id="selectRenglon" style="width:200px" onchange="actualizarRenglon()">
                         {% set cont = 0 %}
                         {% for renglon in renglones %}
                             <option value="{{cont}}">{{renglon.descripcion}}</option>
