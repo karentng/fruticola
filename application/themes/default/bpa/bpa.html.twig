@@ -31,7 +31,7 @@
         var resultado = 0;
 
         for(var i = 1; i <= {{tamaño}}; i++){
-            var aux = parseInt($("#valor"+i+"f").val());
+            var aux = parseFloat($("#valor"+i+"f").val());
             if("#valor"+i+"f" == "#valor15f" || "#valor"+i+"f" == "#valor26f" || "#valor"+i+"f" == "#valor31f"){
                 continue;
             }
@@ -48,17 +48,17 @@
         var valores = [0,0,0];
 
         for(var  i = 1; i <= {{tamaño}} ; i++){
-            var aux = parseInt($("#valor15"+i).val());
+            var aux = parseFloat($("#valor15"+i).val());
             if( (typeof aux) === 'number' && !(isNaN(aux))){
                 valores[0] += aux;
             }
 
-            aux = parseInt($("#valor26"+i).val());
+            aux = parseFloat($("#valor26"+i).val());
             if( (typeof aux) === 'number' && !(isNaN(aux))){
                 valores[1] += aux;
             }
 
-            aux = parseInt($("#valor31"+i).val());
+            aux = parseFloat($("#valor31"+i).val());
             if( (typeof aux) === 'number' && !(isNaN(aux))){
                 valores[2] += aux;
             }
