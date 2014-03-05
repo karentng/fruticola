@@ -32,13 +32,16 @@
 
         for(var i = 1; i <= {{tamaño}}; i++){
             var aux = parseInt($("#valor"+i+"f").val());
+            if("#valor"+i+"f" == "#valor15f" || "#valor"+i+"f" == "#valor26f" || "#valor"+i+"f" == "#valor31f"){
+                continue;
+            }
             if( (typeof aux) === 'number' && !(isNaN(aux))){
                 resultado += aux;
-                console.log("#valor"+i+"f");
+                //console.log("#valor"+i+"f");
             }
         }
-        console.log(resultado);
-        console.log(resultado/8);
+        //console.log(resultado);
+        //console.log(resultado/8);
         resultado /= 8;
         $("#valorFinal").val(resultado);
     }
@@ -50,24 +53,23 @@
             var aux = parseInt($("#valor15"+i).val());
             if( (typeof aux) === 'number' && !(isNaN(aux))){
                 valores[0] += aux;
-                console.log("#valor15"+i);
             }
 
             aux = parseInt($("#valor26"+i).val());
             if( (typeof aux) === 'number' && !(isNaN(aux))){
                 valores[1] += aux;
-                console.log("#valor26"+i);
             }
 
             aux = parseInt($("#valor31"+i).val());
             if( (typeof aux) === 'number' && !(isNaN(aux))){
                 valores[2] += aux;
-                console.log("#valor31"+i);
             }
         }
 
         valores[0] = valores[0] / 10;
+        console.log(valores[0]);
         valores[2] = valores[2] / 5;
+        console.log(valores[2]);
         $("#valor15f").val(valores[0].toFixed(2));
         $("#valor31f").val(valores[2].toFixed(2));
 
