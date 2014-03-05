@@ -70,12 +70,12 @@
 
         //alert($("#excepcion42").is(':checked'));
         if(!$("#excepcion42").is(':checked')){    
-            $("#valor14f").val(((+valores[0]+valores[2])/2).toFixed(2));
+            $("#valor14f").val(((valores[0]+valores[2])/2).toFixed(2));
             return;
         }
         valores[1] = valores[1] / 4;
         $("#valor26f").val(valores[1].toFixed(2));
-        $("#valor14f").val(((+valores[0]+valores[1]+valores[2])/3).toFixed(2));
+        $("#valor14f").val(((valores[0]+valores[1]+valores[2])/3).toFixed(2));
     }
 
     function calcular(seccion, padre){
