@@ -37,11 +37,8 @@
             }
             if( (typeof aux) === 'number' && !(isNaN(aux))){
                 resultado += aux;
-                //console.log("#valor"+i+"f");
             }
         }
-        //console.log(resultado);
-        //console.log(resultado/8);
         resultado /= 8;
         $("#valorFinal").val(resultado);
     }
@@ -67,9 +64,7 @@
         }
 
         valores[0] = valores[0] / 10;
-        console.log(valores[0]);
         valores[2] = valores[2] / 5;
-        console.log(valores[2]);
         $("#valor15f").val(valores[0].toFixed(2));
         $("#valor31f").val(valores[2].toFixed(2));
 
