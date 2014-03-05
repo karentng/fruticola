@@ -34,8 +34,11 @@
             var aux = parseInt($("#valor"+i+"f").val());
             if( (typeof aux) === 'number' && !(isNaN(aux))){
                 resultado += aux;
+                console.log("#valor"+i+"f");
             }
         }
+        console.log(resultado);
+        console.log(resultado/8);
         resultado /= 8;
         $("#valorFinal").val(resultado);
     }
