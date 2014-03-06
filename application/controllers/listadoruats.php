@@ -85,9 +85,15 @@ class ListadoRuats extends CI_Controller {
                 $disabled = 'disabled="disabled"';
             }
 
+            if($item->cosecha_id){
+                $disabled1 = '';
+            } else {
+                $disabled1 = 'disabled';
+            }
+
             $actions .= "<div class='btn-group'>";
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Diagnóstico Manejo de Cosecha'>Cosecha <i class='i-arrow-right-3'></i></a>";
-            $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' $disabled title='Versión Imprimible Cosecha' target='_blank'><i class='i-print'></i></a>";
+            $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' $disabled1 title='Versión Imprimible Cosecha' target='_blank'><i class='i-print'></i></a>";
             $actions .="</div>&nbsp;";
 
 
@@ -113,9 +119,15 @@ class ListadoRuats extends CI_Controller {
                 $disabled = 'disabled="disabled"';
             }
 
+            if($item->vtp_id){
+                $disabled1 = '';
+            } else {
+                $disabled1 = 'disabled';
+            }
+
             $actions .= "<div class='btn-group'>";
             $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Prod<i class='i-arrow-right-3'></i></a>";
-            $actions .= "<a class='btn btn-sm btn-info tip' href='$url3' $disabled title='Versión Imprimible C.Tipo Productor' target='_blank'><i class='i-print'></i></a>";
+            $actions .= "<a class='btn btn-sm btn-info tip' href='$url3' $disabled1 title='Versión Imprimible C.Tipo Productor' target='_blank'><i class='i-print'></i></a>";
             $actions .="</div>&nbsp;";
 
             $cls = $item->postcosecha_id ? 'btn-warning' : 'btn-default';
