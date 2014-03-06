@@ -57,10 +57,30 @@ class Formularios extends CI_Controller {
         //die($sql);
 
         $result = $this->db->query($sql);
+
+        $totales = array('ruats'=>0,'cosechas'=>0,'bpas'=>0,'vtps'=>0,'postcosechas'=>0);
+        foreach($result->result() as $row) {
+            if($row->ruats) $totales['ruats'] += $row->ruats;
+            if($row->cosechas) $totales['cosechas'] += $row->cosechas;
+            if($row->bpas) $totales['bpas'] += $row->bpas;
+            if($row->vtps) $totales['vtps'] += $row->vtps;
+            if($row->postcosechas) $totales['postcosechas'] += $row->postcosechas;
+        }
+
+        $footer = "<tfoot><tr>".
+            "<th>Totales (todas las páginas)</th>".
+            "<th>$totales[ruats]</th>".
+            "<th>$totales[cosechas]</th>".
+            "<th>$totales[bpas]</th>".
+            "<th>$totales[vtps]</th>".
+            "<th>$totales[postcosechas]</th></tr></tfoot>";
         
         $this->load->library('table');
         $this->table->set_heading("Usuario","RUAT", "Cosecha", "BPA", "C. Productor", "Poscosecha");
-        $this->table->set_template(array('table_open'=>"<table id='reporteFormularios' class='table table-bordered'>"));
+        $this->table->set_template(array(
+            'table_open'=>"<table id='reporteFormularios' class='table table-bordered'>",
+            'table_close'=> $footer."</table>"
+        ));
         $tabla = $this->table->generate($result);
 
         $renglones = assoc(RenglonProductivo::sorted(), 'id', 'descripcion');
