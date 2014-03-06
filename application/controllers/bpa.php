@@ -96,7 +96,7 @@ class BPA extends CI_Controller {
             $bpa->save();
 
 
-            ///SUBO EL ARCHIVO (revisar)
+            ///SUBO EL ARCHIVO
             if(isset($_FILES["archivo_formulario"]) && !empty($_FILES["archivo_formulario"]["name"])) {
                 $arr_upload_result = $this->do_upload($bpa->id);
                 if(!isset($arr_upload_result['error']) && isset($arr_upload_result['upload_data'])){
@@ -110,89 +110,66 @@ class BPA extends CI_Controller {
                 }
             }
 
+            // desde aqui
+            $idsB = extract_prop($preguntasB, 'id');
+            $idsC = extract_prop($preguntasC, 'id');
+            // si existe previamente, borre todo
+            if($existePreviamente){
+                $respuestasB = BpaRespuesta::all(array(
+                    'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $bpa->id, $idsB), 'order' => 'id'));
+
+                foreach($respuestasB as $respuestaB){
+                    $respuestaB->delete();
+                }
+
+                $respuestasC = BpaRespuesta::all(array(
+                    'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $bpa->id, $idsC), 'order' => 'id'));
+
+                foreach($respuestasC as $respuestaC){
+                    $respuestaC->delete();
+                }
+            }
+            // ahora solo agregue lo nuevo
             $conteoB = count($preguntasB);
             $conteoC = count($preguntasC);
             $conteo = $conteoB + $conteoC;
 
-            $cont = 0;
-
-            $idsB = array();
-            foreach($preguntasB as $pregunta){
-                array_push($idsB, $pregunta->id);
-            }
-
-            $respuestasB = BpaRespuesta::all(array(
-                    'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $bpa->id, $idsB), 'order' => 'id'));
-            for($i = 1;$i<=$conteo;$i++){
+            for($i = 1;$i<=$conteo;$i++){ // guardar la parte B
                 if($this->input->post('sino'.$i) === FALSE && $this->input->post('recomendacion'.$i) === FALSE){
                     continue;
                 }
 
-                $bpaR;
-                if(count($respuestasB)>0){
-                    $bpaR = $respuestasB[$cont];
-                    $cont++;
-                    //echo "paso";
-                }else{
-                    $bpaR = new BpaRespuesta();
-                    $bpaR->bpa_id = $bpa->id;
-                }
-                
+                $bpaR = new BpaRespuesta();
+                $bpaR->bpa_id = $bpa->id;
                 $bpaR->pregunta_id = $i;
+
                 if($this->input->post('sino'.$i) == 'on'){
                     $bpaR->puntaje = 1;
                 }else{
                     $bpaR->puntaje = 0;
                 }
-                
-                $bpaR->observacion = $this->input->post('recomendacion'.$i);
 
+                $bpaR->observacion = $this->input->post('recomendacion'.$i);
                 $bpaR->save();
             }
 
-            $cont = 0;
-            $idsC = array();
-            foreach($preguntasC as $pregunta){
-                array_push($idsC, $pregunta->id);
+            $estaOFF = false; // el switch de la parte 4.2
+            if(!($this->input->post('excepcion42')=='on')){
+                $estaOFF = true;
             }
-
-            $respuestasC = BpaRespuesta::all(array(
-                    'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $bpa->id, $idsC), 'order' => 'id'));
-
-            for($i = 1;$i<=$conteo;$i++){
-                if($this->input->post('valor'.$i) === FALSE){
+            for($i = 1;$i<=$conteo;$i++){ // guardar la parte c
+                if($this->input->post('valor'.$i) === FALSE || ($estaOFF && ($i >= 26 && $i <= 30))){
                     continue;
                 }
 
-                $bpaR;
-                if(count($respuestasC)>0){
-                    $bpaR = $respuestasC[$cont];
-                    $cont++;
-                }else{
-                    $bpaR = new BpaRespuesta();
-                    $bpaR->bpa_id = $bpa->id;
-                }
+                $bpaR = new BpaRespuesta();
+                $bpaR->bpa_id = $bpa->id;
                 $bpaR->pregunta_id = $i;
                 $bpaR->puntaje = $this->input->post('valor'.$i);
-
-                if(!($this->input->post('excepcion42')=='on')){
-                    //var_dump($i);
-                    if($i >= 26 && $i <= 30){ //26 -30
-                        $bpaR->puntaje = 0;
-                        $bpaR->observacion = "";
-                    }else{
-                        $bpaR->observacion = $this->input->post('observacion'.$i);
-                        //$this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');    
-                    }
-                }else{
-                    //$this->form_validation->set_rules("observacion".$preg->id, 'Recomendación requerida', 'required');
-                    $bpaR->observacion = $this->input->post('observacion'.$i);
-                }
-
-                //$bpaR->observacion = $this->input->post('observacion'.$i);
-                
+                $bpaR->observacion = $this->input->post('observacion'.$i);
                 $bpaR->save();
             }
+            // hasta aqui
             
             if(empty($upload_result)) {
                 $this->session->set_flashdata("notif", array('type'=>'success', 'text' => 'Formulario BPA guardado exitosamente'));
@@ -206,35 +183,61 @@ class BPA extends CI_Controller {
         if($existePreviamente){
             $idsB = extract_prop($preguntasB, "id");
             $idsC = extract_prop($preguntasC, "id");
+            $respB = array();
+            $respC = array();
             $respuestasB = BpaRespuesta::all(array(
                     'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $datosBPA->id, $idsB), 'order' => 'id'));
-            for($i = 0;$i<count($respuestasB);$i++){
-                //$this->twiggy->set('sino'.$respuestasB[$i]->pregunta_id, $respuestasB[$i]->puntaje);
-                //var_dump('sino'.$respuestasB[$i]->id);
-                if($respuestasB[$i]->puntaje == 1){
-                    $respuestasB[$i]->puntaje = true;
-                }else{
-                    $respuestasB[$i]->puntaje = false;
+            $inicial = 62;
+            foreach($respuestasB as $rB){
+                while($rB->pregunta_id != $inicial){
+                    $obj = new BpaRespuesta();
+                    $obj->pregunta_id = $inicial;
+                    $obj->puntaje = false;
+                    $obj->observacion = "";
+                    array_push($respB, $obj);
+                    $inicial++;
                 }
+                if($rB->puntaje == 1){
+                    $rB->puntaje = true;
+                }else{
+                    $rB->puntaje = false;
+                }
+                array_push($respB, $rB);
+                $inicial++;
             }
+            
             
             $respuestasC = BpaRespuesta::all(array(
                     'conditions' => array('bpa_id = ? AND pregunta_id in (?)', $datosBPA->id, $idsC), 'order' => 'id'));
+
+            $inicial = 1;
+            foreach($respuestasC as $rC){
+                while($rC->pregunta_id != $inicial){
+                    $obj = new BpaRespuesta();
+                    $obj->pregunta_id = $inicial;
+                    $obj->puntaje = 0;
+                    $obj->observacion = "";
+                    array_push($respC, $obj);
+                    $inicial++;
+                }
+                array_push($respC, $rC);
+                $inicial++;
+            }
+
             $this->twiggy->set('existe', 'yes');
             //$this->twiggy->set('datosBpa', $datosBPA);
 
             $condicionExcepcion = BpaRespuesta::all(array(
                     'conditions' => array('bpa_id = ? AND pregunta_id = ?', $datosBPA->id, 26), 'order' => 'id'));
-            
-            if($condicionExcepcion->observacion == '' && $condicionExcepcion->puntaje == 0){
+            if(!count($condicionExcepcion)){
                 $this->twiggy->set('excepcion42', false);
             }else{
                 $this->twiggy->set('excepcion42', true);
             }
             
-            $this->twiggy->set('respuestasB', $respuestasB);
+            $this->twiggy->set('respuestasB', $respB);
             
-            $this->twiggy->set('respuestasC', $respuestasC);
+            $this->twiggy->set('respuestasC', $respC);
         }else{
             $this->twiggy->set('existe', 'not');
             $this->twiggy->set('excepcion42', true);
