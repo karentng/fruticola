@@ -9,7 +9,7 @@
     <script>
         $(function(){
             //myDataTable('#dataTable');
-            myDataTable('#dataTable', {
+            myDataTable('#reporteFormularios', {
                 "sDom": "<'row'<'col-md-6'T><'col-md-6'f>>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
                 "oTableTools": {
                     aButtons:["xls", "pdf"],
@@ -83,6 +83,9 @@
     {{ form_close() }}
 </div>
 
+{{tabla}}
+
+{#
 <table id='dataTable' class="table table-bordered table-hover table-responsive">
     <thead>
         <tr>
@@ -117,5 +120,5 @@
         </tr>
     </tfoot>
 </table>
-
+#}
 {% endblock %}
