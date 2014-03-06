@@ -23,3 +23,9 @@ INNER JOIN orgasociada ON orgasociada.ruat_id=ruat.id
 INNER JOIN orgasociada_clase ON orgasociada_id=orgasociada.id
 INNER JOIN orgasociada_beneficio ON orgasociada_beneficio.orgasociada_id=orgasociada.id
 INNER JOIN producto ON producto.ruat_id=ruat.id;
+
+
+
+        $cantidad_productores_renglon =Productor::find_by_sql("SELECT renglon_productivo_id as renglon, COUNT(id)as productores
+                                                                FROM productor
+                                                                GROUP BY renglon");
