@@ -37,14 +37,41 @@
                     <tr>
                         <th align="center">
                             INDICADOR
+                        </th>
+                        <th align="center">
+                            PROMEDIO
                         </th>                   
                     </tr>
                 </thead>
                 <tbody>
                       
                     <tr>
-                        <td id="">{{sexo[0]}}</td>
-                        <td id="">{{sexo[1]}}</td>
+                        <td>Edad</td>                        
+                        <td align="right">{{promedio_edad |number_format(2, ',', '')}}</td>
+                    </tr>
+                    <tr>
+                        <td>Ingresos Actividad Agropecuaria</td>
+                        <td align="right">${{promedio_ingagro |number_format(2, ',', '.')}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Ingresos</td>
+                        <td align="right">${{promedio_totaling |number_format(2, ',', '.')}}</td>
+                    </tr>
+                    <tr>
+                        <td>Egresos</td>
+                        <td align="right">${{promedio_egresos |number_format(2, ',', '.')}}</td>
+                    </tr>
+                    <tr>
+                        <td>Utilidad</td>
+                        <td align="right">${{promedio_utilidad |number_format(2, ',', '.')}}</td>
+                    </tr>
+                    <tr>
+                        <td>Hectareas Cultivadas</td>
+                        <td align="right">{{promedio_hectareas |number_format(2, ',', '')}}</td>
+                    </tr>
+                    <tr>
+                        <td>Utilidad</td>
+                        <td align="right">${{promedio_utilidad |number_format(2, ',', '.')}}</td>
                     </tr>
                 </tbody> 
             </table>
@@ -54,15 +81,21 @@
 
                         <div class="panel-heading">
                             <div class="icon"><i class="icon20 i-bars"></i></div>
-                            <h4>GRÁFICO ESTADISTICAS TIPO PRODUCTOR</h4>
+                            <h4>GRÁFICO DE FRECUENCIAS DEL PERFIL PRODUCTOR</h4>
                         </div>                    
                         <br/>
                         <div class="col-lg-12">
                             <select id="select_chart" class="form-control" name="select_chart">
-                                <option value="0">1. Promedio de activos por productor anual</option>
-                                <option value="1">2. Promedio de ingresos por productor anual</option>
-                                <option value="2">3. Promedio de egresos por productor anual</option>
-                                <option value="3">4. Promedio de utilidad por productor anual</option>
+                                <option value="0">1. Género</option>
+                                <option value="1">2. Nivel Educativo</option>
+                                <option value="2">3. Servicios Públicos</option>
+                                <option value="3">4. Crédito</option>
+                                <option value="4">5. Procedencia Crédito</option>
+                                <option value="5">6. Clase de Asociatividad</option>
+                                <option value="6">7. Beneficio Asociatividad</option>
+                                <option value="7">8. Asistencia Técnica</option>
+                                <option value="8">9. Medios de Transporte</option>
+                                <option value="9">10. Maquinarias y Equipos</option>
                             </select>
                         </div>
                         <br/>

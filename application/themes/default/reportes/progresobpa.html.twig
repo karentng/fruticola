@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+    <link href="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.css')}}" rel="stylesheet" /> 
+    <link href="{{base_url('assets/js/plugins/tables/datatables/TableTools.css')}}" rel="stylesheet" /> 
+    <script src="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{base_url('assets/js/plugins/tables/datatables/TableTools.min.js')}}"></script>
+
+    <script>
+        $(function(){
+            //myDataTable('#dataTable');
+            myDataTable('#progresoBPA', {
+                "sDom": "<'row'<'col-md-6'T><'col-md-6'f>>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
+                "oTableTools": {
+                    aButtons:["xls", "pdf"],
+                    "sSwfPath": "{{base_url('assets/js/plugins/tables/datatables/copy_csv_xls_pdf.swf')}}"
+
+                },
+                "aaSorting": [[ 7, "desc" ]],
+                "aoColumns": [null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+            });
+
+            $('#mensaje_cargando').remove();
+        });
+    </script>
+
+    <style>
+
+    div.DTTT_container {
+        float:left;
+    }
+    </style>
+{% endblock %}
+
+
+{% block titulo %} 
+<h1><i class="icon20 i-users"></i> Progreso en Buenas Prácticas </h1>
+{% endblock %}
+
+
+
+{% block contenido %}
+
+
+{% include "reportes/toolbar_reportes.html.twig" %}
+
+<h3 id="mensaje_cargando" class="text-warning">Cargando. Por favor espere...</h3>
+{{tabla}}
+{% endblock %}
