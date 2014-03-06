@@ -13,13 +13,13 @@ class ProgresoBPA extends CI_Controller {
         $sql = "
         select concat(P.nombre1,' ',nullif(P.nombre2||' ',' '), P.apellido1,' ',P.apellido2) as nombre_productor,
             P.numero_documento, MUN.nombre as municipio, F.vereda, CON.telefono, CON.celular, REN.descripcion as renglon,
-            case when V0.nivel_bpa is null then null else least(100, V0.nivel_bpa) end as puntaje0, 
-            case when V1.nivel_bpa is null then null else least(100, V1.nivel_bpa) end as puntaje1, 
-            case when V2.nivel_bpa is null then null else least(100, V2.nivel_bpa) end as puntaje2, 
-            case when V3.nivel_bpa is null then null else least(100, V3.nivel_bpa) end as puntaje3, 
-            case when V4.nivel_bpa is null then null else least(100, V4.nivel_bpa) end as puntaje4, 
-            case when V5.nivel_bpa is null then null else least(100, V5.nivel_bpa) end as puntaje5, 
-            case when V6.nivel_bpa is null then null else least(100, V6.nivel_bpa) end as puntaje6
+            case when V0.nivel_bpa is null then null else round(least(100, V0.nivel_bpa)::numeric,2) end as puntaje0, 
+            case when V1.nivel_bpa is null then null else round(least(100, V1.nivel_bpa)::numeric,2) end as puntaje1, 
+            case when V2.nivel_bpa is null then null else round(least(100, V2.nivel_bpa)::numeric,2) end as puntaje2, 
+            case when V3.nivel_bpa is null then null else round(least(100, V3.nivel_bpa)::numeric,2) end as puntaje3, 
+            case when V4.nivel_bpa is null then null else round(least(100, V4.nivel_bpa)::numeric,2) end as puntaje4, 
+            case when V5.nivel_bpa is null then null else round(least(100, V5.nivel_bpa)::numeric,2) end as puntaje5, 
+            case when V6.nivel_bpa is null then null else round(least(100, V6.nivel_bpa)::numeric,2) end as puntaje6
         from ruat R join productor P on R.productor_id=P.id
         join contacto CON on CON.productor_id=P.id
         join finca F on F.ruat_id=R.id
