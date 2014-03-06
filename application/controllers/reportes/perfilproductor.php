@@ -38,7 +38,25 @@ class Perfilproductor extends CI_Controller {
 
         $promedio_hectareas=$total_hectareas/$cantidad_productores;
 
+        $cantidad_hombres=Productor::find_by_sql("SELECT COUNT(sexo) as cantidad_hombres FROM productor WHERE sexo='M'")[0]->cantidad_hombres;
 
+        $cantidad_mujeres=Productor::find_by_sql("SELECT COUNT(sexo) as cantidad_mujeres FROM productor WHERE sexo='F'")[0]->cantidad_mujeres;
+        $primaria =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as primaria FROM productor WHERE nivel_educativo_id='1'")[0]->primaria;
+        $secundaria =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as secundaria FROM productor WHERE nivel_educativo_id='2'")[0]->secundaria;
+        $tecnica =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as tecnica FROM productor WHERE nivel_educativo_id='3'")[0]->tecnica;
+        $tecnologica =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as tecnologica FROM productor WHERE nivel_educativo_id='4'")[0]->tecnologica;
+        $universitaria =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as universitaria FROM productor WHERE nivel_educativo_id='5'")[0]->universitaria;
+        $ninguna =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as ninguna FROM productor WHERE nivel_educativo_id='6'")[0]->ninguna;
+
+
+        $this->twiggy->set('ninguna', $ninguna);
+        $this->twiggy->set('universitaria', $universitaria);
+        $this->twiggy->set('tecnologica', $tecnologica);
+        $this->twiggy->set('tecnica', $tecnica);
+        $this->twiggy->set('secundaria', $secundaria);
+        $this->twiggy->set('primaria', $primaria);
+        $this->twiggy->set('cantidad_hombres',  $cantidad_hombres);
+        $this->twiggy->set('cantidad_mujeres', $cantidad_mujeres);
         $this->twiggy->set('promedio_hectareas', $promedio_hectareas);
         $this->twiggy->set('promedio_utilidad', $promedio_utilidad);
         $this->twiggy->set('promedio_egresos', $promedio_egresos);
