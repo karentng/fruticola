@@ -9,6 +9,7 @@ class Perfilproductor extends CI_Controller {
 
     public function index()
     {
+        //TABLA
         $promedio_edad = Productor::find_by_sql("SELECT avg( date_part('years', age(fecha_nacimiento))) as promedio_edad FROM productor")[0]->promedio_edad;
 
         $promedio_ingagro = VisitaTipoProductor::find_by_sql("SELECT avg(ingagro)as promedio_ingagro
@@ -38,8 +39,9 @@ class Perfilproductor extends CI_Controller {
 
         $promedio_hectareas=$total_hectareas/$cantidad_productores;
 
-        $cantidad_hombres=Productor::find_by_sql("SELECT COUNT(sexo) as cantidad_hombres FROM productor WHERE sexo='M'")[0]->cantidad_hombres;
+        //GRAFICAS
 
+        $cantidad_hombres=Productor::find_by_sql("SELECT COUNT(sexo) as cantidad_hombres FROM productor WHERE sexo='M'")[0]->cantidad_hombres;
         $cantidad_mujeres=Productor::find_by_sql("SELECT COUNT(sexo) as cantidad_mujeres FROM productor WHERE sexo='F'")[0]->cantidad_mujeres;
         $primaria =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as primaria FROM productor WHERE nivel_educativo_id='1'")[0]->primaria;
         $secundaria =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as secundaria FROM productor WHERE nivel_educativo_id='2'")[0]->secundaria;
