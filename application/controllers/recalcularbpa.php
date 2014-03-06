@@ -32,7 +32,7 @@ class RecalcularBPA extends CI_Controller {
 
         
         echo "inicio..\n";
-        foreach($bpas as $bpa) {
+        foreach($bpas as $index => $bpa) {
             $suma = array();
             foreach($padre as $id => $pdr) {
                 if(isset($num_hijos[$id])) $suma[$id] = 0;
@@ -69,8 +69,14 @@ class RecalcularBPA extends CI_Controller {
                 $bpa->nivel_bpa = $nuevoNivel;
                 $bpa->save();
             }
-            //echo "===================\n";
-            //echo $bpa->id."\n";
+
+             //liberar memoria
+            foreach($bpa->respuestas as $idx => $res) {
+                unset($bpa->respuestas[$idx]);
+            }
+            unset($bpa->respuestas);
+            unset($bpas[$index]);
+            if($index%10==0) gc_collect_cycles();
         }
     }
 
