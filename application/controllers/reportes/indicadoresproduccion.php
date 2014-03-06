@@ -22,29 +22,18 @@ class Indicadoresproduccion extends CI_Controller {
         $this->twiggy->template("reportes/indicadoresproduccion");
         $this->twiggy->display();
     }
-    
-    public function tabla(){
-        
+
+    public function tabla() {
+
         $renglon = $this->input->post('renglon_productivo');
         $municipios = $this->input->post('municipios');
-        
-        if(!$municipios)
-            $municipios = array();        
-        
-        $datos = $this->consultarDatos($renglon, $municipios);
-        
-        foreach ($datos as $dato) {
-            $dato['total_rendimiento']= $dato['avg_rendimiento'] = 0;
-            
-            if($dato['total_area_cosechada'])
-                $dato['total_rendimiento'] = $dato['total_produccion'] / $dato['total_area_cosechada'];
-            
-            if($dato['avg_area_cosechada'])
-                $dato['avg_rendimiento'] = $dato['avg_produccion'] / $dato['avg_area_cosechada'];
-            
-            $this->twiggy->set('datos', $dato);
-        }
- 
+
+        if (!$municipios)
+            $municipios = array();
+
+        $dato = $this->consultarDatos($renglon, $municipios);
+        $this->twiggy->set('datos', $dato);
+
         $this->twiggy->register_function('number_format');
         $this->twiggy->template("reportes/indicadoresproducciontabla");
         $this->twiggy->display();
@@ -52,14 +41,13 @@ class Indicadoresproduccion extends CI_Controller {
 
     private function consultarDatos($renglon, $municipios = array()) {
 
-
         $arr_condiciones = array(
             ':renglon' => $renglon
         );
 
         $aux = array();
         foreach ($municipios as $i => $municipio) {
-            $arr_condiciones[":municipio_{$i}"] = (int)$municipio['id'];
+            $arr_condiciones[":municipio_{$i}"] = (int) $municipio['id'];
             $aux[] = "finca.municipio_id = :municipio_{$i}";
         }
 
@@ -68,15 +56,13 @@ class Indicadoresproduccion extends CI_Controller {
             $where_municipio = ' AND ( ' . implode(' OR ', $aux) . ' )';
         }
 
-        $query = "SELECT 
-            SUM(finca.area_total) AS total_area_fincas,
-            AVG(finca.area_total) AS avg_area_fincas,
-
+        ///Consulto los datos de los productos
+        $query = "SELECT             
             SUM(producto.area_cosechada) AS total_area_cosechada,
             AVG(producto.area_cosechada) AS avg_area_cosechada,
 
-            SUM(producto.prod_total) AS total_produccion,
-            AVG(producto.prod_total) AS avg_produccion,
+            SUM(producto.prod_semestre_a) AS total_semestre_a,
+            SUM(producto.prod_semestre_b) AS total_semestre_b,            
 
             SUM(producto.costo_establecimiento) AS total_costo_establecimiento,
             AVG(producto.costo_establecimiento) AS avg_costo_establecimiento,
@@ -89,16 +75,57 @@ class Indicadoresproduccion extends CI_Controller {
 
             AVG(producto.precio_promedio) AS avg_precio_promedio,
             
-            COUNT(productor.id) AS numero_productores
+            COUNT(DISTINCT producto.id) AS numero_productos
 
             FROM finca
             JOIN ruat ON finca.ruat_id = ruat.id
             JOIN productor ON ruat.productor_id = productor.id
-            LEFT JOIN producto ON (ruat.id = producto.ruat_id)
+            JOIN producto ON (ruat.id = producto.ruat_id)
             WHERE productor.renglon_productivo_id=:renglon $where_municipio";
 
+        $result = Ruat::connection()->query($query, $arr_condiciones);
 
-        return Ruat::connection()->query($query, $arr_condiciones);
+        $dato = array();
+        foreach ($result as $row) {
+            $dato = array_merge($dato, $row);
+            
+            $dato['total_produccion'] = $row['total_semestre_a'] + $row['total_semestre_b'];
+            
+            $dato['total_rendimiento'] = $dato['avg_rendimiento'] = $dato['avg_produccion'] = 0;
+
+            if ($row['total_area_cosechada']){
+                $dato['total_rendimiento'] = $dato['total_produccion'] / $row['total_area_cosechada'];
+            }
+
+            if ($row['numero_productos']){               
+                $dato['avg_rendimiento'] = $dato['total_rendimiento'] / $row['numero_productos'];
+                $dato['avg_produccion'] = $dato['total_produccion'] / $row['numero_productos'];
+            }
+        }
+        
+//        var_dump($dato);
+        
+
+        ///Consulto los datos de las fincas
+        $query = "SELECT 
+            SUM(finca.area_total) AS total_area_fincas,
+            AVG(finca.area_total) AS avg_area_fincas,
+            
+            COUNT(DISTINCT productor.id) AS numero_productores
+
+            FROM finca
+            JOIN ruat ON finca.ruat_id = ruat.id
+            JOIN productor ON ruat.productor_id = productor.id
+            WHERE productor.renglon_productivo_id=:renglon $where_municipio";
+
+        $result = Ruat::connection()->query($query, $arr_condiciones);
+
+        foreach ($result as $row) {
+            $dato = array_merge($dato, $row);
+        }
+        
+
+        return $dato;
     }
 
 }
