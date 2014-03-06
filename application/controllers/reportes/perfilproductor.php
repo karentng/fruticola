@@ -10,45 +10,72 @@ class Perfilproductor extends CI_Controller {
     public function index()
     {
         //TABLA
-        $promedio_edad = Productor::find_by_sql("SELECT avg( date_part('years', age(fecha_nacimiento))) as promedio_edad FROM productor")[0]->promedio_edad;
 
-        $promedio_ingagro = VisitaTipoProductor::find_by_sql("SELECT avg(ingagro)as promedio_ingagro
+        $resultado=Productor::find_by_sql("SELECT avg( date_part('years', age(fecha_nacimiento))) as promedio_edad FROM productor");
+        $promedio_edad = $resultado[0]->promedio_edad;
+
+        $resultado=VisitaTipoProductor::find_by_sql("SELECT avg(ingagro)as promedio_ingagro
                                                                FROM(SELECT visita_id, SUM(valor) as ingagro
                                                                FROM visita_tipo_productor 
                                                                INNER JOIN tp_c_respuesta ON visita_id=visita_tipo_productor.id
                                                                WHERE pregunta_c_id BETWEEN 16  AND 17 
-                                                               GROUP BY visita_id) as ingresos")[0]->promedio_ingagro;
+                                                               GROUP BY visita_id) as ingresos");
 
-        $promedio_totaling = VisitaTipoProductor::find_by_sql("SELECT avg(valor) as promedio_totaling
+        $promedio_ingagro = $resultado[0]->promedio_ingagro;
+
+        $resultado=VisitaTipoProductor::find_by_sql("SELECT avg(valor) as promedio_totaling
                                                                 FROM visita_tipo_productor
                                                                 INNER JOIN tp_c_respuesta ON visita_id=visita_tipo_productor.id
-                                                                WHERE pregunta_c_id=19")[0]->promedio_totaling;
+                                                                WHERE pregunta_c_id=19");
+        $promedio_totaling = $resultado[0]->promedio_totaling;
 
-        $promedio_egresos = VisitaTipoProductor::find_by_sql("SELECT avg(valor) as promedio_egresos
+        $resultado=VisitaTipoProductor::find_by_sql("SELECT avg(valor) as promedio_egresos
                                                                 FROM visita_tipo_productor
                                                                 INNER JOIN tp_c_respuesta ON visita_id=visita_tipo_productor.id
-                                                                WHERE pregunta_c_id=25")[0]->promedio_egresos;
+                                                                WHERE pregunta_c_id=25");
 
-        $promedio_utilidad = VisitaTipoProductor::find_by_sql("SELECT avg(valor) as promedio_utilidad
+        $promedio_egresos = $resultado[0]->promedio_egresos;
+
+        $resultado=VisitaTipoProductor::find_by_sql("SELECT avg(valor) as promedio_utilidad
                                                                 FROM visita_tipo_productor
                                                                 INNER JOIN tp_c_respuesta ON visita_id=visita_tipo_productor.id
-                                                                WHERE pregunta_c_id=26")[0]->promedio_utilidad;
+                                                                WHERE pregunta_c_id=26");
+        $promedio_utilidad = $resultado[0]->promedio_utilidad;
 
-        $cantidad_productores= Productor::find_by_sql("SELECT COUNT(id) as cantidad_productores FROM productor")[0]->cantidad_productores;
-        $total_hectareas= Producto::find_by_sql("SELECT SUM(area_cosechada) as total_hectareas FROM producto")[0]->total_hectareas;
+        $resultado=Productor::find_by_sql("SELECT COUNT(id) as cantidad_productores FROM productor");
+        $cantidad_productores= $resultado[0]->cantidad_productores;
+
+
+        $resultado=Producto::find_by_sql("SELECT SUM(area_cosechada) as total_hectareas FROM producto");
+        $total_hectareas= $resultado[0]->total_hectareas;
 
         $promedio_hectareas=$total_hectareas/$cantidad_productores;
 
         //GRAFICAS
 
-        $cantidad_hombres=Productor::find_by_sql("SELECT COUNT(sexo) as cantidad_hombres FROM productor WHERE sexo='M'")[0]->cantidad_hombres;
-        $cantidad_mujeres=Productor::find_by_sql("SELECT COUNT(sexo) as cantidad_mujeres FROM productor WHERE sexo='F'")[0]->cantidad_mujeres;
-        $primaria =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as primaria FROM productor WHERE nivel_educativo_id='1'")[0]->primaria;
-        $secundaria =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as secundaria FROM productor WHERE nivel_educativo_id='2'")[0]->secundaria;
-        $tecnica =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as tecnica FROM productor WHERE nivel_educativo_id='3'")[0]->tecnica;
-        $tecnologica =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as tecnologica FROM productor WHERE nivel_educativo_id='4'")[0]->tecnologica;
-        $universitaria =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as universitaria FROM productor WHERE nivel_educativo_id='5'")[0]->universitaria;
-        $ninguna =Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as ninguna FROM productor WHERE nivel_educativo_id='6'")[0]->ninguna;
+        $resultado=Productor::find_by_sql("SELECT COUNT(sexo) as cantidad_hombres FROM productor WHERE sexo='M'");
+        $cantidad_hombres=$resultado[0]->cantidad_hombres;
+
+        $resultado=Productor::find_by_sql("SELECT COUNT(sexo) as cantidad_mujeres FROM productor WHERE sexo='F'");
+        $cantidad_mujeres=$resultado[0]->cantidad_mujeres;
+
+        $resultado=Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as primaria FROM productor WHERE nivel_educativo_id='1'");
+        $primaria =$resultado[0]->primaria;
+
+        $resultado=Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as secundaria FROM productor WHERE nivel_educativo_id='2'");
+        $secundaria =$resultado[0]->secundaria;
+
+        $resultado=Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as tecnica FROM productor WHERE nivel_educativo_id='3'");
+        $tecnica = $resultado[0]->tecnica;
+
+        $resultado=Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as tecnologica FROM productor WHERE nivel_educativo_id='4'");
+        $tecnologica = $resultado[0]->tecnologica;
+
+        $resultado=Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as universitaria FROM productor WHERE nivel_educativo_id='5'");
+        $universitaria = $resultado[0]->universitaria;
+
+        $resultado=Productor::find_by_sql("SELECT COUNT(nivel_educativo_id)as ninguna FROM productor WHERE nivel_educativo_id='6'");
+        $ninguna =$resultado[0]->ninguna;
 
 
         $this->twiggy->set('ninguna', $ninguna);
