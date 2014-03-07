@@ -21,8 +21,8 @@
         matrixGenero[i] = new Array(2);
     }
     matrixGenero[0][0]='Mujeres';
-    matrixGenero[0][1]= {{cantidad_mujeres}};
-    matrixGenero[1][0]='Hombres';
+    matrixGenero[0][1]='Hombres';
+    matrixGenero[1][0]={{cantidad_mujeres}};
     matrixGenero[1][1]={{cantidad_hombres}};
 
     //Datos Educación
@@ -43,10 +43,159 @@
     matrixEducativo[1][4]={{universitaria}};
     matrixEducativo[1][5]={{ninguna}};
 
+    //Datos Servicios
+    var matrixServicios = [];
+    for(var i=0; i<2; i++) {
+        matrixServicios[i] = new Array(4);
+    }
+    matrixServicios[0][0]='Agua Propia';
+    matrixServicios[0][1]='Acueducto';
+    matrixServicios[0][2]='Acceso a Internet';
+    matrixServicios[0][3]='Energía Eléctrica';
+    matrixServicios[1][0]={{agua}};
+    matrixServicios[1][1]={{acueducto}};
+    matrixServicios[1][2]={{internet}};
+    matrixServicios[1][3]={{electricidad}};
+
+    //Datos Credito
+    var matrixCredito = [];
+    for(var i=0; i<2; i++) {
+        matrixCredito[i] = new Array(2);
+    }
+    matrixCredito[0][0]='Sí';
+    matrixCredito[0][1]='No';
+    matrixCredito[1][0]={{credito_si}};
+    matrixCredito[1][1]={{credito_no}};
+
+    //Datos Procedencia Credito
+    var matrixProcedencia = [];
+    for(var i=0; i<2; i++) {
+        matrixProcedencia[i] = new Array(7);
+    }
+    matrixProcedencia[0][0]='Bancos';
+    matrixProcedencia[0][1]='Agremiaciones';
+    matrixProcedencia[0][2]='Entidades Estatales';
+    matrixProcedencia[0][3]='Prestamistas';
+    matrixProcedencia[0][4]='Familiares';
+    matrixProcedencia[0][5]='Empresas de Insumos';
+    matrixProcedencia[0][6]='Otro';
+    matrixProcedencia[1][0]={{bancos}};
+    matrixProcedencia[1][1]={{agremiaciones}};
+    matrixProcedencia[1][2]={{entidades}};
+    matrixProcedencia[1][3]={{prestamistas}};
+    matrixProcedencia[1][4]={{familiares}};
+    matrixProcedencia[1][5]={{empresas}};
+    matrixProcedencia[1][6]={{otro}};
+
+    //Datos OrgAsociada clase
+    var matrixAsociada = [];
+    for(var i=0; i<2; i++) {
+        matrixAsociada[i] = new Array(11);
+    }
+
+    matrixAsociada[0][0]='Agropecuaria';
+    matrixAsociada[0][1]='Asistencial';
+    matrixAsociada[0][2]='Comercial';
+    matrixAsociada[0][3]='Cultural';
+    matrixAsociada[0][4]='Deportiva';
+    matrixAsociada[0][5]='Educativa';
+    matrixAsociada[0][6]='Etnica';
+    matrixAsociada[0][7]='Política';
+    matrixAsociada[0][8]='Salud';
+    matrixAsociada[0][9]='Social';
+    matrixAsociada[0][10]='Tecnológica';
+    matrixAsociada[1][0]={{agropecuaria}};
+    matrixAsociada[1][1]={{asistencial}};
+    matrixAsociada[1][2]={{comercial}};
+    matrixAsociada[1][3]={{cultural}};
+    matrixAsociada[1][4]={{deportiva}};
+    matrixAsociada[1][5]={{educativa}};
+    matrixAsociada[1][6]={{etnica}};
+    matrixAsociada[1][7]={{politica}};
+    matrixAsociada[1][8]={{salud}};
+    matrixAsociada[1][9]={{social}};
+    matrixAsociada[1][10]={{tecnologico}};
+
+    //Datos OrgAsociada beneficio
+    var matrixBeneficio = [];
+    for(var i=0; i<2; i++) {
+        matrixBeneficio[i] = new Array(7);
+    }
+
+    matrixBeneficio[0][0]='Capacitación';
+    matrixBeneficio[0][1]='Económico';
+    matrixBeneficio[0][2]='En Especie';
+    matrixBeneficio[0][3]='Participación Toma Decisiones';
+    matrixBeneficio[0][4]='Reconocimiento Comunidad';
+    matrixBeneficio[0][5]='Recreación y Deporte';
+    matrixBeneficio[0][6]='Otro';
+    matrixBeneficio[1][0]={{capacitacion}};
+    matrixBeneficio[1][1]={{economico}};
+    matrixBeneficio[1][2]={{especie}};
+    matrixBeneficio[1][3]={{participacion}};
+    matrixBeneficio[1][4]={{reconocimiento}};
+    matrixBeneficio[1][5]={{recreacion}};
+    matrixBeneficio[1][6]={{otro}};
+
+    //Datos Genero
+    var matrixAsistencia = [];
+    for(var i=0; i<2; i++) {
+        matrixAsistencia[i] = new Array(2);
+    }
+    matrixAsistencia[0][0]='Si';
+    matrixAsistencia[0][1]='No';
+    matrixAsistencia[1][0]={{asist_si}};
+    matrixAsistencia[1][1]={{asist_no}};
+
+    //Datos Transporte
+    var matrixTransporte = [];
+    for(var i=0; i<2; i++) {
+        matrixTransporte[i] = new Array(10);
+    }
+
+    matrixTransporte[0][0]='Animal';
+    matrixTransporte[0][1]='Camión';
+    matrixTransporte[0][2]='Bicicleta';
+    matrixTransporte[0][3]='Caminata';
+    matrixTransporte[0][4]='Tractor';
+    matrixTransporte[0][5]='Barco';
+    matrixTransporte[0][6]='Canoa';
+    matrixTransporte[0][7]='Kayak';
+    matrixTransporte[0][8]='Planchón';
+    matrixTransporte[0][9]='Otro';
+    matrixTransporte[1][0]={{animal}};
+    matrixTransporte[1][1]={{camion}};
+    matrixTransporte[1][2]={{bicicleta}};
+    matrixTransporte[1][3]={{caminata}};
+    matrixTransporte[1][4]={{tractor}};
+    matrixTransporte[1][5]={{barco}};
+    matrixTransporte[1][6]={{canoa}};
+    matrixTransporte[1][7]={{kayak}};
+    matrixTransporte[1][8]={{planchon}};
+    matrixTransporte[1][9]={{otro}};
+
+    //Datos Maquinaria
+    var matrixMaquinaria = [];
+    for(var i=0; i<2; i++) {
+        matrixMaquinaria[i] = new Array(6);
+    }
+    matrixMaquinaria[0][0]='Herramientas';
+    matrixMaquinaria[0][1]='Utensilios';
+    matrixMaquinaria[0][2]='Equipos';
+    matrixMaquinaria[0][3]='Maquinarias Liviana';
+    matrixMaquinaria[0][4]='Maquinaria Pesada';
+    matrixMaquinaria[0][5]='Otros';
+    matrixMaquinaria[1][0]={{herramientas}};
+    matrixMaquinaria[1][1]={{utensilios}};
+    matrixMaquinaria[1][2]={{equipos}};
+    matrixMaquinaria[1][3]={{liviana}};
+    matrixMaquinaria[1][4]={{pesada}};
+    matrixMaquinaria[1][5]={{otro}};
+
 
     //inicializamos gráfica genero
     var dataG = null;
-    dataG = generarDataGenero();
+    dataG = generarData(matrixGenero);
 
     //exportar
     var exportConfig = {
@@ -85,8 +234,8 @@
         "startDuration": 2,
         "legend": {
             "markerType": "circle",
-            "position": "right",
-            "marginRight": 80,      
+            "position": "top",
+            "marginRight": 20,      
             "autoMargins": false
         },
         "dataProvider": dataG,
@@ -102,42 +251,50 @@
     //actualizar gráfica según selector
     function actualizarGrafica(){
         var grafica = $('#selectGrafica').val();
-        console.log(grafica);
         if(grafica==0){
-            chart.dataProvider = generarDataGenero();
+            chart.dataProvider = generarData(matrixGenero);
             chart.validateData();
         }else if(grafica==1){
-            chart.dataProvider = generarDataNivelEducativo();
+            chart.dataProvider = generarData(matrixEducativo);
+            chart.validateData();
+        }else if(grafica==2){
+            chart.dataProvider = generarData(matrixServicios);
+            chart.validateData();
+        }else if(grafica==3){
+            chart.dataProvider = generarData(matrixCredito);
+            chart.validateData();
+        }else if(grafica==4){
+            chart.dataProvider = generarData(matrixProcedencia);
+            chart.validateData();
+        }else if(grafica==5){
+            chart.dataProvider = generarData(matrixAsociada);
+            chart.validateData();
+        }else if(grafica==6){
+            chart.dataProvider = generarData(matrixBeneficio);
+            chart.validateData();
+        }else if(grafica==7){
+            chart.dataProvider = generarData(matrixAsistencia);
+            chart.validateData();
+        }else if(grafica==8){
+            chart.dataProvider = generarData(matrixTransporte);
+            chart.validateData();
+        }else if(grafica==9){
+            chart.dataProvider = generarData(matrixMaquinaria);
             chart.validateData();
         }
     }
     
-    function generarDataGenero(){
+    function generarData(matrix){
         var data = [];
-
-        for(var i = 0;i<matrixGenero.length;i++){
+        for(var i = 0;i<matrix[0].length;i++){
             var aux = {
-                'clase': matrixGenero[i][0],
-                'number':  matrixGenero[i][1]
+                'clase': matrix[0][i],
+                'number':  matrix[1][i]
             };
             data.push(aux);
         }
         return data;
     }
-
-    function generarDataNivelEducativo(){
-        var data = [];
-
-        for(var i = 0;i<matrixEducativo[0].length;i++){
-            var aux = {
-                'clase': matrixEducativo[0][i],
-                'number':  matrixEducativo[1][i]
-            };
-            data.push(aux);
-        }
-        return data;
-    }
-
     
  
 </script>
@@ -212,7 +369,7 @@
                         </div>                    
                         <br/>
                         <div class="col-lg-12">
-                            <select class="form-control" id="selectGrafica" style="width:200px" onchange="actualizarGrafica()">
+                            <select class="form-control" id="selectGrafica" style="width:230px" onchange="actualizarGrafica()">
                                 <option value="0">1. Género</option>
                                 <option value="1">2. Nivel Educativo</option>
                                 <option value="2">3. Servicios Públicos</option>
