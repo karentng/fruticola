@@ -101,9 +101,7 @@ class Indicadoresproduccion extends CI_Controller {
                 $dato['avg_rendimiento'] = $dato['total_rendimiento'] / $row['numero_productos'];
                 $dato['avg_produccion'] = $dato['total_produccion'] / $row['numero_productos'];
             }
-        }
-        
-//        var_dump($dato);
+        }       
         
 
         ///Consulto los datos de las fincas
@@ -117,6 +115,36 @@ class Indicadoresproduccion extends CI_Controller {
             JOIN ruat ON finca.ruat_id = ruat.id
             JOIN productor ON ruat.productor_id = productor.id
             WHERE productor.renglon_productivo_id=:renglon $where_municipio";
+
+        $result = Ruat::connection()->query($query, $arr_condiciones);
+
+        foreach ($result as $row) {
+            $dato = array_merge($dato, $row);
+        }
+        
+        $id_egresos = 25;
+        $id_ingresos = 19;
+        
+         ///Consulto los datos de las fincas
+        $query = "SELECT 
+            AVG(ingresos.valor / egresos.valor) avg_costo_beneficio
+            FROM finca
+            JOIN ruat ON finca.ruat_id = ruat.id
+            JOIN productor ON ruat.productor_id = productor.id
+            JOIN visita_tipo_productor vtp ON ruat.id = vtp.ruat_id
+            JOIN tp_c_respuesta ingresos ON vtp.id = ingresos.visita_id
+            JOIN (
+                SELECT 
+                visita_id,
+                valor
+                FROM finca
+                JOIN ruat ON finca.ruat_id = ruat.id
+                JOIN productor ON ruat.productor_id = productor.id
+                JOIN visita_tipo_productor vtp ON ruat.id = vtp.ruat_id
+                JOIN tp_c_respuesta ON vtp.id = tp_c_respuesta.visita_id
+                WHERE tp_c_respuesta.pregunta_c_id = $id_egresos
+            ) egresos ON egresos.visita_id = ingresos.visita_id
+            WHERE ingresos.pregunta_c_id = $id_ingresos AND productor.renglon_productivo_id=:renglon $where_municipio";
 
         $result = Ruat::connection()->query($query, $arr_condiciones);
 
