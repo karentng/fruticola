@@ -1,11 +1,11 @@
-{% macro boton(url,title,icon,color) %}
+{% macro boton(url,short,title,icon,color) %}
     {% if url in current_url() %}
         {% set seleccionado = 'seleccionado' %}
     {% endif %}
     <li class="center">
-        <a href="{{site_url(url)}}" class="clearfix enlace-informe {{seleccionado}}">
+        <a href="{{site_url(url)}}" class="clearfix enlace-informe {{seleccionado}} tip" title="{{title}}">
             <span class="icon {{color}}"><i class="icon24 {{icon}}"></i></span>
-            <span class="txt">{{title}}</span>
+            <span class="txt">{{short}}</span>
         </a>
     </li>
 {% endmacro %}
@@ -14,28 +14,43 @@
 
 <style>
     .stats-buttons li a {
-        height:100px;
+        height:85px;
+        width:85px;
+        text-align:center;
+        margin-right:-5px;
+    }
+
+    .stats-buttons li a .icon {
+        margin-top: 5px;
+        margin-left: 15px;
+        margin-right: auto;
+        text-align:center;
+
     }
 
     .seleccionado {
         background:  white !important; /*#4e525d*/
+    }
+
+    .stats-buttons li a .txt {
+        font-size: 11px;
     }
 </style>    
 
 <div class="container">
     <div class="stats-buttons btn-group">
         <ul class="list-unstyled">
-            {{tb.boton('reportes/formularios','Formularios Ingresados', 'i-clipboard', 'yellow')}}
-            {{tb.boton('planvisitas','Plan de Visitas', ' i-map', 'gray')}}
-            {{tb.boton('reportes/metascomplementarias','Metas Complementarias', ' i-racing', 'green')}}
-            {{tb.boton('reportes/ubicaciongoogle','Mapa de Fincas', ' i-location-4', 'blue')}}
-            {{tb.boton('reportes/estadisticastipoproductor','Estadisticas Productores', 'i-stats-2', 'gray')}}
-            {{tb.boton('reportes/municipiorenglon','Renglones y Municipios', 'i-apple-fruit', 'red')}}
-            {{tb.boton('reportes/estilosaprendizaje','Estilos de Aprendizaje', ' i-reading', 'green')}}
-            {{tb.boton('reportes/indicadoresproduccion','Indicadores de Producción', ' i-basket', 'gray')}}
-            {{tb.boton('reportes/perfilproductor','Perfil General del Productor', ' i-profile', 'blue') }}
-            {{tb.boton('reportes/progresobpa','Progreso en BPA', ' i-stats-up', 'yellow')}}
-            {{tb.boton('reportes/exportacion','Exportar', 'i-file-excel', 'red')}}
+            {{tb.boton('reportes/formularios','Formularios', 'Reporte de Formularios','i-clipboard', 'yellow')}}
+            {{tb.boton('planvisitas','Plan Visitas', 'Plan de Visitas','i-map', 'gray')}}
+            {{tb.boton('reportes/metascomplementarias','Metas', 'Metas Complementarias', ' i-racing', 'green')}}
+            {{tb.boton('reportes/ubicaciongoogle','Mapa', 'Mapa de Fincas', ' i-location-4', 'blue')}}
+            {{tb.boton('reportes/estadisticastipoproductor','Productores', 'Estadísticas de Productores', 'i-stats-2', 'gray')}}
+            {{tb.boton('reportes/municipiorenglon','Renglones', 'Clasificación de Renglones en Municipios','i-apple-fruit', 'red')}}
+            {{tb.boton('reportes/estilosaprendizaje','Aprendizaje', 'Estilos de Aprendizaje',' i-reading', 'green')}}
+            {{tb.boton('reportes/indicadoresproduccion','Producción', 'Indicadores de Producción',' i-basket', 'gray')}}
+            {{tb.boton('reportes/perfilproductor','Perfil', 'Perfil General del Productor',' i-profile', 'blue') }}
+            {{tb.boton('reportes/progresobpa','BPA', 'Progreso en Buenas Prácticas',' i-stats-up', 'yellow')}}
+            {{tb.boton('reportes/exportacion','Exportar', 'Exportar Información','i-file-excel', 'red')}}
 
         </ul>
     </div>
