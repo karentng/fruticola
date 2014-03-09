@@ -247,6 +247,8 @@ class BPA extends CI_Controller {
         $ruat = Ruat::find($ruat_id);
         $this->twiggy->set('ruat', $ruat); //necesario para el encabezado info_productor
 
+        $this->twiggy->set('anterior', $this->puntajes_visita($ruat_id, ((int)$nro_visita)-1));
+
         $this->twiggy->register_function('form_open_multipart');
         $this->twiggy->set('numForm', $ruatNumFormulario);
         $this->twiggy->set('preguntasB', $preguntasB);
@@ -256,6 +258,23 @@ class BPA extends CI_Controller {
         $this->twiggy->template("bpa/bpa");
         $this->twiggy->display();
     }
+
+    private function do_upload($ruat_id) {
+        $config['upload_path'] = './uploads/bpa';
+        $config['allowed_types'] = 'pdf|png';
+        $config['max_size'] = '10240';/// 10MiB
+        $config['overwrite'] = true;/// 10MiB
+        $config['file_name'] = $ruat_id;/// 10MiB
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('archivo_formulario')) {
+            return array('error' => $this->upload->display_errors('', ''));
+        } else {
+            return array('upload_data' => $this->upload->data());
+        }
+    }   
+
 
     private function gen_lista_visitas($ruat_id, $visita_actual)
     {
@@ -280,19 +299,18 @@ class BPA extends CI_Controller {
         return $lista;
     }
 
-    private function do_upload($ruat_id) {
-        $config['upload_path'] = './uploads/bpa';
-        $config['allowed_types'] = 'pdf|png';
-        $config['max_size'] = '10240';/// 10MiB
-        $config['overwrite'] = true;/// 10MiB
-        $config['file_name'] = $ruat_id;/// 10MiB
+    private function puntajes_visita($ruat_id, $nro_visita)
+    {
+        $dict = array();
+        $bpa = BuenasPracticas::find_by_ruat_id_and_nro_visita($ruat_id, $nro_visita);
+        if($bpa) {
+            $dict['total'] = $bpa->nivel_bpa;
+            foreach($bpa->respuestas as $resp) 
+                $dict[$resp->pregunta_id] = $resp->puntaje;
 
-        $this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload('archivo_formulario')) {
-            return array('error' => $this->upload->display_errors('', ''));
-        } else {
-            return array('upload_data' => $this->upload->data());
         }
-    }   
+        
+        return $dict;
+    }
+
 }
