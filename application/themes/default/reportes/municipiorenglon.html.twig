@@ -158,12 +158,12 @@
 {% block breadcrumnb %}
     <ul class="breadcrumb">
       <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
-      <li><strong class="text-success">RUAT x MUNICIPIO x RENGLÓN</strong></li>
+      <li><strong class="text-success">Distribución Renglones / Municipios</strong></li>
     </ul>
 {% endblock %}
 
 {% block titulo %}
-    <h1><i class="icon20 i-stack-checkmark"></i> RUAT x MUNICIPIO x RENGLÓN  </h1> 
+    <h1><i class="icon20 i-stack-checkmark"></i> dISTRIBUCIÓN DE RENGLONES PRODUCTIVOS EN MUNICIPIOS  </h1> 
 {% endblock %}
 
 
@@ -173,8 +173,36 @@
 
 {#% include "reportes/toolbar_reportes.html.twig" %#}
 <div class="form-group">
-    <div class="row-fluid">
-        <div class="col-xs-12">
+    <div class="container-fluid">
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">COMPARATIVO POR MUNICIPIO</a></li>
+        <li><a href="#profile" data-toggle="tab">RESUMEN POR RENGLÓN PRODUCTIVO</a></li>
+        <li><a href="#tabladatos" data-toggle="tab">TABLA DE DATOS</a>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="home" align="center">
+            <select class="form-control" id="selectMunicipio" style="width:200px" onchange="actualizarMunicipio()">
+                {% set cont = 0 %}
+                {% for municipio in municipios %}
+                    <option value="{{cont}}">{{municipio.nombre}}</option>
+                    {% set cont = cont + 1 %}
+                {% endfor %}
+            </select>
+            <div id="chartdiv" style="width: 100%; height: 600px;"></div>
+        </div>
+        <div class="tab-pane fade" id="profile" align="center">
+            <select class="form-control" id="selectRenglon" style="width:200px" onchange="actualizarRenglon()">
+                {% set cont = 0 %}
+                {% for renglon in renglones %}
+                    <option value="{{cont}}">{{renglon.descripcion}}</option>
+                    {% set cont = cont + 1 %}
+                {% endfor %}
+            </select>
+            <div id="chartdiv2" style="width: 100%; height: 1000px;"></div>
+        </div>
+
+        <div class="tab-pane fade" id="tabladatos">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -243,60 +271,6 @@
                     </tr>
                 </thead>
             </table>
-        </div>
-
-        <div class="col-xs-12">
-
-            <ul id="myTab" class="nav nav-tabs">
-                <li class="active"><a href="#home" data-toggle="tab">RESUMEN RENGLÓN PRODUCTIVO POR MUNICIPIO</a></li>
-                <li><a href="#profile" data-toggle="tab">RESUMEN POR RENGLÓN PRODUCTIVO POR MUNICIPIO</a></li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="home" align="center">
-                    <select class="form-control" id="selectMunicipio" style="width:200px" onchange="actualizarMunicipio()">
-                        {% set cont = 0 %}
-                        {% for municipio in municipios %}
-                            <option value="{{cont}}">{{municipio.nombre}}</option>
-                            {% set cont = cont + 1 %}
-                        {% endfor %}
-                    </select>
-                    <div id="chartdiv" style="width: 100%; height: 600px;"></div>
-                </div>
-                <div class="tab-pane fade" id="profile" align="center">
-                    <select class="form-control" id="selectRenglon" style="width:200px" onchange="actualizarRenglon()">
-                        {% set cont = 0 %}
-                        {% for renglon in renglones %}
-                            <option value="{{cont}}">{{renglon.descripcion}}</option>
-                            {% set cont = cont + 1 %}
-                        {% endfor %}
-                    </select>
-                    <div id="chartdiv2" style="width: 100%; height: 1000px;"></div>
-                </div>
-            </div>
-
-
-
-
-
-            <!--<div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            RESUMENES
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in">
-                    <div class="panel-body" align="center">
-                        <b>RESUMEN RENGLÓN PRODUCTIVO POR MUNICIPIO</b><br/>
-                        
-
-                        <b>RESUMEN POR RENGLÓN PRODUCTIVO POR MUNICIPIO</b><br/>
-                        
-                    </div>
-                </div>
-            </div>-->
         </div>
     </div>
 </div>
