@@ -14,6 +14,11 @@
 <script src="{{ base_url('assets/amcharts/exporting/filesaver.js') }}" type="text/javascript"></script>
 <script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
 
+<link href="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.css')}}" rel="stylesheet" /> 
+<link href="{{base_url('assets/js/plugins/tables/datatables/TableTools.css')}}" rel="stylesheet" /> 
+<script src="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{base_url('assets/js/plugins/tables/datatables/TableTools.min.js')}}"></script>
+
 <script type="text/javascript">
 
     var info = {{infoJSON}};
@@ -150,7 +155,18 @@
              chart.invalidateSize();
              chart2.invalidateSize();
         });
-    });
+
+        myDataTable('#mitabla', {
+                "sDom": "<'row'<'col-md-6'T><'col-md-6'f>>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
+                'bPaginate':false,
+                bStateSave: false,
+                "oTableTools": {
+                    aButtons:["xls", "pdf"],
+                    "sSwfPath": "{{base_url('assets/js/plugins/tables/datatables/copy_csv_xls_pdf.swf')}}"
+
+                }
+            });
+        });
 </script>
 
 {% endblock %}
@@ -203,8 +219,37 @@
         </div>
 
         <div class="tab-pane fade" id="tabladatos">
-            <table class="table table-bordered">
+            <table id="mitabla" class="table table-bordered table-hover">
                 <thead>
+                    <tr>
+                        <th>Municipio</td>
+                        {% for renglon in renglones %}
+                            <th>{{renglon.descripcion}}&nbsp;</th>
+                        {% endfor %}
+                        <th>Total</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set cont = 1 %}
+                    {% for municipio in municipios %}
+                        <tr>
+                            <td>{{municipio.nombre}}</td>
+                            {% set cont2 = 0 %}
+                            {% for renglon in renglones %}
+                                <td align="right">
+                                    {{info[cont-1][cont2]}}
+                                </td>
+                                {% set cont2 = cont2 + 1 %}
+                            {% endfor %}
+                            <td align="right">
+                                {{totalM[cont-1]}}
+                            </td>
+                        </tr>
+                        {%  set cont = cont + 1 %}
+                    {% endfor %}
+                    
+                </tbody>
+                <tfoot>
                     <tr>
                         <td>
                             <b>Municipio</b>
@@ -218,35 +263,14 @@
                             <b>Total</b>
                         </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% set cont = 1 %}
-                    {% for municipio in municipios %}
-                        <tr>
-                            <td>
-                                {{cont ~ ". " ~ municipio.nombre}}   
-                            </td>
-                            {% set cont2 = 0 %}
-                            {% for renglon in renglones %}
-                                <td>
-                                    <center>{{info[cont-1][cont2]}}</center>
-                                </td>
-                                {% set cont2 = cont2 + 1 %}
-                            {% endfor %}
-                            <td>
-                                <center><b>{{totalM[cont-1]}}</b></center>
-                            </td>
-                        </tr>
-                        {%  set cont = cont + 1 %}
-                    {% endfor %}
                     <tr>
                         <td>
                             <b>Totales</b>
                         </td>
                         {% set tm = 0 %}
                         {% for renglon in renglones %}
-                            <td>
-                                <center><b>{{totalR[tm]}}</b></center>
+                            <td align="center">
+                                {{totalR[tm]}}
                             </td>
                             {% set tm = tm + 1 %}
                         {% endfor %}
@@ -254,22 +278,7 @@
                             <center><b>{{total}}</b></center>
                         </td>
                     </tr>
-                </tbody>
-                <thead>
-                    <tr>
-                        <td>
-                            <b>Municipio</b>
-                        </td>
-                        {% for renglon in renglones %}
-                            <td>
-                                <b>{{renglon.descripcion}}</b>
-                            </td>
-                        {% endfor %}
-                        <td>
-                            <b>Total</b>
-                        </td>
-                    </tr>
-                </thead>
+                </tfoot>
             </table>
         </div>
     </div>
