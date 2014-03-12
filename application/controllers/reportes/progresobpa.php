@@ -37,6 +37,7 @@ class ProgresoBPA extends CI_Controller {
         $result = $this->db->query($sql);
         
         $this->load->library('table');
+        $this->table->function = function($x) { return str_replace('.',',',$x); };
         $this->table->set_heading("Productor","Identificación", "Municipio", "Vereda", "Teléfono", "Celular", "Renglón", "BPA Inicial", "Visita 1", "Visita 2", "Visita 3", "Visita 4", "Visita 5", "Visita 6");
         $this->table->set_template(array('table_open'=>"<table id='progresoBPA' class='table table-bordered'>"));
         $tabla = $this->table->generate($result);
