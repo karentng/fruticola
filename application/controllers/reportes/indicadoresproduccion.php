@@ -59,28 +59,29 @@ class Indicadoresproduccion extends CI_Controller {
         ///Consulto los datos de los productos
         $query = "SELECT             
             SUM(producto.area_cosechada) AS total_area_cosechada,
-            AVG(producto.area_cosechada) AS avg_area_cosechada,
+            SUM(producto.area_cosechada) / COUNT(DISTINCT productor.id) AS avg_area_cosechada,
 
             SUM(producto.prod_semestre_a) AS total_semestre_a,
             SUM(producto.prod_semestre_b) AS total_semestre_b,            
 
             SUM(producto.costo_establecimiento) AS total_costo_establecimiento,
-            AVG(producto.costo_establecimiento) AS avg_costo_establecimiento,
+            SUM(producto.costo_establecimiento) / COUNT(DISTINCT productor.id)  AS avg_costo_establecimiento,
 
             SUM(producto.costo_sostenimiento) AS total_costo_sostenimiento,
-            AVG(producto.costo_sostenimiento) AS avg_costo_sostenimiento,
+            SUM(producto.costo_sostenimiento) / COUNT(DISTINCT productor.id) AS avg_costo_sostenimiento,
 
             SUM(producto.prod_mercado) AS total_prod_mercado,
-            AVG(producto.prod_mercado) AS avg_prod_mercado,
+            SUM(producto.prod_mercado) / COUNT(DISTINCT productor.id) AS avg_prod_mercado,
 
-            AVG(producto.precio_promedio) AS avg_precio_promedio,
+            SUM(producto.precio_promedio) / COUNT(DISTINCT productor.id) AS avg_precio_promedio,
             
-            COUNT(DISTINCT producto.id) AS numero_productos
+            COUNT(DISTINCT producto.id) AS numero_productos,
+            COUNT(DISTINCT productor.id) AS numero_productores
 
             FROM finca
             JOIN ruat ON finca.ruat_id = ruat.id
             JOIN productor ON ruat.productor_id = productor.id
-            JOIN producto ON (ruat.id = producto.ruat_id)
+            LEFT JOIN producto ON (ruat.id = producto.ruat_id)
             WHERE productor.renglon_productivo_id=:renglon $where_municipio";
 
         $result = Ruat::connection()->query($query, $arr_condiciones);
@@ -98,11 +99,10 @@ class Indicadoresproduccion extends CI_Controller {
             }
 
             if ($row['numero_productos']){               
-                $dato['avg_rendimiento'] = $dato['total_rendimiento'] / $row['numero_productos'];
-                $dato['avg_produccion'] = $dato['total_produccion'] / $row['numero_productos'];
+                $dato['avg_rendimiento'] = $dato['total_rendimiento'] / $row['numero_productores'];
+                $dato['avg_produccion'] = $dato['total_produccion'] / $row['numero_productores'];
             }
-        }       
-        
+        }        
 
         ///Consulto los datos de las fincas
         $query = "SELECT 
