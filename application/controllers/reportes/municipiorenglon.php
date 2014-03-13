@@ -17,7 +17,7 @@ class MunicipioRenglon extends CI_Controller {
         $municipios = Municipio::find('all', array('conditions' => array('departamento_id = ?', 30), 'order' => 'nombre'));
 
         $tabla = array();
-        foreach($municipios as $i => $_) 
+        foreach($municipios as $i => $_)
             foreach($renglones as $j => $_)
                 $tabla[$i][$j] = 0;
 
@@ -66,6 +66,7 @@ class MunicipioRenglon extends CI_Controller {
         }
         $this->twiggy->set('renglonesJSON', json_encode($aux));
         $this->twiggy->set('municipiosJSON', json_encode($aux2));
+        $this->twiggy->set('totalRenglonJSON', json_encode($totalRenglon));
 
         $this->twiggy->template("reportes/municipiorenglon");
         $this->twiggy->display();
