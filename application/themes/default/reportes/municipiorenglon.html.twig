@@ -193,17 +193,22 @@
              chart3.invalidateSize();
         });
 
-        myDataTable('#mitabla', {
+        var initialized = false;
+        $('a#linktabla').on("shown.bs.tab", function() {
+            if(initialized) return;
+            initialized = true;
+            myDataTable('#mitabla', {
                 "sDom": "<'row'<'col-md-6'T><'col-md-6'f>>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
                 'bPaginate':false,
                 bStateSave: false,
                 "oTableTools": {
-                    aButtons:["xls", "pdf"],
+                    aButtons:["xls"],
                     "sSwfPath": "{{base_url('assets/js/plugins/tables/datatables/copy_csv_xls_pdf.swf')}}"
 
                 }
             });
         });
+    });
 </script>
 
 {% endblock %}
@@ -216,7 +221,7 @@
 {% endblock %}
 
 {% block titulo %}
-    <h1><i class="icon20 i-stack-checkmark"></i> dISTRIBUCIÓN DE RENGLONES PRODUCTIVOS EN MUNICIPIOS  </h1> 
+    <h1><i class="icon20 i-stack-checkmark"></i> DISTRIBUCIÓN DE RENGLONES PRODUCTIVOS EN MUNICIPIOS  </h1> 
 {% endblock %}
 
 
@@ -231,7 +236,7 @@
         <li class="active"><a href="#home" data-toggle="tab">COMPARATIVO POR MUNICIPIO</a></li>
         <li><a href="#profile" data-toggle="tab">RESUMEN POR RENGLÓN PRODUCTIVO</a></li>
         <li><a href="#reng" data-toggle="tab">NÚMERO DE PRODUCTORES POR RENGLÓN</a></li>
-        <li><a href="#tabladatos" data-toggle="tab">TABLA DE DATOS</a>
+        <li><a id="linktabla" href="#tabladatos" data-toggle="tab">TABLA DE DATOS</a>
     </ul>
 
     <div class="tab-content">
@@ -290,7 +295,7 @@
                     {% endfor %}
                     
                 </tbody>
-                <tfoot>
+                {#<tfoot>
                     <tr>
                         <td>
                             <b>Municipio</b>
@@ -319,7 +324,7 @@
                             <center><b>{{total}}</b></center>
                         </td>
                     </tr>
-                </tfoot>
+                </tfoot>#}
             </table>
         </div>
     </div>

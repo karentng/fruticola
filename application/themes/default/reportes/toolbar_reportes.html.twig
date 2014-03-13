@@ -40,17 +40,19 @@
 <div class="container">
     <div class="stats-buttons btn-group">
         <ul class="list-unstyled">
+        {% if not is_profile("Digitador") %}
             {{tb.boton('reportes/formularios','Formularios', 'Reporte de Formularios','i-clipboard', 'yellow')}}
             {{tb.boton('planvisitas','Plan Visitas', 'Plan de Visitas','i-map', 'gray')}}
             {{tb.boton('reportes/metascomplementarias','Metas', 'Metas Complementarias', ' i-racing', 'green')}}
-            {{tb.boton('reportes/ubicaciongoogle','Mapa', 'Mapa de Fincas', ' i-location-4', 'blue')}}
+        {% endif %}
             {{tb.boton('reportes/estadisticastipoproductor','Productores', 'Estadísticas de Productores', 'i-stats-2', 'gray')}}
+            {{tb.boton('reportes/ubicaciongoogle','Mapa', 'Mapa de Fincas', ' i-location-4', 'blue')}}
             {{tb.boton('reportes/municipiorenglon','Renglones', 'Clasificación de Renglones en Municipios','i-apple-fruit', 'red')}}
             {{tb.boton('reportes/estilosaprendizaje','Aprendizaje', 'Estilos de Aprendizaje',' i-reading', 'green')}}
             {{tb.boton('reportes/indicadoresproduccion','Producción', 'Indicadores de Producción',' i-basket', 'gray')}}
             {{tb.boton('reportes/perfilproductor','Perfil', 'Perfil General del Productor',' i-profile', 'blue') }}
             {{tb.boton('reportes/progresobpa','BPA', 'Progreso en Buenas Prácticas',' i-stats-up', 'yellow')}}
-            {{tb.boton('reportes/exportacion','Exportar', 'Exportar Información','i-file-excel', 'red')}}
+            {#{tb.boton('reportes/exportacion','Exportar', 'Exportar Información','i-file-excel', 'red')}#}
 
         </ul>
     </div>

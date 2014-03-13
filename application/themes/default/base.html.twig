@@ -147,7 +147,7 @@
     </header> <!-- End #header  -->
     
     <div class="main">
-        {% if is_profile('Administrador') or is_profile('Coordinador') or is_profile('Consultas') %}
+        {#% if is_profile('Administrador') or is_profile('Coordinador') or is_profile('Consultas') %#}
         {% set container_name = "content" %}
         <aside id="sidebar">
             <div class="side-options">
@@ -160,7 +160,7 @@
                 <nav id="mainnav">
                     {% if is_profile("Administrador") %}
                         {% include "menus/admin.html.twig" %}
-                    {% elseif is_profile("Coordinador") or is_profile("Consultas") %}
+                    {% elseif is_profile("Coordinador") or is_profile("Consultas") or is_profile("Digitador") %}
                         {% include "menus/coord.html.twig" %}
                     {% endif %}
                 </nav> <!-- End #mainnav -->
@@ -168,7 +168,7 @@
             
             
         </aside><!-- End #sidebar  -->
-        {% endif %}
+        {#% endif %#}
         <section id="{{container_name}}">
             <div class="wrapper">
                 {% block breadcrumb_container %}
