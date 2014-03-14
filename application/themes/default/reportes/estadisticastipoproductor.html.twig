@@ -14,11 +14,11 @@
 
 <script type="text/javascript">
 
-   var base = [
+    var base = [
     ];
-    
+
     var renglones_productivos = {{renglones_productivos|json_encode}}
-    for (var i in renglones_productivos){
+    for (var i in renglones_productivos) {
         var aux = renglones_productivos[i];
         base[aux.id] = aux.descripcion;
     }
@@ -100,16 +100,16 @@
 
         ///recorro los nombres de las columnas
         for (var i in base) {
-            
+
             var valor_base = base[i];
 
             var cell = '#' + actividad + '_' + i;
 
             var value_column = $(cell).text().split('.').join('');
-                value_column = value_column.split(',').join('.')
+            value_column = value_column.split(',').join('.')
             console.debug(value_column);
-            
-            var obj = { base: valor_base, actividad: value_column, color: colores[i] }
+
+            var obj = {base: valor_base, actividad: value_column, color: colores[i]}
 
             chartData.push(obj);
         }
@@ -124,11 +124,16 @@
         chart.validateData();
     }
 
-   $(document).ready(function() {
+    $(document).ready(function() {
         $('#select_chart').change(refreshChart);
-   });                          
+        
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            chart.invalidateSize();
+            chart3.invalidateSize();
+        })
+    });
 
-</script>
+    </script>
 
 
 
@@ -136,8 +141,8 @@
 
 {% block breadcrumnb %}
     <ul class="breadcrumb">
-      <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
-      <li><strong class="text-success">ESTADISTICAS TIPO PRODUCTOR</strong></li>
+        <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+        <li><strong class="text-success">ESTADISTICAS TIPO PRODUCTOR</strong></li>
     </ul>
 {% endblock %}
 
@@ -148,52 +153,47 @@
 {% block contenido %}
 {% include "reportes/toolbar_reportes.html.twig" %}
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-bars"></i></div>
-        <h4> PERFIL FINANCIERO</h4>
-        <a href="#" class="minimize"></a>
-    </div>
-    <!-- End .panel-heading -->
-    <div class="panel-body">
-        <div class="container">
-            
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th align="center">
-                            INDICADOR
-                        </th>
-                        {% for row in data %}
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab_tabla" data-toggle="tab">TABLA</a></li>
+            <li><a href="#tab_grafico" data-toggle="tab">GRAFICO</a></li>
+        </ul>
+
+        <div id='' class="tab-content">
+
+            <div class="tab-pane active" id="tab_tabla">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
                             <th align="center">
-                                {{row[0]}}
+                                INDICADOR
                             </th>
-                        {% endfor %}                        
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for obj in renglones_productivos %}  
-                    <tr>
-                        <td id="">{{obj.descripcion}}</td>
-                        
-                        {% set i = 0 %}
-                        {% for row in data %}
-                            <td id="{{i~'_'~obj.id}}" style="text-align: right">{{row[obj.id]}}</td>
-                            {% set i = i+1 %}
-                        {% endfor %}
-                    </tr>
+                    {% for row in data %}
+                            <th align="center">
+                            {{row[0]}}
+                                </th>
+                    {% endfor %}                        
+                            </tr>
+                        </thead>
+                        <tbody>
+                {% for obj in renglones_productivos %}  
+                                <tr>
+                                    <td id="">{{obj.descripcion}}</td>
+
+                    {% set i = 0 %}
+                    {% for row in data %}
+                                    <td id="{{i~'_'~obj.id}}" style="text-align: right">{{row[obj.id]}}</td>
+                        {% set i = i+1 %}
                     {% endfor %}
-                </tbody> 
-            </table>
+                                </tr>
+                {% endfor %}
+                            </tbody> 
+                        </table>
 
-            <br/>
-            <div class="panel panel-default">
+                    </div>
 
-                        <div class="panel-heading">
-                            <div class="icon"><i class="icon20 i-bars"></i></div>
-                            <h4>GRÁFICO ESTADISTICAS TIPO PRODUCTOR</h4>
-                        </div>                    
-                        <br/>
+                    <div class="tab-pane" id="tab_grafico">
                         <div class="col-lg-12">
                             <select id="select_chart" class="form-control" name="select_chart">
                                 <option value="0">1. Promedio de activos por productor anual</option>
@@ -204,10 +204,10 @@
                         </div>
                         <br/>
                         <div id="chartdiv" style="width: 100%; height: 600px;"></div>
-            </div>
 
-        </div>
-    </div>
-</div>
+                    </div>
+                </div>
+
+            </div>
 
 {% endblock %}
