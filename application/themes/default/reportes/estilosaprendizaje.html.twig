@@ -150,13 +150,14 @@
 
         <div class="container">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab_tabla" data-toggle="tab">TABLA</a></li>
-                <li><a href="#tab_grafico" data-toggle="tab">GRAFICO</a></li>
+                <li class="active"><a href="#tab_grafico" data-toggle="tab">GRAFICO</a></li>
+                <li><a href="#tab_tabla" data-toggle="tab">TABLA</a></li>
+                
             </ul>
 
             <div id='' class="tab-content">
 
-                <div class="tab-pane active" id="tab_tabla">
+                <div class="tab-pane" id="tab_tabla">
 
                     <table class="table table-bordered">
                         <thead style="vertical-align:text-top;">
@@ -193,7 +194,7 @@
                         </div>
 
 
-                        <div class="tab-pane" id="tab_grafico">
+                        <div class="tab-pane active" id="tab_grafico">
                             <div class="col-lg-12">
                                 <select id="select_chart" class="form-control" name="select_chart">
                                     {% set contador = 0 %}
