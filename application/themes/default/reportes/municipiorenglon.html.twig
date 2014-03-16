@@ -67,12 +67,12 @@
         "type": "pie",  
         "theme": "none",
         "startDuration": 2,
-        "legend": {
-            "markerType": "circle",
-            "position": "right",
-            "marginRight": 80,      
-            "autoMargins": false
-        },
+        /*"legend":{
+            "markerType": "square",
+            "position": "bottom",
+            "align": "center",
+            "valueText": "Andres Serna"
+        },*/
         "dataProvider": terceraGrafica,
         "valueField": "number",
         "outlineAlpha": 0.4,
@@ -87,12 +87,12 @@
         "type": "pie",  
         "theme": "none",
         "startDuration": 2,
-        "legend": {
+        /*"legend": {
             "markerType": "circle",
             "position": "right",
             "marginRight": 80,      
             "autoMargins": false
-        },
+        },*/
         "dataProvider": dataM,
         "valueField": "number",
         "outlineAlpha": 0.4,
@@ -241,6 +241,7 @@
 
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home" align="center">
+            <div style="margin:5px 0 5px 0"><center><b>PEQUEÑOS PRODUCTORES DE FRUTAS DEL VALLE DEL CAUCA POR MUNICIPIO</b></center></div>
             <select class="form-control" id="selectMunicipio" style="width:200px" onchange="actualizarMunicipio()">
                 {% set cont = 0 %}
                 {% for municipio in municipios %}
@@ -249,8 +250,10 @@
                 {% endfor %}
             </select>
             <div id="chartdiv" style="width: 100%; height: 600px;"></div>
+            <div align="left"><span><b>Datos actualizados en el primer semestre de 2014</b></span></div>
         </div>
         <div class="tab-pane fade" id="profile" align="center">
+            <div style="margin:5px 0 5px 0"><center><b>PEQUEÑOS PRODUCTORES DE FRUTAS DEL VALLE DEL CAUCA POR RENGLÓN PRODUCTIVO</b></center></div>
             <select class="form-control" id="selectRenglon" style="width:200px" onchange="actualizarRenglon()">
                 {% set cont = 0 %}
                 {% for renglon in renglones %}
@@ -259,12 +262,15 @@
                 {% endfor %}
             </select>
             <div id="chartdiv2" style="width: 100%; height: 1000px;"></div>
+            <div align="left"><span><b>Datos actualizados en el primer semestre de 2014</b></span></div>
         </div>
         <div class="tab-pane fade" id="reng" align="center">
+            <div style="margin:5px 0 5px 0"><center><b>NÚMERO DE PRODUCTORES DE FRUTAS DEL VALLE DEL CAUCA POR RENGLÓN PRODUCTIVO</b></center></div>
             <div id="chartdiv3" style="width: 100%; height: 600px;"></div>
         </div>
 
         <div class="tab-pane fade" id="tabladatos">
+            <div class="table-responsive">
             <table id="mitabla" class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -326,6 +332,7 @@
                     </tr>
                 </tfoot>#}
             </table>
+            </div>
         </div>
     </div>
 </div>
