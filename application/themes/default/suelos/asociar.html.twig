@@ -1,0 +1,285 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+
+<script>
+    $(function() {
+        {% if notif %}
+            notif({{notif|json_encode}});
+        {% endif %}
+    });
+
+    function confirmar_desasociar(theurl)
+    {
+        if(!confirm("Confirme que desea desasociar este RUAT del estudio actual")) return;
+        window.location=theurl;
+    }
+</script>
+{% endblock %}
+
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li ><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      <li ><a href="{{site_url('suelos')}}"><i class="icon16 i-lab"></i>Estudios de Suelos</a></li>
+      <li class="active"><i class="icon16 i-link"></i> Asociar</a></li>
+    </ul>
+{% endblock %}
+
+{% block titulo %} <h1><i class="icon20 i-link"></i> Asociar Estudio de Suelos </h1> {% endblock %}
+
+
+{% block contenido %}
+<h3 class="text-info">Productores Asociados a este Estudio de Suelo</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+        <th>Nro RUAT</th>
+        <th>Productor</th>
+        <th>Municipio</th>
+        <th>Renglón</th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for ruat in ruats %}
+        <tr>
+            <td>{{ruat.numero_formulario}}</td>
+            <td>{{ruat.productor.nombre_completo()}}</td>
+            <td>{{ruat.finca.municipio.nombre}}</td>
+            <td>{{ruat.productor.renglon_productivo.descripcion}}</td>
+            <td><a href="#" onclick="confirmar_desasociar('{{site_url(["suelos","desasociar",estudio.id, ruat.id])}}')" class="act act-danger tip" title="Remover Asociación"><i class=" i-close"></i></a></td>
+        </tr>
+    {% else %}
+        <tr><td colspan="5"><em>No se han asociado productores a este estudio de suelo</em></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<form method="POST" class=" form-horizontal">
+    {#<h3 class="text-warning">Asociar Productor</h3>#}
+    <div class="form-group">
+        <label for="" class="control-label col-md-6">Número de Formulario RUAT</label>
+        <div class="col-md-1">
+            <input name="numero_formulario" required maxlength="4" type="text" class="form-control">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-success">
+                <i class=" i-link-5"></i>
+                Asociar
+            </button>
+        </div>
+    </div>
+</form>
+
+<hr>
+
+<h3 class="text-info">Información del Estudio {{estudio.codigo_laboratorio}}</h3>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#info1" data-toggle="tab">Básica</a></li>
+    <li><a href="#info2" data-toggle="tab">Cultivo</a></li>
+    <li><a href="#info3" data-toggle="tab">Compuestos</a></li>
+</ul>
+<div class="tab-content">
+    <div class="form-horizontal row tab-pane fade in active" id="info1">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Fecha de Llegada</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.fecha_llegada|date('Y-m-d')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Fecha de Entrega</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.fecha_entrega|date('Y-m-d')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Nombre Usuario</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.nombre_usuario}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Dirección</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.direccion}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Teléfono</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.telefono}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">E-mail</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.email}}</p></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Municipio</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.municipio.nombre}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Vereda</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.vereda}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Finca</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.finca}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Dirección</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.direccion}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Teléfono</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.telefono}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">E-mail</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.email}}</p></div>
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal row tab-pane fade" id="info2">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Altura (msm)</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.altura}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Cultivo</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.cultivo}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Estado</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.estado}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Tiempo de Establecido</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.tiempo_establecido}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Identificación de la Muestra</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.identificacion_muestra}}</p></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Profundidad</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.profundidad}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Topografía</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.topografia}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Superficie del Lote</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.superficie}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Drenaje</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.drenaje}}</p></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Riesgo</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.riesgo}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Fertilizantes Aplicados Anteriormente</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.fertilizantes}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Ultimo cultivo o actual</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.ultimo_cultivo}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">Rendimiento del Cultivo</label>
+                <div class="col-md-7"><p class="form-control">{{estudio.rendimiento}}</p></div>
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal row tab-pane fade" id="info3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Textura al tacto</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.textura_tacto|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">pH agua:suelo</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.ph_agua_suelo|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Materia orgánica</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.materia_organica|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Fósforo</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.fosforo|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Azufre Fosfato monocalcico</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.azufre|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Acidez (Al+H)</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.acidez|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Aluminio (Al) intercambiable</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.aluminio|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Calcio (Ca) intercambiable</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.calcio|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Magnesio (Mg) intercambiable</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.magnesio|number_format(2,',')}}</p></div>
+            </div>
+        </div>
+        
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Potasio (K) intercambiable</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.potasio|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Sodio (Na) intercambiable</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.sodio|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">capacidad de intercambio cationico (CICE)</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.cice|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Capacidad de intercambio cationico (CICA)</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.cica|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Conductividad eléctrica (CE)</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.conductividad_electrica|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Hierro (Fe) disponible</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.hierro|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Cobre (Cu) disponible</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.cobre|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Manganeso (Mn) disponible </label>
+                <div class="col-md-2"><p class="form-control">{{estudio.manganeso|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Zinc (Zn) disponible</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.zinc|number_format(2,',')}}</p></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-8">Boro (B) disponible</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.boro|number_format(2,',')}}</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

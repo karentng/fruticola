@@ -1,0 +1,84 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+    <link href="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.css')}}" rel="stylesheet" /> 
+    <link href="{{base_url('assets/js/plugins/tables/datatables/TableTools.css')}}" rel="stylesheet" /> 
+    <script src="{{base_url('assets/js/plugins/tables/datatables/jquery.dataTables.min.js')}}"></script>
+
+<script>
+    $(function() {
+        {% if notif %}
+            notif({{notif|json_encode}});
+        {% endif %}
+
+        myDataTable('#tablaEstudios');
+    });
+</script>
+{% endblock %}
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li ><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      <li class="active"><i class="icon16 i-lab"></i>Estudios de Suelos</li>
+    </ul>
+{% endblock %}
+
+{% block titulo %} <h1><i class="icon20 i-lab"></i> Estudios de Suelos </h1> {% endblock %}
+
+{% block contenido %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-file-excel"></i></div>
+        <h4>Importar Archivo de estudio de suelos</h4>
+        <a href="#" class="minimize"></a>
+    </div>
+
+    <div class="panel-body">
+        {{ form_open_multipart(null, {class:'form-horizontal', onsubmit:"$('#loadingMask').modal()"}) }}
+            <div class="form-group">
+                <label for="" class="control-label col-md-3">Archivo</label>
+                <div class="col-md-3">
+                    <input type="file" name="archivo_suelos" id="archivo_suelos">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success" name="importar" value="importar"><i class="i-cogs"></i> Procesar Archivo</button>
+
+                </div>
+            </div>
+        {{ form_close() }}
+
+        {% if alerta_error %}
+            <div class="alert alert-danger">{{alerta_error}}</div>
+        {% endif %}
+
+        {% if not registros_procesados is empty %}
+            <div class="alert alert-success">Se procesaron <b>{{registros_procesados}}</b> registros</div>
+        {% endif %}
+    </div>
+</div>
+<br>
+<table id="tablaEstudios" class="table table-bordered table-hover">
+<thead>
+    <tr>
+    <th>Codigo</th>
+    <th>Municipio</th>
+    <th>Vereda</th>
+    <th>Finca</th>
+    <th>Productores Asociados</th>
+    </tr>
+</thead>
+<tbody>
+    {% for est in estudios %}
+    <tr>
+        <td>{{est.codigo_laboratorio}}</td>
+        <td>{{est.municipio.nombre}}</td>
+        <td>{{est.vereda}}</td>
+        <td>{{est.finca}}</td>
+        <td {% if est.ruats %} class="success" {% endif %} align="center">
+            {{est.ruats|length}} &nbsp;
+            <a href="{{site_url(['suelos','asociar',est.id])}}" class="btn btn-sm btn-default"><i class=" i-link"></i>Asociar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock %}

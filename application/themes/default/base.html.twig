@@ -160,8 +160,10 @@
                 <nav id="mainnav">
                     {% if is_profile("Administrador") %}
                         {% include "menus/admin.html.twig" %}
-                    {% elseif is_profile("Coordinador") or is_profile("Consultas") or is_profile("Digitador") %}
+                    {% elseif is_profile("Coordinador") %}
                         {% include "menus/coord.html.twig" %}
+                    {% elseif is_profile("Consultas") or is_profile("Digitador") %}
+                        {% include "menus/consultas.html.twig" %}
                     {% endif %}
                 </nav> <!-- End #mainnav -->
             </div> <!-- End .sidebar-wrapper  -->

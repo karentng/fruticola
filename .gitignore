@@ -18,6 +18,8 @@ uploads/bpa/*
 !uploads/bpa/index.html
 uploads/vtp/*
 !uploads/vtp/index.html
+uploads/suelos/*
+!uploads/suelos/index.html
 
 
 assets/google_maps/results.json
