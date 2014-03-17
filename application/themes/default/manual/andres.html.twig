@@ -1,0 +1,179 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+<style type="text/css">
+	.tamannoLetra{
+		font-size:17px;
+	}
+	.rojo{
+		color:red;
+	}
+	.azul{
+		color:blue;
+	}
+	.amarillo{
+		color:yellow;
+	}
+	.verde{
+		color:green;
+	}
+	.naranja{
+		color:orange;
+	}
+	.morado{
+		color:purple;
+	}
+	.rosado{
+		color:pink;
+	}
+</style>
+{% endblock %}
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      <li><strong class="text-success">MANUAL DE USUARIO</strong></li>
+    </ul>
+{% endblock %}
+
+{% block titulo %}
+    <h1><i class="icon20 i-stack-checkmark"></i> MANUAL DE USUARIO </h1> 
+{% endblock %}
+
+{% block contenido %}
+<div class="form-group">
+    <div class="container-fluid">
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">DISTRIBUCIÓN DE RENGLONES PRODUCTIVOS EN MUNICIPIOS</a></li>
+        <li><a href="#profile" data-toggle="tab">UBICACIÓN DE PREDIOS</a></li>
+        <li><a href="#reng" data-toggle="tab">RUAT-A</a></li>
+        <li><a id="linktabla" href="#tabladatos" data-toggle="tab">BUENAS PRÁCTICAS AGRICOLAS</a>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="home" align="justify">
+            <center><label><h3>COMPARATIVO POR MUNICIPIO</h3></label></center>
+            <img src="{{base_url('assets/images/manual/Renglones/1.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="azul"><b>Municipio:</b></label> Es aquel municipio del cual se quiere desplegar la gráfica con los productores por renglones productivos.<p/>
+			<p class="tamannoLetra"><label class="rojo"><b>Gráfica:</b></label> Es la gráfica que se genera de acuerdo al municipio seleccionado.</p>
+
+            <hr>
+			<center><label><h3>RESUMEN POR RENGLÓN PRODUCTIVO</h3></label></center>
+            <img src="{{base_url('assets/images/manual/Renglones/2.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Renglón Productivo:</b></label> Es aquel renglón productivo del cual se quiere desplegar la gráfica la producción de dicho renglón en todos los municipios.<p/>
+			<p class="tamannoLetra"><label class="verde"><b>Gráfica:</b></label> Es la gráfica que se genera de acuerdo al renglón productivo seleccionado.</p>
+
+            <hr>
+            <center><label><h3>NÚMERO DE PRODUCTORES POR RENGLÓN</h3></label></center>
+            <img src="{{base_url('assets/images/manual/Renglones/3.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="verde"><b>Importar:</b></label> Esta opción sirve para todas las gráficas anteriores también, nos permite guardar la imagen generada con alguno de los siguientes formatos: JPG, PNG, SVG, PDF.<p/>
+			<p class="tamannoLetra"><label class="rojo"><b>Gráfica:</b></label> Gráfica que nos muestra el número de productores de frutas del Valle del Cauca por Renglón Productivo.</p>
+
+            <hr>
+            <center><label><h3>TABLA DE DATOS</h3></label></center>
+            <img src="{{base_url('assets/images/manual/Renglones/4.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Importar Tabla:</b></label> Esta opción nos permite guardar la tabla que se genero en un archivo de Excel (formato .xls).<p/>
+			<p class="tamannoLetra"><label class="morado"><b>Filtro:</b></label> Este campos nos permite filtrar los datos de la gráfica, para que salgan los municipios que concuerden con los datos ingresados.</p>
+			<p class="tamannoLetra"><label class="verde"><b>Renglones Productivos:</b></label> Renglones Productivos almacenados en la aplicación.<p/>
+			<p class="tamannoLetra"><label class="azul"><b>Municipios:</b></label> Municipios almacenados en la aplicación.</p>
+			<p class="tamannoLetra"><label class="naranja"><b>Valores:</b></label> Son los valores que tiene cada Renglón Productivos en cada Municipio, adicional a la derecha estan los totales por cada Municipio, y abajo el total por cada Renglón Productivo.<p/>
+
+        </div>
+        <div class="tab-pane fade" id="profile" align="justify">
+        	<img src="{{base_url('assets/images/manual/Mapa/mapa.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="azul"><b>Municipio escogido:</b></label> Es aquel municipio del cual se quieren desplegar los predios asociados a éste registrados dentro de la aplicación.<p/>
+			<p class="tamannoLetra"><label class="rojo"><b>Mapa del municipio seleccionado:</b></label> Mapa en el cual se muestran todos los predios del municipio seleccionado (sino hay un municipio seleccionado, entonces el mapa sale sin predios).</p>
+			<p class="tamannoLetra"><label class="amarillo"><b>Predio dentro del municipio:</b></label> Es la representación de un predio dentro del municipio seleccionado, cuando se le da click, se desplegará la descripción del predio.</p>
+			<p class="tamannoLetra"><label class="morado"><b>Descripción del Predio:</b></label> Los datos básicos del predio seleccionado, tales como: Municipio, Vereda, Sector, Área Total y Renglón.</p>
+        </div>
+        <div class="tab-pane fade" id="reng" align="justify">
+            <center><label><h3>A1. Datos Personales</h3></label></center>
+            <img src="{{base_url('assets/images/manual/RUAT/A/A1.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Número de Formulario:</b></label> Número de Formulario que tendrá el RUAT que se está creando.</p>
+			<p class="tamannoLetra"><label class="azul"><b>Nombres y Apellidos del Productor:</b></label> Nombres y Apellidos del productor que se está registrando.</p>
+			<p class="tamannoLetra"><label class="naranja"><b>Documento de Identidad del Productor:</b></label> Se especifica el tipo de Documento de Identidad (C.C, T.I, C.E, NIT) y posteriormente se digita el número del documento.</p>
+			<p class="tamannoLetra"><label class="rosado"><b>Fecha de Nacimiento del Productor:</b></label> Se especifica la fecha de Nacimiento del Productor.</p>
+			<p class="tamannoLetra"><label class="morado"><b>Sexo del Productor:</b></label> Se escoge el sexo del productor entre: Masculino y Femenino.</p>
+			<p class="tamannoLetra"><label class="verde"><b>Nivel Educativo del Productor:</b></label> Se escoge el máximo Nivel Educativo alcanzado por el Productor a registrar, entre: Primaria, Secundaria, Técnica, Tecnológica, Universitaria, Ninguna.</p>
+			<p class="tamannoLetra"><label class="amarillo"><b>Tipo de Productor y Renglón Productivo:</b></label> Se selecciona el tipo de productor al cual pertenece la persona (Pequeño o Mediano) y el Renglón Productivo al cual pertenece (Aguacate, Bananito, Cítricos, Chontaduro, Fresa, Lulo, Mango, Maracuyá, Melón, Mora, Papaya, Piña, Uva).</p>
+
+			<hr>
+			<center><label><h3>A2. Datos de Contacto - A3. Datos Económicos</h3></label></center>
+			<img src="{{base_url('assets/images/manual/RUAT/A/A23.png')}}" style="width:100%; margin-bottom:20px">
+
+			<p class="tamannoLetra"><label class="rojo"><b>Datos de Contacto del Productor:</b></label> Se ingresan los datos de Contacto del Productor, tales como: Teléfono Fijo, Número de Celular y Correo Electrónico.</p>
+			<p class="tamannoLetra"><label class="azul"><b>Ubicación del Predio:</b></label> Se define la Ubicación del Predio con los siguientes datos: Departamento, Municipio, Vereda/Corregimiento y la Dirección de Residencia.</p>
+			<p class="tamannoLetra"><label class="verde"><b>Ingresos Familiares, de la Actividad Agropecuaria y el número de personas a cargo del Productor:</b></label> Cantidad de dinero que recibe la familia por año, número de personas a cargo y el Ingreso de la Actividad Agropecuaria por año.</p>
+			<p class="tamannoLetra"><label class="morado"><b>Crédito del Productor:</b></label> Se define si el productor tiene algún crédito, de ser así se determina la procedencia del mismo.</p>
+
+			<hr>
+			<center><label><h3>A4. Participación del Usuario en Procesos de Transferencia e Innovación</h3></label></center>
+			<img src="{{base_url('assets/images/manual/RUAT/A/A4.png')}}" style="width:100%; margin-bottom:20px">
+
+			<p class="tamannoLetra"><label class="rojo"><b>Proceso de Innovación:</b></label> Se determina si el productor está en algún Proceso de Innovación, si su respuesta es SI, continúa con las siguientes preguntas, de lo contrario no.</p>
+			<p class="tamannoLetra"><label class="verde"><b>Actividad en Proceso de Innovación:</b></label> Son las diferentes actividades de Innovación registradas dentro de la aplicación.</p>
+			<p class="tamannoLetra"><label class="morado"><b>Origen del Proceso de Innovación:</b></label> Se debe seleccionar la fuente para la actividad de Innovación.</p>
+			<p class="tamannoLetra"><label class="naranja"><b>Descripción:</b></label> Es la descripción detallada de cada actividad dentro del Proceso de Innovación.</p>
+
+			<hr>
+			<center><label><h3>A5. Asociatividad del Usuario</h3></label></center>
+			<img src="{{base_url('assets/images/manual/RUAT/A/A5.png')}}" style="width:100%; margin-bottom:20px">
+
+			<p class="tamannoLetra"><label class="rojo"><b>Asociaciones del Productor:</b></label> Se define si el productor está registrado en alguna Asociación, Cooperativa o Agremiación, de ser NO, se definen: Razones para no Pertenecer y las entidades que conozca las cuales presten apoyo (nombrándolas una a una).</p>
+			<p class="tamannoLetra"><label class="azul"><b>Nombre y Apellido del Productor en Asocio:</b></label> Nombres y Apellido del Productor en Asocio.</p>
+			<p class="tamannoLetra"><label class="naranja"><b>Ubicación del Lugar del Socio:</b></label> Vereda/Corregimiento del socio.</p>
+			<p class="tamannoLetra"><label class="verde"><b>Grado de Confianza del Socio:</b></label></p>
+			<p class="tamannoLetra"><label class="morado"><b>Datos del Productor a Seguir:</b></label> Nombres y Apellidos del Productor a seguir.</p>
+			<p class="tamannoLetra"><label class="verde"><b>Ubicación del Productor a seguir:</b></label> Vereda/Corregimiento del productor a seguir.</p>
+			<p class="tamannoLetra"><label class="rosado"><b>Grado de Confianza del Productor a seguir:</b></label></p>
+
+			<center><label><h4>A5. Cuando presionamos SI en 'Pertenecer a Asociaciones, Cooperativas o Agremiaciones'</h4></label></center>
+			<img src="{{base_url('assets/images/manual/RUAT/A/A5SI.png')}}" style="width:100%; margin-bottom:20px">
+
+			<p class="tamannoLetra"><label class="rojo"><b>Clase:</b></label> Seleccionar las Clases de Organizaciones a la que pertenece, entre ellas: Agropecuaria, Asistencial, Comercial, Cultural, Deportiva, Educativa, Étnica, Política, Salud, Social, Tecnológica.
+			<p class="tamannoLetra"><label class="azul"><b>Organización:</b></label> Se escribe la organización que corresponde las clases seleccionadas.
+			<p class="tamannoLetra"><label class="naranja"><b>Beneficio:</b></label> Se especifica el beneficio que trae el estar en dicha organización, tales como: Capacitación, Económico, En Especie, Participación en la Toma de Decisiones, Reconocimiento en la Comunidad, Recreación y Deporte, Otro.
+			<p class="tamannoLetra"><label class="morado"><b>Periodicidad:</b></label> El tiempo de asistencia entre sesiones de la organización, puede ser: Semanal, Quincenal, Mensual, Bimestral, Trimestral, Semestral, Anual.
+			<p class="tamannoLetra"><label class="verde"><b>Labor:</b></label> Labor que se tiene en la organización: Directivo o Participante.
+			<p class="tamannoLetra"><label class="rosado"><b>Agregar/Eliminar:</b></label> El botón azul nos permite agregar una nueva fila, el rojo eliminar la fila a la cual corresponda.
+        </div>
+
+        <div class="tab-pane fade" id="tabladatos" align="justify">
+            <img src="{{base_url('assets/images/manual/BPA/A.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Visitas:</b></label> Número de Visitas que se han realizado (la que tenga el recuadro azul a su alrededor es la que se está visualizando actualmente), son la Visita Inicial y 6 adicionales.</p>
+			<p class="tamannoLetra"><label class="azul"><b>Fecha de Visita:</b></label> Fecha que se realizó la Visita que se está visualizando.</p>
+
+			<hr>
+			<center><label><h3>B. DIAGNÓSTICO DE ASPECTOS PREVIOS AL ESTABLECIMIENTO DEL CULTIVO</h3></label></center>
+            <img src="{{base_url('assets/images/manual/BPA/B.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Aspectos Diagnosticados:</b></label> Aspectos que se evalúan en el formulario BPA.</p>
+			<p class="tamannoLetra"><label class="azul"><b>SI | NO:</b></label> Se selecciona afirmativamente o negativamente a la implementación de cada aspecto.</p>
+			<p class="tamannoLetra"><label class="naranja"><b>Observaciones:</b></label> Se dan las observaciones pertinentes en cada aspecto evaluado.</p>
+			<p class="tamannoLetra"><label class="morado"><b>Conclusión General:</b></label> Conclusión general que obtiene al finalizar la evaluación de cada aspecto por individual.</p>
+
+			<hr>
+			<center><label><h3>C. ESTADO ACTUAL DE LA IMPLEMENTACIÓN DE LAS BPA (PARTE 1)</h3></label></center>
+            <img src="{{base_url('assets/images/manual/BPA/C.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Aspectos Evaluados:</b></label> Son los aspectos que se evaluarán en la parte C del BPA.</p>
+			<p class="tamannoLetra"><label class="azul"><b>Adopción BPA:</b></label> Es un porcentaje que define el nivel de adopción de cada aspecto por parte del productor, dicho número tiene como valor mínimo cero (0) y máximo cien (100).</p>
+			<p class="tamannoLetra" style="margin-bottom:20px"><label class="verde"><b>Recomendaciones:</b></label> Recomendaciones que debe tener en cuenta el productor para mejorar su adopción por cada aspecto evaluado.</p>
+
+
+            <center><label><h3>C. ESTADO ACTUAL DE LA IMPLEMENTACIÓN DE LAS BPA (PARTE 2)</h3></label></center>
+            <img src="{{base_url('assets/images/manual/BPA/C1.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Nivel de Implementación:</b></label> Calificación final generada luego de llenar toda la parte C del BPA, junto con la recomendación general ingresada por la persona responsable.</p>
+			<p class="tamannoLetra"><label class="naranja"><b>Visualización de la Certificación:</b></label> (Esta opción estará habilitada si previamente se ha subido una certificación de la visita), nos muestra el archivo que definimos previamente para dicho BPA.</p>
+			<p class="tamannoLetra"><label class="morado"><b>Modificar Certificación:</b></label> Aquí subimos la Certificación de Visita Digitalizada por medio de un archivo.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
