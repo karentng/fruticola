@@ -133,13 +133,24 @@ class ListadoRuats extends CI_Controller {
             $cls = $item->postcosecha_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->postcosecha_id) {
                 $url = site_url("poscosecha/index/$item->id");
+                $url2 = site_url("poscosechaImprimible/index/$item->id");
                 $disabled = '';
             } else {
                 $url = '';
+                $url2 = '';
                 $disabled = 'disabled="disabled"';
             }
 
-            $actions .= "<a class='btn btn-sm $cls tip' href='$url' $disabled title='Manejo de Poscosecha'>Poscosecha</a>";
+            if($item->postcosecha_id){
+                $disabled1 = '';
+            } else {
+                $disabled1 = 'disabled';
+            }
+
+            $actions .= "<div class='btn-group'>";
+            $actions .= "<a class='btn btn-sm $cls tip' href='$url' $disabled title='Manejo de Poscosecha'>Poscosecha<i class='i-arrow-right-3'></i></a>";
+            $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' $disabled1 title='Versión Imprimible Poscosecha' target='_blank'><i class='i-print'></i></a>";
+            $actions .="</div>&nbsp;";
 
 
 
