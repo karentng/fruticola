@@ -400,7 +400,7 @@
                         BUENAS PRACTICAS AGRÍCOLAS (BPA)</b></h3>
                     </td>
                     <td align="center">
-                        <small class="text-danger" title="Puntaje en visita anterior">{{anterior['total']}}</small>
+                        <small class="text-danger" title="Puntaje en visita anterior">{{anterior['total']|number_format(2,',')}}</small>
                         {% if existe == 'yes' %}
                             <input class="form-control" type="tetx" style="width:60px;" id="valorFinal" name="valorFinal" value="{{datosBPA.nivel_bpa}}" readonly="true" {% if soloLectura %} disabled="disabled" {% endif %} required/>
                         {% else %}
