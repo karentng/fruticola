@@ -337,7 +337,7 @@
                         {{preguntaC.enunciado}}
                     </td>
                     <td align="center">
-                        <small class="text-danger" title="Puntaje en visita anterior">{{anterior[preguntaC.id]}}</small>
+                        <small class="text-danger" title="Puntaje en visita anterior">{{anterior[preguntaC.id]|date_format(2,',')}}</small>
                         {% if preguntaC.padre == null or preguntaC.numeral == 15 or
                             preguntaC.numeral == 26 or preguntaC.numeral == 31 %}
                             {% if preguntaC.numeral == 26 %}
