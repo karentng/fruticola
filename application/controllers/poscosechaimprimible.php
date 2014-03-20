@@ -11,7 +11,7 @@ class PoscosechaImprimible extends CI_Controller {
     	$ruat = Ruat::find($ruat_id);
     	//var_dump($organizaciones); die();
     	$this->twiggy->set('ruat',$ruat);
-    	$this->twiggy->template("lepostcosecha/poscosechaImprimible");
+    	$this->twiggy->template("lepostcosecha/poscosechaimprimible");
         $this->twiggy->display();
     }
 }
