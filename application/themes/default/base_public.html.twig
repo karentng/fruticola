@@ -108,6 +108,8 @@
     </style>
     #}
 
+
+
     <!-- Init plugins -->
     <script src="{{ base_url('assets/js/app.js') }}"></script><!-- Core js functions -->
     <script src="{{ base_url('assets/js/pages/domready.js?v=5') }}"></script><!-- Init plugins only for page -->
@@ -121,17 +123,31 @@
     <header id="header">
         <nav class="navbar navbar-default navbar-static-top" role="navigation">
             <a class="navbar-brand" href="#">
-                {#<img src="{{ base_url('assets/images/logo.png?v=3') }}" alt="Plan fruticola" class="img-responsive" style="height:40px">#}
-                <h1 class="text-success">
-                Plan Frutícola del Valle del Cauca
-                </h1>
+                <img src="{{ base_url('assets/images/LogoNombre.png') }}" alt="Plan fruticola" class="img-responsive" style="height:40px">
+                
+                
             </a>
+            {#<a class="navbar-brand" href="#">
+                Plan Frutícola del Valle del Cauca
+            </a>#}
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle btn-danger" data-toggle="collapse" data-target="#navbar-to-collapse">
                     <span class="sr-only">Toggle right menu</span>
                     <i class="icon16 i-arrow-8"></i>
                 </button>
             </div>
+
+
+            <div class="collapse navbar-collapse" id="navbar-to-collapse">  
+                
+                <ul class="nav navbar-nav pull-right">
+                    
+                    
+                    <li class="divider-vertical"></li>
+                    <li><a  href="{{site_url('auth/login')}}" class="btn btn-danger pull-right" ><i class="icon20 i-key-2"></i> Acceso a Funcionarios</a></li>
+                    <li class="divider-vertical"></li>
+                </ul>
+            </div><!--/.nav-collapse -->
 
         </nav>
     </header> <!-- End #header  -->
@@ -170,6 +186,7 @@
         </section>
     </div><!-- End .main  -->
 
+ 
 {% endblock %}
   </body>
 </html>

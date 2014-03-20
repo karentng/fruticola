@@ -46,6 +46,34 @@ html {background: url({{base_url("assets/images/patterns/low_contrast_linen.png"
     display: inline-block;
 }
 
+
+        /* Sticky footer styles
+        -------------------------------------------------- */
+        html {
+          position: relative;
+          min-height: 100%;
+        }
+        body {
+          /* Margin bottom by footer height */
+          /*margin-bottom: 120px;*/
+        }
+        #footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          /* Set the fixed height of the footer here */
+          height: 120px;
+          /*background-color: #f5f5f5;*/
+          /*text-align:center;*/
+        }
+
+        #footer img {
+          
+          margin-left:auto;
+          margin-right:auto;
+        }
+
+
 </style>
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -72,17 +100,17 @@ html {background: url({{base_url("assets/images/patterns/low_contrast_linen.png"
         <div class="carousel-caption">
           <h1>Papaya pa' ya</h1>
           <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-          <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+          {#<p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>#}
         </div>
       </div>
     </div>
     <div class="item">
-      <img data-src="holder.js/900x500/auto/#555:#5a5a5a/text:Third slide" alt="Third slide">
+      <img src="{{base_url('assets/images/carousel/Frutas-public.png')}}" alt="Third slide">
       <div class="container">
         <div class="carousel-caption">
           <h1>One more for good measure.</h1>
           <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-          <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+          {#<p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>#}
         </div>
       </div>
     </div>
@@ -91,10 +119,16 @@ html {background: url({{base_url("assets/images/patterns/low_contrast_linen.png"
   <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="icon24 i-arrow-right-2"></span></a>
 </div><!-- /.carousel -->
 
-<div class="container">
+<div class="text-center">
     <button  type="button" class="btn btn-lg btn-success" onclick="$('#collapse-nav').click()"><i class="icon20 i-stats"></i> Reportes y Estadísticas</button>
-    <a  href="{{site_url('auth/login')}}" type="button" class="btn btn-lg btn-warning pull-right" ><i class="icon20 i-key-2"></i> Acceso a Funcionarios</a>
     
 </div>
+
+<div id="footer">
+
+    <img src="{{base_url('assets/images/logos-min.png?v=1')}}" class="img-responsive" {#style="max-height:118px; margin-left:auto; margin-right:auto"#} />
+ 
+</div>
+
 
 {% endblock %}
