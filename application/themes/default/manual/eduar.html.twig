@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+<style type="text/css">
+    .tamannoLetra{
+        font-size:17px;
+    }
+    .rojo{
+        color:red;
+    }
+    .azul{
+        color:blue;
+    }
+    .amarillo{
+        color:yellow;
+    }
+    .verde{
+        color:green;
+    }
+    .naranja{
+        color:orange;
+    }
+    .morado{
+        color:purple;
+    }
+    .rosado{
+        color:pink;
+    }
+</style>
+{% endblock %}
+{% block breadcrumnb %}
+<ul class="breadcrumb">
+    <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+    <li><strong class="text-success">MANUAL DE USUARIO</strong></li>
+</ul>
+{% endblock %}
+
+{% block titulo %}
+<h1><i class="icon20 i-stack-checkmark"></i> MANUAL DE USUARIO </h1> 
+{% endblock %}
+
+{% block contenido %}
+<div class="form-group">
+    <div class="container-fluid">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#home" data-toggle="tab">VTP</a></li>
+            <li><a href="#profile" data-toggle="tab">ESTILOS APRENDIZAJE</a></li>
+            <li><a href="#reng" data-toggle="tab">INDICADORES DE PRODUCCIÓN</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="home" align="justify">
+            </div>
+            <div class="tab-pane fade" id="profile" align="justify">
+            </div>
+            <div class="tab-pane fade" id="reng" align="justify">
+            </div>
+        </div>
+    </div>
+{% endblock %}

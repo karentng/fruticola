@@ -14,4 +14,9 @@ class ManualUsuario extends CI_Controller {
         $this->twiggy->template("manual/andres");
         $this->twiggy->display();
     }
+    
+    public function eduar(){
+        $this->twiggy->template("manual/eduar");
+        $this->twiggy->display();
+    }
 }
