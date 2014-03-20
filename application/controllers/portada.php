@@ -2,8 +2,11 @@
 
 class Portada extends CI_Controller {
     public function index() {
-        $this->twiggy->template("portada/portada");
-        $this->twiggy->display();
+        if(current_user()) redirect("listadoruats");
+        else {
+            $this->twiggy->template("portada/portada");
+            $this->twiggy->display();
+        }
     }
 
     
