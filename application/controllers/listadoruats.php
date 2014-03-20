@@ -133,7 +133,7 @@ class ListadoRuats extends CI_Controller {
             $cls = $item->postcosecha_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->postcosecha_id) {
                 $url = site_url("poscosecha/index/$item->id");
-                $url2 = site_url("poscosechaImprimible/index/$item->id");
+                $url2 = site_url("poscosechaimprimible/index/$item->id");
                 $disabled = '';
             } else {
                 $url = '';
