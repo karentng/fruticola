@@ -1,0 +1,134 @@
+{% extends "base_public.html.twig" %}
+
+{% block html_head %}
+<style>
+html {background: url({{base_url("assets/images/patterns/low_contrast_linen.png")}}) repeat; height: 100%; background-attachment:fixed;}
+</style>
+{% endblock %}
+
+{% block noborder_content %}
+
+
+
+<style>
+/* Carousel base class */
+.carousel {
+  height: 400px;
+  margin-bottom: 60px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+  background-color:rgba(0,0,0,0.5);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 400px;
+  background-color: #777;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 400px;
+}
+
+.carousel-control span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5;
+    display: inline-block;
+}
+
+
+        /* Sticky footer styles
+        -------------------------------------------------- */
+        html {
+          position: relative;
+          min-height: 100%;
+        }
+        body {
+          /* Margin bottom by footer height */
+          /*margin-bottom: 120px;*/
+        }
+        #footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          /* Set the fixed height of the footer here */
+          height: 120px;
+          /*background-color: #f5f5f5;*/
+          /*text-align:center;*/
+        }
+
+        #footer img {
+          
+          margin-left:auto;
+          margin-right:auto;
+        }
+
+
+</style>
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="http://2.bp.blogspot.com/_ZS2iUD8idY0/TAQc7uxBR1I/AAAAAAAAABk/keOK-Lkbdlg/s1600/Viaje+a+Zapatoca+400.jpg" alt="First slide">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>El cultivo de Uva en el Valle</h1>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. </p>
+          {#<p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>#}
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <img src="http://www.freshplaza.es/images/2010/cultivos_de_papaya.JPG" alt="Second slide">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>Papaya pa' ya</h1>
+          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+          {#<p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>#}
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <img src="{{base_url('assets/images/carousel/Frutas-public.png')}}" alt="Third slide">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>One more for good measure.</h1>
+          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+          {#<p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>#}
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="icon24  i-arrow-left"></span></a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="icon24 i-arrow-right-2"></span></a>
+</div><!-- /.carousel -->
+
+<div class="text-center">
+    <button  type="button" class="btn btn-lg btn-success" onclick="$('#collapse-nav').click()"><i class="icon20 i-stats"></i> Reportes y Estadísticas</button>
+    
+</div>
+
+<div id="footer">
+
+    <img src="{{base_url('assets/images/logos-min.png?v=1')}}" class="img-responsive" {#style="max-height:118px; margin-left:auto; margin-right:auto"#} />
+ 
+</div>
+
+
+{% endblock %}

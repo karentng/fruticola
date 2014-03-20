@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "listadoruats";
+$route['default_controller'] = "portada";
 $route['404_override'] = '';
 
 
