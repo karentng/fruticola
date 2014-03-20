@@ -141,12 +141,14 @@
         municipio = $('#selectMunicipio').val();
         chart.dataProvider = generarDataMunicipio();
         chart.validateData();
+        chart.animateAgain();
     }
 
     function actualizarRenglon(){
         renglon = $('#selectRenglon').val();
         chart2.dataProvider = generarDataRenglon();
         chart2.validateData();
+        chart2.animateAgain();
     }
 
     function generarDataMunicipio(){
