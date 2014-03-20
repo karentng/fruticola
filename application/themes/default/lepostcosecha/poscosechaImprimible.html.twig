@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <meta charset="utf-8"> 
+        <title>Imprimir Poscosecha</title>
+        <style type="text/css" media="print">
+            .noprint { display: none; }
+        </style>
+    
+        <style type="text/css" media="all">
+            body, td, div {
+                font-family: Sans-serif;
+                font-size: 10pt;
+            }
+        
+        </style>
+
+
+    </head>
+    <body style="text-align:center" >
+        <input type="button" style="font-size: 18pt" class="noprint" value="Imprimir" onclick="window.print()"/>
+        <h2>PLAN FRUTÍCOLA DEL VALLE DEL CAUCA</h2>
+
+
+        <div style="width:670px; margin-left:auto; margin-right:auto; text-align:left">
+            <table width="100%">
+                <tr>
+                    <td align="center" valign="middle">
+                        <h3>DIAGNOSTICO MANEJO DE POSCOSECHA</h3>
+                    </td>
+                    <td valign="middle"><img src="{{base_url('assets/images/logos-imprimir.png')}}" height="80"></td>
+                </tr>
+            </table>
+            <br>
+            <table width="100%">
+                <tr>
+                    <td style="font-size: 11pt">Fecha Generado: <b>{{ "now"|date("Y/m/d") }}</b></td>
+                    <td style="font-size: 11pt" align="right">Fecha de Visita: <b>{{ruat.postcosecha.fecha_visita|date("Y/m/d")}}</b></b></td>
+                </tr>
+            </table>
+            <br>
+            <table width="100%" border="1" cellspacing="0" cellpadding="4">
+                <tr style="background-color:lightgray"> 
+                    <td align="center"><b>Pregunta</b></td>
+                    <td align="center"><b>Respuesta</b></td>
+                </tr>
+                {% for postcosecharespuesta in ruat.postcosecha.postcosecharespuestas %}
+                <tr>
+                    <td>{{postcosecharespuesta.postcosechapregunta.texto}}</td>
+                    {% if postcosecharespuesta.pregunta_id==12 %}
+                    <td align="right"><b>{{postcosecharespuesta.otro}} Horas</b></td>
+                    {% else %}
+                    <td align="right"><b>{{postcosecharespuesta.postcosechaopcionrespuesta.texto}}</b></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>            
+            {% if ruat.postcosecha.observaciones is not empty %}
+            <h3>OBSERVACIONES</h3>
+            <table>
+                <tr>
+                    <td>{{ruat.postcosecha.observaciones}}</td>
+                </tr>
+            </table>
+            {% endif %}
+            <br/><br/><br/><br/><br/><br/>
+            <table width="100%">
+                <tr>
+                    <td>
+                        ____________________________ <br/>
+                        {{ruat.productor.nombre_completo}} <br/>
+                        BENEFICIARIO
+                    </td>
+                    <td align="right">
+                        ____________________________ <br/>
+                        {{ruat.creador.first_name}} {{ruat.creador.last_name}} <br/>
+                        FUNCIONARIO RESPONSABLE
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+
+</html>
