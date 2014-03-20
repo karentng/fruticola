@@ -115,6 +115,7 @@
         var actividad = $('#select_chart').val();
         chart.dataProvider = getChartData(actividad);
         chart.validateData();
+        chart.animateAgain();
     }
 
     $(document).ready(function() {
