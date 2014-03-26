@@ -2,27 +2,138 @@
 
 {% block html_head %}
 
+<script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
+<script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
+
+<script src="{{ base_url('assets/amcharts/exporting/amexport.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/rgbcolor.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/canvg.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/jspdf.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/filesaver.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
+
 <script>
     $(function() {
         {% if notif %}
-            notif({{notif|json_encode}});
+        notif({{notif|json_encode}});
         {% endif %}
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            chart.invalidateSize();
+            chart.animateAgain();
+        })
     });
 
     function confirmar_desasociar(theurl)
     {
-        if(!confirm("Confirme que desea desasociar este RUAT del estudio actual")) return;
-        window.location=theurl;
+        if (!confirm("Confirme que desea desasociar este RUAT del estudio actual"))
+            return;
+        window.location = theurl;
+    }
+
+    var chart = null;
+    var base = ['Mo', 'P', 'S', 'Ca', 'Mg', 'K', 'Fe', 'Mn', 'Zn', 'Cu', 'B'];
+    var colores = ["#FF0F00", "#FF6600", "#FF9E01", "#FCD202", "#F8FF01", "#B0DE09", "#04D215", "#0D8ECF", "#0D52D1", "#2A0CD0", "#8A0CCF", "#CD0D74", "#754DEB", "#DDDDDD"];
+
+    AmCharts.ready(function() {
+
+        var exportConfig = {
+            menuTop: "21px",
+            menuBottom: "auto",
+            menuRight: "21px",
+            backgroundColor: "#efefef",
+            menuItemStyle: {
+                backgroundColor: '#EFEFEF',
+                rollOverBackgroundColor: '#DDDDDD'
+            },
+            menuItems: [{
+                    textAlign: 'center',
+                    icon: "{{ base_url('assets/amcharts/images/export.png') }}",
+                    onclick: function() {
+                    },
+                    items: [{
+                            title: 'JPG',
+                            format: 'jpg'
+                        }, {
+                            title: 'PNG',
+                            format: 'png'
+                        }, {
+                            title: 'SVG',
+                            format: 'svg'
+                        }, {
+                            title: 'PDF',
+                            format: 'pdf'
+                        }]
+                }]
+        }
+
+        /// CHART 1
+        var chartData = getChartData();
+        console.log(chartData)
+
+        chart = new AmCharts.AmSerialChart();
+        chart.dataProvider = chartData;
+        chart.categoryField = "name";
+        chart.exportConfig = exportConfig;
+        chart.sequencedAnimation = true;
+        chart.startEffect = "elastic";
+        chart.innerRadius = "30%";
+        chart.startDuration = 2;
+        chart.labelRadius = 15;
+
+
+        var graph = new AmCharts.AmGraph();
+        graph.valueField = 'valor';
+        graph.colorField = "color";
+        graph.type = "column";
+        graph.fillAlphas = 0.8;
+        graph.title = 'Nivel de los Elementos';
+        graph.balloonText = "[[category]]:<b>[[value]]</b>";
+        chart.addGraph(graph);
+
+        chart.angle = 30;
+        chart.depth3D = 15;
+
+        var categoryAxis = chart.categoryAxis;
+        categoryAxis.autoGridCount = false;
+        categoryAxis.gridCount = chartData.length;
+        categoryAxis.gridPosition = "start";
+        categoryAxis.labelRotation = 90;
+
+        chart.write('chartdiv');
+
+    });
+
+    function getChartData() {
+
+        var chartData = [];
+
+        ///recorro los nombres de las columnas
+        for (var i in base) {
+            var valor_base = base[i];
+            var input = '#grafica_data_' + valor_base;
+            var obj = {
+                base: valor_base,
+                valor: parseFloat($(input).html().replace('.', '').replace(',', '.')),
+                name: $(input).parent().parent().find('label:first').html(),
+                color: colores[i],
+            }
+
+            chartData.push(obj);
+        }
+
+        //console.log(chartData);
+        return chartData;
     }
 </script>
 {% endblock %}
 
 {% block breadcrumnb %}
-    <ul class="breadcrumb">
-      <li ><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
-      <li ><a href="{{site_url('suelos')}}"><i class="icon16 i-lab"></i>Estudios de Suelos</a></li>
-      <li class="active"><i class="icon16 i-link"></i> Asociar</a></li>
-    </ul>
+<ul class="breadcrumb">
+    <li ><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+    <li ><a href="{{site_url('suelos')}}"><i class="icon16 i-lab"></i>Estudios de Suelos</a></li>
+    <li class="active"><i class="icon16 i-link"></i> Asociar</a></li>
+</ul>
 {% endblock %}
 
 {% block titulo %} <h1><i class="icon20 i-link"></i> Asociar Estudio de Suelos </h1> {% endblock %}
@@ -33,11 +144,11 @@
 <table class="table table-hover">
     <thead>
         <tr>
-        <th>Nro RUAT</th>
-        <th>Productor</th>
-        <th>Municipio</th>
-        <th>Renglón</th>
-        <th></th>
+            <th>Nro RUAT</th>
+            <th>Productor</th>
+            <th>Municipio</th>
+            <th>Renglón</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -79,6 +190,7 @@
     <li class="active"><a href="#info1" data-toggle="tab">Básica</a></li>
     <li><a href="#info2" data-toggle="tab">Cultivo</a></li>
     <li><a href="#info3" data-toggle="tab">Compuestos</a></li>
+    <li><a href="#info4" data-toggle="tab">Grafico</a></li>
 </ul>
 <div class="tab-content">
     <div class="form-horizontal row tab-pane fade in active" id="info1">
@@ -205,17 +317,17 @@
                 <label for="" class="control-label col-md-8">pH agua:suelo</label>
                 <div class="col-md-2"><p class="form-control">{{estudio.ph_agua_suelo|number_format(2,',')}}</p></div>
             </div>
-            <div class="form-group">
+            <div class="form-group dato-grafica">
                 <label for="" class="control-label col-md-8">Materia orgánica</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.materia_organica|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Mo">{{estudio.materia_organica|number_format(2,',')}}</p></div>
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Fósforo</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.fosforo|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_P">{{estudio.fosforo|number_format(2,',')}}</p></div>
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Azufre Fosfato monocalcico</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.azufre|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_S">{{estudio.azufre|number_format(2,',')}}</p></div>
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Acidez (Al+H)</label>
@@ -227,19 +339,19 @@
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Calcio (Ca) intercambiable</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.calcio|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Ca">{{estudio.calcio|number_format(2,',')}}</p></div>
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Magnesio (Mg) intercambiable</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.magnesio|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Mg">{{estudio.magnesio|number_format(2,',')}}</p></div>
             </div>
         </div>
-        
-        
+
+
         <div class="col-md-6">
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Potasio (K) intercambiable</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.potasio|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_K">{{estudio.potasio|number_format(2,',')}}</p></div>
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Sodio (Na) intercambiable</label>
@@ -259,25 +371,29 @@
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Hierro (Fe) disponible</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.hierro|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Fe">{{estudio.hierro|number_format(2,',')}}</p></div>
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Cobre (Cu) disponible</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.cobre|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Cu">{{estudio.cobre|number_format(2,',')}}</p></div>
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Manganeso (Mn) disponible </label>
-                <div class="col-md-2"><p class="form-control">{{estudio.manganeso|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Mn">{{estudio.manganeso|number_format(2,',')}}</p></div>
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Zinc (Zn) disponible</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.zinc|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Zn">{{estudio.zinc|number_format(2,',')}}</p></div>
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-8">Boro (B) disponible</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.boro|number_format(2,',')}}</p></div>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_B">{{estudio.boro|number_format(2,',')}}</p></div>
             </div>
         </div>
+    </div>
+
+    <div class="form-horizontal row tab-pane fade in" id="info4">
+        <div id="chartdiv" style="width: 100%; height: 600px;"></div>
     </div>
 </div>
 
