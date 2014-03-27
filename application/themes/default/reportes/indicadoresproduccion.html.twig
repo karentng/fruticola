@@ -20,6 +20,7 @@
 
         var renglones_productivos = Array();
         var renglones_productivos_aux = {{renglonesProductivos|json_encode}}
+        renglones_productivos.push({id: 0, text: 'TODOS'});
         for (var i in renglones_productivos_aux) {
             var aux = renglones_productivos_aux[i];
             var aux = renglones_productivos_aux[i];

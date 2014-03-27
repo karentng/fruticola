@@ -41,9 +41,15 @@ class Indicadoresproduccion extends CI_Controller {
 
     private function consultarDatos($renglon, $municipios = array()) {
 
-        $arr_condiciones = array(
-            ':renglon' => $renglon
-        );
+
+        $arr_condiciones = array();
+        $where_renglon = '';
+        if ($renglon != 0) {
+            $where_renglon = 'AND productor.renglon_productivo_id=:renglon';
+            $arr_condiciones = array(
+                ':renglon' => $renglon
+            );
+        }
 
         $aux = array();
         foreach ($municipios as $i => $municipio) {
@@ -82,27 +88,27 @@ class Indicadoresproduccion extends CI_Controller {
             JOIN ruat ON finca.ruat_id = ruat.id
             JOIN productor ON ruat.productor_id = productor.id
             LEFT JOIN producto ON (ruat.id = producto.ruat_id)
-            WHERE productor.renglon_productivo_id=:renglon $where_municipio";
+            WHERE TRUE $where_renglon $where_municipio";
 
         $result = Ruat::connection()->query($query, $arr_condiciones);
 
         $dato = array();
         foreach ($result as $row) {
             $dato = array_merge($dato, $row);
-            
+
             $dato['total_produccion'] = $row['total_semestre_a'] + $row['total_semestre_b'];
-            
+
             $dato['total_rendimiento'] = $dato['avg_rendimiento'] = $dato['avg_produccion'] = 0;
 
-            if ($row['total_area_cosechada']){
+            if ($row['total_area_cosechada']) {
                 $dato['total_rendimiento'] = $dato['total_produccion'] / $row['total_area_cosechada'];
             }
 
-            if ($row['numero_productos']){               
+            if ($row['numero_productos']) {
                 $dato['avg_rendimiento'] = $dato['total_rendimiento'] / $row['numero_productores'];
                 $dato['avg_produccion'] = $dato['total_produccion'] / $row['numero_productores'];
             }
-        }        
+        }
 
         ///Consulto los datos de las fincas
         $query = "SELECT 
@@ -114,18 +120,18 @@ class Indicadoresproduccion extends CI_Controller {
             FROM finca
             JOIN ruat ON finca.ruat_id = ruat.id
             JOIN productor ON ruat.productor_id = productor.id
-            WHERE productor.renglon_productivo_id=:renglon $where_municipio";
+            WHERE TRUE $where_renglon $where_municipio";
 
         $result = Ruat::connection()->query($query, $arr_condiciones);
 
         foreach ($result as $row) {
             $dato = array_merge($dato, $row);
         }
-        
+
         $id_egresos = 25;
         $id_ingresos = 19;
-        
-         ///Consulto los datos de las fincas
+
+        ///Consulto los datos de las fincas
         $query = "SELECT 
             AVG(ingresos.valor / egresos.valor) avg_costo_beneficio
             FROM finca
@@ -144,14 +150,14 @@ class Indicadoresproduccion extends CI_Controller {
                 JOIN tp_c_respuesta ON vtp.id = tp_c_respuesta.visita_id
                 WHERE tp_c_respuesta.pregunta_c_id = $id_egresos
             ) egresos ON egresos.visita_id = ingresos.visita_id
-            WHERE ingresos.pregunta_c_id = $id_ingresos AND productor.renglon_productivo_id=:renglon $where_municipio";
+            WHERE ingresos.pregunta_c_id = $id_ingresos $where_renglon $where_municipio";
 
         $result = Ruat::connection()->query($query, $arr_condiciones);
 
         foreach ($result as $row) {
             $dato = array_merge($dato, $row);
         }
-        
+
 
         return $dato;
     }

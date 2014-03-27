@@ -16,12 +16,7 @@
             <td data-toggle="tooltip" data-placement="left" title="Hectáreas">Área Cultivada (ha)</td>
             <td align="right">{{number_format(datos.total_area_cosechada, 2, ',', '.')}}</td>
             <td align="right">{{number_format(datos.avg_area_cosechada, 2, ',', '.')}}</td>
-        </tr>
-        <tr>
-            <td data-toggle="tooltip" data-placement="left" title="Kilogramos x Año">Producción (kg/año)</td>
-            <td align="right">{{number_format(datos.total_produccion, 2, ',', '.')}}</td>
-            <td align="right">{{number_format(datos.avg_produccion, 2, ',', '.')}}</td>
-        </tr>        
+        </tr>              
         <tr>
             <td data-toggle="tooltip" data-placement="left" title="Pesos x Hectárea">Costos de Establecimiento ($/ha)</td>
             <td align="right">{{number_format(datos.total_costo_establecimiento, 2, ',', '.')}}</td>
@@ -37,6 +32,11 @@
             <td align="right">{{number_format(datos.total_prod_mercado, 2, ',', '.')}}</td>
             <td align="right">{{number_format(datos.avg_prod_mercado, 2, ',', '.')}}</td>
         </tr>
+        <tr>
+            <td data-toggle="tooltip" data-placement="left" title="Kilogramos x Año">Producción (kg/año)</td>
+            <td align="center" colspan="2">{{number_format(datos.total_produccion, 2, ',', '.')}}</td>
+            <!--<td align="right">{{number_format(datos.avg_produccion, 2, ',', '.')}}</td> -->
+        </tr>  
         <tr>
             <td data-toggle="tooltip" data-placement="left" title="Kilogramos x Año">Rendimiento (kg/ha/año)</td>
             <td align="center" colspan="2">{{number_format(datos.total_rendimiento, 2, ',', '.')}}</td>
