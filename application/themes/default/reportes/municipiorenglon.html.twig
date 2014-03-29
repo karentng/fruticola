@@ -121,9 +121,18 @@
         chart.animateAgain();
     }
 
+    function estaTodos(arreglo){
+        for(var i=0;i<arreglo.length;i++){
+            if(arreglo[i]['text'] == 'TODOS'){
+                return true;
+            }
+        }
+        return false;
+    }
+
     function generarDataMunicipio(){
         var seleccionados = $("#municipio").select2('data');
-        if(seleccionados.length == 0){
+        if(seleccionados.length == 0 || estaTodos(seleccionados)){
             var mun = Array();
             var contar = 0;
             for (var i in municipios) {
@@ -160,7 +169,7 @@
 
     function generarDataRenglon(){
         var seleccionados = $("#renglon").select2('data');
-        if(seleccionados.length == 0){
+        if(seleccionados.length == 0 || estaTodos(seleccionados)){
             var mun = Array();
             var contar = 0;
             for (var i in renglones) {
@@ -227,6 +236,7 @@
         // primer grafica
         var mun = Array();
         var contar = 0;
+        mun.push({id: -1, text: 'TODOS',num:-1});
         for (var i in municipios) {
             var aux = municipios[i];
             mun.push({id: aux.id, text: aux.nombre,num:contar});
@@ -235,7 +245,7 @@
         $('#municipio').select2({
             data: mun,
             multiple: true,
-            placeholder: "Todos los Municipios"
+            placeholder: "Seleccione los Municipios"
         });
         $("#municipio").change(function() {
             actualizarMunicipio();
@@ -244,6 +254,7 @@
         //segunda grafica
         var ren = Array();
         contar = 0;
+        ren.push({id: -1, text: 'TODOS',num:-1});
         for (var i in renglones) {
             var aux = renglones[i];
             ren.push({id: aux.id, text: aux.descripcion,num:contar});
@@ -252,7 +263,7 @@
         $('#renglon').select2({
             data: ren,
             multiple: true,
-            placeholder: "Todos los Renglones"
+            placeholder: "Seleccione los Renglones"
         });
         $("#renglon").change(function() {
             actualizarRenglon();
@@ -291,14 +302,12 @@
         <div class="tab-pane fade in active" id="home" align="center">
             <div style="margin:5px 0 5px 0"><center><b>PEQUEÑOS PRODUCTORES DE FRUTAS DEL VALLE DEL CAUCA POR MUNICIPIO</b></center></div>
             <input type="hidden" id="municipio"/>
-            <span>Deje vacio para obtener la información de todos municipios</span>
             <div id="chartdiv" style="width: 100%; height: 600px;"></div>
             <div align="left"><span><b>Datos actualizados en el primer semestre de 2014</b></span></div>
         </div>
         <div class="tab-pane fade" id="profile" align="center">
             <div style="margin:5px 0 5px 0"><center><b>PEQUEÑOS PRODUCTORES DE FRUTAS DEL VALLE DEL CAUCA POR RENGLÓN PRODUCTIVO</b></center></div>
             <input type="hidden" id="renglon"/>
-            <span>Deje vacio para obtener la información de todos renglones productivos</span>
             <div id="chartdiv2" style="width: 100%; height: 1000px;"></div>
             <div align="left"><span><b>Datos actualizados en el primer semestre de 2014</b></span></div>
         </div>
