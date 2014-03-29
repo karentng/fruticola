@@ -20,7 +20,6 @@
 <script src="{{base_url('assets/js/plugins/tables/datatables/TableTools.min.js')}}"></script>
 
 <script type="text/javascript">
-
     var info = {{infoJSON}};
     var municipios = {{municipiosJSON}};
     var renglones = {{renglonesJSON}};
@@ -32,7 +31,6 @@
 
     dataM = generarDataMunicipio();
     dataR = generarDataRenglon();
-    terceraGrafica = generarTerceraGrafica();
 
     var exportConfig = {
         menuTop: "21px",
@@ -63,28 +61,6 @@
             }]
     }
 
-    var chart3 = AmCharts.makeChart("chartdiv3", {
-        "type": "pie",  
-        "theme": "none",
-        "startDuration": 2,
-        "sequencedAnimation": true,
-        "startEffect": "elastic",
-        /*"legend":{
-            "markerType": "square",
-            "position": "bottom",
-            "align": "center",
-            "valueText": "Andres Serna"
-        },*/
-        "dataProvider": terceraGrafica,
-        "valueField": "number",
-        "outlineAlpha": 0.4,
-        "depth3D": 15,
-        "angle": 30,
-        "titleField": "renglon",
-        "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
-        "exportConfig": exportConfig
-    });
-
     var chart = AmCharts.makeChart("chartdiv", {
         "type": "pie",  
         "theme": "none",
@@ -103,7 +79,8 @@
         "depth3D": 15,
         "angle": 30,
         "titleField": "renglon",
-        "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+        //"balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+        "balloonText": "[[title]] = <b>[[percents]]%</b></span>",
         "exportConfig": exportConfig
     });
 
@@ -118,7 +95,7 @@
         "title": "Número de Fincas"
     }],
     "graphs": [{
-        "balloonText": "<b>Número de fincas en [[category]] con producción de [[renglon]]: [[value]]</b>",
+        "balloonText": "<b>Número de fincas en [[category]] con producción de [[todos]]: [[value]]</b>",
         "fillAlphas": 1,
         "lineAlpha": 0.2,
         "title": "Income",
@@ -137,72 +114,94 @@
     "exportConfig":exportConfig
 });
 
+    // Primera grafica
     function actualizarMunicipio(){
-        municipio = $('#selectMunicipio').val();
         chart.dataProvider = generarDataMunicipio();
         chart.validateData();
         chart.animateAgain();
     }
 
+    function generarDataMunicipio(){
+        var seleccionados = $("#municipio").select2('data');
+        if(seleccionados.length == 0){
+            var mun = Array();
+            var contar = 0;
+            for (var i in municipios) {
+                var aux = municipios[i];
+                mun.push({id: aux.id, text: aux.nombre,num:contar});
+                contar++;
+            }
+            seleccionados = mun;
+        }
+        var data = [];
+        for(var i = 0;i<renglones.length;i++){
+            var acumulado = 0;
+            for(var j = 0;j<seleccionados.length;j++){
+                acumulado += parseInt(info[seleccionados[j]['num']][i]);
+            }
+            var aux = {
+                'renglon': renglones[i].descripcion+"("+acumulado+" productores)",
+                'number': acumulado,
+            };
+            data.push(aux);
+        }
+        return data;
+    }
+    // fin primera grafica
+
+    //segunda grafica
+
     function actualizarRenglon(){
-        renglon = $('#selectRenglon').val();
+        //renglon = $('#selectRenglon').val();
         chart2.dataProvider = generarDataRenglon();
         chart2.validateData();
         chart2.animateAgain();
     }
 
-    function generarDataMunicipio(){
-        var data = [];
-        //renglones
-        for(var i = 0;i<renglones.length;i++){
-            var aux = {
-                'renglon': renglones[i].descripcion,
-                'number': info[municipio][i]
-            };
-            data.push(aux);
-        }
-        return data;
-    }
-
     function generarDataRenglon(){
+        var seleccionados = $("#renglon").select2('data');
+        if(seleccionados.length == 0){
+            var mun = Array();
+            var contar = 0;
+            for (var i in renglones) {
+                var aux = renglones[i];
+                mun.push({id: aux.id, text: aux.descripcion,num:contar});
+                contar++;
+            }
+            seleccionados = mun;
+        }
+        var cadenaRenglones = "";
+        for(var i=0;i<seleccionados.length;i++){
+            if(i == seleccionados.length-1){
+                cadenaRenglones += seleccionados[i]['text']
+            }else{
+                cadenaRenglones += seleccionados[i]['text']+",";
+            }
+        }
         var data = [];
         //renglones
         for(var i = 0;i<municipios.length;i++){
+            var acumulado = 0;
+            for(var j=0;j<seleccionados.length;j++){
+                acumulado += parseInt(info[i][seleccionados[j]['num']]);
+            }
             var aux = {
                 'municipio': municipios[i].nombre,
-                'number': info[i][renglon],
-                'renglon': renglones[renglon].descripcion
+                'number': acumulado,
+                'renglon': renglones[renglon].descripcion,
+                'todos': cadenaRenglones
             };
             data.push(aux);
         }
         return data;
     }
-
-    function generarTerceraGrafica(){
-        var ren = {{totalRenglonJSON}};
-        var data = [];
-        //renglones
-        for(var i = 0;i<renglones.length;i++){
-            var aux = {
-                'municipio': municipios[i].nombre,
-                'number': ren[i],
-                'renglon': renglones[i].descripcion
-            };
-            data.push(aux);
-        }
-        return data;
-    }
-
-    function animar(){
-        setTimeout ("chart3.animateAgain()", 1000); 
-    }
+    //fin segunda grafica
  
     $(document).ready(function() {   
     
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
              chart.invalidateSize();
              chart2.invalidateSize();
-             chart3.invalidateSize();
         });
 
         var initialized = false;
@@ -219,6 +218,44 @@
 
                 }
             });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        // primer grafica
+        var mun = Array();
+        var contar = 0;
+        for (var i in municipios) {
+            var aux = municipios[i];
+            mun.push({id: aux.id, text: aux.nombre,num:contar});
+            contar++;
+        }
+        $('#municipio').select2({
+            data: mun,
+            multiple: true,
+            placeholder: "Todos los Municipios"
+        });
+        $("#municipio").change(function() {
+            actualizarMunicipio();
+        });
+
+        //segunda grafica
+        var ren = Array();
+        contar = 0;
+        for (var i in renglones) {
+            var aux = renglones[i];
+            ren.push({id: aux.id, text: aux.descripcion,num:contar});
+            contar++;
+        }
+        $('#renglon').select2({
+            data: ren,
+            multiple: true,
+            placeholder: "Todos los Renglones"
+        });
+        $("#renglon").change(function() {
+            actualizarRenglon();
         });
     });
 </script>
@@ -247,38 +284,22 @@
     <ul id="myTab" class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">COMPARATIVO POR MUNICIPIO</a></li>
         <li><a href="#profile" data-toggle="tab">RESUMEN POR RENGLÓN PRODUCTIVO</a></li>
-        <li><a href="#reng" data-toggle="tab" onclick="animar()">NÚMERO DE PRODUCTORES POR RENGLÓN</a></li>
         <li><a id="linktabla" href="#tabladatos" data-toggle="tab">TABLA DE DATOS</a>
     </ul>
 
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home" align="center">
             <div style="margin:5px 0 5px 0"><center><b>PEQUEÑOS PRODUCTORES DE FRUTAS DEL VALLE DEL CAUCA POR MUNICIPIO</b></center></div>
-            <select class="form-control" id="selectMunicipio" style="width:200px" onchange="actualizarMunicipio()">
-                {% set cont = 0 %}
-                {% for municipio in municipios %}
-                    <option value="{{cont}}">{{municipio.nombre}}</option>
-                    {% set cont = cont + 1 %}
-                {% endfor %}
-            </select>
+            <input type="hidden" id="municipio"/>
+            <span>Deje vacio para obtener la información de todos municipios</span>
             <div id="chartdiv" style="width: 100%; height: 600px;"></div>
             <div align="left"><span><b>Datos actualizados en el primer semestre de 2014</b></span></div>
         </div>
         <div class="tab-pane fade" id="profile" align="center">
             <div style="margin:5px 0 5px 0"><center><b>PEQUEÑOS PRODUCTORES DE FRUTAS DEL VALLE DEL CAUCA POR RENGLÓN PRODUCTIVO</b></center></div>
-            <select class="form-control" id="selectRenglon" style="width:200px" onchange="actualizarRenglon()">
-                {% set cont = 0 %}
-                {% for renglon in renglones %}
-                    <option value="{{cont}}">{{renglon.descripcion}}</option>
-                    {% set cont = cont + 1 %}
-                {% endfor %}
-            </select>
+            <input type="hidden" id="renglon"/>
+            <span>Deje vacio para obtener la información de todos renglones productivos</span>
             <div id="chartdiv2" style="width: 100%; height: 1000px;"></div>
-            <div align="left"><span><b>Datos actualizados en el primer semestre de 2014</b></span></div>
-        </div>
-        <div class="tab-pane fade" id="reng" align="center">
-            <div style="margin:5px 0 5px 0"><center><b>NÚMERO DE PRODUCTORES DE FRUTAS DEL VALLE DEL CAUCA POR RENGLÓN PRODUCTIVO</b></center></div>
-            <div id="chartdiv3" style="width: 100%; height: 600px;"></div>
             <div align="left"><span><b>Datos actualizados en el primer semestre de 2014</b></span></div>
         </div>
 
@@ -314,8 +335,8 @@
                     {% endfor %}
                     
                 </tbody>
-                {#<tfoot>
-                    <tr>
+                <tfoot>
+                    {#<tr>
                         <td>
                             <b>Municipio</b>
                         </td>
@@ -327,7 +348,7 @@
                         <td>
                             <b>Total</b>
                         </td>
-                    </tr>
+                    </tr>#}
                     <tr>
                         <td>
                             <b>Totales</b>
@@ -343,7 +364,7 @@
                             <center><b>{{total}}</b></center>
                         </td>
                     </tr>
-                </tfoot>#}
+                </tfoot>
             </table>
             </div>
         </div>
