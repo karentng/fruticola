@@ -2,7 +2,7 @@
 
 class Certificacionvisita extends CI_Controller {
 
-    public function index($id = null)
+    public function index($ruat_id = 1795, $formulario = 0)
     {
         /*$preguntas = TPCPregunta::all(array('order' => 'categoria, ordenamiento'));
         
@@ -18,11 +18,50 @@ class Certificacionvisita extends CI_Controller {
             elseif($obj->categoria === 'D')
                 $preguntas_totales[] = $obj->to_array();
         }*/
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('fecha', 'Fecha');
+        $this->form_validation->set_rules('descripcion', 'Descripción');
+        $this->form_validation->set_rules('observaciones', 'Observaciones');
+
+        if ($this->form_validation->run()) {
+            $certificacion = Certificacionvisit::find_by_ruat_id_and_num_formulario($ruat_id, $formulario);
+            if($certificacion){
+                $certificacion->delete();
+            }
+            $certificacion = new Certificacionvisit();
+            $certificacion->ruat_id = $ruat_id;
+            $certificacion->num_formulario = $formulario;
+            $certificacion->fecha = $this->input->post('fecha');
+            $certificacion->descripcion = $this->input->post('descripcion');
+            $certificacion->observaciones = $this->input->post('observaciones');
+            $certificacion->save();
+        }
+
         
-        $this->twiggy->register_function('var_dump');
-        
-        $this->twiggy->set('preguntas', $preguntas);
-        $this->twiggy->set('respuestas', $respuestas);
+        //$this->twiggy->register_function('var_dump');
+
+        $ruat = Ruat::find_by_id($ruat_id);
+        $finca = Finca::find_by_ruat_id($ruat->id);
+        $municipio = Municipio::find_by_id($finca->municipio_id);
+        $productor = Productor::find_by_id($ruat->productor_id);
+        $renglon = Renglonproductivo::find_by_id($productor->renglon_productivo_id);
+        $contacto = Contacto::find_by_productor_id($productor->id);
+
+        $this->twiggy->set('productor', $productor->to_array());
+        $this->twiggy->set('finca', $finca->to_array());
+        $this->twiggy->set('municipio', $municipio->to_array());
+        $this->twiggy->set('renglon', $renglon->to_array());
+        $this->twiggy->set('num_formulario', $ruat->numero_formulario);
+        $this->twiggy->set('contacto', $contacto->to_array());
+
+        $certificacion = Certificacionvisit::find_by_ruat_id_and_num_formulario($ruat_id, $formulario);
+        if($certificacion){
+            var_dump($certificacion->observaciones);
+            $this->twiggy->set('fechaI', $certificacion->fecha->format("Y-m-d"));
+            $this->twiggy->set('descripcionI', $certificacion->descripcion);
+            $this->twiggy->set('observacionesI', $certificacion->observaciones);
+        }
 
         $this->twiggy->template("certificacionvisita/cetificacion_visita");
         $this->twiggy->display();

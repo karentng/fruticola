@@ -1,7 +1,11 @@
 {% extends "base.html.twig" %}
 
 {% block html_head %}
-
+<style type="text/css">
+    input{
+        text-align: center;
+    }
+</style>
 {% endblock %}
 {% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> CERTIFICACIÓN DE VISITA REALIZADA </h1> {% endblock %}
 
@@ -18,7 +22,7 @@
                         <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
                         <div class="col-sm-8">
                             <div class="input-group date datepicker autostart">
-                                <input size="16" name="fecha" value="{{ set_value('fecha')}}" class="form-control" type="text">
+                                <input size="16" name="fecha" value="{{fechaI}}" class="form-control" type="text">
                                 <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                             </div>
                         </div>
@@ -28,9 +32,9 @@
             <div class="col-md-6">
                 <div class="container">
                     <div class="form-group">
-                        <label class="col-sm-5 control-label">CÓDIGO DEL BENEFICIARIO:</label>
+                        <label class="col-sm-5 control-label">NÚMERO DE FORMULARIO</label>
                         <div class="col-sm-7">
-                            <input size="16" name="codigoBenegiciario" value="{{ set_value('codigoBenegiciario')}}" class="form-control" type="text">
+                            <input size="16" name="codigoBenegiciario" value="{{ num_formulario}}" class="form-control" disabled>
                         </div>
                     </div>
                 </div>
@@ -39,12 +43,12 @@
         
         <div style="padding-top: 20px;"></div>
 
-        <div class="panel panel-default">
+        <!--<div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
                 <h4>C.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
                 <a href="#" class="minimize"></a>
-            </div><!-- End .panel-heading -->
+            </div><!-- End .panel-heading
 
             <div class="panel-body"><div class="container">
 
@@ -143,23 +147,122 @@
                                 </tbody>
                             </table>
                         </div>
-                </div>
+                </div>-->
 
-    </div></div><!-- .container and .panel-body -->
+        </div></div><!-- .container and .panel-body -->
         </div><!-- panel default -->
 
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                <h4>E. OBSERVACIONES</h4>
+                <h4>A. DATOS DE IDENTIFICACIÓN DEL BENEFICIARIO</h4>
                 <a href="#" class="minimize"></a>
             </div><!-- End .panel-heading -->
 
-            <div class="panel-body"><div class="container">
+            <div class="panel-body">
+                <div class="container">
                     <div class="row">
-
+                        <div class="col-md-3">
+                            <div class="container" align="center">
+                                <b>PRIMER NOMBRE</b>
+                                <input class="form-control" value="{{productor['nombre1']}}" disabled  />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container" align="center">
+                                <b>SEGUNDO NOMBRE</b>
+                                <input class="form-control" value="{{productor['nombre2']}}" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container" align="center">
+                                <b>PRIMER APELLIDO</b>
+                                <input class="form-control" value="{{productor['apellido1']}}" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container" align="center">
+                                <b>SEGUNDO APELLIDO</b>
+                                <input class="form-control" value="{{productor['apellido2']}}" disabled />
+                            </div>
+                        </div>
                     </div>
-                </div></div><!-- .container and .panel-body -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container" align="center">
+                                <b>No. DE IDENTIFICACIÓN</b>
+                                <input class="form-control" value="{{productor['numero_documento']}}" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container" align="center">
+                                <b>No. CELULAR</b>
+                                <input class="form-control" value="{{contacto['celular']}}" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container" align="center">
+                                <b>RENGLÓN PRODUCTIVO</b>
+                                <input class="form-control" value="{{renglon['descripcion']}}" disabled />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container" align="center">
+                                <b>NOMBRE DEL PREDIO</b>
+                                <input class="form-control" value="{{finca['nombre']}}" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container" align="center">
+                                <b>VEREDA/CORREGIMIENTO</b>
+                                <input class="form-control" value="{{finca['vereda']}}" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container" align="center">
+                                <b>MUNICIPIO</b>
+                                <input class="form-control" value="{{municipio['nombre']}}" disabled />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- panel default -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>B. DESCRIPCIÓN DE LAS ACTIVIDADES REALIZADAS EN LA VISITA</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea name="descripcion" rows="4" style="width:100%; resize:none">{{descripcionI}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- panel default -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>C. OBSERVACIONES</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea name="observaciones" rows="4" style="width:100%; resize:none" >{{observacionesI}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div><!-- panel default -->
 
         <div class="form-actions full">
