@@ -14,14 +14,18 @@
 
 <script type="text/javascript">
 
-    var base = [
-    ];
+    var url_tabla = {{site_url('reportes/estadisticastipoproductor/tabla')|json_encode}};
+
+    var base = [];
+    var chart = null;
 
     var renglones_productivos = {{renglones_productivos|json_encode}}
     for (var i in renglones_productivos) {
         var aux = renglones_productivos[i];
         base[aux.id] = aux.descripcion;
     }
+
+    console.debug(base);
 
     var actividades = [
         "Promedio de activos por productor anual",
@@ -31,8 +35,6 @@
     ];
 
     var colores = ["#FF0F00", "#FF6600", "#FF9E01", "#FCD202", "#F8FF01", "#B0DE09", "#04D215", "#0D8ECF", "#0D52D1", "#2A0CD0", "#8A0CCF", "#CD0D74", "#754DEB", "#DDDDDD"];
-
-    var chart = null;
 
     AmCharts.ready(function() {
 
@@ -100,28 +102,26 @@
 
         ///recorro los nombres de las columnas
         for (var i in base) {
-
             var valor_base = base[i];
-
             var cell = '#' + actividad + '_' + i;
-
             var value_column = $(cell).text().split('.').join('');
             value_column = value_column.split(',').join('.')
-            console.debug(value_column);
-
             var obj = {base: valor_base, actividad: value_column, color: colores[i]}
-
             chartData.push(obj);
         }
+
+        console.debug(chartData);
 
         return chartData;
     }
 
     function refreshChart() {
+    console.debug("refreshChart");
         ///consulto cual actividad mostrar, en el select
         var actividad = $('#select_chart').val();
         chart.dataProvider = getChartData(actividad);
         chart.validateData();
+        chart.animateAgain()
     }
 
     $(document).ready(function() {
@@ -129,11 +129,45 @@
         
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
             chart.invalidateSize();
-            chart3.invalidateSize();
-        })
+        });
+        
+        var municipios = Array();
+        var municipios_aux = {{municipios|json_encode}};
+        for (var i in municipios_aux) {
+            var aux = municipios_aux[i];
+            municipios.push({id: aux.id, text: aux.nombre});
+        }
+
+        $('#minucipio').select2({
+            data: municipios,
+            multiple: true,
+            placeholder: "Todos los municipios..."
+        });
+        
+        $("#minucipio").change(function() {
+            refreshTable();
+        });
+        
+        refreshTable();
     });
 
-    </script>
+    function refreshTable() {
+
+        $.ajax({
+            url: url_tabla,
+            type: 'POST',
+            data: {
+                municipios: $("#minucipio").select2('data'),
+            },
+            success: function(data){
+                $('#tabla_estadisticas').html(data);
+                console.debug("refreshChart from ajax");
+                refreshChart();
+            }
+        });
+    }
+
+</script>
 
 
 
@@ -164,51 +198,27 @@
         <div id='' class="tab-content">
 
             <div class="tab-pane" id="tab_tabla">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th align="center">
-                                INDICADOR
-                            </th>
-                    {% for row in data %}
-                            <th align="center">
-                            {{row[0]}}
-                                </th>
-                    {% endfor %}                        
-                            </tr>
-                        </thead>
-                        <tbody>
-                {% for obj in renglones_productivos %}  
-                                <tr>
-                                    <td id="">{{obj.descripcion}}</td>
+                <div id="tabla_estadisticas" style="width: 100%; height: 600px;"></div>
+            </div>
 
-                    {% set i = 0 %}
-                    {% for row in data %}
-                                    <td id="{{i~'_'~obj.id}}" style="text-align: right">{{row[obj.id]}}</td>
-                        {% set i = i+1 %}
-                    {% endfor %}
-                                </tr>
-                {% endfor %}
-                            </tbody> 
-                        </table>
-
-                    </div>
-
-                    <div class="tab-pane active" id="tab_grafico">
-                        <div class="col-lg-12">
-                            <select id="select_chart" class="form-control" name="select_chart">
-                                <option value="0">1. Promedio de activos por productor anual</option>
-                                <option value="1">2. Promedio de ingresos por productor anual</option>
-                                <option value="2">3. Promedio de egresos por productor anual</option>
-                                <option value="3">4. Promedio de utilidad por productor anual</option>
-                            </select>
-                        </div>
-                        <br/>
-                        <div id="chartdiv" style="width: 100%; height: 600px;"></div>
-
-                    </div>
+            <div class="tab-pane active" id="tab_grafico">
+                <div class="col-lg-6">
+                    <select id="select_chart" class="form-control" name="select_chart">
+                        <option value="0">1. Promedio de activos por productor anual</option>
+                        <option value="1">2. Promedio de ingresos por productor anual</option>
+                        <option value="2">3. Promedio de egresos por productor anual</option>
+                        <option value="3">4. Promedio de utilidad por productor anual</option>
+                    </select>
                 </div>
+                <div class="col-lg-6">
+                    <input type="hidden" id="minucipio"/>
+                </div>
+                <br/>
+                <div id="chartdiv" style="width: 100%; height: 600px;"></div>
 
             </div>
+        </div>
+
+        </div>
 
 {% endblock %}
