@@ -14,6 +14,8 @@
 <script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
 
 <script type="text/javascript">
+    
+    var url_tabla = {{site_url('reportes/estilosaprendizaje/tabla')|json_encode}};
 
     var base = [];
     var category = [];
@@ -45,7 +47,8 @@
             backgroundColor: "#efefef",
             menuItemStyle: {
                 backgroundColor: '#EFEFEF',
-                rollOverBackgroundColor: '#DDDDDD'},
+                rollOverBackgroundColor: '#DDDDDD'
+            },
             menuItems: [{
                     textAlign: 'center',
                     icon: "{{ base_url('assets/amcharts/images/export.png') }}",
@@ -119,13 +122,69 @@
     }
 
     $(document).ready(function() {
+        
+        var renglones_productivos = Array();
+        var renglones_productivos_aux = {{renglonesProductivos|json_encode}}
+        for (var i in renglones_productivos_aux) {
+            var aux = renglones_productivos_aux[i];
+            var aux = renglones_productivos_aux[i];
+            renglones_productivos.push({id: aux.id, text: aux.descripcion});
+        }
+
+        var municipios = Array();
+        var municipios_aux = {{municipios|json_encode}}
+        for (var i in municipios_aux) {
+            var aux = municipios_aux[i];
+            municipios.push({id: aux.id, text: aux.nombre});
+        }
+
+        $('#renglon_productivo').select2({
+            data: renglones_productivos,
+            multiple: true,
+            placeholder: "Todos los renglones...",
+            initSelection: function(element, callback) {
+                callback({id: renglones_productivos[0].id, text: renglones_productivos[0].text });
+            }
+        });
+
+        $('#minucipio').select2({
+            data: municipios,
+            multiple: true,
+            placeholder: "Todos los municipios..."
+        });
+        
         $('#select_chart').change(refreshChart);
         
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
             chart.invalidateSize();
-            chart3.invalidateSize();
         })
+        
+        $("#renglon_productivo, #minucipio").change(function() {
+            refreshTable();
+        });
+        
+        refreshTable();
     });
+    
+    function refreshTable() {
+
+        $("#error").remove();
+
+        $.ajax({
+            url: url_tabla,
+            type: 'POST',
+            data: {
+                municipios: $("#minucipio").select2('data'),
+                renglon_productivo: $("#renglon_productivo").select2('data')
+            },
+            success: function(data){
+                $('#tab_tabla').html(data);
+                refreshChart();
+            }
+        });
+            
+        
+    }
 
     </script>
 
@@ -158,45 +217,23 @@
 
             <div id='' class="tab-content">
 
-                <div class="tab-pane" id="tab_tabla">
-
-                    <table class="table table-bordered">
-                        <thead style="vertical-align:text-top;">
-                            <tr class="center">
-                                <th>Pregunta</th>
-
-                                {% for respuesta in respuestas %}
-                                <th>{{ respuesta.descripcion }}</th>
-                                {% endfor %}
-
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                {% set contador = 0 %}
-                                {% for pregunta in preguntas %}
-
-                                    {% set clase_pregunta = 0 %}
-                                <tr>
-                                    <td style="text-align: left">{{ pregunta.descripcion }}</td>
-
-                                    {% for respuesta in respuestas %}                                
-                                    <td id="{{contador~"_"~clase_pregunta}}"  style="text-align: right">
-                                            {{ matriz_promedios[contador][clase_pregunta] | number_format(0, ',', '.')}}
-                                        </td>
-                                        {% set clase_pregunta = clase_pregunta+1 %}
-                                    {% endfor %}
-                                    </tr>
-                                    {% set contador  = contador+1 %}
-
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="tab-pane" id="tab_tabla">                    
+                </div>
 
 
                         <div class="tab-pane active" id="tab_grafico">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="renglon_productivo" class="col-lg-12" style="text-align: center;" >Renglón productivo</label>
+                                    <input type="hidden" id="renglon_productivo"/>                                    
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="minucipio" class="col-lg-12" style="text-align: center;" >Municipio</label>
+                                    <input type="hidden" id="minucipio"/>                                    
+                                </div>
+                            </div>
                             <div class="col-lg-12">
+                                <label for="minucipio" class="col-lg-12" style="text-align: center;" >Pregunta</label>
                                 <select id="select_chart" class="form-control" name="select_chart">
                                     {% set contador = 0 %}
                                     {% for pregunta in preguntas %}
