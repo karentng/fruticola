@@ -25,8 +25,6 @@
         base[aux.id] = aux.descripcion;
     }
 
-    console.debug(base);
-
     var actividades = [
         "Promedio de activos por productor anual",
         "Promedio de ingresos por productor anual",
@@ -74,6 +72,9 @@
         chart.dataProvider = chartData;
         chart.categoryField = "base";
         chart.exportConfig = exportConfig;
+        chart.sequencedAnimation = true;
+        chart.startEffect = "elastic";
+        chart.startDuration = 2;        
 
         var graph = new AmCharts.AmGraph();
         graph.valueField = 'actividad';
@@ -110,13 +111,10 @@
             chartData.push(obj);
         }
 
-        console.debug(chartData);
-
         return chartData;
     }
 
     function refreshChart() {
-    console.debug("refreshChart");
         ///consulto cual actividad mostrar, en el select
         var actividad = $('#select_chart').val();
         chart.dataProvider = getChartData(actividad);
@@ -161,7 +159,6 @@
             },
             success: function(data){
                 $('#tabla_estadisticas').html(data);
-                console.debug("refreshChart from ajax");
                 refreshChart();
             }
         });

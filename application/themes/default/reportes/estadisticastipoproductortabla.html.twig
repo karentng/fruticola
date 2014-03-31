@@ -1,0 +1,29 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th align="center">
+                INDICADOR
+            </th>
+            
+            {% for row in data %}
+                <th align="center">
+                    {{row[0]}}
+                </th>
+            {% endfor %}                        
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for obj in renglones_productivos %}  
+            <tr>
+                <td id="">{{obj.descripcion}}</td>
+
+                {% set i = 0 %}
+                {% for row in data %}
+                    <td id="{{i~'_'~obj.id}}" style="text-align: right">{{row[obj.id]}}</td>
+                    {% set i = i+1 %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody> 
+</table>

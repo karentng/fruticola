@@ -5,7 +5,7 @@ class Suelos extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        check_profile(array("Administrador", "Coordinador"));
+        //check_profile(array("Administrador", "Coordinador"));
     }
 
 
@@ -199,5 +199,11 @@ class Suelos extends CI_Controller {
         RuatEstudioSuelo::delete_all(array('conditions' => array('estudio_id = ?  AND  ruat_id = ?', $estudio_id, $ruat_id)));
         $this->session->set_flashdata("notif", array('type' => 'info', 'text' => 'Asociación removida'));
         redirect("suelos/asociar/$estudio_id");
+    }
+    
+    public function imprimible()
+    {
+        $this->twiggy->template("suelos/suelos_imprimible");
+        $this->twiggy->display();
     }
 }
