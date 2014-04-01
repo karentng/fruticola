@@ -201,8 +201,19 @@ class Suelos extends CI_Controller {
         redirect("suelos/asociar/$estudio_id");
     }
     
-    public function imprimible()
+    public function imprimible($estudio_id)
     {
+        if(!$estudio_id) show_404();
+        
+        $estudio = EstudioSuelo::find_by_id($estudio_id);
+        if(!$estudio) show_404();
+        
+        $this->twiggy->set("estudio", $estudio);
+        $this->twiggy->set("departamento", $estudio->municipio->departamento);
+        $this->twiggy->set("municipio", $estudio->municipio);
+        
+//        var_dump($estudio->municipio->departamento->nombre);
+        
         $this->twiggy->template("suelos/suelos_imprimible");
         $this->twiggy->display();
     }
