@@ -1,8 +1,88 @@
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+        
+        <script src="{{ base_url('assets/js/jquery.min.js') }}"></script>  
+        
+        <script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
+        <script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
+
+        <script src="{{ base_url('assets/amcharts/exporting/amexport.js') }}" type="text/javascript"></script>
+        <script src="{{ base_url('assets/amcharts/exporting/rgbcolor.js') }}" type="text/javascript"></script>
+        <script src="{{ base_url('assets/amcharts/exporting/canvg.js') }}" type="text/javascript"></script>
+        <script src="{{ base_url('assets/amcharts/exporting/jspdf.js') }}" type="text/javascript"></script>
+        <script src="{{ base_url('assets/amcharts/exporting/filesaver.js') }}" type="text/javascript"></script>
+        <script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
         <title></title>
+
+        <script>
+            $(function() {
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                    chart.invalidateSize();
+                    chart.animateAgain();
+                })
+            });
+            
+            var chart = null;
+            var base = ['Mo', 'P', 'S', 'Ca', 'Mg', 'K', 'Fe', 'Mn', 'Zn', 'Cu', 'B'];
+            var colores = ["#FF0F00", "#FF6600", "#FF9E01", "#FCD202", "#F8FF01", "#B0DE09", "#04D215", "#0D8ECF", "#0D52D1", "#2A0CD0", "#8A0CCF", "#CD0D74", "#754DEB", "#DDDDDD"];
+
+            AmCharts.ready(function() {
+
+                /// CHART 1
+                var chartData = getChartData();
+                console.log(chartData)
+
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData;
+                chart.categoryField = "name";
+
+
+                var graph = new AmCharts.AmGraph();
+                graph.valueField = 'valor';
+                graph.colorField = "color";
+                graph.type = "column";
+                graph.fillAlphas = 0.8;
+                graph.title = 'Nivel de los Elementos';
+                graph.balloonText = "[[category]]:<b>[[value]]</b>";
+                chart.addGraph(graph);
+
+                chart.angle = 30;
+                chart.depth3D = 15;
+
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.autoGridCount = false;
+                categoryAxis.gridCount = chartData.length;
+                categoryAxis.gridPosition = "start";
+
+                chart.write('chartdiv');
+
+            });
+
+            function getChartData() {
+
+                var chartData = [];
+
+                ///recorro los nombres de las columnas
+                for (var i in base) {
+                    var valor_base = base[i];
+                    var input = '#grafica_data_' + valor_base;
+                    var obj = {
+                        base: valor_base,
+                        valor: parseFloat($(input).html()),
+                        name: valor_base,
+                        color: colores[i],
+                    }
+
+                    chartData.push(obj);
+                }
+
+                //console.log(chartData);
+                return chartData;
+            }
+        </script>
     </head>
     <body style=" font-family: 'calibri-italic',serif; font-size: 11px; width: 1219px;">
         <div style="position:absolute;left:50%;margin-left:-305px;top:0px;width:611px;border-style:outset;overflow:hidden">
@@ -174,7 +254,7 @@
                         <td>%</td>
                         <td>Walkey & Black<br>
                         </td>
-                        <td>{{estudio.materia_organica|number_format(2)}}<br>
+                        <td id="grafica_data_Mo">{{estudio.materia_organica|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -185,7 +265,7 @@
                         <td>mg/kg</td>
                         <td>Bray II<br>
                         </td>
-                        <td>{{estudio.fosforo|number_format(2)}}<br>
+                        <td id="grafica_data_P">{{estudio.fosforo|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -196,7 +276,7 @@
                         <td>mg/kg</td>
                         <td>Fosfato monobasico de calcio<br>
                         </td>
-                        <td>{{estudio.azufre|number_format(2)}}<br>
+                        <td id="grafica_data_S">{{estudio.azufre|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -229,7 +309,7 @@
                         <td>cmol/kg</td>
                         <td>Acetato de amonio 1N pH 7,0<br>
                         </td>
-                        <td>{{estudio.calcio|number_format(2)}}<br>
+                        <td id="grafica_data_Ca">{{estudio.calcio|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -240,7 +320,7 @@
                         <td>cmol/kg</td>
                         <td>Acetato de amonio 1N pH 7,0<br>
                         </td>
-                        <td>{{estudio.magnesio|number_format(2)}}<br>
+                        <td id="grafica_data_Mg">{{estudio.magnesio|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -251,7 +331,7 @@
                         <td>cmol/kg</td>
                         <td>Acetato de amonio 1N pH 7,0<br>
                         </td>
-                        <td>{{estudio.potasio|number_format(2)}}<br>
+                        <td id="grafica_data_K">{{estudio.potasio|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -284,7 +364,7 @@
                         <td>mg/kg</td>
                         <td>Olsen modificado<br>
                         </td>
-                        <td>{{estudio.hierro|number_format(2)}}<br>
+                        <td id="grafica_data_Fe">{{estudio.hierro|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -295,7 +375,7 @@
                         <td>mg/kg</td>
                         <td>Olsen modificado<br>
                         </td>
-                        <td>{{estudio.manganeso|number_format(2)}}<br>
+                        <td id="grafica_data_Mn">{{estudio.manganeso|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -306,7 +386,7 @@
                         <td>mg/kg</td>
                         <td>Olsen modificado<br>
                         </td>
-                        <td>{{estudio.zinc|number_format(2)}}<br>
+                        <td id="grafica_data_Zn">{{estudio.zinc|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -317,7 +397,7 @@
                         <td>mg/kg</td>
                         <td>Olsen modificado<br>
                         </td>
-                        <td>{{estudio.cobre|number_format(2)}}<br>
+                        <td id="grafica_data_Cu">{{estudio.cobre|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -329,7 +409,7 @@
                         <td style="text-align: center;">mg/kg</td>
                         <td style="text-align: center;">Fosfato monobasico de calcio<br>
                         </td>
-                        <td style="text-align: center;">{{estudio.boro|number_format(2)}}<br>
+                        <td style="text-align: center;" id="grafica_data_B">{{estudio.boro|number_format(2)}}<br>
                         </td>
                         <td><br>
                         </td>
@@ -420,6 +500,8 @@
                     </tbody>
                 </table>
             </div>
+            
+            <div id="chartdiv" style="width: 100%; height: 300px;"></div>
         </div>
     </body>
 </html>
