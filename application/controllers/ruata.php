@@ -10,7 +10,7 @@ class RuatA extends CI_Controller {
 
     public function index($ruat_id=NULL)
     {
-        if (!$ruat_id) check_profile(array("Administrador", "Coordinador", "Digitador"));        
+        if($ruat_id && !Ruat::puedeCrear()) show_error("Acceso no permitido");
         
 
         function to_array($model) { return $model->to_array(); }

@@ -41,8 +41,10 @@
 <div class="container">
     <div class="stats-buttons btn-group">
         <ul class="list-unstyled">
-        {% if not is_profile("Digitador") %}
+        {% if not is_profile("Digitador") or current_user('id') in [8,11,9,5,14,6,13,18]  %}
             {{tb.boton('reportes/formularios','Formularios', 'Reporte de Formularios','i-clipboard', 'yellow')}}
+        {% endif %}
+        {% if not is_profile("Digitador") %}
             {{tb.boton('planvisitas','Plan Visitas', 'Plan de Visitas','i-map', 'gray')}}
             {{tb.boton('reportes/metascomplementarias','Metas', 'Metas Complementarias', ' i-racing', 'green')}}
         {% endif %}

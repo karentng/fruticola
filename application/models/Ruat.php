@@ -89,4 +89,9 @@ class Ruat extends MyModel
         if($this->productor->economia) $this->productor->economia->delete();
         $this->productor->delete();
     }
+
+    public static function puedeCrear() {
+        $userid = current_user('id');
+        return check_profile(array("Administrador","Coordinador"), false) || $userid==198 || $userid==199;
+    }
 }

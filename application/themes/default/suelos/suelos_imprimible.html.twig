@@ -54,8 +54,8 @@
                 graph.balloonText = "[[category]]:<b>[[value]]</b>";
                 chart.addGraph(graph);
 
-                chart.angle = 30;
-                chart.depth3D = 15;
+{#                chart.angle = 30;#}
+{#                chart.depth3D = 15;#}
 
                 var categoryAxis = chart.categoryAxis;
                 categoryAxis.autoGridCount = false;
@@ -95,7 +95,13 @@
 
             <input type="button" style="font-size: 18pt; display: block; margin-left: auto; margin-right: auto;" class="noprint" value="Imprimir" onclick="window.print()"/>
             <h2 style="text-align: center;">PLAN FRUTÍCOLA DEL VALLE DEL CAUCA</h2>
-           
+
+
+            <div style="float:left; width:100%; display: block; text-align:center;">
+                <br/><h3>VINCULACIÓN DE CONOCIMIENTO Y TECNOLOGÍA<br/>
+                REPORTE DE RESULTADOS LABORATORIO DE SERVICIOS</h3>
+            </div><br/>
+
             <div style="float:left; width:44%;">
                 <table style="width: 100%;" >
                     <tbody>
@@ -214,316 +220,340 @@
                  <table style="width: 100%;" >
                     <tbody>
                         <tr>
-                            <td valign="middle"><img src="{{base_url('assets/images/logos-imprimir.png')}}" height="80"></td>
+                            <td valign="middle">
+                                <img src="{{base_url('assets/images/logos-imprimir.png')}}" height="80">
+                            </td>
                         </tr>
+                        <tr>
+                            <td valign="middle" style="text-align: center;">
+                                <br/><b>Yeni Rodriguez Giraldo. (E6968)</b><br/>Lider Unidad de Laboratorio de Suelos
+                            </td>
+                        </tr>                        
                     </tbody>
                 </table>               
             </div>
 
-            <table style="width: 100%; text-align: left; margin-left: auto; margin-right: auto;" >
-                <tbody>
-                    <tr align="center">
-                        <td style="background-color: #00004f; width: 230.367px;"><span style="color: white;">DETERMINACION
-                                ANALÍTICA<br>
-                            </span></td>
-                        <td style="background-color: #00004f; width: 51.55px;"><span style="color: white;">UNIDAD<br>
-                            </span></td>
-                        <td style="background-color: #00004f; width: 126.417px;"><span style="color: white;">MÉTODO<br>
-                            </span></td>
-                        <td style="background-color: #00004f; width: 63.95px;"><span style="color: white;">VALOR*<br>
-                            </span></td>
-                        <td style="background-color: #00004f; width: 120.883px;"><span style="color: white;">INTERPRETACIÓN*<br>
-                            </span></td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Textura al tacto <br>
-                            </span></td>
-                        <td><br>
-                        </td>
-                        <td>Organoléptico<br>
-                        </td>
-                        <td>{{estudio.textura_tacto}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">pH<br>
-                            </span></td>
-                        <td><br>
-                        </td>
-                        <td>Potenciométrico<br>
-                        </td>
-                        <td>{{estudio.ph_agua_suelo|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Conductividad eléctrica<br>
-                            </span></td>
-                        <td>dS/m</td>
-                        <td>Conductivimetro suelo:agua 1:2,5<br>
-                        </td>
-                        <td>{{estudio.conductividad_electrica|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Materia orgánica (MO)<br>
-                            </span></td>
-                        <td>%</td>
-                        <td>Walkey & Black<br>
-                        </td>
-                        <td id="grafica_data_Mo">{{estudio.materia_organica|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Fósforo disponible (P) Bray II<br>
-                            </span></td>
-                        <td>mg/kg</td>
-                        <td>Bray II<br>
-                        </td>
-                        <td id="grafica_data_P">{{estudio.fosforo|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Azufre disponible (S)<br>
-                            </span></td>
-                        <td>mg/kg</td>
-                        <td>Fosfato monobasico de calcio<br>
-                        </td>
-                        <td id="grafica_data_S">{{estudio.azufre|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Acidez intercambiable (Al+H)<br>
-                            </span></td>
-                        <td>cmol/kg</td>
-                        <td>KCl<br>
-                        </td>
-                        <td>{{estudio.acidez|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Aluminio intercambiable (Al)<br>
-                            </span></td>
-                        <td>cmol/kg</td>
-                        <td>KCl<br>
-                        </td>
-                        <td>{{estudio.aluminio|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Calcio intercambiable (Ca)<br>
-                            </span></td>
-                        <td>cmol/kg</td>
-                        <td>Acetato de amonio 1N pH 7,0<br>
-                        </td>
-                        <td id="grafica_data_Ca">{{estudio.calcio|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Magnesio Intercambiable (Mg)<br>
-                            </span></td>
-                        <td>cmol/kg</td>
-                        <td>Acetato de amonio 1N pH 7,0<br>
-                        </td>
-                        <td id="grafica_data_Mg">{{estudio.magnesio|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Potasio intercambiable (K)<br>
-                            </span></td>
-                        <td>cmol/kg</td>
-                        <td>Acetato de amonio 1N pH 7,0<br>
-                        </td>
-                        <td id="grafica_data_K">{{estudio.potasio|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Sodio intercambiable (Na)<br>
-                            </span></td>
-                        <td>cmol/kg</td>
-                        <td>Acetato de amonio 1N pH 7,0<br>
-                        </td>
-                        <td>{{estudio.sodio|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Capacidad intercambio cationico
-                                (CICE)</span></td>
-                        <td style="margin-left: 10px;">cmol/kg</td>
-                        <td style="margin-left: 20px;">Suma de cationes<br>
-                        </td>
-                        <td>{{estudio.cice|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Hierro disponible (Fe) Olsen<br>
-                            </span></td>
-                        <td>mg/kg</td>
-                        <td>Olsen modificado<br>
-                        </td>
-                        <td id="grafica_data_Fe">{{estudio.hierro|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Manganeso disponible (Mn) Olsen<br>
-                            </span></td>
-                        <td>mg/kg</td>
-                        <td>Olsen modificado<br>
-                        </td>
-                        <td id="grafica_data_Mn">{{estudio.manganeso|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Zinc disponible (Zn) Olsen<br>
-                            </span></td>
-                        <td>mg/kg</td>
-                        <td>Olsen modificado<br>
-                        </td>
-                        <td id="grafica_data_Zn">{{estudio.zinc|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td><span style="font-weight: bold;">Cobre disponible (Cu) Olsen<br>
-                            </span></td>
-                        <td>mg/kg</td>
-                        <td>Olsen modificado<br>
-                        </td>
-                        <td id="grafica_data_Cu">{{estudio.cobre|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;"><span style="font-weight: bold;">Boro
-                                disponible (B)<br>
-                            </span></td>
-                        <td style="text-align: center;">mg/kg</td>
-                        <td style="text-align: center;">Fosfato monobasico de calcio<br>
-                        </td>
-                        <td style="text-align: center;" id="grafica_data_B">{{estudio.boro|number_format(2)}}<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <div style="float:left; width:42%;">
-                <table style="width: 254px; left: 0px;" >
+            <div style="width: 99%; border: 1px solid;" >            
+
+                <table style="width: 100%; text-align: left; margin-left: auto; margin-right: auto;" >
                     <tbody>
                         <tr align="center">
-                            <td style="height: 12px;" colspan="3" rowspan="1">SATURACION DE
-                                BASES</td>
+                            <td style="background-color: #00004f; width: 230.367px;"><span style="color: white;">DETERMINACION
+                                    ANALÍTICA<br>
+                                </span></td>
+                            <td style="background-color: #00004f; width: 51.55px;"><span style="color: white;">UNIDAD<br>
+                                </span></td>
+                            <td style="background-color: #00004f; width: 126.417px;"><span style="color: white;">MÉTODO<br>
+                                </span></td>
+                            <td style="background-color: #00004f; width: 63.95px;"><span style="color: white;">VALOR*<br>
+                                </span></td>
+                            <td style="background-color: #00004f; width: 120.883px;"><span style="color: white;">INTERPRETACIÓN*<br>
+                                </span></td>
                         </tr>
-                        <tr>
-                            <td style="text-align: center; height: 12px;">Saturacion de Calcio</td>
-                            <td style="text-align: center;"><br>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Textura al tacto <br>
+                                </span></td>
+                            <td><br>
                             </td>
-                            <td style="text-align: center;"><br>
+                            <td>Organoléptico<br>
                             </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; width: 147px; height: 11px;">Saturacion
-                                de Magnesio</td>
-                            <td style="text-align: center; width: 46.1px;"><br>
+                            <td>{{estudio.textura_tacto}}<br>
                             </td>
-                            <td style="text-align: center; width: 41px;"><br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; height: 12px;">Saturacion de
-                                Potasio</td>
-                            <td style="text-align: center;"><br>
-                            </td>
-                            <td style="text-align: center;"><br>
+                            <td><br>
                             </td>
                         </tr>
-                        <tr>
-                            <td style="text-align: center; height: 12px;">Saturacion de Sodio</td>
-                            <td style="text-align: center;"><br>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">pH<br>
+                                </span></td>
+                            <td><br>
                             </td>
-                            <td style="text-align: center;"><br>
+                            <td>Potenciométrico<br>
+                            </td>
+                            <td>{{estudio.ph_agua_suelo|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Conductividad eléctrica<br>
+                                </span></td>
+                            <td>dS/m</td>
+                            <td>Conductivimetro suelo:agua 1:2,5<br>
+                            </td>
+                            <td>{{estudio.conductividad_electrica|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Materia orgánica (MO)<br>
+                                </span></td>
+                            <td>%</td>
+                            <td>Walkey & Black<br>
+                            </td>
+                            <td id="grafica_data_Mo">{{estudio.materia_organica|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Fósforo disponible (P) Bray II<br>
+                                </span></td>
+                            <td>mg/kg</td>
+                            <td>Bray II<br>
+                            </td>
+                            <td id="grafica_data_P">{{estudio.fosforo|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Azufre disponible (S)<br>
+                                </span></td>
+                            <td>mg/kg</td>
+                            <td>Fosfato monobasico de calcio<br>
+                            </td>
+                            <td id="grafica_data_S">{{estudio.azufre|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Acidez intercambiable (Al+H)<br>
+                                </span></td>
+                            <td>cmol/kg</td>
+                            <td>KCl<br>
+                            </td>
+                            <td>{{estudio.acidez|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Aluminio intercambiable (Al)<br>
+                                </span></td>
+                            <td>cmol/kg</td>
+                            <td>KCl<br>
+                            </td>
+                            <td>{{estudio.aluminio|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Calcio intercambiable (Ca)<br>
+                                </span></td>
+                            <td>cmol/kg</td>
+                            <td>Acetato de amonio 1N pH 7,0<br>
+                            </td>
+                            <td id="grafica_data_Ca">{{estudio.calcio|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Magnesio Intercambiable (Mg)<br>
+                                </span></td>
+                            <td>cmol/kg</td>
+                            <td>Acetato de amonio 1N pH 7,0<br>
+                            </td>
+                            <td id="grafica_data_Mg">{{estudio.magnesio|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Potasio intercambiable (K)<br>
+                                </span></td>
+                            <td>cmol/kg</td>
+                            <td>Acetato de amonio 1N pH 7,0<br>
+                            </td>
+                            <td id="grafica_data_K">{{estudio.potasio|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Sodio intercambiable (Na)<br>
+                                </span></td>
+                            <td>cmol/kg</td>
+                            <td>Acetato de amonio 1N pH 7,0<br>
+                            </td>
+                            <td>{{estudio.sodio|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Capacidad intercambio cationico
+                                    (CICE)</span></td>
+                            <td style="margin-left: 10px;">cmol/kg</td>
+                            <td style="margin-left: 20px;">Suma de cationes<br>
+                            </td>
+                            <td>{{estudio.cice|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Hierro disponible (Fe) Olsen<br>
+                                </span></td>
+                            <td>mg/kg</td>
+                            <td>Olsen modificado<br>
+                            </td>
+                            <td id="grafica_data_Fe">{{estudio.hierro|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Manganeso disponible (Mn) Olsen<br>
+                                </span></td>
+                            <td>mg/kg</td>
+                            <td>Olsen modificado<br>
+                            </td>
+                            <td id="grafica_data_Mn">{{estudio.manganeso|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Zinc disponible (Zn) Olsen<br>
+                                </span></td>
+                            <td>mg/kg</td>
+                            <td>Olsen modificado<br>
+                            </td>
+                            <td id="grafica_data_Zn">{{estudio.zinc|number_format(2)}}<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><span style="font-weight: bold;">Cobre disponible (Cu) Olsen<br>
+                                </span></td>
+                            <td>mg/kg</td>
+                            <td>Olsen modificado<br>
+                            </td>
+                            <td id="grafica_data_Cu">{{estudio.cobre|number_format(2)}}<br>
+                            </td>
+                            <td><br>
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;">Saturacion de Aluminio</td>
-                            <td style="text-align: center;"><br>
+                            <td style="text-align: center;"><span style="font-weight: bold;">Boro
+                                    disponible (B)<br>
+                                </span></td>
+                            <td style="text-align: center;">mg/kg</td>
+                            <td style="text-align: center;">Fosfato monobasico de calcio<br>
                             </td>
-                            <td style="text-align: center;"><br>
+                            <td style="text-align: center;" id="grafica_data_B">{{estudio.boro|number_format(2)}}<br>
+                            </td>
+                            <td><br>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <table style="width: 254px; left: 0px;" >
+            </div>
+            <br>
+
+            <div style="float:left; width:41.5%;">
+                <table style="width: 254px; left: 0px; border: solid 1px;" >
                     <tbody>
                         <tr align="center">
-                            <td style="height: 12px;" colspan="3" rowspan="1">RELACIONES IÓNICAS</td>
+                            <td style="background-color: #00004f; height: 12px;" colspan="3" rowspan="1">
+                                <span style="color: white;">
+                                    SATURACION DE BASES
+                                </span>
+                            </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; width: 156.034px; height: 12px;">Relacion
+                            <td style="text-align: ; height: 12px;">Saturacion de Calcio</td>
+                            <td style="text-align: ;"><br>
+                            </td>
+                            <td style="text-align: ;"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: ; width: 147px; height: 11px;">Saturacion
+                                de Magnesio</td>
+                            <td style="text-align: ; width: 46.1px;"><br>
+                            </td>
+                            <td style="text-align: ; width: 41px;"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: ; height: 12px;">Saturacion de
+                                Potasio</td>
+                            <td style="text-align: ;"><br>
+                            </td>
+                            <td style="text-align: ;"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: ; height: 12px;">Saturacion de Sodio</td>
+                            <td style="text-align: ;"><br>
+                            </td>
+                            <td style="text-align: ;"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: ;">Saturacion de Aluminio</td>
+                            <td style="text-align: ;"><br>
+                            </td>
+                            <td style="text-align: ;"><br>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="width: 254px; left: 0px; border: solid 1px;" >
+                    <tbody>
+                        <tr align="center">
+                            <td style="background-color: #00004f; height: 12px;" colspan="3" rowspan="1">
+                                <span style="color: white;">
+                                    RELACIONES IÓNICAS
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: ; width: 156.034px; height: 12px;">Relacion
                                 Ca/Mg</td>
-                            <td style="text-align: center; width: 53.35px;"><br>
+                            <td style="text-align: ; width: 53.35px;"><br>
                             </td>
-                            <td style="text-align: center; width: 48.1833px;"><br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; height: 12px;">Relacion (ca+Mg)/K</td>
-                            <td style="text-align: center;"><br>
-                            </td>
-                            <td style="text-align: center;"><br>
+                            <td style="text-align: ; width: 48.1833px;"><br>
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; height: 12px;">Relacion Mg/K</td>
-                            <td style="text-align: center;"><br>
+                            <td style="text-align: ; height: 12px;">Relacion (ca+Mg)/K</td>
+                            <td style="text-align: ;"><br>
                             </td>
-                            <td style="text-align: center;"><br>
+                            <td style="text-align: ;"><br>
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;">Relacion Ca/B</td>
-                            <td style="text-align: center;"><br>
+                            <td style="text-align: ; height: 12px;">Relacion Mg/K</td>
+                            <td style="text-align: ;"><br>
                             </td>
-                            <td style="text-align: center;"><br>
+                            <td style="text-align: ;"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: ;">Relacion Ca/B</td>
+                            <td style="text-align: ;"><br>
+                            </td>
+                            <td style="text-align: ;"><br>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             
-            <div id="chartdiv" style="float:left; width:58%; height: 214px;"></div>
+            <div id="chartdiv" style="float:left; width:57.5%; height: 215px; border: 1px solid;"></div>
+
+            <div style="width: 99%; border: 1px solid;" >            
+                OBSERVACIONES: * interpretacion basada en: ICA,1992. Fertilización en diversos cultivos. Quinta aproximación. Manual de asistencia 
+            </div>
+            <br/>
+            
         </div>
     </body>
 </html>
