@@ -3,7 +3,8 @@
 <html>
     <head>
         <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-        
+        <title>Imprimir Reporte Suelos</title>
+
         <script src="{{ base_url('assets/js/jquery.min.js') }}"></script>  
         
         <script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
@@ -16,6 +17,10 @@
         <script src="{{ base_url('assets/amcharts/exporting/filesaver.js') }}" type="text/javascript"></script>
         <script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
         <title></title>
+
+        <style type="text/css" media="print">
+            .noprint { display: none; }
+        </style>
 
         <script>
             $(function() {
@@ -84,121 +89,138 @@
             }
         </script>
     </head>
-    <body style=" font-family: 'calibri-italic',serif; font-size: 11px; width: 1219px;">
-        <div style="position:absolute;left:50%;margin-left:-305px;top:0px;width:611px;border-style:outset;overflow:hidden">
-            <table style="width: 100%;" border="1">
-                <tbody>
-                    <tr>
-                        <td colspan="2" rowspan="1"><span style="font-weight: bold;">1.
-                                Informacion del cliente</span></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 174.8px;">Nombre y Apellido</td>
-                        <td style="width: 1016.2px;">{{estudio.nombre_usuario}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Cédula o NIT</td>
-                        <td>{{estudio.cedula}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>CODIFO DE LABORATORIO</td>
-                        <td>{{estudio.codigo_laboratorio}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Dirección</td>
-                        <td>{{estudio.direccion}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Departamento</td>
-                        <td>{{departamento.nombre}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Municipio</td>
-                        <td>{{municipio.nombre}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Tel. fijo/Celular</td>
-                        <td>{{estudio.telefono}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Tipo de análisis</td>
-                        <td><br>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <table style="width: 100%" border="1">
-                <tbody>
-                    <tr>
-                        <td colspan="2" rowspan="1">
-                            <span style="font-weight: bold;">
-                                <span class="cls_021">2.
-                                    Informacion de la muestra
-                                </span>                                    
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 174.8px;">Identificación</td>
-                        <td style="width: 1016.2px;">{{estudio.identificacion_muestra}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Vereda</td>
-                        <td>{{estudio.vereda}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Finca</td>
-                        <td>{{estudio.finca}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Cultivo</td>
-                        <td>{{estudio.cultivo}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Altura</td>
-                        <td>{{estudio.altura}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Estado<br>
-                        </td>
-                        <td>{{estudio.estado}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Fecha de Recepción<br>
-                        </td>
-                        <td>{{estudio.fecha_llegada|date('Y-m-d')}}<br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Fecha(s) de Análisis<br>
-                        </td>
-                        <td><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Fecha de Reporte<br>
-                        </td>
-                        <td>{{estudio.fecha_entrega|date('Y-m-d')}}<br>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <table style="width: 100%; text-align: left; margin-left: auto; margin-right: auto;" border="1">
+    <body style="font-family: Sans-serif; font-size: 10pt;width: 1219px;">
+       
+        <div style="position:absolute;left:50%;margin-left:-305px;top:0px;width:611px;overflow:hidden">
+
+            <input type="button" style="font-size: 18pt; display: block; margin-left: auto; margin-right: auto;" class="noprint" value="Imprimir" onclick="window.print()"/>
+            <h2 style="text-align: center;">PLAN FRUTÍCOLA DEL VALLE DEL CAUCA</h2>
+           
+            <div style="float:left; width:44%;">
+                <table style="width: 100%;" >
+                    <tbody>
+                        <tr>
+                            <td colspan="2" rowspan="1"><span style="font-weight: bold;">1.
+                                    Informacion del cliente</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 174.8px;">Nombre y Apellido</td>
+                            <td style="width: 1016.2px;">{{estudio.nombre_usuario}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Cédula o NIT</td>
+                            <td>{{estudio.cedula}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CODIFO DE LABORATORIO</td>
+                            <td>{{estudio.codigo_laboratorio}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Dirección</td>
+                            <td>{{estudio.direccion}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Departamento</td>
+                            <td>{{departamento.nombre}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Municipio</td>
+                            <td>{{municipio.nombre}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tel. fijo/Celular</td>
+                            <td>{{estudio.telefono}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tipo de análisis</td>
+                            <td><br>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <table style="width: 100%" >
+                    <tbody>
+                        <tr>
+                            <td colspan="2" rowspan="1">
+                                <span style="font-weight: bold;">
+                                    <span class="cls_021">2.
+                                        Informacion de la muestra
+                                    </span>                                    
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 174.8px;">Identificación</td>
+                            <td style="width: 1016.2px;">{{estudio.identificacion_muestra}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Vereda</td>
+                            <td>{{estudio.vereda}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Finca</td>
+                            <td>{{estudio.finca}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Cultivo</td>
+                            <td>{{estudio.cultivo}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Altura</td>
+                            <td>{{estudio.altura}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Estado<br>
+                            </td>
+                            <td>{{estudio.estado}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fecha de Recepción<br>
+                            </td>
+                            <td>{{estudio.fecha_llegada|date('Y-m-d')}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fecha(s) de Análisis<br>
+                            </td>
+                            <td><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fecha de Reporte<br>
+                            </td>
+                            <td>{{estudio.fecha_entrega|date('Y-m-d')}}<br>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+            </div>
+            <div style="float:left; width:56%;">
+                 <table style="width: 100%;" >
+                    <tbody>
+                        <tr>
+                            <td valign="middle"><img src="{{base_url('assets/images/logos-imprimir.png')}}" height="80"></td>
+                        </tr>
+                    </tbody>
+                </table>               
+            </div>
+
+            <table style="width: 100%; text-align: left; margin-left: auto; margin-right: auto;" >
                 <tbody>
                     <tr align="center">
                         <td style="background-color: #00004f; width: 230.367px;"><span style="color: white;">DETERMINACION
@@ -417,8 +439,8 @@
                 </tbody>
             </table>
             <br>
-            <div style="float:left;">
-                <table style="width: 254px; left: 0px;" border="1">
+            <div style="float:left; width:42%;">
+                <table style="width: 254px; left: 0px;" >
                     <tbody>
                         <tr align="center">
                             <td style="height: 12px;" colspan="3" rowspan="1">SATURACION DE
@@ -463,7 +485,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <table style="width: 254px; left: 0px;" border="1">
+                <table style="width: 254px; left: 0px;" >
                     <tbody>
                         <tr align="center">
                             <td style="height: 12px;" colspan="3" rowspan="1">RELACIONES IÓNICAS</td>
@@ -501,7 +523,7 @@
                 </table>
             </div>
             
-            <div id="chartdiv" style="width: 100%; height: 300px;"></div>
+            <div id="chartdiv" style="float:left; width:58%; height: 214px;"></div>
         </div>
     </body>
 </html>
