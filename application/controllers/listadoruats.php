@@ -6,7 +6,7 @@ class ListadoRuats extends CI_Controller {
     public function index()
     {
         check_profile(array("Administrador", "Coordinador", "Digitador", "Consultas"));
-        $this->twiggy->set("puedeCrearRuats", check_profile(array("Administrador","Coordinador","Digitador"), false));
+        $this->twiggy->set("puedeCrearRuats", Ruat::puedeCrear());
         $this->twiggy->template("ruat/listadoruats");
         $this->twiggy->display();
     }

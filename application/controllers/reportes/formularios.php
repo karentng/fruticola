@@ -5,7 +5,7 @@ class Formularios extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        check_profile(array("Administrador", "Coordinador", "Consultas"));
+        check_profile(array("Administrador", "Coordinador", "Consultas", "Digitador"));
     }
 
     public function index()
