@@ -1,0 +1,232 @@
+{% extends "reportes/base_reporte.html.twig" %}
+
+{% block html_head %}
+
+<script type="text/javascript" src="{{ base_url('assets/amcharts/amcharts.js') }}"></script>
+<script src="{{ base_url('assets/amcharts/serial.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/pie.js') }}" type="text/javascript"></script>
+
+<script src="{{ base_url('assets/amcharts/exporting/amexport.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/rgbcolor.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/canvg.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/jspdf.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/filesaver.js') }}" type="text/javascript"></script>
+<script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
+<script>
+    function enviarForm() {
+        $('form').submit();  
+    }
+</script>
+
+<script type="text/javascript">
+
+
+    //Datos Genero
+    var matrixGenero = [];
+    for(var i=0; i<2; i++) {
+        matrixGenero[i] = new Array(2);
+    }
+    matrixGenero[0][0]='Mujeres';
+    matrixGenero[0][1]='Hombres';
+    matrixGenero[1][0]={{cantidad_mujeres}};
+    matrixGenero[1][1]={{cantidad_hombres}};
+
+
+    //inicializamos gráfica genero
+    var dataG = null;
+    dataG = generarData(matrixGenero);
+
+    //exportar
+    var exportConfig = {
+        menuTop: "21px",
+        menuBottom: "auto",
+        menuRight: "21px",
+        backgroundColor: "#efefef",
+        menuItemStyle: {
+            backgroundColor: '#EFEFEF',
+            rollOverBackgroundColor: '#DDDDDD'},
+            menuItems: [{
+                textAlign: 'center',
+                icon: "{{ base_url('assets/amcharts/images/export.png') }}",
+                onclick: function() {
+                },
+                items: [{
+                        title: 'JPG',
+                        format: 'jpg'
+                    }, {
+                        title: 'PNG',
+                        format: 'png'
+                    }, {
+                        title: 'SVG',
+                        format: 'svg'
+                    }, {
+                        title: 'PDF',
+                        format: 'pdf'
+                    }]
+            }]
+    }
+
+    //propiedades gráfica
+    var chart = AmCharts.makeChart("chartdiv", {
+        "type": "pie",  
+        "theme": "none",
+        "startDuration": 3,
+        "sequencedAnimation": true,
+        "chart.startEffect": "elastic",
+        "legend": {
+            "markerType": "circle",
+            "position": "top",
+            "marginRight": 20,      
+            "autoMargins": false
+        },
+        "dataProvider": dataG,
+        "valueField": "number",
+        "outlineAlpha": 0.4,
+        "depth3D": 15,
+        "angle": 30,
+        "titleField": "clase",
+        "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+        "exportConfig": exportConfig
+    });
+
+    //actualizar gráfica según selector
+    function actualizarGrafica(){
+        var grafica = $('#selectGrafica').val();
+        if(grafica==0){
+            chart.dataProvider = generarData(matrixGenero);
+            chart.validateData();
+            chart.animateAgain();
+        }
+    }
+    
+    function generarData(matrix){
+        var data = [];
+        for(var i = 0;i<matrix[0].length;i++){
+            var aux = {
+                'clase': matrix[0][i],
+                'number':  matrix[1][i]
+            };
+            data.push(aux);
+        }
+        return data;
+    }
+    
+ 
+</script>
+
+
+{% endblock %}
+
+{% block titulo %}
+    <h1><i class="icon20 i-stack-checkmark"></i> Estadisticas Cosecha </h1> 
+{% endblock %}
+
+{% block contenido %}
+
+{% include "reportes/toolbar_reportes.html.twig" %}
+<div class="form-group">
+    <div class="container-fluid">
+    <div class="row">
+    {{ form_open(null, {class:'form-horizontal', role:'form'}) }}
+        <div class="col-md-6">
+           <div class="form-group">
+                <label class="control-label col-xs-5">Renglón Productivo:</label>
+                <div class="col-xs-7">
+                    {{form_dropdown('renglonProduc', renglones, set_value('renglonProduc'), 'class="form-control" onchange="enviarForm()"')}}
+                </div>
+            </div>
+        
+        </div>
+        <div class="col-md-6">
+           <div class="form-group">
+                <label class="control-label col-xs-5">Municipios:</label>
+                <div class="col-xs-7">
+                    {{form_dropdown('renglonProduc', renglones, set_value('renglonProduc'), 'class="form-control" onchange="enviarForm()"')}}
+                </div>
+            </div>
+        
+        </div>
+    {{ form_close() }}
+    </div>
+    
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">GRÁFICAS COSECHA</a></li>
+        <li><a href="#profile" data-toggle="tab">TABLA COSECHA</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="home" align="center">
+            <br>
+            <div class="row">
+                <div class="col-md-1">
+                    <h3 align="left">Pregunta:</h3>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" id="selectGrafica" style="width:230px" onchange="actualizarGrafica()">
+                        <option value="0">1. Género</option>
+                        <option value="1">2. Nivel Educativo</option>
+                        <option value="2">3. Servicios Públicos</option>
+                        <option value="3">4. Crédito</option>
+                        <option value="4">5. Procedencia Crédito</option>
+                        <option value="5">6. Clase de Asociatividad</option>
+                        <option value="6">7. Beneficio Asociatividad</option>
+                        <option value="7">8. Asistencia Técnica</option>
+                        <option value="8">9. Medios de Transporte</option>
+                        <option value="9">10. Maquinarias y Equipos</option>
+                    </select>
+                </div>
+            </div>
+            <div id="chartdiv" style="width: 100%; height: 600px;"></div>
+            <div align="left"><span><b>Datos actualizados en el primer semestre de 2014</b></span></div>
+        </div>
+        <div class="tab-pane fade" id="profile" align="center">
+            <div class="panel-body">
+                <div class="container">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th align="center">
+                                    INDICADOR
+                                </th>
+                                <th align="center">
+                                    PROMEDIO
+                                </th>                   
+                            </tr>
+                        </thead>
+                        <tbody>
+                              
+                            <tr>
+                                <td>Edad</td>                        
+                                <td align="right">{{promedio_edad |number_format(2, ',', '')}}</td>
+                            </tr>
+                            <tr>
+                                <td>Ingresos Actividad Agropecuaria</td>
+                                <td align="right">${{promedio_ingagro |number_format(2, ',', '.')}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Ingresos</td>
+                                <td align="right">${{promedio_totaling |number_format(2, ',', '.')}}</td>
+                            </tr>
+                            <tr>
+                                <td>Egresos</td>
+                                <td align="right">${{promedio_egresos |number_format(2, ',', '.')}}</td>
+                            </tr>
+                            <tr>
+                                <td>Utilidad</td>
+                                <td align="right">${{promedio_utilidad |number_format(2, ',', '.')}}</td>
+                            </tr>
+                            <tr>
+                                <td>Hectareas Cultivadas</td>
+                                <td align="right">{{promedio_hectareas |number_format(2, ',', '')}}</td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
