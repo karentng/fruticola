@@ -29,8 +29,8 @@
         </tr>
         <tr>
             <td data-toggle="tooltip" data-placement="left" title="Toneladas">Produccion Destinada al Mercado (t)</td>
-            <td align="right">{{number_format(datos.total_prod_mercado, 2, ',', '.')}}</td>
-            <td align="right">{{number_format(datos.avg_prod_mercado, 2, ',', '.')}}</td>
+            <td align="right">{{number_format(datos.total_prod_mercado/1000, 2, ',', '.')}}</td>
+            <td align="right">{{number_format(datos.avg_prod_mercado/1000, 2, ',', '.')}}</td>
         </tr>
         <tr>
             <td data-toggle="tooltip" data-placement="left" title="Kilogramos x Año">Producción (kg/año)</td>
