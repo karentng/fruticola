@@ -50,13 +50,23 @@ class Suelos extends CI_Controller {
 
     private function procesarArchivo($inputFileName)
     {
+        set_time_limit(1200);
+        setlocale(LC_CTYPE, 'es_ES.UTF8');
+
+        function dbl($num)
+        {
+            if(!is_numeric($num)) return null;
+            return (double)$num;
+        }
+
         $municipios_ids = array();
         foreach(Municipio::find_all_by_departamento_id(30) as $mun)
-            $municipios_ids[strtoupper($mun->nombre)] = $mun->id;
+            $municipios_ids[mb_strtolower($mun->nombre)] = $mun->id;
         
         try {
             $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
             $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $objReader->setReadDataOnly(true);
             $objPHPExcel = $objReader->load($inputFileName);
         } catch(Exception $e) {
             $err = 'Error cargando archivo "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage(); 
@@ -70,6 +80,20 @@ class Suelos extends CI_Controller {
         $errores = array();
         $this->registros_procesados = 0;
         for ($cnt = 1; $cnt <= $highestRow; $cnt++) { 
+            /*
+            if($cnt%100==0) {
+                    unset($sheet);
+                    $objPHPExcel->disconnectWorksheets();
+                    unset($objPHPExcel);
+                    unset($objReader);
+                    gc_collect_cycles();
+                    $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+                    $objReader->setReadDataOnly(true);
+                    $objPHPExcel = $objReader->load($inputFileName);
+                    $sheet = $objPHPExcel->getSheet(0); 
+            }
+            */
+
             //  Read a row of data into an array
             $row = $sheet->rangeToArray('A' . $cnt . ':' . $highestColumn . $cnt,
                                             NULL,
@@ -88,54 +112,97 @@ class Suelos extends CI_Controller {
                 $attr['telefono'] = $row[8];
                 $attr['email'] = $row[9];
                 //$attr['departamento'] = $row[10];
-                if(empty($municipios_ids[strtoupper($row[11])])) {
-                    $errores["ERROR: no se reconoce municipio '".$row[11]."'. Revise que el nombre del municipio esté escrito correctamente (incluido tildes)"]=true;
-                    continue;
+                if(empty($row[11]) || $row[11]=='NO INDICA') {
+                    $attr['municipio_id'] = null;
                 }
+                else {
+                    if(empty($municipios_ids[mb_strtolower($row[11])])) {
+                        $errores["ERROR: no se reconoce municipio '".$row[11]."'. Revise que el nombre del municipio esté escrito correctamente (incluido tildes)"]=true;
+                        continue;
+                    }
+                    $attr['municipio_id'] = $municipios_ids[mb_strtolower($row[11])];
+                }
+                $attr['vereda']                  = ($row[12]);
+                $attr['finca']                   = ($row[13]);
+                $attr['altura']                  = dbl($row[14]);
+                $attr['cultivo']                 = ($row[15]);
+                $attr['estado']                  = ($row[16]);
+                $attr['tiempo_establecido']      = ($row[17]);
+                $attr['identificacion_muestra']  = ($row[18]);
+                $attr['profundidad']             = dbl($row[19]);
+                $attr['topografia']              = ($row[20]);
+                $attr['superficie']              = dbl($row[21]);
+                $attr['drenaje']                 = ($row[22]);
+                $attr['riesgo']                  = ($row[23]);
+                $attr['fertilizantes']           = ($row[24]);
+                $attr['ultimo_cultivo']          = ($row[25]);
+                $attr['rendimiento']             = ($row[26]);
+                $attr['textura_tacto']           = ($row[27]);
+                $attr['interp_textura']          = ($row[28]);
+                $attr['ph_agua_suelo']           = dbl($row[29]);
+                $attr['interp_ph']               = ($row[30]);
+                $attr['materia_organica']        = dbl($row[31]);
+                $attr['interp_materia']          = ($row[32]);
+                $attr['fosforo']                 = dbl($row[33]);
+                $attr['interp_fosforo']          = ($row[34]);
+                $attr['azufre']                  = dbl($row[35]);
+                $attr['interp_azufre']           = ($row[36]);
+                $attr['acidez']                  = dbl($row[37]);
+                $attr['aluminio']                = dbl($row[38]);
+                $attr['interp_aluminio']         = ($row[39]);
+                $attr['calcio']                  = dbl($row[40]);
+                $attr['interp_calcio']           = ($row[41]);
+                $attr['magnesio']                = dbl($row[42]);
+                $attr['interp_magnesio']         = ($row[43]);
+                $attr['potasio']                 = dbl($row[44]);
+                $attr['interp_potasio']          = ($row[45]);
+                $attr['sodio']                   = dbl($row[46]);
+                $attr['interp_sodio']            = ($row[47]);
+                $attr['cice']                    = dbl($row[48]);
+                $attr['cica']                    = dbl($row[49]);
+                $attr['interp_cic']              = ($row[50]);
+                $attr['conductividad_electrica'] = dbl($row[51]);
+                $attr['interp_conductividad']    = ($row[52]);
+                $attr['hierro']                  = dbl($row[53]);
+                $attr['interp_hierro']           = ($row[54]);
+                $attr['cobre']                   = dbl($row[55]);
+                $attr['interp_cobre']            = ($row[56]);
+                $attr['manganeso']               = dbl($row[57]);
+                $attr['interp_manganeso']        = ($row[58]);
+                $attr['zinc']                    = dbl($row[59]);
+                $attr['interp_zinc']             = ($row[60]);
+                $attr['boro']                    = dbl($row[61]);
+                $attr['interp_boro']             = ($row[62]);
                 
-                $attr['municipio_id'] = $municipios_ids[strtoupper($row[11])];
-
-                $attr['vereda'] = $row[12];
-                $attr['finca'] = $row[13];
-                $attr['altura'] = $row[14];
-                $attr['cultivo'] = $row[15];
-                $attr['estado'] = $row[16];
-                $attr['tiempo_establecido'] = $row[17];
-                $attr['identificacion_muestra'] = $row[18];
-                $attr['profundidad'] = $row[19];
-                $attr['topografia'] = $row[20];
-                $attr['superficie'] = $row[21];
-                $attr['drenaje'] = $row[22];
-                $attr['riesgo'] = $row[23];
-                $attr['fertilizantes'] = $row[24];
-                $attr['ultimo_cultivo'] = $row[25];
-                $attr['rendimiento'] = $row[26];
-                $attr['textura_tacto'] = $row[27];
-                $attr['ph_agua_suelo'] = $row[28];
-                $attr['materia_organica'] = $row[29];
-                $attr['fosforo'] = $row[30];
-                $attr['azufre'] = $row[31];
-                $attr['acidez'] = $row[32];
-                $attr['aluminio'] = $row[33];
-                $attr['calcio'] = $row[34];
-                $attr['magnesio'] = $row[35];
-                $attr['potasio'] = $row[36];
-                $attr['sodio'] = $row[37];
-                $attr['cice'] = $row[38];
-                $attr['cica'] = $row[39];
-                $attr['conductividad_electrica'] = $row[40];
-                $attr['hierro'] = $row[41];
-                $attr['cobre'] = $row[42];
-                $attr['manganeso'] = $row[43];
-                $attr['zinc'] = $row[44];
-                $attr['boro'] = $row[45];
+                $attr['saturacion_calcio']                       = dbl($row[63]);
+                $attr['interp_saturacion_calcio']                = ($row[64]);
+                $attr['saturacion_magnesio']                     = dbl($row[65]);
+                $attr['interp_saturacion_magnesio']              = ($row[66]);
+                $attr['saturacion_potasio']                      = dbl($row[67]);
+                $attr['interp_saturacion_potasio']               = ($row[68]);
+                $attr['saturacion_sodio']                        = dbl($row[69]);
+                $attr['interp_saturacion_sodio']                 = ($row[70]);
+                $attr['saturacion_aluminio']                     = dbl($row[71]);
+                $attr['interp_saturacion_aluminio']              = ($row[72]);
+                $attr['relacion_calcio_boro']                    = dbl($row[73]);
+                $attr['interp_relacion_calcio_boro']             = ($row[74]);
+                $attr['relacion_calcio_magnesio']                = dbl($row[75]);
+                $attr['interp_relacion_calcio_magnesio']         = ($row[76]);
+                $attr['relacion_magnesio_potasio']               = dbl($row[77]);
+                $attr['interp_relacion_magnesio_potasio']        = ($row[78]);
+                $attr['relacion_calcio_potasio']                 = dbl($row[79]);
+                $attr['interp_relacion_calcio_potasio']          = ($row[80]);
+                $attr['relacion_calcio_magnesio_potasio']        = dbl($row[81]);
+                $attr['interp_relacion_calcio_magnesio_potasio'] = ($row[82]);
                 
                 $est = EstudioSuelo::find_by_codigo_laboratorio($attr['codigo_laboratorio']);
                 if(!$est) $est = new EstudioSuelo();
                 $est->set_attributes($attr);
                 $est->save();
 
+                
                 $this->registros_procesados++;
+                
             }
         }
         return $errores;
@@ -186,7 +253,11 @@ class Suelos extends CI_Controller {
 
         $ruats = extract_prop($estudio->ruats, 'ruat');
 
-
+        function num($x) {
+            if($x===null) return "-";
+            else return str_replace(".",",","".round($x,2));
+        }
+        $this->twiggy->register_filter('num');
 
         $this->twiggy->set("ruats", $ruats);
         $this->twiggy->set("estudio", $estudio);

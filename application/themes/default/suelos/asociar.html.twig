@@ -310,84 +310,101 @@
     <div class="form-horizontal row tab-pane fade" id="info3">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Textura al tacto</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.textura_tacto|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Textura al tacto</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.textura_tacto|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_textura}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">pH agua:suelo</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.ph_agua_suelo|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">pH agua:suelo</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.ph_agua_suelo|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_ph}}</p>
             </div>
             <div class="form-group dato-grafica">
-                <label for="" class="control-label col-md-8">Materia orgánica</label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_Mo">{{estudio.materia_organica|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Materia orgánica</label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Mo">{{estudio.materia_organica|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_materia}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Fósforo</label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_P">{{estudio.fosforo|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Fósforo</label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_P">{{estudio.fosforo|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_fosforo}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Azufre Fosfato monocalcico</label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_S">{{estudio.azufre|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Azufre Fosfato monocalcico</label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_S">{{estudio.azufre|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_azufre}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Acidez (Al+H)</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.acidez|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Acidez (Al+H)</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.acidez|num}}</p></div>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Aluminio (Al) intercambiable</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.aluminio|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Aluminio (Al) intercambiable</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.aluminio|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_aluminio}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Calcio (Ca) intercambiable</label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_Ca">{{estudio.calcio|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Calcio (Ca) intercambiable</label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Ca">{{estudio.calcio|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_calcio}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Magnesio (Mg) intercambiable</label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_Mg">{{estudio.magnesio|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Magnesio (Mg) intercambiable</label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Mg">{{estudio.magnesio|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_magnesio}}</p>
             </div>
         </div>
 
 
         <div class="col-md-6">
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Potasio (K) intercambiable</label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_K">{{estudio.potasio|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Potasio (K) intercambiable</label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_K">{{estudio.potasio|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_potasio}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Sodio (Na) intercambiable</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.sodio|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Sodio (Na) intercambiable</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.sodio|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_sodio}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">capacidad de intercambio cationico (CICE)</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.cice|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">capacidad de intercambio cationico (CICE)</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.cice|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_cic}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Capacidad de intercambio cationico (CICA)</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.cica|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Capacidad de intercambio cationico (CICA)</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.cica|num}}</p></div>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Conductividad eléctrica (CE)</label>
-                <div class="col-md-2"><p class="form-control">{{estudio.conductividad_electrica|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Conductividad eléctrica (CE)</label>
+                <div class="col-md-2"><p class="form-control">{{estudio.conductividad_electrica|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_conductividad}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Hierro (Fe) disponible</label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_Fe">{{estudio.hierro|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Hierro (Fe) disponible</label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Fe">{{estudio.hierro|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_hierro}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Cobre (Cu) disponible</label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_Cu">{{estudio.cobre|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Cobre (Cu) disponible</label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Cu">{{estudio.cobre|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_cobre}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Manganeso (Mn) disponible </label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_Mn">{{estudio.manganeso|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Manganeso (Mn) disponible </label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Mn">{{estudio.manganeso|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_manganeso}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Zinc (Zn) disponible</label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_Zn">{{estudio.zinc|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Zinc (Zn) disponible</label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_Zn">{{estudio.zinc|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_zinc}}</p>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-8">Boro (B) disponible</label>
-                <div class="col-md-2"><p class="form-control" id="grafica_data_B">{{estudio.boro|number_format(2,',')}}</p></div>
+                <label for="" class="control-label col-md-5">Boro (B) disponible</label>
+                <div class="col-md-2"><p class="form-control" id="grafica_data_B">{{estudio.boro|num}}</p></div>
+                <p class="form-control-static col-md-5">{{estudio.interp_boro}}</p>
             </div>
         </div>
     </div>
