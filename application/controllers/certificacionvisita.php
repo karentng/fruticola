@@ -25,11 +25,11 @@ class Certificacionvisita extends CI_Controller {
         $this->form_validation->set_rules('observaciones', 'Observaciones');
 
         if ($this->form_validation->run()) {
-            $certificacion = Certificacionvisit::find_by_ruat_id_and_num_formulario($ruat_id, $formulario);
+            $certificacion = CertificacionVisit::find_by_ruat_id_and_num_formulario($ruat_id, $formulario);
             if($certificacion){
                 $certificacion->delete();
             }
-            $certificacion = new Certificacionvisit();
+            $certificacion = new CertificacionVisit();
             $certificacion->ruat_id = $ruat_id;
             $certificacion->num_formulario = $formulario;
             $certificacion->fecha = $this->input->post('fecha');
@@ -55,9 +55,8 @@ class Certificacionvisita extends CI_Controller {
         $this->twiggy->set('num_formulario', $ruat->numero_formulario);
         $this->twiggy->set('contacto', $contacto->to_array());
 
-        $certificacion = Certificacionvisit::find_by_ruat_id_and_num_formulario($ruat_id, $formulario);
+        $certificacion = CertificacionVisit::find_by_ruat_id_and_num_formulario($ruat_id, $formulario);
         if($certificacion){
-            var_dump($certificacion->observaciones);
             $this->twiggy->set('fechaI', $certificacion->fecha->format("Y-m-d"));
             $this->twiggy->set('descripcionI', $certificacion->descripcion);
             $this->twiggy->set('observacionesI', $certificacion->observaciones);
