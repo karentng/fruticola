@@ -243,12 +243,13 @@ class BPA extends CI_Controller {
             $this->twiggy->set('excepcion42', true);
 
         }
- 
+        
+        $actual = site_url(array("bpaImprimible","index",$ruat_id,$nro_visita));
+        
         $ruat = Ruat::find($ruat_id);
         $this->twiggy->set('ruat', $ruat); //necesario para el encabezado info_productor
-
         $this->twiggy->set('anterior', $this->puntajes_visita($ruat_id, ((int)$nro_visita)-1));
-
+        $this->twiggy->set('actual', $actual);
         $this->twiggy->register_function('form_open_multipart');
         $this->twiggy->set('numForm', $ruatNumFormulario);
         $this->twiggy->set('preguntasB', $preguntasB);
@@ -284,6 +285,7 @@ class BPA extends CI_Controller {
             $item = array();
             $item['title'] = $nro===0 ? "BPA Inicial" : "Visita ".$nro;
             $item['url'] = site_url(array("bpa","index",$ruat_id,$nro));
+            $item['url2'] = site_url(array("bpaImprimible","index",$ruat_id,$nro));
             $item['active'] = $nro == $visita_actual;
             $lista[] = $item;
             //echo "Lista es ".json_encode($lista);

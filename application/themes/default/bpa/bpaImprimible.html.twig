@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <meta charset="utf-8"> 
+        <title>Imprimir BPA</title>
+        <style type="text/css" media="print">
+            .noprint { display: none; }
+        </style>
+    
+        <style type="text/css" media="all">
+            body, td, div {
+                font-family: Sans-serif;
+                font-size: 10pt;
+            }
+        
+        </style>
+
+
+    </head>
+    <body style="text-align:center" >
+        <input type="button" style="font-size: 18pt" class="noprint" value="Imprimir" onclick="window.print()"/>
+        <h2>PLAN FRUTÍCOLA DEL VALLE DEL CAUCA</h2>
+
+        <div style="width:670px; margin-left:auto; margin-right:auto; text-align:left">
+            <table width="100%">
+                <tr>
+                    <td align="center" valign="middle">
+                        <h3>BUENAS PRÁCTICAS AGRÍCOLAS –  B.P.A.</h3>
+                    </td>
+                    <td valign="middle"><img src="{{base_url('assets/images/logos-imprimir.png')}}" height="80"></td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td style="font-size: 11pt">Fecha Generado: <b>{{ "now"|date("Y/m/d") }}</b></td>
+                    <td style="font-size: 11pt" align="right">Fecha de Visita: <b>{{datosBPA['fecha']|date("Y/m/d")}}</b></b></td>
+                </tr>
+            </table>     
+            <h3>A. Introducción Sobre las Buenas Prácticas Agrícolas (BPA)</h3>        
+            <table>
+                <tr> 
+                    <td>
+                        <p align="justify">
+                        La responsabilidad que tenemos como agroempresarios es precisamente garantizar que los consumidores reciban alimentos inocuos, sanos y de comprobada calidad, que no contengan sustancias perjudiciales para la salud y que ayuden a mejorar la nutrición de toda la familia. Como agroempresarios es importante hacer una planeación de lo que vamos a producir con el fin de determinar los factores que pueden favorecer o afectar el éxito de nuestra empresa.  Cuando hacemos la planeación del cultivo podemos decidir si es conveniente o no cultivar desde el punto de vista técnico y económico, por lo tanto, miremos los siguientes aspectos:
+                        </p>
+                    </td>
+                </tr> 
+            </table>
+
+            <h3>B. Diágnostico de Aspectos Previos al Establecimiento del Cultivo</h3>        
+            <table width="100%" border="1" cellspacing="0" cellpadding="4"> 
+                <tr style="background-color:lightgray">
+                    <td align="center"><b>Aspectos Diagnosticados</b></td>
+                    <td align="center"><b>Observaciones</b></td>
+                </tr>
+                {% set cont = 0 %}
+                {% for preguntaB in preguntasB %}
+                {% if respuestasB[cont].puntaje is not empty %}
+                <tr>
+                    <td>
+                        {{preguntaB.enunciado}}
+                    </td>
+                    <td>
+                    {% if respuestasB[cont].observacion is not empty %}
+                        {{respuestasB[cont].observacion}}
+                    {% else %}
+                        Sin observación.
+                        {% endif %}
+                    </td>
+                <tr>
+                {% endif %}
+                {% set cont = cont +1 %}
+                {% endfor %}
+                
+                <tr style="background-color:lightgray"> 
+                    <td align="center" colspan="2">
+                        <b>Conclusión General de los Aspectos Diagnosticados en la Implementación de BPA</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p align="justify">{{datosBPA['conclusion']}}</p>
+                    </td>
+                </tr>
+            </table>
+            
+
+            <h3>C. Estado Actual de la Implementación de las BPA</h3>        
+            <table width="100%" border="1" cellspacing="0" cellpadding="4"> 
+                <tr style="background-color:lightgray">
+                    <td align="center"><b>Aspectos Evaluados</b></td>
+                    <td align="center"><b>Adopción BPA %</b></td>
+                    <td align="center"><b>Recomendación para su Implementación</b></td>
+                </tr>
+                {% set cont = 0 %}
+                {% for respuestaC in respuestasC %}
+                <tr>
+                    <td width="65%">
+                        {{respuestasC[cont].pregunta.enunciado}}
+                    </td>
+                    <td width="5%">
+                        {{respuestasC[cont].puntaje |number_format(2, ',', '')}}
+                    </td>
+                    <td width="30%">
+                        {{respuestasC[cont].observacion}}
+                    </td>
+                <tr>
+                {% set cont = cont +1 %}
+                {% endfor %}
+                <tr>
+                    <td>
+                        <h3><b>PREDIO CON NIVEL DE IMPLEMENTACIÓN DE <br/>
+                             BUENAS PRACTICAS AGRÍCOLAS (BPA)</b>
+                        </h3>
+                    </td>
+                    <td>
+                        {{datosBPA['nivel_bpa']}}
+                    </td>
+                    <td>
+                        {{datosBPA['recomendacion']}}
+                    </td>
+                </tr>
+            </table>
+            <br/><br/><br/><br/><br/><br/>
+            <table width="100%">
+                <tr>
+                    <td>
+                        ____________________________ <br/>
+                        {{ruat.productor.nombre_completo}} <br/>
+                        BENEFICIARIO
+                    </td>
+                    <td align="right">
+                        ____________________________ <br/>
+                        {{ruat.creador.first_name}} {{ruat.creador.last_name}} <br/>
+                        FUNCIONARIO RESPONSABLE
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+
+</html>
