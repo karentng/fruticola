@@ -280,13 +280,17 @@ class Suelos extends CI_Controller {
         redirect("suelos/asociar/$estudio_id");
     }
     
-    public function imprimible($estudio_id)
+    public function imprimible($ruat_id)
     {
-        if(!$estudio_id) show_404();
-        
-        $estudio = EstudioSuelo::find_by_id($estudio_id);
+        $ruat = Ruat::find($ruat_id);
+        $rel = RuatEstudioSuelo::find_by_ruat_id($ruat_id);
+        if(!$rel) show_404();
+        $estudio = EstudioSuelo::find($rel->estudio_id);
         if(!$estudio) show_404();
         
+
+        $this->twiggy->set("rel",$rel);
+        $this->twiggy->set("ruat",$ruat);
         $this->twiggy->set("estudio", $estudio);
         $this->twiggy->set("departamento", $estudio->municipio->departamento);
         $this->twiggy->set("municipio", $estudio->municipio);

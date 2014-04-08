@@ -76,7 +76,7 @@
         <td {% if est.ruats %} class="success" {% endif %} align="center">
             {{est.ruats|length}} &nbsp;
             <a href="{{site_url(['suelos','asociar',est.id])}}" class="btn btn-sm btn-default"><i class=" i-link"></i>Asociar</a>
-            <a class='btn btn-sm btn-info tip' href="{{site_url(['suelos','imprimible',est.id])}}" title='Versión Imprimible Estudio de Suelos' target='_blank'><i class='i-print'></i></a>
+            {#<a class='btn btn-sm btn-info tip' href="{{site_url(['suelos','imprimible',est.id])}}" title='Versión Imprimible Estudio de Suelos' target='_blank'><i class='i-print'></i></a>#}
         </td>
     </tr>
     {% endfor %}
