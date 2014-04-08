@@ -240,15 +240,23 @@ class Suelos extends CI_Controller {
             
             else if(RuatEstudioSuelo::find_by_ruat_id($ruat_asociar->id))
                 $this->twiggy->set("notif", array('type'=>'warning', 'text' => "El RUAT ya se encuentra asociado a un estudio"));
-            
             else {
+                $prev = RuatEstudioSuelo::find_by_estudio_id($estudio->id, array('order' => 'numero DESC'));
+                $numero = $prev ? $prev->numero+1 : 1;
                 $ruat_est = new RuatEstudioSuelo();
                 $ruat_est->ruat_id = $ruat_asociar->id;
                 $ruat_est->estudio_id = $estudio->id;
+                $ruat_est->numero = $numero;
                 $ruat_est->save();
                 $this->twiggy->set("notif", array('type'=>'success', 'text' => "Asociado exitosamente"));
             }
         }
+        elseif($this->input->post('accion')=='guardar_observacion') {
+            $estudio->observacion=$this->input->post('observacion');
+            $estudio->save();
+            $this->twiggy->set("guardado_observacion", true);
+        }
+
 
 
         $ruats = extract_prop($estudio->ruats, 'ruat');

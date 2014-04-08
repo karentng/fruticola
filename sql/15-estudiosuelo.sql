@@ -91,5 +91,6 @@ create table estudiosuelo(
 create table ruat_estudiosuelo(
     id serial primary key  not null,
     ruat_id    integer unique not null references ruat(id),
-    estudio_id integer not null references estudiosuelo(id)
+    estudio_id integer not null references estudiosuelo(id),
+    numero integer not null
 );

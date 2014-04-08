@@ -22,13 +22,14 @@
             .noprint { display: none; }
         </style>
 
+        <style>
+            body, td, div {
+                font-family: Sans-serif;
+                font-size: 10pt;
+            }
+        </style>
+
         <script>
-            $(function() {
-                $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-                    chart.invalidateSize();
-                    chart.animateAgain();
-                })
-            });
             
             var chart = null;
             var base = ['Mo', 'P', 'S', 'Ca', 'Mg', 'K', 'Fe', 'Mn', 'Zn', 'Cu', 'B'];
@@ -89,20 +90,32 @@
             }
         </script>
     </head>
-    <body style="font-family: Sans-serif; font-size: 10pt;width: 1219px;">
-       
-        <div style="position:absolute;left:50%;margin-left:-305px;top:0px;width:611px;overflow:hidden">
+    {#<body style="font-family: Sans-serif; font-size: 10pt;width: 1219px;">#}
+    <body style="text-align:center" >
+        <input type="button" style="font-size: 18pt" class="noprint" value="Imprimir" onclick="window.print()"/>
+        {#<div style="position:absolute;left:50%;margin-left:-305px;top:0px;width:611px;overflow:hidden">#}
+        <div style="width:670px; margin-left:auto; margin-right:auto; text-align:left">
 
-            <input type="button" style="font-size: 18pt; display: block; margin-left: auto; margin-right: auto;" class="noprint" value="Imprimir" onclick="window.print()"/>
-            <h2 style="text-align: center;">PLAN FRUTÍCOLA DEL VALLE DEL CAUCA</h2>
+            {#<input type="button" style="font-size: 18pt; display: block; margin-left: auto; margin-right: auto;" class="noprint" value="Imprimir" onclick="window.print()"/>#}
+            {#<h2 style="text-align: center;">PLAN FRUTÍCOLA DEL VALLE DEL CAUCA</h2>#}
 
 
-            <div style="float:left; width:100%; display: block; text-align:center;">
+            {#<div style="float:left; width:100%; display: block; text-align:center;">
                 <br/><h3>VINCULACIÓN DE CONOCIMIENTO Y TECNOLOGÍA<br/>
                 REPORTE DE RESULTADOS LABORATORIO DE SERVICIOS</h3>
-            </div><br/>
+            </div><br/>#}
+            <table width="100%">
+              <tr>
+                <td width="65%" align="center"><h4>VINCULACIÓN DE CONOCIMIENTO Y TECNOLOGÍA<br/>
+                    REPORTE DE RESULTADOS LABORATORIO DE SERVICIOS</h4></td>
+                <td>
+                    <img src="{{base_url('assets/images/logos-imprimir.png')}}" height="60">
+                </td>
+              </tr>
+            </table>
 
-            <div style="float:left; width:44%;">
+
+            <div style="float:left; width:44%;"> 
                 <table style="width: 100%;" >
                     <tbody>
                         <tr>
@@ -233,7 +246,7 @@
                 </table>               
             </div>
 
-            <div style="width: 99%; border: 1px solid;" >            
+            <div style="width: 99%;" >            
 
                 <table style="width: 100%; text-align: left; margin-left: auto; margin-right: auto;" >
                     <tbody>
