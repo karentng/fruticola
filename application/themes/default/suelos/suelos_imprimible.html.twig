@@ -20,6 +20,7 @@
 
         <style type="text/css" media="print">
             .noprint { display: none; }
+            footer {page-break-after:always;}
         </style>
 
         <style>
@@ -465,10 +466,38 @@
            
 
             <small>          
-                OBSERVACIONES: * interpretacion basada en: ICA,1992. Fertilización en diversos cultivos. Quinta aproximación. Manual de asistencia 
+                OBSERVACIONES: * interpretacion basada en: ICA,1992. Fertilización en diversos cultivos. Quinta aproximación. Manual de asistencia <br>
+                <em>Los resultados son válidos únicamente para la muestra en referencia </em><br>
+                <em>Este documento ha sido producido electrónicamente y es válido sin la firma </em><br>
+                <em>Este documento no puede ser reproducido total ni parcialmente, sin la autorización formal de CORPOICA</em>
             </small>
-            <br/>
-            
+            <br/><br><br>
+                
+            <footer>
+            <center>
+                <b>
+                    CORPORACIÓN COLOMBIANA DE INVESTIGACIÓN AGROPECUARIA, NIT:800194600-3 <br>
+                    CENTRO DE INVESTIGACIÓN TIBAITATA <br>
+                    Km 14 Vía Mosquera (Cundinamarca) - Tel: 4227300 ext: 1414
+                </b>
+            </center>
+            </footer>
+
+
+            {# ########################### pagina de observaciones ################################ #}
+
+            <table width="100%">
+              <tr>
+                <td align="center"><h3>RECOMENDACIONES DE FERTILIZACIÓN<br/>
+                    PLAN FRUTÍCOLA DEL VALLE DEL CAUCA</h3></td>
+                <td>
+
+                    <img src="{{base_url('assets/images/logos-imprimir.png')}}" height="60">
+                </td>
+              </tr>
+            </table>
+
+            {{estudio.observacion}}
         </div>
     </body>
 </html>
