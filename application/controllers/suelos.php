@@ -233,10 +233,19 @@ class Suelos extends CI_Controller {
         if(!$estudio) show_404();
 
         $nro_formulario = $this->input->post('numero_formulario');
+
         if($nro_formulario) {
+            $ruat_asociar = null;
             $ruat_asociar = Ruat::find_by_numero_formulario($nro_formulario);
-            if(!$ruat_asociar)
-                $this->twiggy->set("notif", array('type'=>'error', 'text' => "Ruat con número $nro_formulario no encontrado"));
+            if(!$ruat_asociar) {
+                $prod = Productor::find_by_numero_documento($nro_formulario);
+                if($prod) 
+                    $ruat_asociar = Ruat::find_by_productor_id($prod->id);
+            }
+
+            if(!$ruat_asociar) {   
+                $this->twiggy->set("notif", array('type'=>'error', 'text' => "No se encontró un Ruat con este número de formulario o cédula"));
+            }
             
             else if(RuatEstudioSuelo::find_by_ruat_id($ruat_asociar->id))
                 $this->twiggy->set("notif", array('type'=>'warning', 'text' => "El RUAT ya se encuentra asociado a un estudio"));

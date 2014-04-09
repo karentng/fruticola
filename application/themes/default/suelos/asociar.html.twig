@@ -162,7 +162,7 @@
     <tbody>
     {% for ruat in ruats %}
         <tr>
-            <td>{{ruat.numero_formulario}}</td>
+            <td><a target="_blank" href="{{site_url(['ruatImprimible','index',ruat.id])}}">{{ruat.numero_formulario}}</a></td>
             <td>{{ruat.productor.nombre_completo()}}</td>
             <td>{{ruat.finca.municipio.nombre}}</td>
             <td>{{ruat.productor.renglon_productivo.descripcion}}</td>
@@ -177,8 +177,8 @@
 <form method="POST" class=" form-horizontal">
     {#<h3 class="text-warning">Asociar Productor</h3>#}
     <div class="form-group">
-        <label for="" class="control-label col-md-6">Número de Formulario RUAT</label>
-        <div class="col-md-1">
+        <label for="" class="control-label col-md-5">Número de Formulario RUAT o Cédula para Asociar:</label>
+        <div class="col-md-2">
             <input name="numero_formulario" required maxlength="4" type="text" class="form-control">
         </div>
         <div class="col-md-2">
