@@ -1,0 +1,450 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+
+
+<script type="text/javascript">
+</script>
+
+
+{% raw %}
+<style>
+    input[money] {
+        text-align:right;
+    }
+</style>
+
+<script type="text/javascript">
+</script>
+{% endraw %}
+{% endblock %}
+
+
+
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      {{breadcrumbs}}
+    </ul>
+{% endblock %}
+
+
+
+{% block titulo %} <h1><i class="icon20 i-man"></i> RUAT &#187; Datos Personales </h1> {% endblock %}
+
+{% block contenido %}
+{% raw %}
+
+<div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
+
+<div class="row">
+    <div class="col-sm-9">
+        <h3>
+            {{productor.nombre1}} {{productor.nombre2}} {{productor.apellido1}} {{productor.apellido2}} 
+            <small>{{descripDocumento[productor.tipo_documento_id]}}: {{productor.numero_documento}}</small>
+        </h3>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <label class="control-label col-sm-4">Fecha</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" style="color:red; text-align:center">
+            </div> 
+        </div>
+    </div>
+</div>
+<br/>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>A1. Datos Personales</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container"> 
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Primer Nombre</label>
+                            <input type="text" capitalize class="form-control" name="nombre1" maxlength="30" ng-model="productor.nombre1" ng-disabled="soloLectura" required />
+                            <label class="error" ng-show="myForm.nombre1.$dirty && myForm.nombre1.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Segundo Nombre</label>
+                            <input type="text" capitalize class="form-control" maxlength="30" ng-model="productor.nombre2"  ng-disabled="soloLectura"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Primer Apellido</label>
+                            <input type="text"  capitalize class="form-control" name="apellido1" maxlength="30" ng-model="productor.apellido1" ng-disabled="soloLectura" required />
+                            <label class="error" ng-show="myForm.apellido1.$dirty && myForm.apellido1.$error.required">Requerido</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Segundo Apellido</label>
+                            <input type="text" capitalize class="form-control" maxlength="30" ng-model="productor.apellido2"  ng-disabled="soloLectura"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">Documento: </label>
+                        <div class="col-xs-3" style="padding-right:0px !important">
+                            <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tipo_documento_id" ng-model="productor.tipo_documento_id" ng-required="true" ng-disabled="soloLectura">
+                                <option></option>
+                                <option ng-repeat="t in tiposDocumento" value="{{t.id}}">{{t.descripcion}}</option>
+                            </select>
+                            <label class="error" ng-show="myForm.tipo_documento_id.$dirty && myForm.tipo_documento_id.$error.required">Requerido</label>
+                        </div>
+                        <div class="col-xs-6" style="padding-left:0px !important">
+                            <input type="text" class="form-control" name="numero_documento" maxlength="20" ng-model="productor.numero_documento" ng-disabled="soloLectura" required />
+                            <span class="help-block" ng-show="myForm.numero_documento.$dirty && myForm.numero_documento.$error.required"><label class="error">Requerido</label></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                        <div class="col-sm-6">
+                            <div class="input-group date datepicker autostart">
+                                <input size="16" name="fecha_nacimiento" ng-model="productor.fecha_nacimiento" ng-disabled="soloLectura" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text">
+                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                            </div>
+                            <span class="help-block"><small>AAAA-MM-DD</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Sexo: </label>
+                        <div class="col-sm-6">
+                            <select ui-select2="{allowClear:true, placeholder:'-', minimumResultsForSearch: -1}" name="sexo" ng-model="productor.sexo" ng-disabled="soloLectura" required>
+                                <option></option>
+                                <option value='M'>Masculino</option>
+                                <option value='F'>Femenino</option>
+                            </select>
+                            <label class="error" ng-show="myForm.sexo.$dirty && myForm.sexo.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>                    
+                <div div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Nivel Educativo: </label>
+                        <div class="col-sm-6">
+                            <select  ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="nivel_educativo_id" ng-disabled="soloLectura" ng-model="productor.nivel_educativo_id" ng-required="true">
+                                <option></option>
+                                <option ng-repeat="t in nivelesEducativos" value="{{t.id}}">{{t.descripcion}}</option>
+                            </select>
+                            <label class="error" ng-show="myForm.nivel_educativo_id.$dirty && myForm.nivel_educativo_id.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label" for="focused">Tipo de Productor:</label>
+                        <div class="col-sm-7">
+                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="tipoProductor" ng-disabled="soloLectura" ng-model="productor.tipo_productor_id" required>
+                                <option></option>
+                                <option ng-repeat="t in tiposProductor" value="{{t.id}}">{{t.descripcion}}</option>
+                            </select>
+                            <label class="error" ng-show="myForm.tipoProductor.$dirty && myForm.tipoProductor.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div div class="col-md-7">
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label" for="focused">Renglón Productivo:</label>
+                        <div class="col-sm-7">
+                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="renglon_productivo_id" ng-disabled="soloLectura" ng-model="productor.renglon_productivo_id" ng-required="true">
+                                <option></option>
+                                <option ng-repeat="t in renglonesProductivos" value="{{t.id}}">{{t.descripcion}}</option>
+                            </select>
+                            <label class="error" ng-show="myForm.renglon_productivo_id.$dirty && myForm.renglon_productivo_id.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- .container -->
+    </div><!-- End .panel-body -->
+
+</div><!-- panel default -->
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>A2. Datos de Contacto</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Telefono Fijo</label>
+                            <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                            <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Celular</label>
+                            <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                            <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                            <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Debe ser un Email Válido</label></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label" for="focused">Departamento:</label>
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="departamento" ng-model="contacto.departamento_id" ng-disabled="soloLectura" required>
+                                <option></option>
+                                <option ng-repeat="(key,depto) in departamentos" value="{{key}}">{{depto.nombre}}</option>
+                            </select>
+                            <label class="error" ng-show="myForm.departamento.$dirty && myForm.departamento.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label" for="focused">Municipio:</label>
+                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="contacto.municipio_id"  ng-disabled="soloLectura" required>
+                                <option></option>
+                                <option ng-repeat="mun in departamentos[contacto.departamento_id].municipios" value="{{mun.id}}">{{mun.nombre}}</option>
+                            </select>
+                            <label class="error" ng-show="myForm.municipio.$dirty && myForm.municipio.$error.required">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label" for="focused">Vereda / Corregimiento</label>
+                            <input type="text" capitalize class="form-control" name="vereda" maxlength="100maxlength="100" " ng-model="contacto.vereda" ng-disabled="soloLectura"/>
+                            <span class="help-block" ng-show="myForm.vereda.$dirty && myForm.vereda.$error.required"><label class="error">Requerido</label></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="focused">Dirección de Residencia:</label>
+                        <div class="col-md-9">
+                            <input type="text" capitalize class="form-control" name="direccion" maxlength="100" ng-model="contacto.direccion" ng-disabled="soloLectura" required maxlength="100">
+                            <label class="error" ng-show="myForm.direccion.$dirty && myForm.direccion.$error.required">Requerido</label>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- End .panel-body -->
+</div><!-- panel default -->
+
+<br/>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>A3. Datos Económicos</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label col-sm-6">Ingreso Anual Familiar </label>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon">$/año</span>
+                                    <input type="text" money class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-disabled="soloLectura" ng-model="economia.ingreso_familiar" required/>
+                                </div>
+                            </div>
+                            <label class="error" ng-show="myForm.ingreso_familiar.$dirty && myForm.ingreso_familiar.$error.required">Requerido</label>
+                         </div>
+                    </div>
+                </div>
+                <div div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label col-sm-8">Personas a Cargo</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control" name="personas_dependientes" ng-disabled="soloLectura" ng-model="economia.personas_dependientes" min="0" max="15" required/>
+                            </div>
+                            <span class="help-block" ng-show="myForm.personas_dependientes.$dirty && myForm.personas_dependientes.$error.required"><label class="error">Requerido</label></span>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label col-sm-7">Ingreso de Actividad Agropecuaria</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">$/año</span>
+                                    <input type="text" money  class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-disabled="soloLectura" ng-model="economia.ingreso_agropecuario" required/>
+                                </div>
+                                <label class="error" ng-show="myForm.ingreso_agropecuario.$dirty && myForm.ingreso_agropecuario.$error.required">Requerido</label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="col-md-7 control-label">Uso de Crédito Actual</label>
+                            <div class="col-md-5">
+                                <input bs-switch ng-model="economia.usaCredito" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" switch-active="{{!soloLectura}}">
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div div class="col-md-5">
+
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label" ng-class="{'text-muted':!economia.usaCredito}" for="focused">Procedencia del Crédito:</label>
+                        <div class="col-sm-7">
+                            <select ui-select2="{allowClear:true, minimumResultsForSearch: -1, placeholder:'-'}" name="procedencia"ng-model="economia.credito_id" ng-disabled="!economia.usaCredito || soloLectura" ng-required="economia.usaCredito">
+                                <option></option>
+                                <option ng-repeat="t in tiposCredito" value="{{t.id}}">{{t.descripcion}}</option>
+                            </select>
+                            <label class="error" ng-show="myForm.procedencia.$dirty && myForm.procedencia.$error.required ">Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div div class="col-md-3">
+                    <div class="form-group">
+                        <input type="text" capitalize class="form-control" name="otraProcedencia" ng-model="otro_credito" placeholder="¿Cuál?" ng-required="economia.usaCredito&& economia.credito_id==7" ng-show="economia.usaCredito && economia.credito_id==7" ng-disabled="soloLectura"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br/>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>A4. Participación del Usuario en Procesos de Transferencia e Innovación</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container">
+            <div class="form-group">
+                <label class="col-md-7 control-label">¿Realiza Procesos de Innovación?</label>
+                <div class="col-md-5">
+                    <input bs-switch ng-model="realizaInnovacion" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" switch-active="{{!soloLectura}}">
+                </div>
+            </div>
+
+            <table class="table table-bordered animate-show-hide" ng-show="realizaInnovacion">
+            <thead>
+                <tr>
+                    <th>Actividad</th>
+                    <th colspan="2">Fuente</th>
+                    <th>Descripción</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+                <tr ng-repeat="tipoInn in tiposInnovacion" ng-form="subForm">
+                    <td>{{tipoInn.descripcion}}</td>
+                    <td>
+                        <span ng-init="innovaciones[$index] = innovaciones[$index] ? innovaciones[$index] : {tipo_id:tipoInn.id}"></span>
+                        <buttons-radio model="innovaciones[$index].fuente_id" options="fuentesInnovacion" name="fuente" disabled="soloLectura" >
+                        </buttons-radio>
+                    </td>
+                    <td>
+                        <input type="text" capitalize class="form-control" style="width:100px" 
+                                placeholder="¿Cual?" name="otra_fuente" ng-model="innovaciones[$index].otra_fuente" ng-show="innovaciones[$index].fuente_id==6" ng-required="innovaciones[$index].fuente_id==6" ng-disabled="soloLectura"/>
+                        <label class="error" ng-show="subForm.otra_fuente.$error.required">Requerido</label>
+                        
+                    </td>
+                    <td>
+                        <input type="text" capitalize class="form-control" name="descripcion" maxlength="100" ng-model="innovaciones[$index].descripcion"
+                            placeholder="{{innovaciones[$index].fuente_id?'Ingrese aqui la Descripción':''}}" ng-required="innovaciones[$index].fuente_id" ng-disabled="!innovaciones[$index].fuente_id || soloLectura" />
+                        <label class="error" ng-show="subForm.descripcion.$error.required">Requerido</label>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<br/>
+
+
+
+
+
+
+<br/>
+
+<div class="form-actions full">
+
+    <!--div class="col-md-4 pull-right">
+        <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
+        
+    </div-->
+    <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
+</div>
+
+
+</form></div></div>
+
+
+{% endraw %}
+
+{% endblock %}
