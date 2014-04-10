@@ -92,6 +92,7 @@ class Ruat extends MyModel
 
     public static function puedeCrear() {
         $userid = current_user('id');
-        return check_profile(array("Administrador","Coordinador"), false) || $userid==198 || $userid==199;
+        return check_profile(array("Administrador","Coordinador"), false) 
+            || in_array($userid, array(198, 199, 8,11,9,5,14,6,13,18, 56));
     }
 }
