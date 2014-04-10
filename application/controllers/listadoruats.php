@@ -56,20 +56,22 @@ class ListadoRuats extends CI_Controller {
         $puedeEliminar = check_profile(array("Administrador","Coordinador"), false);
         $puedeCrearForms = check_profile(array("Administrador","Coordinador","Digitador"),false);
 
+        $puedeVerEstudioSuelo = $puedeEliminar;
+
         $rows = array();
         foreach(ViewListadoRuats::all($options) as $item) {
             $url = site_url("ruata/index/".$item->id);
             $actions = "<div class='btn-group'>".
-                "<a class='btn btn-sm btn-warning tip' href='$url' title='Registro Único de Usuarios de Asitencia Técnica'>RUAT <i class='i-arrow-right-3'></i></a>";
+                "<a class='btn btn-xs btn-warning tip' href='$url' title='Registro Único de Usuarios de Asitencia Técnica'>RUAT <i class='i-arrow-right-3'></i></a>";
 
             $url = site_url("ruatImprimible/index/".$item->id);
-            $actions .= "<a class='btn btn-sm btn-info tip' href='$url' title='Versión Imprimible RUAT' target='_blank'><i class='i-print'></i></a>";
+            $actions .= "<a class='btn btn-xs btn-info tip' href='$url' title='Versión Imprimible RUAT' target='_blank'><i class='i-print'></i></a>";
 
             if($item->ruta_formulario) {
                 $url = site_url("uploads/". $item->ruta_formulario);
-                $actions .= "<a class='btn btn-sm btn-info tip' title='Descargar RUAT Escaneado' href='$url' target='_blank'><i class='i-file-download'></i></a>";
+                $actions .= "<a class='btn btn-xs btn-info tip' title='Descargar RUAT Escaneado' href='$url' target='_blank'><i class='i-file-download'></i></a>";
             }
-            else $actions .= '<a class="btn btn-sm" disabled="disabled"><i class="i-file-download"></i></a>';
+            else $actions .= '<a class="btn btn-xs" disabled="disabled"><i class="i-file-download"></i></a>';
 
             $actions .="</div>&nbsp;";
 
@@ -92,8 +94,8 @@ class ListadoRuats extends CI_Controller {
             }
 
             $actions .= "<div class='btn-group'>";
-            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Diagnóstico Manejo de Cosecha'>Cosecha <i class='i-arrow-right-3'></i></a>";
-            $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' $disabled1 title='Versión Imprimible Cosecha' target='_blank'><i class='i-print'></i></a>";
+            $actions .= " <a class='btn btn-xs $cls tip' href='$url' $disabled title='Diagnóstico Manejo de Cosecha'>Cosecha <i class='i-arrow-right-3'></i></a>";
+            $actions .= "<a class='btn btn-xs btn-info tip' href='$url2' $disabled1 title='Versión Imprimible Cosecha' target='_blank'><i class='i-print'></i></a>";
             $actions .="</div>&nbsp;";
 
 
@@ -106,7 +108,7 @@ class ListadoRuats extends CI_Controller {
                 $disabled = 'disabled="disabled"';
             }
 
-            $actions .= "<a class='btn btn-sm $cls tip' href='$url' $disabled title='Buenas Prácticas Agropecuarias'>BPA</a> ";
+            $actions .= "<a class='btn btn-xs $cls tip' href='$url' $disabled title='Buenas Prácticas Agropecuarias'>BPA</a> ";
             
             $cls = $item->vtp_id ? 'btn-warning' : 'btn-default';
             if($puedeCrearForms || $item->vtp_id) {
@@ -126,8 +128,8 @@ class ListadoRuats extends CI_Controller {
             }
 
             $actions .= "<div class='btn-group'>";
-            $actions .= " <a class='btn btn-sm $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Prod<i class='i-arrow-right-3'></i></a>";
-            $actions .= "<a class='btn btn-sm btn-info tip' href='$url3' $disabled1 title='Versión Imprimible C.Tipo Productor' target='_blank'><i class='i-print'></i></a>";
+            $actions .= " <a class='btn btn-xs $cls tip' href='$url' $disabled title='Clasificación Productor'>C. Prod<i class='i-arrow-right-3'></i></a>";
+            $actions .= "<a class='btn btn-xs btn-info tip' href='$url3' $disabled1 title='Versión Imprimible C.Tipo Productor' target='_blank'><i class='i-print'></i></a>";
             $actions .="</div>&nbsp;";
 
             $cls = $item->postcosecha_id ? 'btn-warning' : 'btn-default';
@@ -148,9 +150,20 @@ class ListadoRuats extends CI_Controller {
             }
 
             $actions .= "<div class='btn-group'>";
-            $actions .= "<a class='btn btn-sm $cls tip' href='$url' $disabled title='Manejo de Poscosecha'>Poscosecha<i class='i-arrow-right-3'></i></a>";
-            $actions .= "<a class='btn btn-sm btn-info tip' href='$url2' $disabled1 title='Versión Imprimible Poscosecha' target='_blank'><i class='i-print'></i></a>";
+            $actions .= "<a class='btn btn-xs $cls tip' href='$url' $disabled title='Manejo de Poscosecha'>Poscosecha<i class='i-arrow-right-3'></i></a>";
+            $actions .= "<a class='btn btn-xs btn-info tip' href='$url2' $disabled1 title='Versión Imprimible Poscosecha' target='_blank'><i class='i-print'></i></a>";
             $actions .="</div>&nbsp;";
+
+            if($puedeVerEstudioSuelo) {
+                $est = RuatEstudioSuelo::find_by_ruat_id($item->id);
+                if($est) {
+                    $url = site_url("suelos/imprimible/$item->id");
+                    $actions .= "<a class='btn btn-xs btn-info' href='$url' target='_blank'>E. Suelo</a>";
+                }
+                else {
+                    $actions .= "<button disabled='disabled' class='btn btn-xs btn-info'>E. Suelo</button>";
+                }
+            }
 
 
 
