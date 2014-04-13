@@ -2,8 +2,17 @@
 
 class Certificacionvisita extends CI_Controller {
 
-    public function index($ruat_id = 1795, $formulario = 0)
+    public function __construct()
     {
+        parent::__construct();
+        //check_profile(array("Administrador", "Coordinador", "Digitador", "Consultas"));
+    }
+
+    public function index($ruat_id, $formulario) //= 1795
+    {
+
+        if(!$ruat_id) show_404();
+
         /*$preguntas = TPCPregunta::all(array('order' => 'categoria, ordenamiento'));
         
         $preguntas_ingresos = $preguntas_egresos = $preguntas_activos = $preguntas_totales = array();

@@ -11,8 +11,9 @@ class Perfilproductor extends CI_Controller {
     {
 
         $filtro_renglon ="true";
-        if($this->input->post('renglonProduc'))
-        $filtro_renglon = "renglon_productivo_id=".$this->db->escape($this->input->post('renglonProduc'));
+        if($this->input->post('renglonProduc')){
+            $filtro_renglon = "renglon_productivo_id=".$this->db->escape($this->input->post('renglonProduc'));
+        }
         //TABLA
         $resultado=Productor::find_by_sql("SELECT avg( date_part('years', age(fecha_nacimiento))) as promedio_edad FROM productor WHERE $filtro_renglon");
         $promedio_edad = $resultado[0]->promedio_edad;
@@ -75,6 +76,111 @@ class Perfilproductor extends CI_Controller {
         $promedio_hectareas=$total_hectareas/$cantidad_productores;
 
         //GRAFICAS
+
+        // tenencias
+
+        $resultado = Productor::find_by_sql("SELECT count(tenencia_id) as propiedad
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND finca.tenencia_id = 1
+                                        WHERE $filtro_renglon
+                                        GROUP BY tenencia_id ORDER BY tenencia_id");
+        $cantidad_tenencia_propiedad = $resultado[0]->propiedad;
+        
+        $resultado = Productor::find_by_sql("SELECT count(tenencia_id) as propiedad
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND finca.tenencia_id = 2
+                                        WHERE $filtro_renglon
+                                        GROUP BY tenencia_id ORDER BY tenencia_id");
+        $cantidad_tenencia_sinpropiedad = $resultado[0]->propiedad;
+        $resultado = Productor::find_by_sql("SELECT count(tenencia_id) as propiedad
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND finca.tenencia_id = 3
+                                        WHERE $filtro_renglon
+                                        GROUP BY tenencia_id ORDER BY tenencia_id");
+        $cantidad_tenencia_arriendo = $resultado[0]->propiedad;
+        $resultado = Productor::find_by_sql("SELECT count(tenencia_id) as propiedad
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND finca.tenencia_id = 4
+                                        WHERE $filtro_renglon
+                                        GROUP BY tenencia_id ORDER BY tenencia_id");
+        $cantidad_tenencia_comodato = $resultado[0]->propiedad;
+        $resultado = Productor::find_by_sql("SELECT count(tenencia_id) as propiedad
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND finca.tenencia_id = 5
+                                        WHERE $filtro_renglon
+                                        GROUP BY tenencia_id ORDER BY tenencia_id");
+        $cantidad_tenencia_usufructo = $resultado[0]->propiedad;
+        $resultado = Productor::find_by_sql("SELECT count(tenencia_id) as propiedad
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND finca.tenencia_id = 6
+                                        WHERE $filtro_renglon
+                                        GROUP BY tenencia_id ORDER BY tenencia_id");
+        $cantidad_tenencia_aparceria = $resultado[0]->propiedad;
+        $resultado = Productor::find_by_sql("SELECT count(tenencia_id) as propiedad
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND finca.tenencia_id = 7
+                                        WHERE $filtro_renglon
+                                        GROUP BY tenencia_id ORDER BY tenencia_id");
+        $cantidad_tenencia_colectiva = $resultado[0]->propiedad;
+        $resultado = Productor::find_by_sql("SELECT count(tenencia_id) as propiedad
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND finca.tenencia_id = 8
+                                        WHERE $filtro_renglon
+                                        GROUP BY tenencia_id ORDER BY tenencia_id");
+        $cantidad_tenencia_otro = $resultado[0]->propiedad;
+        // fin tenencias
+
+        // vias de acceso
+        $resultado = Productor::find_by_sql("SELECT count(via_disponibilidad) as pavimentadabuena
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND via_disponibilidad = 't' AND via_tipo_id = 1 AND via_estado_id = 1
+                                        WHERE $filtro_renglon");
+        $cantidad_vias_pavB = $resultado[0]->pavimentadabuena;
+
+        $resultado = Productor::find_by_sql("SELECT count(via_disponibilidad) as pavimentadaregular
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND via_disponibilidad = 't' AND via_tipo_id = 1 AND via_estado_id = 2
+                                        WHERE $filtro_renglon");
+        $cantidad_vias_pavR = $resultado[0]->pavimentadaregular;
+
+        $resultado = Productor::find_by_sql("SELECT count(via_disponibilidad) as pavimentadamala
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND via_disponibilidad = 't' AND via_tipo_id = 1 AND via_estado_id = 3
+                                        WHERE $filtro_renglon");
+        $cantidad_vias_pavM = $resultado[0]->pavimentadamala;
+
+        $resultado = Productor::find_by_sql("SELECT count(via_disponibilidad) as nopavimentadabuena
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND via_disponibilidad = 't' AND via_tipo_id = 2 AND via_estado_id = 1
+                                        WHERE $filtro_renglon");
+        $cantidad_vias_nopavB = $resultado[0]->nopavimentadabuena;
+
+        $resultado = Productor::find_by_sql("SELECT count(via_disponibilidad) as nopavimentadaregular
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND via_disponibilidad = 't' AND via_tipo_id = 2 AND via_estado_id = 2
+                                        WHERE $filtro_renglon");
+        $cantidad_vias_nopavR = $resultado[0]->nopavimentadaregular;
+
+        $resultado = Productor::find_by_sql("SELECT count(via_disponibilidad) as nopavimentadamala
+                                        FROM productor
+                                        INNER JOIN ruat ON productor_id=productor.id
+                                        INNER JOIN finca ON ruat_id=ruat.id AND via_disponibilidad = 't' AND via_tipo_id = 2 AND via_estado_id = 3
+                                        WHERE $filtro_renglon");
+        $cantidad_vias_nopavM = $resultado[0]->nopavimentadamala;
+        //vias de acceso
 
         $resultado=Productor::find_by_sql("SELECT COUNT(sexo) as cantidad_hombres FROM productor WHERE sexo='M' AND $filtro_renglon");
         $cantidad_hombres=$resultado[0]->cantidad_hombres;
@@ -494,7 +600,26 @@ class Perfilproductor extends CI_Controller {
         $renglones = assoc(RenglonProductivo::sorted(), 'id', 'descripcion');
         $renglones = array('' => '(Todos)') + $renglones;
 
+        $municipios = assoc(Municipio::find('all', array('conditions' => array('departamento_id = ?', 30), 'order' => 'nombre')), 'id', 'nombre');  
+        $municipios = array('' => '(Todos)') + $municipios;
 
+        $this->twiggy->set('cantidad_tenencia_propiedad', $cantidad_tenencia_propiedad);
+        $this->twiggy->set('cantidad_tenencia_sinpropiedad', $cantidad_tenencia_sinpropiedad);
+        $this->twiggy->set('cantidad_tenencia_arriendo', $cantidad_tenencia_arriendo);
+        $this->twiggy->set('cantidad_tenencia_comodato', $cantidad_tenencia_comodato);
+        $this->twiggy->set('cantidad_tenencia_usufructo', $cantidad_tenencia_usufructo);
+        $this->twiggy->set('cantidad_tenencia_aparceria', $cantidad_tenencia_aparceria);
+        $this->twiggy->set('cantidad_tenencia_colectiva', $cantidad_tenencia_colectiva);
+        $this->twiggy->set('cantidad_tenencia_otro', $cantidad_tenencia_otro);
+
+        $this->twiggy->set('cantidad_vias_pavB', $cantidad_vias_pavB);
+        $this->twiggy->set('cantidad_vias_pavR', $cantidad_vias_pavR);
+        $this->twiggy->set('cantidad_vias_pavM', $cantidad_vias_pavM);
+        $this->twiggy->set('cantidad_vias_nopavB', $cantidad_vias_nopavB);
+        $this->twiggy->set('cantidad_vias_nopavR', $cantidad_vias_nopavR);
+        $this->twiggy->set('cantidad_vias_nopavM', $cantidad_vias_nopavM);
+
+        $this->twiggy->set('municipios', $municipios);
         $this->twiggy->set('renglones', $renglones);
         $this->twiggy->set('herramientas', $herramientas);
         $this->twiggy->set('utensilios', $utensilios);
