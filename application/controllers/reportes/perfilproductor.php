@@ -857,6 +857,21 @@ class Perfilproductor extends CI_Controller {
         $municipios = assoc(Municipio::find('all', array('conditions' => array('departamento_id = ?', 30), 'order' => 'nombre')), 'id', 'nombre');  
         $municipios = array('' => '(Todos)') + $municipios;
 
+        $opciones = array(
+            0 => '1. Género',
+            1 => '2. Nivel Educativo',
+            2 => '3. Servicios Públicos',
+            3 => '4. Crédito',
+            4 => '5. Procedencia Crédito',
+            5 => '6. Clase de Asociatividad<',
+            6 => '7. Beneficio Asociatividad',
+            7 => '8. Asistencia Técnica',
+            8 => '9. Medios de Transporte',
+            9 => '10. Maquinarias y Equipos',
+            10 => '11. Tenencia',
+            11 => '12. Estado de vias de acceso',
+        );
+
         $this->twiggy->set('cantidad_tenencia_propiedad', $cantidad_tenencia_propiedad);
         $this->twiggy->set('cantidad_tenencia_sinpropiedad', $cantidad_tenencia_sinpropiedad);
         $this->twiggy->set('cantidad_tenencia_arriendo', $cantidad_tenencia_arriendo);
@@ -873,6 +888,7 @@ class Perfilproductor extends CI_Controller {
         $this->twiggy->set('cantidad_vias_nopavR', $cantidad_vias_nopavR);
         $this->twiggy->set('cantidad_vias_nopavM', $cantidad_vias_nopavM);
 
+        $this->twiggy->set('opciones', $opciones);
         $this->twiggy->set('municipios', $municipios);
         $this->twiggy->set('renglones', $renglones);
         $this->twiggy->set('herramientas', $herramientas);
