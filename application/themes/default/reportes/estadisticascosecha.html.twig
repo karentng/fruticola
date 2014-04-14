@@ -12,221 +12,117 @@
 <script src="{{ base_url('assets/amcharts/exporting/jspdf.js') }}" type="text/javascript"></script>
 <script src="{{ base_url('assets/amcharts/exporting/filesaver.js') }}" type="text/javascript"></script>
 <script src="{{ base_url('assets/amcharts/exporting/jspdf.plugin.addimage.js') }}" type="text/javascript"></script>
-<script>
-    function enviarForm() {
-        $('form').submit();  
-    }
-</script>
+
 
 <script type="text/javascript">
+    var category = [];
+    var tipo_pregunta = {{preguntas|json_encode}};
 
-
-    //Datos Genero
-    var matrixGenero = [];
-    for(var i=0; i<2; i++) {
-        matrixGenero[i] = new Array(2);
-    }
-    matrixGenero[0][0]='Mujeres';
-    matrixGenero[0][1]='Hombres';
-    matrixGenero[1][0]={{cantidad_mujeres}};
-    matrixGenero[1][1]={{cantidad_hombres}};
-
-
-    //inicializamos gráfica genero
-    var dataG = null;
-    dataG = generarData(matrixGenero);
-
-    //exportar
-    var exportConfig = {
-        menuTop: "21px",
-        menuBottom: "auto",
-        menuRight: "21px",
-        backgroundColor: "#efefef",
-        menuItemStyle: {
-            backgroundColor: '#EFEFEF',
-            rollOverBackgroundColor: '#DDDDDD'},
-            menuItems: [{
-                textAlign: 'center',
-                icon: "{{ base_url('assets/amcharts/images/export.png') }}",
-                onclick: function() {
-                },
-                items: [{
-                        title: 'JPG',
-                        format: 'jpg'
-                    }, {
-                        title: 'PNG',
-                        format: 'png'
-                    }, {
-                        title: 'SVG',
-                        format: 'svg'
-                    }, {
-                        title: 'PDF',
-                        format: 'pdf'
-                    }]
-            }]
+    for (var i in tipo_pregunta) {
+        var aux = tipo_pregunta[i];
+        category[aux.id - 1] = aux.texto;
     }
 
-    //propiedades gráfica
-    var chart = AmCharts.makeChart("chartdiv", {
-        "type": "pie",  
-        "theme": "none",
-        "startDuration": 3,
-        "sequencedAnimation": true,
-        "chart.startEffect": "elastic",
-        "legend": {
-            "markerType": "circle",
-            "position": "top",
-            "marginRight": 20,      
-            "autoMargins": false
-        },
-        "dataProvider": dataG,
-        "valueField": "number",
-        "outlineAlpha": 0.4,
-        "depth3D": 15,
-        "angle": 30,
-        "titleField": "clase",
-        "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
-        "exportConfig": exportConfig
+    $(document).ready(function() {
+            
+        var renglones_productivos = Array();
+        var renglones_productivos_aux = {{renglones|json_encode}}
+        renglones_productivos.push({id: -1, text: 'TODOS',num:-1});
+        for (var i in renglones_productivos_aux) {
+            var aux = renglones_productivos_aux[i];
+            var aux = renglones_productivos_aux[i];
+            renglones_productivos.push({id: aux.id, text: aux.descripcion});
+        }
+
+        var municipios = Array();
+        var municipios_aux = {{municipios|json_encode}}
+        municipios.push({id: -1, text: 'TODOS',num:-1});
+        for (var i in municipios_aux) {
+            var aux = municipios_aux[i];
+            municipios.push({id: aux.id, text: aux.nombre});
+        }
+
+        $('#renglon').select2({
+            data: renglones_productivos,
+            multiple: true,
+            placeholder: "Todos los renglones...",
+            initSelection: function(element, callback) {
+                callback({id: renglones_productivos[0].id, text: renglones_productivos[0].text });
+            }
+        });
+        
+
+        $('#municipio').select2({
+            data: municipios,
+            multiple: true,
+            placeholder: "Todos los municipios..."
+        });
+
+        
+        $("#renglon, #municipio").change(function() {
+            actualizarFrecuencias();
+        });
+            
     });
 
-    //actualizar gráfica según selector
-    function actualizarGrafica(){
-        var grafica = $('#selectGrafica').val();
-        if(grafica==0){
-            chart.dataProvider = generarData(matrixGenero);
-            chart.validateData();
-            chart.animateAgain();
-        }
-    }
-    
-    function generarData(matrix){
-        var data = [];
-        for(var i = 0;i<matrix[0].length;i++){
-            var aux = {
-                'clase': matrix[0][i],
-                'number':  matrix[1][i]
-            };
-            data.push(aux);
-        }
-        return data;
-    }
-    
- 
 </script>
+    
+    
 
-
+    
 {% endblock %}
 
-{% block titulo %}
-    <h1><i class="icon20 i-stack-checkmark"></i> Estadisticas Cosecha </h1> 
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+        <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      {{breadcrumbs}}
+        </ul>
 {% endblock %}
+
+
+{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> COSECHA &#187; Reporte Frecuencias Cosecha </h1> {% endblock %}
 
 {% block contenido %}
-
 {% include "reportes/toolbar_reportes.html.twig" %}
-<div class="form-group">
-    <div class="container-fluid">
-    <div class="row">
-    {{ form_open(null, {class:'form-horizontal', role:'form'}) }}
-        <div class="col-md-6">
-           <div class="form-group">
-                <label class="control-label col-xs-5">Renglón Productivo:</label>
-                <div class="col-xs-7">
-                    {{form_dropdown('renglonProduc', renglones, set_value('renglonProduc'), 'class="form-control" onchange="enviarForm()"')}}
-                </div>
-            </div>
-        
-        </div>
-        <div class="col-md-6">
-           <div class="form-group">
-                <label class="control-label col-xs-5">Municipios:</label>
-                <div class="col-xs-7">
-                    {{form_dropdown('renglonProduc', renglones, set_value('renglonProduc'), 'class="form-control" onchange="enviarForm()"')}}
-                </div>
-            </div>
-        
-        </div>
-    {{ form_close() }}
-    </div>
-    
-    <ul id="myTab" class="nav nav-tabs">
-        <li class="active"><a href="#home" data-toggle="tab">GRÁFICAS COSECHA</a></li>
-        <li><a href="#profile" data-toggle="tab">TABLA COSECHA</a></li>
-    </ul>
 
-    <div class="tab-content">
-        <div class="tab-pane fade in active" id="home" align="center">
-            <br>
-            <div class="row">
-                <div class="col-md-1">
-                    <h3 align="left">Pregunta:</h3>
-                </div>
-                <div class="col-md-3">
-                    <select class="form-control" id="selectGrafica" style="width:230px" onchange="actualizarGrafica()">
-                        <option value="0">1. Género</option>
-                        <option value="1">2. Nivel Educativo</option>
-                        <option value="2">3. Servicios Públicos</option>
-                        <option value="3">4. Crédito</option>
-                        <option value="4">5. Procedencia Crédito</option>
-                        <option value="5">6. Clase de Asociatividad</option>
-                        <option value="6">7. Beneficio Asociatividad</option>
-                        <option value="7">8. Asistencia Técnica</option>
-                        <option value="8">9. Medios de Transporte</option>
-                        <option value="9">10. Maquinarias y Equipos</option>
-                    </select>
-                </div>
-            </div>
-            <div id="chartdiv" style="width: 100%; height: 600px;"></div>
-            <div align="left"><span><b>Datos actualizados en el primer semestre de 2014</b></span></div>
-        </div>
-        <div class="tab-pane fade" id="profile" align="center">
-            <div class="panel-body">
-                <div class="container">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th align="center">
-                                    INDICADOR
-                                </th>
-                                <th align="center">
-                                    PROMEDIO
-                                </th>                   
-                            </tr>
-                        </thead>
-                        <tbody>
-                              
-                            <tr>
-                                <td>Edad</td>                        
-                                <td align="right">{{promedio_edad |number_format(2, ',', '')}}</td>
-                            </tr>
-                            <tr>
-                                <td>Ingresos Actividad Agropecuaria</td>
-                                <td align="right">${{promedio_ingagro |number_format(2, ',', '.')}}</td>
-                            </tr>
-                            <tr>
-                                <td>Total Ingresos</td>
-                                <td align="right">${{promedio_totaling |number_format(2, ',', '.')}}</td>
-                            </tr>
-                            <tr>
-                                <td>Egresos</td>
-                                <td align="right">${{promedio_egresos |number_format(2, ',', '.')}}</td>
-                            </tr>
-                            <tr>
-                                <td>Utilidad</td>
-                                <td align="right">${{promedio_utilidad |number_format(2, ',', '.')}}</td>
-                            </tr>
-                            <tr>
-                                <td>Hectareas Cultivadas</td>
-                                <td align="right">{{promedio_hectareas |number_format(2, ',', '')}}</td>
-                            </tr>
-                        </tbody> 
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+        <link href="{{ base_url('assets/css/preguntas.css') }}" rel="stylesheet" />
 
+
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_grafico" data-toggle="tab">GRÁFICA</a></li>
+            </ul>
+
+            <div id='' class="tab-content">
+
+                <div class="tab-pane" id="tab_tabla">                    
+                </div>
+                    <div class="tab-pane active" id="tab_grafico">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="renglon_productivo" class="col-lg-12" style="text-align: center;" >Renglón productivo</label>
+                                <input type="hidden" id="renglon" />                                    
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="municipio" class="col-lg-12" style="text-align: center;" >Municipio</label>
+                                <input type="hidden" id="municipio" />                                    
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="minucipio" class="col-lg-12" style="text-align: center;" >Pregunta</label>
+                            <select id="select_chart" class="form-control" name="select_chart">
+                                {% set contador = 0 %}
+                                {% for pregunta in preguntas %}
+                                    <option value="{{contador}}">{{contador ~". "~ pregunta.texto }}</option>
+                                    {% set contador  = contador+1 %}
+                                {% endfor %}
+                                </select>
+                        </div>
+                        <br/>
+                        <div id="chartdiv" style="width: 100%; height: 600px;"></div>
+                    </div>
+                </div>
+            </div>
 
 
 {% endblock %}

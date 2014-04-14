@@ -411,7 +411,7 @@ class Perfilproductor extends CI_Controller {
                                                 ) as X
                                             INNER JOIN economia ON productor_id=X.id AND credito_id=7
                                             WHERE $filtro_renglon");
-        $otro=$resultado[0]->otro; 
+        $otroCredito=$resultado[0]->otro; 
 
         $resultado=OrgasociadaClase::find_by_sql("SELECT COUNT(clase_id) as agropecuaria
                                                 FROM (SELECT * FROM productor
@@ -681,7 +681,7 @@ class Perfilproductor extends CI_Controller {
                                                 INNER JOIN orgasociada ON ruat_id=ruat.id
                                                 INNER JOIN orgasociada_beneficio ON orgasociada_id=orgasociada.id AND beneficio_id=7
                                                 WHERE $filtro_renglon");
-        $otro=$resultado[0]->otro;
+        $otroBeneficio=$resultado[0]->otro;
 
 
         /*$resultado=Economia::find_by_sql("SELECT COUNT(credito) as credito_si FROM (SELECT CASE WHEN economia.credito_id IS NULL THEN 'No' ELSE 'Sí' END AS credito
@@ -801,7 +801,7 @@ class Perfilproductor extends CI_Controller {
                                                 INNER JOIN finca ON ruat_id=ruat.id
                                                 INNER JOIN finca_transporte ON finca_id=finca.id AND transporte_id=10
                                                 WHERE $filtro_renglon");
-        $otro=$resultado[0]->otro;
+        $otroTransporte=$resultado[0]->otro;
 
         $resultado=FincaMaquinaria::find_by_sql("SELECT COUNT(maquinaria_id) as herramientas
                                                 FROM productor
@@ -892,7 +892,8 @@ class Perfilproductor extends CI_Controller {
         $this->twiggy->set('animal', $animal);
         $this->twiggy->set('asist_si', $asist_si);
         $this->twiggy->set('asist_no', $asist_no);
-        $this->twiggy->set('otro', $otro);
+        $this->twiggy->set('otroBeneficio', $otroBeneficio);
+        $this->twiggy->set('otroTransporte', $otroTransporte);
         $this->twiggy->set('recreacion', $recreacion);
         $this->twiggy->set('reconocimiento', $reconocimiento);
         $this->twiggy->set('participacion', $participacion);
@@ -915,7 +916,7 @@ class Perfilproductor extends CI_Controller {
         $this->twiggy->set('prestamistas', $prestamistas);
         $this->twiggy->set('familiares', $familiares);
         $this->twiggy->set('empresas', $empresas);
-        $this->twiggy->set('otro', $otro);
+        $this->twiggy->set('otroCredito', $otroCredito);
         $this->twiggy->set('bancos', $bancos);
         $this->twiggy->set('credito_no', $credito_no);
         $this->twiggy->set('credito_si', $credito_si);

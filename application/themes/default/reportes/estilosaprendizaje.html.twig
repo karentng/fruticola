@@ -219,35 +219,32 @@
 
                 <div class="tab-pane" id="tab_tabla">                    
                 </div>
-
-
-                        <div class="tab-pane active" id="tab_grafico">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <label for="renglon_productivo" class="col-lg-12" style="text-align: center;" >Renglón productivo</label>
-                                    <input type="hidden" id="renglon_productivo"/>                                    
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="minucipio" class="col-lg-12" style="text-align: center;" >Municipio</label>
-                                    <input type="hidden" id="minucipio"/>                                    
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <label for="minucipio" class="col-lg-12" style="text-align: center;" >Pregunta</label>
-                                <select id="select_chart" class="form-control" name="select_chart">
-                                    {% set contador = 0 %}
-                                    {% for pregunta in preguntas %}
-                                        <option value="{{contador}}">{{contador ~". "~ pregunta.descripcion }}</option>
-                                        {% set contador  = contador+1 %}
-                                    {% endfor %}
-                                    </select>
-                                </div>
-                                <br/>
-                                <div id="chartdiv" style="width: 100%; height: 600px;"></div>
-                            </div>
+                <div class="tab-pane active" id="tab_grafico">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="renglon_productivo" class="col-lg-12" style="text-align: center;" >Renglón productivo</label>
+                            <input type="hidden" id="renglon_productivo"/>                                    
                         </div>
-
+                        <div class="col-lg-6">
+                            <label for="minucipio" class="col-lg-12" style="text-align: center;" >Municipio</label>
+                            <input type="hidden" id="minucipio"/>                                    
+                        </div>
                     </div>
+                    <div class="col-lg-12">
+                        <label for="minucipio" class="col-lg-12" style="text-align: center;" >Pregunta</label>
+                        <select id="select_chart" class="form-control" name="select_chart">
+                            {% set contador = 0 %}
+                            {% for pregunta in preguntas %}
+                                <option value="{{contador}}">{{contador ~". "~ pregunta.descripcion }}</option>
+                                {% set contador  = contador+1 %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <br/>
+                    <div id="chartdiv" style="width: 100%; height: 600px;"></div>
+                </div>
+            </div>
+        </div>
 
 
 {% endblock %}
