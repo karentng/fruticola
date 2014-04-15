@@ -299,6 +299,11 @@
         "exportConfig": exportConfig
     });
 
+    $( document ).ready(function() {
+        actualizarGrafica();
+    });
+    
+
     //actualizar gráfica según selector
     function actualizarGrafica(){
         var grafica = $('#selectGrafica').val();
@@ -380,9 +385,10 @@
 
 {% include "reportes/toolbar_reportes.html.twig" %}
 <div class="form-group">
+    {{ form_open(null, {class:'form-horizontal', role:'form'}) }}
     <div class="container-fluid">
     <div class="row">
-        {{ form_open(null, {class:'form-horizontal', role:'form'}) }}
+        
         <div class="col-md-6">
            <div class="form-group">
                 <label class="control-label col-xs-5">Renglón Productivo:</label>
@@ -399,7 +405,6 @@
                 </div>
             </div>
         </div>
-        {{ form_close() }}
     </div>
     
     <ul id="myTab" class="nav nav-tabs">
@@ -415,9 +420,10 @@
                     <h3 align="left">Frecuencias del Perfil de Pequeños Productores Por:</h3>
                 </div>
                 <div class="col-md-3">
-                    <select class="form-control" id="selectGrafica" style="width:240px" onchange="actualizarGrafica()">
-                        <option value="0">1. Género</option>
-                        <option value="1">2. Nivel Educativo</option>
+                    {{form_dropdown('opciones', opciones, set_value('opciones'), 'class="form-control" onchange="actualizarGrafica()" id="selectGrafica" style="width:240px"')}}
+                    <!--<select class="form-control" name="opciones" id="selectGrafica" style="width:240px" onchange="actualizarGrafica()">
+                        <option value="0" {{set_select('opciones', '0', TRUE)}}>1. Género</option>
+                        <option value="1" {{set_select('opciones', '1')}}>2. Nivel Educativo</option>
                         <option value="2">3. Servicios Públicos</option>
                         <option value="3">4. Crédito</option>
                         <option value="4">5. Procedencia Crédito</option>
@@ -428,7 +434,7 @@
                         <option value="9">10. Maquinarias y Equipos</option>
                         <option value="10">11. Tenencia</option>
                         <option value="11">12. Estado de vias de acceso</option>
-                    </select>
+                    </select>-->
                 </div>
             </div>
             <div id="chartdiv" style="width: 100%; height: 600px;"></div>
@@ -480,6 +486,7 @@
             </div>
         </div>
     </div>
+    {{ form_close() }}
 </div>
 
 
