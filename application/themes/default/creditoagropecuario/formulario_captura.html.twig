@@ -39,10 +39,7 @@
 
 <div class="row">
     <div class="col-sm-9">
-        <h3>
-            {{productor.nombre1}} {{productor.nombre2}} {{productor.apellido1}} {{productor.apellido2}} 
-            <small>{{descripDocumento[productor.tipo_documento_id]}}: {{productor.numero_documento}}</small>
-        </h3>
+
     </div>
     <div class="col-sm-3">
         <div class="input-group">
@@ -58,7 +55,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>A1. Datos Personales</h4>
+        <h4>A1. DATOS PERSONALES (Diligencie nombres y apellidos completos y seleccione las opciones abajo indicadas).</h4>
         <a href="#" class="minimize"></a>
     </div><!-- End .panel-heading -->
 
@@ -133,6 +130,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div div class="col-md-4">
                     <div class="form-group">
@@ -191,11 +189,13 @@
     </div><!-- End .panel-body -->
 
 </div><!-- panel default -->
+
 <br/>
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>A2. Datos de Contacto</h4>
+        <h4>A2. DATOS DE CONTACTO (Diligencie de manera clara los datos de ubicación del productor)</h4>
         <a href="#" class="minimize"></a>
     </div><!-- End .panel-heading -->
 
@@ -286,82 +286,73 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>A3. Datos Económicos</h4>
+        <h4>B. DATOS DEL CONYUGE O COMPAÑERO PERMANENTE</h4>
         <a href="#" class="minimize"></a>
     </div><!-- End .panel-heading -->
 
     <div class="panel-body" style="display: block;">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="container">
                         <div class="form-group">
-                            <label class="control-label col-sm-6">Ingreso Anual Familiar </label>
-                            <div class="col-sm-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">$/año</span>
-                                    <input type="text" money class="form-control"  min="0" max="100000000" name="ingreso_familiar" ng-disabled="soloLectura" ng-model="economia.ingreso_familiar" required/>
-                                </div>
-                            </div>
-                            <label class="error" ng-show="myForm.ingreso_familiar.$dirty && myForm.ingreso_familiar.$error.required">Requerido</label>
-                         </div>
+                            <label class="control-label">Nombres</label>
+                            <input type="text" capitalize class="form-control" name="nombre1" maxlength="30" ng-model="productor.nombre1" ng-disabled="soloLectura" required />
+                            <label class="error" ng-show="myForm.nombre1.$dirty && myForm.nombre1.$error.required">Requerido</label>
+                        </div>
                     </div>
                 </div>
-                <div div class="col-md-3">
+                <div class="col-md-6">
                     <div class="container">
                         <div class="form-group">
-                            <label class="control-label col-sm-8">Personas a Cargo</label>
-                            <div class="col-sm-4">
-                                <input type="number" class="form-control" name="personas_dependientes" ng-disabled="soloLectura" ng-model="economia.personas_dependientes" min="0" max="15" required/>
-                            </div>
-                            <span class="help-block" ng-show="myForm.personas_dependientes.$dirty && myForm.personas_dependientes.$error.required"><label class="error">Requerido</label></span>
-                        </div> 
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label col-sm-7">Ingreso de Actividad Agropecuaria</label>
-                            <div class="col-sm-5">
-                                <div class="input-group">
-                                    <span class="input-group-addon">$/año</span>
-                                    <input type="text" money  class="form-control" min="0" max="100000000" name="ingreso_agropecuario" ng-disabled="soloLectura" ng-model="economia.ingreso_agropecuario" required/>
-                                </div>
-                                <label class="error" ng-show="myForm.ingreso_agropecuario.$dirty && myForm.ingreso_agropecuario.$error.required">Requerido</label>
-                            </div>
-                            
+                            <label class="control-label">Apellidos</label>
+                            <input type="text"  capitalize class="form-control" name="apellido1" maxlength="30" ng-model="productor.apellido1" ng-disabled="soloLectura" required />
+                            <label class="error" ng-show="myForm.apellido1.$dirty && myForm.apellido1.$error.required">Requerido</label>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="col-md-7 control-label">Uso de Crédito Actual</label>
-                            <div class="col-md-5">
-                                <input bs-switch ng-model="economia.usaCredito" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" switch-active="{{!soloLectura}}">
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div div class="col-md-5">
 
+            <div class="row">
+                <div div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-sm-5 control-label" ng-class="{'text-muted':!economia.usaCredito}" for="focused">Procedencia del Crédito:</label>
-                        <div class="col-sm-7">
-                            <select ui-select2="{allowClear:true, minimumResultsForSearch: -1, placeholder:'-'}" name="procedencia"ng-model="economia.credito_id" ng-disabled="!economia.usaCredito || soloLectura" ng-required="economia.usaCredito">
+                        <label class="col-xs-3 control-label">Documento: </label>
+                        <div class="col-xs-3" style="padding-right:0px !important">
+                            <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tipo_documento_id" ng-model="productor.tipo_documento_id" ng-required="true" ng-disabled="soloLectura">
                                 <option></option>
-                                <option ng-repeat="t in tiposCredito" value="{{t.id}}">{{t.descripcion}}</option>
+                                <option ng-repeat="t in tiposDocumento" value="{{t.id}}">{{t.descripcion}}</option>
                             </select>
-                            <label class="error" ng-show="myForm.procedencia.$dirty && myForm.procedencia.$error.required ">Requerido</label>
+                            <label class="error" ng-show="myForm.tipo_documento_id.$dirty && myForm.tipo_documento_id.$error.required">Requerido</label>
+                        </div>
+                        <div class="col-xs-6" style="padding-left:0px !important">
+                            <input type="text" class="form-control" name="numero_documento" maxlength="20" ng-model="productor.numero_documento" ng-disabled="soloLectura" required />
+                            <span class="help-block" ng-show="myForm.numero_documento.$dirty && myForm.numero_documento.$error.required"><label class="error">Requerido</label></span>
                         </div>
                     </div>
                 </div>
-                <div div class="col-md-3">
+                
+                <div div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" capitalize class="form-control" name="otraProcedencia" ng-model="otro_credito" placeholder="¿Cuál?" ng-required="economia.usaCredito&& economia.credito_id==7" ng-show="economia.usaCredito && economia.credito_id==7" ng-disabled="soloLectura"/>
+                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                        <div class="col-sm-6">
+                            <div class="input-group date datepicker autostart">
+                                <input size="16" name="fecha_nacimiento" ng-model="productor.fecha_nacimiento" ng-disabled="soloLectura" value="" class="form-control" type="text">
+                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                            </div>
+                            <span class="help-block"><small>AAAA-MM-DD</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Teléfono:</label>
+                        <div class="col-sm-6">
+                                <input size="16" name="fecha_nacimiento" ng-model="productor.fecha_nacimiento" ng-disabled="soloLectura" value="" class="form-control" type="text">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -370,65 +361,949 @@
 </div>
 
 <br/>
-
 
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>A4. Participación del Usuario en Procesos de Transferencia e Innovación</h4>
+        <h4>C. REFERENCIAS</h4>
         <a href="#" class="minimize"></a>
     </div><!-- End .panel-heading -->
 
     <div class="panel-body" style="display: block;">
         <div class="container">
-            <div class="form-group">
-                <label class="col-md-7 control-label">¿Realiza Procesos de Innovación?</label>
-                <div class="col-md-5">
-                    <input bs-switch ng-model="realizaInnovacion" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-size="" switch-animate="true" switch-active="{{!soloLectura}}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>FAMILIARES (Que no vivan con usted)</h4>
+                </div><!-- End .panel-heading -->
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Nombres</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Primer Apellido</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Segundo Apellido</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Parentesco</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Municipio</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Dirección de la Residencia</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Barrio/ Vereda</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Celular (Prefijo y Número)</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>                
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Nombres</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Primer Apellido</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Segundo Apellido</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Parentesco</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Municipio</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Dirección de la Residencia</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Barrio/ Vereda</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Celular (Prefijo y Número)</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>                
+                    </div>
+
                 </div>
             </div>
 
-            <table class="table table-bordered animate-show-hide" ng-show="realizaInnovacion">
-            <thead>
-                <tr>
-                    <th>Actividad</th>
-                    <th colspan="2">Fuente</th>
-                    <th>Descripción</th>
-                </tr>
-                
-            </thead>
-            <tbody>
-                <tr ng-repeat="tipoInn in tiposInnovacion" ng-form="subForm">
-                    <td>{{tipoInn.descripcion}}</td>
-                    <td>
-                        <span ng-init="innovaciones[$index] = innovaciones[$index] ? innovaciones[$index] : {tipo_id:tipoInn.id}"></span>
-                        <buttons-radio model="innovaciones[$index].fuente_id" options="fuentesInnovacion" name="fuente" disabled="soloLectura" >
-                        </buttons-radio>
-                    </td>
-                    <td>
-                        <input type="text" capitalize class="form-control" style="width:100px" 
-                                placeholder="¿Cual?" name="otra_fuente" ng-model="innovaciones[$index].otra_fuente" ng-show="innovaciones[$index].fuente_id==6" ng-required="innovaciones[$index].fuente_id==6" ng-disabled="soloLectura"/>
-                        <label class="error" ng-show="subForm.otra_fuente.$error.required">Requerido</label>
-                        
-                    </td>
-                    <td>
-                        <input type="text" capitalize class="form-control" name="descripcion" maxlength="100" ng-model="innovaciones[$index].descripcion"
-                            placeholder="{{innovaciones[$index].fuente_id?'Ingrese aqui la Descripción':''}}" ng-required="innovaciones[$index].fuente_id" ng-disabled="!innovaciones[$index].fuente_id || soloLectura" />
-                        <label class="error" ng-show="subForm.descripcion.$error.required">Requerido</label>
-                    </td>
-                </tr>
-            </tbody>
-            </table>
+            <br>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>PERSONALES</h4>
+                </div><!-- End .panel-heading -->
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Nombres</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Primer Apellido</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Segundo Apellido</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Nexo con el Cliente</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Municipio</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Dirección de la Residencia</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Barrio/ Vereda</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Celular (Prefijo y Número)</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>                
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Nombres</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Primer Apellido</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Segundo Apellido</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Nexo con el Cliente</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Municipio</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Dirección de la Residencia</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Barrio/ Vereda</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <div class="container">                       
+                                    <label class="control-label">Celular (Prefijo y Número)</label>
+                                    <div div class="col-md-12">
+                                        <div div class="col-md-3">
+                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                        </div>
+                                        <div div class="col-md-9">
+                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>                
+                    </div>
+
+                </div>
+            </div>
+
+            <br>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>FINANCIERAS</h4>
+                </div><!-- End .panel-heading -->
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Entidad</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Clase o tipo de Producto</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">No. de Producto</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Ciudad</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Sucursal</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Entidad</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Clase o tipo de Producto</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">No. de Producto</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Ciudad</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Sucursal</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <br>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>COMERCIALES (Diligenciar las referencias comerciales solo para independientes)</h4>
+                </div><!-- End .panel-heading -->
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre del Establecimiento</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de vínculo</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Municipio</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
+                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Telefono</label>
+                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
+                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
 
 <br/>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>D. INFORMACIÓN PARA LA PLANIFICACION DEL CRÉDITO (DESCRIPCIÓN DE LAS INVERSIONES OBJETO DEL PROYECTO A FINANCIAR)</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container">
+
+        <table class="table table-bordered table-hover table-responsive dataTable">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Codigo FINAGRO (Deje en Blanco)</th>
+                    <th style="text-align: center;">Capital de Trabajo</th>
+                    <th style="text-align: center;">Inversión</th>
+                    <th style="text-align: center;">Unidades o Hectareas a Financiar</th>
+                    <th style="text-align: center;">Valor del Proyecto (100%)</th>
+                    <th style="text-align: center;">Valor de la Solicitud (Pequeño Productor hasta 100%)</th>
+                    <th style="text-align: center;">Plazo Total (Meses)</th>
+                    <th style="text-align: center;">Período de Gracia (semestral /anual)</th>
+                    <th style="text-align: center;">Modalidad Pago de Intereses (semestral /anual)</th>
+                    <th style="text-align: center;">Amortización a Capital (semestral /anual)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                </tr>
+
+                <tr>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                </tr>
+
+                <tr>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                </tr>
+
+                <tr>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                    <td><input size="" name="" style="width: 80px;"/></td>
+                </tr>
+
+            </tbody>
+        </table>
 
 
+        <div class="row">
+            <input bs-switch ng-model="manejaResidsOrdinarios" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-active="{{!soloLectura}}"/>
+        </div>
 
+        </div>
+    </div>
+</div>
 
+<br/>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="icon"><i class="icon20 i-menu-6"></i></div>
+        <h4>E. INFORMACIÓN DEL PREDIO DE LA INVERSIÓN</h4>
+        <a href="#" class="minimize"></a>
+    </div><!-- End .panel-heading -->
+
+    <div class="panel-body" style="display: block;">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="">Nombre del Predio de la inversión</label>
+                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
+                            <label class="error" >Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="">Área de la Presente Inversión (Has)</label>
+                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
+                            <label class="error" >Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="">Tenencia del predio de la inversión (Items del RUAT)</label>
+                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
+                            <label class="error" >Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="">Municipio del Predio de la Inversión</label>
+                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
+                            <label class="error" >Requerido</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="">Nombre del Predio de la inversión</label>
+                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
+                            <label class="error" >Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="">Fuentes Hídricas <br>&nbsp;</label>
+                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
+                            <label class="error" >Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="">Fecha Inicial de la Inversión DD/MM/AAAA</label>
+                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
+                            <label class="error" >Requerido</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="">Fecha final de la Inversión DD/MM/AAAA</label>
+                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
+                            <label class="error" >Requerido</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <br/>
 
