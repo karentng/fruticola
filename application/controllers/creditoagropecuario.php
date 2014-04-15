@@ -54,21 +54,70 @@ class Creditoagropecuario extends CI_Controller {
         $this->twiggy->display();
     }
 
-    public function imprimible($productor_id = NULL) {
+    public function imprimible($ruat_id = NULL) {
 
-        $productor = Productor::find($productor_id);
+        $ruat = Ruat::find($ruat_id);
 
-        if (!$productor)
+        if (!$ruat)
             show_404();
         
+        $productor = $ruat->productor;        
         $contacto = $productor->contacto;        
         $renglon = $productor->renglon_productivo;  
+        $vtp = VisitaTipoProductor::first(array(
+                    'conditions' => array('ruat_id = ?', $ruat_id)
+        ));
+        
+        
+        ///consulto las preguntas C para cargarlas dinamicamente
+        $preguntas_c = TPCPregunta::all(array('order' => 'categoria, ordenamiento'));
+        
+        ///consulo las respuestas C
+        $respuestas_c = TPCRespuesta::all(array(
+                    'conditions' => array('visita_id = ?', $vtp->id)
+        ));
+        
+        
+        
+        ///acomodo las respuestas con la pregunta como llave
+        $respuestas_c_aux = array();
+        foreach ($respuestas_c as $obj)
+            $respuestas_c_aux[$obj->pregunta_c_id] = $obj;        
+        
+        ///acomodo las preguntas C por categoria
+        $preguntas_ingresos = $preguntas_egresos = $preguntas_activos = $preguntas_totales = array();
+        foreach ($preguntas_c as $obj) {
+
+            $objAux = $obj->to_array();
+
+            ///Si la pregunta C tiene respuesta, la agrego al objeto de la pregunta
+            if (isset($respuestas_c_aux[$obj->id]))
+                $objAux['respuesta_bd'] = $respuestas_c_aux[$obj->id]->valor;
+
+            if ($obj->categoria === 'A')
+                $preguntas_activos[] = $objAux;
+            elseif ($obj->categoria === 'B')
+                $preguntas_ingresos[] = $objAux;
+            elseif ($obj->categoria === 'C')
+                $preguntas_egresos[] = $objAux;
+            elseif ($obj->categoria === 'D')
+                $preguntas_totales[] = $objAux;
+        }
         
         $this->twiggy->set("productor", $productor);
         $this->twiggy->set("contacto", $contacto);
         $this->twiggy->set("contacto_departamento", $contacto->departamento);
         $this->twiggy->set("contacto_municipio", $contacto->municipio);
         $this->twiggy->set("renglon", $renglon);
+        
+        $this->twiggy->set('preguntas_ingresos', $preguntas_ingresos);
+        $this->twiggy->set('preguntas_egresos', $preguntas_egresos);
+        $this->twiggy->set('preguntas_activos', $preguntas_activos);
+        $this->twiggy->set('preguntas_totales', $preguntas_totales);
+        
+//        echo '<pre>';
+//        var_dump($preguntas_egresos);
+//        echo '</pre>';
 
         $this->twiggy->template("creditoagropecuario/formulario_captura_imprimible");
         $this->twiggy->display();
