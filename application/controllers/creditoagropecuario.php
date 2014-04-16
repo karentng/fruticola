@@ -15,21 +15,17 @@ class Creditoagropecuario extends CI_Controller {
         function to_array($model) {
             return $model->to_array();
         }
-
-        $data = array();
-        $data['tiposDocumento'] = array_map('to_array', TipoDocumento::sorted());
-        $data['nivelesEducativos'] = array_map('to_array', NivelEducativo::sorted());
-        $data['tiposProductor'] = array_map('to_array', TipoProductor::sorted());
-        $data['renglonesProductivos'] = array_map('to_array', RenglonProductivo::sorted());
-        $data['clasesOrganizaciones'] = array_map('to_array', ClaseOrganizacion::sorted());
-        $data['tiposBeneficio'] = array_map('to_array', TipoBeneficio::sorted());
-        $data['tiposCredito'] = array_map('to_array', TipoCredito::sorted());
-        $data['periodicidades'] = array_map('to_array', Periodicidad::sorted());
-        $data['tiposConfianza'] = array_map('to_array', TipoConfianza::sorted());
-        $data['tiposInnovacion'] = array_map('to_array', TipoInnovacion::sorted());
-        $data['fuentesInnovacion'] = array_map('to_array', FuenteInnovacion::sorted());
-        $data['tiposRazonNoPertenecer'] = array_map('to_array', TipoRazonNoPertenecer::sorted());
         
+        $ruat = Ruat::find($ruat_id);
+
+        if (!$ruat)
+            show_404();
+
+        $productor = $ruat->productor;
+        $contacto = $productor->contacto;
+        $renglon = $productor->renglon_productivo;
+
+        $data = array();            
         
         $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
         $deptos_municipios = array();
@@ -42,6 +38,11 @@ class Creditoagropecuario extends CI_Controller {
         $data['departamentos'] = $deptos_municipios;
 
         $this->twiggy->set('combos', json_encode($data));
+        $this->twiggy->set("productor", $productor);
+        $this->twiggy->set("contacto", $contacto);
+        $this->twiggy->set("contacto_departamento", $contacto->departamento);
+        $this->twiggy->set("contacto_municipio", $contacto->municipio);
+        $this->twiggy->set("renglon", $renglon);
 
         $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(1, $ruat_id));
 
