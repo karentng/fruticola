@@ -12,44 +12,39 @@ class Creditoagropecuario extends CI_Controller {
 
     public function index($ruat_id = NULL) {
 
-        //if(!$ruat_id && !Ruat::puedeCrear()) show_error("Acceso no permitido");
-
-
         function to_array($model) {
             return $model->to_array();
         }
 
-        /* $data = array();
-          $data['tiposDocumento']       = array_map('to_array',TipoDocumento::sorted());
-          $data['nivelesEducativos']    = array_map('to_array',NivelEducativo::sorted());
-          $data['tiposProductor']       = array_map('to_array',TipoProductor::sorted());
-          $data['renglonesProductivos'] = array_map('to_array',RenglonProductivo::sorted());
-          $data['clasesOrganizaciones'] = array_map('to_array',ClaseOrganizacion::sorted());
-          $data['tiposBeneficio']       = array_map('to_array',TipoBeneficio::sorted());
-          $data['tiposCredito']         = array_map('to_array',TipoCredito::sorted());
-          $data['periodicidades']       = array_map('to_array',Periodicidad::sorted());
-          $data['tiposConfianza']       = array_map('to_array',TipoConfianza::sorted());
-          $data['tiposInnovacion']      = array_map('to_array',TipoInnovacion::sorted());
-          $data['fuentesInnovacion']    = array_map('to_array',FuenteInnovacion::sorted());
-          $data['tiposRazonNoPertenecer'] = array_map('to_array',TipoRazonNoPertenecer::sorted());
-          $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
-          $deptos_municipios = array();
-          foreach($deptos as $depto) {
-          $deptos_municipios[$depto->id] = array('nombre'=>$depto->nombre, 'municipios'=>array());
-          foreach($depto->municipios as $mun)
-          $deptos_municipios[$depto->id]['municipios'][] = array('id' => $mun->id, 'nombre'=>$mun->nombre);
-          }
+        $data = array();
+        $data['tiposDocumento'] = array_map('to_array', TipoDocumento::sorted());
+        $data['nivelesEducativos'] = array_map('to_array', NivelEducativo::sorted());
+        $data['tiposProductor'] = array_map('to_array', TipoProductor::sorted());
+        $data['renglonesProductivos'] = array_map('to_array', RenglonProductivo::sorted());
+        $data['clasesOrganizaciones'] = array_map('to_array', ClaseOrganizacion::sorted());
+        $data['tiposBeneficio'] = array_map('to_array', TipoBeneficio::sorted());
+        $data['tiposCredito'] = array_map('to_array', TipoCredito::sorted());
+        $data['periodicidades'] = array_map('to_array', Periodicidad::sorted());
+        $data['tiposConfianza'] = array_map('to_array', TipoConfianza::sorted());
+        $data['tiposInnovacion'] = array_map('to_array', TipoInnovacion::sorted());
+        $data['fuentesInnovacion'] = array_map('to_array', FuenteInnovacion::sorted());
+        $data['tiposRazonNoPertenecer'] = array_map('to_array', TipoRazonNoPertenecer::sorted());
+        
+        
+        $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
+        $deptos_municipios = array();
+        foreach ($deptos as $depto) {
+            $deptos_municipios[$depto->id] = array('nombre' => $depto->nombre, 'municipios' => array());
+            foreach ($depto->municipios as $mun)
+                $deptos_municipios[$depto->id]['municipios'][] = array('id' => $mun->id, 'nombre' => $mun->nombre);
+        }
 
-          $data['departamentos'] = $deptos_municipios;
+        $data['departamentos'] = $deptos_municipios;
 
-          $this->twiggy->set('combos', json_encode($data));
+        $this->twiggy->set('combos', json_encode($data));
 
-          if($ruat_id) {
-          $ruat = $this->cargar($ruat_id);
-          $this->twiggy->set('ruat', json_encode($ruat));
-          }
+        $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(1, $ruat_id));
 
-          $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(1, $ruat_id)); */
         $this->twiggy->template("creditoagropecuario/formulario_captura");
         $this->twiggy->display();
     }
@@ -60,30 +55,30 @@ class Creditoagropecuario extends CI_Controller {
 
         if (!$ruat)
             show_404();
-        
-        $productor = $ruat->productor;        
-        $contacto = $productor->contacto;        
-        $renglon = $productor->renglon_productivo;  
+
+        $productor = $ruat->productor;
+        $contacto = $productor->contacto;
+        $renglon = $productor->renglon_productivo;
         $vtp = VisitaTipoProductor::first(array(
                     'conditions' => array('ruat_id = ?', $ruat_id)
         ));
-        
-        
+
+
         ///consulto las preguntas C para cargarlas dinamicamente
         $preguntas_c = TPCPregunta::all(array('order' => 'categoria, ordenamiento'));
-        
+
         ///consulo las respuestas C
         $respuestas_c = TPCRespuesta::all(array(
                     'conditions' => array('visita_id = ?', $vtp->id)
         ));
-        
-        
-        
+
+
+
         ///acomodo las respuestas con la pregunta como llave
         $respuestas_c_aux = array();
         foreach ($respuestas_c as $obj)
-            $respuestas_c_aux[$obj->pregunta_c_id] = $obj;        
-        
+            $respuestas_c_aux[$obj->pregunta_c_id] = $obj;
+
         ///acomodo las preguntas C por categoria
         $preguntas_ingresos = $preguntas_egresos = $preguntas_activos = $preguntas_totales = array();
         foreach ($preguntas_c as $obj) {
@@ -103,18 +98,18 @@ class Creditoagropecuario extends CI_Controller {
             elseif ($obj->categoria === 'D')
                 $preguntas_totales[] = $objAux;
         }
-        
+
         $this->twiggy->set("productor", $productor);
         $this->twiggy->set("contacto", $contacto);
         $this->twiggy->set("contacto_departamento", $contacto->departamento);
         $this->twiggy->set("contacto_municipio", $contacto->municipio);
         $this->twiggy->set("renglon", $renglon);
-        
+
         $this->twiggy->set('preguntas_ingresos', $preguntas_ingresos);
         $this->twiggy->set('preguntas_egresos', $preguntas_egresos);
         $this->twiggy->set('preguntas_activos', $preguntas_activos);
         $this->twiggy->set('preguntas_totales', $preguntas_totales);
-        
+
 //        echo '<pre>';
 //        var_dump($preguntas_egresos);
 //        echo '</pre>';
