@@ -15,8 +15,6 @@
 
 <script type="text/javascript">
 
-    var dataR = null;
-    dataR = [[]] ;
 
     var exportConfig = {
         menuTop: "21px",
@@ -115,11 +113,12 @@
         
         $("#renglon, #municipio, #pregunta").change(function() {
             $('#chartdiv').html("<center><h2>Cargando...</h2></center>");
-            $.post("{{site_url('reportes/estadisticascosecha/data')}}", {
+            $.post("{{site_url('reportes/estadisticasposcosecha/data')}}", {
                 'municipios': $('#municipio').select2('val').join(","),
                 'renglones': $('#renglon').select2('val').join(","),
                 'pregunta': $('#pregunta').val(),
                 }, function(data) {
+
                     crearGrafico(data);
                 });
         });
@@ -143,7 +142,7 @@
 {% endblock %}
 
 
-{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> COSECHA &#187; Reporte Frecuencias Cosecha </h1> {% endblock %}
+{% block titulo %} <h1><i class="icon20 i-stack-checkmark"></i> POSCOSECHA &#187; Reporte Frecuencias Poscosecha </h1> {% endblock %}
 
 {% block contenido %}
 {% include "reportes/toolbar_reportes.html.twig" %}
@@ -153,7 +152,7 @@
 
         <div class="container">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab_grafico" data-toggle="tab">ESTADíSTICAS COSECHA</a></li>
+                <li class="active"><a href="#tab_grafico" data-toggle="tab">ESTADíSTICAS POSCOSECHA</a></li>
             </ul>
 
             <div id='' class="tab-content">
@@ -174,10 +173,10 @@
                         <div class="col-lg-12">
                             <label for="municipio" class="col-lg-12" style="text-align: center;" >Pregunta</label>
                             <select id="pregunta" class="form-control" name="select_chart">
-                                {% set contador = 1 %}
                                 {% for pregunta in preguntas %}
-                                    <option value="{{contador}}">{{contador ~". "~ pregunta.texto }}</option>
-                                    {% set contador  = contador+1 %}
+                                    {% if pregunta.id !=12 %}
+                                    <option value="{{pregunta.id}}">{{  pregunta.texto }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
