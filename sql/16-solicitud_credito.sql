@@ -42,7 +42,7 @@ create table conyugue(
 
 create table referencias_fam_per(
     id                              serial not null primary key,
-    tipo                            integer not null,
+    tipo                            integer not null,-- 1:familiares; 2:personales
     solicitud_id                    integer references solicitud_credito(id),
     nombres			    varchar(30),
     apellido1                       varchar(30),

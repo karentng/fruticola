@@ -15,18 +15,22 @@ class Creditoagropecuario extends CI_Controller {
         function to_array($model) {
             return $model->to_array();
         }
-        
+
         $ruat = Ruat::find($ruat_id);
 
         if (!$ruat)
             show_404();
 
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
+
         $productor = $ruat->productor;
         $contacto = $productor->contacto;
-        $renglon = $productor->renglon_productivo;
 
-        $data = array();            
-        
+        $data = array();
+
+        $data['tiposDocumento'] = array_map('to_array', TipoDocumento::sorted());
+
         $deptos = Departamento::all(array('order' => 'nombre', 'include' => array('municipios')));
         $deptos_municipios = array();
         foreach ($deptos as $depto) {
@@ -37,14 +41,43 @@ class Creditoagropecuario extends CI_Controller {
 
         $data['departamentos'] = $deptos_municipios;
 
+
+        $solicitud_credito = SolicitudCredito::first(array(
+                    'conditions' => array('ruat_id = ?', $ruat_id)
+        ));
+
+        $conyugue = $solicitud_credito->conyugue;
+        $referencias_familiares = $solicitud_credito->referencias_familiares;
+        $referencias_personales = $solicitud_credito->referencias_personales;
+        $referencias_financieras = $solicitud_credito->referencias_financieras;
+        $referencias_comerciales = $solicitud_credito->referencias_comerciales;
+        $descripcion_inversiones = $solicitud_credito->descripcion_inversiones;
+        $informacion_predios_inversion = $solicitud_credito->informacion_predios_inversion;
+        $ingresos_adicionales = $solicitud_credito->ingresos_adicionales;
+        $descripcion_bienes = $solicitud_credito->descripcion_bienes;
+
+
+
+        ///Si las validaciones son correctas procedo a guardar
+        if ($this->form_validation->run()) {
+            
+        }
+
         $this->twiggy->set('combos', json_encode($data));
         $this->twiggy->set("productor", $productor);
         $this->twiggy->set("contacto", $contacto);
         $this->twiggy->set("contacto_departamento", $contacto->departamento);
         $this->twiggy->set("contacto_municipio", $contacto->municipio);
-        $this->twiggy->set("renglon", $renglon);
-
-        $this->twiggy->set("breadcrumbs", ruat_breadcrumbs(1, $ruat_id));
+        
+        $this->twiggy->set("conyugue", $conyugue);
+        $this->twiggy->set("referencias_familiares", $referencias_familiares);
+        $this->twiggy->set("referencias_personales", $referencias_personales);
+        $this->twiggy->set("referencias_financieras", $referencias_financieras);
+        $this->twiggy->set("referencias_comerciales", $referencias_comerciales);
+        $this->twiggy->set("descripcion_inversiones", $descripcion_inversiones);
+        $this->twiggy->set("informacion_predios_inversion", $informacion_predios_inversion);
+        $this->twiggy->set("ingresos_adicionales", $ingresos_adicionales);
+        $this->twiggy->set("descripcion_bienes", $descripcion_bienes);
 
         $this->twiggy->template("creditoagropecuario/formulario_captura");
         $this->twiggy->display();
