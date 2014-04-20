@@ -21,21 +21,13 @@
 
 
 
-{% block breadcrumnb %}
-    <ul class="breadcrumb">
-      <li><a href="{{site_url('/')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
-      {{breadcrumbs}}
-    </ul>
-{% endblock %}
-
-
 
 {% block titulo %} <h1><i class="icon20 i-man"></i> RUAT &#187; Datos Personales </h1> {% endblock %}
 
 {% block contenido %}
-{% raw %}
 
-<div ng-app="myApp"><div ng-controller="RuatACtrl"><form name="myForm" ng-submit="submit()" novalidate class="form-horizontal css-form">
+
+<div ><div class="form-horizontal css-form">
 
 <div class="row">
     <div class="col-sm-9">
@@ -66,8 +58,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Primer Nombre</label>
-                            <input type="text" capitalize class="form-control" name="nombre1" maxlength="30" ng-model="productor.nombre1" ng-disabled="soloLectura" required />
-                            <label class="error" ng-show="myForm.nombre1.$dirty && myForm.nombre1.$error.required">Requerido</label>
+                            <input type="text" capitalize class="form-control" name="nombre1" maxlength="30" readonly/>
                         </div>
                     </div>
                 </div>
@@ -75,7 +66,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Segundo Nombre</label>
-                            <input type="text" capitalize class="form-control" maxlength="30" ng-model="productor.nombre2"  ng-disabled="soloLectura"/>
+                            <input type="text" capitalize class="form-control" name="nombre2"  maxlength="30" readonly/>
                         </div>
                     </div>
                 </div>
@@ -83,9 +74,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Primer Apellido</label>
-                            <input type="text"  capitalize class="form-control" name="apellido1" maxlength="30" ng-model="productor.apellido1" ng-disabled="soloLectura" required />
-                            <label class="error" ng-show="myForm.apellido1.$dirty && myForm.apellido1.$error.required">Requerido</label>
-
+                            <input type="text"  capitalize class="form-control" name="apellido1" maxlength="30"readonly/>
                         </div>
                     </div>
                 </div>
@@ -93,7 +82,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Segundo Apellido</label>
-                            <input type="text" capitalize class="form-control" maxlength="30" ng-model="productor.apellido2"  ng-disabled="soloLectura"/>
+                            <input type="text" capitalize class="form-control" name="apellido2" maxlength="30" readonly/>
                         </div>
                     </div>
                 </div>
@@ -104,28 +93,19 @@
                     <div class="form-group">
                         <label class="col-xs-3 control-label">Documento: </label>
                         <div class="col-xs-3" style="padding-right:0px !important">
-                            <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tipo_documento_id" ng-model="productor.tipo_documento_id" ng-required="true" ng-disabled="soloLectura">
-                                <option></option>
-                                <option ng-repeat="t in tiposDocumento" value="{{t.id}}">{{t.descripcion}}</option>
-                            </select>
-                            <label class="error" ng-show="myForm.tipo_documento_id.$dirty && myForm.tipo_documento_id.$error.required">Requerido</label>
+                            <input type="text" class="form-control" name="tipo_documento_id" maxlength="5" readonly/>
                         </div>
                         <div class="col-xs-6" style="padding-left:0px !important">
-                            <input type="text" class="form-control" name="numero_documento" maxlength="20" ng-model="productor.numero_documento" ng-disabled="soloLectura" required />
-                            <span class="help-block" ng-show="myForm.numero_documento.$dirty && myForm.numero_documento.$error.required"><label class="error">Requerido</label></span>
+                            <input type="text" class="form-control" name="numero_documento" maxlength="20" readonly/>
                         </div>
                     </div>
                 </div>
                 
                 <div div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
                         <div class="col-sm-6">
-                            <div class="input-group date datepicker autostart">
-                                <input size="16" name="fecha_nacimiento" ng-model="productor.fecha_nacimiento" ng-disabled="soloLectura" value="{{ set_value('fecha_nacimiento') }}" class="form-control" type="text">
-                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
-                            </div>
-                            <span class="help-block"><small>AAAA-MM-DD</small></span>
+                            <input size="16" name="fecha_nacimiento" class="form-control" readonly/>
                         </div>
                     </div>
                 </div>
@@ -134,26 +114,17 @@
             <div class="row">
                 <div div class="col-md-4">
                     <div class="form-group">
-                        <label class="col-sm-6 control-label">Sexo: </label>
+                        <label class="col-sm-6 control-label">Sexo</label>
                         <div class="col-sm-6">
-                            <select ui-select2="{allowClear:true, placeholder:'-', minimumResultsForSearch: -1}" name="sexo" ng-model="productor.sexo" ng-disabled="soloLectura" required>
-                                <option></option>
-                                <option value='M'>Masculino</option>
-                                <option value='F'>Femenino</option>
-                            </select>
-                            <label class="error" ng-show="myForm.sexo.$dirty && myForm.sexo.$error.required">Requerido</label>
+                            <input type="text" class="form-control" name="sexo" maxlength="5" readonly/>
                         </div>
                     </div>
                 </div>                    
                 <div div class="col-md-4">
                     <div class="form-group">
-                        <label class="col-sm-6 control-label">Nivel Educativo: </label>
+                        <label class="col-sm-6 control-label">Nivel Educativo</label>
                         <div class="col-sm-6">
-                            <select  ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="nivel_educativo_id" ng-disabled="soloLectura" ng-model="productor.nivel_educativo_id" ng-required="true">
-                                <option></option>
-                                <option ng-repeat="t in nivelesEducativos" value="{{t.id}}">{{t.descripcion}}</option>
-                            </select>
-                            <label class="error" ng-show="myForm.nivel_educativo_id.$dirty && myForm.nivel_educativo_id.$error.required">Requerido</label>
+                            <input type="text" class="form-control" name="nivel_educativo" maxlength="30" readonly/>
                         </div>
                     </div>
                 </div>
@@ -164,23 +135,15 @@
                     <div class="form-group">
                         <label class="col-sm-5 control-label" for="focused">Tipo de Productor:</label>
                         <div class="col-sm-7">
-                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="tipoProductor" ng-disabled="soloLectura" ng-model="productor.tipo_productor_id" required>
-                                <option></option>
-                                <option ng-repeat="t in tiposProductor" value="{{t.id}}">{{t.descripcion}}</option>
-                            </select>
-                            <label class="error" ng-show="myForm.tipoProductor.$dirty && myForm.tipoProductor.$error.required">Requerido</label>
+                            <input type="text" class="form-control" name="tipo_productor" maxlength="30" readonly/>
                         </div>
                     </div>
                 </div>
                 <div div class="col-md-7">
                     <div class="form-group">
-                        <label class="col-sm-5 control-label" for="focused">Renglón Productivo:</label>
+                        <label class="col-sm-5 control-label" for="focused">Renglón Productivo</label>
                         <div class="col-sm-7">
-                            <select ui-select2="{allowClear:true, placeholder:'-',minimumResultsForSearch: -1}" name="renglon_productivo_id" ng-disabled="soloLectura" ng-model="productor.renglon_productivo_id" ng-required="true">
-                                <option></option>
-                                <option ng-repeat="t in renglonesProductivos" value="{{t.id}}">{{t.descripcion}}</option>
-                            </select>
-                            <label class="error" ng-show="myForm.renglon_productivo_id.$dirty && myForm.renglon_productivo_id.$error.required">Requerido</label>
+                             <input type="text" class="form-control" name="renglon_productivo" maxlength="30" readonly/>
                         </div>
                     </div>
                 </div>
@@ -206,8 +169,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Telefono Fijo</label>
-                            <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                            <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                            <input type="text" class="form-control" name="telefono" maxlength="100" readonly/>
                         </div>
                     </div>
                 </div>
@@ -215,8 +177,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Celular</label>
-                            <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                            <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                            <input type="text" class="form-control" name="celular" maxlength="100" readonly/>
                         </div>
                     </div>
                 </div>
@@ -224,8 +185,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                            <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Debe ser un Email Válido</label></span>
+                            <input type="text" class="form-control" name="email" maxlength="100" readonly/>
                         </div>
                     </div>
                 </div>
@@ -235,11 +195,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Departamento:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="departamento" ng-model="contacto.departamento_id" ng-disabled="soloLectura" required>
-                                <option></option>
-                                <option ng-repeat="(key,depto) in departamentos" value="{{key}}">{{depto.nombre}}</option>
-                            </select>
-                            <label class="error" ng-show="myForm.departamento.$dirty && myForm.departamento.$error.required">Requerido</label>
+                            <input type="text" class="form-control" name="departamento" maxlength="100" readonly/>
                         </div>
                     </div>
                 </div>
@@ -247,11 +203,7 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Municipio:</label>
-                            <select ui-select2="{allowClear:true, placeholder:'-'}" name="municipio" ng-model="contacto.municipio_id"  ng-disabled="soloLectura" required>
-                                <option></option>
-                                <option ng-repeat="mun in departamentos[contacto.departamento_id].municipios" value="{{mun.id}}">{{mun.nombre}}</option>
-                            </select>
-                            <label class="error" ng-show="myForm.municipio.$dirty && myForm.municipio.$error.required">Requerido</label>
+                            <input type="text" class="form-control" name="municipio" maxlength="100" readonly/>
                         </div>
                     </div>
                 </div>
@@ -259,24 +211,21 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label" for="focused">Vereda / Corregimiento</label>
-                            <input type="text" capitalize class="form-control" name="vereda" maxlength="100maxlength="100" " ng-model="contacto.vereda" ng-disabled="soloLectura"/>
-                            <span class="help-block" ng-show="myForm.vereda.$dirty && myForm.vereda.$error.required"><label class="error">Requerido</label></span>
+                            <input type="text" class="form-control" name="vereda" maxlength="100" readonly/>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div div class="col-md-12">
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="focused">Dirección de Residencia:</label>
-                        <div class="col-md-9">
-                            <input type="text" capitalize class="form-control" name="direccion" maxlength="100" ng-model="contacto.direccion" ng-disabled="soloLectura" required maxlength="100">
-                            <label class="error" ng-show="myForm.direccion.$dirty && myForm.direccion.$error.required">Requerido</label>
-
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Dirección de Residencia</label>
+                            <input type="text" class="form-control" name="direccion_residencia" maxlength="100" readonly/>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>                
         </div>
     </div><!-- End .panel-body -->
 </div><!-- panel default -->
@@ -293,22 +242,35 @@
     <div class="panel-body" style="display: block;">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="container">
                         <div class="form-group">
-                            <label class="control-label">Nombres</label>
-                            <input type="text" capitalize class="form-control" name="nombre1" maxlength="30" ng-model="productor.nombre1" ng-disabled="soloLectura" required />
-                            <label class="error" ng-show="myForm.nombre1.$dirty && myForm.nombre1.$error.required">Requerido</label>
+                            <label class="control-label">Primer Nombre</label>
+                            <input type="text" capitalize class="form-control" name="conyugue_nombre1" maxlength="30" readonly/>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="container">
                         <div class="form-group">
-                            <label class="control-label">Apellidos</label>
-                            <input type="text"  capitalize class="form-control" name="apellido1" maxlength="30" ng-model="productor.apellido1" ng-disabled="soloLectura" required />
-                            <label class="error" ng-show="myForm.apellido1.$dirty && myForm.apellido1.$error.required">Requerido</label>
-
+                            <label class="control-label">Segundo Nombre</label>
+                            <input type="text" capitalize class="form-control" name="conyugue_nombre2"  maxlength="30" readonly/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Primer Apellido</label>
+                            <input type="text"  capitalize class="form-control" name="conyugue_apellido1" maxlength="30"readonly/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="form-group">
+                            <label class="control-label">Segundo Apellido</label>
+                            <input type="text" capitalize class="form-control" name="conyugue_apellido2" maxlength="30" readonly/>
                         </div>
                     </div>
                 </div>
@@ -319,25 +281,25 @@
                     <div class="form-group">
                         <label class="col-xs-3 control-label">Documento: </label>
                         <div class="col-xs-3" style="padding-right:0px !important">
-                            <select ui-select2="{minimumResultsForSearch: -1, allowClear:true, placeholder:'-'}" name="tipo_documento_id" ng-model="productor.tipo_documento_id" ng-required="true" ng-disabled="soloLectura">
-                                <option></option>
-                                <option ng-repeat="t in tiposDocumento" value="{{t.id}}">{{t.descripcion}}</option>
+                            <select name="tipo_documento_conyugue" class="form-control">
+                                {% for tipo_doc in tiposDocumento %}
+                                    <option value="{{ tipo_doc.id|e }}" >{{ tipo_doc.descripcion|e }}</option>
+                                {% endfor %}
                             </select>
-                            <label class="error" ng-show="myForm.tipo_documento_id.$dirty && myForm.tipo_documento_id.$error.required">Requerido</label>
                         </div>
                         <div class="col-xs-6" style="padding-left:0px !important">
-                            <input type="text" class="form-control" name="numero_documento" maxlength="20" ng-model="productor.numero_documento" ng-disabled="soloLectura" required />
-                            <span class="help-block" ng-show="myForm.numero_documento.$dirty && myForm.numero_documento.$error.required"><label class="error">Requerido</label></span>
+                            <input type="text" class="form-control" name="conyugue_identificacion" maxlength="30"required />
+                              
                         </div>
                     </div>
                 </div>
                 
                 <div div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
                         <div class="col-sm-6">
                             <div class="input-group date datepicker autostart">
-                                <input size="16" name="fecha_nacimiento" ng-model="productor.fecha_nacimiento" ng-disabled="soloLectura" value="" class="form-control" type="text">
+                                <input size="16" class="form-control" name="conyugue_fecha_nacimiento" type="text">
                                 <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
                             </div>
                             <span class="help-block"><small>AAAA-MM-DD</small></span>
@@ -349,9 +311,9 @@
             <div class="row">
                 <div div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Teléfono:</label>
+                        <label class="col-sm-6 control-label" for="conyugue_telefono">Teléfono</label>
                         <div class="col-sm-6">
-                                <input size="16" name="fecha_nacimiento" ng-model="productor.fecha_nacimiento" ng-disabled="soloLectura" value="" class="form-control" type="text">
+                            <input size="16" class="form-control" name="conyugue_telefono" type="text">
                         </div>
                     </div>
                 </div>
@@ -382,8 +344,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Nombres</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam1_nombres" maxlength="100"/>
                                 </div>
                             </div>
                         </div>
@@ -391,8 +352,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Primer Apellido</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam1_apellido1" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -400,8 +361,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Segundo Apellido</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam1_apellido2"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -409,8 +370,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Parentesco</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam1_parentesco" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -421,8 +382,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam1_telefono" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -430,8 +391,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Municipio</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam1_municipio" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -439,8 +400,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Dirección de la Residencia</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam1_per_direccion" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -448,8 +409,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Barrio/ Vereda</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam1_barrio" maxlength="100"/>
+
                                 </div>
                             </div>
                         </div>
@@ -462,13 +423,13 @@
                                     <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_fam1_indicativo1" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_fam1_telefono1" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -479,13 +440,13 @@
                                     <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_fam1_indicativo2" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_fam1_telefono2" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                     
                                 </div>
                             </div>
                         </div>
@@ -496,13 +457,13 @@
                                     <label class="control-label">Celular (Prefijo y Número)</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_fam1_indicativo3" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_fam1_telefono3" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                     
                                 </div>
                             </div>
                         </div>                
@@ -515,8 +476,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Nombres</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam2_nombres" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -524,8 +485,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Primer Apellido</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam2_apellido1" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -533,8 +494,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Segundo Apellido</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam2_apellido2"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -542,8 +503,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Parentesco</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam2_parentesco" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -554,8 +515,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam2_telefono" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -563,8 +524,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Municipio</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam2_municipio" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -572,8 +533,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Dirección de la Residencia</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam2_per_direccion" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -581,8 +542,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Barrio/ Vereda</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fam2_barrio" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -595,13 +556,13 @@
                                     <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_fam2_indicativo1" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_fam2_telefono1" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -612,13 +573,13 @@
                                     <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_fam2_indicativo2" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_fam2_telefono2" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -629,13 +590,13 @@
                                     <label class="control-label">Celular (Prefijo y Número)</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_fam2_indicativo3" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_fam2_telefono3" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                      
                                 </div>
                             </div>
                         </div>                
@@ -657,8 +618,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Nombres</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per1_nombres" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -666,8 +627,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Primer Apellido</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per1_apellido1" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -675,17 +636,17 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Segundo Apellido</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per1_apellido2"/>
+                                      
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="container">
                                 <div class="form-group">
-                                    <label class="control-label">Nexo con el Cliente</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <label class="control-label">Parentesco</label>
+                                    <input type="text" class="form-control" name="referencias_per1_parentesco" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -696,8 +657,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per1_telefono" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -705,8 +666,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Municipio</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per1_municipio" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -714,8 +675,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Dirección de la Residencia</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per1_per_direccion" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -723,8 +684,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Barrio/ Vereda</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per1_barrio" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -737,13 +698,13 @@
                                     <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_per1_indicativo1" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_per1_telefono1" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -754,13 +715,13 @@
                                     <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_per1_indicativo2" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_per1_telefono2" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                     
                                 </div>
                             </div>
                         </div>
@@ -771,13 +732,13 @@
                                     <label class="control-label">Celular (Prefijo y Número)</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_per1_indicativo3" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_per1_telefono3" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                     
                                 </div>
                             </div>
                         </div>                
@@ -790,8 +751,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Nombres</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per2_nombres" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -799,8 +760,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Primer Apellido</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per2_apellido1" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -808,17 +769,17 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Segundo Apellido</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per2_apellido2"/>
+                                      
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="container">
                                 <div class="form-group">
-                                    <label class="control-label">Nexo con el Cliente</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <label class="control-label">Parentesco</label>
+                                    <input type="text" class="form-control" name="referencias_per2_parentesco" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -829,8 +790,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per2_telefono" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -838,8 +799,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Municipio</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per2_municipio" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -847,8 +808,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Dirección de la Residencia</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per2_per_direccion" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -856,8 +817,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Barrio/ Vereda</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ng-show="myForm.email.$dirty && myForm.email.$error.email"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_per2_barrio" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -870,13 +831,13 @@
                                     <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_per2_indicativo1" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_per2_telefono1" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -887,13 +848,13 @@
                                     <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_per2_indicativo2" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_per2_telefono2" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -904,13 +865,13 @@
                                     <label class="control-label">Celular (Prefijo y Número)</label>
                                     <div div class="col-md-12">
                                         <div div class="col-md-3">
-                                            <input type="text" class="" name="telefono" maxlength="3" />
+                                            <input type="text" class="" name="referencias_per2_indicativo3" maxlength="3" />
                                         </div>
                                         <div div class="col-md-9">
-                                            <input type="text" class="" name="telefono" maxlength="20" />
+                                            <input type="text" class="" name="referencias_per2_telefono3" maxlength="20" />
                                         </div>
                                     </div>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                      
                                 </div>
                             </div>
                         </div>                
@@ -932,8 +893,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Entidad</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fin1_entidad" maxlength="100" />
+                                      
                                 </div>
                             </div>
                         </div>
@@ -941,8 +902,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Clase o tipo de Producto</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fin1_clase" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -950,8 +911,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">No. de Producto</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fin1_nro_producto" maxlength="100" />
+                                      
                                 </div>
                             </div>
                         </div>
@@ -962,8 +923,12 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <select name="referencias_fin1_departamento" class="form-control">
+                                        {% for departamento in data.departamentos %}
+                                            <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
+                                        {% endfor %}
+                                    </select>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -971,8 +936,10 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Ciudad</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <select name="referencias_fin1_ciudad" class="form-control">
+                                        <option></option>
+                                    </select>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -980,8 +947,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Sucursal</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fin1_sucursal" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -994,8 +961,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Entidad</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fin2_entidad" maxlength="100" />
+                                      
                                 </div>
                             </div>
                         </div>
@@ -1003,8 +970,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Clase o tipo de Producto</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fin2_clase" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -1012,8 +979,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">No. de Producto</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fin2_nro_producto" maxlength="100" />
+                                      
                                 </div>
                             </div>
                         </div>
@@ -1024,8 +991,12 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <select name="referencias_fin2_departamento" class="form-control">
+                                        {% for departamento in data.departamentos %}
+                                            <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
+                                        {% endfor %}
+                                    </select>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -1033,8 +1004,10 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Ciudad</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <select name="referencias_fin2_ciudad" class="form-control">
+                                        <option></option>
+                                    </select>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -1042,8 +1015,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Sucursal</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_fin2_sucursal" maxlength="100"/>
+                                      
                                 </div>
                             </div>
                         </div>
@@ -1065,8 +1038,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Nombre del Establecimiento</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_com_nombre_est" maxlength="100"/>
+                                     
                                 </div>
                             </div>
                         </div>
@@ -1074,8 +1047,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Tipo de vínculo</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_com_tipo_vinculo" maxlength="100"/>
+                                     
                                 </div>
                             </div>
                         </div>
@@ -1086,8 +1059,11 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                                    <select name="referencias_com_departamento" class="form-control">
+                                        {% for departamento in data.departamentos %}
+                                            <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -1095,8 +1071,9 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Municipio</label>
-                                    <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                                    <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                                    <select name="referencias_com_municipio" class="form-control">
+                                        <option></option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -1104,8 +1081,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Telefono</label>
-                                    <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                                    <span class="help-block" ><label class="error">Requerido</label></span>
+                                    <input type="text" class="form-control" name="referencias_com_telefono" maxlength="100"/>
+                                     
                                 </div>
                             </div>
                         </div>
@@ -1147,64 +1124,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                </tr>
-
-                <tr>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                </tr>
-
-                <tr>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                </tr>
-
-                <tr>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                    <td><input size="" name="" style="width: 80px;"/></td>
-                </tr>
-
+                {% for i in 1..4 %}
+                    <tr>                
+                    {% for j in 1..10 %}
+                        <td>                
+                            <input name="descripcion_inv_{{ i~'_'~j }}"  name="" style="width: 80px;"/>
+                        </td>                  
+                    {% endfor %}
+                    </tr>                  
+                {% endfor %}
             </tbody>
         </table>
 
 
         <div class="row">
-            <input bs-switch ng-model="manejaResidsOrdinarios" switch-on="primary" switch-off="warning" switch-on-label="SI" switch-off-label="NO" switch-type="checkbox" switch-active="{{!soloLectura}}"/>
+            /*Something is misssing here*/
         </div>
 
         </div>
@@ -1228,8 +1162,8 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="">Nombre del Predio de la inversión</label>
-                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
-                            <label class="error" >Requerido</label>
+                            <input type="text" capitalize class="form-control" name="informacion_pre_nombre_predio" maxlength="30" />
+
                         </div>
                     </div>
                 </div>
@@ -1237,8 +1171,8 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="">Área de la Presente Inversión (Has)</label>
-                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
-                            <label class="error" >Requerido</label>
+                            <input type="text" capitalize class="form-control" name="informacion_pre_area" maxlength="30" />
+
                         </div>
                     </div>
                 </div>
@@ -1246,8 +1180,8 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="">Tenencia del predio de la inversión (Items del RUAT)</label>
-                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
-                            <label class="error" >Requerido</label>
+                            <input type="text" capitalize class="form-control" name="informacion_pre_tenencia" maxlength="30" />
+
                         </div>
                     </div>
                 </div>
@@ -1255,8 +1189,9 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="">Municipio del Predio de la Inversión</label>
-                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
-                            <label class="error" >Requerido</label>
+                            {% for municipio in data.municipios %}
+                                <option name="informacion_pre_tenencia_municipio" value={{ municipio.id }}>{{ municipio.descripcion }}</option>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -1268,34 +1203,40 @@
                         <div class="form-group">
                             <label class="">Nombre del Predio de la inversión</label>
                             <input type="text" capitalize class="form-control" name="" maxlength="30" />
-                            <label class="error" >Requerido</label>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="container">
                         <div class="form-group">
-                            <label class="">Fuentes Hídricas <br>&nbsp;</label>
-                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
-                            <label class="error" >Requerido</label>
+                            <label class="">Fuentes Hídricas <br>&nbsp;</label><br/>
+                            <select name="" class="form-control" class="form-control">
+                                <option value="1">si</option>
+                                <option value="0">no</option>
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="container">
                         <div class="form-group">
-                            <label class="">Fecha Inicial de la Inversión DD/MM/AAAA</label>
-                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
-                            <label class="error" >Requerido</label>
+                            <label class="">Fecha Inicial de la Inversión AAAA/MM/DD</label>
+                            <div class="input-group date datepicker autostart">
+                                <input size="16" class="form-control" name="informacion_pre_fecha_ini" type="text">
+                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="container">
                         <div class="form-group">
-                            <label class="">Fecha final de la Inversión DD/MM/AAAA</label>
-                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
-                            <label class="error" >Requerido</label>
+                            <label class="">Fecha final de la Inversión AAAA/MM/DD</label>
+                            <div class="input-group date datepicker autostart">
+                                <input size="16" class="form-control" name="informacion_pre_fecha_fin" type="text">
+                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1329,56 +1270,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 160px;"/></td>
-                    </tr>
-
-                    <tr>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 160px;"/></td>
-                    </tr>
-
-                    <tr>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 160px;"/></td>
-                    </tr>
-
-                    <tr>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 160px;"/></td>
-                    </tr>
-
-                    <tr>
-                        <td>Otros Ingresos Diferentes a los generados por actividades agropecuarias</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
-                        <td><input size="" name="" style="width: 160px;"/></td>
-                    </tr>
-
+                    {% for i in 1..5 %}
+                        <tr>                
+                        {% for j in 1..7 %}
+                            <td>
+                            {% if i == 5 and j == 1 %}
+                                Otros Ingresos Diferentes a los generados por actividades agropecuarias
+                            {% else %}
+                                <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 120px;"/>
+                            {% endif %}                
+                            </td>                  
+                        {% endfor %}
+                        </tr>                  
+                    {% endfor %}                    
                 </tbody>
             </table>            
         </div>
@@ -1398,7 +1302,7 @@
     <div class="panel-body" style="display: block;">
         <div class="container">
             <div class="col-sm-12">
-                <textarea style="width: 100%;"></textarea>
+                <textarea name="descripcion_inv" style="width: 100%;"></textarea>
             </div>                   
         </div>
     </div>
@@ -1417,7 +1321,7 @@
     <div class="panel-body" style="display: block;">
         <div class="container">
             <div class="col-sm-12">
-                <textarea style="width: 100%;"></textarea>
+                <textarea name="forma_llegar_pred" style="width: 100%;"></textarea>
             </div>                   
         </div>
     </div>
@@ -1440,8 +1344,11 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Tipo de Inmueble</label>
-                            <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                            <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                            <select name="descripcion_bienes_tipo_inmueble" class="form-control">
+                                {% for tipo_inmueble in data.tipos_inmueble %}
+                                    <option value={{ tipo_inmueble.id }} >{{ tipo_inmueble.descripcion }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -1449,8 +1356,8 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Dirección</label>
-                            <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                            <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                            <input type="text" class="form-control" name="descripcion_bienes_direccion" />
+
                         </div>
                     </div>
                 </div>
@@ -1458,8 +1365,8 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Valor comercial</label>
-                            <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                            <span class="help-block" ><label class="error">Requerido</label></span>
+                            <input type="text" class="form-control" name="descripcion_bienes_valor_comercial" />
+                             
                         </div>
                     </div>
                 </div>
@@ -1470,8 +1377,12 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Departamento</label>
-                            <input type="text" class="form-control" name="telefono" maxlength="100" ng-model="contacto.telefono" ng-disabled="soloLectura" />
-                            <span class="help-block" ng-show="myForm.telefono.$dirty && myForm.telefono.$error.required"><label class="error">Requerido</label></span>
+                            <select name="descripcion_bienes_departamento" class="form-control">
+                                {% for departamento in data.departamentos %}
+                                    <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
+                                {% endfor %}
+                            </select>
+
                         </div>
                     </div>
                 </div>
@@ -1479,8 +1390,9 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Municipio</label>
-                            <input type="text" class="form-control" name="celular" maxlength="100" ng-model="contacto.celular" ng-disabled="soloLectura" />
-                            <span class="help-block" ng-show="myForm.celular.$dirty && myForm.celular.$error.required"><label class="error">Requerido</label></span>
+                            <select name="descripcion_bienes_municipio" class="form-control">
+                                <option></option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -1488,8 +1400,8 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label">Vereda</label>
-                            <input type="email" class="form-control" name="email" maxlength="100" ng-model="contacto.email" ng-disabled="soloLectura"/>
-                            <span class="help-block" ><label class="error">Requerido</label></span>
+                            <input type="text" class="form-control" name="descripcion_bienes_vereda" />
+                             
                         </div>
                     </div>
                 </div>
@@ -1506,38 +1418,38 @@
                 <tbody>
                     <tr>
                         <td>Semovientes</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_vienes1" style="width: 120px;"/></td>
                         <td>Cantidad</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_cantidad1" style="width: 120px;"/></td>
                         <td>Valor Comercial</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_valor1" style="width: 120px;"/></td>
                     </tr>
 
                     <tr>
                         <td>Maquinaria</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_vienes2" style="width: 120px;"/></td>
                         <td>Cantidad</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_cantidad2" style="width: 120px;"/></td>
                         <td>Valor Comercial</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_valor2" style="width: 120px;"/></td>
                     </tr>
 
                     <tr>
                         <td>Cultivos en desarrollo</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_vienes3" style="width: 120px;"/></td>
                         <td>Cantidad</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_cantidad3" style="width: 120px;"/></td>
                         <td>Valor Comercial</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_valor3" style="width: 120px;"/></td>
                     </tr>
 
                     <tr>
                         <td>Inversiones y otros activos</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_vienes4" style="width: 120px;"/></td>
                         <td>Cantidad</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_cantidad4" style="width: 120px;"/></td>
                         <td>Valor Comercial</td>
-                        <td><input size="" name="" style="width: 120px;"/></td>
+                        <td><input  name="otros_valor4" style="width: 120px;"/></td>
                     </tr>
 
                 </tbody>
@@ -1550,8 +1462,8 @@
                     <div class="container">
                         <div class="form-group">
                             <label class="control-label"> Observaciones</label>
-                            <textarea style="width: 100%;"></textarea>
-                            <span class="help-block" ><label class="error">Requerido</label></span>
+                            <textarea name="observaciones" style="width: 100%;"></textarea>
+                             
                         </div>
                     </div>
                 </div>
@@ -1575,18 +1487,18 @@
 
                 <div div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-sm-6" for="fecha_nacimiento">Experiencia en la actividad a financiar (en meses)</label>
+                        <label class="col-sm-6">Experiencia en la actividad a financiar (en meses)</label>
                         <div class="col-sm-6">
-                             <input name="" size="" />
+                             <input name="experiencia_act" />
                         </div>
                     </div>
                 </div>
 
                <div div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-sm-6" for="fecha_nacimiento">Tiempo de permanencia en la región (en meses)</label>
+                        <label class="col-sm-6">Tiempo de permanencia en la región (en meses)</label>
                         <div class="col-sm-6">
-                             <input name="" size="" />
+                             <input name="tiempo_permanencia" />
                         </div>
                     </div>
                 </div>
@@ -1611,7 +1523,5 @@
 
 </form></div></div>
 
-
-{% endraw %}
 
 {% endblock %}

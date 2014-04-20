@@ -63,8 +63,8 @@ create table referencias_fam_per(
 create table referencias_fin(
     id                              serial not null primary key,
     solicitud_id                    integer references solicitud_credito(id),
-    entidad			    varchar(30),
-    clase			    varchar(30),
+    entidad                         varchar(30),
+    clase                           varchar(30),
     nro_producto                    varchar(30),
     sucursal                        varchar(100),
     ciudad                          varchar(50)
@@ -131,7 +131,7 @@ create table descripcion_bienes(
     tipo_inmueble                   integer,
     departamento_id                 integer not null references departamento(id),
     municipio_id                    integer not null references municipio(id),
-    vareda                          varchar(100),
+    vereda                          varchar(100),
     direccion                       varchar(100),
     valor_comercial                 double precision,
     otros_vienes1                   varchar(50),
