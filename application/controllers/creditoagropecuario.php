@@ -197,7 +197,35 @@ class Creditoagropecuario extends CI_Controller {
                 $referencias_comerciales[0]->telefono = $this->input->post('referencias_com_telefono');
                 $referencias_comerciales[0]->save();
                 
-                
+                for($i = 0; $i < 4; $i++){
+                    $j = $i + 1;
+                    $descripcion_inversiones[$i] = (isset($descripcion_inversiones[$i]) && $descripcion_inversiones[$i]) ? $descripcion_inversiones[$i] : new DescripcionInversion;                    
+                    $descripcion_inversiones[$i]->solicitud_id = $solicitud_credito->id;                    
+                    $descripcion_inversiones[$i]->codigo_finagro = $this->input->post("descripcion_inv_{$j}_1");
+                    $descripcion_inversiones[$i]->capital_trabajo = $this->input->post("descripcion_inv_{$j}_2");
+                    $descripcion_inversiones[$i]->inversion = $this->input->post("descripcion_inv_{$j}_3");
+                    $descripcion_inversiones[$i]->unidades_fin = $this->input->post("descripcion_inv_{$j}_4");
+                    $descripcion_inversiones[$i]->valor_proyecto = $this->input->post("descripcion_inv_{$j}_5");
+                    $descripcion_inversiones[$i]->valor_solicitud = $this->input->post("descripcion_inv_{$j}_6");
+                    $descripcion_inversiones[$i]->plazo_total = $this->input->post("descripcion_inv_{$j}_7");
+                    $descripcion_inversiones[$i]->periodo_gracia = $this->input->post("descripcion_inv_{$j}_8");
+                    $descripcion_inversiones[$i]->modalidad_pago = $this->input->post("descripcion_inv_{$j}_9");
+                    $descripcion_inversiones[$i]->amortizacion_cap = $this->input->post("descripcion_inv_{$j}_10");                
+                    $descripcion_inversiones[$i]->save();
+                }
+                                
+                $informacion_predios_inversion[0] = (isset($informacion_predios_inversion[0]) && $informacion_predios_inversion[0]) ? $informacion_predios_inversion[0] : new PredioInversion;
+                $informacion_predios_inversion[0]->solicitud_id = $solicitud_credito->id;
+                $informacion_predios_inversion[0]->nombre_predio = $this->input->post('informacion_pre_nombre_predio');
+                $informacion_predios_inversion[0]->area = $this->input->post('informacion_pre_area');
+                $informacion_predios_inversion[0]->tenencia = $this->input->post('informacion_pre_tenencia');
+                $informacion_predios_inversion[0]->departamento_id = 1;///OJO! falta en el formulario
+                $informacion_predios_inversion[0]->municipio_id = 1;///OJO! falta en el formulario
+                $informacion_predios_inversion[0]->vareda = $this->input->post('informacion_pre_vereda');
+                $informacion_predios_inversion[0]->fuente_hid = $this->input->post('informacion_pre_fuente_hid');
+                $informacion_predios_inversion[0]->fecha_ini = $this->input->post('informacion_pre_fecha_ini');
+                $informacion_predios_inversion[0]->fecha_fin = $this->input->post('informacion_pre_fecha_fin');                
+                $informacion_predios_inversion[0]->save();
             }
             
             
