@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS solicitud_credito;
+
 DROP TABLE IF EXISTS conyugue;
 DROP TABLE IF EXISTS referencias_fam_per;
 DROP TABLE IF EXISTS referencias_fin;
@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS descripcion_inv;
 DROP TABLE IF EXISTS informacion_pre;
 DROP TABLE IF EXISTS ingresos_adicionales;
 DROP TABLE IF EXISTS descripcion_bienes;
+DROP TABLE IF EXISTS solicitud_credito;
 
 
 create table solicitud_credito(

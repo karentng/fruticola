@@ -9,8 +9,8 @@ class SolicitudCredito extends MyModel {
     );
     
     static $has_many = array(
-        array('referencias_familiares', 'conditions' => array('tipo = ?' => array(1)), 'class_name'=>'ReferenciaFamiliarPersonal', 'foreign_key' => 'solicitud_id'),
-        array('referencias_personales', 'conditions' => array('tipo = ?' => array(2)), 'class_name'=>'ReferenciaFamiliarPersonal', 'foreign_key' => 'solicitud_id'),
+        array('referencias_familiares', 'conditions' => 'tipo = 1', 'class_name'=>'ReferenciaFamiliarPersonal', 'foreign_key' => 'solicitud_id'),
+        array('referencias_personales', 'conditions' => 'tipo = 2', 'class_name'=>'ReferenciaFamiliarPersonal', 'foreign_key' => 'solicitud_id'),
         array('referencias_financieras', 'class_name'=>'ReferenciaFinanciera', 'foreign_key' => 'solicitud_id'),
         array('referencias_comerciales', 'class_name'=>'ReferenciaComercial', 'foreign_key' => 'solicitud_id'),
         array('descripcion_inversiones', 'class_name'=>'DescripcionInversion', 'foreign_key' => 'solicitud_id'),

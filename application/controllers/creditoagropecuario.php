@@ -43,8 +43,9 @@ class Creditoagropecuario extends CI_Controller {
 
 
         $solicitud_credito = SolicitudCredito::first(array(
-                    'conditions' => array('ruat_id = ?', $ruat_id)
+                    'conditions' => array("ruat_id = ?", $ruat_id)
         ));
+        
 
         $conyugue = $solicitud_credito->conyugue;
         $referencias_familiares = $solicitud_credito->referencias_familiares;
@@ -55,20 +56,63 @@ class Creditoagropecuario extends CI_Controller {
         $informacion_predios_inversion = $solicitud_credito->informacion_predios_inversion;
         $ingresos_adicionales = $solicitud_credito->ingresos_adicionales;
         $descripcion_bienes = $solicitud_credito->descripcion_bienes;
+        
 
-
+        $this->validation_rules();
 
         ///Si las validaciones son correctas procedo a guardar
         if ($this->form_validation->run()) {
             
+            $solicitud_credito = ($solicitud_credito) ? $solicitud_credito : new SolicitudCredito();
+            
+            $solicitud_credito->ruat_id = $ruat_id;
+//            $solicitud_credito->fecha = $this->input->post('sc_fecha');
+            //$solicitud_credito->cod_beneficiario = null;
+            //$solicitud_credito->nombre_oficina = null;
+            $solicitud_credito->municipio = 1; /// OJO! no está aun en el formulario
+            $solicitud_credito->experiencia = TRUE; /// OJO! no está aun en el formulario
+            $solicitud_credito->calidad_de = TRUE; /// OJO! no está aun en el formulario
+//            $solicitud_credito->rubros_fin_icr = TRUE;
+//            $solicitud_credito->rubros_fin_dre = TRUE;
+//            $solicitud_credito->descripcion_inv = TRUE;
+//            $solicitud_credito->forma_llegar_pred = TRUE;
+//            $solicitud_credito->tiempo_permanencia = TRUE;
+//            $solicitud_credito->experiencia_act = TRUE;
+            $solicitud_credito->responsable = 1; ///OJO! Poner el usuario
+            
+            if($solicitud_credito->save()){
+                $conyugue = ($conyugue) ? $conyugue : new Conyugue();
+                $conyugue->solicitud_id = $solicitud_credito->id;
+                $conyugue->nombre1 = $this->input->post('conyugue_nombre1');
+                $conyugue->nombre2 = $this->input->post('conyugue_nombre2');
+                $conyugue->apellido1 = $this->input->post('conyugue_apellido1');
+                $conyugue->apellido2 = $this->input->post('conyugue_apellido2');
+                $conyugue->tipo_documento = $this->input->post('tipo_documento_conyugue');
+                $conyugue->identificacion = $this->input->post('conyugue_identificacion');
+                $conyugue->fecha_nacimiento = $this->input->post('conyugue_fecha_nacimiento');
+                $conyugue->telefono = $this->input->post('conyugue_telefono');
+                
+                $conyugue->save();
+                
+                
+                
+            }
+            
+            
+            
+        }else if (validation_errors()) {
+            
+            var_dump(validation_errors());
+            $this->twiggy->set('notif', array('type' => 'error', 'text' => "Se encontraron errores al procesar el formulario. <br> Revise los recuadros rojos"));
         }
 
-        $this->twiggy->set('combos', json_encode($data));
+        $this->twiggy->set('combos', $data);
         $this->twiggy->set("productor", $productor);
         $this->twiggy->set("contacto", $contacto);
         $this->twiggy->set("contacto_departamento", $contacto->departamento);
         $this->twiggy->set("contacto_municipio", $contacto->municipio);
         
+       
         $this->twiggy->set("conyugue", $conyugue);
         $this->twiggy->set("referencias_familiares", $referencias_familiares);
         $this->twiggy->set("referencias_personales", $referencias_personales);
@@ -81,6 +125,10 @@ class Creditoagropecuario extends CI_Controller {
 
         $this->twiggy->template("creditoagropecuario/formulario_captura");
         $this->twiggy->display();
+    }
+    
+    private function validation_rules(){
+        $this->form_validation->set_rules("conyugue_nombre1", ' ', 'required');
     }
 
     public function imprimible($ruat_id = NULL) {

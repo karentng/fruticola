@@ -27,1501 +27,1505 @@
 {% block contenido %}
 
 
-<div ><div class="form-horizontal css-form">
 
-<div class="row">
-    <div class="col-sm-9">
-
-    </div>
-    <div class="col-sm-3">
-        <div class="input-group">
-            <label class="control-label col-sm-4">Fecha</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" style="color:red; text-align:center">
-            </div> 
-        </div>
-    </div>
-</div>
-<br/>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>A1. DATOS PERSONALES (Diligencie nombres y apellidos completos y seleccione las opciones abajo indicadas).</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body" style="display: block;">
-        <div class="container"> 
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Primer Nombre</label>
-                            <input type="text" capitalize class="form-control" name="nombre1" maxlength="30" readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Segundo Nombre</label>
-                            <input type="text" capitalize class="form-control" name="nombre2"  maxlength="30" readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Primer Apellido</label>
-                            <input type="text"  capitalize class="form-control" name="apellido1" maxlength="30"readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Segundo Apellido</label>
-                            <input type="text" capitalize class="form-control" name="apellido2" maxlength="30" readonly/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Documento: </label>
-                        <div class="col-xs-3" style="padding-right:0px !important">
-                            <input type="text" class="form-control" name="tipo_documento_id" maxlength="5" readonly/>
-                        </div>
-                        <div class="col-xs-6" style="padding-left:0px !important">
-                            <input type="text" class="form-control" name="numero_documento" maxlength="20" readonly/>
-                        </div>
-                    </div>
-                </div>
-                
-                <div div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
-                        <div class="col-sm-6">
-                            <input size="16" name="fecha_nacimiento" class="form-control" readonly/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div div class="col-md-4">
-                    <div class="form-group">
-                        <label class="col-sm-6 control-label">Sexo</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" name="sexo" maxlength="5" readonly/>
-                        </div>
-                    </div>
-                </div>                    
-                <div div class="col-md-4">
-                    <div class="form-group">
-                        <label class="col-sm-6 control-label">Nivel Educativo</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" name="nivel_educativo" maxlength="30" readonly/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div div class="col-md-5">
-                    <div class="form-group">
-                        <label class="col-sm-5 control-label" for="focused">Tipo de Productor:</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" name="tipo_productor" maxlength="30" readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div div class="col-md-7">
-                    <div class="form-group">
-                        <label class="col-sm-5 control-label" for="focused">Renglón Productivo</label>
-                        <div class="col-sm-7">
-                             <input type="text" class="form-control" name="renglon_productivo" maxlength="30" readonly/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- .container -->
-    </div><!-- End .panel-body -->
-
-</div><!-- panel default -->
-
-<br/>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>A2. DATOS DE CONTACTO (Diligencie de manera clara los datos de ubicación del productor)</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body" style="display: block;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Telefono Fijo</label>
-                            <input type="text" class="form-control" name="telefono" maxlength="100" readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Celular</label>
-                            <input type="text" class="form-control" name="celular" maxlength="100" readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Correo Electrónico</label>
-                            <input type="text" class="form-control" name="email" maxlength="100" readonly/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label" for="focused">Departamento:</label>
-                            <input type="text" class="form-control" name="departamento" maxlength="100" readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label" for="focused">Municipio:</label>
-                            <input type="text" class="form-control" name="municipio" maxlength="100" readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label" for="focused">Vereda / Corregimiento</label>
-                            <input type="text" class="form-control" name="vereda" maxlength="100" readonly/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Dirección de Residencia</label>
-                            <input type="text" class="form-control" name="direccion_residencia" maxlength="100" readonly/>
-                        </div>
-                    </div>
-                </div>
-            </div>                
-        </div>
-    </div><!-- End .panel-body -->
-</div><!-- panel default -->
-
-<br/>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>B. DATOS DEL CONYUGE O COMPAÑERO PERMANENTE</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body" style="display: block;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Primer Nombre</label>
-                            <input type="text" capitalize class="form-control" name="conyugue_nombre1" maxlength="30" readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Segundo Nombre</label>
-                            <input type="text" capitalize class="form-control" name="conyugue_nombre2"  maxlength="30" readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Primer Apellido</label>
-                            <input type="text"  capitalize class="form-control" name="conyugue_apellido1" maxlength="30"readonly/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Segundo Apellido</label>
-                            <input type="text" capitalize class="form-control" name="conyugue_apellido2" maxlength="30" readonly/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Documento: </label>
-                        <div class="col-xs-3" style="padding-right:0px !important">
-                            <select name="tipo_documento_conyugue" class="form-control">
-                                {% for tipo_doc in tiposDocumento %}
-                                    <option value="{{ tipo_doc.id|e }}" >{{ tipo_doc.descripcion|e }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-xs-6" style="padding-left:0px !important">
-                            <input type="text" class="form-control" name="conyugue_identificacion" maxlength="30"required />
-                              
-                        </div>
-                    </div>
-                </div>
-                
-                <div div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
-                        <div class="col-sm-6">
-                            <div class="input-group date datepicker autostart">
-                                <input size="16" class="form-control" name="conyugue_fecha_nacimiento" type="text">
-                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
-                            </div>
-                            <span class="help-block"><small>AAAA-MM-DD</small></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-sm-6 control-label" for="conyugue_telefono">Teléfono</label>
-                        <div class="col-sm-6">
-                            <input size="16" class="form-control" name="conyugue_telefono" type="text">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<br/>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>C. REFERENCIAS</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body" style="display: block;">
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>FAMILIARES (Que no vivan con usted)</h4>
-                </div><!-- End .panel-heading -->
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Nombres</label>
-                                    <input type="text" class="form-control" name="referencias_fam1_nombres" maxlength="100"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Primer Apellido</label>
-                                    <input type="text" class="form-control" name="referencias_fam1_apellido1" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Segundo Apellido</label>
-                                    <input type="text" class="form-control" name="referencias_fam1_apellido2"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Parentesco</label>
-                                    <input type="text" class="form-control" name="referencias_fam1_parentesco" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="referencias_fam1_telefono" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Municipio</label>
-                                    <input type="text" class="form-control" name="referencias_fam1_municipio" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Dirección de la Residencia</label>
-                                    <input type="text" class="form-control" name="referencias_fam1_per_direccion" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Barrio/ Vereda</label>
-                                    <input type="text" class="form-control" name="referencias_fam1_barrio" maxlength="100"/>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_fam1_indicativo1" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_fam1_telefono1" maxlength="20" />
-                                        </div>
-                                    </div>
-                                      
-                                </div>
-                            </div>
-                        </div>
-
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_fam1_indicativo2" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_fam1_telefono2" maxlength="20" />
-                                        </div>
-                                    </div>
-                                     
-                                </div>
-                            </div>
-                        </div>
-
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Celular (Prefijo y Número)</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_fam1_indicativo3" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_fam1_telefono3" maxlength="20" />
-                                        </div>
-                                    </div>
-                                     
-                                </div>
-                            </div>
-                        </div>                
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Nombres</label>
-                                    <input type="text" class="form-control" name="referencias_fam2_nombres" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Primer Apellido</label>
-                                    <input type="text" class="form-control" name="referencias_fam2_apellido1" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Segundo Apellido</label>
-                                    <input type="text" class="form-control" name="referencias_fam2_apellido2"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Parentesco</label>
-                                    <input type="text" class="form-control" name="referencias_fam2_parentesco" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="referencias_fam2_telefono" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Municipio</label>
-                                    <input type="text" class="form-control" name="referencias_fam2_municipio" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Dirección de la Residencia</label>
-                                    <input type="text" class="form-control" name="referencias_fam2_per_direccion" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Barrio/ Vereda</label>
-                                    <input type="text" class="form-control" name="referencias_fam2_barrio" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_fam2_indicativo1" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_fam2_telefono1" maxlength="20" />
-                                        </div>
-                                    </div>
-                                      
-                                </div>
-                            </div>
-                        </div>
-
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_fam2_indicativo2" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_fam2_telefono2" maxlength="20" />
-                                        </div>
-                                    </div>
-                                      
-                                </div>
-                            </div>
-                        </div>
-
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Celular (Prefijo y Número)</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_fam2_indicativo3" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_fam2_telefono3" maxlength="20" />
-                                        </div>
-                                    </div>
-                                      
-                                </div>
-                            </div>
-                        </div>                
-                    </div>
-
-                </div>
-            </div>
-
-            <br>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>PERSONALES</h4>
-                </div><!-- End .panel-heading -->
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Nombres</label>
-                                    <input type="text" class="form-control" name="referencias_per1_nombres" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Primer Apellido</label>
-                                    <input type="text" class="form-control" name="referencias_per1_apellido1" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Segundo Apellido</label>
-                                    <input type="text" class="form-control" name="referencias_per1_apellido2"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Parentesco</label>
-                                    <input type="text" class="form-control" name="referencias_per1_parentesco" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="referencias_per1_telefono" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Municipio</label>
-                                    <input type="text" class="form-control" name="referencias_per1_municipio" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Dirección de la Residencia</label>
-                                    <input type="text" class="form-control" name="referencias_per1_per_direccion" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Barrio/ Vereda</label>
-                                    <input type="text" class="form-control" name="referencias_per1_barrio" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_per1_indicativo1" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_per1_telefono1" maxlength="20" />
-                                        </div>
-                                    </div>
-                                      
-                                </div>
-                            </div>
-                        </div>
-
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_per1_indicativo2" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_per1_telefono2" maxlength="20" />
-                                        </div>
-                                    </div>
-                                     
-                                </div>
-                            </div>
-                        </div>
-
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Celular (Prefijo y Número)</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_per1_indicativo3" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_per1_telefono3" maxlength="20" />
-                                        </div>
-                                    </div>
-                                     
-                                </div>
-                            </div>
-                        </div>                
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Nombres</label>
-                                    <input type="text" class="form-control" name="referencias_per2_nombres" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Primer Apellido</label>
-                                    <input type="text" class="form-control" name="referencias_per2_apellido1" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Segundo Apellido</label>
-                                    <input type="text" class="form-control" name="referencias_per2_apellido2"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Parentesco</label>
-                                    <input type="text" class="form-control" name="referencias_per2_parentesco" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Departamento</label>
-                                    <input type="text" class="form-control" name="referencias_per2_telefono" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Municipio</label>
-                                    <input type="text" class="form-control" name="referencias_per2_municipio" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Dirección de la Residencia</label>
-                                    <input type="text" class="form-control" name="referencias_per2_per_direccion" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Barrio/ Vereda</label>
-                                    <input type="text" class="form-control" name="referencias_per2_barrio" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_per2_indicativo1" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_per2_telefono1" maxlength="20" />
-                                        </div>
-                                    </div>
-                                      
-                                </div>
-                            </div>
-                        </div>
-
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_per2_indicativo2" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_per2_telefono2" maxlength="20" />
-                                        </div>
-                                    </div>
-                                      
-                                </div>
-                            </div>
-                        </div>
-
-                        <div div class="col-md-4">
-                            <div class="form-group">
-                                <div class="container">                       
-                                    <label class="control-label">Celular (Prefijo y Número)</label>
-                                    <div div class="col-md-12">
-                                        <div div class="col-md-3">
-                                            <input type="text" class="" name="referencias_per2_indicativo3" maxlength="3" />
-                                        </div>
-                                        <div div class="col-md-9">
-                                            <input type="text" class="" name="referencias_per2_telefono3" maxlength="20" />
-                                        </div>
-                                    </div>
-                                      
-                                </div>
-                            </div>
-                        </div>                
-                    </div>
-
-                </div>
-            </div>
-
-            <br>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>FINANCIERAS</h4>
-                </div><!-- End .panel-heading -->
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Entidad</label>
-                                    <input type="text" class="form-control" name="referencias_fin1_entidad" maxlength="100" />
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Clase o tipo de Producto</label>
-                                    <input type="text" class="form-control" name="referencias_fin1_clase" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">No. de Producto</label>
-                                    <input type="text" class="form-control" name="referencias_fin1_nro_producto" maxlength="100" />
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Departamento</label>
-                                    <select name="referencias_fin1_departamento" class="form-control">
-                                        {% for departamento in data.departamentos %}
-                                            <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
-                                        {% endfor %}
-                                    </select>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Ciudad</label>
-                                    <select name="referencias_fin1_ciudad" class="form-control">
-                                        <option></option>
-                                    </select>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Sucursal</label>
-                                    <input type="text" class="form-control" name="referencias_fin1_sucursal" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Entidad</label>
-                                    <input type="text" class="form-control" name="referencias_fin2_entidad" maxlength="100" />
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Clase o tipo de Producto</label>
-                                    <input type="text" class="form-control" name="referencias_fin2_clase" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">No. de Producto</label>
-                                    <input type="text" class="form-control" name="referencias_fin2_nro_producto" maxlength="100" />
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Departamento</label>
-                                    <select name="referencias_fin2_departamento" class="form-control">
-                                        {% for departamento in data.departamentos %}
-                                            <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
-                                        {% endfor %}
-                                    </select>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Ciudad</label>
-                                    <select name="referencias_fin2_ciudad" class="form-control">
-                                        <option></option>
-                                    </select>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Sucursal</label>
-                                    <input type="text" class="form-control" name="referencias_fin2_sucursal" maxlength="100"/>
-                                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <br>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>COMERCIALES (Diligenciar las referencias comerciales solo para independientes)</h4>
-                </div><!-- End .panel-heading -->
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Nombre del Establecimiento</label>
-                                    <input type="text" class="form-control" name="referencias_com_nombre_est" maxlength="100"/>
-                                     
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Tipo de vínculo</label>
-                                    <input type="text" class="form-control" name="referencias_com_tipo_vinculo" maxlength="100"/>
-                                     
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Departamento</label>
-                                    <select name="referencias_com_departamento" class="form-control">
-                                        {% for departamento in data.departamentos %}
-                                            <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Municipio</label>
-                                    <select name="referencias_com_municipio" class="form-control">
-                                        <option></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container">
-                                <div class="form-group">
-                                    <label class="control-label">Telefono</label>
-                                    <input type="text" class="form-control" name="referencias_com_telefono" maxlength="100"/>
-                                     
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-</div>
-
-<br/>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>D. INFORMACIÓN PARA LA PLANIFICACION DEL CRÉDITO (DESCRIPCIÓN DE LAS INVERSIONES OBJETO DEL PROYECTO A FINANCIAR)</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body" style="display: block;">
-        <div class="container">
-
-        <table class="table table-bordered table-hover table-responsive dataTable">
-            <thead>
-                <tr>
-                    <th style="text-align: center;">Codigo FINAGRO (Deje en Blanco)</th>
-                    <th style="text-align: center;">Capital de Trabajo</th>
-                    <th style="text-align: center;">Inversión</th>
-                    <th style="text-align: center;">Unidades o Hectareas a Financiar</th>
-                    <th style="text-align: center;">Valor del Proyecto (100%)</th>
-                    <th style="text-align: center;">Valor de la Solicitud (Pequeño Productor hasta 100%)</th>
-                    <th style="text-align: center;">Plazo Total (Meses)</th>
-                    <th style="text-align: center;">Período de Gracia (semestral /anual)</th>
-                    <th style="text-align: center;">Modalidad Pago de Intereses (semestral /anual)</th>
-                    <th style="text-align: center;">Amortización a Capital (semestral /anual)</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in 1..4 %}
-                    <tr>                
-                    {% for j in 1..10 %}
-                        <td>                
-                            <input name="descripcion_inv_{{ i~'_'~j }}"  name="" style="width: 80px;"/>
-                        </td>                  
-                    {% endfor %}
-                    </tr>                  
-                {% endfor %}
-            </tbody>
-        </table>
-
-
+<div >
+    <div class="form-horizontal css-form">
+        {{ form_open_multipart(null, {role:'form', class:'form-horizontal'}) }}
         <div class="row">
-            /*Something is misssing here*/
+            <div class="col-sm-9">
+
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <label class="control-label col-sm-4">Fecha</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="sc_fecha" style="color:red; text-align:center">
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>A1. DATOS PERSONALES (Diligencie nombres y apellidos completos y seleccione las opciones abajo indicadas).</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container"> 
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Primer Nombre</label>
+                                    <input type="text" capitalize class="form-control" name="nombre1" maxlength="30" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Segundo Nombre</label>
+                                    <input type="text" capitalize class="form-control" name="nombre2"  maxlength="30" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Primer Apellido</label>
+                                    <input type="text"  capitalize class="form-control" name="apellido1" maxlength="30"readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Segundo Apellido</label>
+                                    <input type="text" capitalize class="form-control" name="apellido2" maxlength="30" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Documento: </label>
+                                <div class="col-xs-3" style="padding-right:0px !important">
+                                    <input type="text" class="form-control" name="tipo_documento_id" maxlength="5" readonly/>
+                                </div>
+                                <div class="col-xs-6" style="padding-left:0px !important">
+                                    <input type="text" class="form-control" name="numero_documento" maxlength="20" readonly/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                <div class="col-sm-6">
+                                    <input size="16" name="fecha_nacimiento" class="form-control" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">Sexo</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="sexo" maxlength="5" readonly/>
+                                </div>
+                            </div>
+                        </div>                    
+                        <div div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">Nivel Educativo</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="nivel_educativo" maxlength="30" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div div class="col-md-5">
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label" for="focused">Tipo de Productor:</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="tipo_productor" maxlength="30" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div div class="col-md-7">
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label" for="focused">Renglón Productivo</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="renglon_productivo" maxlength="30" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .container -->
+            </div><!-- End .panel-body -->
+
+        </div><!-- panel default -->
+
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>A2. DATOS DE CONTACTO (Diligencie de manera clara los datos de ubicación del productor)</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Telefono Fijo</label>
+                                    <input type="text" class="form-control" name="telefono" maxlength="100" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Celular</label>
+                                    <input type="text" class="form-control" name="celular" maxlength="100" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Correo Electrónico</label>
+                                    <input type="text" class="form-control" name="email" maxlength="100" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label" for="focused">Departamento:</label>
+                                    <input type="text" class="form-control" name="departamento" maxlength="100" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label" for="focused">Municipio:</label>
+                                    <input type="text" class="form-control" name="municipio" maxlength="100" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label" for="focused">Vereda / Corregimiento</label>
+                                    <input type="text" class="form-control" name="vereda" maxlength="100" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Dirección de Residencia</label>
+                                    <input type="text" class="form-control" name="direccion_residencia" maxlength="100" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                
+                </div>
+            </div><!-- End .panel-body -->
+        </div><!-- panel default -->
+
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>B. DATOS DEL CONYUGE O COMPAÑERO PERMANENTE</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Primer Nombre {{conyugue | json_encode}}</label>
+                                    <input type="text" capitalize class="form-control" name="conyugue_nombre1" maxlength="30" value="{{ set_value('conyugue_nombre1', conyugue.nombre1) }}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Segundo Nombre</label>
+                                    <input type="text" capitalize class="form-control" name="conyugue_nombre2"  maxlength="30" value="{{ set_value('conyugue_nombre2', conyugue.nombre2) }}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Primer Apellido</label>
+                                    <input type="text"  capitalize class="form-control" name="conyugue_apellido1" maxlength="30" value="{{ set_value('conyugue_apellido1', conyugue.apellido1) }}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Segundo Apellido</label>
+                                    <input type="text" capitalize class="form-control" name="conyugue_apellido2" maxlength="30" value="{{ set_value('conyugue_apellido2', conyugue.apellido2) }}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Documento:</label>
+                                <div class="col-xs-3" style="padding-right:0px !important">
+                                    <select name="tipo_documento_conyugue" class="form-control">
+                                    {% for tipo_doc in combos['tiposDocumento'] %}
+                                        <option value="{{ tipo_doc.id|e }}" {{(tipo_doc.id == conyugue.tipo_documento)?'selected':''}}>{{ tipo_doc.descripcion|e }}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-xs-6" style="padding-left:0px !important">
+                                    <input type="text" class="form-control" name="conyugue_identificacion" maxlength="30"  value="{{ set_value('conyugue_identificacion', conyugue.identificacion) }}"/>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                <div class="col-sm-6">
+                                    <div class="input-group date datepicker autostart">
+                                        <input size="16" class="form-control" name="conyugue_fecha_nacimiento" type="text" value="{{ set_value('conyugue_fecha_nacimiento', conyugue.fecha_nacimiento | date('Y-m-d')) }}">
+                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                                    </div>
+                                    <span class="help-block"><small>AAAA-MM-DD</small></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label" for="conyugue_telefono">Teléfono</label>
+                                <div class="col-sm-6">
+                                    <input size="16" class="form-control" name="conyugue_telefono" type="text" value="{{ set_value('conyugue_telefono', conyugue.telefono) }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>C. REFERENCIAS</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>FAMILIARES (Que no vivan con usted)</h4>
+                        </div><!-- End .panel-heading -->
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Nombres</label>
+                                            <input type="text" class="form-control" name="referencias_fam1_nombres" maxlength="100"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Primer Apellido</label>
+                                            <input type="text" class="form-control" name="referencias_fam1_apellido1" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Segundo Apellido</label>
+                                            <input type="text" class="form-control" name="referencias_fam1_apellido2"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Parentesco</label>
+                                            <input type="text" class="form-control" name="referencias_fam1_parentesco" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Departamento</label>
+                                            <input type="text" class="form-control" name="referencias_fam1_telefono" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Municipio</label>
+                                            <input type="text" class="form-control" name="referencias_fam1_municipio" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Dirección de la Residencia</label>
+                                            <input type="text" class="form-control" name="referencias_fam1_per_direccion" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Barrio/ Vereda</label>
+                                            <input type="text" class="form-control" name="referencias_fam1_barrio" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_fam1_indicativo1" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_fam1_telefono1" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_fam1_indicativo2" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_fam1_telefono2" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Celular (Prefijo y Número)</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_fam1_indicativo3" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_fam1_telefono3" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>                
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Nombres</label>
+                                            <input type="text" class="form-control" name="referencias_fam2_nombres" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Primer Apellido</label>
+                                            <input type="text" class="form-control" name="referencias_fam2_apellido1" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Segundo Apellido</label>
+                                            <input type="text" class="form-control" name="referencias_fam2_apellido2"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Parentesco</label>
+                                            <input type="text" class="form-control" name="referencias_fam2_parentesco" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Departamento</label>
+                                            <input type="text" class="form-control" name="referencias_fam2_telefono" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Municipio</label>
+                                            <input type="text" class="form-control" name="referencias_fam2_municipio" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Dirección de la Residencia</label>
+                                            <input type="text" class="form-control" name="referencias_fam2_per_direccion" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Barrio/ Vereda</label>
+                                            <input type="text" class="form-control" name="referencias_fam2_barrio" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_fam2_indicativo1" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_fam2_telefono1" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_fam2_indicativo2" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_fam2_telefono2" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Celular (Prefijo y Número)</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_fam2_indicativo3" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_fam2_telefono3" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>                
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>PERSONALES</h4>
+                        </div><!-- End .panel-heading -->
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Nombres</label>
+                                            <input type="text" class="form-control" name="referencias_per1_nombres" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Primer Apellido</label>
+                                            <input type="text" class="form-control" name="referencias_per1_apellido1" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Segundo Apellido</label>
+                                            <input type="text" class="form-control" name="referencias_per1_apellido2"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Parentesco</label>
+                                            <input type="text" class="form-control" name="referencias_per1_parentesco" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Departamento</label>
+                                            <input type="text" class="form-control" name="referencias_per1_telefono" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Municipio</label>
+                                            <input type="text" class="form-control" name="referencias_per1_municipio" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Dirección de la Residencia</label>
+                                            <input type="text" class="form-control" name="referencias_per1_per_direccion" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Barrio/ Vereda</label>
+                                            <input type="text" class="form-control" name="referencias_per1_barrio" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_per1_indicativo1" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_per1_telefono1" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_per1_indicativo2" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_per1_telefono2" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Celular (Prefijo y Número)</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_per1_indicativo3" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_per1_telefono3" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>                
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Nombres</label>
+                                            <input type="text" class="form-control" name="referencias_per2_nombres" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Primer Apellido</label>
+                                            <input type="text" class="form-control" name="referencias_per2_apellido1" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Segundo Apellido</label>
+                                            <input type="text" class="form-control" name="referencias_per2_apellido2"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Parentesco</label>
+                                            <input type="text" class="form-control" name="referencias_per2_parentesco" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Departamento</label>
+                                            <input type="text" class="form-control" name="referencias_per2_telefono" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Municipio</label>
+                                            <input type="text" class="form-control" name="referencias_per2_municipio" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Dirección de la Residencia</label>
+                                            <input type="text" class="form-control" name="referencias_per2_per_direccion" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Barrio/ Vereda</label>
+                                            <input type="text" class="form-control" name="referencias_per2_barrio" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_per2_indicativo1" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_per2_telefono1" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_per2_indicativo2" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_per2_telefono2" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="container">                       
+                                            <label class="control-label">Celular (Prefijo y Número)</label>
+                                            <div div class="col-md-12">
+                                                <div div class="col-md-3">
+                                                    <input type="text" class="" name="referencias_per2_indicativo3" maxlength="3" />
+                                                </div>
+                                                <div div class="col-md-9">
+                                                    <input type="text" class="" name="referencias_per2_telefono3" maxlength="20" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>                
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>FINANCIERAS</h4>
+                        </div><!-- End .panel-heading -->
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Entidad</label>
+                                            <input type="text" class="form-control" name="referencias_fin1_entidad" maxlength="100" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Clase o tipo de Producto</label>
+                                            <input type="text" class="form-control" name="referencias_fin1_clase" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">No. de Producto</label>
+                                            <input type="text" class="form-control" name="referencias_fin1_nro_producto" maxlength="100" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Departamento</label>
+                                            <select name="referencias_fin1_departamento" class="form-control">
+                                        {% for departamento in data.departamentos %}
+                                                <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
+                                        {% endfor %}
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Ciudad</label>
+                                            <select name="referencias_fin1_ciudad" class="form-control">
+                                                <option></option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Sucursal</label>
+                                            <input type="text" class="form-control" name="referencias_fin1_sucursal" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Entidad</label>
+                                            <input type="text" class="form-control" name="referencias_fin2_entidad" maxlength="100" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Clase o tipo de Producto</label>
+                                            <input type="text" class="form-control" name="referencias_fin2_clase" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">No. de Producto</label>
+                                            <input type="text" class="form-control" name="referencias_fin2_nro_producto" maxlength="100" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Departamento</label>
+                                            <select name="referencias_fin2_departamento" class="form-control">
+                                        {% for departamento in data.departamentos %}
+                                                <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
+                                        {% endfor %}
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Ciudad</label>
+                                            <select name="referencias_fin2_ciudad" class="form-control">
+                                                <option></option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Sucursal</label>
+                                            <input type="text" class="form-control" name="referencias_fin2_sucursal" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>COMERCIALES (Diligenciar las referencias comerciales solo para independientes)</h4>
+                        </div><!-- End .panel-heading -->
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Nombre del Establecimiento</label>
+                                            <input type="text" class="form-control" name="referencias_com_nombre_est" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Tipo de vínculo</label>
+                                            <input type="text" class="form-control" name="referencias_com_tipo_vinculo" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Departamento</label>
+                                            <select name="referencias_com_departamento" class="form-control">
+                                        {% for departamento in data.departamentos %}
+                                                <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
+                                        {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Municipio</label>
+                                            <select name="referencias_com_municipio" class="form-control">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label class="control-label">Telefono</label>
+                                            <input type="text" class="form-control" name="referencias_com_telefono" maxlength="100"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<br/>
+        <br/>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>E. INFORMACIÓN DEL PREDIO DE LA INVERSIÓN</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>D. INFORMACIÓN PARA LA PLANIFICACION DEL CRÉDITO (DESCRIPCIÓN DE LAS INVERSIONES OBJETO DEL PROYECTO A FINANCIAR)</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
 
-    <div class="panel-body" style="display: block;">
-        <div class="container">
+            <div class="panel-body" style="display: block;">
+                <div class="container">
 
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="">Nombre del Predio de la inversión</label>
-                            <input type="text" capitalize class="form-control" name="informacion_pre_nombre_predio" maxlength="30" />
+                    <table class="table table-bordered table-hover table-responsive dataTable">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Codigo FINAGRO (Deje en Blanco)</th>
+                                <th style="text-align: center;">Capital de Trabajo</th>
+                                <th style="text-align: center;">Inversión</th>
+                                <th style="text-align: center;">Unidades o Hectareas a Financiar</th>
+                                <th style="text-align: center;">Valor del Proyecto (100%)</th>
+                                <th style="text-align: center;">Valor de la Solicitud (Pequeño Productor hasta 100%)</th>
+                                <th style="text-align: center;">Plazo Total (Meses)</th>
+                                <th style="text-align: center;">Período de Gracia (semestral /anual)</th>
+                                <th style="text-align: center;">Modalidad Pago de Intereses (semestral /anual)</th>
+                                <th style="text-align: center;">Amortización a Capital (semestral /anual)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                {% for i in 1..4 %}
+                            <tr>                
+                    {% for j in 1..10 %}
+                                <td>                
+                                    <input name="descripcion_inv_{{ i~'_'~j }}"  name="" style="width: 80px;"/>
+                                </td>                  
+                    {% endfor %}
+                            </tr>                  
+                {% endfor %}
+                        </tbody>
+                    </table>
 
-                        </div>
+
+                    <div class="row">
+                        /*Something is misssing here*/
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="">Área de la Presente Inversión (Has)</label>
-                            <input type="text" capitalize class="form-control" name="informacion_pre_area" maxlength="30" />
 
-                        </div>
-                    </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="">Tenencia del predio de la inversión (Items del RUAT)</label>
-                            <input type="text" capitalize class="form-control" name="informacion_pre_tenencia" maxlength="30" />
+            </div>
+        </div>
 
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>E. INFORMACIÓN DEL PREDIO DE LA INVERSIÓN</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="">Nombre del Predio de la inversión</label>
+                                    <input type="text" capitalize class="form-control" name="informacion_pre_nombre_predio" maxlength="30" />
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="">Municipio del Predio de la Inversión</label>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="">Área de la Presente Inversión (Has)</label>
+                                    <input type="text" capitalize class="form-control" name="informacion_pre_area" maxlength="30" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="">Tenencia del predio de la inversión (Items del RUAT)</label>
+                                    <input type="text" capitalize class="form-control" name="informacion_pre_tenencia" maxlength="30" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="">Municipio del Predio de la Inversión</label>
                             {% for municipio in data.municipios %}
-                                <option name="informacion_pre_tenencia_municipio" value={{ municipio.id }}>{{ municipio.descripcion }}</option>
+                                    <option name="informacion_pre_tenencia_municipio" value={{ municipio.id }}>{{ municipio.descripcion }}</option>
                             {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="">Nombre del Predio de la inversión</label>
-                            <input type="text" capitalize class="form-control" name="" maxlength="30" />
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="">Fuentes Hídricas <br>&nbsp;</label><br/>
-                            <select name="" class="form-control" class="form-control">
-                                <option value="1">si</option>
-                                <option value="0">no</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="">Fecha Inicial de la Inversión AAAA/MM/DD</label>
-                            <div class="input-group date datepicker autostart">
-                                <input size="16" class="form-control" name="informacion_pre_fecha_ini" type="text">
-                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="">Fecha final de la Inversión AAAA/MM/DD</label>
-                            <div class="input-group date datepicker autostart">
-                                <input size="16" class="form-control" name="informacion_pre_fecha_fin" type="text">
-                                <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="">Nombre del Predio de la inversión</label>
+                                    <input type="text" capitalize class="form-control" name="" maxlength="30" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="">Fuentes Hídricas <br>&nbsp;</label><br/>
+                                    <select name="" class="form-control" class="form-control">
+                                        <option value="1">si</option>
+                                        <option value="0">no</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="">Fecha Inicial de la Inversión AAAA/MM/DD</label>
+                                    <div class="input-group date datepicker autostart">
+                                        <input size="16" class="form-control" name="informacion_pre_fecha_ini" type="text">
+                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="">Fecha final de la Inversión AAAA/MM/DD</label>
+                                    <div class="input-group date datepicker autostart">
+                                        <input size="16" class="form-control" name="informacion_pre_fecha_fin" type="text">
+                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
 
-<br/>
+        <br/>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>F. ACTIVIDADES AGROPECUARIAS COMPLEMENTARIAS (INGRESOS ADICIONALES)</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>F. ACTIVIDADES AGROPECUARIAS COMPLEMENTARIAS (INGRESOS ADICIONALES)</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
 
-    <div class="panel-body" style="display: block;">
-        <div class="container">
-            <table class="table table-bordered table-hover table-responsive dataTable">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">Actividades Agropecuarias</th>
-                        <th style="text-align: center;">Cantidad (Has. Animales)</th>
-                        <th style="text-align: center;">Producción (anual)</th>
-                        <th style="text-align: center;">Precio de venta</th>
-                        <th style="text-align: center;">Total ingresos (Anual)</th>
-                        <th style="text-align: center;">Area del predio de los inventarios</th>
-                        <th style="text-align: center;">Tipo de Tenencia del Predio de los Inventarios</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <table class="table table-bordered table-hover table-responsive dataTable">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Actividades Agropecuarias</th>
+                                <th style="text-align: center;">Cantidad (Has. Animales)</th>
+                                <th style="text-align: center;">Producción (anual)</th>
+                                <th style="text-align: center;">Precio de venta</th>
+                                <th style="text-align: center;">Total ingresos (Anual)</th>
+                                <th style="text-align: center;">Area del predio de los inventarios</th>
+                                <th style="text-align: center;">Tipo de Tenencia del Predio de los Inventarios</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                     {% for i in 1..5 %}
-                        <tr>                
+                            <tr>                
                         {% for j in 1..7 %}
-                            <td>
+                                <td>
                             {% if i == 5 and j == 1 %}
-                                Otros Ingresos Diferentes a los generados por actividades agropecuarias
+                                    Otros Ingresos Diferentes a los generados por actividades agropecuarias
                             {% else %}
-                                <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 120px;"/>
+                                    <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 120px;"/>
                             {% endif %}                
-                            </td>                  
+                                </td>                  
                         {% endfor %}
-                        </tr>                  
+                            </tr>                  
                     {% endfor %}                    
-                </tbody>
-            </table>            
+                        </tbody>
+                    </table>            
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 
-<br/>
+        <br/>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>G. DESCRIPCION DE LA INVERSION A FINANCIAR (JUSTIFICACIÓN DE CRÉDITO)</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>G. DESCRIPCION DE LA INVERSION A FINANCIAR (JUSTIFICACIÓN DE CRÉDITO)</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
 
-    <div class="panel-body" style="display: block;">
-        <div class="container">
-            <div class="col-sm-12">
-                <textarea name="descripcion_inv" style="width: 100%;"></textarea>
-            </div>                   
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="col-sm-12">
+                        <textarea name="descripcion_inv" style="width: 100%;"></textarea>
+                    </div>                   
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 
-<br/>
+        <br/>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>H. FORMA DE LLEGAR AL PREDIO DE LA INVERSIÓN (Incluir la distancia en kilómetros):</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>H. FORMA DE LLEGAR AL PREDIO DE LA INVERSIÓN (Incluir la distancia en kilómetros):</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
 
-    <div class="panel-body" style="display: block;">
-        <div class="container">
-            <div class="col-sm-12">
-                <textarea name="forma_llegar_pred" style="width: 100%;"></textarea>
-            </div>                   
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="col-sm-12">
+                        <textarea name="forma_llegar_pred" style="width: 100%;"></textarea>
+                    </div>                   
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<br/>
+        <br/>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>J. DESCRIPCION DE BIENES</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>J. DESCRIPCION DE BIENES</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
 
-    <div class="panel-body" style="display: block;">
-        <div class="container">
+            <div class="panel-body" style="display: block;">
+                <div class="container">
 
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Tipo de Inmueble</label>
-                            <select name="descripcion_bienes_tipo_inmueble" class="form-control">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de Inmueble</label>
+                                    <select name="descripcion_bienes_tipo_inmueble" class="form-control">
                                 {% for tipo_inmueble in data.tipos_inmueble %}
-                                    <option value={{ tipo_inmueble.id }} >{{ tipo_inmueble.descripcion }}</option>
+                                        <option value={{ tipo_inmueble.id }} >{{ tipo_inmueble.descripcion }}</option>
                                 {% endfor %}
-                            </select>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Dirección</label>
-                            <input type="text" class="form-control" name="descripcion_bienes_direccion" />
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Dirección</label>
+                                    <input type="text" class="form-control" name="descripcion_bienes_direccion" />
 
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Valor comercial</label>
-                            <input type="text" class="form-control" name="descripcion_bienes_valor_comercial" />
-                             
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Valor comercial</label>
+                                    <input type="text" class="form-control" name="descripcion_bienes_valor_comercial" />
 
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Departamento</label>
-                            <select name="descripcion_bienes_departamento" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+                                    <select name="descripcion_bienes_departamento" class="form-control">
                                 {% for departamento in data.departamentos %}
-                                    <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
+                                        <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
                                 {% endfor %}
-                            </select>
+                                    </select>
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Municipio</label>
+                                    <select name="descripcion_bienes_municipio" class="form-control">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Vereda</label>
+                                    <input type="text" class="form-control" name="descripcion_bienes_vereda" />
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Municipio</label>
-                            <select name="descripcion_bienes_municipio" class="form-control">
-                                <option></option>
-                            </select>
+
+                    <hr>
+
+                    <table class="table table-bordered table-hover table-responsive dataTable">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Descripción de Otros Bienes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Semovientes</td>
+                                <td><input  name="otros_vienes1" style="width: 120px;"/></td>
+                                <td>Cantidad</td>
+                                <td><input  name="otros_cantidad1" style="width: 120px;"/></td>
+                                <td>Valor Comercial</td>
+                                <td><input  name="otros_valor1" style="width: 120px;"/></td>
+                            </tr>
+
+                            <tr>
+                                <td>Maquinaria</td>
+                                <td><input  name="otros_vienes2" style="width: 120px;"/></td>
+                                <td>Cantidad</td>
+                                <td><input  name="otros_cantidad2" style="width: 120px;"/></td>
+                                <td>Valor Comercial</td>
+                                <td><input  name="otros_valor2" style="width: 120px;"/></td>
+                            </tr>
+
+                            <tr>
+                                <td>Cultivos en desarrollo</td>
+                                <td><input  name="otros_vienes3" style="width: 120px;"/></td>
+                                <td>Cantidad</td>
+                                <td><input  name="otros_cantidad3" style="width: 120px;"/></td>
+                                <td>Valor Comercial</td>
+                                <td><input  name="otros_valor3" style="width: 120px;"/></td>
+                            </tr>
+
+                            <tr>
+                                <td>Inversiones y otros activos</td>
+                                <td><input  name="otros_vienes4" style="width: 120px;"/></td>
+                                <td>Cantidad</td>
+                                <td><input  name="otros_cantidad4" style="width: 120px;"/></td>
+                                <td>Valor Comercial</td>
+                                <td><input  name="otros_valor4" style="width: 120px;"/></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <br>
+
+                    <div class="row">https://www.google.com.co/
+                        <div class="col-md-12">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label"> Observaciones</label>
+                                    <textarea name="observaciones" style="width: 100%;"></textarea>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label">Vereda</label>
-                            <input type="text" class="form-control" name="descripcion_bienes_vereda" />
-                             
-                        </div>
-                    </div>
+                    </div>            
                 </div>
             </div>
-
-            <hr>
-
-            <table class="table table-bordered table-hover table-responsive dataTable">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">Descripción de Otros Bienes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Semovientes</td>
-                        <td><input  name="otros_vienes1" style="width: 120px;"/></td>
-                        <td>Cantidad</td>
-                        <td><input  name="otros_cantidad1" style="width: 120px;"/></td>
-                        <td>Valor Comercial</td>
-                        <td><input  name="otros_valor1" style="width: 120px;"/></td>
-                    </tr>
-
-                    <tr>
-                        <td>Maquinaria</td>
-                        <td><input  name="otros_vienes2" style="width: 120px;"/></td>
-                        <td>Cantidad</td>
-                        <td><input  name="otros_cantidad2" style="width: 120px;"/></td>
-                        <td>Valor Comercial</td>
-                        <td><input  name="otros_valor2" style="width: 120px;"/></td>
-                    </tr>
-
-                    <tr>
-                        <td>Cultivos en desarrollo</td>
-                        <td><input  name="otros_vienes3" style="width: 120px;"/></td>
-                        <td>Cantidad</td>
-                        <td><input  name="otros_cantidad3" style="width: 120px;"/></td>
-                        <td>Valor Comercial</td>
-                        <td><input  name="otros_valor3" style="width: 120px;"/></td>
-                    </tr>
-
-                    <tr>
-                        <td>Inversiones y otros activos</td>
-                        <td><input  name="otros_vienes4" style="width: 120px;"/></td>
-                        <td>Cantidad</td>
-                        <td><input  name="otros_cantidad4" style="width: 120px;"/></td>
-                        <td>Valor Comercial</td>
-                        <td><input  name="otros_valor4" style="width: 120px;"/></td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-            <br>
-
-            <div class="row">https://www.google.com.co/
-                <div class="col-md-12">
-                    <div class="container">
-                        <div class="form-group">
-                            <label class="control-label"> Observaciones</label>
-                            <textarea name="observaciones" style="width: 100%;"></textarea>
-                             
-                        </div>
-                    </div>
-                </div>
-            </div>            
         </div>
+
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>K. CONSIDERACIONES ADICIONALES</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="row">
+
+                        <div div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-6">Experiencia en la actividad a financiar (en meses)</label>
+                                <div class="col-sm-6">
+                                    <input name="experiencia_act" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-6">Tiempo de permanencia en la región (en meses)</label>
+                                <div class="col-sm-6">
+                                    <input name="tiempo_permanencia" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>                   
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="form-actions full">
+
+            <!--div class="col-md-4 pull-right">
+                <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
+                
+            </div-->
+            <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
+        </div>
+
+
+        </form>
     </div>
 </div>
-
-<br/>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="icon"><i class="icon20 i-menu-6"></i></div>
-        <h4>K. CONSIDERACIONES ADICIONALES</h4>
-        <a href="#" class="minimize"></a>
-    </div><!-- End .panel-heading -->
-
-    <div class="panel-body" style="display: block;">
-        <div class="container">
-            <div class="row">
-
-                <div div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-sm-6">Experiencia en la actividad a financiar (en meses)</label>
-                        <div class="col-sm-6">
-                             <input name="experiencia_act" class="form-control"/>
-                        </div>
-                    </div>
-                </div>
-
-               <div div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-sm-6">Tiempo de permanencia en la región (en meses)</label>
-                        <div class="col-sm-6">
-                             <input name="tiempo_permanencia" class="form-control"/>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>                   
-        </div>
-    </div>
-</div>
-
-<br/>
-
-<div class="form-actions full">
-
-    <!--div class="col-md-4 pull-right">
-        <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
-        
-    </div-->
-    <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
-</div>
-
-
-</form></div></div>
 
 
 {% endblock %}
