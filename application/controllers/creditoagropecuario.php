@@ -81,7 +81,7 @@ class Creditoagropecuario extends CI_Controller {
             $solicitud_credito->responsable = 1; ///OJO! Poner el usuario
             
             if($solicitud_credito->save()){
-                $conyugue = ($conyugue) ? $conyugue : new Conyugue();
+                $conyugue = ($conyugue) ? $conyugue : new Conyugue;
                 $conyugue->solicitud_id = $solicitud_credito->id;
                 $conyugue->nombre1 = $this->input->post('conyugue_nombre1');
                 $conyugue->nombre2 = $this->input->post('conyugue_nombre2');
@@ -90,10 +90,112 @@ class Creditoagropecuario extends CI_Controller {
                 $conyugue->tipo_documento = $this->input->post('tipo_documento_conyugue');
                 $conyugue->identificacion = $this->input->post('conyugue_identificacion');
                 $conyugue->fecha_nacimiento = $this->input->post('conyugue_fecha_nacimiento');
-                $conyugue->telefono = $this->input->post('conyugue_telefono');
-                
+                $conyugue->telefono = $this->input->post('conyugue_telefono');                
                 $conyugue->save();
                 
+                
+                $referencias_familiares[0] = (isset($referencias_familiares[0]) && $referencias_familiares[0]) ? $referencias_familiares[0] : new ReferenciaFamiliarPersonal;
+                $referencias_familiares[0]->tipo = 1;
+                $referencias_familiares[0]->solicitud_id = $solicitud_credito->id;
+                $referencias_familiares[0]->nombres = $this->input->post('referencias_fam1_nombres');
+                $referencias_familiares[0]->apellido1 = $this->input->post('referencias_fam1_apellido1');
+                $referencias_familiares[0]->apellido2 = $this->input->post('referencias_fam1_apellido2');
+                $referencias_familiares[0]->parentesco = $this->input->post('referencias_fam1_parentesco');
+                $referencias_familiares[0]->direccion = $this->input->post('referencias_fam1_direccion');
+                $referencias_familiares[0]->departamento_id = 1;///OJO! falta en el formulario
+                $referencias_familiares[0]->municipio_id = 1;///OJO! falta en el formulario
+                $referencias_familiares[0]->barrio = $this->input->post('referencias_fam1_barrio');
+                $referencias_familiares[0]->indicativo1 = $this->input->post('referencias_fam1_indicativo1');
+                $referencias_familiares[0]->telefono1 = $this->input->post('referencias_fam1_telefono1');
+                $referencias_familiares[0]->indicativo2 = $this->input->post('referencias_fam1_indicativo2');
+                $referencias_familiares[0]->telefono2 = $this->input->post('referencias_fam1_telefono2');
+                $referencias_familiares[0]->indicativo3 = $this->input->post('referencias_fam1_indicativo3');
+                $referencias_familiares[0]->telefono3 = $this->input->post('referencias_fam1_telefono3');                
+                $referencias_familiares[0]->save();
+                
+                $referencias_familiares[1] = (isset($referencias_familiares[1]) && $referencias_familiares[1]) ? $referencias_familiares[1] : new ReferenciaFamiliarPersonal;
+                $referencias_familiares[1]->tipo = 1;
+                $referencias_familiares[1]->solicitud_id = $solicitud_credito->id;
+                $referencias_familiares[1]->nombres = $this->input->post('referencias_fam2_nombres');
+                $referencias_familiares[1]->apellido1 = $this->input->post('referencias_fam2_apellido1');
+                $referencias_familiares[1]->apellido2 = $this->input->post('referencias_fam2_apellido2');
+                $referencias_familiares[1]->parentesco = $this->input->post('referencias_fam2_parentesco');
+                $referencias_familiares[1]->direccion = $this->input->post('referencias_fam2_direccion');
+                $referencias_familiares[1]->departamento_id = 1;///OJO! falta en el formulario
+                $referencias_familiares[1]->municipio_id = 1;///OJO! falta en el formulario
+                $referencias_familiares[1]->barrio = $this->input->post('referencias_fam2_barrio');
+                $referencias_familiares[1]->indicativo1 = $this->input->post('referencias_fam2_indicativo1');
+                $referencias_familiares[1]->telefono1 = $this->input->post('referencias_fam2_telefono1');
+                $referencias_familiares[1]->indicativo2 = $this->input->post('referencias_fam2_indicativo2');
+                $referencias_familiares[1]->telefono2 = $this->input->post('referencias_fam2_telefono2');
+                $referencias_familiares[1]->indicativo3 = $this->input->post('referencias_fam2_indicativo3');
+                $referencias_familiares[1]->telefono3 = $this->input->post('referencias_fam2_telefono3');                
+                $referencias_familiares[1]->save();
+                
+                $referencias_personales[0] = (isset($referencias_personales[0]) && $referencias_personales[0]) ? $referencias_personales[0] : new ReferenciaFamiliarPersonal;
+                $referencias_personales[0]->tipo = 2;
+                $referencias_personales[0]->solicitud_id = $solicitud_credito->id;
+                $referencias_personales[0]->nombres = $this->input->post('referencias_per1_nombres');
+                $referencias_personales[0]->apellido1 = $this->input->post('referencias_per1_apellido1');
+                $referencias_personales[0]->apellido2 = $this->input->post('referencias_per1_apellido2');
+                $referencias_personales[0]->parentesco = $this->input->post('referencias_per1_parentesco');
+                $referencias_personales[0]->direccion = $this->input->post('referencias_per1_direccion');
+                $referencias_personales[0]->departamento_id = 1;///OJO! falta en el formulario
+                $referencias_personales[0]->municipio_id = 1;///OJO! falta en el formulario
+                $referencias_personales[0]->barrio = $this->input->post('referencias_per1_barrio');
+                $referencias_personales[0]->indicativo1 = $this->input->post('referencias_per1_indicativo1');
+                $referencias_personales[0]->telefono1 = $this->input->post('referencias_per1_telefono1');
+                $referencias_personales[0]->indicativo2 = $this->input->post('referencias_per1_indicativo2');
+                $referencias_personales[0]->telefono2 = $this->input->post('referencias_per1_telefono2');
+                $referencias_personales[0]->indicativo3 = $this->input->post('referencias_per1_indicativo3');
+                $referencias_personales[0]->telefono3 = $this->input->post('referencias_per1_telefono3');                
+                $referencias_personales[0]->save();
+                
+                $referencias_personales[1] = (isset($referencias_personales[1]) && $referencias_personales[1]) ? $referencias_personales[1] : new ReferenciaFamiliarPersonal;
+                $referencias_personales[1]->tipo = 2;
+                $referencias_personales[1]->solicitud_id = $solicitud_credito->id;
+                $referencias_personales[1]->nombres = $this->input->post('referencias_per2_nombres');
+                $referencias_personales[1]->apellido1 = $this->input->post('referencias_per2_apellido1');
+                $referencias_personales[1]->apellido2 = $this->input->post('referencias_per2_apellido2');
+                $referencias_personales[1]->parentesco = $this->input->post('referencias_per2_parentesco');
+                $referencias_personales[1]->direccion = $this->input->post('referencias_per2_direccion');
+                $referencias_personales[1]->departamento_id = 1;///OJO! falta en el formulario
+                $referencias_personales[1]->municipio_id = 1;///OJO! falta en el formulario
+                $referencias_personales[1]->barrio = $this->input->post('referencias_per2_barrio');
+                $referencias_personales[1]->indicativo1 = $this->input->post('referencias_per2_indicativo1');
+                $referencias_personales[1]->telefono1 = $this->input->post('referencias_per2_telefono1');
+                $referencias_personales[1]->indicativo2 = $this->input->post('referencias_per2_indicativo2');
+                $referencias_personales[1]->telefono2 = $this->input->post('referencias_per2_telefono2');
+                $referencias_personales[1]->indicativo3 = $this->input->post('referencias_per2_indicativo3');
+                $referencias_personales[1]->telefono3 = $this->input->post('referencias_per2_telefono3');                
+                $referencias_personales[1]->save();
+                
+                $referencias_financieras[0] = (isset($referencias_financieras[0]) && $referencias_financieras[0]) ? $referencias_financieras[0] : new ReferenciaFinanciera;
+                $referencias_financieras[0]->solicitud_id = $solicitud_credito->id;
+                $referencias_financieras[0]->entidad = $this->input->post('referencias_fin1_entidad');
+                $referencias_financieras[0]->clase = $this->input->post('referencias_fin1_clase');
+                $referencias_financieras[0]->nro_producto = $this->input->post('referencias_fin1_nro_producto');
+                $referencias_financieras[0]->sucursal = $this->input->post('referencias_fin1_sucursal');
+                $referencias_financieras[0]->ciudad = $this->input->post('referencias_fin1_ciudad');
+                $referencias_financieras[0]->save();
+                
+                $referencias_financieras[1] = (isset($referencias_financieras[1]) && $referencias_financieras[1]) ? $referencias_financieras[1] : new ReferenciaFinanciera;
+                $referencias_financieras[1]->solicitud_id = $solicitud_credito->id;
+                $referencias_financieras[1]->entidad = $this->input->post('referencias_fin2_entidad');
+                $referencias_financieras[1]->clase = $this->input->post('referencias_fin2_clase');
+                $referencias_financieras[1]->nro_producto = $this->input->post('referencias_fin2_nro_producto');
+                $referencias_financieras[1]->sucursal = $this->input->post('referencias_fin2_sucursal');
+                $referencias_financieras[1]->ciudad = $this->input->post('referencias_fin2_ciudad');
+                $referencias_financieras[1]->save();
+                
+                $referencias_comerciales[0] = (isset($referencias_comerciales[0]) && $referencias_comerciales[0]) ? $referencias_comerciales[0] : new ReferenciaComercial;
+                $referencias_comerciales[0]->solicitud_id = $solicitud_credito->id;
+                $referencias_comerciales[0]->nombre_est = $this->input->post('referencias_com_nombre_est');
+                $referencias_comerciales[0]->tipo_vinculo = $this->input->post('referencias_com_tipo_vinculo');
+                $referencias_comerciales[0]->departamento_id = 1;///OJO! falta en el formulario
+                $referencias_comerciales[0]->municipio_id = 1;///OJO! falta en el formulario
+                $referencias_comerciales[0]->telefono = $this->input->post('referencias_com_telefono');
+                $referencias_comerciales[0]->save();
                 
                 
             }

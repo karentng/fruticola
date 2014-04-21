@@ -247,7 +247,7 @@
                         <div class="col-md-3">
                             <div class="container">
                                 <div class="form-group">
-                                    <label class="control-label">Primer Nombre {{conyugue | json_encode}}</label>
+                                    <label class="control-label">Primer Nombre </label>
                                     <input type="text" capitalize class="form-control" name="conyugue_nombre1" maxlength="30" value="{{ set_value('conyugue_nombre1', conyugue.nombre1) }}"/>
                                 </div>
                             </div>
@@ -346,7 +346,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nombres</label>
-                                            <input type="text" class="form-control" name="referencias_fam1_nombres" maxlength="100"/>
+                                            <input type="text" class="form-control" name="referencias_fam1_nombres" maxlength="100" value="{{ set_value('referencias_fam1_nombres', referencias_familiares[0].nombres) }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -620,7 +620,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nombres</label>
-                                            <input type="text" class="form-control" name="referencias_per1_nombres" maxlength="100"/>
+                                            <input type="text" class="form-control" name="referencias_per1_nombres" maxlength="100" value="{{ set_value('referencias_fam1_nombres', referencias_personales[0].nombres) }}"/>
 
                                         </div>
                                     </div>
@@ -895,7 +895,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Entidad</label>
-                                            <input type="text" class="form-control" name="referencias_fin1_entidad" maxlength="100" />
+                                            <input type="text" class="form-control" name="referencias_fin1_entidad" maxlength="100" value="{{ set_value('referencias_fin1_entidad', referencias_financieras[0].entidad) }}"/>
 
                                         </div>
                                     </div>
@@ -994,9 +994,9 @@
                                         <div class="form-group">
                                             <label class="control-label">Departamento</label>
                                             <select name="referencias_fin2_departamento" class="form-control">
-                                        {% for departamento in data.departamentos %}
+                                            {% for departamento in data.departamentos %}
                                                 <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
-                                        {% endfor %}
+                                            {% endfor %}
                                             </select>
 
                                         </div>
@@ -1040,7 +1040,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nombre del Establecimiento</label>
-                                            <input type="text" class="form-control" name="referencias_com_nombre_est" maxlength="100"/>
+                                            <input type="text" class="form-control" name="referencias_com_nombre_est" maxlength="100" value="{{ set_value('referencias_com_nombre_est', referencias_comerciales[0].nombre_est) }}"/>
 
                                         </div>
                                     </div>
