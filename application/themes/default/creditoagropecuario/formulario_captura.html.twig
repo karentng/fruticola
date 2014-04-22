@@ -34,6 +34,15 @@
 
                 $( '#'+new_id ).empty().append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
         });
+
+        $('#descripcion_bien_1_2, #descripcion_bien_2_2, #descripcion_bien_3_2').append(departamentos.html()).on('change', function(){
+                var id = $( this ).attr('id');
+                var value = $( this ).val();
+                var last_index = id.lastIndexOf('_');
+                var new_id = id.substring(0, last_index) + '_3';
+
+                $( '#'+new_id ).empty().append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
+        });
     });
 
     function crear_combo_deptos(){
@@ -339,7 +348,7 @@
 
                         <div div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                <label class="col-sm-6 control-label">Fecha de Nacimiento</label>
                                 <div class="col-sm-6">
                                     <div class="input-group date datepicker autostart">
                                         <input size="16" class="form-control" name="conyugue_fecha_nacimiento" type="text" value="{{ set_value('conyugue_fecha_nacimiento', conyugue.fecha_nacimiento | date('Y-m-d')) }}">
@@ -354,12 +363,20 @@
                     <div class="row">
                         <div div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-sm-6 control-label" for="conyugue_telefono">Teléfono</label>
+                                <label class="col-sm-6 control-label">Teléfono</label>
                                 <div class="col-sm-6">
-                                    <input size="16" class="form-control" name="conyugue_telefono" type="text" value="{{ set_value('conyugue_telefono', conyugue.telefono) }}">
+                                    <input class="form-control" name="conyugue_telefono" type="text" value="{{ set_value('conyugue_telefono', conyugue.telefono) }}">
                                 </div>
                             </div>
                         </div>
+                        <div div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">Personas a Cargo</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" name="conyugue_personas_cargo" type="text" value="{{ set_value('conyugue_personas_cargo', conyugue.conyugue_personas_cargo) }}">
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -1388,15 +1405,18 @@
             <div class="panel-body" style="display: block;">
                 <div class="container">
 
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 0px;">
                         <div class="col-md-4">
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Inmueble</label>
-                                    <select name="descripcion_bienes_tipo_inmueble" class="form-control">
-                                    {% for tipo_inmueble in data.tipos_inmueble %}
-                                        <option value={{ tipo_inmueble.id }} >{{ tipo_inmueble.descripcion }}</option>
-                                    {% endfor %}
+                                    <select name="descripcion_bien_1_1" class="form-control">
+                                        <option value=1 >Casa</option>
+                                        <option value=2 >Edificio</option>
+                                        <option value=3 >Finca</option>
+                                        <option value=4 >Local</option>
+                                        <option value=5 >Lote</option>
+                                        <option value=6 >Apartamento</option>
                                     </select>
                                 </div>
                             </div>
@@ -1405,7 +1425,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Dirección</label>
-                                    <input type="text" class="form-control" name="descripcion_bienes_direccion" />
+                                    <input type="text" class="form-control" name="descripcion_bien_1_5" />
 
                                 </div>
                             </div>
@@ -1414,7 +1434,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Valor comercial</label>
-                                    <input type="text" class="form-control" name="descripcion_bienes_valor_comercial" />
+                                    <input type="text" class="form-control" name="descripcion_bien_1_6" />
 
                                 </div>
                             </div>
@@ -1426,7 +1446,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Departamento</label>
-                                    <select name="descripcion_bienes_departamento" id="descripcion_bienes_departamento" class="form-control">
+                                    <select name="descripcion_bien_1_2" id="descripcion_bien_1_2" class="form-control">
                                         <option></option>
                                     </select>
 
@@ -1437,7 +1457,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Municipio</label>
-                                    <select name="descripcion_bienes_municipio" id="descripcion_bienes_municipio" class="form-control">
+                                    <select name="descripcion_bien_1_3" id="descripcion_bien_1_3" class="form-control">
                                         <option></option>
                                     </select>
                                 </div>
@@ -1447,7 +1467,145 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Vereda</label>
-                                    <input type="text" class="form-control" name="descripcion_bienes_vereda" />
+                                    <input type="text" class="form-control" name="descripcion_bien_1_4" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 0px;">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de Inmueble</label>
+                                    <select name="descripcion_bien_2_1" class="form-control">
+                                        <option value=1 >Casa</option>
+                                        <option value=2 >Edificio</option>
+                                        <option value=3 >Finca</option>
+                                        <option value=4 >Local</option>
+                                        <option value=5 >Lote</option>
+                                        <option value=6 >Apartamento</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Dirección</label>
+                                    <input type="text" class="form-control" name="descripcion_bien_2_5" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Valor comercial</label>
+                                    <input type="text" class="form-control" name="descripcion_bien_2_6" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+                                    <select name="descripcion_bien_2_2" id="descripcion_bien_2_2" class="form-control">
+                                        <option></option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Municipio</label>
+                                    <select name="descripcion_bien_2_2" id="descripcion_bien_2_3" class="form-control">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Vereda</label>
+                                    <input type="text" class="form-control" name="descripcion_bien_2_4" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 0px;">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de Inmueble</label>
+                                    <select name="descripcion_bien_3_1" class="form-control">
+                                        <option value=1 >Casa</option>
+                                        <option value=2 >Edificio</option>
+                                        <option value=3 >Finca</option>
+                                        <option value=4 >Local</option>
+                                        <option value=5 >Lote</option>
+                                        <option value=6 >Apartamento</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Dirección</label>
+                                    <input type="text" class="form-control" name="descripcion_bien_3_5" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Valor comercial</label>
+                                    <input type="text" class="form-control" name="descripcion_bien_3_6" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento</label>
+                                    <select name="descripcion_bien_3_2" id="descripcion_bien_3_2" class="form-control">
+                                        <option></option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Municipio</label>
+                                    <select name="descripcion_bien_3_3" id="descripcion_bien_3_3" class="form-control">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Vereda</label>
+                                    <input type="text" class="form-control" name="descripcion_bien_3_4" />
 
                                 </div>
                             </div>
@@ -1456,6 +1614,69 @@
 
                     <hr>
 
+
+                    <div class="row" style="margin-bottom: 0px;">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Vehículo -  Marca</label>
+                                    <input type="text" class="form-control" name="vehiculo_marca" />
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Placa</label>
+                                    <input type="text" class="form-control" name="vehiculo_placa" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Modelo</label>
+                                    <input type="text" class="form-control" name="vehiculo_modelo" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Prenda a favor de</label>
+                                    <input type="text" class="form-control" name="vehiculo_prenda_favor" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Valor de la deuda</label>
+                                    <input type="text" class="form-control" name="vehiculo_valor_deuda" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Valor Comercial</label>
+                                    <input type="text" class="form-control" name="vehiculo_valor_comercial" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
                     <table class="table table-bordered table-hover table-responsive dataTable">
                         <thead>
                             <tr>
@@ -1504,7 +1725,7 @@
 
                     <br>
 
-                    <div class="row">https://www.google.com.co/
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="container">
                                 <div class="form-group">
@@ -1555,6 +1776,12 @@
                 </div>
             </div>
         </div>
+
+        <br/>
+
+        <div style="background: #E1E1E1; padding: 10px; border-radius: 5px;">
+            <bold>NOTA:</bold>   LOS  SOPORTES ANEXOS A ESTE  FORMATO    SON:    1.  DOCUMENTO QUE CERTIFIQUE LA  TENECIA DE LA TIERRA  (DEL PREDIO DE LA  INVERSIÓN);    2.    PARA  SOLICITUD DE  RUBROS RELACIONADOS CON:   COMPRA DE  MAQUINARIA  Y EQUIPO SE DEBE  ADJUNTAR  LA COTIZACIÓN  DE  LOS MISMOS;   3.   PARA  CONSTRUCCIÓN DE INFRAESTRUCTURA  AGRÍCOLA:  ADJUNTAR  EL  PRESUPUESTO Y DISEÑO DE LA  OBRA  CON SUS  RESPECTIVAS  ÁREAS.
+        </div>            
 
         <br/>
 
