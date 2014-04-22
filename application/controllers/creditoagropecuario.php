@@ -238,10 +238,12 @@ class Creditoagropecuario extends CI_Controller {
                     $ingresos_adicionales[$i]->actividad = $this->input->post("ingresos_adicionales_{$j}_1");
                     $ingresos_adicionales[$i]->cantidad = $this->input->post("ingresos_adicionales_{$j}_2");
                     $ingresos_adicionales[$i]->produccion = $this->input->post("ingresos_adicionales_{$j}_3");
-                    $ingresos_adicionales[$i]->precio_venta = $this->input->post("ingresos_adicionales_{$j}_4");
-                    $ingresos_adicionales[$i]->total_ingresos = $this->input->post("ingresos_adicionales_{$j}_5");
-                    $ingresos_adicionales[$i]->area_pre_inv = $this->input->post("ingresos_adicionales_{$j}_6");
-                    $ingresos_adicionales[$i]->tipo_pre_inv = $this->input->post("ingresos_adicionales_{$j}_7");
+                    $ingresos_adicionales[$i]->edad_meses = $this->input->post("ingresos_adicionales_{$j}_4");
+                    $ingresos_adicionales[$i]->precio_venta = $this->input->post("ingresos_adicionales_{$j}_5");
+                    $ingresos_adicionales[$i]->total_ingresos = $this->input->post("ingresos_adicionales_{$j}_6");
+                    $ingresos_adicionales[$i]->nombre_predio = $this->input->post("ingresos_adicionales_{$j}_7");
+                    $ingresos_adicionales[$i]->area_pre_inv = $this->input->post("ingresos_adicionales_{$j}_8");
+                    $ingresos_adicionales[$i]->tipo_pre_inv = $this->input->post("ingresos_adicionales_{$j}_9");
                     $ingresos_adicionales[$i]->save();
                 }
                 

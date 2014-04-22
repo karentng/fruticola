@@ -126,7 +126,9 @@ create table ingresos_adicionales(
     precio_venta                    double precision,
     total_ingresos                  double precision,
     area_pre_inv                    double precision,
-    tipo_pre_inv                    double precision
+    tipo_pre_inv                    double precision,
+    edad_meses                      double precision,
+    nombre_predio                   varchar(50)
 );
 
 create table descripcion_bienes(
