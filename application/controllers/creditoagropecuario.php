@@ -66,7 +66,7 @@ class Creditoagropecuario extends CI_Controller {
             $solicitud_credito = ($solicitud_credito) ? $solicitud_credito : new SolicitudCredito();
 
             $solicitud_credito->ruat_id = $ruat_id;
-//            $solicitud_credito->fecha = $this->input->post('sc_fecha');
+            $solicitud_credito->fecha = $this->input->post('sc_fecha');
             //$solicitud_credito->cod_beneficiario = null;
             //$solicitud_credito->nombre_oficina = null;
             $solicitud_credito->municipio = 1; /// OJO! no está aun en el formulario
@@ -205,8 +205,8 @@ class Creditoagropecuario extends CI_Controller {
                     $descripcion_inversiones[$i] = (isset($descripcion_inversiones[$i]) && $descripcion_inversiones[$i]) ? $descripcion_inversiones[$i] : new DescripcionInversion;
                     $descripcion_inversiones[$i]->solicitud_id = $solicitud_credito->id;
                     $descripcion_inversiones[$i]->codigo_finagro = $this->input->post("descripcion_inv_{$j}_1");
-                    $descripcion_inversiones[$i]->capital_trabajo = $this->input->post("descripcion_inv_{$j}_2");
-                    $descripcion_inversiones[$i]->inversion = $this->input->post("descripcion_inv_{$j}_3");
+                    $descripcion_inversiones[$i]->destino_recursos = $this->input->post("descripcion_inv_{$j}_2");
+                    $descripcion_inversiones[$i]->nombre_rubro = $this->input->post("descripcion_inv_{$j}_3");
                     $descripcion_inversiones[$i]->unidades_fin = $this->input->post("descripcion_inv_{$j}_4");
                     $descripcion_inversiones[$i]->valor_proyecto = $this->input->post("descripcion_inv_{$j}_5");
                     $descripcion_inversiones[$i]->valor_solicitud = $this->input->post("descripcion_inv_{$j}_6");
@@ -214,6 +214,7 @@ class Creditoagropecuario extends CI_Controller {
                     $descripcion_inversiones[$i]->periodo_gracia = $this->input->post("descripcion_inv_{$j}_8");
                     $descripcion_inversiones[$i]->modalidad_pago = $this->input->post("descripcion_inv_{$j}_9");
                     $descripcion_inversiones[$i]->amortizacion_cap = $this->input->post("descripcion_inv_{$j}_10");
+                    $descripcion_inversiones[$i]->tasa_interes = $this->input->post("descripcion_inv_{$j}_11");
                     $descripcion_inversiones[$i]->save();
                 }
 

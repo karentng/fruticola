@@ -89,15 +89,16 @@ create table descripcion_inv(
     id                              serial not null primary key,
     solicitud_id                    integer references solicitud_credito(id),
     codigo_finagro                  varchar(20),
-    capital_trabajo                 double precision,
-    inversion                       double precision,
+    destino_recursos                varchar(20),
+    nombre_rubro                    varchar(20),
     unidades_fin                    double precision,
     valor_proyecto                  double precision,
     valor_solicitud                 double precision,
     plazo_total                     integer,
     periodo_gracia                  integer,
     modalidad_pago                  integer,
-    amortizacion_cap                integer
+    amortizacion_cap                integer,
+    tasa_interes                    double precision
 );
 
 
