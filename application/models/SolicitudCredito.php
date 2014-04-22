@@ -17,6 +17,7 @@ class SolicitudCredito extends MyModel {
         array('informacion_predios_inversion', 'class_name'=>'PredioInversion', 'foreign_key' => 'solicitud_id'),
         array('ingresos_adicionales', 'class_name'=>'IngresosAdicionales', 'foreign_key' => 'solicitud_id'),
         array('descripcion_bienes', 'class_name'=>'DescripcionBienes', 'foreign_key' => 'solicitud_id'),
+        array('descripcion_bienes_inmuebles', 'class_name'=>'DescripcionBienesInmuebles', 'foreign_key' => 'solicitud_id'),
     );
 
 }

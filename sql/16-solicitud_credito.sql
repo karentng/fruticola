@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS descripcion_inv;
 DROP TABLE IF EXISTS informacion_pre;
 DROP TABLE IF EXISTS ingresos_adicionales;
 DROP TABLE IF EXISTS descripcion_bienes;
+DROP TABLE IF EXISTS descripcion_bienes_inmuebles;
 DROP TABLE IF EXISTS solicitud_credito;
 
 
@@ -135,12 +136,14 @@ create table ingresos_adicionales(
 create table descripcion_bienes(
     id                              serial not null primary key,
     solicitud_id                    integer references solicitud_credito(id),
-    tipo_inmueble                   integer,
-    departamento_id                 integer not null references departamento(id),
-    municipio_id                    integer not null references municipio(id),
-    vereda                          varchar(100),
-    direccion                       varchar(100),
+
+    marca                           varchar(50),
+    placa                           varchar(50),
+    modelo                          varchar(50),
+    prenda_favor                    varchar(100),
+    valor_deuda                     double precision,
     valor_comercial                 double precision,
+
     otros_vienes1                   varchar(50),
     otros_vienes2                   varchar(50),
     otros_vienes3                   varchar(50),
@@ -153,5 +156,17 @@ create table descripcion_bienes(
     otros_valor2                    double precision,
     otros_valor3                    double precision,
     otros_valor4                    double precision
+);
+
+create table descripcion_bienes_inmuebles(
+    id                              serial not null primary key,
+    solicitud_id                    integer references solicitud_credito(id),
+
+    tipo_inmueble                   integer,
+    departamento_id                 integer not null references departamento(id),
+    municipio_id                    integer not null references municipio(id),
+    vereda                          varchar(100),
+    direccion                       varchar(100),
+    valor_comercial                 double precision
 );
 

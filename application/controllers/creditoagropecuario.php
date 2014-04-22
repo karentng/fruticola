@@ -56,6 +56,7 @@ class Creditoagropecuario extends CI_Controller {
         $informacion_predios_inversion = $solicitud_credito->informacion_predios_inversion;
         $ingresos_adicionales = $solicitud_credito->ingresos_adicionales;
         $descripcion_bienes = $solicitud_credito->descripcion_bienes;
+        $descripcion_bienes_inmuebles = $solicitud_credito->descripcion_bienes_inmuebles;
 
 
         $this->validation_rules();
@@ -250,12 +251,14 @@ class Creditoagropecuario extends CI_Controller {
                 
                 $descripcion_bienes[0] = (isset($descripcion_bienes[0]) && $descripcion_bienes[0]) ? $descripcion_bienes[0] : new DescripcionBienes;
                 $descripcion_bienes[0]->solicitud_id = $solicitud_credito->id;
-                $descripcion_bienes[0]->tipo_inmueble = $this->input->post("descripcion_bienes_tipo_inmueble");
-                $descripcion_bienes[0]->departamento_id = 1;
-                $descripcion_bienes[0]->municipio_id = 1;
-                $descripcion_bienes[0]->vereda = $this->input->post("descripcion_bienes_tipo_vereda");
-                $descripcion_bienes[0]->direccion = $this->input->post("descripcion_bienes_direccion");
-                $descripcion_bienes[0]->valor_comercial = $this->input->post("descripcion_bienes_valor_comercial");
+                
+                $descripcion_bienes[0]->marca = $this->input->post("vehiculo_marca");
+                $descripcion_bienes[0]->placa = $this->input->post("vehiculo_placa");
+                $descripcion_bienes[0]->modelo = $this->input->post("vehiculo_modelo");
+                $descripcion_bienes[0]->prenda_favor = $this->input->post("vehiculo_prenda_favor");
+                $descripcion_bienes[0]->valor_deuda = $this->input->post("vehiculo_valor_deuda");
+                $descripcion_bienes[0]->valor_comercial = $this->input->post("vehiculo_valor_comercial");
+
                 $descripcion_bienes[0]->otros_vienes1 = $this->input->post("otros_bienes1");
                 $descripcion_bienes[0]->otros_vienes2 = $this->input->post("otros_bienes2");
                 $descripcion_bienes[0]->otros_vienes3 = $this->input->post("otros_bienes3");
@@ -269,6 +272,19 @@ class Creditoagropecuario extends CI_Controller {
                 $descripcion_bienes[0]->otros_valor3 = $this->input->post("otros_valor3");
                 $descripcion_bienes[0]->otros_valor4 = $this->input->post("otros_valor4");
                 $descripcion_bienes[0]->save();
+                
+                for ($i = 0; $i < 3; $i++) {
+                    $j = $i + 1;
+                    $descripcion_bienes_inmuebles[$i] = (isset($descripcion_bienes_inmuebles[$i]) && $descripcion_bienes_inmuebles[$i]) ? $descripcion_bienes_inmuebles[$i] : new DescripcionBienesInmuebles;
+                    $descripcion_inversiones[$i]->solicitud_id = $solicitud_credito->id;
+                    $descripcion_inversiones[$i]->tipo_inmueble = $this->input->post("descripcion_bien_{$j}_1");
+                    $descripcion_inversiones[$i]->departamento_id = $this->input->post("descripcion_bien_{$j}_2");
+                    $descripcion_inversiones[$i]->municipio_id = $this->input->post("descripcion_bien_{$j}_3");
+                    $descripcion_inversiones[$i]->vereda = $this->input->post("descripcion_bien_{$j}_4");
+                    $descripcion_inversiones[$i]->direccion = $this->input->post("descripcion_bien_{$j}_5");
+                    $descripcion_inversiones[$i]->valor_comercial = $this->input->post("descripcion_bien_{$j}_6");
+                    $descripcion_inversiones[$i]->save();
+                }
                 
                 
             }
