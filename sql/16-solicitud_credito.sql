@@ -25,7 +25,8 @@ create table solicitud_credito(
     forma_llegar_pred               text,
     tiempo_permanencia              double precision,
     experiencia_act                 double precision,
-    responsable                     integer not null references users(id)
+    responsable                     integer not null references users(id),
+    observaciones                   text
 );
 
 create table conyugue(
@@ -68,7 +69,8 @@ create table referencias_fin(
     clase                           varchar(30),
     nro_producto                    varchar(30),
     sucursal                        varchar(100),
-    ciudad                          varchar(50)
+    departamento_id                 integer not null references departamento(id),
+    municipio_id                    integer not null references municipio(id)
 );
 
 
