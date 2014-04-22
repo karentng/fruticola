@@ -92,6 +92,7 @@ class Creditoagropecuario extends CI_Controller {
                 $conyugue->identificacion = $this->input->post('conyugue_identificacion');
                 $conyugue->fecha_nacimiento = $this->input->post('conyugue_fecha_nacimiento');
                 $conyugue->telefono = $this->input->post('conyugue_telefono');
+                $conyugue->personas_cargo = $this->input->post('conyugue_personas_cargo');
                 $conyugue->save();
 
 

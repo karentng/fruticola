@@ -39,7 +39,8 @@ create table conyugue(
     tipo_documento                  varchar(30),
     identificacion                  varchar(30),
     fecha_nacimiento                timestamp,
-    telefono                        varchar(20)
+    telefono                        varchar(20),
+    personas_cargo                  integer
 );
 
 create table referencias_fam_per(
