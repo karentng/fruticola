@@ -45,7 +45,7 @@ class Creditoagropecuario extends CI_Controller {
         $solicitud_credito = SolicitudCredito::first(array(
                     'conditions' => array("ruat_id = ?", $ruat_id)
         ));
-        
+
 
         $conyugue = $solicitud_credito->conyugue;
         $referencias_familiares = $solicitud_credito->referencias_familiares;
@@ -56,17 +56,17 @@ class Creditoagropecuario extends CI_Controller {
         $informacion_predios_inversion = $solicitud_credito->informacion_predios_inversion;
         $ingresos_adicionales = $solicitud_credito->ingresos_adicionales;
         $descripcion_bienes = $solicitud_credito->descripcion_bienes;
-        
+
 
         $this->validation_rules();
 
         ///Si las validaciones son correctas procedo a guardar
         if ($this->form_validation->run()) {
-            
+
             $solicitud_credito = ($solicitud_credito) ? $solicitud_credito : new SolicitudCredito();
-            
+
             $solicitud_credito->ruat_id = $ruat_id;
-//            $solicitud_credito->fecha = $this->input->post('sc_fecha');
+            $solicitud_credito->fecha = $this->input->post('sc_fecha');
             //$solicitud_credito->cod_beneficiario = null;
             //$solicitud_credito->nombre_oficina = null;
             $solicitud_credito->municipio = 1; /// OJO! no está aun en el formulario
@@ -74,13 +74,14 @@ class Creditoagropecuario extends CI_Controller {
             $solicitud_credito->calidad_de = TRUE; /// OJO! no está aun en el formulario
 //            $solicitud_credito->rubros_fin_icr = TRUE;
 //            $solicitud_credito->rubros_fin_dre = TRUE;
-//            $solicitud_credito->descripcion_inv = TRUE;
-//            $solicitud_credito->forma_llegar_pred = TRUE;
-//            $solicitud_credito->tiempo_permanencia = TRUE;
-//            $solicitud_credito->experiencia_act = TRUE;
+            $solicitud_credito->descripcion_inv = $this->input->post('descripcion_inv');
+            $solicitud_credito->forma_llegar_pred = $this->input->post('forma_llegar_pred');
+            $solicitud_credito->tiempo_permanencia = $this->input->post('tiempo_permanencia');
+            $solicitud_credito->experiencia_act = $this->input->post('experiencia_act');
             $solicitud_credito->responsable = 1; ///OJO! Poner el usuario
-            
-            if($solicitud_credito->save()){
+            $solicitud_credito->observaciones = $this->input->post('observaciones');
+
+            if ($solicitud_credito->save()) {
                 $conyugue = ($conyugue) ? $conyugue : new Conyugue;
                 $conyugue->solicitud_id = $solicitud_credito->id;
                 $conyugue->nombre1 = $this->input->post('conyugue_nombre1');
@@ -90,10 +91,10 @@ class Creditoagropecuario extends CI_Controller {
                 $conyugue->tipo_documento = $this->input->post('tipo_documento_conyugue');
                 $conyugue->identificacion = $this->input->post('conyugue_identificacion');
                 $conyugue->fecha_nacimiento = $this->input->post('conyugue_fecha_nacimiento');
-                $conyugue->telefono = $this->input->post('conyugue_telefono');                
+                $conyugue->telefono = $this->input->post('conyugue_telefono');
                 $conyugue->save();
-                
-                
+
+
                 $referencias_familiares[0] = (isset($referencias_familiares[0]) && $referencias_familiares[0]) ? $referencias_familiares[0] : new ReferenciaFamiliarPersonal;
                 $referencias_familiares[0]->tipo = 1;
                 $referencias_familiares[0]->solicitud_id = $solicitud_credito->id;
@@ -102,17 +103,17 @@ class Creditoagropecuario extends CI_Controller {
                 $referencias_familiares[0]->apellido2 = $this->input->post('referencias_fam1_apellido2');
                 $referencias_familiares[0]->parentesco = $this->input->post('referencias_fam1_parentesco');
                 $referencias_familiares[0]->direccion = $this->input->post('referencias_fam1_direccion');
-                $referencias_familiares[0]->departamento_id = 1;///OJO! falta en el formulario
-                $referencias_familiares[0]->municipio_id = 1;///OJO! falta en el formulario
+                $referencias_familiares[0]->departamento_id = 1; ///OJO! falta en el formulario
+                $referencias_familiares[0]->municipio_id = 1; ///OJO! falta en el formulario
                 $referencias_familiares[0]->barrio = $this->input->post('referencias_fam1_barrio');
                 $referencias_familiares[0]->indicativo1 = $this->input->post('referencias_fam1_indicativo1');
                 $referencias_familiares[0]->telefono1 = $this->input->post('referencias_fam1_telefono1');
                 $referencias_familiares[0]->indicativo2 = $this->input->post('referencias_fam1_indicativo2');
                 $referencias_familiares[0]->telefono2 = $this->input->post('referencias_fam1_telefono2');
                 $referencias_familiares[0]->indicativo3 = $this->input->post('referencias_fam1_indicativo3');
-                $referencias_familiares[0]->telefono3 = $this->input->post('referencias_fam1_telefono3');                
+                $referencias_familiares[0]->telefono3 = $this->input->post('referencias_fam1_telefono3');
                 $referencias_familiares[0]->save();
-                
+
                 $referencias_familiares[1] = (isset($referencias_familiares[1]) && $referencias_familiares[1]) ? $referencias_familiares[1] : new ReferenciaFamiliarPersonal;
                 $referencias_familiares[1]->tipo = 1;
                 $referencias_familiares[1]->solicitud_id = $solicitud_credito->id;
@@ -121,17 +122,17 @@ class Creditoagropecuario extends CI_Controller {
                 $referencias_familiares[1]->apellido2 = $this->input->post('referencias_fam2_apellido2');
                 $referencias_familiares[1]->parentesco = $this->input->post('referencias_fam2_parentesco');
                 $referencias_familiares[1]->direccion = $this->input->post('referencias_fam2_direccion');
-                $referencias_familiares[1]->departamento_id = 1;///OJO! falta en el formulario
-                $referencias_familiares[1]->municipio_id = 1;///OJO! falta en el formulario
+                $referencias_familiares[1]->departamento_id = 1; ///OJO! falta en el formulario
+                $referencias_familiares[1]->municipio_id = 1; ///OJO! falta en el formulario
                 $referencias_familiares[1]->barrio = $this->input->post('referencias_fam2_barrio');
                 $referencias_familiares[1]->indicativo1 = $this->input->post('referencias_fam2_indicativo1');
                 $referencias_familiares[1]->telefono1 = $this->input->post('referencias_fam2_telefono1');
                 $referencias_familiares[1]->indicativo2 = $this->input->post('referencias_fam2_indicativo2');
                 $referencias_familiares[1]->telefono2 = $this->input->post('referencias_fam2_telefono2');
                 $referencias_familiares[1]->indicativo3 = $this->input->post('referencias_fam2_indicativo3');
-                $referencias_familiares[1]->telefono3 = $this->input->post('referencias_fam2_telefono3');                
+                $referencias_familiares[1]->telefono3 = $this->input->post('referencias_fam2_telefono3');
                 $referencias_familiares[1]->save();
-                
+
                 $referencias_personales[0] = (isset($referencias_personales[0]) && $referencias_personales[0]) ? $referencias_personales[0] : new ReferenciaFamiliarPersonal;
                 $referencias_personales[0]->tipo = 2;
                 $referencias_personales[0]->solicitud_id = $solicitud_credito->id;
@@ -140,17 +141,17 @@ class Creditoagropecuario extends CI_Controller {
                 $referencias_personales[0]->apellido2 = $this->input->post('referencias_per1_apellido2');
                 $referencias_personales[0]->parentesco = $this->input->post('referencias_per1_parentesco');
                 $referencias_personales[0]->direccion = $this->input->post('referencias_per1_direccion');
-                $referencias_personales[0]->departamento_id = 1;///OJO! falta en el formulario
-                $referencias_personales[0]->municipio_id = 1;///OJO! falta en el formulario
+                $referencias_personales[0]->departamento_id = 1; ///OJO! falta en el formulario
+                $referencias_personales[0]->municipio_id = 1; ///OJO! falta en el formulario
                 $referencias_personales[0]->barrio = $this->input->post('referencias_per1_barrio');
                 $referencias_personales[0]->indicativo1 = $this->input->post('referencias_per1_indicativo1');
                 $referencias_personales[0]->telefono1 = $this->input->post('referencias_per1_telefono1');
                 $referencias_personales[0]->indicativo2 = $this->input->post('referencias_per1_indicativo2');
                 $referencias_personales[0]->telefono2 = $this->input->post('referencias_per1_telefono2');
                 $referencias_personales[0]->indicativo3 = $this->input->post('referencias_per1_indicativo3');
-                $referencias_personales[0]->telefono3 = $this->input->post('referencias_per1_telefono3');                
+                $referencias_personales[0]->telefono3 = $this->input->post('referencias_per1_telefono3');
                 $referencias_personales[0]->save();
-                
+
                 $referencias_personales[1] = (isset($referencias_personales[1]) && $referencias_personales[1]) ? $referencias_personales[1] : new ReferenciaFamiliarPersonal;
                 $referencias_personales[1]->tipo = 2;
                 $referencias_personales[1]->solicitud_id = $solicitud_credito->id;
@@ -159,79 +160,117 @@ class Creditoagropecuario extends CI_Controller {
                 $referencias_personales[1]->apellido2 = $this->input->post('referencias_per2_apellido2');
                 $referencias_personales[1]->parentesco = $this->input->post('referencias_per2_parentesco');
                 $referencias_personales[1]->direccion = $this->input->post('referencias_per2_direccion');
-                $referencias_personales[1]->departamento_id = 1;///OJO! falta en el formulario
-                $referencias_personales[1]->municipio_id = 1;///OJO! falta en el formulario
+                $referencias_personales[1]->departamento_id = 1; ///OJO! falta en el formulario
+                $referencias_personales[1]->municipio_id = 1; ///OJO! falta en el formulario
                 $referencias_personales[1]->barrio = $this->input->post('referencias_per2_barrio');
                 $referencias_personales[1]->indicativo1 = $this->input->post('referencias_per2_indicativo1');
                 $referencias_personales[1]->telefono1 = $this->input->post('referencias_per2_telefono1');
                 $referencias_personales[1]->indicativo2 = $this->input->post('referencias_per2_indicativo2');
                 $referencias_personales[1]->telefono2 = $this->input->post('referencias_per2_telefono2');
                 $referencias_personales[1]->indicativo3 = $this->input->post('referencias_per2_indicativo3');
-                $referencias_personales[1]->telefono3 = $this->input->post('referencias_per2_telefono3');                
+                $referencias_personales[1]->telefono3 = $this->input->post('referencias_per2_telefono3');
                 $referencias_personales[1]->save();
-                
+
                 $referencias_financieras[0] = (isset($referencias_financieras[0]) && $referencias_financieras[0]) ? $referencias_financieras[0] : new ReferenciaFinanciera;
                 $referencias_financieras[0]->solicitud_id = $solicitud_credito->id;
                 $referencias_financieras[0]->entidad = $this->input->post('referencias_fin1_entidad');
                 $referencias_financieras[0]->clase = $this->input->post('referencias_fin1_clase');
                 $referencias_financieras[0]->nro_producto = $this->input->post('referencias_fin1_nro_producto');
                 $referencias_financieras[0]->sucursal = $this->input->post('referencias_fin1_sucursal');
-                $referencias_financieras[0]->ciudad = $this->input->post('referencias_fin1_ciudad');
+                $referencias_financieras[0]->departamento_id = 1; ///OJO! falta en el formulario
+                $referencias_financieras[0]->municipio_id = 1; ///OJO! falta en el formulario
                 $referencias_financieras[0]->save();
-                
+
                 $referencias_financieras[1] = (isset($referencias_financieras[1]) && $referencias_financieras[1]) ? $referencias_financieras[1] : new ReferenciaFinanciera;
                 $referencias_financieras[1]->solicitud_id = $solicitud_credito->id;
                 $referencias_financieras[1]->entidad = $this->input->post('referencias_fin2_entidad');
                 $referencias_financieras[1]->clase = $this->input->post('referencias_fin2_clase');
                 $referencias_financieras[1]->nro_producto = $this->input->post('referencias_fin2_nro_producto');
                 $referencias_financieras[1]->sucursal = $this->input->post('referencias_fin2_sucursal');
-                $referencias_financieras[1]->ciudad = $this->input->post('referencias_fin2_ciudad');
+                $referencias_financieras[1]->departamento_id = 1; ///OJO! falta en el formulario
+                $referencias_financieras[1]->municipio_id = 1; ///OJO! falta en el formulario
                 $referencias_financieras[1]->save();
-                
+
                 $referencias_comerciales[0] = (isset($referencias_comerciales[0]) && $referencias_comerciales[0]) ? $referencias_comerciales[0] : new ReferenciaComercial;
                 $referencias_comerciales[0]->solicitud_id = $solicitud_credito->id;
                 $referencias_comerciales[0]->nombre_est = $this->input->post('referencias_com_nombre_est');
                 $referencias_comerciales[0]->tipo_vinculo = $this->input->post('referencias_com_tipo_vinculo');
-                $referencias_comerciales[0]->departamento_id = 1;///OJO! falta en el formulario
-                $referencias_comerciales[0]->municipio_id = 1;///OJO! falta en el formulario
+                $referencias_comerciales[0]->departamento_id = 1; ///OJO! falta en el formulario
+                $referencias_comerciales[0]->municipio_id = 1; ///OJO! falta en el formulario
                 $referencias_comerciales[0]->telefono = $this->input->post('referencias_com_telefono');
                 $referencias_comerciales[0]->save();
-                
-                for($i = 0; $i < 4; $i++){
+
+                for ($i = 0; $i < 4; $i++) {
                     $j = $i + 1;
-                    $descripcion_inversiones[$i] = (isset($descripcion_inversiones[$i]) && $descripcion_inversiones[$i]) ? $descripcion_inversiones[$i] : new DescripcionInversion;                    
-                    $descripcion_inversiones[$i]->solicitud_id = $solicitud_credito->id;                    
+                    $descripcion_inversiones[$i] = (isset($descripcion_inversiones[$i]) && $descripcion_inversiones[$i]) ? $descripcion_inversiones[$i] : new DescripcionInversion;
+                    $descripcion_inversiones[$i]->solicitud_id = $solicitud_credito->id;
                     $descripcion_inversiones[$i]->codigo_finagro = $this->input->post("descripcion_inv_{$j}_1");
-                    $descripcion_inversiones[$i]->capital_trabajo = $this->input->post("descripcion_inv_{$j}_2");
-                    $descripcion_inversiones[$i]->inversion = $this->input->post("descripcion_inv_{$j}_3");
+                    $descripcion_inversiones[$i]->destino_recursos = $this->input->post("descripcion_inv_{$j}_2");
+                    $descripcion_inversiones[$i]->nombre_rubro = $this->input->post("descripcion_inv_{$j}_3");
                     $descripcion_inversiones[$i]->unidades_fin = $this->input->post("descripcion_inv_{$j}_4");
                     $descripcion_inversiones[$i]->valor_proyecto = $this->input->post("descripcion_inv_{$j}_5");
                     $descripcion_inversiones[$i]->valor_solicitud = $this->input->post("descripcion_inv_{$j}_6");
                     $descripcion_inversiones[$i]->plazo_total = $this->input->post("descripcion_inv_{$j}_7");
                     $descripcion_inversiones[$i]->periodo_gracia = $this->input->post("descripcion_inv_{$j}_8");
                     $descripcion_inversiones[$i]->modalidad_pago = $this->input->post("descripcion_inv_{$j}_9");
-                    $descripcion_inversiones[$i]->amortizacion_cap = $this->input->post("descripcion_inv_{$j}_10");                
+                    $descripcion_inversiones[$i]->amortizacion_cap = $this->input->post("descripcion_inv_{$j}_10");
+                    $descripcion_inversiones[$i]->tasa_interes = $this->input->post("descripcion_inv_{$j}_11");
                     $descripcion_inversiones[$i]->save();
                 }
-                                
+
                 $informacion_predios_inversion[0] = (isset($informacion_predios_inversion[0]) && $informacion_predios_inversion[0]) ? $informacion_predios_inversion[0] : new PredioInversion;
                 $informacion_predios_inversion[0]->solicitud_id = $solicitud_credito->id;
                 $informacion_predios_inversion[0]->nombre_predio = $this->input->post('informacion_pre_nombre_predio');
                 $informacion_predios_inversion[0]->area = $this->input->post('informacion_pre_area');
                 $informacion_predios_inversion[0]->tenencia = $this->input->post('informacion_pre_tenencia');
-                $informacion_predios_inversion[0]->departamento_id = 1;///OJO! falta en el formulario
-                $informacion_predios_inversion[0]->municipio_id = 1;///OJO! falta en el formulario
+                $informacion_predios_inversion[0]->departamento_id = 1; ///OJO! falta en el formulario
+                $informacion_predios_inversion[0]->municipio_id = 1; ///OJO! falta en el formulario
                 $informacion_predios_inversion[0]->vareda = $this->input->post('informacion_pre_vereda');
                 $informacion_predios_inversion[0]->fuente_hid = $this->input->post('informacion_pre_fuente_hid');
                 $informacion_predios_inversion[0]->fecha_ini = $this->input->post('informacion_pre_fecha_ini');
-                $informacion_predios_inversion[0]->fecha_fin = $this->input->post('informacion_pre_fecha_fin');                
+                $informacion_predios_inversion[0]->fecha_fin = $this->input->post('informacion_pre_fecha_fin');
                 $informacion_predios_inversion[0]->save();
+
+                for ($i = 0; $i < 5; $i++) {
+                    $j = $i + 1;
+                    $ingresos_adicionales[$i] = (isset($ingresos_adicionales[$i]) && $ingresos_adicionales[$i]) ? $ingresos_adicionales[$i] : new IngresosAdicionales;
+                    $ingresos_adicionales[$i]->solicitud_id = $solicitud_credito->id;
+                    $ingresos_adicionales[$i]->actividad = $this->input->post("ingresos_adicionales_{$j}_1");
+                    $ingresos_adicionales[$i]->cantidad = $this->input->post("ingresos_adicionales_{$j}_2");
+                    $ingresos_adicionales[$i]->produccion = $this->input->post("ingresos_adicionales_{$j}_3");
+                    $ingresos_adicionales[$i]->precio_venta = $this->input->post("ingresos_adicionales_{$j}_4");
+                    $ingresos_adicionales[$i]->total_ingresos = $this->input->post("ingresos_adicionales_{$j}_5");
+                    $ingresos_adicionales[$i]->area_pre_inv = $this->input->post("ingresos_adicionales_{$j}_6");
+                    $ingresos_adicionales[$i]->tipo_pre_inv = $this->input->post("ingresos_adicionales_{$j}_7");
+                    $ingresos_adicionales[$i]->save();
+                }
+                
+                $descripcion_bienes[0] = (isset($descripcion_bienes[0]) && $descripcion_bienes[0]) ? $descripcion_bienes[0] : new DescripcionBienes;
+                $descripcion_bienes[0]->solicitud_id = $solicitud_credito->id;
+                $descripcion_bienes[0]->tipo_inmueble = $this->input->post("descripcion_bienes_tipo_inmueble");
+                $descripcion_bienes[0]->departamento_id = 1;
+                $descripcion_bienes[0]->municipio_id = 1;
+                $descripcion_bienes[0]->vereda = $this->input->post("descripcion_bienes_tipo_vereda");
+                $descripcion_bienes[0]->direccion = $this->input->post("descripcion_bienes_direccion");
+                $descripcion_bienes[0]->valor_comercial = $this->input->post("descripcion_bienes_valor_comercial");
+                $descripcion_bienes[0]->otros_vienes1 = $this->input->post("otros_bienes1");
+                $descripcion_bienes[0]->otros_vienes2 = $this->input->post("otros_bienes2");
+                $descripcion_bienes[0]->otros_vienes3 = $this->input->post("otros_bienes3");
+                $descripcion_bienes[0]->otros_vienes4 = $this->input->post("otros_bienes4");
+                $descripcion_bienes[0]->otros_cantidad1 = $this->input->post("otros_cantidad1");
+                $descripcion_bienes[0]->otros_cantidad2 = $this->input->post("otros_cantidad2");
+                $descripcion_bienes[0]->otros_cantidad3 = $this->input->post("otros_cantidad3");
+                $descripcion_bienes[0]->otros_cantidad4 = $this->input->post("otros_cantidad4");
+                $descripcion_bienes[0]->otros_valor1 = $this->input->post("otros_valor1");
+                $descripcion_bienes[0]->otros_valor2 = $this->input->post("otros_valor2");
+                $descripcion_bienes[0]->otros_valor3 = $this->input->post("otros_valor3");
+                $descripcion_bienes[0]->otros_valor4 = $this->input->post("otros_valor4");
+                $descripcion_bienes[0]->save();
+                
+                
             }
-            
-            
-            
-        }else if (validation_errors()) {
-            
+        } else if (validation_errors()) {
+
             var_dump(validation_errors());
             $this->twiggy->set('notif', array('type' => 'error', 'text' => "Se encontraron errores al procesar el formulario. <br> Revise los recuadros rojos"));
         }
@@ -241,8 +280,8 @@ class Creditoagropecuario extends CI_Controller {
         $this->twiggy->set("contacto", $contacto);
         $this->twiggy->set("contacto_departamento", $contacto->departamento);
         $this->twiggy->set("contacto_municipio", $contacto->municipio);
-        
-       
+
+
         $this->twiggy->set("conyugue", $conyugue);
         $this->twiggy->set("referencias_familiares", $referencias_familiares);
         $this->twiggy->set("referencias_personales", $referencias_personales);
@@ -256,8 +295,8 @@ class Creditoagropecuario extends CI_Controller {
         $this->twiggy->template("creditoagropecuario/formulario_captura");
         $this->twiggy->display();
     }
-    
-    private function validation_rules(){
+
+    private function validation_rules() {
         $this->form_validation->set_rules("conyugue_nombre1", ' ', 'required');
     }
 
