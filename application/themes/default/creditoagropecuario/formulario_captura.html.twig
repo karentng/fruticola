@@ -7,7 +7,7 @@
 </script>
 
 
-{% raw %}
+
 <style>
     input[money] {
         text-align:right;
@@ -15,8 +15,45 @@
 </style>
 
 <script type="text/javascript">
+
+    var combos = {{combos|json_encode}};
+    var departamentos = $('<select>');
+
+    $(document).ready(function(){
+
+        crear_combo_deptos();
+
+        //console.debug(departamentos.html());
+        //console.debug(combos['departamentos']);
+
+        $('#departamento, #referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #descripcion_bienes_departamento').append(departamentos.html()).on('change', function(){
+                var id = $( this ).attr('id');
+                var value = $( this ).val();
+                var last_index = id.lastIndexOf('_');
+                var new_id = last_index == -1 ? 'municipio' : id.substring(0, last_index) + '_municipio';
+
+                $( '#'+new_id ).empty().append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
+        });
+    });
+
+    function crear_combo_deptos(){
+        $.each( combos['departamentos'], function( key, value ){
+            departamentos.append('<option value="'+key+'" >'+value.nombre+'</option>');
+        });
+    }
+
+    function crear_combo_mupios(municipios_option){
+         var municipios = $('<select>');
+
+        $.each( municipios_option, function( key, value ){
+            municipios.append('<option value="'+value.id+'" >'+value.nombre+'</option>');
+        });
+
+        return municipios;
+    }
+
 </script>
-{% endraw %}
+
 {% endblock %}
 
 
@@ -196,16 +233,20 @@
                         <div div class="col-md-4">
                             <div class="container">
                                 <div class="form-group">
-                                    <label class="control-label" for="focused">Departamento:</label>
-                                    <input type="text" class="form-control" name="departamento" maxlength="100" readonly/>
+                                    <label class="control-label">Departamento:</label>
+                                    <select name="departamento" id="departamento" class="form-control">
+                                        <option></option>
+                                    </select>                                    
                                 </div>
                             </div>
                         </div>
                         <div div class="col-md-4">
                             <div class="container">
                                 <div class="form-group">
-                                    <label class="control-label" for="focused">Municipio:</label>
-                                    <input type="text" class="form-control" name="municipio" maxlength="100" readonly/>
+                                    <label class="control-label" >Municipio:</label>
+                                    <select name="municipio" id="municipio" class="form-control">
+                                        <option></option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -384,8 +425,9 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Departamento</label>
-                                            <input type="text" class="form-control" name="referencias_fam1_telefono" maxlength="100"/>
-
+                                            <select name="referencias_fam1_departamento" id="referencias_fam1_departamento" class="form-control">
+                                                <option></option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -393,8 +435,9 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Municipio</label>
-                                            <input type="text" class="form-control" name="referencias_fam1_municipio" maxlength="100"/>
-
+                                            <select name="referencias_fam1_municipio" id="referencias_fam1_municipio" class="form-control">
+                                                <option></option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -517,8 +560,9 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Departamento</label>
-                                            <input type="text" class="form-control" name="referencias_fam2_telefono" maxlength="100"/>
-
+                                            <select name="referencias_fam2_departamento" id="referencias_fam2_departamento" class="form-control">
+                                                <option></option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -526,8 +570,9 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Municipio</label>
-                                            <input type="text" class="form-control" name="referencias_fam2_municipio" maxlength="100"/>
-
+                                            <select name="referencias_fam2_municipio" id="referencias_fam2_municipio" class="form-control">
+                                                <option></option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -659,7 +704,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Departamento</label>
-                                            <input type="text" class="form-control" name="referencias_per1_telefono" maxlength="100"/>
+                                            <input type="text" class="form-control" name="referencias_per1_departamento" maxlength="100"/>
 
                                         </div>
                                     </div>
@@ -925,10 +970,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Departamento</label>
-                                            <select name="referencias_fin1_departamento" class="form-control">
-                                        {% for departamento in data.departamentos %}
-                                                <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
-                                        {% endfor %}
+                                            <select name="referencias_fin1_departamento" id="referencias_fin1_departamento" class="form-control">
+                                                <option ></option>
                                             </select>
 
                                         </div>
@@ -937,8 +980,8 @@
                                 <div class="col-md-4">
                                     <div class="container">
                                         <div class="form-group">
-                                            <label class="control-label">Ciudad</label>
-                                            <select name="referencias_fin1_ciudad" class="form-control">
+                                            <label class="control-label">Municipio</label>
+                                            <select name="referencias_fin1_ciudad" id="referencias_fin1_municipio" class="form-control">
                                                 <option></option>
                                             </select>
 
@@ -993,10 +1036,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Departamento</label>
-                                            <select name="referencias_fin2_departamento" class="form-control">
-                                            {% for departamento in data.departamentos %}
-                                                <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
-                                            {% endfor %}
+                                            <select name="referencias_fin2_departamento" id="referencias_fin2_departamento" class="form-control">
+                                                <option></option>
                                             </select>
 
                                         </div>
@@ -1005,8 +1046,8 @@
                                 <div class="col-md-4">
                                     <div class="container">
                                         <div class="form-group">
-                                            <label class="control-label">Ciudad</label>
-                                            <select name="referencias_fin2_ciudad" class="form-control">
+                                            <label class="control-label">Municipio</label>
+                                            <select name="referencias_fin2_municipio" id="referencias_fin2_municipio" class="form-control">
                                                 <option></option>
                                             </select>
 
@@ -1061,10 +1102,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Departamento</label>
-                                            <select name="referencias_com_departamento" class="form-control">
-                                        {% for departamento in data.departamentos %}
-                                                <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
-                                        {% endfor %}
+                                            <select name="referencias_com_departamento" id="referencias_com_departamento" class="form-control">
+                                                <option></option>
                                             </select>
                                         </div>
                                     </div>
@@ -1073,7 +1112,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Municipio</label>
-                                            <select name="referencias_com_municipio" class="form-control">
+                                            <select name="referencias_com_municipio" id="referencias_com_municipio" class="form-control">
                                                 <option></option>
                                             </select>
                                         </div>
@@ -1114,8 +1153,8 @@
                         <thead>
                             <tr>
                                 <th style="text-align: center;">Codigo FINAGRO (Deje en Blanco)</th>
-                                <th style="text-align: center;">Capital de Trabajo</th>
-                                <th style="text-align: center;">Inversión</th>
+                                <th style="text-align: center;">Destino Recursos</th>
+                                <th style="text-align: center;">Nombre del Rubro</th>
                                 <th style="text-align: center;">Unidades o Hectareas a Financiar</th>
                                 <th style="text-align: center;">Valor del Proyecto (100%)</th>
                                 <th style="text-align: center;">Valor de la Solicitud (Pequeño Productor hasta 100%)</th>
@@ -1123,14 +1162,16 @@
                                 <th style="text-align: center;">Período de Gracia (semestral /anual)</th>
                                 <th style="text-align: center;">Modalidad Pago de Intereses (semestral /anual)</th>
                                 <th style="text-align: center;">Amortización a Capital (semestral /anual)</th>
+                                <th style="text-align: center;">Taza de Interes DTF+</th>
+
                             </tr>
                         </thead>
                         <tbody>
                 {% for i in 1..4 %}
                             <tr>                
-                    {% for j in 1..10 %}
+                    {% for j in 1..11 %}
                                 <td>                
-                                    <input name="descripcion_inv_{{ i~'_'~j }}"  name="" style="width: 80px;"/>
+                                    <input name="descripcion_inv_{{ i~'_'~j }}"  name="" style="width: 70px;"/>
                                 </td>                  
                     {% endfor %}
                             </tr>                  
@@ -1191,9 +1232,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Municipio del Predio de la Inversión</label>
-                            {% for municipio in data.municipios %}
-                                    <option name="informacion_pre_tenencia_municipio" value={{ municipio.id }}>{{ municipio.descripcion }}</option>
-                            {% endfor %}
+                                    <option name="informacion_pre_tenencia_municipio"></option>
                                 </div>
                             </div>
                         </div>
@@ -1278,6 +1317,8 @@
                                 <td>
                             {% if i == 5 and j == 1 %}
                                     Otros Ingresos Diferentes a los generados por actividades agropecuarias
+                                    <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 120px;" hidden/>
+
                             {% else %}
                                     <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 120px;"/>
                             {% endif %}                
@@ -1347,9 +1388,9 @@
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Inmueble</label>
                                     <select name="descripcion_bienes_tipo_inmueble" class="form-control">
-                                {% for tipo_inmueble in data.tipos_inmueble %}
+                                    {% for tipo_inmueble in data.tipos_inmueble %}
                                         <option value={{ tipo_inmueble.id }} >{{ tipo_inmueble.descripcion }}</option>
-                                {% endfor %}
+                                    {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -1379,10 +1420,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Departamento</label>
-                                    <select name="descripcion_bienes_departamento" class="form-control">
-                                {% for departamento in data.departamentos %}
-                                        <option value={{ departamento.id }} >{{ departamento.descripcion }}</option>
-                                {% endfor %}
+                                    <select name="descripcion_bienes_departamento" id="descripcion_bienes_departamento" class="form-control">
+                                        <option></option>
                                     </select>
 
                                 </div>
@@ -1392,7 +1431,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Municipio</label>
-                                    <select name="descripcion_bienes_municipio" class="form-control">
+                                    <select name="descripcion_bienes_municipio" id="descripcion_bienes_municipio" class="form-control">
                                         <option></option>
                                     </select>
                                 </div>
@@ -1414,13 +1453,13 @@
                     <table class="table table-bordered table-hover table-responsive dataTable">
                         <thead>
                             <tr>
-                                <th style="text-align: center;">Descripción de Otros Bienes</th>
+                                <th style="text-align: center;" colspan=6>Descripción de Otros Bienes</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Semovientes</td>
-                                <td><input  name="otros_vienes1" style="width: 120px;"/></td>
+                                <td><input  name="otros_bienes1" style="width: 120px;"/></td>
                                 <td>Cantidad</td>
                                 <td><input  name="otros_cantidad1" style="width: 120px;"/></td>
                                 <td>Valor Comercial</td>
@@ -1429,7 +1468,7 @@
 
                             <tr>
                                 <td>Maquinaria</td>
-                                <td><input  name="otros_vienes2" style="width: 120px;"/></td>
+                                <td><input  name="otros_bienes2" style="width: 120px;"/></td>
                                 <td>Cantidad</td>
                                 <td><input  name="otros_cantidad2" style="width: 120px;"/></td>
                                 <td>Valor Comercial</td>
@@ -1438,7 +1477,7 @@
 
                             <tr>
                                 <td>Cultivos en desarrollo</td>
-                                <td><input  name="otros_vienes3" style="width: 120px;"/></td>
+                                <td><input  name="otros_bienes3" style="width: 120px;"/></td>
                                 <td>Cantidad</td>
                                 <td><input  name="otros_cantidad3" style="width: 120px;"/></td>
                                 <td>Valor Comercial</td>
@@ -1447,7 +1486,7 @@
 
                             <tr>
                                 <td>Inversiones y otros activos</td>
-                                <td><input  name="otros_vienes4" style="width: 120px;"/></td>
+                                <td><input  name="otros_bienes4" style="width: 120px;"/></td>
                                 <td>Cantidad</td>
                                 <td><input  name="otros_cantidad4" style="width: 120px;"/></td>
                                 <td>Valor Comercial</td>
