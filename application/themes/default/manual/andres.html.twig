@@ -43,14 +43,18 @@
 <div class="form-group">
     <div class="container-fluid">
     <ul id="myTab" class="nav nav-tabs">
-        <li class="active"><a href="#home" data-toggle="tab">DISTRIBUCIÓN DE RENGLONES PRODUCTIVOS EN MUNICIPIOS</a></li>
-        <li><a href="#profile" data-toggle="tab">UBICACIÓN DE PREDIOS</a></li>
-        <li><a href="#reng" data-toggle="tab">RUAT-A</a></li>
-        <li><a id="linktabla" href="#tabladatos" data-toggle="tab">BUENAS PRÁCTICAS AGRICOLAS</a>
+        <li class="active"><a href="#muni" data-toggle="tab">DISTRIBUCIÓN DE RENGLONES PRODUCTIVOS EN MUNICIPIOS</a></li>
+        <li><a href="#ubicacion" data-toggle="tab">UBICACIÓN DE PREDIOS</a></li>
+        <li><a href="#loginR" data-toggle="tab">Login</a></li>
+        <li><a href="#inicio" data-toggle="tab">Inicio</a></li>
+        <li><a href="#ruata" data-toggle="tab">RUAT-A</a></li>
+        <li><a href="#ruatc" data-toggle="tab">RUAT-C</a></li>
+        <li><a href="#ruatd" data-toggle="tab">RUAT-D</a></li>
+        <li><a id="linktabla" href="#bpa" data-toggle="tab">BUENAS PRÁCTICAS AGRICOLAS</a>
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane fade in active" id="home" align="justify">
+        <div class="tab-pane fade in active" id="muni" align="justify">
             <center><label><h3>COMPARATIVO POR MUNICIPIO</h3></label></center>
             <p class="tamannoLetra">Este reporte permite mostrar el porcentaje de pequeños productores de frutas por municipio. Usted pude seleccionar el municipio del cual desea mostrar la información respectiva.</p>
             <img src="{{base_url('assets/images/manual/Renglones/1.png')}}" style="width:100%; margin-bottom:20px">
@@ -86,7 +90,7 @@
 			<p class="tamannoLetra"><label class="naranja"><b>Valores:</b></label> Son los valores que tiene cada Renglón Productivos en cada Municipio, adicional a la derecha estan los totales por cada Municipio, y abajo el total por cada Renglón Productivo.<p/>
 
         </div>
-        <div class="tab-pane fade" id="profile" align="justify">
+        <div class="tab-pane fade" id="ubicacion" align="justify">
         	<p class="tamannoLetra">Este reporte nos permite conocer la ubicación geográfica de los predios registrados en la aplicación, en un mapa de Google.</p>
         	<img src="{{base_url('assets/images/manual/Mapa/mapa.png')}}" style="width:100%; margin-bottom:20px">
 
@@ -95,7 +99,56 @@
 			<p class="tamannoLetra"><label class="amarillo"><b>Predio dentro del municipio:</b></label> Es la representación de un predio dentro del municipio seleccionado, cuando se le da click, se desplegará la descripción del predio.</p>
 			<p class="tamannoLetra"><label class="morado"><b>Descripción del Predio:</b></label> Los datos básicos del predio seleccionado, tales como: Municipio, Vereda, Sector, Área Total y Renglón.</p>
         </div>
-        <div class="tab-pane fade" id="reng" align="justify">
+
+
+
+
+
+
+        <div class="tab-pane fade" id="loginR" align="justify">
+        	<p class="tamannoLetra">Ésta área de la aplicación, es la que nos da acceso al sistema por medio del nombre de la cuenta y la contraseña, siempre y cuando éstas existan previamente, para acciones como crear RUAT's, ver reportes, entre otros.</p>
+        	<img src="{{base_url('assets/images/manual/LoginGeneral/login.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Nombre de usuario del sistema:</b></label> Es el nombre de usuario o rol que tiene la persona para acceder al sistema.</p>
+            <p class="tamannoLetra"><label class="azul"><b>Contraseña de acceso al sistema:</b></label> Es la clave asociada a nuestro nombre de usuario.<p/>
+            <p class="tamannoLetra"><label class="verde"><b>Ingreso al sistema:</b></label> Éste botón nos permite ingresar directamente al sistema, siempre y cuando el nombre de usuario exista y la contraseña ingresada sea la asociada a dicho usuario.<p/>
+			<p class="tamannoLetra"><label class="naranja"><b>Normas de privacidad:</b></label> Al seleccionar éste enlace, descargaremos un formato de documento portable (pdf) con las normas de privacidad que rigen el sistema.</p>
+			<p class="tamannoLetra"><label class="morado"><b>Normas de manejo de datos:</b></label> Al seleccionar éste enlace, descargaremos un formato de documento portable (pdf) con las normas de manejo de datos que rigen el sistema.</p>
+        </div>
+        <div class="tab-pane fade" id="inicio" align="justify">
+        	<p class="tamannoLetra">Éste es el pantallazo inicial, a partir del cual podemos ingresar a las diferentes funcionalidades del sistema con tan solo un click.</p>
+        	<img src="{{base_url('assets/images/manual/LoginGeneral/general.png')}}" style="width:100%; margin-bottom:20px">
+
+        	<p class="tamannoLetra"><label class="morado"><b>Mostrar información personal:</b></label> Éste botón nos permite acceder a la información de nuestra cuenta, y una vez allí podemos cambiar el email y el teléfono.</p>
+            <p class="tamannoLetra"><label class="azul"><b>Cambio de contraseña:</b></label> Éste botón nos permite ir a la opción de cambiar la contraseña de nuestra cuenta.<p/>
+            <p class="tamannoLetra"><label class="verde"><b>Salir del sistema:</b></label> Éste botón nos permite salir de la aplicación de manera segura.<p/>
+
+            <p class="tamannoLetra"><label class="morado"><b>Reducir el menú:</b></label> Éste botón nos permite reducir el tamaño del menú si, sí éste está grande y vicerversa.</p>
+            <p class="tamannoLetra"><label class="rosado"><b>Opciones del menú:</b></label> Son accesos directos a diferentes funcionalidades del sistema, tales como: Gestión de Usuarios (si el usuario acitov es de tipo administrador), Listado de RUAT, Reportes y Estudio de Suelos.<p/>
+
+            <p class="tamannoLetra"><label class="rojo"><b>Creación de un RUAT nuevo:</b></label> Éste botón nos permite comenzar a crear un nuevo RUAT, y nos envia directamente a la pantalla de RUAT parte A.<p/>
+			<p class="tamannoLetra"><label class="verde"><b>Exportación de RUAT's:</b></label> Éste botón nos permite exportar de manera directa en formato xls (Documento de Excel) el listado de RUAT's.</p>
+			<p class="tamannoLetra"><label class="naranja"><b>Filtro por nombre:</b></label> Éste campo de texto nos permite filtrar de manera automática los RUAT's desplegados en la parte inferior, por medio del nombre ingresado.</p>
+
+			<p class="tamannoLetra"><label class="verde"><b>Ordenar:</b></label> Al presionar en las flechitas, nos permite organizar de manera ascedente o descendente las fechas y por ende los registros correspondientes a ellas, para el caso de campos con texto, lo organiza alfabéticamente ascendente o descendente.</p>
+
+			<p class="tamannoLetra"><label class="amarillo"><b>Eliminar RUAT:</b></label> Éste botón es crítico, debido a que borra toda la información de RUAT seleccionado, además de la información de los diferentes formularios que se desprenden de él.</p>
+
+			<p class="tamannoLetra"><label class="rosado"><b>Opcion de RUAT:</b></label> .</p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="tab-pane fade" id="ruata" align="justify">
             <center><label><h3>A1. Datos Personales</h3></label></center>
             <p class="tamannoLetra">En esta sección del RUAT-A se recopilan los datos básicos del productor entrevistado.</p>
             <img src="{{base_url('assets/images/manual/RUAT/A/A1.png')}}" style="width:100%; margin-bottom:20px">
@@ -151,8 +204,30 @@
 			<p class="tamannoLetra"><label class="verde"><b>Labor:</b></label> Labor que se tiene en la organización: Directivo o Participante.
 			<p class="tamannoLetra"><label class="rosado"><b>Agregar/Eliminar:</b></label> El botón azul nos permite agregar una nueva fila, el rojo eliminar la fila a la cual corresponda.
         </div>
+        <div class="tab-pane fade" id="ruatc" align="justify">
+        	<p class="tamannoLetra">En esta sección del RUAT se puede evaluar en que aspectos esta de acuerdo el productor con respecto a ciertas preguntas.</p>
+        	<img src="{{base_url('assets/images/manual/RUAT/C/C1.png')}}" style="width:100%; margin-bottom:20px">
 
-        <div class="tab-pane fade" id="tabladatos" align="justify">
+        	<p class="tamannoLetra"><label class="rojo"><b>Preguntas de apropiación de aprendizaje:</b></label> Preguntas con el fin de aprender más de las actitudes del productor con respecto un poco a su personalidad y a lo que haría por su cultivo.</p>
+        	<p class="tamannoLetra"><label class="morado"><b>Totalmente en Desacuerdo:</b></label> Esta opción indica que el productor desde ningun punto de vista esta de acuerdo con lo que se planteo en la pregunta correspondiente.</p>
+            <p class="tamannoLetra"><label class="azul"><b>Desacuerdo:</b></label> Esta opción indica que el productor no esta de acuerdo con lo planteado en la pregunta correspondiente.<p/>
+            <p class="tamannoLetra"><label class="verde"><b>Estado neutral:</b></label> Esta opción indica que el productor esta de acuerdo en parte y en desacuerdo por otra parte, es decir, esta indeciso.<p/>
+			<p class="tamannoLetra"><label class="amarillo"><b>De acuerdo:</b></label> Esta opción indica que el productor esta de acuerdo en gran medida de lo planteado en la pregunta correspondiente.</p>
+			<p class="tamannoLetra"><label class="naranja"><b>Totalmente de acuerdo:</b></label> Esta opción indica que el productor esta de acuerdo en todos los aspectos que plantea la pregunta correspondiente.<p/>
+			
+        </div>
+        <div class="tab-pane fade" id="ruatd" align="justify">
+        	<p class="tamannoLetra">En esta sección del RUAT se pueden agregar observaciones pertinentes al proceso que el productor considere necesarias, además se puede subir el RUAT digitalizado y visualizarse éste mismo.</p>
+        	<img src="{{base_url('assets/images/manual/RUAT/D/D1.png')}}" style="width:100%; margin-bottom:20px">
+
+        	<p class="tamannoLetra"><label class="rojo"><b>Observaciones:</b></label> En ésta área de texto, se pueden escribir observaciones pertinentes del proceso u otro comentario que tenga el productor.</p>
+        	<p class="tamannoLetra"><label class="verde"><b>Obtener RUAT Digital:</b></label> En ésta opción permite descargar el RUAT que se haya subido al sistema, siempre y cuando previamente se haya subido uno.<p/>
+        	<p class="tamannoLetra"><label class="naranja"><b>Subir RUAT al sistema:</b></label> Esta opción permite subir el RUAT al sistema, para tenerlo siempre a la mano.<p/>
+        	<p class="tamannoLetra"><label class="morado"><b>Volver a RUAT-C:</b></label> Éste botón nos permite volver al RUAT parte C, por si se requiere hacer algún cambio.</p>
+            <p class="tamannoLetra"><label class="azul"><b>Guardar RUAT:</b></label> Ésta opción nos permite guardar lo que hemos digitado del RUAT hasta el momento.<p/>
+			
+        </div>
+        <div class="tab-pane fade" id="bpa" align="justify">
         	<p class="tamannoLetra">En este reporte se evalua el nivel que tiene el predio a evaluar en las buenas práctivas agricolas, con respecto a diferentes criterios.</p>
             <img src="{{base_url('assets/images/manual/BPA/A.png')}}" style="width:100%; margin-bottom:20px">
 
