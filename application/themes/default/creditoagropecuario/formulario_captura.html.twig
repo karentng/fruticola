@@ -26,13 +26,13 @@
         //console.debug(departamentos.html());
         //console.debug(combos['departamentos']);
 
-        $('#departamento, #referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #descripcion_bienes_departamento').append(departamentos.html()).on('change', function(){
+        $('#referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #descripcion_bienes_departamento').append(departamentos.html()).on('change', function(){
                 var id = $( this ).attr('id');
                 var value = $( this ).val();
                 var last_index = id.lastIndexOf('_');
                 var new_id = last_index == -1 ? 'municipio' : id.substring(0, last_index) + '_municipio';
 
-                $( '#'+new_id ).empty().append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
+                $( '#'+new_id ).append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
         });
 
         $('#descripcion_bien_1_2, #descripcion_bien_2_2, #descripcion_bien_3_2').append(departamentos.html()).on('change', function(){
@@ -41,7 +41,7 @@
                 var last_index = id.lastIndexOf('_');
                 var new_id = id.substring(0, last_index) + '_3';
 
-                $( '#'+new_id ).empty().append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
+                $( '#'+new_id ).append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
         });
     });
 
@@ -68,7 +68,7 @@
 
 
 
-{% block titulo %} <h1><i class="icon20 i-man"></i> RUAT &#187; Datos Personales </h1> {% endblock %}
+{% block titulo %} <h1><i class="icon20 i-man"></i> CREDITO AGROPECUARIO &#187; Formulario de Captura </h1> {% endblock %}
 
 {% block contenido %}
 
@@ -106,7 +106,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Primer Nombre</label>
-                                    <input type="text" capitalize class="form-control" name="nombre1" maxlength="30" readonly/>
+                                    <input type="text" capitalize class="form-control" name="nombre1" maxlength="30" value="{{productor.nombre1}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Segundo Nombre</label>
-                                    <input type="text" capitalize class="form-control" name="nombre2"  maxlength="30" readonly/>
+                                    <input type="text" capitalize class="form-control" name="nombre2"  maxlength="30" value="{{productor.nombre2}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Primer Apellido</label>
-                                    <input type="text"  capitalize class="form-control" name="apellido1" maxlength="30"readonly/>
+                                    <input type="text"  capitalize class="form-control" name="apellido1" maxlength="30" value="{{productor.apellido1}}"  readonly/>
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Segundo Apellido</label>
-                                    <input type="text" capitalize class="form-control" name="apellido2" maxlength="30" readonly/>
+                                    <input type="text" capitalize class="form-control" name="apellido2" maxlength="30" value="{{productor.apellido2}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -141,10 +141,14 @@
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">Documento: </label>
                                 <div class="col-xs-3" style="padding-right:0px !important">
-                                    <input type="text" class="form-control" name="tipo_documento_id" maxlength="5" readonly/>
+                                    <input type="text" class="form-control" name="tipo_documento_id" maxlength="5" value="{% if productor.tipo_documento_id == 1 %} C.C
+                                    {% elseif productor.tipo_documento_id == 2 %} 'T.I'
+                                    {% elseif productor.tipo_documento_id == 3 %} 'C.E'
+                                    {% else %} 'NIT'
+                                    {% endif %}" readonly/>
                                 </div>
                                 <div class="col-xs-6" style="padding-left:0px !important">
-                                    <input type="text" class="form-control" name="numero_documento" maxlength="20" readonly/>
+                                    <input type="text" class="form-control" name="numero_documento" value="{{productor.numero_documento|number_format(0, ',', '.')}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +157,7 @@
                             <div class="form-group">
                                 <label class="col-sm-6 control-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
                                 <div class="col-sm-6">
-                                    <input size="16" name="fecha_nacimiento" class="form-control" readonly/>
+                                    <input name="fecha_nacimiento" class="form-control" value="{{productor.fecha_nacimiento|date('Y') ~ '-'~ productor.fecha_nacimiento|date('m') ~'-'~ productor.fecha_nacimiento | date('d') }}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +168,7 @@
                             <div class="form-group">
                                 <label class="col-sm-6 control-label">Sexo</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="sexo" maxlength="5" readonly/>
+                                    <input type="text" class="form-control" name="sexo" maxlength="5" value="{{productor.sexo}}" readonly/>
                                 </div>
                             </div>
                         </div>                    
@@ -172,7 +176,13 @@
                             <div class="form-group">
                                 <label class="col-sm-6 control-label">Nivel Educativo</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="nivel_educativo" maxlength="30" readonly/>
+                                    <input type="text" class="form-control" name="nivel_educativo" maxlength="30"  value="{% if productor.tipo_documento_id == 1 %} Primaria
+                                    {% elseif productor.tipo_documento_id == 2 %} Secundaria
+                                    {% elseif productor.tipo_documento_id == 3 %} Técnica
+                                    {% elseif productor.tipo_documento_id == 4 %} Tecnológica
+                                    {% elseif productor.tipo_documento_id == 4 %} Universitaria
+                                    {% else %} Ninguna
+                                    {% endif %}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -183,7 +193,10 @@
                             <div class="form-group">
                                 <label class="col-sm-5 control-label" for="focused">Tipo de Productor:</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="tipo_productor" maxlength="30" readonly/>
+                                    <input type="text" class="form-control" name="tipo_productor" maxlength="30" value="{% if productor.tipo_productor_id == 1 %} Pequeño
+                                    {% elseif productor.tipo_productor_id == 2 %} Mediano
+                                    {% else %} Ninguna
+                                    {% endif %}"readonly/>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +204,7 @@
                             <div class="form-group">
                                 <label class="col-sm-5 control-label" for="focused">Renglón Productivo</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="renglon_productivo" maxlength="30" readonly/>
+                                    <input type="text" class="form-control" name="renglon_productivo" maxlength="30" value="{{renglon.descripcion}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -217,7 +230,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Telefono Fijo</label>
-                                    <input type="text" class="form-control" name="telefono" readonly/>
+                                    <input type="text" class="form-control" name="telefono" value="{{contacto.telefono}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -225,7 +238,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Celular</label>
-                                    <input type="text" class="form-control" name="celular" readonly/>
+                                    <input type="text" class="form-control" name="celular" value="{{contacto.celular}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -233,7 +246,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Correo Electrónico</label>
-                                    <input type="text" class="form-control" name="email" readonly/>
+                                    <input type="text" class="form-control" name="email" value="{{contacto.email}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -243,9 +256,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Departamento:</label>
-                                    <select name="departamento" id="departamento" class="form-control">
-                                        <option></option>
-                                    </select>                                    
+                                    <input type="text" name="departamento" class="form-control" value="{{contacto_departamento.nombre}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -253,9 +264,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label" >Municipio:</label>
-                                    <select name="municipio" id="municipio" class="form-control">
-                                        <option></option>
-                                    </select>
+                                    <input type="text" name="municipio" class="form-control" value="{{contacto_municipio.nombre}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -263,7 +272,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label" for="focused">Vereda / Corregimiento</label>
-                                    <input type="text" class="form-control" name="vereda" readonly/>
+                                    <input type="text" class="form-control" name="vereda" value="{{contacto.vereda}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -273,7 +282,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Dirección de Residencia</label>
-                                    <input type="text" class="form-control" name="direccion_residencia" readonly/>
+                                    <input type="text" class="form-control" name="direccion_residencia" value="{{contacto.direccion}}" readonly/>
                                 </div>
                             </div>
                         </div>
