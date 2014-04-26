@@ -32,7 +32,7 @@
                 var last_index = id.lastIndexOf('_');
                 var new_id = last_index == -1 ? 'municipio' : id.substring(0, last_index) + '_municipio';
 
-                $( '#'+new_id ).append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
+                $( '#'+new_id ).empty().append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
         });
 
         $('#descripcion_bien_1_2, #descripcion_bien_2_2, #descripcion_bien_3_2').append(departamentos.html()).on('change', function(){
@@ -41,7 +41,7 @@
                 var last_index = id.lastIndexOf('_');
                 var new_id = id.substring(0, last_index) + '_3';
 
-                $( '#'+new_id ).append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
+                $( '#'+new_id ).empty().append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
         });
     });
 
@@ -52,7 +52,8 @@
     }
 
     function crear_combo_mupios(municipios_option){
-         var municipios = $('<select>');
+        var municipios = $('<select>');
+        municipios.append('<option value="" ></option>');
 
         $.each( municipios_option, function( key, value ){
             municipios.append('<option value="'+value.id+'" >'+value.nombre+'</option>');
