@@ -23,3 +23,5 @@ uploads/suelos/*
 
 
 assets/google_maps/results.json
+
+application/config/database.php

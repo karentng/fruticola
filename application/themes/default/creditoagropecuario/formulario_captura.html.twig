@@ -26,7 +26,7 @@
         //console.debug(departamentos.html());
         //console.debug(combos['departamentos']);
 
-        $('#referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #descripcion_bienes_departamento').append(departamentos.html()).on('change', function(){
+        $('#referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_per1_departamento, #referencias_per2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #descripcion_bienes_departamento').append(departamentos.html()).on('change', function(){
                 var id = $( this ).attr('id');
                 var value = $( this ).val();
                 var last_index = id.lastIndexOf('_');
@@ -718,7 +718,7 @@
                                 <div class="col-md-3">
                                     <div class="container">
                                         <div class="form-group">
-                                            <label class="control-label">Parentesco</label>
+                                            <label class="control-label">Nexo con el Cliente</label>
                                             <input type="text" class="form-control" name="referencias_per1_parentesco"/>
 
                                         </div>
@@ -731,8 +731,9 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Departamento</label>
-                                            <input type="text" class="form-control" name="referencias_per1_departamento"/>
-
+                                            <select name="referencias_per1_departamento" id="referencias_per1_departamento" class="form-control">
+                                                <option ></option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -740,8 +741,9 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Municipio</label>
-                                            <input type="text" class="form-control" name="referencias_per1_municipio"/>
-
+                                            <select name="referencias_per1_municipio" id="referencias_per1_municipio" class="form-control">
+                                                <option ></option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -851,7 +853,7 @@
                                 <div class="col-md-3">
                                     <div class="container">
                                         <div class="form-group">
-                                            <label class="control-label">Parentesco</label>
+                                            <label class="control-label">Nexo con el Cliente</label>
                                             <input type="text" class="form-control" name="referencias_per2_parentesco"/>
 
                                         </div>
@@ -874,11 +876,9 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Municipio</label>
-                                            <input type="text" class="form-control" name="referencias_per2_municipio"/>
-                                            <select name="referencias_fin1_departamento" id="referencias_per2_departamento" class="form-control">
+                                            <select name="referencias_per2_municipio" id="referencias_per2_municipio" class="form-control">
                                                 <option ></option>
                                             </select>
-
                                         </div>
                                     </div>
                                 </div>
