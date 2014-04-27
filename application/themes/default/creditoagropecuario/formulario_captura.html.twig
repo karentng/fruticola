@@ -19,29 +19,29 @@
     var combos = {{combos|json_encode}};
     var departamentos = $('<select>');
 
-    $(document).ready(function(){
+    $(document).ready(function() {
 
         crear_combo_deptos();
 
         //console.debug(departamentos.html());
         //console.debug(combos['departamentos']);
 
-        $('#referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_per1_departamento, #referencias_per2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #informacion_pre_tenencia_departamento').append(departamentos.html()).on('change', function(){
-                var id = $( this ).attr('id');
-                var value = $( this ).val();
-                var last_index = id.lastIndexOf('_');
-                var new_id = last_index == -1 ? 'municipio' : id.substring(0, last_index) + '_municipio';
+        $('#referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_per1_departamento, #referencias_per2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #informacion_pre_tenencia_departamento').append(departamentos.html()).on('change', function() {
+            var id = $(this).attr('id');
+            var value = $(this).val();
+            var last_index = id.lastIndexOf('_');
+            var new_id = last_index == -1 ? 'municipio' : id.substring(0, last_index) + '_municipio';
 
-                $( '#'+new_id ).empty().append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
+            $('#' + new_id).empty().append(crear_combo_mupios(combos['departamentos'][value].municipios).html());
         });
 
-        $('#descripcion_bien_1_2, #descripcion_bien_2_2, #descripcion_bien_3_2').append(departamentos.html()).on('change', function(){
-                var id = $( this ).attr('id');
-                var value = $( this ).val();
-                var last_index = id.lastIndexOf('_');
-                var new_id = id.substring(0, last_index) + '_3';
+        $('#descripcion_bien_1_2, #descripcion_bien_2_2, #descripcion_bien_3_2').append(departamentos.html()).on('change', function() {
+            var id = $(this).attr('id');
+            var value = $(this).val();
+            var last_index = id.lastIndexOf('_');
+            var new_id = id.substring(0, last_index) + '_3';
 
-                $( '#'+new_id ).empty().append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
+            $('#' + new_id).empty().append(crear_combo_mupios(combos['departamentos'][value].municipios).html());
         });
 
         //console.debug( "test" );
@@ -51,49 +51,49 @@
         set_combos_mupios();
     });
 
-    function crear_combo_deptos(){
-        $.each( combos['departamentos'], function( key, value ){
-            departamentos.append('<option value="'+key+'" >'+value.nombre+'</option>');
+    function crear_combo_deptos() {
+        $.each(combos['departamentos'], function(key, value) {
+            departamentos.append('<option value="' + key + '" >' + value.nombre + '</option>');
         });
     }
 
-    function set_combos_deptos(){
-        $( '#referencias_fam1_departamento' ).val( '{{referencias_familiares[0].departamento_id}}' );
-        $( '#referencias_fam2_departamento' ).val( '{{referencias_familiares[1].departamento_id}}' );
-        $( '#referencias_per1_departamento' ).val( '{{referencias_personales[0].departamento_id}}' );
-        $( '#referencias_per2_departamento' ).val( '{{referencias_personales[1].departamento_id}}' );
-        $( '#referencias_fin1_departamento' ).val( '{{referencias_financieras[0].departamento_id}}' );
-        $( '#referencias_fin2_departamento' ).val( '{{referencias_financieras[1].departamento_id}}' );
-        $( '#referencias_com_departamento' ).val( '{{referencias_comerciales[0].departamento_id}}' );
-        $( '#informacion_pre_tenencia_departamento' ).val( '{{informacion_predios_inversion[0].departamento_id}}' );
+    function set_combos_deptos() {
+        $('#referencias_fam1_departamento').val('{{referencias_familiares[0].departamento_id}}');
+        $('#referencias_fam2_departamento').val('{{referencias_familiares[1].departamento_id}}');
+        $('#referencias_per1_departamento').val('{{referencias_personales[0].departamento_id}}');
+        $('#referencias_per2_departamento').val('{{referencias_personales[1].departamento_id}}');
+        $('#referencias_fin1_departamento').val('{{referencias_financieras[0].departamento_id}}');
+        $('#referencias_fin2_departamento').val('{{referencias_financieras[1].departamento_id}}');
+        $('#referencias_com_departamento').val('{{referencias_comerciales[0].departamento_id}}');
+        $('#informacion_pre_tenencia_departamento').val('{{informacion_predios_inversion[0].departamento_id}}');
 
-        $( '#descripcion_bien_1_2' ).val( '{{descripcion_bienes_inmuebles[0].departamento_id}}' );
-        $( '#descripcion_bien_2_2' ).val( '{{descripcion_bienes_inmuebles[1].departamento_id}}' );
-        $( '#descripcion_bien_3_2' ).val( '{{descripcion_bienes_inmuebles[2].departamento_id}}' );
+        $('#descripcion_bien_1_2').val('{{descripcion_bienes_inmuebles[0].departamento_id}}');
+        $('#descripcion_bien_2_2').val('{{descripcion_bienes_inmuebles[1].departamento_id}}');
+        $('#descripcion_bien_3_2').val('{{descripcion_bienes_inmuebles[2].departamento_id}}');
     }
 
-    function set_combos_mupios(){
-        $( '#referencias_fam1_municipio' ).val( '{{referencias_familiares[0].municipio_id}}' );
-        $( '#referencias_fam2_municipio' ).val( '{{referencias_familiares[1].municipio_id}}' );
-        $( '#referencias_per1_municipio' ).val( '{{referencias_personales[0].municipio_id}}' );
-        $( '#referencias_per2_municipio' ).val( '{{referencias_personales[1].municipio_id}}' );
-        $( '#referencias_fin1_municipio' ).val( '{{referencias_financieras[0].municipio_id}}' );
-        $( '#referencias_fin2_municipio' ).val( '{{referencias_financieras[1].municipio_id}}' );
-        $( '#referencias_com_municipio' ).val( '{{referencias_comerciales[0].municipio_id}}' );
-        $( '#descripcion_bienes_municipio' ).val( '{{descripcion_bienes[0].municipio_id}}' );
-        $( '#informacion_pre_tenencia_municipio' ).val( '{{informacion_predios_inversion[0].municipio_id}}' );
+    function set_combos_mupios() {
+        $('#referencias_fam1_municipio').val('{{referencias_familiares[0].municipio_id}}');
+        $('#referencias_fam2_municipio').val('{{referencias_familiares[1].municipio_id}}');
+        $('#referencias_per1_municipio').val('{{referencias_personales[0].municipio_id}}');
+        $('#referencias_per2_municipio').val('{{referencias_personales[1].municipio_id}}');
+        $('#referencias_fin1_municipio').val('{{referencias_financieras[0].municipio_id}}');
+        $('#referencias_fin2_municipio').val('{{referencias_financieras[1].municipio_id}}');
+        $('#referencias_com_municipio').val('{{referencias_comerciales[0].municipio_id}}');
+        $('#descripcion_bienes_municipio').val('{{descripcion_bienes[0].municipio_id}}');
+        $('#informacion_pre_tenencia_municipio').val('{{informacion_predios_inversion[0].municipio_id}}');
 
-        $( '#descripcion_bien_1_3' ).val( '{{descripcion_bienes_inmuebles[0].municipio_id}}' );
-        $( '#descripcion_bien_2_3' ).val( '{{descripcion_bienes_inmuebles[1].municipio_id}}' );
-        $( '#descripcion_bien_3_3' ).val( '{{descripcion_bienes_inmuebles[2].municipio_id}}' );
+        $('#descripcion_bien_1_3').val('{{descripcion_bienes_inmuebles[0].municipio_id}}');
+        $('#descripcion_bien_2_3').val('{{descripcion_bienes_inmuebles[1].municipio_id}}');
+        $('#descripcion_bien_3_3').val('{{descripcion_bienes_inmuebles[2].municipio_id}}');
     }
 
-    function crear_combo_mupios(municipios_option){
+    function crear_combo_mupios(municipios_option) {
         var municipios = $('<select>');
         municipios.append('<option value="" ></option>');
 
-        $.each( municipios_option, function( key, value ){
-            municipios.append('<option value="'+value.id+'" >'+value.nombre+'</option>');
+        $.each(municipios_option, function(key, value) {
+            municipios.append('<option value="' + value.id + '" >' + value.nombre + '</option>');
         });
 
         return municipios;
@@ -124,6 +124,7 @@
                     <label class="control-label col-sm-4">Fecha</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" name="sc_fecha" style="color:red; text-align:center">
+                        {{form_error('sc_fecha')}}
                     </div> 
                 </div>
             </div>
@@ -345,7 +346,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Primer Nombre </label>
-                                    <input type="text" capitalize class="form-control" name="conyugue_nombre1" maxlength="30" value="{{ set_value('conyugue_nombre1', conyugue.nombre1) }}"/>
+                                    <input type="text" capitalize class="form-control" name="conyugue_nombre1" maxlength="30" value="{{ set_value2('conyugue_nombre1', conyugue.nombre1) }}"/>
+                                    {{form_error('conyugue_nombre1')}}
                                 </div>
                             </div>
                         </div>
@@ -353,7 +355,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Segundo Nombre</label>
-                                    <input type="text" capitalize class="form-control" name="conyugue_nombre2"  maxlength="30" value="{{ set_value('conyugue_nombre2', conyugue.nombre2) }}"/>
+                                    <input type="text" capitalize class="form-control" name="conyugue_nombre2"  maxlength="30" value="{{ set_value2('conyugue_nombre2', conyugue.nombre2) }}"/>
                                 </div>
                             </div>
                         </div>
@@ -361,7 +363,8 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Primer Apellido</label>
-                                    <input type="text"  capitalize class="form-control" name="conyugue_apellido1" maxlength="30" value="{{ set_value('conyugue_apellido1', conyugue.apellido1) }}"/>
+                                    <input type="text"  capitalize class="form-control" name="conyugue_apellido1" maxlength="30" value="{{ set_value2('conyugue_apellido1', conyugue.apellido1) }}"/>
+                                    {{form_error('conyugue_apellido1')}}
                                 </div>
                             </div>
                         </div>
@@ -369,7 +372,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Segundo Apellido</label>
-                                    <input type="text" capitalize class="form-control" name="conyugue_apellido2" maxlength="30" value="{{ set_value('conyugue_apellido2', conyugue.apellido2) }}"/>
+                                    <input type="text" capitalize class="form-control" name="conyugue_apellido2" maxlength="30" value="{{ set_value2('conyugue_apellido2', conyugue.apellido2) }}"/>
                                 </div>
                             </div>
                         </div>
@@ -387,7 +390,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-6" style="padding-left:0px !important">
-                                    <input type="text" class="form-control" name="conyugue_identificacion" maxlength="30"  value="{{ set_value('conyugue_identificacion', conyugue.identificacion) }}"/>
+                                    <input type="text" class="form-control" name="conyugue_identificacion" maxlength="30"  value="{{ set_value2('conyugue_identificacion', conyugue.identificacion) }}"/>
 
                                 </div>
                             </div>
@@ -398,8 +401,9 @@
                                 <label class="col-sm-6 control-label">Fecha de Nacimiento</label>
                                 <div class="col-sm-6">
                                     <div class="input-group date datepicker autostart">
-                                        <input size="16" class="form-control" name="conyugue_fecha_nacimiento" type="text" value="{{ set_value('conyugue_fecha_nacimiento', conyugue.fecha_nacimiento | date('Y-m-d')) }}">
-                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                                        <input size="16" class="form-control" name="conyugue_fecha_nacimiento" type="text" value="{{ set_value2('conyugue_fecha_nacimiento', conyugue.fecha_nacimiento | date('Y-m-d')) }}">
+                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>     
+                                        {{form_error('conyugue_fecha_nacimiento')}}
                                     </div>
                                     <span class="help-block"><small>AAAA-MM-DD</small></span>
                                 </div>
@@ -412,7 +416,7 @@
                             <div class="form-group">
                                 <label class="col-sm-6 control-label">Teléfono</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" name="conyugue_telefono" type="text" value="{{ set_value('conyugue_telefono', conyugue.telefono) }}">
+                                    <input class="form-control" name="conyugue_telefono" type="text" value="{{ set_value2('conyugue_telefono', conyugue.telefono) }}">
                                 </div>
                             </div>
                         </div>
@@ -420,7 +424,7 @@
                             <div class="form-group">
                                 <label class="col-sm-6 control-label">Personas a Cargo</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" name="conyugue_personas_cargo" type="text" value="{{ set_value('conyugue_personas_cargo', conyugue.conyugue_personas_cargo) }}">
+                                    <input class="form-control" name="conyugue_personas_cargo" type="text" value="{{ set_value2('conyugue_personas_cargo', conyugue.personas_cargo) }}"/>
                                 </div>
                             </div>
                         </div>                        
@@ -451,7 +455,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nombres</label>
-                                            <input type="text" class="form-control" name="referencias_fam1_nombres" value="{{ set_value('referencias_fam1_nombres', referencias_familiares[0].nombres) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fam1_nombres" value="{{ set_value2('referencias_fam1_nombres', referencias_familiares[0].nombres) }}"/>
+                                            {{form_error('referencias_fam1_nombres')}}                                            
                                         </div>
                                     </div>
                                 </div>
@@ -459,7 +464,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Primer Apellido</label>
-                                            <input type="text" class="form-control" name="referencias_fam1_apellido1" value="{{ set_value('referencias_fam1_apellido1', referencias_familiares[0].apellido1) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fam1_apellido1" value="{{ set_value2('referencias_fam1_apellido1', referencias_familiares[0].apellido1) }}"/>
+                                            {{form_error('referencias_fam1_apellido1')}}
                                         </div>
                                     </div>
                                 </div>
@@ -467,7 +473,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Segundo Apellido</label>
-                                            <input type="text" class="form-control" name="referencias_fam1_apellido2"  value="{{ set_value('referencias_fam1_apellido2', referencias_familiares[0].apellido2) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fam1_apellido2"  value="{{ set_value2('referencias_fam1_apellido2', referencias_familiares[0].apellido2) }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -475,7 +481,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Parentesco</label>
-                                            <input type="text" class="form-control" name="referencias_fam1_parentesco" value="{{ set_value('referencias_fam1_parentesco', referencias_familiares[0].parentesco) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fam1_parentesco" value="{{ set_value2('referencias_fam1_parentesco', referencias_familiares[0].parentesco) }}"/>
+                                            {{form_error('referencias_fam1_parentesco')}}
                                         </div>
                                     </div>
                                 </div>
@@ -489,6 +496,7 @@
                                             <select name="referencias_fam1_departamento" id="referencias_fam1_departamento" class="form-control">
                                                 <option></option>
                                             </select>
+                                            {{form_error('referencias_fam1_departamento')}}
                                         </div>
                                     </div>
                                 </div>
@@ -499,6 +507,7 @@
                                             <select name="referencias_fam1_municipio" id="referencias_fam1_municipio" class="form-control">
                                                 <option></option>
                                             </select>
+                                            {{form_error('referencias_fam1_municipio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -506,7 +515,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Dirección de la Residencia</label>
-                                            <input type="text" class="form-control" name="referencias_fam1_per_direccion" value="{{ set_value('referencias_fam1_per_direccion', referencias_familiares[0].direccion) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fam1_per_direccion" value="{{ set_value2('referencias_fam1_per_direccion', referencias_familiares[0].direccion) }}"/>
+                                            {{form_error('referencias_fam1_per_direccion')}}
                                         </div>
                                     </div>
                                 </div>
@@ -514,7 +524,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Barrio/ Vereda</label>
-                                            <input type="text" class="form-control" name="referencias_fam1_barrio" value="{{ set_value('referencias_fam1_barrio', referencias_familiares[0].barrio) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fam1_barrio" value="{{ set_value2('referencias_fam1_barrio', referencias_familiares[0].barrio) }}"/>
+                                            {{form_error('referencias_fam1_barrio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -527,10 +538,10 @@
                                             <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_fam1_indicativo1" maxlength="3" value="{{ set_value('referencias_fam1_indicativo1', referencias_familiares[0].indicativo1) }}"/>
+                                                    <input type="text" class="" name="referencias_fam1_indicativo1" maxlength="3" value="{{ set_value2('referencias_fam1_indicativo1', referencias_familiares[0].indicativo1) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_fam1_telefono1" maxlength="20" value="{{ set_value('referencias_fam1_telefono1', referencias_familiares[0].telefono1) }}"/>
+                                                    <input type="text" class="" name="referencias_fam1_telefono1" maxlength="20" value="{{ set_value2('referencias_fam1_telefono1', referencias_familiares[0].telefono1) }}"/>
                                                 </div>
                                             </div>
 
@@ -544,10 +555,10 @@
                                             <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_fam1_indicativo2" maxlength="3" value="{{ set_value('referencias_fam1_indicativo2', referencias_familiares[0].indicativo2) }}"/>
+                                                    <input type="text" class="" name="referencias_fam1_indicativo2" maxlength="3" value="{{ set_value2('referencias_fam1_indicativo2', referencias_familiares[0].indicativo2) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_fam1_telefono2" maxlength="20" value="{{ set_value('referencias_fam1_telefono2', referencias_familiares[0].telefono2) }}"/>
+                                                    <input type="text" class="" name="referencias_fam1_telefono2" maxlength="20" value="{{ set_value2('referencias_fam1_telefono2', referencias_familiares[0].telefono2) }}"/>
                                                 </div>
                                             </div>
 
@@ -561,10 +572,10 @@
                                             <label class="control-label">Celular (Prefijo y Número)</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_fam1_indicativo3" maxlength="3" value="{{ set_value('referencias_fam1_indicativo3', referencias_familiares[0].indicativo3) }}"/>
+                                                    <input type="text" class="" name="referencias_fam1_indicativo3" maxlength="3" value="{{ set_value2('referencias_fam1_indicativo3', referencias_familiares[0].indicativo3) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_fam1_telefono3" maxlength="20" value="{{ set_value('referencias_fam1_telefono3', referencias_familiares[0].telefono3) }}"/>
+                                                    <input type="text" class="" name="referencias_fam1_telefono3" maxlength="20" value="{{ set_value2('referencias_fam1_telefono3', referencias_familiares[0].telefono3) }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -579,8 +590,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nombres</label>
-                                            <input type="text" class="form-control" name="referencias_fam2_nombres" value="{{ set_value('referencias_fam2_nombres', referencias_familiares[1].nombres) }}"/>
-
+                                            <input type="text" class="form-control" name="referencias_fam2_nombres" value="{{ set_value2('referencias_fam2_nombres', referencias_familiares[1].nombres) }}"/>
+                                            {{form_error('referencias_fam2_nombres')}}   
                                         </div>
                                     </div>
                                 </div>
@@ -588,7 +599,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Primer Apellido</label>
-                                            <input type="text" class="form-control" name="referencias_fam2_apellido1" value="{{ set_value('referencias_fam2_apellido1', referencias_familiares[1].apellido1) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fam2_apellido1" value="{{ set_value2('referencias_fam2_apellido1', referencias_familiares[1].apellido1) }}"/>
+                                            {{form_error('referencias_fam2_apellido1')}}   
                                         </div>
                                     </div>
                                 </div>
@@ -596,8 +608,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Segundo Apellido</label>
-                                            <input type="text" class="form-control" name="referencias_fam2_apellido2" value="{{ set_value('referencias_fam2_apellido2', referencias_familiares[1].apellido2) }}"/>
-
+                                            <input type="text" class="form-control" name="referencias_fam2_apellido2" value="{{ set_value2('referencias_fam2_apellido2', referencias_familiares[1].apellido2) }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -605,8 +616,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Parentesco</label>
-                                            <input type="text" class="form-control" name="referencias_fam2_parentesco" value="{{ set_value('referencias_fam2_parentesco', referencias_familiares[1].parentesco) }}"/>
-
+                                            <input type="text" class="form-control" name="referencias_fam2_parentesco" value="{{ set_value2('referencias_fam2_parentesco', referencias_familiares[1].parentesco) }}"/>
+                                            {{form_error('referencias_fam2_parentesco')}}   
                                         </div>
                                     </div>
                                 </div>
@@ -620,6 +631,7 @@
                                             <select name="referencias_fam2_departamento" id="referencias_fam2_departamento" class="form-control">
                                                 <option></option>
                                             </select>
+                                            {{form_error('referencias_fam2_departamento')}}
                                         </div>
                                     </div>
                                 </div>
@@ -630,6 +642,7 @@
                                             <select name="referencias_fam2_municipio" id="referencias_fam2_municipio" class="form-control">
                                                 <option></option>
                                             </select>
+                                            {{form_error('referencias_fam2_municipio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -637,7 +650,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Dirección de la Residencia</label>
-                                            <input type="text" class="form-control" name="referencias_fam2_per_direccion" value="{{ set_value('referencias_fam2_per_direccion', referencias_familiares[1].direccion) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fam2_per_direccion" value="{{ set_value2('referencias_fam2_per_direccion', referencias_familiares[1].direccion) }}"/>
+                                            {{form_error('referencias_fam2_per_direccion')}}
                                         </div>
                                     </div>
                                 </div>
@@ -645,7 +659,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Barrio/ Vereda</label>
-                                            <input type="text" class="form-control" name="referencias_fam2_barrio" value="{{ set_value('referencias_fam2_barrio', referencias_familiares[1].barrio) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fam2_barrio" value="{{ set_value2('referencias_fam2_barrio', referencias_familiares[1].barrio) }}"/>
+                                            {{form_error('referencias_fam2_barrio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -658,10 +673,10 @@
                                             <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_fam2_indicativo1" maxlength="3" value="{{ set_value('referencias_fam2_indicativo1', referencias_familiares[1].indicativo1) }}"/>
+                                                    <input type="text" class="" name="referencias_fam2_indicativo1" maxlength="3" value="{{ set_value2('referencias_fam2_indicativo1', referencias_familiares[1].indicativo1) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_fam2_telefono1" maxlength="20" value="{{ set_value('referencias_fam2_telefono1', referencias_familiares[1].telefono1) }}"/>
+                                                    <input type="text" class="" name="referencias_fam2_telefono1" maxlength="20" value="{{ set_value2('referencias_fam2_telefono1', referencias_familiares[1].telefono1) }}"/>
                                                 </div>
                                             </div>
 
@@ -675,10 +690,10 @@
                                             <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_fam2_indicativo2" maxlength="3" value="{{ set_value('referencias_fam2_indicativo2', referencias_familiares[1].indicativo2) }}"/>
+                                                    <input type="text" class="" name="referencias_fam2_indicativo2" maxlength="3" value="{{ set_value2('referencias_fam2_indicativo2', referencias_familiares[1].indicativo2) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_fam2_telefono2" maxlength="20" value="{{ set_value('referencias_fam2_telefono2', referencias_familiares[1].telefono2) }}"/>
+                                                    <input type="text" class="" name="referencias_fam2_telefono2" maxlength="20" value="{{ set_value2('referencias_fam2_telefono2', referencias_familiares[1].telefono2) }}"/>
                                                 </div>
                                             </div>
 
@@ -692,10 +707,10 @@
                                             <label class="control-label">Celular (Prefijo y Número)</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_fam2_indicativo3" maxlength="3"  value="{{ set_value('referencias_fam2_indicativo3', referencias_familiares[1].indicativo3) }}"/>
+                                                    <input type="text" class="" name="referencias_fam2_indicativo3" maxlength="3"  value="{{ set_value2('referencias_fam2_indicativo3', referencias_familiares[1].indicativo3) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_fam2_telefono3" maxlength="20" value="{{ set_value('referencias_fam2_telefono3', referencias_familiares[1].telefono3) }}"/>
+                                                    <input type="text" class="" name="referencias_fam2_telefono3" maxlength="20" value="{{ set_value2('referencias_fam2_telefono3', referencias_familiares[1].telefono3) }}"/>
                                                 </div>
                                             </div>
 
@@ -720,7 +735,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nombres</label>
-                                            <input type="text" class="form-control" name="referencias_per1_nombres" value="{{ set_value('referencias_fam1_nombres', referencias_personales[0].nombres) }}"/>
+                                            <input type="text" class="form-control" name="referencias_per1_nombres" value="{{ set_value2('referencias_fam1_nombres', referencias_personales[0].nombres) }}"/>
+                                            {{form_error('referencias_per1_nombres')}}
                                         </div>
                                     </div>
                                 </div>
@@ -728,7 +744,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Primer Apellido</label>
-                                            <input type="text" class="form-control" name="referencias_per1_apellido1" value="{{ set_value('referencias_per1_apellido1', referencias_personales[0].apellido1) }}"/>
+                                            <input type="text" class="form-control" name="referencias_per1_apellido1" value="{{ set_value2('referencias_per1_apellido1', referencias_personales[0].apellido1) }}"/>
+                                            {{form_error('referencias_per1_apellido1')}}
                                         </div>
                                     </div>
                                 </div>
@@ -736,7 +753,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Segundo Apellido</label>
-                                            <input type="text" class="form-control" name="referencias_per1_apellido2" value="{{ set_value('referencias_per1_apellido2', referencias_personales[0].apellido2) }}"/>
+                                            <input type="text" class="form-control" name="referencias_per1_apellido2" value="{{ set_value2('referencias_per1_apellido2', referencias_personales[0].apellido2) }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -744,7 +761,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nexo con el Cliente</label>
-                                            <input type="text" class="form-control" name="referencias_per1_parentesco" value="{{ set_value('referencias_per1_parentesco', referencias_personales[0].parentesco) }}"/>
+                                            <input type="text" class="form-control" name="referencias_per1_parentesco" value="{{ set_value2('referencias_per1_parentesco', referencias_personales[0].parentesco) }}"/>
+                                            {{form_error('referencias_per1_parentesco')}}
                                         </div>
                                     </div>
                                 </div>
@@ -758,6 +776,7 @@
                                             <select name="referencias_per1_departamento" id="referencias_per1_departamento" class="form-control">
                                                 <option ></option>
                                             </select>
+                                            {{form_error('referencias_per1_departamento')}}
                                         </div>
                                     </div>
                                 </div>
@@ -768,6 +787,7 @@
                                             <select name="referencias_per1_municipio" id="referencias_per1_municipio" class="form-control">
                                                 <option ></option>
                                             </select>
+                                            {{form_error('referencias_per1_municipio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -775,8 +795,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Dirección de la Residencia</label>
-                                            <input type="text" class="form-control" name="referencias_per1_per_direccion" value="{{ set_value('referencias_per1_per_direccion', referencias_personales[0].direccion) }}"/>
-
+                                            <input type="text" class="form-control" name="referencias_per1_per_direccion" value="{{ set_value2('referencias_per1_per_direccion', referencias_personales[0].direccion) }}"/>
+                                            {{form_error('referencias_per1_per_direccion')}}
                                         </div>
                                     </div>
                                 </div>
@@ -784,8 +804,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Barrio/ Vereda</label>
-                                            <input type="text" class="form-control" name="referencias_per1_barrio" value="{{ set_value('referencias_per1_barrio', referencias_personales[0].barrio) }}"/>
-
+                                            <input type="text" class="form-control" name="referencias_per1_barrio" value="{{ set_value2('referencias_per1_barrio', referencias_personales[0].barrio) }}"/>
+                                            {{form_error('referencias_per1_barrio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -798,10 +818,10 @@
                                             <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_per1_indicativo1" maxlength="3" value="{{ set_value('referencias_per1_indicativo1', referencias_personales[0].indicativo1) }}"/>
+                                                    <input type="text" class="" name="referencias_per1_indicativo1" maxlength="3" value="{{ set_value2('referencias_per1_indicativo1', referencias_personales[0].indicativo1) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_per1_telefono1" maxlength="20" value="{{ set_value('referencias_per1_telefono1', referencias_personales[0].telefono1) }}"/>
+                                                    <input type="text" class="" name="referencias_per1_telefono1" maxlength="20" value="{{ set_value2('referencias_per1_telefono1', referencias_personales[0].telefono1) }}"/>
                                                 </div>
                                             </div>
 
@@ -815,10 +835,10 @@
                                             <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_per1_indicativo2" maxlength="3" value="{{ set_value('referencias_per1_indicativo2', referencias_personales[0].indicativo2) }}"/>
+                                                    <input type="text" class="" name="referencias_per1_indicativo2" maxlength="3" value="{{ set_value2('referencias_per1_indicativo2', referencias_personales[0].indicativo2) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_per1_telefono2" maxlength="20" value="{{ set_value('referencias_per1_telefono2', referencias_personales[0].telefono2) }}"/>
+                                                    <input type="text" class="" name="referencias_per1_telefono2" maxlength="20" value="{{ set_value2('referencias_per1_telefono2', referencias_personales[0].telefono2) }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -831,10 +851,10 @@
                                             <label class="control-label">Celular (Prefijo y Número)</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_per1_indicativo3" maxlength="3" value="{{ set_value('referencias_per1_indicativo3', referencias_personales[0].indicativo3) }}"/>
+                                                    <input type="text" class="" name="referencias_per1_indicativo3" maxlength="3" value="{{ set_value2('referencias_per1_indicativo3', referencias_personales[0].indicativo3) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_per1_telefono3" maxlength="20" value="{{ set_value('referencias_per1_telefono3', referencias_personales[0].telefono3) }}"/>
+                                                    <input type="text" class="" name="referencias_per1_telefono3" maxlength="20" value="{{ set_value2('referencias_per1_telefono3', referencias_personales[0].telefono3) }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -849,8 +869,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nombres</label>
-                                            <input type="text" class="form-control" name="referencias_per2_nombres" value="{{ set_value('referencias_per2_nombres', referencias_personales[1].nombres) }}"/>
-
+                                            <input type="text" class="form-control" name="referencias_per2_nombres" value="{{ set_value2('referencias_per2_nombres', referencias_personales[1].nombres) }}"/>
+                                            {{form_error('referencias_per2_nombres')}}
                                         </div>
                                     </div>
                                 </div>
@@ -858,8 +878,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Primer Apellido</label>
-                                            <input type="text" class="form-control" name="referencias_per2_apellido1" value="{{ set_value('referencias_per2_apellido1', referencias_personales[1].apellido1) }}"/>
-
+                                            <input type="text" class="form-control" name="referencias_per2_apellido1" value="{{ set_value2('referencias_per2_apellido1', referencias_personales[1].apellido1) }}"/>
+                                            {{form_error('referencias_per2_apellido1')}}
                                         </div>
                                     </div>
                                 </div>
@@ -867,7 +887,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Segundo Apellido</label>
-                                            <input type="text" class="form-control" name="referencias_per2_apellido2" value="{{ set_value('referencias_per2_apellido2', referencias_personales[1].apellido2) }}"/>
+                                            <input type="text" class="form-control" name="referencias_per2_apellido2" value="{{ set_value2('referencias_per2_apellido2', referencias_personales[1].apellido2) }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -875,7 +895,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nexo con el Cliente</label>
-                                            <input type="text" class="form-control" name="referencias_per2_parentesco" value="{{ set_value('referencias_per2_parentesco', referencias_personales[1].parentesco) }}"/>
+                                            <input type="text" class="form-control" name="referencias_per2_parentesco" value="{{ set_value2('referencias_per2_parentesco', referencias_personales[1].parentesco) }}"/>
+                                            {{form_error('referencias_per2_parentesco')}}
                                         </div>
                                     </div>
                                 </div>
@@ -889,6 +910,7 @@
                                             <select name="referencias_per2_departamento" id="referencias_per2_departamento" class="form-control">
                                                 <option ></option>
                                             </select>
+                                            {{form_error('referencias_per2_departamento')}}
                                         </div>
                                     </div>
                                 </div>
@@ -899,6 +921,7 @@
                                             <select name="referencias_per2_municipio" id="referencias_per2_municipio" class="form-control">
                                                 <option ></option>
                                             </select>
+                                            {{form_error('referencias_per2_municipio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -906,8 +929,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Dirección de la Residencia</label>
-                                            <input type="text" class="form-control" name="referencias_per2_per_direccion" value="{{ set_value('referencias_per2_per_direccion', referencias_personales[1].direccion) }}"/>
-
+                                            <input type="text" class="form-control" name="referencias_per2_per_direccion" value="{{ set_value2('referencias_per2_per_direccion', referencias_personales[1].direccion) }}"/>
+                                            {{form_error('referencias_per2_per_direccion')}}
                                         </div>
                                     </div>
                                 </div>
@@ -915,8 +938,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Barrio/ Vereda</label>
-                                            <input type="text" class="form-control" name="referencias_per2_barrio" value="{{ set_value('referencias_per2_per_barrio', referencias_personales[1].barrio) }}"/>
-
+                                            <input type="text" class="form-control" name="referencias_per2_barrio" value="{{ set_value2('referencias_per2_per_barrio', referencias_personales[1].barrio) }}"/>
+                                            {{form_error('referencias_per2_barrio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -929,10 +952,10 @@
                                             <label class="control-label">Indicativo y No. Telefónico de Residencia</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_per2_indicativo1" maxlength="3" value="{{ set_value('referencias_per2_indicativo1', referencias_personales[1].indicativo1) }}"/>
+                                                    <input type="text" class="" name="referencias_per2_indicativo1" maxlength="3" value="{{ set_value2('referencias_per2_indicativo1', referencias_personales[1].indicativo1) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_per2_telefono1" maxlength="20" value="{{ set_value('referencias_per2_telefono1', referencias_personales[1].telefono1) }}"/>
+                                                    <input type="text" class="" name="referencias_per2_telefono1" maxlength="20" value="{{ set_value2('referencias_per2_telefono1', referencias_personales[1].telefono1) }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -945,10 +968,10 @@
                                             <label class="control-label">Indicativo y No. Telefonico de ubicación</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_per2_indicativo2" maxlength="3" value="{{ set_value('referencias_per2_indicativo2', referencias_personales[1].indicativo2) }}"/>
+                                                    <input type="text" class="" name="referencias_per2_indicativo2" maxlength="3" value="{{ set_value2('referencias_per2_indicativo2', referencias_personales[1].indicativo2) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_per2_telefono2" maxlength="20" value="{{ set_value('referencias_per2_telefono2', referencias_personales[1].telefono2) }}"/>
+                                                    <input type="text" class="" name="referencias_per2_telefono2" maxlength="20" value="{{ set_value2('referencias_per2_telefono2', referencias_personales[1].telefono2) }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -961,10 +984,10 @@
                                             <label class="control-label">Celular (Prefijo y Número)</label>
                                             <div div class="col-md-12">
                                                 <div div class="col-md-3">
-                                                    <input type="text" class="" name="referencias_per2_indicativo3" maxlength="3" value="{{ set_value('referencias_per2_indicativo3', referencias_personales[1].indicativo3) }}"/>
+                                                    <input type="text" class="" name="referencias_per2_indicativo3" maxlength="3" value="{{ set_value2('referencias_per2_indicativo3', referencias_personales[1].indicativo3) }}"/>
                                                 </div>
                                                 <div div class="col-md-9">
-                                                    <input type="text" class="" name="referencias_per2_telefono3" maxlength="20" value="{{ set_value('referencias_per2_telefono3', referencias_personales[1].telefono3) }}"/>
+                                                    <input type="text" class="" name="referencias_per2_telefono3" maxlength="20" value="{{ set_value2('referencias_per2_telefono3', referencias_personales[1].telefono3) }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -988,7 +1011,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Entidad</label>
-                                            <input type="text" class="form-control" name="referencias_fin1_entidad" value="{{ set_value('referencias_fin1_entidad', referencias_financieras[0].entidad) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fin1_entidad" value="{{ set_value2('referencias_fin1_entidad', referencias_financieras[0].entidad) }}"/>
+                                            {{form_error('referencias_fin1_entidad')}}
                                         </div>
                                     </div>
                                 </div>
@@ -996,7 +1020,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Clase o tipo de Producto</label>
-                                            <input type="text" class="form-control" name="referencias_fin1_clase" value="{{ set_value('referencias_fin1_clase', referencias_financieras[0].clase) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fin1_clase" value="{{ set_value2('referencias_fin1_clase', referencias_financieras[0].clase) }}"/>
+                                            {{form_error('referencias_fin1_clase')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1004,7 +1029,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">No. de Producto</label>
-                                            <input type="text" class="form-control" name="referencias_fin1_nro_producto" value="{{ set_value('referencias_fin1_nro_producto', referencias_financieras[0].nro_producto) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fin1_nro_producto" value="{{ set_value2('referencias_fin1_nro_producto', referencias_financieras[0].nro_producto) }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -1018,6 +1043,7 @@
                                             <select name="referencias_fin1_departamento" id="referencias_fin1_departamento" class="form-control">
                                                 <option ></option>
                                             </select>
+                                            {{form_error('referencias_fin1_departamento')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1025,9 +1051,10 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Municipio</label>
-                                            <select name="referencias_fin1_ciudad" id="referencias_fin1_municipio" class="form-control">
+                                            <select name="referencias_fin1_municipio" id="referencias_fin1_municipio" class="form-control">
                                                 <option></option>
                                             </select>
+                                            {{form_error('referencias_fin1_ciudad')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1035,7 +1062,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Sucursal</label>
-                                            <input type="text" class="form-control" name="referencias_fin1_sucursal" value="{{ set_value('referencias_fin1_sucursal', referencias_financieras[0].sucursal) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fin1_sucursal" value="{{ set_value2('referencias_fin1_sucursal', referencias_financieras[0].sucursal) }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -1048,7 +1075,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Entidad</label>
-                                            <input type="text" class="form-control" name="referencias_fin2_entidad" value="{{ set_value('referencias_fin2_entidad', referencias_financieras[1].entidad) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fin2_entidad" value="{{ set_value2('referencias_fin2_entidad', referencias_financieras[1].entidad) }}"/>
+                                            {{form_error('referencias_fin2_entidad')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1056,8 +1084,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Clase o tipo de Producto</label>
-                                            <input type="text" class="form-control" name="referencias_fin2_clase" value="{{ set_value('referencias_fin2_clase', referencias_financieras[1].clase) }}"/>
-
+                                            <input type="text" class="form-control" name="referencias_fin2_clase" value="{{ set_value2('referencias_fin2_clase', referencias_financieras[1].clase) }}"/>
+                                            {{form_error('referencias_fin2_clase')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1065,7 +1093,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">No. de Producto</label>
-                                            <input type="text" class="form-control" name="referencias_fin2_nro_producto" value="{{ set_value('referencias_fin2_nro_producto', referencias_financieras[1].nro_producto) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fin2_nro_producto" value="{{ set_value2('referencias_fin2_nro_producto', referencias_financieras[1].nro_producto) }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -1079,6 +1107,7 @@
                                             <select name="referencias_fin2_departamento" id="referencias_fin2_departamento" class="form-control">
                                                 <option></option>
                                             </select>
+                                            {{form_error('referencias_fin2_departamento')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1089,6 +1118,7 @@
                                             <select name="referencias_fin2_municipio" id="referencias_fin2_municipio" class="form-control">
                                                 <option></option>
                                             </select>
+                                            {{form_error('referencias_fin2_municipio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1096,7 +1126,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Sucursal</label>
-                                            <input type="text" class="form-control" name="referencias_fin2_sucursal" value="{{ set_value('referencias_fin2_sucursal', referencias_financieras[1].sucursal) }}"/>
+                                            <input type="text" class="form-control" name="referencias_fin2_sucursal" value="{{ set_value2('referencias_fin2_sucursal', referencias_financieras[1].sucursal) }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -1118,7 +1148,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nombre del Establecimiento</label>
-                                            <input type="text" class="form-control" name="referencias_com_nombre_est" value="{{ set_value('referencias_com_nombre_est', referencias_comerciales[0].nombre_est) }}"/>
+                                            <input type="text" class="form-control" name="referencias_com_nombre_est" value="{{ set_value2('referencias_com_nombre_est', referencias_comerciales[0].nombre_est) }}"/>
+                                            {{form_error('referencias_com_nombre_est')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1126,7 +1157,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Tipo de vínculo</label>
-                                            <input type="text" class="form-control" name="referencias_com_tipo_vinculo" value="{{ set_value('referencias_com_tipo_vinculo', referencias_comerciales[0].tipo_vinculo) }}"/>
+                                            <input type="text" class="form-control" name="referencias_com_tipo_vinculo" value="{{ set_value2('referencias_com_tipo_vinculo', referencias_comerciales[0].tipo_vinculo) }}"/>
+                                            {{form_error('referencias_com_tipo_vinculo')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1140,6 +1172,7 @@
                                             <select name="referencias_com_departamento" id="referencias_com_departamento" class="form-control">
                                                 <option></option>
                                             </select>
+                                            {{form_error('referencias_com_departamento')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1150,6 +1183,7 @@
                                             <select name="referencias_com_municipio" id="referencias_com_municipio" class="form-control">
                                                 <option></option>
                                             </select>
+                                            {{form_error('referencias_com_municipio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1157,7 +1191,8 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Telefono</label>
-                                            <input type="text" class="form-control" name="referencias_com_telefono" value="{{ set_value('referencias_com_telefono', referencias_comerciales[0].telefono) }}"/>
+                                            <input type="text" class="form-control" name="referencias_com_telefono" value="{{ set_value2('referencias_com_telefono', referencias_comerciales[0].telefono) }}"/>
+                                            {{form_error('referencias_com_telefono')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1218,18 +1253,18 @@
                         {% else %} {% set id_name = '' %}
                         {% endif %}
 
-                        <td>
+                                <td>
                             {% if j == 8 or j == 9 or j == 10 %}
-                                <select name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 95px;"/>
-                                    <option value="1" {{(tipo_doc.id == conyugue.tipo_documento)?'selected':''}}>Semestral</option>
-                                    <option value="2">Anual</option>
-                                </select>
+                                    <select name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 95px;"/>
+                        <option value="1" {{(tipo_doc.id == conyugue.tipo_documento)?'selected':''}}>Semestral</option>
+                        <option value="2">Anual</option>
+                        </select>
                             {% else %}             
-                            <input name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 65px;" value="{{ set_value( descripcion_inv_~i~'_'~j, descripcion_inv[i][id_name] ) }}"/>
+                        <input name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 65px;" value="{{ set_value2( descripcion_inv_~i~'_'~j, descripcion_inv[i][id_name] ) }}"/>
                             {% endif %}
                         </td>                  
                     {% endfor %}
-                            </tr>                  
+                        </tr>                  
                 {% endfor %}
                         </tbody>
                     </table>
@@ -1260,7 +1295,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Nombre del Predio de la inversión</label>
-                                    <input type="text" capitalize class="form-control" name="informacion_pre_nombre_predio" maxlength="30"  value="{{ set_value('informacion_pre_nombre_predio', informacion_predios_inversion[0].nombre_predio) }}"/>
+                                    <input type="text" capitalize class="form-control" name="informacion_pre_nombre_predio" maxlength="30"  value="{{ set_value2('informacion_pre_nombre_predio', informacion_predios_inversion[0].nombre_predio) }}"/>
                                 </div>
                             </div>
                         </div>
@@ -1268,7 +1303,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Área de la Presente Inversión (Has)</label>
-                                    <input type="text" capitalize class="form-control" name="informacion_pre_area" maxlength="30" value="{{ set_value('informacion_pre_area', informacion_predios_inversion[0].area) }}"/>
+                                    <input type="text" capitalize class="form-control" name="informacion_pre_area" maxlength="30" value="{{ set_value2('informacion_pre_area', informacion_predios_inversion[0].area) }}"/>
                                 </div>
                             </div>
                         </div>
@@ -1276,7 +1311,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Tenencia del predio de la inversión (Items del RUAT)</label>
-                                    <input type="text" capitalize class="form-control" name="informacion_pre_tenencia" maxlength="30"  value="{{ set_value('informacion_pre_tenencia', informacion_predios_inversion[0].tenencia) }}"/>
+                                    <input type="text" capitalize class="form-control" name="informacion_pre_tenencia" maxlength="30"  value="{{ set_value2('informacion_pre_tenencia', informacion_predios_inversion[0].tenencia) }}"/>
 
                                 </div>
                             </div>
@@ -1308,7 +1343,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Vereda <br>&nbsp;</label>
-                                    <input type="text" capitalize class="form-control" name="informacion_pre_vereda" maxlength="30" value="{{ set_value('informacion_pre_vereda', informacion_predios_inversion[0].vereda) }}"/>
+                                    <input type="text" capitalize class="form-control" name="informacion_pre_vereda" maxlength="30" value="{{ set_value2('informacion_pre_vereda', informacion_predios_inversion[0].vereda) }}"/>
                                 </div>
                             </div>
                         </div>
@@ -1328,7 +1363,7 @@
                                 <div class="form-group">
                                     <label class="">Fecha Inicial de la Inversión AAAA/MM/DD</label>
                                     <div class="input-group date datepicker autostart">
-                                        <input size="16" class="form-control" name="informacion_pre_fecha_ini" type="text" value="{{ set_value('informacion_pre_fecha_ini', informacion_predios_inversion[0].fecha_ini) }}">
+                                        <input size="16" class="form-control" name="informacion_pre_fecha_ini" type="text" value="{{ set_value2('informacion_pre_fecha_ini', informacion_predios_inversion[0].fecha_ini) }}">
                                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
                                     </div>
                                 </div>
@@ -1339,7 +1374,7 @@
                                 <div class="form-group">
                                     <label class="">Fecha final de la Inversión AAAA/MM/DD</label>
                                     <div class="input-group date datepicker autostart">
-                                        <input size="16" class="form-control" name="informacion_pre_fecha_fin" type="text" value="{{ set_value('informacion_pre_fecha_fin', informacion_predios_inversion[0].fecha_fin) }}">
+                                        <input size="16" class="form-control" name="informacion_pre_fecha_fin" type="text" value="{{ set_value2('informacion_pre_fecha_fin', informacion_predios_inversion[0].fecha_fin) }}">
                                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
                                     </div>
                                 </div>
@@ -1391,7 +1426,7 @@
                             {% elseif j == 9 %}  {% set id_name = 'tipo_pre_inv' %}
                             {% else %} {% set id_name = '' %}
                             {% endif %}
-                            
+
                         {% for j in 1..9 %}
                                 <td>
                             {% if i == 5 and j == 1 %}
@@ -1399,7 +1434,7 @@
                                     <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 100px;" hidden/>
 
                             {% else %}
-                                    <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 95px;" value="{{ set_value( ingresos_adicionales_~i~'_'~j, ingresos_adicionales[i][id_name] ) }}"/>
+                                    <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 95px;" value="{{ set_value2( ingresos_adicionales_~i~'_'~j, ingresos_adicionales[i][id_name] ) }}"/>
                             {% endif %}                
                                 </td>                  
                         {% endfor %}
@@ -1424,7 +1459,7 @@
             <div class="panel-body" style="display: block;">
                 <div class="container">
                     <div class="col-sm-12">
-                        <textarea name="descripcion_inv" style="width: 100%;" value="{{ set_value( 'descripcion_inv', solicitud_credito.descripcion_inv ) }}"></textarea>
+                        <textarea name="descripcion_inv" style="width: 100%;" value="{{ set_value2( 'descripcion_inv', solicitud_credito.descripcion_inv ) }}"></textarea>
                     </div>                   
                 </div>
             </div>
@@ -1443,7 +1478,7 @@
             <div class="panel-body" style="display: block;">
                 <div class="container">
                     <div class="col-sm-12">
-                        <textarea name="forma_llegar_pred" style="width: 100%;" value="{{ set_value( 'forma_llegar_pred', solicitud_credito.forma_llegar_pred ) }}"></textarea>
+                        <textarea name="forma_llegar_pred" style="width: 100%;" value="{{ set_value2( 'forma_llegar_pred', solicitud_credito.forma_llegar_pred ) }}"></textarea>
                     </div>                   
                 </div>
             </div>
@@ -1481,7 +1516,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Dirección</label>
-                                    <input type="text" class="form-control" name="descripcion_bien_1_5" value="{{ set_value( 'descripcion_bien_1_5', descripcion_inversiones[0].direccion ) }}"/>
+                                    <input type="text" class="form-control" name="descripcion_bien_1_5" value="{{ set_value2( 'descripcion_bien_1_5', descripcion_inversiones[0].direccion ) }}"/>
                                 </div>
                             </div>
                         </div>
@@ -1489,7 +1524,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Valor comercial</label>
-                                    <input type="text" class="form-control" name="descripcion_bien_1_6" value="{{ set_value( 'descripcion_bien_1_6', descripcion_inversiones[0].valor_comercial ) }}"/>
+                                    <input type="text" class="form-control" name="descripcion_bien_1_6" value="{{ set_value2( 'descripcion_bien_1_6', descripcion_inversiones[0].valor_comercial ) }}"/>
 
                                 </div>
                             </div>
@@ -1522,7 +1557,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Vereda</label>
-                                    <input type="text" class="form-control" name="descripcion_bien_1_4" value="{{ set_value( 'descripcion_bien_1_4', descripcion_inversiones[0].vereda ) }}"/>
+                                    <input type="text" class="form-control" name="descripcion_bien_1_4" value="{{ set_value2( 'descripcion_bien_1_4', descripcion_inversiones[0].vereda ) }}"/>
 
                                 </div>
                             </div>
@@ -1549,7 +1584,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Dirección</label>
-                                    <input type="text" class="form-control" name="descripcion_bien_2_5" value="{{ set_value( 'descripcion_bien_2_5', descripcion_inversiones[1].direccion ) }}"/>
+                                    <input type="text" class="form-control" name="descripcion_bien_2_5" value="{{ set_value2( 'descripcion_bien_2_5', descripcion_inversiones[1].direccion ) }}"/>
 
                                 </div>
                             </div>
@@ -1558,7 +1593,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Valor comercial</label>
-                                    <input type="text" class="form-control" name="descripcion_bien_2_6" value="{{ set_value( 'descripcion_bien_2_6', descripcion_inversiones[1].valor_comercial ) }}"/>
+                                    <input type="text" class="form-control" name="descripcion_bien_2_6" value="{{ set_value2( 'descripcion_bien_2_6', descripcion_inversiones[1].valor_comercial ) }}"/>
 
                                 </div>
                             </div>
@@ -1591,7 +1626,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Vereda</label>
-                                    <input type="text" class="form-control" name="descripcion_bien_2_4" value="{{ set_value( 'descripcion_bien_2_4', descripcion_inversiones[1].vereda ) }}"/>
+                                    <input type="text" class="form-control" name="descripcion_bien_2_4" value="{{ set_value2( 'descripcion_bien_2_4', descripcion_inversiones[1].vereda ) }}"/>
 
                                 </div>
                             </div>
@@ -1618,7 +1653,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Dirección</label>
-                                    <input type="text" class="form-control" name="descripcion_bien_3_5" value="{{ set_value( 'descripcion_bien_3_5', descripcion_inversiones[2].direccion ) }}"/>
+                                    <input type="text" class="form-control" name="descripcion_bien_3_5" value="{{ set_value2( 'descripcion_bien_3_5', descripcion_inversiones[2].direccion ) }}"/>
 
                                 </div>
                             </div>
@@ -1627,7 +1662,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Valor comercial</label>
-                                    <input type="text" class="form-control" name="descripcion_bien_3_6" value="{{ set_value( 'descripcion_bien_3_6', descripcion_inversiones[1].valor_comercial ) }}"/>
+                                    <input type="text" class="form-control" name="descripcion_bien_3_6" value="{{ set_value2( 'descripcion_bien_3_6', descripcion_inversiones[1].valor_comercial ) }}"/>
 
                                 </div>
                             </div>
@@ -1660,7 +1695,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Vereda</label>
-                                    <input type="text" class="form-control" name="descripcion_bien_3_4" value="{{ set_value( 'descripcion_bien_3_4', descripcion_inversiones[2].vereda ) }}"/>
+                                    <input type="text" class="form-control" name="descripcion_bien_3_4" value="{{ set_value2( 'descripcion_bien_3_4', descripcion_inversiones[2].vereda ) }}"/>
 
                                 </div>
                             </div>
@@ -1675,7 +1710,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Vehículo -  Marca</label>
-                                    <input type="text" class="form-control" name="vehiculo_marca" value="{{ set_value( 'vehiculo_marca', descripcion_bienes[0].marca ) }}"/>
+                                    <input type="text" class="form-control" name="vehiculo_marca" value="{{ set_value2( 'vehiculo_marca', descripcion_bienes[0].marca ) }}"/>
 
                                     </select>
                                 </div>
@@ -1685,7 +1720,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Placa</label>
-                                    <input type="text" class="form-control" name="vehiculo_placa" value="{{ set_value( 'vehiculo_placa', descripcion_bienes[0].placa ) }}"/>
+                                    <input type="text" class="form-control" name="vehiculo_placa" value="{{ set_value2( 'vehiculo_placa', descripcion_bienes[0].placa ) }}"/>
 
                                 </div>
                             </div>
@@ -1694,7 +1729,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Modelo</label>
-                                    <input type="text" class="form-control" name="vehiculo_modelo" value="{{ set_value( 'vehiculo_modelo', descripcion_bienes[0].modelo ) }}"/>
+                                    <input type="text" class="form-control" name="vehiculo_modelo" value="{{ set_value2( 'vehiculo_modelo', descripcion_bienes[0].modelo ) }}"/>
 
                                 </div>
                             </div>
@@ -1706,7 +1741,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Prenda a favor de</label>
-                                    <input type="text" class="form-control" name="vehiculo_prenda_favor" value="{{ set_value( 'vehiculo_prenda_favor', descripcion_bienes[0].prenda_favor ) }}"/>
+                                    <input type="text" class="form-control" name="vehiculo_prenda_favor" value="{{ set_value2( 'vehiculo_prenda_favor', descripcion_bienes[0].prenda_favor ) }}"/>
 
                                 </div>
                             </div>
@@ -1715,7 +1750,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Valor de la deuda</label>
-                                    <input type="text" class="form-control" name="vehiculo_valor_deuda" value="{{ set_value( 'vehiculo_valor_deuda', descripcion_bienes[0].valor_deuda ) }}"/>
+                                    <input type="text" class="form-control" name="vehiculo_valor_deuda" value="{{ set_value2( 'vehiculo_valor_deuda', descripcion_bienes[0].valor_deuda ) }}"/>
 
                                 </div>
                             </div>
@@ -1724,7 +1759,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Valor Comercial</label>
-                                    <input type="text" class="form-control" name="vehiculo_valor_comercial" value="{{ set_value( 'vehiculo_valor_comercial', descripcion_bienes[0].valor_comercial ) }}"/>
+                                    <input type="text" class="form-control" name="vehiculo_valor_comercial" value="{{ set_value2( 'vehiculo_valor_comercial', descripcion_bienes[0].valor_comercial ) }}"/>
 
                                 </div>
                             </div>
@@ -1741,38 +1776,38 @@
                         <tbody>
                             <tr>
                                 <td>Semovientes</td>
-                                <td><input  name="otros_bienes1" style="width: 120px;" value="{{ set_value( 'otros_bienes1', descripcion_bienes[0].otros_bienes1 ) }}"/></td>
+                                <td><input  name="otros_bienes1" style="width: 120px;" value="{{ set_value2( 'otros_bienes1', descripcion_bienes[0].otros_bienes1 ) }}"/></td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad1" style="width: 120px;" value="{{ set_value( 'otros_cantidad1', descripcion_bienes[0].otros_cantidad1 ) }}"/></td>
+                                <td><input  name="otros_cantidad1" style="width: 120px;" value="{{ set_value2( 'otros_cantidad1', descripcion_bienes[0].otros_cantidad1 ) }}"/></td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor1" style="width: 120px;" value="{{ set_value( 'otros_valor1', descripcion_bienes[0].otros_valor1 ) }}"/></td>
+                                <td><input  name="otros_valor1" style="width: 120px;" value="{{ set_value2( 'otros_valor1', descripcion_bienes[0].otros_valor1 ) }}"/></td>
                             </tr>
 
                             <tr>
                                 <td>Maquinaria</td>
-                                <td><input  name="otros_bienes2" style="width: 120px;" value="{{ set_value( 'otros_bienes2', descripcion_bienes[0].otros_bienes2 ) }}"/></td>
+                                <td><input  name="otros_bienes2" style="width: 120px;" value="{{ set_value2( 'otros_bienes2', descripcion_bienes[0].otros_bienes2 ) }}"/></td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad2" style="width: 120px;" value="{{ set_value( 'otros_cantidad2', descripcion_bienes[0].otros_cantidad2 ) }}"/></td>
+                                <td><input  name="otros_cantidad2" style="width: 120px;" value="{{ set_value2( 'otros_cantidad2', descripcion_bienes[0].otros_cantidad2 ) }}"/></td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor2" style="width: 120px;" value="{{ set_value( 'otros_valor2', descripcion_bienes[0].otros_valor2 ) }}"/></td>
+                                <td><input  name="otros_valor2" style="width: 120px;" value="{{ set_value2( 'otros_valor2', descripcion_bienes[0].otros_valor2 ) }}"/></td>
                             </tr>
 
                             <tr>
                                 <td>Cultivos en desarrollo</td>
-                                <td><input  name="otros_bienes3" style="width: 120px;" value="{{ set_value( 'otros_bienes3', descripcion_bienes[0].otros_bienes3 ) }}"/></td>
+                                <td><input  name="otros_bienes3" style="width: 120px;" value="{{ set_value2( 'otros_bienes3', descripcion_bienes[0].otros_bienes3 ) }}"/></td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad3" style="width: 120px;" value="{{ set_value( 'otros_cantidad3', descripcion_bienes[0].otros_cantidad3 ) }}"/></td>
+                                <td><input  name="otros_cantidad3" style="width: 120px;" value="{{ set_value2( 'otros_cantidad3', descripcion_bienes[0].otros_cantidad3 ) }}"/></td>
                                 <td>Valor Comercial</td>
                                 <td><input  name="otros_valor3" style="width: 120px;"/></td>
                             </tr>
 
                             <tr>
                                 <td>Inversiones y otros activos</td>
-                                <td><input  name="otros_bienes4" style="width: 120px;" value="{{ set_value( 'otros_bienes4', descripcion_bienes[0].otros_bienes4 ) }}"/></td>
+                                <td><input  name="otros_bienes4" style="width: 120px;" value="{{ set_value2( 'otros_bienes4', descripcion_bienes[0].otros_bienes4 ) }}"/></td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad4" style="width: 120px;" value="{{ set_value( 'otros_cantidad4', descripcion_bienes[0].otros_cantidad4 ) }}"/></td>
+                                <td><input  name="otros_cantidad4" style="width: 120px;" value="{{ set_value2( 'otros_cantidad4', descripcion_bienes[0].otros_cantidad4 ) }}"/></td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor4" style="width: 120px;" value="{{ set_value( 'otros_valor4', descripcion_bienes[0].otros_valor4 ) }}"/></td>
+                                <td><input  name="otros_valor4" style="width: 120px;" value="{{ set_value2( 'otros_valor4', descripcion_bienes[0].otros_valor4 ) }}"/></td>
                             </tr>
 
                         </tbody>
@@ -1785,7 +1820,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label"> Observaciones</label>
-                                    <textarea name="observaciones" style="width: 100%;" value="{{ set_value( 'observaciones', solicitud_credito.observaciones ) }}"></textarea>
+                                    <textarea name="observaciones" style="width: 100%;" value="{{ set_value2( 'observaciones', solicitud_credito.observaciones ) }}"></textarea>
 
                                 </div>
                             </div>

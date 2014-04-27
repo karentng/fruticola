@@ -289,9 +289,11 @@ class Creditoagropecuario extends CI_Controller {
             }
         } else if (validation_errors()) {
 
-            var_dump(validation_errors());
+//            var_dump(validation_errors());
             $this->twiggy->set('notif', array('type' => 'error', 'text' => "Se encontraron errores al procesar el formulario. <br> Revise los recuadros rojos"));
         }
+        
+        set_value();
 
         $this->twiggy->set('combos', $data);
         $this->twiggy->set("productor", $productor);
@@ -299,6 +301,7 @@ class Creditoagropecuario extends CI_Controller {
         $this->twiggy->set("renglon", $renglon);
         $this->twiggy->set("contacto_departamento", $contacto->departamento);
         $this->twiggy->set("contacto_municipio", $contacto->municipio);
+        $this->twiggy->register_function('set_value2');
 
 
         $this->twiggy->set("conyugue", $conyugue);
@@ -321,7 +324,7 @@ class Creditoagropecuario extends CI_Controller {
         $this->form_validation->set_rules("conyugue_nombre1", ' ', 'required');
         $this->form_validation->set_rules("conyugue_apellido1", ' ', 'required');
         $this->form_validation->set_rules("conyugue_fecha_nacimiento", ' ', 'required');
-
+        
         for ($i = 1; $i <= 2; $i++) {
             $this->form_validation->set_rules("referencias_fam{$i}_nombres", ' ', 'required');
             $this->form_validation->set_rules("referencias_fam{$i}_apellido1", ' ', 'required');
