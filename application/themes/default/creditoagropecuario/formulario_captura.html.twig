@@ -46,6 +46,22 @@
 
         //console.debug( "test" );
         //console.debug( '{{referencias_familiares[0].departamento_id}}' );
+        
+         $('#solicitud_credito_dre_check, #solicitud_credito_icr_check').on('change', function(){
+                var id = $( this ).attr('id');
+                var last_index = id.lastIndexOf('_');
+                var new_id = id.substring(0, last_index);
+
+                console.debug(new_id);
+                console.debug($( this ).parent().hasClass('switch-off'));
+                
+                $( '#'+new_id ).val('');
+
+                if(!$( this ).parent().hasClass('switch-off'))
+                    $( '#'+new_id ).slideDown();
+                else
+                    $( '#'+new_id ).hide();
+        });
 
         set_combos_deptos();
         set_combos_mupios();
@@ -1271,7 +1287,42 @@
 
 
                     <div class="row">
-                        /*Something is misssing here*/
+                        <div class="col-md-6">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">El o los rubros a financiar tienen acceso al ICR</label><br/>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                            <input id="solicitud_credito_icr_check" class="form-control"  class="toggle" type="checkbox" {{set_value2('solicitud_credito_icr', solicitud_credito.rubros_fin_icr) != '' ? 'checked' : ''}}/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input id="solicitud_credito_icr" name="solicitud_credito_icr" class="form-control" class="form-control" type="text" {{set_value2('solicitud_credito_icr', solicitud_credito.rubros_fin_icr) != '' ? '' : 'style="display: none;"'}}  value="{{ set_value2('solicitud_credito_icr', solicitud_credito.rubros_fin_icr) }}"/>
+                                    </div>
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">El o los rubros a financiar tienen acceso al programa especial DRE</label><br/>
+
+                                    <div class="col-md-3">
+                                        <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                            <input id="solicitud_credito_dre_check" class="form-control" class="toggle" type="checkbox" {{set_value2('solicitud_credito_dre', solicitud_credito.rubros_fin_dre) != '' ? 'checked' : ''}}/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input id="solicitud_credito_dre" name="solicitud_credito_dre" class="form-control"  class="form-control" type="text" {{set_value2('solicitud_credito_dre', solicitud_credito.rubros_fin_dre) != '' ? '' : 'style="display: none;"'}}  value="{{ set_value2('solicitud_credito_dre', solicitud_credito.rubros_fin_dre) }}"/>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

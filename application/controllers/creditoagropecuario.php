@@ -74,8 +74,8 @@ class Creditoagropecuario extends CI_Controller {
             $solicitud_credito->municipio = 1; /// OJO! no está aun en el formulario
             $solicitud_credito->experiencia = TRUE; /// OJO! no está aun en el formulario
             $solicitud_credito->calidad_de = TRUE; /// OJO! no está aun en el formulario
-//            $solicitud_credito->rubros_fin_icr = TRUE;
-//            $solicitud_credito->rubros_fin_dre = TRUE;
+            $solicitud_credito->rubros_fin_icr = $this->input->post('solicitud_credito_icr');
+            $solicitud_credito->rubros_fin_dre = $this->input->post('solicitud_credito_dre');
             $solicitud_credito->descripcion_inv = $this->input->post('descripcion_inv');
             $solicitud_credito->forma_llegar_pred = $this->input->post('forma_llegar_pred');
             $solicitud_credito->tiempo_permanencia = $this->input->post('tiempo_permanencia');
