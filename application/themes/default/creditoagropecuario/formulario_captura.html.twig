@@ -26,7 +26,7 @@
         //console.debug(departamentos.html());
         //console.debug(combos['departamentos']);
 
-        $('#referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_per1_departamento, #referencias_per2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #informacion_pre_tenencia_departamento').append(departamentos.html()).on('change', function() {
+        $('#banco_agrario_departamento, #referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_per1_departamento, #referencias_per2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #informacion_pre_tenencia_departamento').append(departamentos.html()).on('change', function() {
             var id = $(this).attr('id');
             var value = $(this).val();
             var last_index = id.lastIndexOf('_');
@@ -74,6 +74,7 @@
     }
 
     function set_combos_deptos() {
+        $('#banco_agrario_departamento')..val('{{solicitud_credito.departamento_id}}');
         $('#referencias_fam1_departamento').val('{{referencias_familiares[0].departamento_id}}');
         $('#referencias_fam2_departamento').val('{{referencias_familiares[1].departamento_id}}');
         $('#referencias_per1_departamento').val('{{referencias_personales[0].departamento_id}}');
@@ -89,6 +90,7 @@
     }
 
     function set_combos_mupios() {
+        $('#banco_agrario_municipio')..val('{{solicitud_credito.municipio_id}}');
         $('#referencias_fam1_municipio').val('{{referencias_familiares[0].municipio_id}}');
         $('#referencias_fam2_municipio').val('{{referencias_familiares[1].municipio_id}}');
         $('#referencias_per1_municipio').val('{{referencias_personales[0].municipio_id}}');
@@ -132,19 +134,125 @@
     <div class="form-horizontal css-form">
         {{ form_open_multipart(null, {role:'form', class:'form-horizontal'}) }}
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-sm-7">
 
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-5">
                 <div class="input-group">
                     <label class="control-label col-sm-4">Fecha</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="sc_fecha" style="color:red; text-align:center">
+                        <div class="input-group date datepicker autostart">
+                            <input size="16" class="form-control" name="sc_fecha" type="text" value="{{ set_value2('sc_fecha', solicitud_credito.fecha | date('Y-m-d')) }}" style="text-align: center;">
+                            <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                        </div>
                         {{form_error('sc_fecha')}}
+                        <span class="help-block"><small>AAAA-MM-DD</small></span> 
                     </div> 
                 </div>
             </div>
         </div>
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>A. SOLICITUD DE CRÉDITO AGRÍCOLA PERSONA NATURAL (seleccione las opciones abajo indicadas)</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container"> 
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Código del Beneficiario</label><br/>&nbsp;
+                                    <input type="text" class="form-control" name="cod_beneficiario" maxlength="30" value="{{ set_value2('cod_beneficiario', solicitud_credito.cod_beneficiario) }}"/>
+                                </div>
+                                {{form_error('')}}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre de la Oficina del Banco Agrario</label>
+                                    <input type="text" capitalize class="form-control" name="nombre_oficina"  maxlength="30" value="{{ set_value2('nombre_oficina', solicitud_credito.nombre_oficina) }}"/>
+                                </div>
+                                {{form_error('')}}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Departamento de la oficina del Banco Agrario</label>
+                                    <select name="banco_agrario_departamento" id="banco_agrario_departamento" class="form-control">
+                                        <option></option>
+                                    </select>
+                                    {{form_error('')}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Municipio de la oficina del Banco Agrario</label>
+                                    <select name="banco_agrario_municipio" id="banco_agrario_municipio" class="form-control">
+                                        <option></option>
+                                    </select>
+                                    {{form_error('')}}
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo Productor</label>
+                                    <select name="" id="" class="form-control">
+                                        <option value=""></option>
+                                        <option value="1" {{solicitud_credito.experiencia == 1? 'selected': ''}}>Pequeño</option>
+                                        <option value="2" {{solicitud_credito.experiencia == 2? 'selected': ''}}>Mediano</option>
+                                    </select>
+                                    {{form_error('')}}
+                                </div>        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">Ha tenido experiencia con el Banco Agrario </label>
+                                    <select name="experiencia" id="experiencia" class="form-control">
+                                        <option value=""></option>
+                                        <option value="1" {{solicitud_credito.experiencia == 1? 'selected': ''}}>si</option>
+                                        <option value="0" {{solicitud_credito.experiencia == 2? 'selected': ''}}>no</option>
+                                    </select>
+                                    {{form_error('')}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="control-label">En Calidad de</label>
+                                    <select name="calidad_de" id="calidad_de" class="form-control">
+                                        <option value=""></option>
+                                        <option value="1" {{solicitud_credito.calidad_de == 1? 'selected': ''}}>Deudor Principal</option>
+                                        <option value="2" {{solicitud_credito.calidad_de == 2? 'selected': ''}}>Deudor Solidario</option>
+                                        <option value="3" {{solicitud_credito.calidad_de == 3? 'selected': ''}}>Avalista</option>
+                                    </select>
+                                    {{form_error('')}}
+                                </div>
+                            </div>
+                        </div>
+              
+                    </div>
+                </div> <!-- .container -->
+            </div><!-- End .panel-body -->
+
+        </div><!-- panel default -->
+
         <br/>
 
         <div class="panel panel-default">
