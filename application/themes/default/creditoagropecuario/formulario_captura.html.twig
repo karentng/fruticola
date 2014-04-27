@@ -26,7 +26,7 @@
         //console.debug(departamentos.html());
         //console.debug(combos['departamentos']);
 
-        $('#referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_per1_departamento, #referencias_per2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #descripcion_bienes_departamento, #informacion_pre_tenencia_departamento').append(departamentos.html()).on('change', function(){
+        $('#referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_per1_departamento, #referencias_per2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #informacion_pre_tenencia_departamento').append(departamentos.html()).on('change', function(){
                 var id = $( this ).attr('id');
                 var value = $( this ).val();
                 var last_index = id.lastIndexOf('_');
@@ -44,8 +44,11 @@
                 $( '#'+new_id ).empty().append( crear_combo_mupios( combos['departamentos'][value].municipios ).html() );
         });
 
-        console.debug( "test" );
-        console.debug( '{{referencias_familiares[0].departamento_id}}' );
+        //console.debug( "test" );
+        //console.debug( '{{referencias_familiares[0].departamento_id}}' );
+
+        set_combos_deptos();
+        set_combos_mupios();
     });
 
     function crear_combo_deptos(){
@@ -56,26 +59,33 @@
 
     function set_combos_deptos(){
         $( '#referencias_fam1_departamento' ).val( '{{referencias_familiares[0].departamento_id}}' );
-        $( '#referencias_fam2_departamento' ).val( '' );
-        $( '#referencias_per1_departamento' ).val( '' );
-        $( '#referencias_per2_departamento' ).val( '' );
-        $( '#referencias_fin1_departamento' ).val( '' );
-        $( '#referencias_fin2_departamento' ).val( '' );
-        $( '#referencias_com_departamento' ).val( '' );
-        $( '#descripcion_bienes_departamento' ).val( '' );
-        $( '#informacion_pre_tenencia_departamento' ).val( '' );
+        $( '#referencias_fam2_departamento' ).val( '{{referencias_familiares[1].departamento_id}}' );
+        $( '#referencias_per1_departamento' ).val( '{{referencias_personales[0].departamento_id}}' );
+        $( '#referencias_per2_departamento' ).val( '{{referencias_personales[1].departamento_id}}' );
+        $( '#referencias_fin1_departamento' ).val( '{{referencias_financieras[0].departamento_id}}' );
+        $( '#referencias_fin2_departamento' ).val( '{{referencias_financieras[1].departamento_id}}' );
+        $( '#referencias_com_departamento' ).val( '{{referencias_comerciales[0].departamento_id}}' );
+        $( '#informacion_pre_tenencia_departamento' ).val( '{{informacion_predios_inversion[0].departamento_id}}' );
+
+        $( '#descripcion_bien_1_2' ).val( '{{descripcion_bienes_inmuebles[0].departamento_id}}' );
+        $( '#descripcion_bien_2_2' ).val( '{{descripcion_bienes_inmuebles[1].departamento_id}}' );
+        $( '#descripcion_bien_3_2' ).val( '{{descripcion_bienes_inmuebles[2].departamento_id}}' );
     }
 
     function set_combos_mupios(){
         $( '#referencias_fam1_municipio' ).val( '{{referencias_familiares[0].municipio_id}}' );
-        $( '#referencias_fam2_municipio' ).val(  );
-        $( '#referencias_per1_municipio' ).val(  );
-        $( '#referencias_per2_municipio' ).val(  );
-        $( '#referencias_fin1_municipio' ).val(  );
-        $( '#referencias_fin2_municipio' ).val(  );
-        $( '#referencias_com_municipio' ).val(  );
-        $( '#descripcion_bienes_municipio' ).val(  );
-        $( '#informacion_pre_tenencia_municipio' ).val(  );
+        $( '#referencias_fam2_municipio' ).val( '{{referencias_familiares[1].municipio_id}}' );
+        $( '#referencias_per1_municipio' ).val( '{{referencias_personales[0].municipio_id}}' );
+        $( '#referencias_per2_municipio' ).val( '{{referencias_personales[1].municipio_id}}' );
+        $( '#referencias_fin1_municipio' ).val( '{{referencias_financieras[0].municipio_id}}' );
+        $( '#referencias_fin2_municipio' ).val( '{{referencias_financieras[1].municipio_id}}' );
+        $( '#referencias_com_municipio' ).val( '{{referencias_comerciales[0].municipio_id}}' );
+        $( '#descripcion_bienes_municipio' ).val( '{{descripcion_bienes[0].municipio_id}}' );
+        $( '#informacion_pre_tenencia_municipio' ).val( '{{informacion_predios_inversion[0].municipio_id}}' );
+
+        $( '#descripcion_bien_1_3' ).val( '{{descripcion_bienes_inmuebles[0].municipio_id}}' );
+        $( '#descripcion_bien_2_3' ).val( '{{descripcion_bienes_inmuebles[1].municipio_id}}' );
+        $( '#descripcion_bien_3_3' ).val( '{{descripcion_bienes_inmuebles[2].municipio_id}}' );
     }
 
     function crear_combo_mupios(municipios_option){
