@@ -69,11 +69,13 @@ class Creditoagropecuario extends CI_Controller {
 
             $solicitud_credito->ruat_id = $ruat_id;
             $solicitud_credito->fecha = $this->input->post('sc_fecha');
-            //$solicitud_credito->cod_beneficiario = null;
-            //$solicitud_credito->nombre_oficina = null;
-            $solicitud_credito->municipio = 1; /// OJO! no está aun en el formulario
-            $solicitud_credito->experiencia = TRUE; /// OJO! no está aun en el formulario
-            $solicitud_credito->calidad_de = TRUE; /// OJO! no está aun en el formulario
+            $solicitud_credito->cod_beneficiario = $this->input->post('cod_beneficiario');
+            $solicitud_credito->nombre_oficina = $this->input->post('nombre_oficina');
+            $solicitud_credito->departamento_id = $this->input->post('banco_agrario_departamento');
+            $solicitud_credito->municipio_id = $this->input->post('banco_agrario_municipio');
+            $solicitud_credito->tipo_productor = $this->input->post('solicitud_tipo_productor');
+            $solicitud_credito->experiencia = $this->input->post('experiencia');
+            $solicitud_credito->calidad_de = $this->input->post('calidad_de');
             $solicitud_credito->rubros_fin_icr = $this->input->post('solicitud_credito_icr');
             $solicitud_credito->rubros_fin_dre = $this->input->post('solicitud_credito_dre');
             $solicitud_credito->descripcion_inv = $this->input->post('descripcion_inv');
@@ -320,6 +322,12 @@ class Creditoagropecuario extends CI_Controller {
 
     private function validation_rules() {
         $this->form_validation->set_rules("sc_fecha", ' ', 'required');
+        $this->form_validation->set_rules("cod_beneficiario", ' ', 'required');
+        $this->form_validation->set_rules("nombre_oficina", ' ', 'required');
+        $this->form_validation->set_rules("banco_agrario_departamento", ' ', 'required');
+        $this->form_validation->set_rules("banco_agrario_municipio", ' ', 'required|numeric');
+        $this->form_validation->set_rules("solicitud_tipo_productor", ' ', 'required|numeric');
+        $this->form_validation->set_rules("experiencia", ' ', 'required|numeric');
 
         $this->form_validation->set_rules("conyugue_nombre1", ' ', 'required');
         $this->form_validation->set_rules("conyugue_apellido1", ' ', 'required');

@@ -169,7 +169,7 @@
                                     <label class="control-label">Código del Beneficiario</label><br/>&nbsp;
                                     <input type="text" class="form-control" name="cod_beneficiario" maxlength="30" value="{{ set_value2('cod_beneficiario', solicitud_credito.cod_beneficiario) }}"/>
                                 </div>
-                                {{form_error('')}}
+                                {{form_error('cod_beneficiario')}}
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -178,7 +178,7 @@
                                     <label class="control-label">Nombre de la Oficina del Banco Agrario</label>
                                     <input type="text" capitalize class="form-control" name="nombre_oficina"  maxlength="30" value="{{ set_value2('nombre_oficina', solicitud_credito.nombre_oficina) }}"/>
                                 </div>
-                                {{form_error('')}}
+                                {{form_error('nombre_oficina')}}
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -188,7 +188,7 @@
                                     <select name="banco_agrario_departamento" id="banco_agrario_departamento" class="form-control">
                                         <option></option>
                                     </select>
-                                    {{form_error('')}}
+                                    {{form_error('banco_agrario_departamento')}}
                                 </div>
                             </div>
                         </div>
@@ -199,7 +199,7 @@
                                     <select name="banco_agrario_municipio" id="banco_agrario_municipio" class="form-control">
                                         <option></option>
                                     </select>
-                                    {{form_error('')}}
+                                    {{form_error('banco_agrario_municipio')}}
                                 </div>
                             </div>
                         </div>                        
@@ -210,12 +210,12 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Tipo Productor</label>
-                                    <select name="" id="" class="form-control">
+                                    <select name="solicitud_tipo_productor" id="solicitud_tipo_productor" class="form-control">
                                         <option value=""></option>
-                                        <option value="1" {{solicitud_credito.experiencia == 1? 'selected': ''}}>Pequeño</option>
-                                        <option value="2" {{solicitud_credito.experiencia == 2? 'selected': ''}}>Mediano</option>
+                                        <option value="1" {{solicitud_credito.tipo_productor == 1? 'selected': ''}}>Pequeño</option>
+                                        <option value="2" {{solicitud_credito.tipo_productor == 2? 'selected': ''}}>Mediano</option>
                                     </select>
-                                    {{form_error('')}}
+                                    {{form_error('solicitud_tipo_productor')}}
                                 </div>        
                             </div>
                         </div>
@@ -228,7 +228,7 @@
                                         <option value="1" {{solicitud_credito.experiencia == 1? 'selected': ''}}>si</option>
                                         <option value="0" {{solicitud_credito.experiencia == 2? 'selected': ''}}>no</option>
                                     </select>
-                                    {{form_error('')}}
+                                    {{form_error('experiencia')}}
                                 </div>
                             </div>
                         </div>
@@ -242,7 +242,7 @@
                                         <option value="2" {{solicitud_credito.calidad_de == 2? 'selected': ''}}>Deudor Solidario</option>
                                         <option value="3" {{solicitud_credito.calidad_de == 3? 'selected': ''}}>Avalista</option>
                                     </select>
-                                    {{form_error('')}}
+                                    {{form_error('calidad_de')}}
                                 </div>
                             </div>
                         </div>
