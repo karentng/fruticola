@@ -26,7 +26,7 @@
         //console.debug(departamentos.html());
         //console.debug(combos['departamentos']);
 
-        $('#banco_agrario_departamento, #referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_per1_departamento, #referencias_per2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #informacion_pre_tenencia_departamento').append(departamentos.html()).on('change', function() {
+        $('#banco_agrario_departamento, #referencias_fam1_departamento, #referencias_fam2_departamento, #referencias_per1_departamento, #referencias_per2_departamento, #referencias_fin1_departamento, #referencias_fin2_departamento, #referencias_com_departamento, #informacion_pre_departamento').append(departamentos.html()).on('change', function() {
             var id = $(this).attr('id');
             var value = $(this).val();
             var last_index = id.lastIndexOf('_');
@@ -74,7 +74,7 @@
     }
 
     function set_combos_deptos() {
-        $('#banco_agrario_departamento')..val('{{solicitud_credito.departamento_id}}');
+        $('#banco_agrario_departamento').val('{{solicitud_credito.departamento_id}}');
         $('#referencias_fam1_departamento').val('{{referencias_familiares[0].departamento_id}}');
         $('#referencias_fam2_departamento').val('{{referencias_familiares[1].departamento_id}}');
         $('#referencias_per1_departamento').val('{{referencias_personales[0].departamento_id}}');
@@ -82,7 +82,7 @@
         $('#referencias_fin1_departamento').val('{{referencias_financieras[0].departamento_id}}');
         $('#referencias_fin2_departamento').val('{{referencias_financieras[1].departamento_id}}');
         $('#referencias_com_departamento').val('{{referencias_comerciales[0].departamento_id}}');
-        $('#informacion_pre_tenencia_departamento').val('{{informacion_predios_inversion[0].departamento_id}}');
+        $('#informacion_pre_departamento').val('{{informacion_predios_inversion[0].departamento_id}}');
 
         $('#descripcion_bien_1_2').val('{{descripcion_bienes_inmuebles[0].departamento_id}}');
         $('#descripcion_bien_2_2').val('{{descripcion_bienes_inmuebles[1].departamento_id}}');
@@ -90,7 +90,7 @@
     }
 
     function set_combos_mupios() {
-        $('#banco_agrario_municipio')..val('{{solicitud_credito.municipio_id}}');
+        $('#banco_agrario_municipio').val('{{solicitud_credito.municipio_id}}');
         $('#referencias_fam1_municipio').val('{{referencias_familiares[0].municipio_id}}');
         $('#referencias_fam2_municipio').val('{{referencias_familiares[1].municipio_id}}');
         $('#referencias_per1_municipio').val('{{referencias_personales[0].municipio_id}}');
@@ -99,7 +99,7 @@
         $('#referencias_fin2_municipio').val('{{referencias_financieras[1].municipio_id}}');
         $('#referencias_com_municipio').val('{{referencias_comerciales[0].municipio_id}}');
         $('#descripcion_bienes_municipio').val('{{descripcion_bienes[0].municipio_id}}');
-        $('#informacion_pre_tenencia_municipio').val('{{informacion_predios_inversion[0].municipio_id}}');
+        $('#informacion_pre_municipio').val('{{informacion_predios_inversion[0].municipio_id}}');
 
         $('#descripcion_bien_1_3').val('{{descripcion_bienes_inmuebles[0].municipio_id}}');
         $('#descripcion_bien_2_3').val('{{descripcion_bienes_inmuebles[1].municipio_id}}');
@@ -1386,6 +1386,7 @@
                             {% else %}             
                         <input name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 65px;" value="{{ set_value2( descripcion_inv_~i~'_'~j, descripcion_inv[i][id_name] ) }}"/>
                             {% endif %}
+                        {{form_error('descripcion_inv_' ~ i ~ '_' ~ j )}}
                         </td>                  
                     {% endfor %}
                         </tr>                  
@@ -1455,6 +1456,7 @@
                                 <div class="form-group">
                                     <label class="">Nombre del Predio de la inversión</label>
                                     <input type="text" capitalize class="form-control" name="informacion_pre_nombre_predio" maxlength="30"  value="{{ set_value2('informacion_pre_nombre_predio', informacion_predios_inversion[0].nombre_predio) }}"/>
+                                    {{form_error('informacion_pre_nombre_predio')}}
                                 </div>
                             </div>
                         </div>
@@ -1463,6 +1465,7 @@
                                 <div class="form-group">
                                     <label class="">Área de la Presente Inversión (Has)</label>
                                     <input type="text" capitalize class="form-control" name="informacion_pre_area" maxlength="30" value="{{ set_value2('informacion_pre_area', informacion_predios_inversion[0].area) }}"/>
+                                    {{form_error('informacion_pre_area')}}
                                 </div>
                             </div>
                         </div>
@@ -1471,7 +1474,7 @@
                                 <div class="form-group">
                                     <label class="">Tenencia del predio de la inversión (Items del RUAT)</label>
                                     <input type="text" capitalize class="form-control" name="informacion_pre_tenencia" maxlength="30"  value="{{ set_value2('informacion_pre_tenencia', informacion_predios_inversion[0].tenencia) }}"/>
-
+                                    {{form_error('informacion_pre_tenencia')}}
                                 </div>
                             </div>
                         </div>
@@ -1479,9 +1482,10 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label>Departamento del Predio de la Inversión</label>
-                                    <select name="informacion_pre_tenencia_departamento" id="informacion_pre_tenencia_departamento" class="form-control">
+                                    <select name="informacion_pre_departamento" id="informacion_pre_departamento" class="form-control">
                                         <option ></option>
                                     </select>
+                                    {{form_error('informacion_pre_departamento')}}
                                 </div>
                             </div>
                         </div>
@@ -1492,9 +1496,10 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Municipio del Predio de la Inversión</label>
-                                    <select name="informacion_pre_tenencia_municipio" id="informacion_pre_tenencia_municipio" class="form-control">
+                                    <select name="informacion_pre_municipio" id="informacion_pre_municipio" class="form-control">
                                         <option ></option>
                                     </select>
+                                    {{form_error('informacion_pre_municipio')}}
                                 </div>
                             </div>
                         </div>
@@ -1503,6 +1508,7 @@
                                 <div class="form-group">
                                     <label class="">Vereda <br>&nbsp;</label>
                                     <input type="text" capitalize class="form-control" name="informacion_pre_vereda" maxlength="30" value="{{ set_value2('informacion_pre_vereda', informacion_predios_inversion[0].vereda) }}"/>
+                                    {{form_error('informacion_pre_vereda')}}
                                 </div>
                             </div>
                         </div>
@@ -1514,6 +1520,7 @@
                                         <option value="1" {{informacion_predios_inversion[0].fuente_hid == 1 ? 'selected': ''}}>si</option>
                                         <option value="0" {{informacion_predios_inversion[0].fuente_hid == 0 ? 'selected': ''}}>no</option>
                                     </select>
+                                    {{form_error('informacion_pre_fuente_hid')}}
                                 </div>
                             </div>
                         </div>
@@ -1523,7 +1530,8 @@
                                     <label class="">Fecha Inicial de la Inversión AAAA/MM/DD</label>
                                     <div class="input-group date datepicker autostart">
                                         <input size="16" class="form-control" name="informacion_pre_fecha_ini" type="text" value="{{ set_value2('informacion_pre_fecha_ini', informacion_predios_inversion[0].fecha_ini) }}">
-                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                                        {{form_error('informacion_pre_fecha_ini')}}
                                     </div>
                                 </div>
                             </div>
@@ -1534,7 +1542,8 @@
                                     <label class="">Fecha final de la Inversión AAAA/MM/DD</label>
                                     <div class="input-group date datepicker autostart">
                                         <input size="16" class="form-control" name="informacion_pre_fecha_fin" type="text" value="{{ set_value2('informacion_pre_fecha_fin', informacion_predios_inversion[0].fecha_fin) }}">
-                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                    
+                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                                        {{form_error('informacion_pre_fecha_fin')}}
                                     </div>
                                 </div>
                             </div>
@@ -1594,7 +1603,8 @@
 
                             {% else %}
                                     <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 95px;" value="{{ set_value2( ingresos_adicionales_~i~'_'~j, ingresos_adicionales[i][id_name] ) }}"/>
-                            {% endif %}                
+                            {% endif %}  
+                                    {{form_error('ingresos_adicionales_' ~ i ~ '_' ~ j )}}
                                 </td>                  
                         {% endfor %}
                             </tr>                  
@@ -1619,6 +1629,7 @@
                 <div class="container">
                     <div class="col-sm-12">
                         <textarea name="descripcion_inv" style="width: 100%;" value="{{ set_value2( 'descripcion_inv', solicitud_credito.descripcion_inv ) }}"></textarea>
+                        {{form_error('descripcion_inv')}}
                     </div>                   
                 </div>
             </div>
@@ -1638,6 +1649,7 @@
                 <div class="container">
                     <div class="col-sm-12">
                         <textarea name="forma_llegar_pred" style="width: 100%;" value="{{ set_value2( 'forma_llegar_pred', solicitud_credito.forma_llegar_pred ) }}"></textarea>
+                        {{form_error('forma_llegar_pred')}}
                     </div>                   
                 </div>
             </div>
@@ -1668,6 +1680,7 @@
                                         <option value=5 >Lote</option>
                                         <option value=6 >Apartamento</option>
                                     </select>
+                                    {{form_error('descripcion_bien_1_1')}}
                                 </div>
                             </div>
                         </div>
@@ -1676,6 +1689,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Dirección</label>
                                     <input type="text" class="form-control" name="descripcion_bien_1_5" value="{{ set_value2( 'descripcion_bien_1_5', descripcion_inversiones[0].direccion ) }}"/>
+                                    {{form_error('descripcion_bien_1_5')}}
                                 </div>
                             </div>
                         </div>
@@ -1684,7 +1698,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Valor comercial</label>
                                     <input type="text" class="form-control" name="descripcion_bien_1_6" value="{{ set_value2( 'descripcion_bien_1_6', descripcion_inversiones[0].valor_comercial ) }}"/>
-
+                                    {{form_error('descripcion_bien_1_6')}}
                                 </div>
                             </div>
                         </div>
@@ -1698,7 +1712,7 @@
                                     <select name="descripcion_bien_1_2" id="descripcion_bien_1_2" class="form-control">
                                         <option></option>
                                     </select>
-
+                                    {{form_error('descripcion_bien_1_2')}}
                                 </div>
                             </div>
                         </div>
@@ -1709,6 +1723,7 @@
                                     <select name="descripcion_bien_1_3" id="descripcion_bien_1_3" class="form-control">
                                         <option></option>
                                     </select>
+                                    {{form_error('descripcion_bien_1_3')}}
                                 </div>
                             </div>
                         </div>
@@ -1717,7 +1732,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Vereda</label>
                                     <input type="text" class="form-control" name="descripcion_bien_1_4" value="{{ set_value2( 'descripcion_bien_1_4', descripcion_inversiones[0].vereda ) }}"/>
-
+                                    {{form_error('descripcion_bien_1_4')}}
                                 </div>
                             </div>
                         </div>
@@ -2007,6 +2022,7 @@
                                 <label class="col-sm-6">Experiencia en la actividad a financiar (en meses)</label>
                                 <div class="col-sm-6">
                                     <input name="experiencia_act" class="form-control"/>
+                                    {{form_error('experiencia_act')}}
                                 </div>
                             </div>
                         </div>
@@ -2016,6 +2032,7 @@
                                 <label class="col-sm-6">Tiempo de permanencia en la región (en meses)</label>
                                 <div class="col-sm-6">
                                     <input name="tiempo_permanencia" class="form-control"/>
+                                    {{form_error('tiempo_permanencia')}}
                                 </div>
                             </div>
                         </div>
