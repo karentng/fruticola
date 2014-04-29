@@ -173,7 +173,16 @@ class ListadoRuats extends CI_Controller {
                 $cls = "btn btn-xs btn-default";
             
             $url = site_url("creditoagropecuario/index/$item->id");
-            $actions .= " <a class='$cls' href='$url'>Credito</a>";
+            $actions .= " <div class='btn-group'>";
+            $actions .= "<a class='$cls tip' href='$url' title='Solicitud de Credito Agropecuario'>Crédito</a>";
+            if($crd) {
+                $impr = site_url("creditoagropecuario/imprimible/$item->id");
+                $actions .= "<a class='btn btn-xs btn-info' href='$impr' target='_blank'><i class='i-print'></i></a>";
+            }
+            else {
+                $actions .= "<a class='btn btn-xs btn-info' disabled='disabled'><i class='i-print'></i></a>";
+            }
+            $actions .= "</div";
             
 
 
