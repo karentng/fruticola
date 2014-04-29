@@ -165,6 +165,17 @@ class ListadoRuats extends CI_Controller {
                 }
             }
 
+            $crd = SolicitudCredito::find_by_ruat_id($item->id);
+            
+            if($crd)
+                $cls = "btn btn-xs btn-warning";
+            else
+                $cls = "btn btn-xs btn-default";
+            
+            $url = site_url("creditoagropecuario/index/$item->id");
+            $actions .= " <a class='$cls' href='$url'>Credito</a>";
+            
+
 
 
             $btnEliminar = $puedeEliminar? "<button class='btn btn-danger btn-xs tip' title='Eliminar RUAT' onclick='eliminarRuat({$item->id})'>-</button> " :"";
