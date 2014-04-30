@@ -2061,14 +2061,16 @@
 
         <br/>
 
-        <div class="form-actions full">
-
-            <!--div class="col-md-4 pull-right">
-                <button ng-disabled="myForm.$pristine"  class="btn btn-lg btn-info" type="submit"><i class="i-disk"></i>  Guardar</button>
-                
-            </div-->
-            <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
+        <div class="container text-center">
+            <div class="col-md-offset-3 col-md-5">
+                <button type="submit" value="guardar" class="btn btn-lg btn-success">Guardar</button>
+                <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
+            </div>
         </div>
+
+        <!--div class="form-actions full">
+            <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
+        </div-->
 
 
         </form>
