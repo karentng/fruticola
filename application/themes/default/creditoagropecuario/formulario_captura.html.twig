@@ -210,10 +210,11 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Tipo Productor</label>
+                                    {% set valor = set_value2("solicitud_tipo_productor", solicitud_credito.tipo_productor)%}
                                     <select name="solicitud_tipo_productor" id="solicitud_tipo_productor" class="form-control">
                                         <option value=""></option>
-                                        <option value="1" {{solicitud_credito.tipo_productor == 1? 'selected': ''}}>Pequeño</option>
-                                        <option value="2" {{solicitud_credito.tipo_productor == 2? 'selected': ''}}>Mediano</option>
+                                        <option value="1" {{valor == 1? 'selected': ''}}>Pequeño</option>
+                                        <option value="2" {{valor == 2? 'selected': ''}}>Mediano</option>
                                     </select>
                                     {{form_error('solicitud_tipo_productor')}}
                                 </div>        
@@ -223,10 +224,11 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Ha tenido experiencia con el Banco Agrario </label>
+                                    {% set valor = set_value2("experiencia", solicitud_credito.experiencia)%}
                                     <select name="experiencia" id="experiencia" class="form-control">
                                         <option value=""></option>
-                                        <option value="1" {{solicitud_credito.experiencia == 1? 'selected': ''}}>si</option>
-                                        <option value="0" {{solicitud_credito.experiencia == 2? 'selected': ''}}>no</option>
+                                        <option value="1" {{valor == 1? 'selected': ''}}>si</option>
+                                        <option value="0" {{valor == 2? 'selected': ''}}>no</option>
                                     </select>
                                     {{form_error('experiencia')}}
                                 </div>
@@ -236,17 +238,18 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">En Calidad de</label>
+                                    {% set valor = set_value2("calidad_de", solicitud_credito.calidad_de)%}
                                     <select name="calidad_de" id="calidad_de" class="form-control">
                                         <option value=""></option>
-                                        <option value="1" {{solicitud_credito.calidad_de == 1? 'selected': ''}}>Deudor Principal</option>
-                                        <option value="2" {{solicitud_credito.calidad_de == 2? 'selected': ''}}>Deudor Solidario</option>
-                                        <option value="3" {{solicitud_credito.calidad_de == 3? 'selected': ''}}>Avalista</option>
+                                        <option value="1" {{valor == 1? 'selected': ''}}>Deudor Principal</option>
+                                        <option value="2" {{valor == 2? 'selected': ''}}>Deudor Solidario</option>
+                                        <option value="3" {{valor == 3? 'selected': ''}}>Avalista</option>
                                     </select>
                                     {{form_error('calidad_de')}}
                                 </div>
                             </div>
                         </div>
-              
+                        
                     </div>
                 </div> <!-- .container -->
             </div><!-- End .panel-body -->
@@ -2021,7 +2024,7 @@
                             <div class="form-group">
                                 <label class="col-sm-6">Experiencia en la actividad a financiar (en meses)</label>
                                 <div class="col-sm-6">
-                                    <input name="experiencia_act" class="form-control"/>
+                                    <input name="experiencia_act" class="form-control" value="{{ set_value2( 'experiencia_act', solicitud_credito.experiencia_act ) }}"/>
                                     {{form_error('experiencia_act')}}
                                 </div>
                             </div>
@@ -2031,7 +2034,7 @@
                             <div class="form-group">
                                 <label class="col-sm-6">Tiempo de permanencia en la región (en meses)</label>
                                 <div class="col-sm-6">
-                                    <input name="tiempo_permanencia" class="form-control"/>
+                                    <input name="tiempo_permanencia" class="form-control" value="{{ set_value2( 'tiempo_permanencia', solicitud_credito.tiempo_permanencia) }}"/>
                                     {{form_error('tiempo_permanencia')}}
                                 </div>
                             </div>
