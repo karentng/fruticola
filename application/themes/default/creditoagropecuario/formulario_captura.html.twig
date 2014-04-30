@@ -16,10 +16,12 @@
 
 <script type="text/javascript">
 
-    var combos = {{combos|json_encode}};
-    var departamentos = $('<select>');
+    var combos, depart;
 
     $(document).ready(function() {
+
+        combos = {{combos|json_encode}};
+        departamentos = $('<select>');
 
         crear_combo_deptos();
 
@@ -32,7 +34,8 @@
             var last_index = id.lastIndexOf('_');
             var new_id = last_index == -1 ? 'municipio' : id.substring(0, last_index) + '_municipio';
 
-            $('#' + new_id).empty().append(crear_combo_mupios(combos['departamentos'][value].municipios).html());
+            if( value != '' )
+                $('#' + new_id).empty().append(crear_combo_mupios(combos['departamentos'][value].municipios).html());
         });
 
         $('#descripcion_bien_1_2, #descripcion_bien_2_2, #descripcion_bien_3_2').append(departamentos.html()).on('change', function() {
@@ -43,17 +46,11 @@
 
             $('#' + new_id).empty().append(crear_combo_mupios(combos['departamentos'][value].municipios).html());
         });
-
-        //console.debug( "test" );
-        //console.debug( '{{referencias_familiares[0].departamento_id}}' );
         
          $('#solicitud_credito_dre_check, #solicitud_credito_icr_check').on('change', function(){
                 var id = $( this ).attr('id');
                 var last_index = id.lastIndexOf('_');
                 var new_id = id.substring(0, last_index);
-
-                console.debug(new_id);
-                console.debug($( this ).parent().hasClass('switch-off'));
                 
                 $( '#'+new_id ).val('');
 
@@ -61,6 +58,13 @@
                     $( '#'+new_id ).slideDown();
                 else
                     $( '#'+new_id ).hide();
+        });
+
+        $('#experiencia').on('change', function(){
+            if( $(this).val() == 0 )
+               $("#calidad_de").hide();
+            else if( $(this).val() == 1 )
+                $("#calidad_de").slideDown();
         });
 
         set_combos_deptos();
@@ -73,39 +77,6 @@
         });
     }
 
-    function set_combos_deptos() {
-        $('#banco_agrario_departamento').val('{{solicitud_credito.departamento_id}}');
-        $('#referencias_fam1_departamento').val('{{referencias_familiares[0].departamento_id}}');
-        $('#referencias_fam2_departamento').val('{{referencias_familiares[1].departamento_id}}');
-        $('#referencias_per1_departamento').val('{{referencias_personales[0].departamento_id}}');
-        $('#referencias_per2_departamento').val('{{referencias_personales[1].departamento_id}}');
-        $('#referencias_fin1_departamento').val('{{referencias_financieras[0].departamento_id}}');
-        $('#referencias_fin2_departamento').val('{{referencias_financieras[1].departamento_id}}');
-        $('#referencias_com_departamento').val('{{referencias_comerciales[0].departamento_id}}');
-        $('#informacion_pre_departamento').val('{{informacion_predios_inversion[0].departamento_id}}');
-
-        $('#descripcion_bien_1_2').val('{{descripcion_bienes_inmuebles[0].departamento_id}}');
-        $('#descripcion_bien_2_2').val('{{descripcion_bienes_inmuebles[1].departamento_id}}');
-        $('#descripcion_bien_3_2').val('{{descripcion_bienes_inmuebles[2].departamento_id}}');
-    }
-
-    function set_combos_mupios() {
-        $('#banco_agrario_municipio').val('{{solicitud_credito.municipio_id}}');
-        $('#referencias_fam1_municipio').val('{{referencias_familiares[0].municipio_id}}');
-        $('#referencias_fam2_municipio').val('{{referencias_familiares[1].municipio_id}}');
-        $('#referencias_per1_municipio').val('{{referencias_personales[0].municipio_id}}');
-        $('#referencias_per2_municipio').val('{{referencias_personales[1].municipio_id}}');
-        $('#referencias_fin1_municipio').val('{{referencias_financieras[0].municipio_id}}');
-        $('#referencias_fin2_municipio').val('{{referencias_financieras[1].municipio_id}}');
-        $('#referencias_com_municipio').val('{{referencias_comerciales[0].municipio_id}}');
-        $('#descripcion_bienes_municipio').val('{{descripcion_bienes[0].municipio_id}}');
-        $('#informacion_pre_municipio').val('{{informacion_predios_inversion[0].municipio_id}}');
-
-        $('#descripcion_bien_1_3').val('{{descripcion_bienes_inmuebles[0].municipio_id}}');
-        $('#descripcion_bien_2_3').val('{{descripcion_bienes_inmuebles[1].municipio_id}}');
-        $('#descripcion_bien_3_3').val('{{descripcion_bienes_inmuebles[2].municipio_id}}');
-    }
-
     function crear_combo_mupios(municipios_option) {
         var municipios = $('<select>');
         municipios.append('<option value="" ></option>');
@@ -115,6 +86,41 @@
         });
 
         return municipios;
+    }
+
+    function set_combos_deptos() {
+    
+        $('#banco_agrario_departamento').val('{{set_value2("banco_agrario_departamento", solicitud_credito.departamento_id)}}').change();
+        $('#referencias_fam1_departamento').val('{{set_value2("referencias_fam1_departamento", referencias_familiares[0].departamento_id)}}').change();
+        $('#referencias_fam2_departamento').val('{{set_value2("referencias_fam2_departamento", referencias_familiares[1].departamento_id)}}').change();
+        $('#referencias_per1_departamento').val('{{set_value2("referencias_per1_departamento", referencias_personales[0].departamento_id)}}').change();
+        $('#referencias_per2_departamento').val('{{set_value2("referencias_per2_departamento", referencias_personales[1].departamento_id)}}').change();
+        $('#referencias_fin1_departamento').val('{{set_value2("referencias_fin1_departamento", referencias_financieras[0].departamento_id)}}').change();
+        $('#referencias_fin2_departamento').val('{{set_value2("referencias_fin2_departamento", referencias_financieras[1].departamento_id)}}').change();
+        $('#referencias_com_departamento').val('{{set_value2("referencias_com_departamento", referencias_comerciales[0].departamento_id)}}').change();
+        $('#informacion_pre_departamento').val('{{set_value2("informacion_pre_departamento", informacion_predios_inversion[0].departamento_id)}}').change();
+
+        $('#descripcion_bien_1_2').val('{{set_value2("descripcion_bien_1_2", descripcion_bienes_inmuebles[0].departamento_id)}}');
+        $('#descripcion_bien_2_2').val('{{set_value2("descripcion_bien_2_2", descripcion_bienes_inmuebles[1].departamento_id)}}');
+        $('#descripcion_bien_3_2').val('{{set_value2("descripcion_bien_3_2", descripcion_bienes_inmuebles[2].departamento_id)}}');
+        
+    }
+
+    function set_combos_mupios() {
+        $('#banco_agrario_municipio').val('{{set_value2("banco_agrario_municipio", solicitud_credito.municipio_id)}}');
+        $('#referencias_fam1_municipio').val('{{set_value2("referencias_fam1_municipio", referencias_familiares[0].municipio_id)}}');
+        $('#referencias_fam2_municipio').val('{{set_value2("referencias_fam2_municipio", referencias_familiares[1].municipio_id)}}');
+        $('#referencias_per1_municipio').val('{{set_value2("referencias_per1_municipio", referencias_personales[0].municipio_id)}}');
+        $('#referencias_per2_municipio').val('{{set_value2("referencias_per2_municipio", referencias_personales[1].municipio_id)}}');
+        $('#referencias_fin1_municipio').val('{{set_value2("referencias_fin1_municipio", referencias_financieras[0].municipio_id)}}');
+        $('#referencias_fin2_municipio').val('{{set_value2("referencias_fin2_municipio", referencias_financieras[1].municipio_id)}}');
+        $('#referencias_com_municipio').val('{{set_value2("referencias_com_municipio", referencias_comerciales[0].municipio_id)}}');
+        $('#descripcion_bienes_municipio').val('{{set_value2("descripcion_bienes_municipio", descripcion_bienes[0].municipio_id)}}');
+        $('#informacion_pre_municipio').val('{{set_value2("informacion_pre_municipio", informacion_predios_inversion[0].municipio_id)}}');
+
+        $('#descripcion_bien_1_3').val('{{set_value2("descripcion_bien_1_3", descripcion_bienes_inmuebles[0].municipio_id)}}');
+        $('#descripcion_bien_2_3').val('{{set_value2("descripcion_bien_2_3", descripcion_bienes_inmuebles[1].municipio_id)}}');
+        $('#descripcion_bien_3_3').val('{{set_value2("descripcion_bien_3_3", descripcion_bienes_inmuebles[2].municipio_id)}}');
     }
 
 </script>
@@ -1676,6 +1682,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Inmueble</label>
                                     <select name="descripcion_bien_1_1" class="form-control">
+                                        <option value=0 ></option>
                                         <option value=1 >Casa</option>
                                         <option value=2 >Edificio</option>
                                         <option value=3 >Finca</option>
