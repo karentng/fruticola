@@ -537,9 +537,9 @@
                                 <div class="col-sm-6">
                                     <div class="input-group date datepicker autostart">
                                         <input size="16" class="form-control" name="conyugue_fecha_nacimiento" type="text" value="{% if conyugue.fecha_nacimiento != '' %} '{{ set_value2('conyugue_fecha_nacimiento', conyugue.fecha_nacimiento | date('Y-m-d')) }}' {% endif %}">
-                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>     
-                                        {{form_error('conyugue_fecha_nacimiento')}}
+                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>    
                                     </div>
+                                    {{form_error('conyugue_fecha_nacimiento')}}
                                     <span class="help-block"><small>AAAA-MM-DD</small></span>
                                 </div>
                             </div>
@@ -1463,14 +1463,12 @@
 
             <div class="panel-body" style="display: block;">
                 <div class="container">
-
                     <div class="row">
                         <div class="col-md-3">
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Nombre del Predio de la inversión</label>
-                                    <input type="text" capitalize class="form-control" name="informacion_pre_nombre_predio" maxlength="30"  value="{{ set_value2('informacion_pre_nombre_predio', informacion_predios_inversion[0].nombre_predio) }}"/>
-                                    {{form_error('informacion_pre_nombre_predio')}}
+                                    <input type="text" capitalize class="form-control" name="informacion_pre_nombre_predio" maxlength="30"  value="{{finca.nombre}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -1478,8 +1476,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Área de la Presente Inversión (Has)</label>
-                                    <input type="text" capitalize class="form-control" name="informacion_pre_area" maxlength="30" value="{{ set_value2('informacion_pre_area', informacion_predios_inversion[0].area) }}"/>
-                                    {{form_error('informacion_pre_area')}}
+                                    <input type="text" capitalize class="form-control" name="informacion_pre_area" maxlength="30" value="{{finca.area_total}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -1487,8 +1484,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Tenencia del predio de la inversión (Items del RUAT)</label>
-                                    <input type="text" capitalize class="form-control" name="informacion_pre_tenencia" maxlength="30"  value="{{ set_value2('informacion_pre_tenencia', informacion_predios_inversion[0].tenencia) }}"/>
-                                    {{form_error('informacion_pre_tenencia')}}
+                                    <input type="text" capitalize class="form-control" name="informacion_pre_tenencia" maxlength="30"  value="{{finca.tenencia.descripcion}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -1496,10 +1492,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label>Departamento del Predio de la Inversión</label>
-                                    <select name="informacion_pre_departamento" id="informacion_pre_departamento" class="form-control">
-                                        <option ></option>
-                                    </select>
-                                    {{form_error('informacion_pre_departamento')}}
+                                    <input type="text" capitalize class="informacion_pre_departamento" name="informacion_pre_departamento" maxlength="30"  value="{{finca.municipio.departamento.nombre}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -1510,10 +1503,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Municipio del Predio de la Inversión</label>
-                                    <select name="informacion_pre_municipio" id="informacion_pre_municipio" class="form-control">
-                                        <option ></option>
-                                    </select>
-                                    {{form_error('informacion_pre_municipio')}}
+                                    <input type="text" capitalize class="informacion_pre_municipio" name="informacion_pre_municipio" maxlength="30"  value="{{finca.municipio.nombre}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -1521,8 +1511,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Vereda <br>&nbsp;</label>
-                                    <input type="text" capitalize class="form-control" name="informacion_pre_vereda" maxlength="30" value="{{ set_value2('informacion_pre_vereda', informacion_predios_inversion[0].vereda) }}"/>
-                                    {{form_error('informacion_pre_vereda')}}
+                                    <input type="text" capitalize class="informacion_pre_vereda" name="informacion_pre_vereda" maxlength="30"  value="{{finca.vereda}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -1544,9 +1533,9 @@
                                     <label class="">Fecha Inicial de la Inversión AAAA/MM/DD</label>
                                     <div class="input-group date datepicker autostart">
                                         <input size="16" class="form-control" name="informacion_pre_fecha_ini" type="text" value="{{ set_value2('informacion_pre_fecha_ini', informacion_predios_inversion[0].fecha_ini) }}">
-                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
-                                        {{form_error('informacion_pre_fecha_ini')}}
+                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                                        
                                     </div>
+                                    {{form_error('informacion_pre_fecha_ini')}}
                                 </div>
                             </div>
                         </div>
@@ -1556,9 +1545,9 @@
                                     <label class="">Fecha final de la Inversión AAAA/MM/DD</label>
                                     <div class="input-group date datepicker autostart">
                                         <input size="16" class="form-control" name="informacion_pre_fecha_fin" type="text" value="{{ set_value2('informacion_pre_fecha_fin', informacion_predios_inversion[0].fecha_fin) }}">
-                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
-                                        {{form_error('informacion_pre_fecha_fin')}}
+                                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                                        
                                     </div>
+                                    {{form_error('informacion_pre_fecha_fin')}}
                                 </div>
                             </div>
                         </div>

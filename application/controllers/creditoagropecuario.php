@@ -27,6 +27,12 @@ class Creditoagropecuario extends CI_Controller {
         $productor = $ruat->productor;
         $contacto = $productor->contacto;
         $renglon = $productor->renglon_productivo;
+        $finca = $ruat->finca; 
+        $finca->tenencia;
+        $finca->municipio;
+        $finca->municipio->departamento;
+        
+//        var_dump($finca);
 
         $data = array();
 
@@ -58,7 +64,6 @@ class Creditoagropecuario extends CI_Controller {
         $ingresos_adicionales = $solicitud_credito->ingresos_adicionales;
         $descripcion_bienes = $solicitud_credito->descripcion_bienes;
         $descripcion_bienes_inmuebles = $solicitud_credito->descripcion_bienes_inmuebles;
-
 
         $this->validation_rules();
 
@@ -225,12 +230,6 @@ class Creditoagropecuario extends CI_Controller {
 
                 $informacion_predios_inversion[0] = (isset($informacion_predios_inversion[0]) && $informacion_predios_inversion[0]) ? $informacion_predios_inversion[0] : new PredioInversion;
                 $informacion_predios_inversion[0]->solicitud_id = $solicitud_credito->id;
-                $informacion_predios_inversion[0]->nombre_predio = $this->input->post('informacion_pre_nombre_predio');
-                $informacion_predios_inversion[0]->area = $this->input->post('informacion_pre_area');
-                $informacion_predios_inversion[0]->tenencia = $this->input->post('informacion_pre_tenencia');
-                $informacion_predios_inversion[0]->departamento_id = 1; ///OJO! falta en el formulario
-                $informacion_predios_inversion[0]->municipio_id = 1; ///OJO! falta en el formulario
-                $informacion_predios_inversion[0]->vareda = $this->input->post('informacion_pre_vereda');
                 $informacion_predios_inversion[0]->fuente_hid = $this->input->post('informacion_pre_fuente_hid');
                 $informacion_predios_inversion[0]->fecha_ini = $this->input->post('informacion_pre_fecha_ini');
                 $informacion_predios_inversion[0]->fecha_fin = $this->input->post('informacion_pre_fecha_fin');
@@ -301,6 +300,7 @@ class Creditoagropecuario extends CI_Controller {
         $this->twiggy->set("productor", $productor);
         $this->twiggy->set("contacto", $contacto);
         $this->twiggy->set("renglon", $renglon);
+        $this->twiggy->set("finca", $finca);
         $this->twiggy->set("contacto_departamento", $contacto->departamento);
         $this->twiggy->set("contacto_municipio", $contacto->municipio);
         $this->twiggy->register_function('set_value2');
@@ -373,12 +373,12 @@ class Creditoagropecuario extends CI_Controller {
                 $this->form_validation->set_rules("descripcion_inv_1_{$i}", ' ', 'required|numeric');
         }*/
 
-        $this->form_validation->set_rules("informacion_pre_nombre_predio", ' ', 'required');
-        $this->form_validation->set_rules("informacion_pre_area", ' ', 'required|numeric');
-        $this->form_validation->set_rules("informacion_pre_departamento", ' ', 'required|numeric');
-        $this->form_validation->set_rules("informacion_pre_municipio", ' ', 'required|numeric');
-        $this->form_validation->set_rules("informacion_pre_vereda", ' ', 'required');
-        $this->form_validation->set_rules("informacion_pre_fuente_hid", ' ', 'required');
+//        $this->form_validation->set_rules("informacion_pre_nombre_predio", ' ', 'required');
+//        $this->form_validation->set_rules("informacion_pre_area", ' ', 'required|numeric');
+//        $this->form_validation->set_rules("informacion_pre_departamento", ' ', 'required|numeric');
+//        $this->form_validation->set_rules("informacion_pre_municipio", ' ', 'required|numeric');
+//        $this->form_validation->set_rules("informacion_pre_vereda", ' ', 'required');
+        $this->form_validation->set_rules("informacion_pre_fuente_hid", ' ', 'required|numeric');
         $this->form_validation->set_rules("informacion_pre_fecha_ini", ' ', 'required');
         $this->form_validation->set_rules("informacion_pre_fecha_fin", ' ', 'required');
 
