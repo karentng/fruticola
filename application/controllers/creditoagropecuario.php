@@ -333,7 +333,7 @@ class Creditoagropecuario extends CI_Controller {
         $this->form_validation->set_rules("conyugue_apellido1", ' ', 'required');
         $this->form_validation->set_rules("conyugue_fecha_nacimiento", ' ', 'required');
         
-        for ($i = 1; $i <= 2; $i++) {
+        /*for ($i = 1; $i <= 2; $i++) {
             $this->form_validation->set_rules("referencias_fam{$i}_nombres", ' ', 'required');
             $this->form_validation->set_rules("referencias_fam{$i}_apellido1", ' ', 'required');
             $this->form_validation->set_rules("referencias_fam{$i}_parentesco", ' ', 'required');
@@ -364,14 +364,14 @@ class Creditoagropecuario extends CI_Controller {
         $this->form_validation->set_rules("referencias_com_tipo_vinculo", ' ', 'required');
         $this->form_validation->set_rules("referencias_com_departamento", ' ', 'required|numeric');
         $this->form_validation->set_rules("referencias_com_municipio", ' ', 'required|numeric');
-        $this->form_validation->set_rules("referencias_com_telefono", ' ', 'required');
+        $this->form_validation->set_rules(" ", ' ', 'required');
 
         for ($i = 1; $i <= 11; $i++) {
             if (2 === $i || 3 === $i)
                 $this->form_validation->set_rules("descripcion_inv_1_{$i}", ' ', 'required');
             else
                 $this->form_validation->set_rules("descripcion_inv_1_{$i}", ' ', 'required|numeric');
-        }
+        }*/
 
         $this->form_validation->set_rules("informacion_pre_nombre_predio", ' ', 'required');
         $this->form_validation->set_rules("informacion_pre_area", ' ', 'required|numeric');
