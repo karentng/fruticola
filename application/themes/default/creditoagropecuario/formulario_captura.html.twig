@@ -231,10 +231,11 @@
                                 <div class="form-group">
                                     <label class="control-label">Ha tenido experiencia con el Banco Agrario </label>
                                     {% set valor = set_value2("experiencia", solicitud_credito.experiencia)%}
+                                    {{valor}}
                                     <select name="experiencia" id="experiencia" class="form-control">
                                         <option value=""></option>
                                         <option value="1" {{valor == 1? 'selected': ''}}>si</option>
-                                        <option value="0" {{valor == 2? 'selected': ''}}>no</option>
+                                        <option value="2" {{valor == 2? 'selected': ''}}>no</option>
                                     </select>
                                     {{form_error('experiencia')}}
                                 </div>
@@ -516,7 +517,7 @@
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">Documento:</label>
                                 <div class="col-xs-3" style="padding-right:0px !important">
-                                    {% set valor = set_value2("tipo_documento_conyugue", conyugue.tipo_documento_conyugue )%}
+                                    {% set valor = set_value2("tipo_documento_conyugue", conyugue.tipo_documento )%}
 
                                     <select name="tipo_documento_conyugue" class="form-control">
                                     {% for tipo_doc in combos['tiposDocumento'] %}
@@ -870,7 +871,7 @@
                                     <div class="container">
                                         <div class="form-group">
                                             <label class="control-label">Nombres</label>
-                                            <input type="text" class="form-control" name="referencias_per1_nombres" value="{{ set_value2('referencias_fam1_nombres', referencias_personales[0].nombres) }}"/>
+                                            <input type="text" class="form-control" name="referencias_per1_nombres" value="{{ set_value2('referencias_per1_nombres', referencias_personales[0].nombres) }}"/>
                                             {{form_error('referencias_per1_nombres')}}
                                         </div>
                                     </div>
@@ -1189,7 +1190,7 @@
                                             <select name="referencias_fin1_municipio" id="referencias_fin1_municipio" class="form-control">
                                                 <option></option>
                                             </select>
-                                            {{form_error('referencias_fin1_ciudad')}}
+                                            {{form_error('referencias_fin1_municipio')}}
                                         </div>
                                     </div>
                                 </div>
@@ -1631,7 +1632,8 @@
             <div class="panel-body" style="display: block;">
                 <div class="container">
                     <div class="col-sm-12">
-                        <textarea name="descripcion_inv" style="width: 100%;" value="{{ set_value2( 'descripcion_inv', solicitud_credito.descripcion_inv ) }}"></textarea>
+                        
+                        <textarea name="descripcion_inv" style="width: 100%;" >{{ set_value2( 'descripcion_inv', solicitud_credito.descripcion_inv ) }}</textarea>
                         {{form_error('descripcion_inv')}}
                     </div>                   
                 </div>
@@ -1651,7 +1653,7 @@
             <div class="panel-body" style="display: block;">
                 <div class="container">
                     <div class="col-sm-12">
-                        <textarea name="forma_llegar_pred" style="width: 100%;" value="{{ set_value2( 'forma_llegar_pred', solicitud_credito.forma_llegar_pred ) }}"></textarea>
+                        <textarea name="forma_llegar_pred" style="width: 100%;" >{{ set_value2( 'forma_llegar_pred', solicitud_credito.forma_llegar_pred ) }}</textarea>
                         {{form_error('forma_llegar_pred')}}
                     </div>                   
                 </div>
@@ -1675,14 +1677,15 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Inmueble</label>
+                                    {% set valor = set_value2("descripcion_bien_1_1", descripcion_inversiones[0].tipo_inmueble)%}
                                     <select name="descripcion_bien_1_1" class="form-control">
-                                        <option value=0 ></option>
-                                        <option value=1 >Casa</option>
-                                        <option value=2 >Edificio</option>
-                                        <option value=3 >Finca</option>
-                                        <option value=4 >Local</option>
-                                        <option value=5 >Lote</option>
-                                        <option value=6 >Apartamento</option>
+                                        <option value=0  {{valor == 0? 'selected': ''}}></option>
+                                        <option value=1  {{valor == 1? 'selected': ''}}>Casa</option>
+                                        <option value=2  {{valor == 2? 'selected': ''}}>Edificio</option>
+                                        <option value=3  {{valor == 3? 'selected': ''}}>Finca</option>
+                                        <option value=4  {{valor == 4? 'selected': ''}}>Local</option>
+                                        <option value=5  {{valor == 5? 'selected': ''}}>Lote</option>
+                                        <option value=6  {{valor == 6? 'selected': ''}}>Apartamento</option>
                                     </select>
                                     {{form_error('descripcion_bien_1_1')}}
                                 </div>
@@ -1747,15 +1750,17 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Inmueble</label>
+                                    {% set valor = set_value2("descripcion_bien_2_1", descripcion_inversiones[1].tipo_inmueble)%}
                                     <select name="descripcion_bien_2_1" class="form-control">
-                                        <option value=0 ></option>
-                                        <option value=1 {{descripcion_inversiones[0].tipo_inmueble == 1? 'selected': ''}}>Casa</option>
-                                        <option value=2 {{descripcion_inversiones[0].tipo_inmueble == 2? 'selected': ''}}>Edificio</option>
-                                        <option value=3 {{descripcion_inversiones[0].tipo_inmueble == 3? 'selected': ''}}>Finca</option>
-                                        <option value=4 {{descripcion_inversiones[0].tipo_inmueble == 4? 'selected': ''}}>Local</option>
-                                        <option value=5 {{descripcion_inversiones[0].tipo_inmueble == 5? 'selected': ''}}>Lote</option>
-                                        <option value=6 {{descripcion_inversiones[0].tipo_inmueble == 6? 'selected': ''}}>Apartamento</option>
+                                        <option value=0  {{valor == 0? 'selected': ''}}></option>
+                                        <option value=1  {{valor == 1? 'selected': ''}}>Casa</option>
+                                        <option value=2  {{valor == 2? 'selected': ''}}>Edificio</option>
+                                        <option value=3  {{valor == 3? 'selected': ''}}>Finca</option>
+                                        <option value=4  {{valor == 4? 'selected': ''}}>Local</option>
+                                        <option value=5  {{valor == 5? 'selected': ''}}>Lote</option>
+                                        <option value=6  {{valor == 6? 'selected': ''}}>Apartamento</option>
                                     </select>
+                                    {{form_error('descripcion_bien_2_1')}}
                                 </div>
                             </div>
                         </div>
@@ -1764,7 +1769,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Dirección</label>
                                     <input type="text" class="form-control" name="descripcion_bien_2_5" value="{{ set_value2( 'descripcion_bien_2_5', descripcion_inversiones[1].direccion ) }}"/>
-
+                                    {{form_error('descripcion_bien_2_5')}}
                                 </div>
                             </div>
                         </div>
@@ -1773,7 +1778,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Valor comercial</label>
                                     <input type="text" class="form-control" name="descripcion_bien_2_6" value="{{ set_value2( 'descripcion_bien_2_6', descripcion_inversiones[1].valor_comercial ) }}"/>
-
+                                    {{form_error("descripcion_bien_2_6")}}
                                 </div>
                             </div>
                         </div>
@@ -1787,7 +1792,7 @@
                                     <select name="descripcion_bien_2_2" id="descripcion_bien_2_2" class="form-control">
                                         <option></option>
                                     </select>
-
+                                    {{form_error("descripcion_bien_2_2")}}
                                 </div>
                             </div>
                         </div>
@@ -1795,9 +1800,10 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Municipio</label>
-                                    <select name="descripcion_bien_2_2" id="descripcion_bien_2_3" class="form-control">
+                                    <select name="descripcion_bien_2_3" id="descripcion_bien_2_3" class="form-control">
                                         <option></option>
                                     </select>
+                                    {{form_error("descripcion_bien_2_3")}}
                                 </div>
                             </div>
                         </div>
@@ -1806,7 +1812,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Vereda</label>
                                     <input type="text" class="form-control" name="descripcion_bien_2_4" value="{{ set_value2( 'descripcion_bien_2_4', descripcion_inversiones[1].vereda ) }}"/>
-
+                                    {{form_error("descripcion_bien_2_4")}}
                                 </div>
                             </div>
                         </div>
@@ -1817,15 +1823,17 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Inmueble</label>
+                                    {% set valor = set_value2("descripcion_bien_3_1", descripcion_inversiones[2].tipo_inmueble)%}
                                     <select name="descripcion_bien_3_1" class="form-control">
-                                        <option value=0 ></option>
-                                        <option value=1 {{descripcion_inversiones[1].tipo_inmueble == 1? 'selected': ''}}>Casa</option>
-                                        <option value=2 {{descripcion_inversiones[1].tipo_inmueble == 2? 'selected': ''}}>Edificio</option>
-                                        <option value=3 {{descripcion_inversiones[1].tipo_inmueble == 3? 'selected': ''}}>Finca</option>
-                                        <option value=4 {{descripcion_inversiones[1].tipo_inmueble == 4? 'selected': ''}}>Local</option>
-                                        <option value=5 {{descripcion_inversiones[1].tipo_inmueble == 5? 'selected': ''}}>Lote</option>
-                                        <option value=6 {{descripcion_inversiones[1].tipo_inmueble == 6? 'selected': ''}}>Apartamento</option>
+                                        <option value=0  {{valor == 0? 'selected': ''}}></option>
+                                        <option value=1  {{valor == 1? 'selected': ''}}>Casa</option>
+                                        <option value=2  {{valor == 2? 'selected': ''}}>Edificio</option>
+                                        <option value=3  {{valor == 3? 'selected': ''}}>Finca</option>
+                                        <option value=4  {{valor == 4? 'selected': ''}}>Local</option>
+                                        <option value=5  {{valor == 5? 'selected': ''}}>Lote</option>
+                                        <option value=6  {{valor == 6? 'selected': ''}}>Apartamento</option>
                                     </select>
+                                    {{form_error("descripcion_bien_3_1")}}
                                 </div>
                             </div>
                         </div>
@@ -1834,7 +1842,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Dirección</label>
                                     <input type="text" class="form-control" name="descripcion_bien_3_5" value="{{ set_value2( 'descripcion_bien_3_5', descripcion_inversiones[2].direccion ) }}"/>
-
+                                    {{form_error("descripcion_bien_3_5")}}
                                 </div>
                             </div>
                         </div>
@@ -1843,7 +1851,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Valor comercial</label>
                                     <input type="text" class="form-control" name="descripcion_bien_3_6" value="{{ set_value2( 'descripcion_bien_3_6', descripcion_inversiones[1].valor_comercial ) }}"/>
-
+                                    {{form_error("descripcion_bien_3_6")}}
                                 </div>
                             </div>
                         </div>
@@ -1857,7 +1865,7 @@
                                     <select name="descripcion_bien_3_2" id="descripcion_bien_3_2" class="form-control">
                                         <option></option>
                                     </select>
-
+                                    {{form_error("descripcion_bien_3_2")}}
                                 </div>
                             </div>
                         </div>
@@ -1868,6 +1876,7 @@
                                     <select name="descripcion_bien_3_3" id="descripcion_bien_3_3" class="form-control">
                                         <option></option>
                                     </select>
+                                    {{form_error("descripcion_bien_3_3")}}
                                 </div>
                             </div>
                         </div>
@@ -1876,7 +1885,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Vereda</label>
                                     <input type="text" class="form-control" name="descripcion_bien_3_4" value="{{ set_value2( 'descripcion_bien_3_4', descripcion_inversiones[2].vereda ) }}"/>
-
+                                    {{form_error("descripcion_bien_3_4")}}
                                 </div>
                             </div>
                         </div>
@@ -1891,8 +1900,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Vehículo -  Marca</label>
                                     <input type="text" class="form-control" name="vehiculo_marca" value="{{ set_value2( 'vehiculo_marca', descripcion_bienes[0].marca ) }}"/>
-
-                                    </select>
+                                    {{form_error("vehiculo_marca")}}
                                 </div>
                             </div>
                         </div>
@@ -1901,7 +1909,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Placa</label>
                                     <input type="text" class="form-control" name="vehiculo_placa" value="{{ set_value2( 'vehiculo_placa', descripcion_bienes[0].placa ) }}"/>
-
+                                    {{form_error("vehiculo_placa")}}
                                 </div>
                             </div>
                         </div>
@@ -1910,7 +1918,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Modelo</label>
                                     <input type="text" class="form-control" name="vehiculo_modelo" value="{{ set_value2( 'vehiculo_modelo', descripcion_bienes[0].modelo ) }}"/>
-
+                                    {{form_error("vehiculo_modelo")}}
                                 </div>
                             </div>
                         </div>
@@ -1922,7 +1930,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Prenda a favor de</label>
                                     <input type="text" class="form-control" name="vehiculo_prenda_favor" value="{{ set_value2( 'vehiculo_prenda_favor', descripcion_bienes[0].prenda_favor ) }}"/>
-
+                                    {{form_error("vehiculo_prenda_favor")}}
                                 </div>
                             </div>
                         </div>
@@ -1931,7 +1939,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Valor de la deuda</label>
                                     <input type="text" class="form-control" name="vehiculo_valor_deuda" value="{{ set_value2( 'vehiculo_valor_deuda', descripcion_bienes[0].valor_deuda ) }}"/>
-
+                                    {{form_error("vehiculo_valor_deuda")}}
                                 </div>
                             </div>
                         </div>
@@ -1940,7 +1948,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Valor Comercial</label>
                                     <input type="text" class="form-control" name="vehiculo_valor_comercial" value="{{ set_value2( 'vehiculo_valor_comercial', descripcion_bienes[0].valor_comercial ) }}"/>
-
+                                    {{form_error("vehiculo_valor_comercial")}}
                                 </div>
                             </div>
                         </div>
@@ -1956,38 +1964,38 @@
                         <tbody>
                             <tr>
                                 <td>Semovientes</td>
-                                <td><input  name="otros_bienes1" style="width: 120px;" value="{{ set_value2( 'otros_bienes1', descripcion_bienes[0].otros_bienes1 ) }}"/></td>
+                                <td><input  name="otros_bienes1" style="width: 120px;" value="{{ set_value2( 'otros_bienes1', descripcion_bienes[0].otros_bienes1 ) }}"/>{{form_error("otros_bienes1")}}</td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad1" style="width: 120px;" value="{{ set_value2( 'otros_cantidad1', descripcion_bienes[0].otros_cantidad1 ) }}"/></td>
+                                <td><input  name="otros_cantidad1" style="width: 120px;" value="{{ set_value2( 'otros_cantidad1', descripcion_bienes[0].otros_cantidad1 ) }}"/>{{form_error("otros_cantidad1")}}</td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor1" style="width: 120px;" value="{{ set_value2( 'otros_valor1', descripcion_bienes[0].otros_valor1 ) }}"/></td>
+                                <td><input  name="otros_valor1" style="width: 120px;" value="{{ set_value2( 'otros_valor1', descripcion_bienes[0].otros_valor1 ) }}"/>{{form_error("otros_valor1")}}</td>
                             </tr>
 
                             <tr>
                                 <td>Maquinaria</td>
-                                <td><input  name="otros_bienes2" style="width: 120px;" value="{{ set_value2( 'otros_bienes2', descripcion_bienes[0].otros_bienes2 ) }}"/></td>
+                                <td><input  name="otros_bienes2" style="width: 120px;" value="{{ set_value2( 'otros_bienes2', descripcion_bienes[0].otros_bienes2 ) }}"/>{{form_error("otros_bienes2")}}</td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad2" style="width: 120px;" value="{{ set_value2( 'otros_cantidad2', descripcion_bienes[0].otros_cantidad2 ) }}"/></td>
+                                <td><input  name="otros_cantidad2" style="width: 120px;" value="{{ set_value2( 'otros_cantidad2', descripcion_bienes[0].otros_cantidad2 ) }}"/>{{form_error("otros_cantidad2")}}</td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor2" style="width: 120px;" value="{{ set_value2( 'otros_valor2', descripcion_bienes[0].otros_valor2 ) }}"/></td>
+                                <td><input  name="otros_valor2" style="width: 120px;" value="{{ set_value2( 'otros_valor2', descripcion_bienes[0].otros_valor2 ) }}"/>{{form_error("otros_valor2")}}</td>
                             </tr>
 
                             <tr>
                                 <td>Cultivos en desarrollo</td>
-                                <td><input  name="otros_bienes3" style="width: 120px;" value="{{ set_value2( 'otros_bienes3', descripcion_bienes[0].otros_bienes3 ) }}"/></td>
+                                <td><input  name="otros_bienes3" style="width: 120px;" value="{{ set_value2( 'otros_bienes3', descripcion_bienes[0].otros_bienes3 ) }}"/>{{form_error("otros_bienes3")}}</td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad3" style="width: 120px;" value="{{ set_value2( 'otros_cantidad3', descripcion_bienes[0].otros_cantidad3 ) }}"/></td>
+                                <td><input  name="otros_cantidad3" style="width: 120px;" value="{{ set_value2( 'otros_cantidad3', descripcion_bienes[0].otros_cantidad3 ) }}"/>{{form_error("otros_cantidad3")}}</td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor3" style="width: 120px;"/></td>
+                                <td><input  name="otros_valor3" style="width: 120px;" value="{{ set_value2( 'otros_valor3', descripcion_bienes[0].otros_valor2 ) }}"/>{{form_error("otros_valor2")}}</td>
                             </tr>
 
                             <tr>
                                 <td>Inversiones y otros activos</td>
-                                <td><input  name="otros_bienes4" style="width: 120px;" value="{{ set_value2( 'otros_bienes4', descripcion_bienes[0].otros_bienes4 ) }}"/></td>
+                                <td><input  name="otros_bienes4" style="width: 120px;" value="{{ set_value2( 'otros_bienes4', descripcion_bienes[0].otros_bienes4 ) }}"/>{{form_error("otros_bienes4")}}</td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad4" style="width: 120px;" value="{{ set_value2( 'otros_cantidad4', descripcion_bienes[0].otros_cantidad4 ) }}"/></td>
+                                <td><input  name="otros_cantidad4" style="width: 120px;" value="{{ set_value2( 'otros_cantidad4', descripcion_bienes[0].otros_cantidad4 ) }}"/>{{form_error("otros_cantidad4")}}</td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor4" style="width: 120px;" value="{{ set_value2( 'otros_valor4', descripcion_bienes[0].otros_valor4 ) }}"/></td>
+                                <td><input  name="otros_valor4" style="width: 120px;" value="{{ set_value2( 'otros_valor4', descripcion_bienes[0].otros_valor4 ) }}"/>{{form_error("otros_valor4")}}</td>
                             </tr>
 
                         </tbody>

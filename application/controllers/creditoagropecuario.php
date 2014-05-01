@@ -27,11 +27,11 @@ class Creditoagropecuario extends CI_Controller {
         $productor = $ruat->productor;
         $contacto = $productor->contacto;
         $renglon = $productor->renglon_productivo;
-        $finca = $ruat->finca; 
+        $finca = $ruat->finca;
         $finca->tenencia;
         $finca->municipio;
         $finca->municipio->departamento;
-        
+
 //        var_dump($finca);
 
         $data = array();
@@ -104,7 +104,7 @@ class Creditoagropecuario extends CI_Controller {
                 $conyugue->personas_cargo = $this->input->post('conyugue_personas_cargo');
                 $conyugue->save();
 
-                if($this->input->post('referencias_fam1_nombres')){
+                if ($this->input->post('referencias_fam1_nombres')) {
                     $referencias_familiares[0] = (isset($referencias_familiares[0]) && $referencias_familiares[0]) ? $referencias_familiares[0] : new ReferenciaFamiliarPersonal;
                     $referencias_familiares[0]->tipo = 1;
                     $referencias_familiares[0]->solicitud_id = $solicitud_credito->id;
@@ -124,8 +124,8 @@ class Creditoagropecuario extends CI_Controller {
                     $referencias_familiares[0]->telefono3 = $this->input->post('referencias_fam1_telefono3');
                     $referencias_familiares[0]->save();
                 }
-                
-                if($this->input->post('referencias_fam1_nombres')){
+
+                if ($this->input->post('referencias_fam2_nombres')) {
                     $referencias_familiares[1] = (isset($referencias_familiares[1]) && $referencias_familiares[1]) ? $referencias_familiares[1] : new ReferenciaFamiliarPersonal;
                     $referencias_familiares[1]->tipo = 1;
                     $referencias_familiares[1]->solicitud_id = $solicitud_credito->id;
@@ -146,89 +146,101 @@ class Creditoagropecuario extends CI_Controller {
                     $referencias_familiares[1]->save();
                 }
 
-                $referencias_personales[0] = (isset($referencias_personales[0]) && $referencias_personales[0]) ? $referencias_personales[0] : new ReferenciaFamiliarPersonal;
-                $referencias_personales[0]->tipo = 2;
-                $referencias_personales[0]->solicitud_id = $solicitud_credito->id;
-                $referencias_personales[0]->nombres = $this->input->post('referencias_per1_nombres');
-                $referencias_personales[0]->apellido1 = $this->input->post('referencias_per1_apellido1');
-                $referencias_personales[0]->apellido2 = $this->input->post('referencias_per1_apellido2');
-                $referencias_personales[0]->parentesco = $this->input->post('referencias_per1_parentesco');
-                $referencias_personales[0]->direccion = $this->input->post('referencias_per1_direccion');
-                $referencias_personales[0]->departamento_id = $this->input->post('referencias_per1_departamento');
-                $referencias_personales[0]->municipio_id = $this->input->post('referencias_per1_municipio');
-                $referencias_personales[0]->barrio = $this->input->post('referencias_per1_barrio');
-                $referencias_personales[0]->indicativo1 = $this->input->post('referencias_per1_indicativo1');
-                $referencias_personales[0]->telefono1 = $this->input->post('referencias_per1_telefono1');
-                $referencias_personales[0]->indicativo2 = $this->input->post('referencias_per1_indicativo2');
-                $referencias_personales[0]->telefono2 = $this->input->post('referencias_per1_telefono2');
-                $referencias_personales[0]->indicativo3 = $this->input->post('referencias_per1_indicativo3');
-                $referencias_personales[0]->telefono3 = $this->input->post('referencias_per1_telefono3');
-                $referencias_personales[0]->save();
+                if ($this->input->post('referencias_per1_nombres')) {
+                    $referencias_personales[0] = (isset($referencias_personales[0]) && $referencias_personales[0]) ? $referencias_personales[0] : new ReferenciaFamiliarPersonal;
+                    $referencias_personales[0]->tipo = 2;
+                    $referencias_personales[0]->solicitud_id = $solicitud_credito->id;
+                    $referencias_personales[0]->nombres = $this->input->post('referencias_per1_nombres');
+                    $referencias_personales[0]->apellido1 = $this->input->post('referencias_per1_apellido1');
+                    $referencias_personales[0]->apellido2 = $this->input->post('referencias_per1_apellido2');
+                    $referencias_personales[0]->parentesco = $this->input->post('referencias_per1_parentesco');
+                    $referencias_personales[0]->direccion = $this->input->post('referencias_per1_direccion');
+                    $referencias_personales[0]->departamento_id = $this->input->post('referencias_per1_departamento');
+                    $referencias_personales[0]->municipio_id = $this->input->post('referencias_per1_municipio');
+                    $referencias_personales[0]->barrio = $this->input->post('referencias_per1_barrio');
+                    $referencias_personales[0]->indicativo1 = $this->input->post('referencias_per1_indicativo1');
+                    $referencias_personales[0]->telefono1 = $this->input->post('referencias_per1_telefono1');
+                    $referencias_personales[0]->indicativo2 = $this->input->post('referencias_per1_indicativo2');
+                    $referencias_personales[0]->telefono2 = $this->input->post('referencias_per1_telefono2');
+                    $referencias_personales[0]->indicativo3 = $this->input->post('referencias_per1_indicativo3');
+                    $referencias_personales[0]->telefono3 = $this->input->post('referencias_per1_telefono3');
+                    $referencias_personales[0]->save();
+                }
 
-                $referencias_personales[1] = (isset($referencias_personales[1]) && $referencias_personales[1]) ? $referencias_personales[1] : new ReferenciaFamiliarPersonal;
-                $referencias_personales[1]->tipo = 2;
-                $referencias_personales[1]->solicitud_id = $solicitud_credito->id;
-                $referencias_personales[1]->nombres = $this->input->post('referencias_per2_nombres');
-                $referencias_personales[1]->apellido1 = $this->input->post('referencias_per2_apellido1');
-                $referencias_personales[1]->apellido2 = $this->input->post('referencias_per2_apellido2');
-                $referencias_personales[1]->parentesco = $this->input->post('referencias_per2_parentesco');
-                $referencias_personales[1]->direccion = $this->input->post('referencias_per2_direccion');
-                $referencias_personales[1]->departamento_id = $this->input->post('referencias_per2_departamento');
-                $referencias_personales[1]->municipio_id = $this->input->post('referencias_per2_municipio');
-                $referencias_personales[1]->barrio = $this->input->post('referencias_per2_barrio');
-                $referencias_personales[1]->indicativo1 = $this->input->post('referencias_per2_indicativo1');
-                $referencias_personales[1]->telefono1 = $this->input->post('referencias_per2_telefono1');
-                $referencias_personales[1]->indicativo2 = $this->input->post('referencias_per2_indicativo2');
-                $referencias_personales[1]->telefono2 = $this->input->post('referencias_per2_telefono2');
-                $referencias_personales[1]->indicativo3 = $this->input->post('referencias_per2_indicativo3');
-                $referencias_personales[1]->telefono3 = $this->input->post('referencias_per2_telefono3');
-                $referencias_personales[1]->save();
+                if ($this->input->post('referencias_per2_nombres')) {
+                    $referencias_personales[1] = (isset($referencias_personales[1]) && $referencias_personales[1]) ? $referencias_personales[1] : new ReferenciaFamiliarPersonal;
+                    $referencias_personales[1]->tipo = 2;
+                    $referencias_personales[1]->solicitud_id = $solicitud_credito->id;
+                    $referencias_personales[1]->nombres = $this->input->post('referencias_per2_nombres');
+                    $referencias_personales[1]->apellido1 = $this->input->post('referencias_per2_apellido1');
+                    $referencias_personales[1]->apellido2 = $this->input->post('referencias_per2_apellido2');
+                    $referencias_personales[1]->parentesco = $this->input->post('referencias_per2_parentesco');
+                    $referencias_personales[1]->direccion = $this->input->post('referencias_per2_direccion');
+                    $referencias_personales[1]->departamento_id = $this->input->post('referencias_per2_departamento');
+                    $referencias_personales[1]->municipio_id = $this->input->post('referencias_per2_municipio');
+                    $referencias_personales[1]->barrio = $this->input->post('referencias_per2_barrio');
+                    $referencias_personales[1]->indicativo1 = $this->input->post('referencias_per2_indicativo1');
+                    $referencias_personales[1]->telefono1 = $this->input->post('referencias_per2_telefono1');
+                    $referencias_personales[1]->indicativo2 = $this->input->post('referencias_per2_indicativo2');
+                    $referencias_personales[1]->telefono2 = $this->input->post('referencias_per2_telefono2');
+                    $referencias_personales[1]->indicativo3 = $this->input->post('referencias_per2_indicativo3');
+                    $referencias_personales[1]->telefono3 = $this->input->post('referencias_per2_telefono3');
+                    $referencias_personales[1]->save();
+                }
 
-                $referencias_financieras[0] = (isset($referencias_financieras[0]) && $referencias_financieras[0]) ? $referencias_financieras[0] : new ReferenciaFinanciera;
-                $referencias_financieras[0]->solicitud_id = $solicitud_credito->id;
-                $referencias_financieras[0]->entidad = $this->input->post('referencias_fin1_entidad');
-                $referencias_financieras[0]->clase = $this->input->post('referencias_fin1_clase');
-                $referencias_financieras[0]->nro_producto = $this->input->post('referencias_fin1_nro_producto');
-                $referencias_financieras[0]->sucursal = $this->input->post('referencias_fin1_sucursal');
-                $referencias_financieras[0]->departamento_id = $this->input->post('referencias_fin1_departamento');
-                $referencias_financieras[0]->municipio_id = $this->input->post('referencias_fin1_ciudad');
-                $referencias_financieras[0]->save();
+                if ($this->input->post('referencias_fin1_entidad')) {
+                    $referencias_financieras[0] = (isset($referencias_financieras[0]) && $referencias_financieras[0]) ? $referencias_financieras[0] : new ReferenciaFinanciera;
+                    $referencias_financieras[0]->solicitud_id = $solicitud_credito->id;
+                    $referencias_financieras[0]->entidad = $this->input->post('referencias_fin1_entidad');
+                    $referencias_financieras[0]->clase = $this->input->post('referencias_fin1_clase');
+                    $referencias_financieras[0]->nro_producto = $this->input->post('referencias_fin1_nro_producto');
+                    $referencias_financieras[0]->sucursal = $this->input->post('referencias_fin1_sucursal');
+                    $referencias_financieras[0]->departamento_id = $this->input->post('referencias_fin1_departamento');
+                    $referencias_financieras[0]->municipio_id = $this->input->post('referencias_fin1_ciudad');
+                    $referencias_financieras[0]->save();
+                }
 
-                $referencias_financieras[1] = (isset($referencias_financieras[1]) && $referencias_financieras[1]) ? $referencias_financieras[1] : new ReferenciaFinanciera;
-                $referencias_financieras[1]->solicitud_id = $solicitud_credito->id;
-                $referencias_financieras[1]->entidad = $this->input->post('referencias_fin2_entidad');
-                $referencias_financieras[1]->clase = $this->input->post('referencias_fin2_clase');
-                $referencias_financieras[1]->nro_producto = $this->input->post('referencias_fin2_nro_producto');
-                $referencias_financieras[1]->sucursal = $this->input->post('referencias_fin2_sucursal');
-                $referencias_financieras[1]->departamento_id = $this->input->post('referencias_fin2_departamento');
-                $referencias_financieras[1]->municipio_id = $this->input->post('referencias_fin2_ciudad');
-                $referencias_financieras[1]->save();
+                if ($this->input->post('referencias_fin2_entidad')) {
+                    $referencias_financieras[1] = (isset($referencias_financieras[1]) && $referencias_financieras[1]) ? $referencias_financieras[1] : new ReferenciaFinanciera;
+                    $referencias_financieras[1]->solicitud_id = $solicitud_credito->id;
+                    $referencias_financieras[1]->entidad = $this->input->post('referencias_fin2_entidad');
+                    $referencias_financieras[1]->clase = $this->input->post('referencias_fin2_clase');
+                    $referencias_financieras[1]->nro_producto = $this->input->post('referencias_fin2_nro_producto');
+                    $referencias_financieras[1]->sucursal = $this->input->post('referencias_fin2_sucursal');
+                    $referencias_financieras[1]->departamento_id = $this->input->post('referencias_fin2_departamento');
+                    $referencias_financieras[1]->municipio_id = $this->input->post('referencias_fin2_ciudad');
+                    $referencias_financieras[1]->save();
+                }
 
-                $referencias_comerciales[0] = (isset($referencias_comerciales[0]) && $referencias_comerciales[0]) ? $referencias_comerciales[0] : new ReferenciaComercial;
-                $referencias_comerciales[0]->solicitud_id = $solicitud_credito->id;
-                $referencias_comerciales[0]->nombre_est = $this->input->post('referencias_com_nombre_est');
-                $referencias_comerciales[0]->tipo_vinculo = $this->input->post('referencias_com_tipo_vinculo');
-                $referencias_comerciales[0]->departamento_id = $this->input->post('referencias_com_departamento');
-                $referencias_comerciales[0]->municipio_id = $this->input->post('referencias_com_municipio');
-                $referencias_comerciales[0]->telefono = $this->input->post('referencias_com_telefono');
-                $referencias_comerciales[0]->save();
+                if ($this->input->post("referencias_com_nombre_est")) {
+                    $referencias_comerciales[0] = (isset($referencias_comerciales[0]) && $referencias_comerciales[0]) ? $referencias_comerciales[0] : new ReferenciaComercial;
+                    $referencias_comerciales[0]->solicitud_id = $solicitud_credito->id;
+                    $referencias_comerciales[0]->nombre_est = $this->input->post('referencias_com_nombre_est');
+                    $referencias_comerciales[0]->tipo_vinculo = $this->input->post('referencias_com_tipo_vinculo');
+                    $referencias_comerciales[0]->departamento_id = $this->input->post('referencias_com_departamento');
+                    $referencias_comerciales[0]->municipio_id = $this->input->post('referencias_com_municipio');
+                    $referencias_comerciales[0]->telefono = $this->input->post('referencias_com_telefono');
+                    $referencias_comerciales[0]->save();
+                }
 
                 for ($i = 0; $i < 4; $i++) {
                     $j = $i + 1;
-                    $descripcion_inversiones[$i] = (isset($descripcion_inversiones[$i]) && $descripcion_inversiones[$i]) ? $descripcion_inversiones[$i] : new DescripcionInversion;
-                    $descripcion_inversiones[$i]->solicitud_id = $solicitud_credito->id;
-                    $descripcion_inversiones[$i]->codigo_finagro = $this->input->post("descripcion_inv_{$j}_1");
-                    $descripcion_inversiones[$i]->destino_recursos = $this->input->post("descripcion_inv_{$j}_2");
-                    $descripcion_inversiones[$i]->nombre_rubro = $this->input->post("descripcion_inv_{$j}_3");
-                    $descripcion_inversiones[$i]->unidades_fin = $this->input->post("descripcion_inv_{$j}_4");
-                    $descripcion_inversiones[$i]->valor_proyecto = $this->input->post("descripcion_inv_{$j}_5");
-                    $descripcion_inversiones[$i]->valor_solicitud = $this->input->post("descripcion_inv_{$j}_6");
-                    $descripcion_inversiones[$i]->plazo_total = $this->input->post("descripcion_inv_{$j}_7");
-                    $descripcion_inversiones[$i]->periodo_gracia = $this->input->post("descripcion_inv_{$j}_8");
-                    $descripcion_inversiones[$i]->modalidad_pago = $this->input->post("descripcion_inv_{$j}_9");
-                    $descripcion_inversiones[$i]->amortizacion_cap = $this->input->post("descripcion_inv_{$j}_10");
-                    $descripcion_inversiones[$i]->tasa_interes = $this->input->post("descripcion_inv_{$j}_11");
-                    $descripcion_inversiones[$i]->save();
+                    if ($this->input->post("descripcion_inv_{$j}_1")) {
+                        $descripcion_inversiones[$i] = (isset($descripcion_inversiones[$i]) && $descripcion_inversiones[$i]) ? $descripcion_inversiones[$i] : new DescripcionInversion;
+                        $descripcion_inversiones[$i]->solicitud_id = $solicitud_credito->id;
+                        $descripcion_inversiones[$i]->codigo_finagro = $this->input->post("descripcion_inv_{$j}_1");
+                        $descripcion_inversiones[$i]->destino_recursos = $this->input->post("descripcion_inv_{$j}_2");
+                        $descripcion_inversiones[$i]->nombre_rubro = $this->input->post("descripcion_inv_{$j}_3");
+                        $descripcion_inversiones[$i]->unidades_fin = $this->input->post("descripcion_inv_{$j}_4");
+                        $descripcion_inversiones[$i]->valor_proyecto = $this->input->post("descripcion_inv_{$j}_5");
+                        $descripcion_inversiones[$i]->valor_solicitud = $this->input->post("descripcion_inv_{$j}_6");
+                        $descripcion_inversiones[$i]->plazo_total = $this->input->post("descripcion_inv_{$j}_7");
+                        $descripcion_inversiones[$i]->periodo_gracia = $this->input->post("descripcion_inv_{$j}_8");
+                        $descripcion_inversiones[$i]->modalidad_pago = $this->input->post("descripcion_inv_{$j}_9");
+                        $descripcion_inversiones[$i]->amortizacion_cap = $this->input->post("descripcion_inv_{$j}_10");
+                        $descripcion_inversiones[$i]->tasa_interes = $this->input->post("descripcion_inv_{$j}_11");
+                        $descripcion_inversiones[$i]->save();
+                    }
                 }
 
                 $informacion_predios_inversion[0] = (isset($informacion_predios_inversion[0]) && $informacion_predios_inversion[0]) ? $informacion_predios_inversion[0] : new PredioInversion;
@@ -280,15 +292,17 @@ class Creditoagropecuario extends CI_Controller {
 
                 for ($i = 0; $i < 3; $i++) {
                     $j = $i + 1;
-                    $descripcion_bienes_inmuebles[$i] = (isset($descripcion_bienes_inmuebles[$i]) && $descripcion_bienes_inmuebles[$i]) ? $descripcion_bienes_inmuebles[$i] : new DescripcionBienesInmuebles;
-                    $descripcion_bienes_inmuebles[$i]->solicitud_id = $solicitud_credito->id;
-                    $descripcion_bienes_inmuebles[$i]->tipo_inmueble = $this->input->post("descripcion_bien_{$j}_1");
-                    $descripcion_bienes_inmuebles[$i]->departamento_id = $this->input->post("descripcion_bien_{$j}_2");
-                    $descripcion_bienes_inmuebles[$i]->municipio_id = $this->input->post("descripcion_bien_{$j}_3");
-                    $descripcion_bienes_inmuebles[$i]->vereda = $this->input->post("descripcion_bien_{$j}_4");
-                    $descripcion_bienes_inmuebles[$i]->direccion = $this->input->post("descripcion_bien_{$j}_5");
-                    $descripcion_bienes_inmuebles[$i]->valor_comercial = $this->input->post("descripcion_bien_{$j}_6");
-                    $descripcion_bienes_inmuebles[$i]->save();
+                    if ($this->input->post("descripcion_bien_{$i}_1")) {
+                        $descripcion_bienes_inmuebles[$i] = (isset($descripcion_bienes_inmuebles[$i]) && $descripcion_bienes_inmuebles[$i]) ? $descripcion_bienes_inmuebles[$i] : new DescripcionBienesInmuebles;
+                        $descripcion_bienes_inmuebles[$i]->solicitud_id = $solicitud_credito->id;
+                        $descripcion_bienes_inmuebles[$i]->tipo_inmueble = $this->input->post("descripcion_bien_{$j}_1");
+                        $descripcion_bienes_inmuebles[$i]->departamento_id = $this->input->post("descripcion_bien_{$j}_2");
+                        $descripcion_bienes_inmuebles[$i]->municipio_id = $this->input->post("descripcion_bien_{$j}_3");
+                        $descripcion_bienes_inmuebles[$i]->vereda = $this->input->post("descripcion_bien_{$j}_4");
+                        $descripcion_bienes_inmuebles[$i]->direccion = $this->input->post("descripcion_bien_{$j}_5");
+                        $descripcion_bienes_inmuebles[$i]->valor_comercial = $this->input->post("descripcion_bien_{$j}_6");
+                        $descripcion_bienes_inmuebles[$i]->save();
+                    }
                 }
             }
         } else if (validation_errors()) {
@@ -296,10 +310,11 @@ class Creditoagropecuario extends CI_Controller {
 //            var_dump(validation_errors());
             $this->twiggy->set('notif', array('type' => 'error', 'text' => "Se encontraron errores al procesar el formulario. <br> Revise los recuadros rojos"));
         }
-        
+
         set_value();
 
         $this->twiggy->set('combos', $data);
+        $this->twiggy->set('solicitud_credito', $solicitud_credito);
         $this->twiggy->set("productor", $productor);
         $this->twiggy->set("contacto", $contacto);
         $this->twiggy->set("renglon", $renglon);
@@ -330,78 +345,96 @@ class Creditoagropecuario extends CI_Controller {
         $this->form_validation->set_rules("banco_agrario_departamento", ' ', 'required');
         $this->form_validation->set_rules("banco_agrario_municipio", ' ', 'required|numeric');
         $this->form_validation->set_rules("solicitud_tipo_productor", ' ', 'required|numeric');
+
         $this->form_validation->set_rules("experiencia", ' ', 'required|numeric');
+        if ($this->input->post("experiencia") == 1)
+            $this->form_validation->set_rules("calidad_de", ' ', 'required|numeric');
 
         $this->form_validation->set_rules("conyugue_nombre1", ' ', 'required');
         $this->form_validation->set_rules("conyugue_apellido1", ' ', 'required');
         $this->form_validation->set_rules("conyugue_fecha_nacimiento", ' ', 'required');
-        
-        /*for ($i = 1; $i <= 2; $i++) {
-            $this->form_validation->set_rules("referencias_fam{$i}_nombres", ' ', 'required');
-            $this->form_validation->set_rules("referencias_fam{$i}_apellido1", ' ', 'required');
-            $this->form_validation->set_rules("referencias_fam{$i}_parentesco", ' ', 'required');
-            $this->form_validation->set_rules("referencias_fam{$i}_departamento", ' ', 'required|numeric');
-            $this->form_validation->set_rules("referencias_fam{$i}_municipio", ' ', 'required|numeric');
-            $this->form_validation->set_rules("referencias_fam{$i}_per_direccion", ' ', 'required');
-            $this->form_validation->set_rules("referencias_fam{$i}_barrio", ' ', 'required');
+
+        for ($i = 1; $i <= 2; $i++) {
+            if ($this->input->post("referencias_fam{$i}_nombres")) {
+                $this->form_validation->set_rules("referencias_fam{$i}_nombres", ' ', 'required');
+                $this->form_validation->set_rules("referencias_fam{$i}_apellido1", ' ', 'required');
+                $this->form_validation->set_rules("referencias_fam{$i}_parentesco", ' ', 'required');
+                $this->form_validation->set_rules("referencias_fam{$i}_departamento", ' ', 'required|numeric');
+                $this->form_validation->set_rules("referencias_fam{$i}_municipio", ' ', 'required|numeric');
+            }
+        }
+
+
+        for ($i = 1; $i <= 2; $i++) {
+            if ($this->input->post("referencias_per{$i}_nombres")) {
+                $this->form_validation->set_rules("referencias_per{$i}_nombres", ' ', 'required');
+                $this->form_validation->set_rules("referencias_per{$i}_apellido1", ' ', 'required');
+                $this->form_validation->set_rules("referencias_per{$i}_parentesco", ' ', 'required');
+                $this->form_validation->set_rules("referencias_per{$i}_departamento", ' ', 'required|numeric');
+                $this->form_validation->set_rules("referencias_per{$i}_municipio", ' ', 'required|numeric');
+            }
         }
 
         for ($i = 1; $i <= 2; $i++) {
-            $this->form_validation->set_rules("referencias_per{$i}_nombres", ' ', 'required');
-            $this->form_validation->set_rules("referencias_per{$i}_apellido1", ' ', 'required');
-            $this->form_validation->set_rules("referencias_per{$i}_parentesco", ' ', 'required');
-            $this->form_validation->set_rules("referencias_per{$i}_departamento", ' ', 'required|numeric');
-            $this->form_validation->set_rules("referencias_per{$i}_municipio", ' ', 'required|numeric');
-            $this->form_validation->set_rules("referencias_per{$i}_per_direccion", ' ', 'required');
-            $this->form_validation->set_rules("referencias_per{$i}_barrio", ' ', 'required');
+            if ($this->input->post("referencias_fin{$i}_entidad")) {
+                $this->form_validation->set_rules("referencias_fin{$i}_entidad", ' ', 'required');
+                $this->form_validation->set_rules("referencias_fin{$i}_clase", ' ', 'required');
+                $this->form_validation->set_rules("referencias_fin{$i}_departamento", ' ', 'required|numeric');
+                $this->form_validation->set_rules("referencias_fin{$i}_municipio", ' ', 'required|numeric');
+            }
         }
 
-        for ($i = 1; $i <= 2; $i++) {
-            $this->form_validation->set_rules("referencias_fin{$i}_entidad", ' ', 'required');
-            $this->form_validation->set_rules("referencias_fin{$i}_clase", ' ', 'required');
-            $this->form_validation->set_rules("referencias_fin{$i}_departamento", ' ', 'required|numeric');
-            $this->form_validation->set_rules("referencias_fin{$i}_municipio", ' ', 'required|numeric');
+        if ($this->input->post("referencias_com_nombre_est")) {
+            $this->form_validation->set_rules("referencias_com_nombre_est", ' ', 'required');
+            $this->form_validation->set_rules("referencias_com_departamento", ' ', 'required|numeric');
+            $this->form_validation->set_rules("referencias_com_municipio", ' ', 'required|numeric');
         }
 
-        $this->form_validation->set_rules("referencias_com_nombre_est", ' ', 'required');
-        $this->form_validation->set_rules("referencias_com_tipo_vinculo", ' ', 'required');
-        $this->form_validation->set_rules("referencias_com_departamento", ' ', 'required|numeric');
-        $this->form_validation->set_rules("referencias_com_municipio", ' ', 'required|numeric');
-        $this->form_validation->set_rules(" ", ' ', 'required');
+        for ($j = 1; $j <= 4; $j++) {
+            ///si el codigo FINAGRO tiene algo, valido el resto de la fila
+            if ($this->input->post("descripcion_inv_{$j}_1")) {
+                for ($i = 1; $i <= 11; $i++) {
+                    if (2 === $i || 3 === $i)
+                        $this->form_validation->set_rules("descripcion_inv_{$j}_{$i}", ' ', 'required');
+                    else
+                        $this->form_validation->set_rules("descripcion_inv_{$j}_{$i}", ' ', 'required|numeric');
+                }
+            }
+        }
 
-        for ($i = 1; $i <= 11; $i++) {
-            if (2 === $i || 3 === $i)
-                $this->form_validation->set_rules("descripcion_inv_1_{$i}", ' ', 'required');
-            else
-                $this->form_validation->set_rules("descripcion_inv_1_{$i}", ' ', 'required|numeric');
-        }*/
-
-//        $this->form_validation->set_rules("informacion_pre_nombre_predio", ' ', 'required');
-//        $this->form_validation->set_rules("informacion_pre_area", ' ', 'required|numeric');
-//        $this->form_validation->set_rules("informacion_pre_departamento", ' ', 'required|numeric');
-//        $this->form_validation->set_rules("informacion_pre_municipio", ' ', 'required|numeric');
-//        $this->form_validation->set_rules("informacion_pre_vereda", ' ', 'required');
         $this->form_validation->set_rules("informacion_pre_fuente_hid", ' ', 'required|numeric');
         $this->form_validation->set_rules("informacion_pre_fecha_ini", ' ', 'required');
         $this->form_validation->set_rules("informacion_pre_fecha_fin", ' ', 'required');
 
         for ($i = 1; $i <= 9; $i++) {
-            for ($j = 1; $j <= 5; $j++){
+            for ($j = 1; $j <= 5; $j++) {
                 if (1 != $i && 3 != $i && 7 != $i && 9 != $i)
                     $this->form_validation->set_rules("ingresos_adicionales_{$j}_{$i}", ' ', 'numeric');
             }
-                
         }
 
         $this->form_validation->set_rules("descripcion_inv", ' ', 'required');
         $this->form_validation->set_rules("forma_llegar_pred", ' ', 'required');
 
-//        for ($i = 1; $i <= 6; $i++) {
-//            if (4 === $i || 5 === $i)
-//                $this->form_validation->set_rules("descripcion_bien_1_{$i}", ' ', 'required');
-//            else
-//                $this->form_validation->set_rules("descripcion_bien_1_{$i}", ' ', 'required|numeric');
-//        }
+        for ($j = 1; $j <= 3; $j++) {
+            if ($this->input->post("descripcion_bien_{$j}_1")) {
+                for ($i = 1; $i <= 6; $i++) {
+                    if (4 === $i || 5 === $i)
+                        $this->form_validation->set_rules("descripcion_bien_{$j}_{$i}", ' ', 'required');
+                    else
+                        $this->form_validation->set_rules("descripcion_bien_{$j}_{$i}", ' ', 'required|numeric');
+                }
+            }
+        }
+
+        $this->form_validation->set_rules("vehiculo_valor_deuda", ' ', 'numeric');
+        $this->form_validation->set_rules("vehiculo_valor_comercial", ' ', 'numeric');
+        
+        for ($i = 1; $i <= 4; $i++) {
+            $this->form_validation->set_rules("otros_cantidad{$i}", ' ', 'numeric');
+            $this->form_validation->set_rules("otros_valor{$i}", ' ', 'numeric');
+        }
+
 
         $this->form_validation->set_rules("experiencia_act", ' ', 'required|numeric');
         $this->form_validation->set_rules("tiempo_permanencia", ' ', 'required|numeric');
