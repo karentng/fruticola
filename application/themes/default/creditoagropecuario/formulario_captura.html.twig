@@ -536,7 +536,7 @@
                                 <label class="col-sm-6 control-label">Fecha de Nacimiento</label>
                                 <div class="col-sm-6">
                                     <div class="input-group date datepicker autostart">
-                                        <input size="16" class="form-control" name="conyugue_fecha_nacimiento" type="text" value="{% if conyugue.fecha_nacimiento != '' %} '{{ set_value2('conyugue_fecha_nacimiento', conyugue.fecha_nacimiento | date('Y-m-d')) }}' {% endif %}">
+                                        <input size="16" class="form-control" name="conyugue_fecha_nacimiento" type="text" value="{% if set_value2('conyugue_fecha_nacimiento', conyugue.fecha_nacimiento) != '' %} {{ set_value2('conyugue_fecha_nacimiento', conyugue.fecha_nacimiento | date('Y-m-d')) }} {% endif %}">
                                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>    
                                     </div>
                                     {{form_error('conyugue_fecha_nacimiento')}}
@@ -1605,7 +1605,7 @@
                                     <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 100px;" hidden/>
 
                             {% else %}
-                                    <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 95px;" value="{{ set_value2( ingresos_adicionales_~i~'_'~j, ingresos_adicionales[i][id_name] ) }}"/>
+                                    <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 95px;" value="{{ set_value2( 'ingresos_adicionales_'~i~'_'~j, ingresos_adicionales[i][id_name] ) }}"/>
                             {% endif %}  
                                     {{form_error('ingresos_adicionales_' ~ i ~ '_' ~ j )}}
                                 </td>                  
@@ -1748,6 +1748,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Inmueble</label>
                                     <select name="descripcion_bien_2_1" class="form-control">
+                                        <option value=0 ></option>
                                         <option value=1 {{descripcion_inversiones[0].tipo_inmueble == 1? 'selected': ''}}>Casa</option>
                                         <option value=2 {{descripcion_inversiones[0].tipo_inmueble == 2? 'selected': ''}}>Edificio</option>
                                         <option value=3 {{descripcion_inversiones[0].tipo_inmueble == 3? 'selected': ''}}>Finca</option>
@@ -1817,6 +1818,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Tipo de Inmueble</label>
                                     <select name="descripcion_bien_3_1" class="form-control">
+                                        <option value=0 ></option>
                                         <option value=1 {{descripcion_inversiones[1].tipo_inmueble == 1? 'selected': ''}}>Casa</option>
                                         <option value=2 {{descripcion_inversiones[1].tipo_inmueble == 2? 'selected': ''}}>Edificio</option>
                                         <option value=3 {{descripcion_inversiones[1].tipo_inmueble == 3? 'selected': ''}}>Finca</option>

@@ -126,11 +126,11 @@ create table ingresos_adicionales(
     solicitud_id                    integer references solicitud_credito(id),
     actividad                       varchar(50),
     cantidad                        double precision,
-    produccion                      double precision,
+    produccion                      varchar(50),
     precio_venta                    double precision,
     total_ingresos                  double precision,
     area_pre_inv                    double precision,
-    tipo_pre_inv                    double precision,
+    tipo_pre_inv                    varchar(50),
     edad_meses                      double precision,
     nombre_predio                   varchar(50)
 );
