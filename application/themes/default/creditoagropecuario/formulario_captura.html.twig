@@ -2,14 +2,14 @@
 
 {% block html_head %}
 
-
+<script src="{{ base_url('assets/js/autoNumeric.js')}}"></script>
 <script type="text/javascript">
 </script>
 
 
 
 <style>
-    input[money] {
+    input.money {
         text-align:right;
     }
 </style>
@@ -84,8 +84,24 @@
                 $("#calidad_de").slideDown();
         });
 
+        $('.money').autoNumeric('init', {
+            aSep: '.',
+            aDec: ',',
+            mDec: 0,
+            wEmpty: 'zero',
+            vMin: '0.0',
+        });
+
         set_combos_deptos();
         set_combos_mupios();
+
+
+        $('form').submit( function(){
+            $(".money").each(function(index) {
+                var valor = $(this).autoNumeric('get');
+                $(this).val(valor);
+            });
+        });
     });
 
     function crear_combo_deptos() {
@@ -148,6 +164,29 @@
             var obj = $(this);
             
         });
+    }
+
+    function obtenerNumeroInput(obj) {
+
+        var value = obj.val();
+        if (obj.hasClass('money')) {
+            ///por alguna razon no llegan inicializados los inputs 
+            obj.autoNumeric('init', {
+                aSep: '.',
+                aDec: ',',
+                wEmpty: 'zero',
+                mDec:0,
+                vMin: '0.0',
+            });
+
+            value = obj.autoNumeric('get');
+        }
+
+        if (isNaN(value) || !value) {
+            return 0;
+        } else {
+            return parseFloat(value);
+        }
     }
 
 </script>
@@ -1560,7 +1599,7 @@
                                 <div class="form-group">
                                     <label class="">Fecha Inicial de la Inversión AAAA/MM/DD</label>
                                     <div class="input-group date datepicker autostart">
-                                        <input size="16" class="form-control" name="informacion_pre_fecha_ini" type="text" value="{{ set_value2('informacion_pre_fecha_ini', informacion_predios_inversion[0].fecha_ini| date('Y-m-d')) }}">
+                                        <input size="16" class="form-control" name="informacion_pre_fecha_ini" type="text" value="{% if set_value2('informacion_pre_fecha_ini', informacion_predios_inversion[0].fecha_ini) != '' %} {{ set_value2('informacion_pre_fecha_ini', informacion_predios_inversion[0].fecha_ini| date('Y-m-d')) }} {% endif %}">
                                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                                        
                                     </div>
                                     {{form_error('informacion_pre_fecha_ini')}}
@@ -1572,7 +1611,7 @@
                                 <div class="form-group">
                                     <label class="">Fecha final de la Inversión AAAA/MM/DD</label>
                                     <div class="input-group date datepicker autostart">
-                                        <input size="16" class="form-control" name="informacion_pre_fecha_fin" type="text" value="{{ set_value2('informacion_pre_fecha_fin', informacion_predios_inversion[0].fecha_fin| date('Y-m-d')) }}">
+                                        <input size="16" class="form-control" name="informacion_pre_fecha_fin" type="text" value="{% if set_value2('informacion_pre_fecha_fin', informacion_predios_inversion[0].fecha_fin) != '' %} {{ set_value2('informacion_pre_fecha_fin', informacion_predios_inversion[0].fecha_fin| date('Y-m-d')) }} {% endif %}">
                                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                                        
                                     </div>
                                     {{form_error('informacion_pre_fecha_fin')}}
@@ -1628,12 +1667,18 @@
 
                         {% for j in 1..9 %}
                                 <td>
+                            {% if j == 5 or j == 6 %}
+                                {% set class = 'money' %}
+                            {% else %}
+                                {% set class = '' %}
+                            {% endif %}
+
                             {% if i == 5 and j == 1 %}
                                     Otros Ingresos Diferentes a los generados por actividades agropecuarias
-                                    <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 100px;" hidden/>
+                                    <input name="ingresos_adicionales_{{ i~'_'~j }}" style="width: 100px;" hidden/>
 
                             {% else %}
-                                    <input name="ingresos_adicionales_{{ i~'_'~j }}"  name="" style="width: 95px;" value="{{ set_value2( 'ingresos_adicionales_'~i~'_'~j, ingresos_adicionales[i][id_name] ) }}"/>
+                                    <input name="ingresos_adicionales_{{ i~'_'~j }}" class="{{class}}" style="width: 95px;" value="{{ set_value2( 'ingresos_adicionales_'~i~'_'~j, ingresos_adicionales[i][id_name] ) }}"/>
                             {% endif %}  
                                     {{form_error('ingresos_adicionales_' ~ i ~ '_' ~ j )}}
                                 </td>                  
@@ -1965,7 +2010,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Valor de la deuda</label>
-                                    <input type="text" class="form-control" name="vehiculo_valor_deuda" value="{{ set_value2( 'vehiculo_valor_deuda', descripcion_bienes[0].valor_deuda ) }}"/>
+                                    <input type="text" class="form-control" name="vehiculo_valor_deuda"  class="money" value="{{ set_value2( 'vehiculo_valor_deuda', descripcion_bienes[0].valor_deuda ) }}"/>
                                     {{form_error("vehiculo_valor_deuda")}}
                                 </div>
                             </div>
@@ -1974,7 +2019,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="control-label">Valor Comercial</label>
-                                    <input type="text" class="form-control" name="vehiculo_valor_comercial" value="{{ set_value2( 'vehiculo_valor_comercial', descripcion_bienes[0].valor_comercial ) }}"/>
+                                    <input type="text" class="form-control" name="vehiculo_valor_comercial"  class="money" value="{{ set_value2( 'vehiculo_valor_comercial', descripcion_bienes[0].valor_comercial ) }}"/>
                                     {{form_error("vehiculo_valor_comercial")}}
                                 </div>
                             </div>
@@ -1993,36 +2038,36 @@
                                 <td>Semovientes</td>
                                 <td><input  name="otros_bienes1" style="width: 120px;" value="{{ set_value2( 'otros_bienes1', descripcion_bienes[0].otros_bienes1 ) }}"/>{{form_error("otros_bienes1")}}</td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad1" style="width: 120px;" value="{{ set_value2( 'otros_cantidad1', descripcion_bienes[0].otros_cantidad1 ) }}"/>{{form_error("otros_cantidad1")}}</td>
+                                <td><input  name="otros_cantidad1" class="money" style="width: 120px;" value="{{ set_value2( 'otros_cantidad1', descripcion_bienes[0].otros_cantidad1 ) }}"/>{{form_error("otros_cantidad1")}}</td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor1" style="width: 120px;" value="{{ set_value2( 'otros_valor1', descripcion_bienes[0].otros_valor1 ) }}"/>{{form_error("otros_valor1")}}</td>
+                                <td><input  name="otros_valor1"  class="money" style="width: 120px;" value="{{ set_value2( 'otros_valor1', descripcion_bienes[0].otros_valor1 ) }}"/>{{form_error("otros_valor1")}}</td>
                             </tr>
 
                             <tr>
                                 <td>Maquinaria</td>
                                 <td><input  name="otros_bienes2" style="width: 120px;" value="{{ set_value2( 'otros_bienes2', descripcion_bienes[0].otros_bienes2 ) }}"/>{{form_error("otros_bienes2")}}</td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad2" style="width: 120px;" value="{{ set_value2( 'otros_cantidad2', descripcion_bienes[0].otros_cantidad2 ) }}"/>{{form_error("otros_cantidad2")}}</td>
+                                <td><input  name="otros_cantidad2" class="money" style="width: 120px;" value="{{ set_value2( 'otros_cantidad2', descripcion_bienes[0].otros_cantidad2 ) }}"/>{{form_error("otros_cantidad2")}}</td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor2" style="width: 120px;" value="{{ set_value2( 'otros_valor2', descripcion_bienes[0].otros_valor2 ) }}"/>{{form_error("otros_valor2")}}</td>
+                                <td><input  name="otros_valor2" class="money" style="width: 120px;" value="{{ set_value2( 'otros_valor2', descripcion_bienes[0].otros_valor2 ) }}"/>{{form_error("otros_valor2")}}</td>
                             </tr>
 
                             <tr>
                                 <td>Cultivos en desarrollo</td>
                                 <td><input  name="otros_bienes3" style="width: 120px;" value="{{ set_value2( 'otros_bienes3', descripcion_bienes[0].otros_bienes3 ) }}"/>{{form_error("otros_bienes3")}}</td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad3" style="width: 120px;" value="{{ set_value2( 'otros_cantidad3', descripcion_bienes[0].otros_cantidad3 ) }}"/>{{form_error("otros_cantidad3")}}</td>
+                                <td><input  name="otros_cantidad3" class="money" style="width: 120px;" value="{{ set_value2( 'otros_cantidad3', descripcion_bienes[0].otros_cantidad3 ) }}"/>{{form_error("otros_cantidad3")}}</td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor3" style="width: 120px;" value="{{ set_value2( 'otros_valor3', descripcion_bienes[0].otros_valor2 ) }}"/>{{form_error("otros_valor2")}}</td>
+                                <td><input  name="otros_valor3" class="money" style="width: 120px;" value="{{ set_value2( 'otros_valor3', descripcion_bienes[0].otros_valor2 ) }}"/>{{form_error("otros_valor2")}}</td>
                             </tr>
 
                             <tr>
                                 <td>Inversiones y otros activos</td>
                                 <td><input  name="otros_bienes4" style="width: 120px;" value="{{ set_value2( 'otros_bienes4', descripcion_bienes[0].otros_bienes4 ) }}"/>{{form_error("otros_bienes4")}}</td>
                                 <td>Cantidad</td>
-                                <td><input  name="otros_cantidad4" style="width: 120px;" value="{{ set_value2( 'otros_cantidad4', descripcion_bienes[0].otros_cantidad4 ) }}"/>{{form_error("otros_cantidad4")}}</td>
+                                <td><input  name="otros_cantidad4" class="money" style="width: 120px;" value="{{ set_value2( 'otros_cantidad4', descripcion_bienes[0].otros_cantidad4 ) }}"/>{{form_error("otros_cantidad4")}}</td>
                                 <td>Valor Comercial</td>
-                                <td><input  name="otros_valor4" style="width: 120px;" value="{{ set_value2( 'otros_valor4', descripcion_bienes[0].otros_valor4 ) }}"/>{{form_error("otros_valor4")}}</td>
+                                <td><input  name="otros_valor4" class="money" style="width: 120px;" value="{{ set_value2( 'otros_valor4', descripcion_bienes[0].otros_valor4 ) }}"/>{{form_error("otros_valor4")}}</td>
                             </tr>
 
                         </tbody>
