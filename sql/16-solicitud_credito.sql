@@ -20,7 +20,7 @@ create table solicitud_credito(
     departamento_id                 integer not null references departamento(id),
     municipio_id                    integer not null references municipio(id),
     tipo_productor                  integer not null references tipoproductor(id),
-    experiencia                     boolean not null,
+    experiencia                     integer not null,
     calidad_de                      integer not null,
     rubros_fin_icr                  varchar(50),
     rubros_fin_dre                  varchar(50),
@@ -108,14 +108,8 @@ create table descripcion_inv(
 
 create table informacion_pre(
     id                              serial not null primary key,
-    solicitud_id                    integer references solicitud_credito(id),
-    nombre_predio                   varchar(100),
-    area                            double precision,
-    tenencia                        varchar(50),
-    departamento_id                 integer not null references departamento(id),
-    municipio_id                    integer not null references municipio(id),
-    vareda                          varchar(100),
-    fuente_hid                      boolean,
+    solicitud_id                    integer references solicitud_credito(id),    
+    fuente_hid                      integer,
     fecha_ini                       timestamp,
     fecha_fin                       timestamp
 );
@@ -146,10 +140,10 @@ create table descripcion_bienes(
     valor_deuda                     double precision,
     valor_comercial                 double precision,
 
-    otros_vienes1                   varchar(50),
-    otros_vienes2                   varchar(50),
-    otros_vienes3                   varchar(50),
-    otros_vienes4                   varchar(50),
+    otros_bienes1                   varchar(50),
+    otros_bienes2                   varchar(50),
+    otros_bienes3                   varchar(50),
+    otros_bienes4                   varchar(50),
     otros_cantidad1                 double precision,
     otros_cantidad2                 double precision,
     otros_cantidad3                 double precision,
