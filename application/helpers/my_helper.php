@@ -1,167 +1,175 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
-if(! function_exists('my_input'))
-{
-    function my_input($name, array $attrs=array())
-    {
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+if (!function_exists('my_input')) {
+
+    function my_input($name, array $attrs = array()) {
         $error = form_error($name);
-        if(empty($attrs['class'])) $attrs['class']=''; 
-        if(empty($attrs['type'])) $attrs['type']='text';
+        if (empty($attrs['class']))
+            $attrs['class'] = '';
+        if (empty($attrs['type']))
+            $attrs['type'] = 'text';
 
         $attrs['id'] = $attrs['name'] = $name;
-        $attrs['value'] = set_value($name, $attrs['default']?:'' );
+        $attrs['value'] = set_value($name, $attrs['default']? : '' );
         unset($attrs['default']);
 
-        $attrs['class'] .= ' form-control'. ($error?' error':'');
+        $attrs['class'] .= ' form-control' . ($error ? ' error' : '');
         $output = form_input($attrs);
-        if($error) $output .= "<label class='error'>$error</label>";
-        
+        if ($error)
+            $output .= "<label class='error'>$error</label>";
+
         return $output;
     }
 
-
-    /* 
+    /*
      * Ejemplos (Sintaxis Twiggy):
      *  my_select('sexo', {'':'-', 'F':'Femenino', 'M':'Masculino'})
      *  my_select('ciudad', dict_ciudades, {filter:true, placeholder:'Seleccione la ciudad'})
      *  my_select('servicios', $servicios, {multiple:true})
      */
-    function my_select($name, $options, array $attrs=array())
-    {
+
+    function my_select($name, $options, array $attrs = array()) {
         $error = form_error($name);
-        if(empty($attrs['class'])) $attrs['class']='';
+        if (empty($attrs['class']))
+            $attrs['class'] = '';
 
         $attrs['id'] = $attrs['name'] = $name;
-        $attrs['class'] .= ' select2 form-control'. ($error?' error':'');
-        if(isset($attrs['filter']))
-        {
+        $attrs['class'] .= ' select2 form-control' . ($error ? ' error' : '');
+        if (isset($attrs['filter'])) {
             $attrs['class'].=' with-filter';
             unset($attrs['filter']);
-        }
-        else
+        } else
             $attrs['class'].=' without-filter';
 
-        if(isset($attrs['placeholder']))
-        {
+        if (isset($attrs['placeholder'])) {
             $attrs['data-placeholder'] = $attrs['placeholder']; // used by select2 plugin
             unset($attrs['placeholder']);
         }
 
         $extra = "";
-        foreach($attrs as $key => $val) $extra.=" $key='$val'";
+        foreach ($attrs as $key => $val)
+            $extra.=" $key='$val'";
 
-        $options = array(''=>'')+$options;
+        $options = array('' => '') + $options;
         $val = set_value($name);
-        if($val==="") $val=-123456; //evitar seleccion de la opcion vacia
+        if ($val === "")
+            $val = -123456; //evitar seleccion de la opcion vacia
 
 
 
         $output = form_dropdown($name, $options, $val, $extra);
 
-        if($error) $output .= "<label class='error'>$error</label>";
-        
+        if ($error)
+            $output .= "<label class='error'>$error</label>";
+
         return $output;
     }
 
+    if (!isset($_current_user_))
+        $_current_user_ = null;
 
-    
-
-    if(!isset($_current_user_))
-        $_current_user_=null;
-
-    function current_user($prop=null)
-    {
+    function current_user($prop = null) {
         global $_current_user_;
 
-        if(empty($_current_user_))
-        {
-            $CI =& get_instance();
-            $_current_user_= $CI->ion_auth->user()->row();
+        if (empty($_current_user_)) {
+            $CI = & get_instance();
+            $_current_user_ = $CI->ion_auth->user()->row();
         }
-        if($prop==null) return $_current_user_;
-        else return $_current_user_->$prop;
+        if ($prop == null)
+            return $_current_user_;
+        else
+            return $_current_user_->$prop;
     }
 
-    function check_profile(array $profiles, $locker=true)
-    {
+    function check_profile(array $profiles, $locker = true) {
         $CI = &get_instance();
-        if(!$CI->ion_auth->logged_in()) 
+        if (!$CI->ion_auth->logged_in())
             redirect("auth/login");
 
-        if(!current_user()->active)
+        if (!current_user()->active)
             show_error('Su usuario se encuentra desactivado. Consulte con el administrador.');
 
         $prof = $CI->ion_auth->get_users_groups()->row()->name;
 
-        if(in_array($prof, $profiles))
+        if (in_array($prof, $profiles))
             return true;
-        elseif($locker) 
+        elseif ($locker)
             show_error('No tiene acceso a esta seccion del sistema. Consulte al administrador.');
-        else 
+        else
             return false;
     }
 
-    function is_profile($prof)
-    {
-        $CI =& get_instance();
+    function is_profile($prof) {
+        $CI = & get_instance();
 
         return $CI->ion_auth->in_group($prof);
     }
 
-
-    function assoc(array $arreglo, $keyField="id", $valueField="descripcion")
-    {
+    function assoc(array $arreglo, $keyField = "id", $valueField = "descripcion") {
         $res = array();
-        foreach($arreglo as $obj)
+        foreach ($arreglo as $obj)
             $res[$obj->$keyField] = $obj->$valueField;
         return $res;
     }
 
     function extract_prop($objs, $prop) {
         $res = array();
-        if(is_array($objs[0]))
-            foreach($objs as $obj) 
+        if (is_array($objs[0]))
+            foreach ($objs as $obj)
                 $res[] = $obj[$prop];
         else
-            foreach($objs as $obj) 
+            foreach ($objs as $obj)
                 $res[] = $obj->$prop;
         return $res;
     }
 
-    function ruat_breadcrumbs($step, $ruat_id)
-    {
+    function ruat_breadcrumbs($step, $ruat_id) {
         $output = "<li>RUAT</li>";
-        $cond = array('ruat_id'=> $ruat_id ?: "0");
+        $cond = array('ruat_id' => $ruat_id ? : "0");
         $linkA = site_url("ruata/index/$ruat_id");
         $linkB = $ruat_id ? site_url("ruatb/index/$ruat_id") : null;
         $linkC = Finca::exists($cond) ? site_url("ruatc/index/$ruat_id") : null;
         $linkD = AprendizajeRespuesta::exists($cond) ? site_url("ruatd/index/$ruat_id") : null;
 
         $sections = array(
-            array('step'=>1, 'title'=>'Sección A', 'link' => $linkA),
-            array('step'=>2, 'title'=>'Sección B', 'link' => $linkB),
-            array('step'=>3, 'title'=>'Sección C', 'link' => $linkC),
-            array('step'=>4, 'title'=>'Sección D', 'link' => $linkD),
+            array('step' => 1, 'title' => 'Sección A', 'link' => $linkA),
+            array('step' => 2, 'title' => 'Sección B', 'link' => $linkB),
+            array('step' => 3, 'title' => 'Sección C', 'link' => $linkC),
+            array('step' => 4, 'title' => 'Sección D', 'link' => $linkD),
         );
 
 
-        foreach($sections as $section)
-            if($step==$section['step'])
+        foreach ($sections as $section)
+            if ($step == $section['step'])
                 $output .= "<li><strong class='text-success'>$section[title]</strong></a>";
-            elseif($section['link'])
+            elseif ($section['link'])
                 $output .= "<li><a href='$section[link]'>$section[title]</a></li>";
 
         return $output;
     }
 
-    function flash_notif()
-    {
+    function flash_notif() {
         $ci = &get_instance();
         $msg = $ci->session->flashdata('notif');
-        if($msg) {
+        if ($msg) {
             $json = json_encode($msg);
             return "<script>$(function(){ notif($json) });</script>";
         }
         return "";
     }
+
+    function set_value2($input_name, $value) {
+
+//        var_dump($input_name);
+//        var_dump($value);
+
+        if (isset($_REQUEST[$input_name]) && !empty($_REQUEST[$input_name]))
+            $value = $_REQUEST[$input_name];
+
+        return set_value($input_name, $value);
+    }
+
 }

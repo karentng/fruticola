@@ -67,11 +67,11 @@ class ListadoRuats extends CI_Controller {
             $url = site_url("ruatImprimible/index/".$item->id);
             $actions .= "<a class='btn btn-xs btn-info tip' href='$url' title='Versión Imprimible RUAT' target='_blank'><i class='i-print'></i></a>";
 
-            if($item->ruta_formulario) {
+            /*if($item->ruta_formulario) {
                 $url = site_url("uploads/". $item->ruta_formulario);
                 $actions .= "<a class='btn btn-xs btn-info tip' title='Descargar RUAT Escaneado' href='$url' target='_blank'><i class='i-file-download'></i></a>";
             }
-            else $actions .= '<a class="btn btn-xs" disabled="disabled"><i class="i-file-download"></i></a>';
+            else $actions .= '<a class="btn btn-xs" disabled="disabled"><i class="i-file-download"></i></a>';*/
 
             $actions .="</div>&nbsp;";
 
@@ -164,6 +164,26 @@ class ListadoRuats extends CI_Controller {
                     $actions .= "<button disabled='disabled' class='btn btn-xs btn-info'>E. Suelo</button>";
                 }
             }
+
+            $crd = SolicitudCredito::find_by_ruat_id($item->id);
+            
+            if($crd)
+                $cls = "btn btn-xs btn-warning";
+            else
+                $cls = "btn btn-xs btn-default";
+            
+            $url = site_url("creditoagropecuario/index/$item->id");
+            $actions .= " <div class='btn-group'>";
+            $actions .= "<a class='$cls tip' href='$url' title='Solicitud de Credito Agropecuario'>Crédito</a>";
+            if($crd) {
+                $impr = site_url("creditoagropecuario/imprimible/$item->id");
+                $actions .= "<a class='btn btn-xs btn-info' href='$impr' target='_blank'><i class='i-print'></i></a>";
+            }
+            else {
+                $actions .= "<a class='btn btn-xs btn-info' disabled='disabled'><i class='i-print'></i></a>";
+            }
+            $actions .= "</div";
+            
 
 
 
