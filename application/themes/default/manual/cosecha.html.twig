@@ -1,0 +1,95 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+<style type="text/css">
+    .tamannoLetra{
+        font-size:17px;
+    }
+    .rojo{
+        color:red;
+    }
+    .azul{
+        color:blue;
+    }
+    .amarillo{
+        color:yellow;
+    }
+    .verde{
+        color:green;
+    }
+    .naranja{
+        color:orange;
+    }
+    .morado{
+        color:purple;
+    }
+    .rosado{
+        color:pink;
+    }
+    .fucsia{
+        color:crimson;
+    }
+    .aguamarina{
+        color: #008080;
+    }
+    .naranjafuerte{
+        color: orangered;
+    }
+
+     
+</style>
+{% endblock %}
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      <li><strong class="text-success">MANUAL DE USUARIO</strong></li>
+    </ul>
+{% endblock %}
+
+{% block titulo %}
+    <h1><i class="icon20 i-stack-checkmark"></i> MANUAL DE USUARIO </h1> 
+{% endblock %}
+
+{% block contenido %}
+<div class="form-group">
+    <div class="container-fluid">
+    <ul id="myTab" class="nav nav-tabs">
+        <li><a href="#reng" data-toggle="tab">COSECHA</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="reng" id="home" align="justify">
+            <center><label><h3>Cosecha</h3></label></center>
+            <p class="tamannoLetra">En el formulario cosecha se requiere la información relacionada con la caracteristicas de la cosecha del cultivo.</p>
+            <img src="{{base_url('assets/images/manual/Cosecha/1.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Nombre Productor:</b></label> Se presenta el nombre del productor asociado en el RUAT.</p>
+            <p class="tamannoLetra"><label class="naranjafuerte"><b>Información Productor:</b></label> Al hacer click en el ícono de información se abre una pequeña ventana con la información adicional del productor (Identificación, Municipio, Vereda, Célular, Renglón). </p>
+            <p class="tamannoLetra"><label class="verde"><b>Fecha de Visita:</b></label> En este campo se ingresa la fecha en que se realizó la visita. Se puede ingresar digita en el formato AAAA-MM-DD, también se puede ingresar seleccionando el día desde el ícono del calendario que está a la derecha del campo.</label> 
+            <p class="tamannoLetra"><label class="morado"><b>Opciones Hora de Cosecha:</b></label> Se debe elegir una opción de las que se presentan para la hora de cosecha.</p>
+
+            <img src="{{base_url('assets/images/manual/cosecha/2.png')}}" style="width:100%; margin-bottom:20px">
+           
+            <p class="tamannoLetra"><label class="azul"><b>Opciones Criterios para Determinar la Cosecha:</b></label> Se escoge una o varias opciones de aquellos criterios que utiliza el productor para determinar la cosecha.</p>
+            <p class="tamannoLetra"><label class="amarillo"><b>Opciones de Herramientas para Realizar la Labor de Cosecha:</b></label> Se escoge una o varias opciones de aquellos criterios que utiliza el productor para determinar la cosecha.</p>
+
+            <img src="{{base_url('assets/images/manual/cosecha/3.png')}}" style="width:100%; margin-bottom:20px">
+            
+            <p class="tamannoLetra"><label class="morado"><b>Tipos de Herramientas para Realizar Labor de Cosecha:</b></label> Se debe escoger una o más opciones que el productor tiene de los tipos de herramientas para realizar labor de cosecha.</p>
+            <p class="tamannoLetra"><label class="verde"><b>Opciones Elementos de Recolección durante la Labor de Cosecha:</b></label> Se debe escoger una o más opciones que tenga el productor de elementos de recolección durante la labor de cosecha. En el momento que se vaya a escoger la opción "Otro" se debe seleccionar la casilla y escribir que otro elemento de recolección tiene el productor.</p>
+
+            <img src="{{base_url('assets/images/manual/cosecha/4.png')}}" style="width:100%; margin-bottom:20px">
+            <p class="tamannoLetra"><label class="naranjafuerte"><b>Opción Personal Cosecha:</b></label> Se debe escoger una opción del personal de cosecha que tiene el productor en su finca.</p> 
+            <p class="tamannoLetra"><label class="verde"><b>Opciones Almacenamiento Cosecha:</b></label> Se debe escoger una opción de respuesta si se tiene un sitio específico de almacenamiento de cosecha.</p> 
+            <p class="tamannoLetra"><label class="azul"><b>Opción Tipo de Transporte Interno:</b></label> Se debe escoger una o más opciones para el tipo de transporte interno que tenga el productor en su finca.</p> 
+            
+
+            <img src="{{base_url('assets/images/manual/cosecha/5.png')}}" style="width:100%; margin-bottom:20px">
+            <p class="tamannoLetra"><label class="rojo"><b>Opciones Protección del Fruto:</b></label> Se debe escoger una o más opciones de la protección del fruto.</p>
+            <p class="tamannoLetra"><label class="amarillo"><b>Observaciones:</b></label> En este campo se deben escribir todas las observaciones que se tengan de la visita.</p>
+            <p class="tamannoLetra"><label class="verde"><b>Botones:</b></label> Con el botón "Guardar en Blanco" se puede guardar en blanco el formulario tan solo con la fecha de la visita. Con el botón "Guardar" se puede guardar el formulario. Con el botón "Cancelar" se descartan los cambios.</p>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
