@@ -330,12 +330,10 @@ class Creditoagropecuario extends CI_Controller {
 
                 $connection->commit();
                 $this->twiggy->set('notif', array('type' => 'success', 'text' => "Datos guardados correctamente"));
-                
             } catch (Exception $ex) {
                 $connection->rollback();
                 $this->twiggy->set('notif', array('type' => 'error', 'text' => "Se encontraron errores al procesar el formulario. <br>" . $ex));
-            }           
-            
+            }
         } else if (validation_errors()) {
 
 //            var_dump(validation_errors());
@@ -436,7 +434,7 @@ class Creditoagropecuario extends CI_Controller {
 
         $this->form_validation->set_rules("informacion_pre_fuente_hid", ' ', 'required|numeric');
         $this->form_validation->set_rules("informacion_pre_fecha_ini", ' ', 'required');
-        $this->form_validation->set_rules("informacion_pre_fecha_fin", ' ', 'required');
+        $this->form_validation->set_rules("informacion_pre_fecha_fin", ' ', 'required|callback_validar_fecha');
 
         for ($i = 1; $i <= 9; $i++) {
             for ($j = 1; $j <= 5; $j++) {
@@ -470,6 +468,19 @@ class Creditoagropecuario extends CI_Controller {
 
         $this->form_validation->set_rules("experiencia_act", ' ', 'required|numeric');
         $this->form_validation->set_rules("tiempo_permanencia", ' ', 'required|numeric');
+    }
+
+    ///custom validation rule para que la fecha final no sea menor a la inicial
+    public function validar_fecha($fecha_fin) {
+        $fecha_fin = strtotime($fecha_fin);
+        $fecha_ini = strtotime($this->input->post("informacion_pre_fecha_ini"));
+
+        if ($fecha_fin > $fecha_ini) {            
+            return TRUE;
+        } else {
+            $this->form_validation->set_message('validar_fecha','La fecha final no puede ser menor a la inicial.');
+            return FALSE;
+        }
     }
 
     public function imprimible($ruat_id = NULL) {
