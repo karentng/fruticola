@@ -119,7 +119,7 @@ class Creditoagropecuario extends CI_Controller {
                     $referencias_familiares[0]->apellido1 = $this->input->post('referencias_fam1_apellido1');
                     $referencias_familiares[0]->apellido2 = $this->input->post('referencias_fam1_apellido2');
                     $referencias_familiares[0]->parentesco = $this->input->post('referencias_fam1_parentesco');
-                    $referencias_familiares[0]->direccion = $this->input->post('referencias_fam1_direccion');
+                    $referencias_familiares[0]->direccion = $this->input->post('referencias_fam1_per_direccion');
                     $referencias_familiares[0]->departamento_id = $this->input->post('referencias_fam1_departamento');
                     $referencias_familiares[0]->municipio_id = $this->input->post('referencias_fam1_municipio');
                     $referencias_familiares[0]->barrio = $this->input->post('referencias_fam1_barrio');
@@ -142,7 +142,7 @@ class Creditoagropecuario extends CI_Controller {
                     $referencias_familiares[1]->apellido1 = $this->input->post('referencias_fam2_apellido1');
                     $referencias_familiares[1]->apellido2 = $this->input->post('referencias_fam2_apellido2');
                     $referencias_familiares[1]->parentesco = $this->input->post('referencias_fam2_parentesco');
-                    $referencias_familiares[1]->direccion = $this->input->post('referencias_fam2_direccion');
+                    $referencias_familiares[1]->direccion = $this->input->post('referencias_fam2_per_direccion');
                     $referencias_familiares[1]->departamento_id = $this->input->post('referencias_fam2_departamento');
                     $referencias_familiares[1]->municipio_id = $this->input->post('referencias_fam2_municipio');
                     $referencias_familiares[1]->barrio = $this->input->post('referencias_fam2_barrio');
@@ -165,7 +165,7 @@ class Creditoagropecuario extends CI_Controller {
                     $referencias_personales[0]->apellido1 = $this->input->post('referencias_per1_apellido1');
                     $referencias_personales[0]->apellido2 = $this->input->post('referencias_per1_apellido2');
                     $referencias_personales[0]->parentesco = $this->input->post('referencias_per1_parentesco');
-                    $referencias_personales[0]->direccion = $this->input->post('referencias_per1_direccion');
+                    $referencias_personales[0]->direccion = $this->input->post('referencias_per1_per_direccion');
                     $referencias_personales[0]->departamento_id = $this->input->post('referencias_per1_departamento');
                     $referencias_personales[0]->municipio_id = $this->input->post('referencias_per1_municipio');
                     $referencias_personales[0]->barrio = $this->input->post('referencias_per1_barrio');
@@ -188,7 +188,7 @@ class Creditoagropecuario extends CI_Controller {
                     $referencias_personales[1]->apellido1 = $this->input->post('referencias_per2_apellido1');
                     $referencias_personales[1]->apellido2 = $this->input->post('referencias_per2_apellido2');
                     $referencias_personales[1]->parentesco = $this->input->post('referencias_per2_parentesco');
-                    $referencias_personales[1]->direccion = $this->input->post('referencias_per2_direccion');
+                    $referencias_personales[1]->direccion = $this->input->post('referencias_per2_per_direccion');
                     $referencias_personales[1]->departamento_id = $this->input->post('referencias_per2_departamento');
                     $referencias_personales[1]->municipio_id = $this->input->post('referencias_per2_municipio');
                     $referencias_personales[1]->barrio = $this->input->post('referencias_per2_barrio');
@@ -211,7 +211,7 @@ class Creditoagropecuario extends CI_Controller {
                     $referencias_financieras[0]->nro_producto = $this->input->post('referencias_fin1_nro_producto');
                     $referencias_financieras[0]->sucursal = $this->input->post('referencias_fin1_sucursal');
                     $referencias_financieras[0]->departamento_id = $this->input->post('referencias_fin1_departamento');
-                    $referencias_financieras[0]->municipio_id = $this->input->post('referencias_fin1_ciudad');
+                    $referencias_financieras[0]->municipio_id = $this->input->post('referencias_fin1_municipio');
                     if ($this->input->post('referencias_fin1_entidad')) {
                         $referencias_financieras[0]->save();
                     }
@@ -225,7 +225,7 @@ class Creditoagropecuario extends CI_Controller {
                     $referencias_financieras[1]->nro_producto = $this->input->post('referencias_fin2_nro_producto');
                     $referencias_financieras[1]->sucursal = $this->input->post('referencias_fin2_sucursal');
                     $referencias_financieras[1]->departamento_id = $this->input->post('referencias_fin2_departamento');
-                    $referencias_financieras[1]->municipio_id = $this->input->post('referencias_fin2_ciudad');
+                    $referencias_financieras[1]->municipio_id = $this->input->post('referencias_fin2_municipio');
                     if ($this->input->post('referencias_fin2_entidad')) {
                         $referencias_financieras[1]->save();
                     }
@@ -322,9 +322,11 @@ class Creditoagropecuario extends CI_Controller {
                         $descripcion_bienes_inmuebles[$i]->vereda = $this->input->post("descripcion_bien_{$j}_4");
                         $descripcion_bienes_inmuebles[$i]->direccion = $this->input->post("descripcion_bien_{$j}_5");
                         $descripcion_bienes_inmuebles[$i]->valor_comercial = $this->input->post("descripcion_bien_{$j}_6");
-                        if ($this->input->post("descripcion_bien_{$i}_1")) {
+                        if ($this->input->post("descripcion_bien_{$j}_1")) {
                             $descripcion_bienes_inmuebles[$i]->save();
                         }
+                        
+                        
                     }
                 }
 
@@ -340,7 +342,7 @@ class Creditoagropecuario extends CI_Controller {
             $this->twiggy->set('notif', array('type' => 'error', 'text' => "Se encontraron errores al procesar el formulario. <br> Revise los recuadros rojos"));
         }
 
-//        set_value();
+        
 
         $this->twiggy->set('combos', $data);
         $this->twiggy->set('solicitud_credito', $solicitud_credito);
@@ -424,7 +426,7 @@ class Creditoagropecuario extends CI_Controller {
             ///si el codigo FINAGRO tiene algo, valido el resto de la fila
             if ($this->input->post("descripcion_inv_{$j}_1")) {
                 for ($i = 1; $i <= 11; $i++) {
-                    if (2 === $i || 3 === $i)
+                    if (1 === $i ||2 === $i || 3 === $i)
                         $this->form_validation->set_rules("descripcion_inv_{$j}_{$i}", ' ', 'required');
                     else
                         $this->form_validation->set_rules("descripcion_inv_{$j}_{$i}", ' ', 'required|numeric');

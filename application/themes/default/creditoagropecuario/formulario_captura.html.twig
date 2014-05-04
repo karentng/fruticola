@@ -1446,7 +1446,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for i in 1..4 %}
+                            {% for i in 0..3 %}
                             <tr>                
                                 {% for j in 1..11 %}
                                     {% set id_name = '' %}
@@ -1465,16 +1465,17 @@
                                     {% endif %}
 
                                 <td>
+                                    
                                         {% if j == 8 or j == 9 or j == 10 %}
-                                            {% set valor = set_value2( 'descripcion_inv_'~i~'_'~j, descripcion_inv[i][id_name] ) %}
-                                    <select name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 95px;"/>
-                        <option value="" {{(valor == '')?'selected':''}}></option>
-                        <option value="2" {{(valor == '' == valor)?'selected':''}}>Anual</option>
-                        <option value="1" {{(valor == '' == valor)?'selected':''}}>Semestral</option>
-                        </select>
+                                            {% set valor = set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i], id_name) ) %}
+                                            <select name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 95px;"/>
+                                                <option value="" {{(valor == '')?'selected':''}}></option>
+                                                <option value="2" {{(valor == '2')?'selected':''}}>Anual</option>
+                                                <option value="1" {{(valor == '1')?'selected':''}}>Semestral</option>
+                                            </select>
                                             {{form_error('descripcion_inv_' ~ i ~ '_' ~ j )}}
                                         {% else %}             
-                        <input name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 65px;" value="{{ set_value2( 'descripcion_inv_'~i~'_'~j, descripcion_inv[i][id_name] ) }}"/>
+                                            <input name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 65px;" value="{{ set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i], id_name) ) }}"/>
                                             {{form_error('descripcion_inv_' ~ i ~ '_' ~ j )}}
                                         {% endif %}                            
                         </td>                  
@@ -1659,8 +1660,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                    {% for i in 1..5 %}
+                    {% for i in 0..4 %}
                             <tr>          
+                            
+
+                        {% for j in 1..9 %}
                             {% set id_name = '' %}
                             {% if j == 1 %}  {% set id_name = 'actividad' %}
                             {% elseif j == 2 %}  {% set id_name = 'cantidad' %}
@@ -1673,8 +1677,6 @@
                             {% elseif j == 9 %}  {% set id_name = 'tipo_pre_inv' %}
                             {% else %} {% set id_name = '' %}
                             {% endif %}
-
-                        {% for j in 1..9 %}
                                 <td>
                             {% if j == 5 or j == 6 %}
                                 {% set class = 'money' %}
@@ -1682,12 +1684,12 @@
                                 {% set class = '' %}
                             {% endif %}
 
-                            {% if i == 5 and j == 1 %}
+                            {% if i == 4 and j == 1 %}
                                     Otros Ingresos Diferentes a los generados por actividades agropecuarias
                                     <input name="ingresos_adicionales_{{ i~'_'~j }}" style="width: 100px;" hidden/>
 
                             {% else %}
-                                    <input name="ingresos_adicionales_{{ i~'_'~j }}" class="{{class}}" style="width: 95px;" value="{{ set_value2( 'ingresos_adicionales_'~i~'_'~j, ingresos_adicionales[i][id_name] ) }}"/>
+                                    <input name="ingresos_adicionales_{{ i~'_'~j }}" class="{{class}}" style="width: 95px;" value="{{ set_value2( 'ingresos_adicionales_'~i~'_'~j, attribute(ingresos_adicionales[i], id_name) ) }}"/>
                             {% endif %}  
                                     {{form_error('ingresos_adicionales_' ~ i ~ '_' ~ j )}}
                                 </td>                  
