@@ -34,12 +34,12 @@
 
             if (typeof inputValue !== "string")
                 return false;
-            
+
             var capitalized = inputValue.toUpperCase();
             if (capitalized !== inputValue) {
                 $(this).val(capitalized);
             }
-        
+
         });
 
         //console.debug(departamentos.html());
@@ -77,12 +77,7 @@
                 $('#' + new_id).hide();
         });
 
-        $('#experiencia').on('change', function() {
-            if ($(this).val() == 0)
-                $("#calidad_de").hide();
-            else if ($(this).val() == 1)
-                $("#calidad_de").slideDown();
-        });
+        $('#experiencia').on('change', cambiar_experiencia_banco);
 
         $('.money').autoNumeric('init', {
             aSep: '.',
@@ -96,13 +91,26 @@
         set_combos_mupios();
 
 
-        $('form').submit( function(){
+        $('form').submit(function() {
             $(".money").each(function(index) {
                 var valor = $(this).autoNumeric('get');
                 $(this).val(valor);
             });
         });
+        
+        cambiar_experiencia_banco();
     });
+
+    function cambiar_experiencia_banco() {
+        if ($('#experiencia').val() != 1){
+            $("#calidad_de").val(0);
+            $("#calidad_de").hide();
+            $("#calidad_de").parent().find('label').hide();
+        }else{
+            $("#calidad_de").show();
+            $("#calidad_de").parent().find('label').show();
+        }
+    }
 
     function crear_combo_deptos() {
         $.each(combos['departamentos'], function(key, value) {
@@ -153,16 +161,18 @@
         $('#descripcion_bien_2_3').val('{{set_value2("descripcion_bien_2_3", descripcion_bienes_inmuebles[1].municipio_id)}}');
         $('#descripcion_bien_3_3').val('{{set_value2("descripcion_bien_3_3", descripcion_bienes_inmuebles[2].municipio_id)}}');
     }
-    
-    function validate(){
-        
-        if($('[name^="referencias_fam2"]').filter(function() { return $(this).val() != ""; }).length > 0){
-            
+
+    function validate() {
+
+        if ($('[name^="referencias_fam2"]').filter(function() {
+            return $(this).val() != "";
+        }).length > 0) {
+
         }
-        
-        $('[name^="referencias_fam2"]').each(function(){
+
+        $('[name^="referencias_fam2"]').each(function() {
             var obj = $(this);
-            
+
         });
     }
 
@@ -175,7 +185,7 @@
                 aSep: '.',
                 aDec: ',',
                 wEmpty: 'zero',
-                mDec:0,
+                mDec: 0,
                 vMin: '0.0',
             });
 
@@ -297,7 +307,6 @@
                                 <div class="form-group">
                                     <label class="control-label">Ha tenido experiencia con el Banco Agrario </label>
                                     {% set valor = set_value2("experiencia", solicitud_credito.experiencia)%}
-                                    {{valor}}
                                     <select name="experiencia" id="experiencia" class="form-control">
                                         <option value=""></option>
                                         <option value="1" {{valor == 1? 'selected': ''}}>si</option>
