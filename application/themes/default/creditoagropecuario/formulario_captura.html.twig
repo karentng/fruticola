@@ -60,8 +60,9 @@
             var value = $(this).val();
             var last_index = id.lastIndexOf('_');
             var new_id = id.substring(0, last_index) + '_3';
-
-            $('#' + new_id).empty().append(crear_combo_mupios(combos['departamentos'][value].municipios).html());
+            
+            if (value != '')
+                $('#' + new_id).empty().append(crear_combo_mupios(combos['departamentos'][value].municipios).html());
         });
 
         $('#solicitud_credito_dre_check, #solicitud_credito_icr_check').on('change', function() {
@@ -140,9 +141,9 @@
         $('#referencias_fin2_departamento').val('{{set_value2("referencias_fin2_departamento", referencias_financieras[1].departamento_id)}}').change();
         $('#referencias_com_departamento').val('{{set_value2("referencias_com_departamento", referencias_comerciales[0].departamento_id)}}').change();
 
-        $('#descripcion_bien_1_2').val('{{set_value2("descripcion_bien_1_2", descripcion_bienes_inmuebles[0].departamento_id)}}');
-        $('#descripcion_bien_2_2').val('{{set_value2("descripcion_bien_2_2", descripcion_bienes_inmuebles[1].departamento_id)}}');
-        $('#descripcion_bien_3_2').val('{{set_value2("descripcion_bien_3_2", descripcion_bienes_inmuebles[2].departamento_id)}}');
+        $('#descripcion_bien_1_2').val('{{set_value2("descripcion_bien_1_2", descripcion_bienes_inmuebles[0].departamento_id)}}').change();
+        $('#descripcion_bien_2_2').val('{{set_value2("descripcion_bien_2_2", descripcion_bienes_inmuebles[1].departamento_id)}}').change();
+        $('#descripcion_bien_3_2').val('{{set_value2("descripcion_bien_3_2", descripcion_bienes_inmuebles[2].departamento_id)}}').change();
 
     }
 
