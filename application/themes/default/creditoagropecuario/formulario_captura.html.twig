@@ -1447,7 +1447,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for i in 0..3 %}
+                            {% for i in 1..4 %}
                             <tr>                
                                 {% for j in 1..11 %}
                                     {% set id_name = '' %}
@@ -1468,7 +1468,7 @@
                                 <td>
                                     
                                         {% if j == 8 or j == 9 or j == 10 %}
-                                            {% set valor = set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i], id_name) ) %}
+                                            {% set valor = set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i-1], id_name) ) %}
                                             <select name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 95px;"/>
                                                 <option value="" {{(valor == '')?'selected':''}}></option>
                                                 <option value="2" {{(valor == '2')?'selected':''}}>Anual</option>
@@ -1476,7 +1476,7 @@
                                             </select>
                                             {{form_error('descripcion_inv_' ~ i ~ '_' ~ j )}}
                                         {% else %}             
-                                            <input name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 65px;" value="{{ set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i], id_name) ) }}"/>
+                                            <input name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 65px;" value="{{ set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i-1], id_name) ) }}"/>
                                             {{form_error('descripcion_inv_' ~ i ~ '_' ~ j )}}
                                         {% endif %}                            
                         </td>                  

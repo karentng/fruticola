@@ -3,6 +3,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Creditoagropecuario extends CI_Controller {
+    
+    private $aGruposConDatos = array();
 
     public function __construct() {
         parent::__construct();
@@ -63,6 +65,7 @@ class Creditoagropecuario extends CI_Controller {
         $descripcion_bienes = $solicitud_credito->descripcion_bienes;
         $descripcion_bienes_inmuebles = $solicitud_credito->descripcion_bienes_inmuebles;
 
+        $this->validar_input();
         $this->validation_rules();
 
         ///Si las validaciones son correctas procedo a guardar
@@ -325,8 +328,6 @@ class Creditoagropecuario extends CI_Controller {
                         if ($this->input->post("descripcion_bien_{$j}_1")) {
                             $descripcion_bienes_inmuebles[$i]->save();
                         }
-                        
-                        
                     }
                 }
 
@@ -342,7 +343,7 @@ class Creditoagropecuario extends CI_Controller {
             $this->twiggy->set('notif', array('type' => 'error', 'text' => "Se encontraron errores al procesar el formulario. <br> Revise los recuadros rojos"));
         }
 
-        
+
 
         $this->twiggy->set('combos', $data);
         $this->twiggy->set('solicitud_credito', $solicitud_credito);
@@ -387,7 +388,7 @@ class Creditoagropecuario extends CI_Controller {
         $this->form_validation->set_rules("conyugue_fecha_nacimiento", ' ', 'required');
 
         for ($i = 1; $i <= 2; $i++) {
-            if ($this->input->post("referencias_fam{$i}_nombres")) {
+            if (array_key_exists("referencias_fam{$i}", $this->aGruposConDatos)) {
                 $this->form_validation->set_rules("referencias_fam{$i}_nombres", ' ', 'required');
                 $this->form_validation->set_rules("referencias_fam{$i}_apellido1", ' ', 'required');
                 $this->form_validation->set_rules("referencias_fam{$i}_parentesco", ' ', 'required');
@@ -398,7 +399,7 @@ class Creditoagropecuario extends CI_Controller {
 
 
         for ($i = 1; $i <= 2; $i++) {
-            if ($this->input->post("referencias_per{$i}_nombres")) {
+            if (array_key_exists("referencias_per{$i}", $this->aGruposConDatos)) {
                 $this->form_validation->set_rules("referencias_per{$i}_nombres", ' ', 'required');
                 $this->form_validation->set_rules("referencias_per{$i}_apellido1", ' ', 'required');
                 $this->form_validation->set_rules("referencias_per{$i}_parentesco", ' ', 'required');
@@ -408,7 +409,7 @@ class Creditoagropecuario extends CI_Controller {
         }
 
         for ($i = 1; $i <= 2; $i++) {
-            if ($this->input->post("referencias_fin{$i}_entidad")) {
+            if (array_key_exists("referencias_fin{$i}", $this->aGruposConDatos)) {
                 $this->form_validation->set_rules("referencias_fin{$i}_entidad", ' ', 'required');
                 $this->form_validation->set_rules("referencias_fin{$i}_clase", ' ', 'required');
                 $this->form_validation->set_rules("referencias_fin{$i}_departamento", ' ', 'required|numeric');
@@ -416,7 +417,7 @@ class Creditoagropecuario extends CI_Controller {
             }
         }
 
-        if ($this->input->post("referencias_com_nombre_est")) {
+        if (array_key_exists("referencias_com", $this->aGruposConDatos)) {
             $this->form_validation->set_rules("referencias_com_nombre_est", ' ', 'required');
             $this->form_validation->set_rules("referencias_com_departamento", ' ', 'required|numeric');
             $this->form_validation->set_rules("referencias_com_municipio", ' ', 'required|numeric');
@@ -424,9 +425,9 @@ class Creditoagropecuario extends CI_Controller {
 
         for ($j = 1; $j <= 4; $j++) {
             ///si el codigo FINAGRO tiene algo, valido el resto de la fila
-            if ($this->input->post("descripcion_inv_{$j}_1")) {
+            if (array_key_exists("descripcion_inv_{$j}", $this->aGruposConDatos)) {
                 for ($i = 1; $i <= 11; $i++) {
-                    if (1 === $i ||2 === $i || 3 === $i)
+                    if (1 === $i || 2 === $i || 3 === $i)
                         $this->form_validation->set_rules("descripcion_inv_{$j}_{$i}", ' ', 'required');
                     else
                         $this->form_validation->set_rules("descripcion_inv_{$j}_{$i}", ' ', 'required|numeric');
@@ -449,7 +450,7 @@ class Creditoagropecuario extends CI_Controller {
         $this->form_validation->set_rules("forma_llegar_pred", ' ', 'required');
 
         for ($j = 1; $j <= 3; $j++) {
-            if ($this->input->post("descripcion_bien_{$j}_1")) {
+            if (array_key_exists("descripcion_bien_{$j}", $this->aGruposConDatos)) {
                 for ($i = 1; $i <= 6; $i++) {
                     if (4 === $i || 5 === $i)
                         $this->form_validation->set_rules("descripcion_bien_{$j}_{$i}", ' ', 'required');
@@ -477,12 +478,52 @@ class Creditoagropecuario extends CI_Controller {
         $fecha_fin = strtotime($fecha_fin);
         $fecha_ini = strtotime($this->input->post("informacion_pre_fecha_ini"));
 
-        if ($fecha_fin > $fecha_ini) {            
+        if ($fecha_fin > $fecha_ini) {
             return TRUE;
         } else {
-            $this->form_validation->set_message('validar_fecha','La fecha final no puede ser menor a la inicial.');
+            $this->form_validation->set_message('validar_fecha', 'La fecha final no puede ser menor a la inicial.');
             return FALSE;
         }
+    }
+
+    private function validar_input() {
+
+        ///grupos de inputs que necesitan al menos uno de sus componentes para disparar las rules de validacion
+        $aGrupos = array(
+            'referencias_fam1', 
+            'referencias_fam2', 
+            'referencias_per1', 
+            'referencias_per2',
+            'referencias_fin1',
+            'referencias_fin2',
+            'referencias_com',
+            'descripcion_inv_1',
+            'descripcion_inv_2',
+            'descripcion_inv_3',
+            'descripcion_inv_4',
+            'descripcion_bien_1',
+            'descripcion_bien_2',
+            'descripcion_bien_3',
+            );
+        
+        $this->aGruposConDatos = array();
+
+        foreach ($aGrupos as $sGrupo) {
+            
+            ///si ya existe en los grupos con al menos un dato, no sigo iterandolo
+            if(in_array($sGrupo, $this->aGruposConDatos))
+                continue;
+
+            ///comparo el grupo con todos las llaves que vengan por $_POST
+            foreach ($this->input->post() as $key => $value) {
+                
+                ///si el key del post hace parte del grupo, y tiene algun valor, lo guardo en el arreglo
+                if (strpos($key, $sGrupo) !== FALSE && $value)
+                    $this->aGruposConDatos[$sGrupo] = $sGrupo;
+            }
+        }
+        
+//        var_dump($this->aGruposConDatos);
     }
 
     public function imprimible($ruat_id = NULL) {
@@ -499,7 +540,6 @@ class Creditoagropecuario extends CI_Controller {
                     'conditions' => array('ruat_id = ?', $ruat_id)
         ));
 
-
         ///consulto las preguntas C para cargarlas dinamicamente
         $preguntas_c = TPCPregunta::all(array('order' => 'categoria, ordenamiento'));
 
@@ -507,9 +547,7 @@ class Creditoagropecuario extends CI_Controller {
         $respuestas_c = TPCRespuesta::all(array(
                     'conditions' => array('visita_id = ?', $vtp->id)
         ));
-
-
-
+        
         ///acomodo las respuestas con la pregunta como llave
         $respuestas_c_aux = array();
         foreach ($respuestas_c as $obj)
