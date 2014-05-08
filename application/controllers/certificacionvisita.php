@@ -31,7 +31,7 @@ class Certificacionvisita extends CI_Controller {
         }*/
 
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('fecha', 'Fecha');
+        $this->form_validation->set_rules('fecha', 'Fecha', 'required');
         $this->form_validation->set_rules('descripcion', 'Descripción');
         $this->form_validation->set_rules('observaciones', 'Observaciones');
 
@@ -105,7 +105,11 @@ class Certificacionvisita extends CI_Controller {
 
         $certificacion = CertificacionVisit::find_by_ruat_id_and_num_formulario($ruat_id, $formulario);
         if($certificacion){
-            $this->twiggy->set('fechaI', $certificacion->fecha->format("Y-m-d"));
+            if($certificacion->fecha == "" || $certificacion->fecha == null){
+                $this->twiggy->set('fechaI', ""$certificacion->fecha->format("Y-m-d"""));    
+            }else{
+                $this->twiggy->set('fechaI', $certificacion->fecha->format("Y-m-d"));
+            }
             $this->twiggy->set('descripcionI', $certificacion->descripcion);
             $this->twiggy->set('observacionesI', $certificacion->observaciones);
         }

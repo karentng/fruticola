@@ -27,9 +27,10 @@
                         <label class="col-sm-4 control-label" for="fecha_nacimiento">Fecha:</label>
                         <div class="col-sm-8">
                             <div class="input-group date datepicker autostart">
-                                <input size="16" name="fecha" value="{{fechaI}}" class="form-control" type="text">
+                                <input size="16" name="fecha" value="{{set_value('fecha',fechaI)}}" class="form-control" type="text">
                                 <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
                             </div>
+                            {% if form_error('fecha') %} <label class="error">Requerido</label> {% endif %}
                         </div>
                     </div>
                 </div>
@@ -246,7 +247,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea name="descripcion" rows="4" style="width:100%; resize:none">{{descripcionI}}</textarea>
+                            <textarea name="descripcion" rows="4" style="width:100%; resize:none">{{set_value('descripcion', descripcionI)}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -263,7 +264,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea name="observaciones" rows="4" style="width:100%; resize:none" >{{observacionesI}}</textarea>
+                            <textarea name="observaciones" rows="4" style="width:100%; resize:none" >{{set_value('observaciones', observacionesI)}}</textarea>
                         </div>
                     </div>
                 </div>
