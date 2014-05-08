@@ -515,11 +515,16 @@ class Creditoagropecuario extends CI_Controller {
                 continue;
 
             ///comparo el grupo con todos las llaves que vengan por $_POST
-            foreach ($this->input->post() as $key => $value) {
+
+
+            if($this->input->post()){
+                foreach ($this->input->post() as $key => $value) {
                 
-                ///si el key del post hace parte del grupo, y tiene algun valor, lo guardo en el arreglo
-                if (strpos($key, $sGrupo) !== FALSE && $value)
-                    $this->aGruposConDatos[$sGrupo] = $sGrupo;
+                    ///si el key del post hace parte del grupo, y tiene algun valor, lo guardo en el arreglo
+                    if (strpos($key, $sGrupo) !== FALSE && $value)
+                        $this->aGruposConDatos[$sGrupo] = $sGrupo;
+                }
+
             }
         }
         
