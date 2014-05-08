@@ -189,9 +189,10 @@ class ListadoRuats extends CI_Controller {
             $certificaciones = array("Elaboración de propuestas asociativas para estudio de riego","Implementación de prácticas de manejo agronómico tendientes a romper la estacionalidad",
                 "Renovación de cultivos existentes y plantación de áreas nuevas con variedades promisorias", "Mejoramiento de las áreas actuales con semilla de PIÑA de alta calidad genética y productiva",
                 "Implementación de modelos de producción óptima de MANGO", "Mejoramiento de las áreas actuales con semilla de FRESA de alta calidad genética y productiva",
-                "Mejoramiento de las áreas actuales con semilla de MORA de alta calidad genética y productiva", "Planes de fertilidad");
-            
-            $actions.= "<select class='btn-xs' onchange='abrirNuevaVentana(this)' style='width:200px;height:10px !important;margin-left:5px'>";
+                "Mejoramiento de las áreas actuales con semilla de MORA de alta calidad genética y productiva", "Planes de fertilidad",
+                "Visitas de seguimiento y/o acompañamiento", "Elaboración de los planes de negocio regional", "Incremento de los rendimientos de cultivo");
+            $actions .= " <div class='btn-group'>";
+            $actions.= "<select class='btn-xs btn' onchange='abrirNuevaVentana(this)' style='width:200px;margin-left:5px'>";
             $actions .= "<option value='-'>Certificación de Visita</option>";
             for($i=0; $i<count($certificaciones);$i++){
                 if($renglon == 12 || $renglon == 7 || $renglon == 5 || $renglon == 10){
@@ -216,6 +217,7 @@ class ListadoRuats extends CI_Controller {
                 
             }
             $actions.= "</select>";
+            $actions.= "</div>";
             // fin codigo select
 
             $actions .= "</div";

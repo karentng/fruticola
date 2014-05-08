@@ -10,7 +10,9 @@ class Certificacionvisita extends CI_Controller {
 
     public function index($ruat_id, $formulario) //= 1795
     {
-
+        if($formulario < 0 || $formulario > 10){
+            show_404();
+        }
         if(!$ruat_id) show_404();
 
         /*$preguntas = TPCPregunta::all(array('order' => 'categoria, ordenamiento'));
@@ -74,6 +76,15 @@ class Certificacionvisita extends CI_Controller {
                 break;
             case 7:
                 $titulo = "Planes de fertilidad";
+                break;
+            case 8:
+                $titulo = "Visitas de seguimiento y/o acompañamiento";
+                break;
+            case 9:
+                $titulo = "Elaboración de los planes de negocio regional";
+                break;
+            case 10:
+                $titulo = "Incremento de los rendimientos de cultivo";
                 break;
         }
 
