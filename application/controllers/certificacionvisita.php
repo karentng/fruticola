@@ -106,7 +106,7 @@ class Certificacionvisita extends CI_Controller {
         $certificacion = CertificacionVisit::find_by_ruat_id_and_num_formulario($ruat_id, $formulario);
         if($certificacion){
             if($certificacion->fecha == "" || $certificacion->fecha == null){
-                $this->twiggy->set('fechaI', ""$certificacion->fecha->format("Y-m-d"""));    
+                $this->twiggy->set('fechaI', "");
             }else{
                 $this->twiggy->set('fechaI', $certificacion->fecha->format("Y-m-d"));
             }
