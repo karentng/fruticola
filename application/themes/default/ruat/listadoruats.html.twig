@@ -32,6 +32,17 @@
             margin-top:5px;
         }
     </style>
+
+    <script type="text/javascript">
+        //codigo del select de certificacion
+        function abrirNuevaVentana(elemento){
+            var pagina = $(elemento).val();
+            if(pagina != "-"){
+                window.location.href= pagina;
+            }
+        }
+        //fin codigo select certificacion
+    </script>
 {% endblock %}
 
 {% block breadcrumnb %}

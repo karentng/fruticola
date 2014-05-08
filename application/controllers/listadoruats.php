@@ -182,6 +182,42 @@ class ListadoRuats extends CI_Controller {
             else {
                 $actions .= "<a class='btn btn-xs btn-info' disabled='disabled'><i class='i-print'></i></a>";
             }
+
+            // Codigo para el select de tipos de certificaciones
+            $renglon = Productor::find_by_id(Ruat::find_by_id($item->id)->productor_id)->renglon_productivo_id;
+
+            $certificaciones = array("Elaboración de propuestas asociativas para estudio de riego","Implementación de prácticas de manejo agronómico tendientes a romper la estacionalidad",
+                "Renovación de cultivos existentes y plantación de áreas nuevas con variedades promisorias", "Mejoramiento de las áreas actuales con semilla de PIÑA de alta calidad genética y productiva",
+                "Implementación de modelos de producción óptima de MANGO", "Mejoramiento de las áreas actuales con semilla de FRESA de alta calidad genética y productiva",
+                "Mejoramiento de las áreas actuales con semilla de MORA de alta calidad genética y productiva", "Planes de fertilidad");
+            
+            $actions.= "<select class='btn-xs' onchange='abrirNuevaVentana(this)' style='width:200px;height:10px !important;margin-left:5px'>";
+            $actions .= "<option value='-'>Certificación de Visita</option>";
+            for($i=0; $i<count($certificaciones);$i++){
+                if($renglon == 12 || $renglon == 7 || $renglon == 5 || $renglon == 10){
+                    if(!($i == 3 || $i == 4 || $i == 5 || $i == 6)){
+                        $actions .= "<option value=".base_url('index.php/certificacionvisita/index/'.$item->id.'/'.$i).">".$certificaciones[$i]."</option>";
+                        continue;
+                    }
+                    if($renglon == 12 && $i == 3){
+                        $actions .= "<option value=".base_url('index.php/certificacionvisita/index/'.$item->id.'/'.$i).">".$certificaciones[$i]."</option>";
+                    }else if($renglon == 7 && $i == 4){
+                        $actions .= "<option value=".base_url('index.php/certificacionvisita/index/'.$item->id.'/'.$i).">".$certificaciones[$i]."</option>";
+                    }else if($renglon == 5 && $i == 5){
+                        $actions .= "<option value=".base_url('index.php/certificacionvisita/index/'.$item->id.'/'.$i).">".$certificaciones[$i]."</option>";
+                    }else if($renglon == 10 && $i == 6){
+                        $actions .= "<option value=".base_url('index.php/certificacionvisita/index/'.$item->id.'/'.$i).">".$certificaciones[$i]."</option>";
+                    }
+                }else{
+                    if(!($i == 3 || $i == 4 || $i == 5 || $i == 6)){
+                        $actions .= "<option value=".base_url('index.php/certificacionvisita/index/'.$item->id.'/'.$i).">".$certificaciones[$i]."</option>";
+                    }
+                }
+                
+            }
+            $actions.= "</select>";
+            // fin codigo select
+
             $actions .= "</div";
             
 
