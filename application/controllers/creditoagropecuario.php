@@ -344,6 +344,7 @@ class Creditoagropecuario extends CI_Controller {
         }
 
 
+        $this->twiggy->set('url_imprimible', site_url("creditoagropecuario/imprimible/$ruat_id"));
 
         $this->twiggy->set('combos', $data);
         $this->twiggy->set('solicitud_credito', $solicitud_credito);
