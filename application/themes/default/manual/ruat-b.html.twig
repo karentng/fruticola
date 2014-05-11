@@ -1,64 +1,9 @@
-{% extends "base.html.twig" %}
+{% extends "manual/base_manual.html.twig" %}
 
-{% block html_head %}
-<style type="text/css">
-    .tamannoLetra{
-        font-size:17px;
-    }
-    .rojo{
-        color:red;
-    }
-    .azul{
-        color:blue;
-    }
-    .amarillo{
-        color:yellow;
-    }
-    .verde{
-        color:green;
-    }
-    .naranja{
-        color:orange;
-    }
-    .morado{
-        color:purple;
-    }
-    .rosado{
-        color:pink;
-    }
-    .fucsia{
-        color:crimson;
-    }
-    .aguamarina{
-        color: #008080;
-    }
-    .naranjafuerte{
-        color: orangered;
-    }
-
-     
-</style>
-{% endblock %}
-{% block breadcrumnb %}
-    <ul class="breadcrumb">
-      <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
-      <li><strong class="text-success">MANUAL DE USUARIO</strong></li>
-    </ul>
-{% endblock %}
-
-{% block titulo %}
-    <h1><i class="icon20 i-stack-checkmark"></i> MANUAL DE USUARIO </h1> 
-{% endblock %}
 
 {% block contenido %}
-<div class="form-group">
-    <div class="container-fluid">
-    <ul id="myTab" class="nav nav-tabs">
-        <li><a href="#reng" data-toggle="tab">RUAT-SECCIÓN B</a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div class="tab-pane fade in active" id="reng" id="home" align="justify">
+    <h1 class="page-header">Ruat - Sección B</h1>
+            <div class="tab-pane fade in active" id="reng" id="home" align="justify">
             <center><label><h3>B1. Datos Generales de la Finca</h3></label></center>
             <p class="tamannoLetra">En la sección B1 del ruat se digitan principalmente los datos de la finca.</p>
             <img src="{{base_url('assets/images/manual/RUAT/B/B1-A.png')}}" style="width:100%; margin-bottom:20px">
@@ -103,7 +48,5 @@
 
             <img src="{{base_url('assets/images/manual/RUAT/B/siguiente.png')}}" style="width:100%; margin-bottom:20px">
             <p class="tamannoLetra">Al final del formulario encontrará los botones siguiente y anterior, que lo llevan a la sección c y a del RUAT, respectivamente. </p>
-        </div>
-    </div>
-</div>
+        
 {% endblock %}

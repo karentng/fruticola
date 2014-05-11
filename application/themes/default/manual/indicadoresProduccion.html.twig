@@ -1,3 +1,9 @@
+{% extends "manual/base_manual.html.twig" %}
+
+
+{% block contenido %}
+    <h1 class="page-header">Indicadores de Producción</h1>
+
 <img src="{{base_url('assets/images/manual/estadisticas_produccion/estadisticas_produccion.png')}}" style="width:100%; margin-bottom:20px">
 <p class="tamannoLetra">
     <label class="morado">
@@ -40,3 +46,5 @@
     </label>
     Valor promedio calculado según los datos para cada estadística.
 </p>
+
+{% endblock %}

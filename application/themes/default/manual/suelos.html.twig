@@ -1,0 +1,18 @@
+{% extends "manual/base_manual.html.twig" %}
+
+
+{% block contenido %}
+    <h1 class="page-header">Estudio de Suelos</h1>
+
+
+			<p class="tamannoLetra">Este reporte nos permite generar una versión imprimible del Estudio de Suelos, asignado a cada RUAT, siempre y cuadno se le haya asignado uno previamente.</p>
+        	
+        	<img src="{{base_url('assets/images/manual/Suelos/1.png')}}" style="width:100%; margin-bottom:20px">
+        	<img src="{{base_url('assets/images/manual/Suelos/2.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="amarillo"><b>Imprimir:</b></label> Éste botón nos permite imprimir la totalidad del documento generado del Estudio de Suelos.<p/>
+			<p class="tamannoLetra"><label class="rojo"><b>Información del Cliente:</b></label> En el área señalada, muestra la información básica de la persona, tal como: nombre y apellido, cédula, código del laboratorio, municipio y si tiene los respectivos números de contacto.</p>
+			<p class="tamannoLetra"><label class="azul"><b>Información de la Muestra:</b></label> En ésta área describen el lugar en el cual se extrajo la muestra, y para ello usan: nombre de la finca, tipo de cultivo, la altura, estado, fecha de reporte, fecha de recepción y de análisis.</p>
+			<p class="tamannoLetra"><label class="rosado"><b>Estudio:</b></label> Los datos de manera detallada que conforman el estudio del suelo que se realizó.</p>
+
+{% endblock %}

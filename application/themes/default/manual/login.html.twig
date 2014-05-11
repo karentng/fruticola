@@ -1,0 +1,15 @@
+{% extends "manual/base_manual.html.twig" %}
+
+
+{% block contenido %}
+    <h1 class="page-header">Inicio de Sesión</h1>
+	<p class="tamannoLetra">Ésta área de la aplicación, es la que nos da acceso al sistema por medio del nombre de la cuenta y la contraseña, siempre y cuando éstas existan previamente, para acciones como crear RUAT's, ver reportes, entre otros.</p>
+	<img src="{{base_url('assets/images/manual/LoginGeneral/login.png')}}" style="width:100%; margin-bottom:20px">
+
+    <p class="tamannoLetra"><label class="rojo"><b>Nombre de usuario del sistema:</b></label> Es el nombre de usuario o rol que tiene la persona para acceder al sistema.</p>
+    <p class="tamannoLetra"><label class="azul"><b>Contraseña de acceso al sistema:</b></label> Es la clave asociada a nuestro nombre de usuario.<p/>
+    <p class="tamannoLetra"><label class="verde"><b>Ingreso al sistema:</b></label> Éste botón nos permite ingresar directamente al sistema, siempre y cuando el nombre de usuario exista y la contraseña ingresada sea la asociada a dicho usuario.<p/>
+	<p class="tamannoLetra"><label class="naranja"><b>Normas de privacidad:</b></label> Al seleccionar éste enlace, descargaremos un formato de documento portable (pdf) con las normas de privacidad que rigen el sistema.</p>
+	<p class="tamannoLetra"><label class="morado"><b>Normas de manejo de datos:</b></label> Al seleccionar éste enlace, descargaremos un formato de documento portable (pdf) con las normas de manejo de datos que rigen el sistema.</p>
+
+{% endblock %}

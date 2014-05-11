@@ -1,0 +1,38 @@
+{% extends "manual/base_manual.html.twig" %}
+
+
+{% block contenido %}
+    <h1 class="page-header">Buenas Prácticas Agrícolas</h1>
+            <p class="tamannoLetra">En este reporte se evalua el nivel que tiene el predio a evaluar en las buenas práctivas agricolas, con respecto a diferentes criterios.</p>
+            <img src="{{base_url('assets/images/manual/BPA/A.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Visitas:</b></label> Número de Visitas que se han realizado (la que tenga el recuadro azul a su alrededor es la que se está visualizando actualmente), son la Visita Inicial y 6 adicionales.</p>
+            <p class="tamannoLetra"><label class="azul"><b>Fecha de Visita:</b></label> Fecha que se realizó la Visita que se está visualizando.</p>
+
+            <hr>
+            <center><label><h3>B. DIAGNÓSTICO DE ASPECTOS PREVIOS AL ESTABLECIMIENTO DEL CULTIVO</h3></label></center>
+            <p class="tamannoLetra">En esta sección del reporte BPA se evalua el diagnóstico de aspectos previos al establecimiento del cultivo, con respecto a 8 aspectos.</p>
+            <img src="{{base_url('assets/images/manual/BPA/B.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Aspectos Diagnosticados:</b></label> Aspectos que se evalúan en el formulario BPA.</p>
+            <p class="tamannoLetra"><label class="azul"><b>SI | NO:</b></label> Se selecciona afirmativamente o negativamente a la implementación de cada aspecto.</p>
+            <p class="tamannoLetra"><label class="naranja"><b>Observaciones:</b></label> Se dan las observaciones pertinentes en cada aspecto evaluado.</p>
+            <p class="tamannoLetra"><label class="morado"><b>Conclusión General:</b></label> Conclusión general que obtiene al finalizar la evaluación de cada aspecto por individual.</p>
+
+            <hr>
+            <center><label><h3>C. ESTADO ACTUAL DE LA IMPLEMENTACIÓN DE LAS BPA (PARTE 1)</h3></label></center>
+            <p class="tamannoLetra">En esta sección del reporte BPA se evalua el estado actual que tiene el predio en la implementación de las BPA, con respecto a 8 secciones.</p>
+            <img src="{{base_url('assets/images/manual/BPA/C.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Aspectos Evaluados:</b></label> Son los aspectos que se evaluarán en la parte C del BPA.</p>
+            <p class="tamannoLetra"><label class="azul"><b>Adopción BPA:</b></label> Es un porcentaje que define el nivel de adopción de cada aspecto por parte del productor, dicho número tiene como valor mínimo cero (0) y máximo cien (100).</p>
+            <p class="tamannoLetra" style="margin-bottom:20px"><label class="verde"><b>Recomendaciones:</b></label> Recomendaciones que debe tener en cuenta el productor para mejorar su adopción por cada aspecto evaluado.</p>
+
+
+            <center><label><h3>C. ESTADO ACTUAL DE LA IMPLEMENTACIÓN DE LAS BPA (PARTE 2)</h3></label></center>
+            <img src="{{base_url('assets/images/manual/BPA/C1.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Nivel de Implementación:</b></label> Calificación final generada luego de llenar toda la parte C del BPA, junto con la recomendación general ingresada por la persona responsable.</p>
+            <p class="tamannoLetra"><label class="naranja"><b>Visualización de la Certificación:</b></label> (Esta opción estará habilitada si previamente se ha subido una certificación de la visita), nos muestra el archivo que definimos previamente para dicho BPA.</p>
+            <p class="tamannoLetra"><label class="morado"><b>Modificar Certificación:</b></label> Aquí subimos la Certificación de Visita Digitalizada por medio de un archivo.</p>
+{% endblock %}

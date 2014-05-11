@@ -1,0 +1,40 @@
+{% extends "manual/base_manual.html.twig" %}
+
+
+{% block contenido %}
+    <h1 class="page-header">Reporte Comparativo por Municipio</h1>
+
+            <p class="tamannoLetra">Este reporte permite mostrar el porcentaje de pequeños productores de frutas por municipio. Usted pude seleccionar el municipio del cual desea mostrar la información respectiva.</p>
+            <img src="{{base_url('assets/images/manual/Renglones/1.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="azul"><b>Municipio:</b></label> Es aquel municipio del cual se quiere desplegar la información con los productores por renglones productivos.<p/>
+            <p class="tamannoLetra"><label class="rojo"><b>Gráfica:</b></label> Es la gráfica que se genera de acuerdo al municipio seleccionado.</p>
+
+            <hr>
+            <center><label><h3>RESUMEN POR RENGLÓN PRODUCTIVO</h3></label></center>
+            <p class="tamannoLetra">Este reporte permite mostrar el número de productores de cierto renglón productivo en cada municipio. Usted pude seleccionar el renglón productivo del cual desea mostrar la información respectiva.</p>
+            <img src="{{base_url('assets/images/manual/Renglones/2.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Renglón Productivo:</b></label> Es aquel renglón productivo del cual se quiere desplegar la información la producción de dicho renglón en todos los municipios.<p/>
+            <p class="tamannoLetra"><label class="verde"><b>Gráfica:</b></label> Es la gráfica que se genera de acuerdo al renglón productivo seleccionado.</p>
+
+            <hr>
+            <center><label><h3>NÚMERO DE PRODUCTORES POR RENGLÓN</h3></label></center>
+            <p class="tamannoLetra">Este reporte permite mostrar el porcentaje de pequeños productores de frutas por cada renglón productivo.</p>
+            <img src="{{base_url('assets/images/manual/Renglones/3.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="verde"><b>Exportar:</b></label> Esta opción sirve para todas las gráficas anteriores también, nos permite guardar la imagen generada con alguno de los siguientes formatos: JPG, PNG, SVG, PDF.<p/>
+            <p class="tamannoLetra"><label class="rojo"><b>Gráfica:</b></label> Gráfica que nos muestra el número de productores de frutas del Valle del Cauca por Renglón Productivo.</p>
+
+            <hr>
+            <center><label><h3>TABLA DE DATOS</h3></label></center>
+            <p class="tamannoLetra">Es la tabla que contiene el número de productores por cada renglón y cada municipio, junto con sus respectivos totales (por municipio y renglón productivo).</p>
+            <img src="{{base_url('assets/images/manual/Renglones/4.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Exportar Tabla:</b></label> Esta opción nos permite guardar la tabla que se generó en un archivo de Excel (formato .xls).<p/>
+            <p class="tamannoLetra"><label class="morado"><b>Filtro:</b></label> Este campos nos permite filtrar los datos de la gráfica, para que salgan los municipios que concuerden con los datos ingresados.</p>
+            <p class="tamannoLetra"><label class="verde"><b>Renglones Productivos:</b></label> Renglones Productivos almacenados en la aplicación.<p/>
+            <p class="tamannoLetra"><label class="azul"><b>Municipios:</b></label> Municipios almacenados en la aplicación.</p>
+            <p class="tamannoLetra"><label class="naranja"><b>Valores:</b></label> Son los valores que tiene cada Renglón Productivos en cada Municipio, adicional a la derecha estan los totales por cada Municipio, y abajo el total por cada Renglón Productivo.<p/>
+
+{% endblock %}

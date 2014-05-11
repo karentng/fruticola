@@ -1,0 +1,62 @@
+{% extends "manual/base_manual.html.twig" %}
+
+
+{% block contenido %}
+            <h1 class="page-header">Ruat - Sección A</h1>
+
+            
+            <center><label><h3>A1. Datos Personales</h3></label></center>
+            <p class="tamannoLetra">En esta sección del RUAT-A se recopilan los datos básicos del productor entrevistado.</p>
+            <img src="{{base_url('assets/images/manual/RUAT/A/A1.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Número de Formulario:</b></label> Número de Formulario que tendrá el RUAT que se está creando.</p>
+            <p class="tamannoLetra"><label class="azul"><b>Nombres y Apellidos del Productor:</b></label> Nombres y Apellidos del productor que se está registrando.</p>
+            <p class="tamannoLetra"><label class="naranja"><b>Documento de Identidad del Productor:</b></label> Se especifica el tipo de Documento de Identidad (C.C, T.I, C.E, NIT) y posteriormente se digita el número del documento.</p>
+            <p class="tamannoLetra"><label class="rosado"><b>Fecha de Nacimiento del Productor:</b></label> Se especifica la fecha de Nacimiento del Productor.</p>
+            <p class="tamannoLetra"><label class="morado"><b>Sexo del Productor:</b></label> Se escoge el sexo del productor entre: Masculino y Femenino.</p>
+            <p class="tamannoLetra"><label class="verde"><b>Nivel Educativo del Productor:</b></label> Se escoge el máximo Nivel Educativo alcanzado por el Productor a registrar, entre: Primaria, Secundaria, Técnica, Tecnológica, Universitaria, Ninguna.</p>
+            <p class="tamannoLetra"><label class="amarillo"><b>Tipo de Productor y Renglón Productivo:</b></label> Se selecciona el tipo de productor al cual pertenece la persona (Pequeño o Mediano) y el Renglón Productivo al cual pertenece (Aguacate, Bananito, Cítricos, Chontaduro, Fresa, Lulo, Mango, Maracuyá, Melón, Mora, Papaya, Piña, Uva).</p>
+
+            <hr>
+            <center><label><h3>A2. Datos de Contacto - A3. Datos Económicos</h3></label></center>
+            <p class="tamannoLetra">En esta sección del RUAT-A se recopilan los datos básicos del productor entrevistado.</p><p class="tamannoLetra">En estas secciones del RUAT-A se recopilan los datos básicos de contacto del productor entrevistado, además de los datos económicos generales (como ingresos por año y personas a cargo).</p>
+            <img src="{{base_url('assets/images/manual/RUAT/A/A23.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Datos de Contacto del Productor:</b></label> Se ingresan los datos de Contacto del Productor, tales como: Teléfono Fijo, Número de Celular y Correo Electrónico.</p>
+            <p class="tamannoLetra"><label class="azul"><b>Ubicación del Predio:</b></label> Se define la Ubicación del Predio con los siguientes datos: Departamento, Municipio, Vereda/Corregimiento y la Dirección de Residencia.</p>
+            <p class="tamannoLetra"><label class="verde"><b>Ingresos Familiares, de la Actividad Agropecuaria y el número de personas a cargo del Productor:</b></label> Cantidad de dinero que recibe la familia por año, número de personas a cargo y el Ingreso de la Actividad Agropecuaria por año.</p>
+            <p class="tamannoLetra"><label class="morado"><b>Crédito del Productor:</b></label> Se define si el productor tiene algún crédito, de ser así se determina la procedencia del mismo.</p>
+
+            <hr>
+            <center><label><h3>A4. Participación del Usuario en Procesos de Transferencia e Innovación</h3></label></center>
+            <p class="tamannoLetra">En esta sección del RUAT-A se recopilan los datos de la participacion del productor entrevistado en procesos de innovación (si los tiene).</p>
+            <img src="{{base_url('assets/images/manual/RUAT/A/A4.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Proceso de Innovación:</b></label> Se determina si el productor está en algún Proceso de Innovación, si su respuesta es SI, continúa con las siguientes preguntas, de lo contrario no.</p>
+            <p class="tamannoLetra"><label class="verde"><b>Actividad en Proceso de Innovación:</b></label> Son las diferentes actividades de Innovación registradas dentro de la aplicación.</p>
+            <p class="tamannoLetra"><label class="morado"><b>Origen del Proceso de Innovación:</b></label> Se debe seleccionar la fuente para la actividad de Innovación.</p>
+            <p class="tamannoLetra"><label class="naranja"><b>Descripción:</b></label> Es la descripción detallada de cada actividad dentro del Proceso de Innovación.</p>
+
+            <hr>
+            <center><label><h3>A5. Asociatividad del Usuario</h3></label></center>
+            <p class="tamannoLetra">En esta sección del RUAT-A se recopilan los datos de las asociaciones que pueda tener el usuario, ya sean: Organizaciones, Cooperativas, Agremiaciones u otros productores.</p>
+            <img src="{{base_url('assets/images/manual/RUAT/A/A5.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Asociaciones del Productor:</b></label> Se define si el productor está registrado en alguna Asociación, Cooperativa o Agremiación, de ser NO, se definen: Razones para no Pertenecer y las entidades que conozca las cuales presten apoyo (nombrándolas una a una).</p>
+            <p class="tamannoLetra"><label class="azul"><b>Nombre y Apellido del Productor en Asocio:</b></label> Nombres y Apellido del Productor en Asocio.</p>
+            <p class="tamannoLetra"><label class="naranja"><b>Ubicación del Lugar del Socio:</b></label> Vereda/Corregimiento del socio.</p>
+            <p class="tamannoLetra"><label class="verde"><b>Grado de Confianza del Socio:</b></label></p>
+            <p class="tamannoLetra"><label class="morado"><b>Datos del Productor a Seguir:</b></label> Nombres y Apellidos del Productor a seguir.</p>
+            <p class="tamannoLetra"><label class="verde"><b>Ubicación del Productor a seguir:</b></label> Vereda/Corregimiento del productor a seguir.</p>
+            <p class="tamannoLetra"><label class="rosado"><b>Grado de Confianza del Productor a seguir:</b></label></p>
+
+            <center><label><h4>A5. Cuando presionamos SI en 'Pertenecer a Asociaciones, Cooperativas o Agremiaciones'</h4></label></center>
+            <img src="{{base_url('assets/images/manual/RUAT/A/A5SI.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="rojo"><b>Clase:</b></label> Seleccionar las Clases de Organizaciones a la que pertenece, entre ellas: Agropecuaria, Asistencial, Comercial, Cultural, Deportiva, Educativa, Étnica, Política, Salud, Social, Tecnológica.
+            <p class="tamannoLetra"><label class="azul"><b>Organización:</b></label> Se escribe la organización que corresponde las clases seleccionadas.
+            <p class="tamannoLetra"><label class="naranja"><b>Beneficio:</b></label> Se especifica el beneficio que trae el estar en dicha organización, tales como: Capacitación, Económico, En Especie, Participación en la Toma de Decisiones, Reconocimiento en la Comunidad, Recreación y Deporte, Otro.
+            <p class="tamannoLetra"><label class="morado"><b>Periodicidad:</b></label> El tiempo de asistencia entre sesiones de la organización, puede ser: Semanal, Quincenal, Mensual, Bimestral, Trimestral, Semestral, Anual.
+            <p class="tamannoLetra"><label class="verde"><b>Labor:</b></label> Labor que se tiene en la organización: Directivo o Participante.
+            <p class="tamannoLetra"><label class="rosado"><b>Agregar/Eliminar:</b></label> El botón azul nos permite agregar una nueva fila, el rojo eliminar la fila a la cual corresponda.
+{% endblock %}

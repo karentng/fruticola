@@ -1,65 +1,10 @@
-{% extends "base.html.twig" %}
+{% extends "manual/base_manual.html.twig" %}
 
-{% block html_head %}
-<style type="text/css">
-    .tamannoLetra{
-        font-size:17px;
-    }
-    .rojo{
-        color:red;
-    }
-    .azul{
-        color:blue;
-    }
-    .amarillo{
-        color:yellow;
-    }
-    .verde{
-        color:green;
-    }
-    .naranja{
-        color:orange;
-    }
-    .morado{
-        color:purple;
-    }
-    .rosado{
-        color:pink;
-    }
-    .fucsia{
-        color:crimson;
-    }
-    .aguamarina{
-        color: #008080;
-    }
-    .naranjafuerte{
-        color: orangered;
-    }
-
-     
-</style>
-{% endblock %}
-{% block breadcrumnb %}
-    <ul class="breadcrumb">
-      <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
-      <li><strong class="text-success">MANUAL DE USUARIO</strong></li>
-    </ul>
-{% endblock %}
-
-{% block titulo %}
-    <h1><i class="icon20 i-stack-checkmark"></i> MANUAL DE USUARIO </h1> 
-{% endblock %}
 
 {% block contenido %}
-<div class="form-group">
-    <div class="container-fluid">
-    <ul id="myTab" class="nav nav-tabs">
-        <li><a href="#reng" data-toggle="tab">COSECHA</a></li>
-    </ul>
+    <h1 class="page-header">Formulario Cosecha</h1>
 
-    <div class="tab-content">
-        <div class="tab-pane fade in active" id="reng" id="home" align="justify">
-            <center><label><h3>Cosecha</h3></label></center>
+
             <p class="tamannoLetra">En el formulario cosecha se requiere la información relacionada con la caracteristicas de la cosecha del cultivo.</p>
             <img src="{{base_url('assets/images/manual/Cosecha/1.png')}}" style="width:100%; margin-bottom:20px">
 
@@ -89,7 +34,4 @@
             <p class="tamannoLetra"><label class="amarillo"><b>Observaciones:</b></label> En este campo se deben escribir todas las observaciones que se tengan de la visita.</p>
             <p class="tamannoLetra"><label class="verde"><b>Botones:</b></label> Con el botón "Guardar en Blanco" se puede guardar en blanco el formulario tan solo con la fecha de la visita. Con el botón "Guardar" se puede guardar el formulario. Con el botón "Cancelar" se descartan los cambios.</p>
 
-        </div>
-    </div>
-</div>
 {% endblock %}

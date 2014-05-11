@@ -1,0 +1,15 @@
+{% extends "manual/base_manual.html.twig" %}
+
+
+{% block contenido %}
+    <h1 class="page-header">Ubicación Geográfica</h1>
+
+			<p class="tamannoLetra">Este reporte nos permite conocer la ubicación geográfica de los predios registrados en la aplicación, en un mapa de Google.</p>
+        	<img src="{{base_url('assets/images/manual/Mapa/mapa.png')}}" style="width:100%; margin-bottom:20px">
+
+            <p class="tamannoLetra"><label class="azul"><b>Municipio escogido:</b></label> Es aquel municipio del cual se quieren desplegar los predios asociados a éste registrados dentro de la aplicación.<p/>
+			<p class="tamannoLetra"><label class="rojo"><b>Mapa del municipio seleccionado:</b></label> Mapa en el cual se muestran todos los predios del municipio seleccionado (sino hay un municipio seleccionado, entonces el mapa sale sin predios).</p>
+			<p class="tamannoLetra"><label class="amarillo"><b>Predio dentro del municipio:</b></label> Es la representación de un predio dentro del municipio seleccionado, cuando se le da click, se desplegará la descripción del predio.</p>
+			<p class="tamannoLetra"><label class="morado"><b>Descripción del Predio:</b></label> Los datos básicos del predio seleccionado, tales como: Municipio, Vereda, Sector, Área Total y Renglón.</p>
+
+{% endblock %}

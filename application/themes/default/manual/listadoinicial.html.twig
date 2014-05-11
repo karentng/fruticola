@@ -1,0 +1,37 @@
+{% extends "manual/base_manual.html.twig" %}
+
+
+{% block contenido %}
+    <h1 class="page-header">Listado Inicial</h1>
+
+        	<p class="tamannoLetra">Éste es el pantallazo inicial, a partir del cual podemos ingresar a las diferentes funcionalidades del sistema con tan solo un click.</p>
+        	<img src="{{base_url('assets/images/manual/LoginGeneral/general.png')}}" style="width:100%; margin-bottom:20px">
+
+        	<p class="tamannoLetra"><label class="morado"><b>Mostrar información personal:</b></label> Éste botón nos permite acceder a la información de nuestra cuenta, y una vez allí podemos cambiar el email y el teléfono.</p>
+            <p class="tamannoLetra"><label class="azul"><b>Cambio de contraseña:</b></label> Éste botón nos permite ir a la opción de cambiar la contraseña de nuestra cuenta.<p/>
+            <p class="tamannoLetra"><label class="verde"><b>Salir del sistema:</b></label> Éste botón nos permite salir de la aplicación de manera segura.<p/>
+
+            <p class="tamannoLetra"><label class="morado"><b>Reducir el menú:</b></label> Éste botón nos permite reducir el tamaño del menú si, sí éste está grande y vicerversa.</p>
+            <p class="tamannoLetra"><label class="rosado"><b>Opciones del menú:</b></label> Son accesos directos a diferentes funcionalidades del sistema, tales como: Gestión de Usuarios (si el usuario acitov es de tipo administrador), Listado de RUAT, Reportes y Estudio de Suelos.<p/>
+
+            <p class="tamannoLetra"><label class="rojo"><b>Creación de un RUAT nuevo:</b></label> Éste botón nos permite comenzar a crear un nuevo RUAT, y nos envia directamente a la pantalla de RUAT parte A.<p/>
+			<p class="tamannoLetra"><label class="verde"><b>Exportación de RUAT's:</b></label> Éste botón nos permite exportar de manera directa en formato xls (Documento de Excel) el listado de RUAT's.</p>
+			<p class="tamannoLetra"><label class="naranja"><b>Filtro por nombre:</b></label> Éste campo de texto nos permite filtrar de manera automática los RUAT's desplegados en la parte inferior, por medio del nombre ingresado.</p>
+
+			<p class="tamannoLetra"><label class="verde"><b>Ordenar:</b></label> Al presionar en las flechitas, nos permite organizar de manera ascedente o descendente las fechas y por ende los registros correspondientes a ellas, para el caso de campos con texto, lo organiza alfabéticamente ascendente o descendente.</p>
+
+			<p class="tamannoLetra"><label class="amarillo"><b>Eliminar RUAT:</b></label> Éste botón es crítico, debido a que borra toda la información de RUAT seleccionado, además de la información de los diferentes formularios que se desprenden de él.</p>
+
+			<p class="tamannoLetra"><label class="rosado"><b>Opciones de RUAT:</b></label> Hay tres botones, los cuales nos permiten respectivamente (de izquierda a derecha): modificar el RUAT ya existente, imprimir la versión del RUAT generado por el sistema y descargar el RUAT que se subió cuando se creó el mismo.</p>
+
+			<p class="tamannoLetra"><label class="morado"><b>Opciones de cosecha:</b></label> Hay dos botones, los cuales nos permiten respectivamente (de izquierda a derecha): crear/modificar el formulario de cosecha ya existente e imprimir la versión del formulario de cosecha generado por el sistema.</p>
+
+			<p class="tamannoLetra"><label class="azul"><b>BPA:</b></label> Éste botón nos permite acceder al formulario de creación/modificación de "Buenas Prácticas Agropecuarias".</p>
+
+			<p class="tamannoLetra"><label class="verde"><b>Opciones tipo productor:</b></label> Hay dos botones, los cuales nos permiten respectivamente (de izquierda a derecha): crear/modificar el formulario de "Clasificación Productor" ya existente e imprimir la versión del formulario de "Clasificación Productor" generado por el sistema.</p>
+
+			<p class="tamannoLetra"><label class="verde"><b>Opciones Poscosecha:</b></label> Hay dos botones, los cuales nos permiten respectivamente (de izquierda a derecha): crear/modificar el formulario de "Poscosecha" ya existente e imprimir la versión del formulario de "Poscosecha" generado por el sistema.</p>
+
+			<p class="tamannoLetra"><label class="amarillo"><b>Imprimible Estudio de Suelos:</b></label> Nos permite generar la versión imprimible del estudio de suelos asociado al RUAT.</p>
+
+{% endblock %}

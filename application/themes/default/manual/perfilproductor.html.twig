@@ -1,65 +1,9 @@
-{% extends "base.html.twig" %}
+{% extends "manual/base_manual.html.twig" %}
 
-{% block html_head %}
-<style type="text/css">
-    .tamannoLetra{
-        font-size:17px;
-    }
-    .rojo{
-        color:red;
-    }
-    .azul{
-        color:blue;
-    }
-    .amarillo{
-        color:yellow;
-    }
-    .verde{
-        color:green;
-    }
-    .naranja{
-        color:orange;
-    }
-    .morado{
-        color:purple;
-    }
-    .rosado{
-        color:pink;
-    }
-    .fucsia{
-        color:crimson;
-    }
-    .aguamarina{
-        color: #008080;
-    }
-    .naranjafuerte{
-        color: orangered;
-    }
-
-     
-</style>
-{% endblock %}
-{% block breadcrumnb %}
-    <ul class="breadcrumb">
-      <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
-      <li><strong class="text-success">MANUAL DE USUARIO</strong></li>
-    </ul>
-{% endblock %}
-
-{% block titulo %}
-    <h1><i class="icon20 i-stack-checkmark"></i> MANUAL DE USUARIO </h1> 
-{% endblock %}
 
 {% block contenido %}
-<div class="form-group">
-    <div class="container-fluid">
-    <ul id="myTab" class="nav nav-tabs">
-        <li><a href="#reng" data-toggle="tab">PERFIL GENERAL PRODUCTOR</a></li>
-    </ul>
+    <h1 class="page-header">Perfil General del Productor</h1>
 
-    <div class="tab-content">
-        <div class="tab-pane fade in active" id="reng" id="home" align="justify">
-            <center><label><h3>Perfil General Productor</h3></label></center>
             <p class="tamannoLetra">En este reporte se puede visualizar la información consolidada del una serie de preguntas seleccionadas para el perfil general del productor.</p>
             <img src="{{base_url('assets/images/manual/perfil_productor/1.png')}}" style="width:100%; margin-bottom:20px">
 
@@ -69,9 +13,4 @@
             <p class="tamannoLetra"><label class="verde"><b>Filtro Pregunta:</b></label> Mediante este filtro se modifica la pregunta o datos que se quieren visualizar. Despliega 12 opciones al hacer click en la flecha de la parte derecha del selector. </label> 
             <p class="tamannoLetra"><label class="rosado"><b>Grafica:</b></label>En esta sección se grafica la información que se consultó mediante los filtros. Se puede descargar una imágen de la gráfica en formatos JPG, PNG, SVG y PDF. Basta con señalar el ícono de descarga y hacer click en el formato que se requiere.</p>
 
-           
-
-        </div>
-    </div>
-</div>
 {% endblock %}
