@@ -95,4 +95,9 @@ class ManualUsuario extends CI_Controller {
         $this->twiggy->template("manual/perfilproductor");
         $this->twiggy->display();
     }
+
+    public function certificaciones(){
+        $this->twiggy->template("manual/certificaciones");
+        $this->twiggy->display();
+    }
 }

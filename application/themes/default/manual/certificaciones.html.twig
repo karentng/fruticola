@@ -1,0 +1,58 @@
+{% extends "manual/base_manual.html.twig" %}
+
+
+{% block contenido %}
+    <h1 class="page-header">Certificaciones</h1>
+	<p class="tamannoLetra">Este formulario nos permite registrar la información referente a la certificación que se está ingresando, los datos son: fecha de la visita, descripción de las actividades realizadas en la visita y observaciones.</p>
+	<p class="tamannoLetra">El formato de este formulario es usado para cada uno de los 11 tipos de certificaciones, lo único que cambia es el título del formulario (descrito y señalado abajo). Los tipos de certificaciones son:</p>
+	<ul>
+		<li>
+			<label>Elaboración de propuestas asociativas para estudio de riego</label>
+		</li>
+		<li>
+			<label>Implementación de prácticas de manejo agronómico tendientes a romper la estacionalidad</label>
+		</li>
+		<li>
+			<label>Renovación de cultivos existentes y plantación de áreas nuevas con variedades promisorias</label>
+		</li>
+		<li>
+			<label>Planes de fertilidad</label>
+		</li>
+		<li>
+			<label>Visitas de seguimiento y/o acompañamiento</label>
+		</li>
+		<li>
+			<label>Elaboración de los planes de negocio regional</label>
+		</li>
+		<li>
+			<label>Incremento de los rendimientos de cultivo</label>
+		</li>
+		<li>
+			<label>Mejoramiento de las áreas actuales con semilla de PIÑA de alta calidad genética y productiva</label>
+		</li>
+		<li>
+			<label>Implementación de modelos de producción óptima de MANGO</label>
+		</li>
+		<li>
+			<label>Mejoramiento de las áreas actuales con semilla de FRESA de alta calidad genética y productiva</label>
+		</li>
+		<li>
+			<label>Mejoramiento de las áreas actuales con semilla de MORA de alta calidad genética y productiva</label>
+		</li>
+	</ul>
+
+	<p class="tamannoLetra">Los ultimos 4 tipos de certificaciones estarán disponibles, solamente si el productor tiene como renglón productivo el renglon que en la descripción se da, por ejemplo: "Implementación de modelos de producción óptima de MANGO" solo estará disponible para los productores de mango.</p>
+
+	<img src="{{base_url('assets/images/manual/Certificaciones/1.png')}}" style="width:100%; margin-bottom:20px">
+	<p class="tamannoLetra"><label class="rojo"><b>Título de la certificación:</b></label> Es el nombre de la actual certificación que se está digitando.</p>
+    <p class="tamannoLetra"><label class="azul"><b>Fecha de la visita:</b></label> Es la fecha en que se realizo la visita al predio para realizar la certificación.<p/>
+    <p class="tamannoLetra"><label class="verde"><b>Número de formulario:</b></label> Es el número que tiene el RUAT asociado al predio que se visita.<p/>
+    <p class="tamannoLetra"><label class="morado"><b>Datos personales:</b></label> Son los datos básicos que tiene el dueño del predio al cual se le está haciendo la certificación.</p>
+
+	<img src="{{base_url('assets/images/manual/Certificaciones/2.png')}}" style="width:100%; margin-bottom:20px">
+	<p class="tamannoLetra"><label class="rosado"><b>Descripción de la visita:</b></label> En este campo se registran las actividades realizadas en la visita.</p>
+	<p class="tamannoLetra"><label class="naranja"><b>Observaciones de la visita:</b></label> En este campo se registran observaciones que se dieron durante la visita.</p>
+	<p class="tamannoLetra"><label class="amarillo"><b>Guardar:</b></label> Este botón nos permite guardar la certificación, una vez los datos hayan sido ingresados.</p>
+	
+
+{% endblock %}
