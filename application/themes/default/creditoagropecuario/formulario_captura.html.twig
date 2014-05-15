@@ -60,7 +60,7 @@
             var value = $(this).val();
             var last_index = id.lastIndexOf('_');
             var new_id = id.substring(0, last_index) + '_3';
-            
+
             if (value != '')
                 $('#' + new_id).empty().append(crear_combo_mupios(combos['departamentos'][value].municipios).html());
         });
@@ -98,16 +98,16 @@
                 $(this).val(valor);
             });
         });
-        
+
         cambiar_experiencia_banco();
     });
 
     function cambiar_experiencia_banco() {
-        if ($('#experiencia').val() != 1){
+        if ($('#experiencia').val() != 1) {
             $("#calidad_de").val(0);
             $("#calidad_de").hide();
             $("#calidad_de").parent().find('label').hide();
-        }else{
+        } else {
             $("#calidad_de").show();
             $("#calidad_de").parent().find('label').show();
         }
@@ -212,7 +212,7 @@
 {% block contenido %}
 
 <div style="text-align:center; padding-bottom: 10px">
-    <input type="button" style="font-size: 18pt" class="noprint" value="Imprimir" onclick="window.window.open('{{url_imprimible}}','_blank');"/>
+    <input type="button" style="font-size: 18pt" class="noprint" value="Imprimir" onclick="window.window.open('{{url_imprimible}}', '_blank');"/>
 </div>
 
 
@@ -1469,17 +1469,17 @@
                                     {% endif %}
 
                                 <td>
-                                    
+
                                         {% if j == 8 or j == 9 or j == 10 %}
                                             {% set valor = set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i-1], id_name) ) %}
-                                            <select name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 95px;"/>
-                                                <option value="" {{(valor == '')?'selected':''}}></option>
-                                                <option value="2" {{(valor == '2')?'selected':''}}>Anual</option>
-                                                <option value="1" {{(valor == '1')?'selected':''}}>Semestral</option>
-                                            </select>
+                                    <select name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 95px;"/>
+                        <option value="" {{(valor == '')?'selected':''}}></option>
+                        <option value="2" {{(valor == '2')?'selected':''}}>Anual</option>
+                        <option value="1" {{(valor == '1')?'selected':''}}>Semestral</option>
+                        </select>
                                             {{form_error('descripcion_inv_' ~ i ~ '_' ~ j )}}
                                         {% else %}             
-                                            <input name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 65px;" value="{{ set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i-1], id_name) ) }}"/>
+                        <input name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 65px;" value="{{ set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i-1], id_name) ) }}"/>
                                             {{form_error('descripcion_inv_' ~ i ~ '_' ~ j )}}
                                         {% endif %}                            
                         </td>                  
@@ -1666,7 +1666,7 @@
                         <tbody>
                     {% for i in 0..4 %}
                             <tr>          
-                            
+
 
                         {% for j in 1..9 %}
                             {% set id_name = '' %}
@@ -1746,6 +1746,113 @@
                 </div>
             </div>
         </div>
+
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>I. BALANCE GENERAL</h4>
+                <a href="#" class="minimize"></a>
+            </div>
+            <!-- End .panel-heading -->
+            <div class="panel-body">
+                <div class="container">
+                    <div class="col-md-6">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th align="center">
+                                        DESCRIPCION DE LOS ACTIVOS ($)
+                                    </th>
+                                    <th align="center" style="width: 130px;">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        {% for pa in preguntas_activos %}
+                                <tr>
+                                    <td>
+                                {{pa.enunciado}}
+                                {{form_error('pregunta_c_'~pa.id)}}
+                                {% if loop.last%}
+                                        <div><label class="error" id="error_validacion_total_activos"></label></div>
+                                {% endif %}
+                                    </td>
+                                    <td>
+                                        <input type="text" class="money form-control respuestas_activos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" readonly/>
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th align="center">
+                                        DESCRIPCION DE LOS INGRESOS ($/Año)
+                                    </th>
+                                    <th align="center" style="width: 130px;">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        {% for pa in preguntas_ingresos%}
+                                <tr>
+                                    <td>
+                                {{pa.enunciado}}
+                                {{form_error('pregunta_c_'~pa.id)}}
+                                    </td>
+                                    <td>
+                                        <input type="text" class="money form-control respuestas_ingresos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" readonly/>
+                                    </td>
+                                </tr>
+                        {% endfor %}         
+                                <tr>
+                                    <td>
+                                        PORCENTAJE TOTAL DE INGRESOS DE RENGLON PRODUCTIVO Y OTRAS ACTIVIDADES (%)
+                                        <div><label class="error" id="porcentaje_ingresos_error"></label></div>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="money form-control" placeholder="" id="porcentaje_ingresos" readonly/>                                
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="padding-top: 10px;"></div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th align="center">
+                                        DESCRIPCION DE LOS EGRESOS ($/Año)
+                                    </th>
+                                    <th align="center" style="width: 130px;">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        {% for pa in preguntas_egresos%}
+                                <tr>
+                                    <td>
+                                {{pa.enunciado}}
+                                {{form_error('pregunta_c_'~pa.id)}}                                
+                                    </td>
+                                    <td>
+                                        <input type="text" class="money form-control respuestas_egresos {{form_error('pregunta_c_'~pa.id)? 'error':''}}" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}"  value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" readonly/>
+                                    </td>
+                                </tr>
+                        {% endfor %}   
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- .container and .panel-body -->
+        </div><!-- panel default -->
+
 
         <br/>
 

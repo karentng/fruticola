@@ -48,11 +48,13 @@ class Creditoagropecuario extends CI_Controller {
 
         $data['departamentos'] = $deptos_municipios;
 
-
         $solicitud_credito = SolicitudCredito::first(array(
                     'conditions' => array("ruat_id = ?", $ruat_id)
         ));
-
+        
+        $vtp = VisitaTipoProductor::first(array(
+                    'conditions' => array('ruat_id = ?', $ruat_id)
+        ));
 
         $conyugue = $solicitud_credito->conyugue;
         $referencias_familiares = $solicitud_credito->referencias_familiares;
@@ -64,6 +66,41 @@ class Creditoagropecuario extends CI_Controller {
         $ingresos_adicionales = $solicitud_credito->ingresos_adicionales;
         $descripcion_bienes = $solicitud_credito->descripcion_bienes;
         $descripcion_bienes_inmuebles = $solicitud_credito->descripcion_bienes_inmuebles;
+        
+        ///consulto las preguntas C para cargarlas dinamicamente
+        $preguntas_c = TPCPregunta::all(array('order' => 'categoria, ordenamiento'));
+
+        ///consulo las respuestas C
+        $respuestas_c = TPCRespuesta::all(array(
+                    'conditions' => array('visita_id = ?', $vtp->id)
+        ));
+        
+        ///acomodo las respuestas con la pregunta como llave
+        $respuestas_c_aux = array();
+        foreach ($respuestas_c as $obj)
+            $respuestas_c_aux[$obj->pregunta_c_id] = $obj;
+
+        ///acomodo las preguntas C por categoria
+        $preguntas_ingresos = $preguntas_egresos = $preguntas_activos = $preguntas_totales = array();
+        foreach ($preguntas_c as $obj) {
+
+            $objAux = $obj->to_array();
+
+            ///Si la pregunta C tiene respuesta, la agrego al objeto de la pregunta
+            if (isset($respuestas_c_aux[$obj->id]))
+                $objAux['respuesta_bd'] = $respuestas_c_aux[$obj->id]->valor;
+
+            if ($obj->categoria === 'A')
+                $preguntas_activos[] = $objAux;
+            elseif ($obj->categoria === 'B')
+                $preguntas_ingresos[] = $objAux;
+            elseif ($obj->categoria === 'C')
+                $preguntas_egresos[] = $objAux;
+            elseif ($obj->categoria === 'D')
+                $preguntas_totales[] = $objAux;
+        }
+        
+        
 
         $this->validar_input();
         $this->validation_rules();
@@ -367,6 +404,11 @@ class Creditoagropecuario extends CI_Controller {
         $this->twiggy->set("ingresos_adicionales", $ingresos_adicionales);
         $this->twiggy->set("descripcion_bienes", $descripcion_bienes);
         $this->twiggy->set("descripcion_bienes_inmuebles", $descripcion_bienes_inmuebles);
+        
+        $this->twiggy->set('preguntas_ingresos', $preguntas_ingresos);
+        $this->twiggy->set('preguntas_egresos', $preguntas_egresos);
+        $this->twiggy->set('preguntas_activos', $preguntas_activos);
+        $this->twiggy->set('preguntas_totales', $preguntas_totales);
 
         $this->twiggy->template("creditoagropecuario/formulario_captura");
         $this->twiggy->display();
