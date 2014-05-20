@@ -114,7 +114,6 @@ class Creditoagropecuario extends CI_Controller {
 
                 $connection->transaction();
 
-
                 $solicitud_credito = ($solicitud_credito) ? $solicitud_credito : new SolicitudCredito();
 
                 $solicitud_credito->ruat_id = $ruat_id;
@@ -136,7 +135,7 @@ class Creditoagropecuario extends CI_Controller {
                 $solicitud_credito->observaciones = $this->input->post('observaciones');
 
                 if ($solicitud_credito->save()) {
-//                    var_dump($solicitud_credito);
+//                  var_dump($solicitud_credito);
                     $conyugue = ($conyugue) ? $conyugue : new Conyugue;
                     $conyugue->solicitud_id = $solicitud_credito->id;
                     $conyugue->nombre1 = $this->input->post('conyugue_nombre1');
@@ -150,8 +149,7 @@ class Creditoagropecuario extends CI_Controller {
                     $conyugue->personas_cargo = $this->input->post('conyugue_personas_cargo');
                     $conyugue->save();
 
-
-//                        echo 'referencias_fam1_nombres';
+//                  echo 'referencias_fam1_nombres';
                     $referencias_familiares[0] = (isset($referencias_familiares[0]) && $referencias_familiares[0]) ? $referencias_familiares[0] : new ReferenciaFamiliarPersonal;
                     $referencias_familiares[0]->tipo = 1;
                     $referencias_familiares[0]->solicitud_id = $solicitud_credito->id;
@@ -173,8 +171,7 @@ class Creditoagropecuario extends CI_Controller {
                         $referencias_familiares[0]->save();
                     }
 
-
-//                        echo 'referencias_fam2_nombres';
+//                  echo 'referencias_fam2_nombres';
                     $referencias_familiares[1] = (isset($referencias_familiares[1]) && $referencias_familiares[1]) ? $referencias_familiares[1] : new ReferenciaFamiliarPersonal;
                     $referencias_familiares[1]->tipo = 1;
                     $referencias_familiares[1]->solicitud_id = $solicitud_credito->id;
@@ -196,8 +193,7 @@ class Creditoagropecuario extends CI_Controller {
                         $referencias_familiares[1]->save();
                     }
 
-
-//                        echo 'referencias_per1_nombres';
+//                  echo 'referencias_per1_nombres';
                     $referencias_personales[0] = (isset($referencias_personales[0]) && $referencias_personales[0]) ? $referencias_personales[0] : new ReferenciaFamiliarPersonal;
                     $referencias_personales[0]->tipo = 2;
                     $referencias_personales[0]->solicitud_id = $solicitud_credito->id;
@@ -219,8 +215,7 @@ class Creditoagropecuario extends CI_Controller {
                         $referencias_personales[0]->save();
                     }
 
-
-//                        echo 'referencias_per2_nombres';
+//                  echo 'referencias_per2_nombres';
                     $referencias_personales[1] = (isset($referencias_personales[1]) && $referencias_personales[1]) ? $referencias_personales[1] : new ReferenciaFamiliarPersonal;
                     $referencias_personales[1]->tipo = 2;
                     $referencias_personales[1]->solicitud_id = $solicitud_credito->id;
@@ -242,8 +237,7 @@ class Creditoagropecuario extends CI_Controller {
                         $referencias_personales[1]->save();
                     }
 
-
-//                        echo 'referencias_fin1_entidad';
+//                  echo 'referencias_fin1_entidad';
                     $referencias_financieras[0] = (isset($referencias_financieras[0]) && $referencias_financieras[0]) ? $referencias_financieras[0] : new ReferenciaFinanciera;
                     $referencias_financieras[0]->solicitud_id = $solicitud_credito->id;
                     $referencias_financieras[0]->entidad = $this->input->post('referencias_fin1_entidad');
@@ -256,8 +250,7 @@ class Creditoagropecuario extends CI_Controller {
                         $referencias_financieras[0]->save();
                     }
 
-
-//                        echo 'referencias_fin2_entidad';
+//                  echo 'referencias_fin2_entidad';
                     $referencias_financieras[1] = (isset($referencias_financieras[1]) && $referencias_financieras[1]) ? $referencias_financieras[1] : new ReferenciaFinanciera;
                     $referencias_financieras[1]->solicitud_id = $solicitud_credito->id;
                     $referencias_financieras[1]->entidad = $this->input->post('referencias_fin2_entidad');
@@ -270,8 +263,7 @@ class Creditoagropecuario extends CI_Controller {
                         $referencias_financieras[1]->save();
                     }
 
-
-//                        echo 'referencias_com_nombre_est';
+//                  echo 'referencias_com_nombre_est';
                     $referencias_comerciales[0] = (isset($referencias_comerciales[0]) && $referencias_comerciales[0]) ? $referencias_comerciales[0] : new ReferenciaComercial;
                     $referencias_comerciales[0]->solicitud_id = $solicitud_credito->id;
                     $referencias_comerciales[0]->nombre_est = $this->input->post('referencias_com_nombre_est');
@@ -289,16 +281,16 @@ class Creditoagropecuario extends CI_Controller {
                         $descripcion_inversiones[$i] = (isset($descripcion_inversiones[$i]) && $descripcion_inversiones[$i]) ? $descripcion_inversiones[$i] : new DescripcionInversion;
                         $descripcion_inversiones[$i]->solicitud_id = $solicitud_credito->id;
                         $descripcion_inversiones[$i]->codigo_finagro = $this->input->post("descripcion_inv_{$j}_1");
-                        $descripcion_inversiones[$i]->destino_recursos = $this->input->post("descripcion_inv_{$j}_2");
-                        $descripcion_inversiones[$i]->nombre_rubro = $this->input->post("descripcion_inv_{$j}_3");
-                        $descripcion_inversiones[$i]->unidades_fin = $this->input->post("descripcion_inv_{$j}_4");
-                        $descripcion_inversiones[$i]->valor_proyecto = $this->input->post("descripcion_inv_{$j}_5");
-                        $descripcion_inversiones[$i]->valor_solicitud = $this->input->post("descripcion_inv_{$j}_6");
-                        $descripcion_inversiones[$i]->plazo_total = $this->input->post("descripcion_inv_{$j}_7");
-                        $descripcion_inversiones[$i]->periodo_gracia = $this->input->post("descripcion_inv_{$j}_8");
-                        $descripcion_inversiones[$i]->modalidad_pago = $this->input->post("descripcion_inv_{$j}_9");
-                        $descripcion_inversiones[$i]->amortizacion_cap = $this->input->post("descripcion_inv_{$j}_10");
-                        $descripcion_inversiones[$i]->tasa_interes = $this->input->post("descripcion_inv_{$j}_11");
+                        $descripcion_inversiones[$i]->destino_recursos_nombre_rubro = $this->input->post("descripcion_inv_{$j}_2");
+                        $descripcion_inversiones[$i]->unidades_fin = $this->input->post("descripcion_inv_{$j}_3");
+                        $descripcion_inversiones[$i]->valor_proyecto = $this->input->post("descripcion_inv_{$j}_4");
+                        $descripcion_inversiones[$i]->valor_solicitud = $this->input->post("descripcion_inv_{$j}_5");
+                        $descripcion_inversiones[$i]->plazo_total = $this->input->post("descripcion_inv_{$j}_6");
+                        $descripcion_inversiones[$i]->periodo_gracia = $this->input->post("descripcion_inv_{$j}_7");
+                        $descripcion_inversiones[$i]->modalidad_pago = $this->input->post("descripcion_inv_{$j}_8");
+                        $descripcion_inversiones[$i]->amortizacion_cap = $this->input->post("descripcion_inv_{$j}_9");
+                        $descripcion_inversiones[$i]->tasa_interes = $this->input->post("descripcion_inv_{$j}_10");
+
                         if ($this->input->post("descripcion_inv_{$j}_1")) {
                             $descripcion_inversiones[$i]->save();
                         }
@@ -376,10 +368,9 @@ class Creditoagropecuario extends CI_Controller {
             }
         } else if (validation_errors()) {
 
-//            var_dump(validation_errors());
+//          var_dump(validation_errors());
             $this->twiggy->set('notif', array('type' => 'error', 'text' => "Se encontraron errores al procesar el formulario. <br> Revise los recuadros rojos"));
         }
-
 
         $this->twiggy->set('url_imprimible', site_url("creditoagropecuario/imprimible/$ruat_id"));
 
@@ -469,7 +460,7 @@ class Creditoagropecuario extends CI_Controller {
         for ($j = 1; $j <= 4; $j++) {
             ///si el codigo FINAGRO tiene algo, valido el resto de la fila
             if (array_key_exists("descripcion_inv_{$j}", $this->aGruposConDatos)) {
-                for ($i = 1; $i <= 11; $i++) {
+                for ($i = 1; $i <= 10; $i++) {
                     if (1 === $i || 2 === $i || 3 === $i)
                         $this->form_validation->set_rules("descripcion_inv_{$j}_{$i}", ' ', 'required');
                     else
