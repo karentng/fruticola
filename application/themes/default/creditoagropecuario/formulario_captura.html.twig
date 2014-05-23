@@ -1441,7 +1441,7 @@
                                 <th style="text-align: center;">Valor del Proyecto (100%)</th>
                                 <th style="text-align: center;">Valor de la Solicitud (Pequeño Productor hasta 100%)</th>
                                 <th style="text-align: center;">Plazo Total (Meses)</th>
-                                <th style="text-align: center;">Período de Gracia (semestral /anual)</th>
+                                <th style="text-align: center;">Período de gracia  (en meses)</th>
                                 <th style="text-align: center;">Modalidad Pago de Intereses (semestral /anual)</th>
                                 <th style="text-align: center;">Amortización a Capital (semestral /anual)</th>
                                 <th style="text-align: center;">Taza de Interes DTF+</th>
@@ -1471,13 +1471,20 @@
                                     {% if j == 7 or j == 8 or j == 9 %}
                                         {% set valor = set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i-1], id_name) ) %}
                                         <select name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 95px;"/>
-                                            <option value="" {{(valor == '')?'selected':''}}></option>
-                                            <option value="2" {{(valor == '2')?'selected':''}}>Anual</option>
-                                            <option value="1" {{(valor == '1')?'selected':''}}>Semestral</option>
+                                            {% if j == 7 %}
+                                                <option value="" {{(valor == '')?'selected':''}}></option>
+                                                <option value="2" {{(valor == '2')?'selected':''}}>6 meses</option>
+                                                <option value="1" {{(valor == '1')?'selected':''}}>12 meses</option>
+                                            {% else %}
+                                                <option value="" {{(valor == '')?'selected':''}}></option>
+                                                <option value="2" {{(valor == '2')?'selected':''}}>Anual</option>
+                                                <option value="1" {{(valor == '1')?'selected':''}}>Semestral</option>
+                                                <option value="1" {{(valor == '1')?'selected':''}}>Al vencimiento</option>
+                                            {% endif %}
                                         </select>
                                         {{form_error('descripcion_inv_' ~ i ~ '_' ~ j )}}
                                     {% else %}
-                                        <input name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 75px;" value="{{ set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i-1], id_name) ) }}"/>
+                                        <textarea name="descripcion_inv_{{ i~'_'~j }}" id="descripcion_inv_{{ i~'_'~j }}" style="width: 75px;" value="{{ set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i-1], id_name) ) }}"/>{{ set_value2( 'descripcion_inv_'~i~'_'~j, attribute(descripcion_inversiones[i-1], id_name) ) }}</textarea>
                                         {{form_error('descripcion_inv_' ~ i ~ '_' ~ j )}}
                                     {% endif %}
                                 </td>
@@ -1582,7 +1589,7 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Municipio del Predio de la Inversión</label>
-                                    <input type="text" capitalize class="informacion_pre_municipio" name="informacion_pre_municipio" maxlength="30"  value="{{finca.municipio.nombre}}" readonly/>
+                                    <input type="text" capitalize class="form-control informacion_pre_municipio" name="informacion_pre_municipio" maxlength="30"  value="{{finca.municipio.nombre}}" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -1590,26 +1597,26 @@
                             <div class="container">
                                 <div class="form-group">
                                     <label class="">Vereda <br>&nbsp;</label>
-                                    <input type="text" capitalize class="informacion_pre_vereda" name="informacion_pre_vereda" maxlength="30"  value="{{finca.vereda}}" readonly/>
+                                    <input type="text" capitalize class="form-control informacion_pre_vereda" name="informacion_pre_vereda" maxlength="30"  value="{{finca.vereda}}" readonly/>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <div class="container">
                                 <div class="form-group">
-                                    <label class="">Fuentes Hídricas</label><br/>
+                                    <label class="">Fuentes Hídricas <br>&nbsp;</label>
                                     <select name="informacion_pre_fuente_hid" class="form-control" class="form-control">
-                                        <option value="1" {{informacion_predios_inversion[0].fuente_hid == 1 ? 'selected': ''}}>si</option>
-                                        <option value="0" {{informacion_predios_inversion[0].fuente_hid == 0 ? 'selected': ''}}>no</option>
+                                        <option value="1" {{informacion_predios_inversion[0].fuente_hid == 1 ? 'selected': ''}}>Si</option>
+                                        <option value="0" {{informacion_predios_inversion[0].fuente_hid == 0 ? 'selected': ''}}>No</option>
                                     </select>
                                     {{form_error('informacion_pre_fuente_hid')}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="container">
                                 <div class="form-group">
-                                    <label class="">Fecha Inicial de la Inversión AAAA/MM/DD</label>
+                                    <label class="">Fecha Inicial de la Inversión</label>
                                     <div class="input-group date datepicker autostart">
                                         <input size="16" class="form-control" name="informacion_pre_fecha_ini" type="text" value="{% if set_value2('informacion_pre_fecha_ini', informacion_predios_inversion[0].fecha_ini) != '' %} {{ set_value2('informacion_pre_fecha_ini', informacion_predios_inversion[0].fecha_ini| date('Y-m-d')) }} {% endif %}">
                                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                                        
@@ -1618,10 +1625,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="contaner">
                                 <div class="form-group">
-                                    <label class="">Fecha final de la Inversión AAAA/MM/DD</label>
+                                    <label class="">Fecha final de la Inversión</label>
                                     <div class="input-group date datepicker autostart">
                                         <input size="16" class="form-control" name="informacion_pre_fecha_fin" type="text" value="{% if set_value2('informacion_pre_fecha_fin', informacion_predios_inversion[0].fecha_fin) != '' %} {{ set_value2('informacion_pre_fecha_fin', informacion_predios_inversion[0].fecha_fin| date('Y-m-d')) }} {% endif %}">
                                         <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>                                        
@@ -1657,7 +1664,7 @@
                                 <th style="text-align: center;">Precio de Venta $</th>
                                 <th style="text-align: center;">Total Ingresos (Anual) $</th>
                                 <th style="text-align: center;">Nombre del Predio donde tiene los inventarios</th>
-                                <th style="text-align: center;">Area del Predio de los Inventarios</th>
+                                <th style="text-align: center;">Área del Predio de los Inventarios (Has)</th>
                                 <th style="text-align: center;">Tipo de Tenencia del Predio de los Inventarios (Has)</th>
                             </tr>
                         </thead>
@@ -1683,15 +1690,14 @@
                             {% if j == 5 or j == 6 %}
                                 {% set class = 'money' %}
                             {% else %}
-                                {% set class = '' %}
+                                {% set class = ' ' %}
                             {% endif %}
 
                             {% if i == 4 and j == 1 %}
+                                    <textarea name="ingresos_adicionales_{{ i~'_'~j }}" style="width: 100px;" value="{{ set_value2( 'ingresos_adicionales_'~i~'_'~j, attribute(ingresos_adicionales[i], id_name) ) }}"/>{{ set_value2( 'ingresos_adicionales_'~i~'_'~j, attribute(ingresos_adicionales[i], id_name) ) }}</textarea>
                                     Otros Ingresos Diferentes a los generados por actividades agropecuarias
-                                    <input name="ingresos_adicionales_{{ i~'_'~j }}" style="width: 100px;" hidden/>
-
                             {% else %}
-                                    <input name="ingresos_adicionales_{{ i~'_'~j }}" class="{{class}}" style="width: 95px;" value="{{ set_value2( 'ingresos_adicionales_'~i~'_'~j, attribute(ingresos_adicionales[i], id_name) ) }}"/>
+                                    <textarea name="ingresos_adicionales_{{ i~'_'~j }}" style="width: 95px;" value="{{ set_value2( 'ingresos_adicionales_'~i~'_'~j, attribute(ingresos_adicionales[i], id_name) ) }}"/>{{ set_value2( 'ingresos_adicionales_'~i~'_'~j, attribute(ingresos_adicionales[i], id_name) ) }}</textarea>
                             {% endif %}  
                                     {{form_error('ingresos_adicionales_' ~ i ~ '_' ~ j )}}
                                 </td>                  
