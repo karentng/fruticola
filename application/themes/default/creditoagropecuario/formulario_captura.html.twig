@@ -1422,12 +1422,12 @@
 
         <br/>
 
-        <div class="panel panel-default">
+        <!--div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
                 <h4>D. INFORMACIÓN PARA LA PLANIFICACION DEL CRÉDITO (DESCRIPCIÓN DE LAS INVERSIONES OBJETO DEL PROYECTO A FINANCIAR)</h4>
                 <a href="#" class="minimize"></a>
-            </div><!-- End .panel-heading -->
+            </div>
 
             <div class="panel-body" style="display: block;">
                 <div class="container">
@@ -1536,7 +1536,7 @@
 
                 </div>
             </div>
-        </div>
+        </div-->
 
         <br/>
 
@@ -1645,12 +1645,12 @@
 
         <br/>
 
-        <div class="panel panel-default">
+        <!--div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
                 <h4>F. ACTIVIDADES AGROPECUARIAS COMPLEMENTARIAS (INGRESOS ADICIONALES)</h4>
                 <a href="#" class="minimize"></a>
-            </div><!-- End .panel-heading -->
+            </div>
 
             <div class="panel-body" style="display: block;">
                 <div class="container">
@@ -1708,7 +1708,7 @@
                     </table>            
                 </div>
             </div>
-        </div>
+        </div-->
 
 
         <br/>
@@ -1716,7 +1716,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                <h4>G. DESCRIPCION DE LA INVERSION A FINANCIAR (JUSTIFICACIÓN DE CRÉDITO)</h4>
+                <h4>G. DESCRIPCIÓN DE LA INVERSIÓN A FINANCIAR  Y  MONTO DEL  CRÉDITO  SOLICITADO  (JUSTIFICACIÓN DE CRÉDITO)</h4>
                 <a href="#" class="minimize"></a>
             </div><!-- End .panel-heading -->
 
@@ -1753,13 +1753,13 @@
 
         <br/>
 
-        <div class="panel panel-default">
+        <!--div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
                 <h4>I. BALANCE GENERAL</h4>
                 <a href="#" class="minimize"></a>
             </div>
-            <!-- End .panel-heading -->
+
             <div class="panel-body">
                 <div class="container">
                     <div class="col-md-6">
@@ -1854,18 +1854,16 @@
                     
                 </div>
             </div>
-            <!-- .container and .panel-body -->
-        </div><!-- panel default -->
-
+        </div-->
 
         <br/>
 
-        <div class="panel panel-default">
+        <!--div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
                 <h4>J. DESCRIPCION DE BIENES</h4>
                 <a href="#" class="minimize"></a>
-            </div><!-- End .panel-heading -->
+            </div>
 
             <div class="panel-body" style="display: block;">
                 <div class="container">
@@ -2214,7 +2212,7 @@
                     </div>            
                 </div>
             </div>
-        </div>
+        </div-->
 
         <br/>
 
@@ -2249,6 +2247,150 @@
                             </div>
                         </div>
 
+
+                    </div>                   
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>LISTA DE CHEQUEO</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="col-md-12">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" style="text-align: justify;">1. Fotocopia de la cédula ampliada  al 150%.</label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input id="lista_chequeo_check1" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check1', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" style="text-align: justify;">2. Fotocopia de cédula  del cónyuge  según el caso  ampliada  al 150%.</label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input id="lista_chequeo_check2" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check2', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label" style="text-align: justify;">3. Documento para sustentar  la  tenencia de la tierra:</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" style="text-align: justify;">3.1 Predio Propio: certificado de tradición (sin vicios: medidas cautelares, embargos y sin falsa tradición).</label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input id="lista_chequeo_check3" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check3', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" style="text-align: justify;">3.2 Predio arrendado: Contrato de arrendamiento (predios arrendados, con plazo superior al plazo del crédito) y certificado de tradición donde figure como propietario el que firme como arrendador.</label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input id="lista_chequeo_check4" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check4', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" style="text-align: justify;">3.3 Certificados de posesión:    (firmado  por el alcalde  del Municipio donde se ubica el predio;   especificando  nombre del  dueño;  área,   nombre y ubicación del predio).   Nota:   si el área  del predio no  figura registrada en el certificado de tradición,  se debe adjuntar el  documento de pago de impuestos,  pues en este  si figura el área.</label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input id="lista_chequeo_check5" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check5', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" style="text-align: justify;">4.  Formato de Gestión de crédito del  Plan Frutícola del Valle del Cauca  (queda incluido en la lista de chequeo del Banco para los  clientes  atendidos bajo este programa).</label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input id="lista_chequeo_check6" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check6', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" style="text-align: justify;">5. En  dinero  cada solicitante  debe llevar   $  17.200 pesos al Banco  ($  10.000 para aperturar la  cuenta de ahorros donde le consignaran el dinero del desembolso del  crédito en caso de ser aprobado y  $  7.200 pesos  para  consultar la  CIFIN.</label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input id="lista_chequeo_check7" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check7', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" style="text-align: justify;">6. En  caso de  compra de  maquinaria y equipo (cotiizaciones  actualizadas  y a nombre  del solicitante del crédito).</label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input id="lista_chequeo_check8" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check8', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" style="text-align: justify;">7. En  caso de  construcción  de infraestructura  agrícola   (presupuesto y  diseño  de la  obra, con  sus  respectivas  áreas).</label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input id="lista_chequeo_check5" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check5', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label" style="text-align: justify;"> 8.  En  caso de  sistema  de  riego   (Cotizaciones   y  dibujo del sitio   de  instalación del  Riego.</label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
+                                    <input id="lista_chequeo_check5" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check5', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>                   
                 </div>

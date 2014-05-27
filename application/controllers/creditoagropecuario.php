@@ -275,7 +275,7 @@ class Creditoagropecuario extends CI_Controller {
                         $referencias_comerciales[0]->save();
                     }
 
-                    for ($i = 0; $i < 4; $i++) {
+                    /*for ($i = 0; $i < 4; $i++) {
                         $j = $i + 1;
 
                         $descripcion_inversiones[$i] = (isset($descripcion_inversiones[$i]) && $descripcion_inversiones[$i]) ? $descripcion_inversiones[$i] : new DescripcionInversion;
@@ -294,7 +294,7 @@ class Creditoagropecuario extends CI_Controller {
                         if ($this->input->post("descripcion_inv_{$j}_1")) {
                             $descripcion_inversiones[$i]->save();
                         }
-                    }
+                    }*/
 
                     $informacion_predios_inversion[0] = (isset($informacion_predios_inversion[0]) && $informacion_predios_inversion[0]) ? $informacion_predios_inversion[0] : new PredioInversion;
                     $informacion_predios_inversion[0]->solicitud_id = $solicitud_credito->id;
@@ -303,7 +303,7 @@ class Creditoagropecuario extends CI_Controller {
                     $informacion_predios_inversion[0]->fecha_fin = $this->input->post('informacion_pre_fecha_fin');
                     $informacion_predios_inversion[0]->save();
 
-                    for ($i = 0; $i < 5; $i++) {
+                    /*for ($i = 0; $i < 5; $i++) {
                         $j = $i + 1;
                         $ingresos_adicionales[$i] = (isset($ingresos_adicionales[$i]) && $ingresos_adicionales[$i]) ? $ingresos_adicionales[$i] : new IngresosAdicionales;
                         $ingresos_adicionales[$i]->solicitud_id = $solicitud_credito->id;
@@ -317,9 +317,9 @@ class Creditoagropecuario extends CI_Controller {
                         $ingresos_adicionales[$i]->area_pre_inv = $this->input->post("ingresos_adicionales_{$j}_8");
                         $ingresos_adicionales[$i]->tipo_pre_inv = $this->input->post("ingresos_adicionales_{$j}_9");
                         $ingresos_adicionales[$i]->save();
-                    }
+                    }*/
 
-                    $descripcion_bienes[0] = (isset($descripcion_bienes[0]) && $descripcion_bienes[0]) ? $descripcion_bienes[0] : new DescripcionBienes;
+                    /*$descripcion_bienes[0] = (isset($descripcion_bienes[0]) && $descripcion_bienes[0]) ? $descripcion_bienes[0] : new DescripcionBienes;
                     $descripcion_bienes[0]->solicitud_id = $solicitud_credito->id;
 
                     $descripcion_bienes[0]->marca = $this->input->post("vehiculo_marca");
@@ -357,7 +357,7 @@ class Creditoagropecuario extends CI_Controller {
                         if ($this->input->post("descripcion_bien_{$j}_1")) {
                             $descripcion_bienes_inmuebles[$i]->save();
                         }
-                    }
+                    }*/
                 }
 
                 $connection->commit();
@@ -457,7 +457,7 @@ class Creditoagropecuario extends CI_Controller {
             $this->form_validation->set_rules("referencias_com_municipio", ' ', 'required|numeric');
         }
 
-        for ($j = 1; $j <= 4; $j++) {
+        /*for ($j = 1; $j <= 4; $j++) {
             ///si el codigo FINAGRO tiene algo, valido el resto de la fila
             if (array_key_exists("descripcion_inv_{$j}", $this->aGruposConDatos)) {
                 for ($i = 1; $i <= 10; $i++) {
@@ -467,20 +467,20 @@ class Creditoagropecuario extends CI_Controller {
                         $this->form_validation->set_rules("descripcion_inv_{$j}_{$i}", ' ', 'required|numeric');
                 }
             }
-        }
+        }*/
 
         $this->form_validation->set_rules("informacion_pre_fuente_hid", ' ', 'required|numeric');
         $this->form_validation->set_rules("informacion_pre_fecha_ini", ' ', 'required');
         $this->form_validation->set_rules("informacion_pre_fecha_fin", ' ', 'required|callback_validar_fecha');
 
-        for ($i = 1; $i <= 9; $i++) {
+        /*for ($i = 1; $i <= 9; $i++) {
             for ($j = 1; $j <= 5; $j++) {
                 if (1 != $i && 3 != $i && 7 != $i && 9 != $i)
                     $this->form_validation->set_rules("ingresos_adicionales_{$j}_{$i}", ' ', 'numeric');
             }
-        }
+        }*/
 
-        $this->form_validation->set_rules("descripcion_inv", ' ', 'required');
+        /*$this->form_validation->set_rules("descripcion_inv", ' ', 'required');
         $this->form_validation->set_rules("forma_llegar_pred", ' ', 'required');
 
         for ($j = 1; $j <= 3; $j++) {
@@ -500,7 +500,7 @@ class Creditoagropecuario extends CI_Controller {
         for ($i = 1; $i <= 4; $i++) {
             $this->form_validation->set_rules("otros_cantidad{$i}", ' ', 'numeric');
             $this->form_validation->set_rules("otros_valor{$i}", ' ', 'numeric');
-        }
+        }*/
 
 
         $this->form_validation->set_rules("experiencia_act", ' ', 'required|numeric');
@@ -531,13 +531,13 @@ class Creditoagropecuario extends CI_Controller {
             'referencias_fin1',
             'referencias_fin2',
             'referencias_com',
-            'descripcion_inv_1',
+            /*'descripcion_inv_1',
             'descripcion_inv_2',
             'descripcion_inv_3',
             'descripcion_inv_4',
             'descripcion_bien_1',
             'descripcion_bien_2',
-            'descripcion_bien_3',
+            'descripcion_bien_3',*/
             );
         
         $this->aGruposConDatos = array();
