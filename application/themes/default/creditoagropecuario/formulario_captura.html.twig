@@ -65,6 +65,14 @@
                 $('#' + new_id).empty().append(crear_combo_mupios(combos['departamentos'][value].municipios).html());
         });
 
+        $('#lista_chequeo_item1, #lista_chequeo_item2, #lista_chequeo_item3, #lista_chequeo_item4, #lista_chequeo_item5, #lista_chequeo_item6, #lista_chequeo_item7, #lista_chequeo_item8, #lista_chequeo_item9, #lista_chequeo_item10').on('change', function() {
+
+            if (!$(this).parent().hasClass('switch-off'))
+                $(this).val(1);
+            else
+                $(this).val(0);
+        });
+
         $('#solicitud_credito_dre_check, #solicitud_credito_icr_check').on('change', function() {
             var id = $(this).attr('id');
             var last_index = id.lastIndexOf('_');
@@ -1422,6 +1430,24 @@
 
         <br/>
 
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>D. DESCRIPCION DE  LA INVERSION A FINANCIAR  Y  MONTO DEL CRÉDITO  SOLICITADO  (JUSTIFICACIÓN DE  CRÉDITO)</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="col-sm-12">
+
+                        <textarea name="descripcion_inv" style="width: 100%;" >{{ set_value2( 'descripcion_inv', solicitud_credito.descripcion_inv ) }}</textarea>
+                        {{form_error('descripcion_inv')}}
+                    </div>                   
+                </div>
+            </div>
+        </div>
+
         <!--div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
@@ -1503,7 +1529,7 @@
 
                                     <div class="col-md-3">
                                         <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                            <input id="solicitud_credito_icr_check" class="form-control"  class="toggle" type="checkbox" {{set_value2('solicitud_credito_icr', solicitud_credito.rubros_fin_icr) != '' ? 'checked' : ''}}/>
+                                            <input id="solicitud_credito_icr_check" class="form-control toggle" type="checkbox" {{set_value2('solicitud_credito_icr', solicitud_credito.rubros_fin_icr) != '' ? 'checked' : ''}}/>
                                         </div>
                                     </div>
                                     <div class="col-md-9">
@@ -1716,7 +1742,64 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                <h4>G. DESCRIPCIÓN DE LA INVERSIÓN A FINANCIAR  Y  MONTO DEL  CRÉDITO  SOLICITADO  (JUSTIFICACIÓN DE CRÉDITO)</h4>
+                <h4>F. ACTIVIDADES AGROPECUARIAS COMPLEMENTARIAS ESPECIFICANDO CANTIDAD O ÁREA SEGÚN EL CASO (INGRESOS ADICIONALES)</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="col-sm-12">
+                        <textarea name="actividades_agro" style="width: 100%;" >{{ set_value2( 'actividades_agro', solicitud_credito.actividades_agro ) }}</textarea>
+                        {{form_error('actividades_agro')}}
+                    </div>                   
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>G. OTROS INGRESOS DIFERENTES A LOS GENERADOS POR ACTIVIDADES AGROPECUARIAS</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="col-sm-12">
+                        <textarea name="otro_ingresos" style="width: 100%;" >{{ set_value2( 'otro_ingresos', solicitud_credito.otro_ingresos ) }}</textarea>
+                        {{form_error('otro_ingresos')}}
+                    </div>                   
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>H. COMERCIALIZACIÓN (Como se viene realizando la comercialización y como se realizará la comercialización del cultivo para el que se solicita financiación o la actividad que apalanca el rubro solicitado)</h4>
+                <a href="#" class="minimize"></a>
+            </div><!-- End .panel-heading -->
+
+            <div class="panel-body" style="display: block;">
+                <div class="container">
+                    <div class="col-sm-12">
+                        <textarea name="comercializacion" style="width: 100%;" >{{ set_value2( 'comercializacion', solicitud_credito.comercializacion ) }}</textarea>
+                        {{form_error('comercializacion')}}
+                    </div>                   
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>I. QUE ENTIDADES VIENEN HACIENDO EL ACOMPAÑAMIENTO TÉCNICO</h4>
                 <a href="#" class="minimize"></a>
             </div><!-- End .panel-heading -->
 
@@ -1724,20 +1807,19 @@
                 <div class="container">
                     <div class="col-sm-12">
 
-                        <textarea name="descripcion_inv" style="width: 100%;" >{{ set_value2( 'descripcion_inv', solicitud_credito.descripcion_inv ) }}</textarea>
-                        {{form_error('descripcion_inv')}}
+                        <textarea name="entidades_acomp" style="width: 100%;" >{{ set_value2( 'entidades_acomp', solicitud_credito.entidades_acomp ) }}</textarea>
+                        {{form_error('otro_ingresos')}}
                     </div>                   
                 </div>
             </div>
         </div>
-
 
         <br/>
 
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                <h4>H. FORMA DE LLEGAR AL PREDIO DE LA INVERSIÓN (Incluir la distancia en kilómetros):</h4>
+                <h4>J. FORMA DE LLEGAR AL PREDIO DE LA INVERSIÓN (Incluir la distancia en kilómetros):</h4>
                 <a href="#" class="minimize"></a>
             </div><!-- End .panel-heading -->
 
@@ -2258,7 +2340,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                <h4>LISTA DE CHEQUEO</h4>
+                <h4>L. LISTA DE CHEQUEO</h4>
                 <a href="#" class="minimize"></a>
             </div><!-- End .panel-heading -->
 
@@ -2273,7 +2355,7 @@
 
                             <div class="col-md-6">
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input id="lista_chequeo_check1" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check1', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                    <input id="lista_chequeo_item1" name="lista_chequeo_item1" class="form-control toggle" type="checkbox" {{set_value2('lista_chequeo_item1', lista_chequeo.item1) == '1' ?  'value="1" checked' : 'value="0"'}}/>
                                 </div>
                             </div>
                         </div>
@@ -2285,7 +2367,7 @@
 
                             <div class="col-md-6">
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input id="lista_chequeo_check2" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check2', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                    <input id="lista_chequeo_item2" name="lista_chequeo_item2" class="form-control toggle" type="checkbox" {{set_value2('lista_chequeo_item2', lista_chequeo.item2) == '1' ?  'value="1" checked' : 'value="0"'}}/>
                                 </div>
                             </div>
                         </div>
@@ -2303,7 +2385,7 @@
 
                             <div class="col-md-6">
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input id="lista_chequeo_check3" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check3', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                    <input id="lista_chequeo_item3" name="lista_chequeo_item3" class="form-control toggle" type="checkbox" {{set_value2('lista_chequeo_item3', lista_chequeo.item3) == '1' ?  'value="1" checked' : 'value="0"'}}/>
                                 </div>
                             </div>
                         </div>
@@ -2315,7 +2397,7 @@
 
                             <div class="col-md-6">
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input id="lista_chequeo_check4" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check4', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                    <input id="lista_chequeo_item4" name="lista_chequeo_item4" class="form-control toggle" type="checkbox" {{set_value2('lista_chequeo_item4', lista_chequeo.item4) == '1' ?  'value="1" checked' : 'value="0"'}}/>
                                 </div>
                             </div>
                         </div>
@@ -2327,7 +2409,7 @@
 
                             <div class="col-md-6">
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input id="lista_chequeo_check5" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check5', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                    <input id="lista_chequeo_item5" name="lista_chequeo_item5" class="form-control toggle" type="checkbox" {{set_value2('lista_chequeo_item5', lista_chequeo.item5) == '1' ?  'value="1" checked' : 'value="0"'}}/>
                                 </div>
                             </div>
                         </div>
@@ -2339,7 +2421,7 @@
 
                             <div class="col-md-6">
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input id="lista_chequeo_check6" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check6', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                    <input id="lista_chequeo_item6" name="lista_chequeo_item6" class="form-control toggle" type="checkbox" {{set_value2('lista_chequeo_item6', lista_chequeo.item6) == '1' ?  'value="1" checked' : 'value="0"'}}/>
                                 </div>
                             </div>
                         </div>
@@ -2351,7 +2433,7 @@
 
                             <div class="col-md-6">
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input id="lista_chequeo_check7" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check7', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                    <input id="lista_chequeo_item7" name="lista_chequeo_item7" class="form-control toggle" type="checkbox" {{set_value2('lista_chequeo_item7', lista_chequeo.item7) == '1' ?  'value="1" checked' : 'value="0"'}}/>
                                 </div>
                             </div>
                         </div>
@@ -2363,7 +2445,7 @@
 
                             <div class="col-md-6">
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input id="lista_chequeo_check8" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check8', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                    <input id="lista_chequeo_item8" name="lista_chequeo_item8" class="form-control toggle" type="checkbox" {{set_value2('lista_chequeo_item8', lista_chequeo.item8) == '1' ?  'value="1" checked' : 'value="0"'}}/>
                                 </div>
                             </div>
                         </div>
@@ -2375,7 +2457,7 @@
 
                             <div class="col-md-6">
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input id="lista_chequeo_check5" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check5', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                    <input id="lista_chequeo_item9" name="lista_chequeo_item9" class="form-control toggle" type="checkbox" {{set_value2('lista_chequeo_item9', lista_chequeo.item9) == '1' ?  'value="1" checked' : 'value="0"'}}/>
                                 </div>
                             </div>
                         </div>
@@ -2387,7 +2469,7 @@
 
                             <div class="col-md-6">
                                 <div class="switch" data-on="primary" data-off="danger" data-on-label="<i class='i-checkmark-3'></i>" data-off-label="<i class='i-close'></i>">
-                                    <input id="lista_chequeo_check5" class="form-control"  class="toggle" type="checkbox" {{set_value2('lista_chequeo_check5', lista_chequeo.check1) != '' ? 'checked' : ''}}/>
+                                    <input id="lista_chequeo_item10" name="lista_chequeo_item10" class="form-control toggle" type="checkbox" {{set_value2('lista_chequeo_item10', lista_chequeo.item10) == '1' ?  'value="1" checked' : 'value="0"' }}/>
                                 </div>
                             </div>
                         </div>
@@ -2415,9 +2497,6 @@
         <!--div class="form-actions full">
             <button class="btn btn-lg btn-success pull-right" type="submit">Siguiente<i class="icon16 i-arrow-right"></i></button>
         </div-->
-
-
-        </form>
     </div>
 </div>
 

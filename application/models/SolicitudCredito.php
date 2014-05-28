@@ -6,6 +6,7 @@ class SolicitudCredito extends MyModel {
     
     static $has_one = array(
         array('conyugue', 'class_name'=>'Conyugue', 'foreign_key' => 'solicitud_id'),
+        array('lista_chequeo', 'class_name'=>'ListaChequeo', 'foreign_key' => 'solicitud_id'),
     );
     
     static $has_many = array(
@@ -19,5 +20,4 @@ class SolicitudCredito extends MyModel {
         array('descripcion_bienes', 'class_name'=>'DescripcionBienes', 'foreign_key' => 'solicitud_id'),
         array('descripcion_bienes_inmuebles', 'class_name'=>'DescripcionBienesInmuebles', 'foreign_key' => 'solicitud_id'),
     );
-
 }

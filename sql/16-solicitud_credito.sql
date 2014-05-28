@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS ingresos_adicionales;
 DROP TABLE IF EXISTS descripcion_bienes;
 DROP TABLE IF EXISTS descripcion_bienes_inmuebles;
 DROP TABLE IF EXISTS solicitud_credito;
-
+DROP TABLE IF EXISTS lista_chequeo;
 
 create table solicitud_credito(
     id                              serial not null primary key,
@@ -25,6 +25,12 @@ create table solicitud_credito(
     rubros_fin_icr                  varchar(50),
     rubros_fin_dre                  varchar(50),
     descripcion_inv                 text,
+
+    actividades_agro                text,
+    otro_ingresos                   text,
+    comercializacion                text,
+    entidades_acomp                 text,
+
     forma_llegar_pred               text,
     tiempo_permanencia              double precision,
     experiencia_act                 double precision,
@@ -165,3 +171,18 @@ create table descripcion_bienes_inmuebles(
     valor_comercial                 double precision
 );
 
+create table lista_chequeo(
+    id                              serial not null primary key,
+    solicitud_id                    integer references solicitud_credito(id),
+
+    item1                           boolean,
+    item2                           boolean,
+    item3                           boolean,
+    item4                           boolean,
+    item5                           boolean,
+    item6                           boolean,
+    item7                           boolean,
+    item8                           boolean,
+    item9                           boolean,
+    item10                          boolean
+);

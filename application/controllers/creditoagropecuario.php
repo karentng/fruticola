@@ -23,6 +23,11 @@ class Creditoagropecuario extends CI_Controller {
         if (!$ruat)
             show_404();
 
+        /*echo("<pre>");
+        var_dump($this->input->post());
+        echo("</pre>");
+        die;*/
+
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div><label class="error">', '</label></div>');
 
@@ -66,6 +71,7 @@ class Creditoagropecuario extends CI_Controller {
         $ingresos_adicionales = $solicitud_credito->ingresos_adicionales;
         $descripcion_bienes = $solicitud_credito->descripcion_bienes;
         $descripcion_bienes_inmuebles = $solicitud_credito->descripcion_bienes_inmuebles;
+        $lista_chequeo = $solicitud_credito->lista_chequeo;
         
         ///consulto las preguntas C para cargarlas dinamicamente
         $preguntas_c = TPCPregunta::all(array('order' => 'categoria, ordenamiento'));
@@ -100,8 +106,6 @@ class Creditoagropecuario extends CI_Controller {
                 $preguntas_totales[] = $objAux;
         }
         
-        
-
         $this->validar_input();
         $this->validation_rules();
 
@@ -128,6 +132,12 @@ class Creditoagropecuario extends CI_Controller {
                 $solicitud_credito->rubros_fin_icr = $this->input->post('solicitud_credito_icr');
                 $solicitud_credito->rubros_fin_dre = $this->input->post('solicitud_credito_dre');
                 $solicitud_credito->descripcion_inv = $this->input->post('descripcion_inv');
+
+                $solicitud_credito->actividades_agro = $this->input->post('actividades_agro');
+                $solicitud_credito->otro_ingresos = $this->input->post('otro_ingresos');
+                $solicitud_credito->comercializacion = $this->input->post('comercializacion');
+                $solicitud_credito->entidades_acomp = $this->input->post('entidades_acomp');
+
                 $solicitud_credito->forma_llegar_pred = $this->input->post('forma_llegar_pred');
                 $solicitud_credito->tiempo_permanencia = $this->input->post('tiempo_permanencia');
                 $solicitud_credito->experiencia_act = $this->input->post('experiencia_act');
@@ -358,6 +368,21 @@ class Creditoagropecuario extends CI_Controller {
                             $descripcion_bienes_inmuebles[$i]->save();
                         }
                     }*/
+
+                    $lista_chequeo = ($lista_chequeo) ? $lista_chequeo : new ListaChequeo;
+
+                    $lista_chequeo->solicitud_id = $solicitud_credito->id;
+                    $lista_chequeo->item1 = $this->input->post('lista_chequeo_item1') ? 1: 0;
+                    $lista_chequeo->item2 = $this->input->post('lista_chequeo_item2') ? 1: 0;
+                    $lista_chequeo->item3 = $this->input->post('lista_chequeo_item3') ? 1: 0;
+                    $lista_chequeo->item4 = $this->input->post('lista_chequeo_item4') ? 1: 0;
+                    $lista_chequeo->item5 = $this->input->post('lista_chequeo_item5') ? 1: 0;
+                    $lista_chequeo->item6 = $this->input->post('lista_chequeo_item6') ? 1: 0;
+                    $lista_chequeo->item7 = $this->input->post('lista_chequeo_item7') ? 1: 0;
+                    $lista_chequeo->item8 = $this->input->post('lista_chequeo_item8') ? 1: 0;
+                    $lista_chequeo->item9 = $this->input->post('lista_chequeo_item9') ? 1: 0;
+                    $lista_chequeo->item10 = $this->input->post('lista_chequeo_item10') ? 1: 0;
+                    $lista_chequeo->save();
                 }
 
                 $connection->commit();
@@ -395,6 +420,7 @@ class Creditoagropecuario extends CI_Controller {
         $this->twiggy->set("ingresos_adicionales", $ingresos_adicionales);
         $this->twiggy->set("descripcion_bienes", $descripcion_bienes);
         $this->twiggy->set("descripcion_bienes_inmuebles", $descripcion_bienes_inmuebles);
+        $this->twiggy->set("lista_chequeo", $lista_chequeo);
         
         $this->twiggy->set('preguntas_ingresos', $preguntas_ingresos);
         $this->twiggy->set('preguntas_egresos', $preguntas_egresos);
@@ -473,6 +499,9 @@ class Creditoagropecuario extends CI_Controller {
         $this->form_validation->set_rules("informacion_pre_fecha_ini", ' ', 'required');
         $this->form_validation->set_rules("informacion_pre_fecha_fin", ' ', 'required|callback_validar_fecha');
 
+        $this->form_validation->set_rules("forma_llegar_pred", ' ', 'required');
+
+
         /*for ($i = 1; $i <= 9; $i++) {
             for ($j = 1; $j <= 5; $j++) {
                 if (1 != $i && 3 != $i && 7 != $i && 9 != $i)
@@ -481,7 +510,6 @@ class Creditoagropecuario extends CI_Controller {
         }*/
 
         /*$this->form_validation->set_rules("descripcion_inv", ' ', 'required');
-        $this->form_validation->set_rules("forma_llegar_pred", ' ', 'required');
 
         for ($j = 1; $j <= 3; $j++) {
             if (array_key_exists("descripcion_bien_{$j}", $this->aGruposConDatos)) {
@@ -505,6 +533,10 @@ class Creditoagropecuario extends CI_Controller {
 
         $this->form_validation->set_rules("experiencia_act", ' ', 'required|numeric');
         $this->form_validation->set_rules("tiempo_permanencia", ' ', 'required|numeric');
+
+        for ($i = 1; $i <= 10; $i++) {
+            $this->form_validation->set_rules("lista_chequeo_item{$i}", ' ', 'numeric');
+        }
     }
 
     ///custom validation rule para que la fecha final no sea menor a la inicial
