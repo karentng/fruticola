@@ -607,6 +607,13 @@ class Creditoagropecuario extends CI_Controller {
         $productor = $ruat->productor;
         $contacto = $productor->contacto;
         $renglon = $productor->renglon_productivo;
+
+        $solicitud_credito = SolicitudCredito::first(array(
+                    'conditions' => array("ruat_id = ?", $ruat_id)
+        ));
+
+        $conyugue = $solicitud_credito->conyugue;
+
         $vtp = VisitaTipoProductor::first(array(
                     'conditions' => array('ruat_id = ?', $ruat_id)
         ));
@@ -649,6 +656,8 @@ class Creditoagropecuario extends CI_Controller {
         $this->twiggy->set("contacto_departamento", $contacto->departamento);
         $this->twiggy->set("contacto_municipio", $contacto->municipio);
         $this->twiggy->set("renglon", $renglon);
+
+        $this->twiggy->set("conyugue", $conyugue);
 
         $this->twiggy->set('preguntas_ingresos', $preguntas_ingresos);
         $this->twiggy->set('preguntas_egresos', $preguntas_egresos);
