@@ -88,6 +88,7 @@ class Ubicaciongoogle extends CI_Controller {
         array_push($final, $result);
         array_push($final, $renglon_productivo);
         array_push($final, $nombresMunicipio);
+        array_push($final, $productores);
         echo json_encode($final);
     }
 }

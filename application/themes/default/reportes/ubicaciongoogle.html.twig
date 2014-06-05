@@ -113,6 +113,7 @@
         
         var fincas;
         var nombresMuni;
+        var product ;
 
         $.ajax({
             async:false, 
@@ -126,6 +127,7 @@
                 fincas = data[0];
                 renglon = data[1];
                 nombresMuni = data[2];
+                product = data[3];
             }
         });
 
@@ -159,6 +161,19 @@
             if(renglon[i] != "" && renglon[i] != null){
                 contentString1 += "<tr><td><b>Renglón: </b></td><td>"+renglon[i]+"</td></tr>";   
             }
+            if(fincas[i].geo_latitud != "" && fincas[i].geo_latitud != null){
+                contentString1 += "<tr><td><b>Latitud: </b></td><td>"+fincas[i].geo_latitud+"</td></tr>";
+            }
+            if(fincas[i].geo_longitud != "" && fincas[i].geo_longitud != null){
+                contentString1 += "<tr><td><b>Longitud: </b></td><td>"+fincas[i].geo_longitud+"</td></tr>";
+            }
+            if(fincas[i].geo_altura != "" && fincas[i].geo_altura != null){
+                contentString1 += "<tr><td><b>Altura: </b></td><td>"+fincas[i].geo_altura+" m</td></tr>";
+            }
+            if(product[i] != "" && product[i] != null){
+                contentString1 += "<tr><td><b>Productor: </b></td><td>"+product[i]+"</td></tr>";   
+            }
+            
             contentString1 += "</table></div>";
             var infowindow1 = new google.maps.InfoWindow({ 
                 content: contentString1,
