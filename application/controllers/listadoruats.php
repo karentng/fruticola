@@ -67,11 +67,11 @@ class ListadoRuats extends CI_Controller {
             $url = site_url("ruatImprimible/index/".$item->id);
             $actions .= "<a class='btn btn-xs btn-info tip' href='$url' title='Versión Imprimible RUAT' target='_blank'><i class='i-print'></i></a>";
 
-            /*if($item->ruta_formulario) {
+            if($item->ruta_formulario) {
                 $url = site_url("uploads/". $item->ruta_formulario);
                 $actions .= "<a class='btn btn-xs btn-info tip' title='Descargar RUAT Escaneado' href='$url' target='_blank'><i class='i-file-download'></i></a>";
             }
-            else $actions .= '<a class="btn btn-xs" disabled="disabled"><i class="i-file-download"></i></a>';*/
+            else $actions .= '<a class="btn btn-xs" disabled="disabled"><i class="i-file-download"></i></a>';
 
             $actions .="</div>&nbsp;";
 
