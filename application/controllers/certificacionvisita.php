@@ -51,42 +51,8 @@ class Certificacionvisita extends CI_Controller {
 
         
         //$this->twiggy->register_function('var_dump');
-        $titulo = "";
-        switch($formulario){
-            case 0:
-                $titulo = "Elaboración de propuestas asociativas para estudio de riego";
-                break;
-            case 1:
-                $titulo = "Implementación de prácticas de manejo agronómico tendientes a romper la estacionalidad";
-                break;
-            case 2:
-                $titulo = "Renovación de cultivos existentes y plantación de áreas nuevas con variedades promisorias";
-                break;
-            case 3:
-                $titulo = "Mejoramiento de las áreas actuales con semilla de PIÑA de alta calidad genética y productiva";
-                break;
-            case 4:
-                $titulo = "Implementación de modelos de producción óptima de MANGO";
-                break;
-            case 5:
-                $titulo = "Mejoramiento de las áreas actuales con semilla de FRESA de alta calidad genética y productiva";
-                break;
-            case 6:
-                $titulo = "Mejoramiento de las áreas actuales con semilla de MORA de alta calidad genética y productiva";
-                break;
-            case 7:
-                $titulo = "Planes de fertilidad";
-                break;
-            case 8:
-                $titulo = "Visitas de seguimiento y/o acompañamiento";
-                break;
-            case 9:
-                $titulo = "Elaboración de los planes de negocio regional";
-                break;
-            case 10:
-                $titulo = "Incremento de los rendimientos de cultivo";
-                break;
-        }
+        $titulo = Certificacionvisit::$TITULO_FORMULARIO[$formulario];
+        
 
         $ruat = Ruat::find_by_id($ruat_id);
         $finca = Finca::find_by_ruat_id($ruat->id);

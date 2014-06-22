@@ -260,11 +260,11 @@ class Suelos extends CI_Controller {
                 $this->twiggy->set("notif", array('type'=>'success', 'text' => "Asociado exitosamente"));
             }
         }
-        elseif($this->input->post('accion')=='guardar_observacion') {
+        /*elseif($this->input->post('accion')=='guardar_observacion') {
             $estudio->observacion=$this->input->post('observacion');
             $estudio->save();
             $this->twiggy->set("guardado_observacion", true);
-        }
+        }*/
 
 
 

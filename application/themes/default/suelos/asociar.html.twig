@@ -199,7 +199,7 @@
     <li><a href="#info2" data-toggle="tab">Cultivo</a></li>
     <li><a href="#info3" data-toggle="tab">Compuestos</a></li>
     <li><a href="#info4" data-toggle="tab">Grafico</a></li>
-    <li {% if guardado_observacion %} class="active" {% endif %}><a href="#tab-observaciones" data-toggle="tab">Observaciones</a></li>
+    {#<li {% if guardado_observacion %} class="active" {% endif %}><a href="#tab-observaciones" data-toggle="tab">Observaciones</a></li>#}
 </ul>
 <div class="tab-content">
     <div class="form-horizontal row tab-pane fade {% if not guardado_observacion %}in active{% endif %}" id="info1">
@@ -421,7 +421,7 @@
     <div class="form-horizontal row tab-pane fade in" id="info4">
         <div id="chartdiv" style="width: 100%; height: 600px;"></div>
     </div>
-
+    {#
     <div class="tab-pane {% if  guardado_observacion %}in active{% endif %}" id="tab-observaciones">
         <form method="POST">
         <div class="container" style="margin-bottom:10px">
@@ -432,7 +432,7 @@
         </div>
         <textarea name="observacion" rows="15">{{estudio.observacion}}</textarea>
         </form>
-    </div>
+    </div>#}
 </div>
 
 

@@ -124,9 +124,12 @@ insert into postcosecha_opcionrespuesta(pregunta_id, letra, texto) values
     (13, 'g', 'NINGUNO');
 
 
+drop view listadoruats;
+
 create or replace view listadoruats as
 select R.id, R.numero_formulario,
     concat(P.nombre1,' ',nullif(P.nombre2||' ',' '), P.apellido1,' ',P.apellido2) as nombre_productor,
+    P.numero_documento,
     R.creado,
     concat(U.first_name,' ',U.last_name) as ingresado_por,
     CO.id as cosecha_id,
