@@ -51,7 +51,7 @@ class Certificacionvisita extends CI_Controller {
 
         
         //$this->twiggy->register_function('var_dump');
-        $titulo = Certificacionvisit::$TITULO_FORMULARIO[$formulario];
+        $titulo = CertificacionVisit::$TITULO_FORMULARIO[$formulario];
         
 
         $ruat = Ruat::find_by_id($ruat_id);
