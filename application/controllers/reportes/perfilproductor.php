@@ -16,7 +16,9 @@ class Perfilproductor extends CI_Controller {
             $filtro_renglon = "renglon_productivo_id=".$this->db->escape($this->input->post('renglonProduc'));
         }
         if($this->input->post('municipio')){
-            $filtro_municipio = "municipio_id=".$this->db->escape($this->input->post('municipio'));
+            $municipiosSeleccionados = explode(",", $this->input->post('municipio'));
+            $this->twiggy->set('seleccionados', $municipiosSeleccionados);
+            $filtro_municipio = "municipio_id in (".$this->input->post('municipio').")";
         }
 
         //TABLA

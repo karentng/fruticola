@@ -300,6 +300,22 @@
     });
 
     $( document ).ready(function() {
+        var aux = {{municipios | json_encode}};
+        var seleccionados = {{seleccionados | json_encode}};
+        var munis = Array();
+        for(i in aux){
+            if(aux[i] == '(Todos)'){
+                continue;
+            }
+            munis.push({id:parseInt(i), text:aux[i]});
+        }
+
+        $('#municipio').select2({
+            data: munis,
+            multiple: true,
+            placeholder: "Todos los municipios..."
+        });
+        $("#municipio").select2("val", seleccionados );
         actualizarGrafica();
     });
     
@@ -370,8 +386,8 @@
         }
         return data;
     }
-    
- 
+
+
 </script>
 
 
@@ -401,7 +417,8 @@
            <div class="form-group">
                 <label class="control-label col-xs-5">Municipio :</label>
                 <div class="col-xs-7">
-                    {{form_dropdown('municipio', municipios, set_value('municipio'), 'class="form-control" onchange="enviarForm()"')}}
+                    {#{form_dropdown('municipio', municipios, set_value('municipio'), 'class="form-control" onchange="enviarForm()"')}#}
+                    <input id="municipio" name="municipio" type="hidden" onchange="enviarForm()" >
                 </div>
             </div>
         </div>
