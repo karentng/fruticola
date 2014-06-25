@@ -10,7 +10,7 @@ class Certificacionvisita extends CI_Controller {
 
     public function index($ruat_id, $formulario) //= 1795
     {
-        if($formulario < 0 || $formulario > 10){
+        if($formulario < 0 || $formulario > 13){
             show_404();
         }
         if(!$ruat_id) show_404();
