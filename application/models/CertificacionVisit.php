@@ -16,15 +16,17 @@ class CertificacionVisit extends ActiveRecord\Model
         8 => "Visitas de seguimiento y/o acompañamiento",
         9 => "Elaboración de los planes de negocio regional",
         10=> "Incremento de los rendimientos de cultivo",
-        11=> "Estacionalidad de la Producción",
         12=> "Manejo Fitosanitario 1",
         13=> "Manejo Fitosanitario 2",
+        11=> "Estacionalidad de la Producción",
+        30=> "Estacionalidad de la Producción 2",
+        31=> "Estacionalidad de la Producción 3",
     );
 
     
     static function formularios_renglon($renglon_id) 
     {
-        $res = array(0,1,2,7,8,9,10,11,12,13);
+        $res = array(0,1,2,7,8,9,10,12,13,11,30,31);
         if($renglon_id==12) $res[] = 3;
         else if($renglon_id==7) $res[] = 4;
         else if($renglon_id==5) $res[] = 5;

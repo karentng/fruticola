@@ -10,10 +10,14 @@ class Certificacionvisita extends CI_Controller {
 
     public function index($ruat_id, $formulario) //= 1795
     {
-        if($formulario < 0 || $formulario > 13){
+        /*if($formulario < 0 || $formulario > 13){
             show_404();
-        }
+        }*/
+        
         if(!$ruat_id) show_404();
+        
+        if(!isset(CertificacionVisit::$TITULO_FORMULARIO[$formulario]))
+            show_404();
 
         /*$preguntas = TPCPregunta::all(array('order' => 'categoria, ordenamiento'));
         
@@ -78,6 +82,8 @@ class Certificacionvisita extends CI_Controller {
             }
             $this->twiggy->set('descripcionI', $certificacion->descripcion);
             $this->twiggy->set('observacionesI', $certificacion->observaciones);
+            
+            $this->twiggy->set('soloLectura', true);
         }
 
         $this->twiggy->template("certificacionvisita/cetificacion_visita");

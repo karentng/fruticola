@@ -49,111 +49,7 @@
         
         <div style="padding-top: 20px;"></div>
 
-        <!--<div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="icon"><i class="icon20 i-menu-6"></i></div>
-                <h4>C.  CLASIFICACIÓN DEL PRODUCTOR SEGÚN SUS INGRESOS Y ACTIVOS</h4>
-                <a href="#" class="minimize"></a>
-            </div><!-- End .panel-heading
 
-            <div class="panel-body"><div class="container">
-
-                    <div class="container">
-
-                        <div class="col-md-12" style="text-align: center;">
-                            <h3>Funcionario responsable de la visita</h3>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label">Nombre</label>
-                                <input type="text" class="form-control" name="">
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-8" style="text-align: center;">
-                            <div class="col-md-4">
-                                <label class="control-label">Profesional Transversal</label><br/>
-                                <input type="radio" class="" name="cargo">
-                            </div>                                
-                            <div class="col-md-4">
-                                <label class="control-label">Profesional Especialista</label><br/>
-                                <input type="radio" class="" name="cargo">
-                            </div>                                
-                            <div class="col-md-2">
-                                <label class="control-label">Profesional<br/></label><br/>
-                                <input type="radio" class="" name="cargo">
-                            </div>
-
-                            <div class="col-md-2">
-                                <label class="control-label">Técnico<br/></label><br/>
-                                <input type="radio" class="" name="cargo">
-                            </div>
-
-                        </div>
-                    
-                    </div>
-
-                    <div class="col-md-12">
-
-                        <div class="col-md-6">
-
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th align="center">
-                                            
-                                        </th>
-                                        <th align="center" style="width: 100px;">
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        {% for pa in preguntas_activos %}
-                                    <tr>
-                                        <td>
-                                               {{pa.enunciado}}
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control respuestas_activos" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
-                                                {{form_error('pregunta_c_'~pa.id)}}
-                                        </td>
-                                    </tr>
-                                        {% endfor %}
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="col-md-6">
-
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th align="center">
-                                                
-                                        </th>
-                                        <th align="center" style="width: 100px;">
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        {% for pa in preguntas_ingresos%}
-                                    <tr>
-                                        <td>
-                                               {{pa.enunciado}}
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control respuestas_ingresos" placeholder="" id="pregunta_c_{{pa.id}}" name="pregunta_c_{{pa.id}}" value="{{set_value('pregunta_c_'~pa.id, pa.respuesta_bd)}}" {{pa.editable != 1 ? 'readonly' : ''}}/>
-                                                {{form_error('pregunta_c_'~pa.id)}}
-                                        </td>
-                                    </tr>
-                                        {% endfor %}                                   
-
-                                </tbody>
-                            </table>
-                        </div>
-                </div>-->
 
         </div></div><!-- .container and .panel-body -->
         </div><!-- panel default -->
@@ -236,6 +132,9 @@
                 </div>
             </div>
         </div><!-- panel default -->
+        
+        {% set readonly = soloLectura?"readonly='readonly'":"" %}
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="icon"><i class="icon20 i-menu-6"></i></div>
@@ -247,7 +146,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea name="descripcion" rows="4" style="width:100%; resize:none">{{set_value('descripcion', descripcionI)}}</textarea>
+                            <textarea {{readonly}} name="descripcion" rows="4" style="width:100%; resize:none">{{set_value('descripcion', descripcionI)}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -264,16 +163,22 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea name="observaciones" rows="4" style="width:100%; resize:none" >{{set_value('observaciones', observacionesI)}}</textarea>
+                            <textarea {{readonly}} name="observaciones" rows="4" style="width:100%; resize:none" >{{set_value('observaciones', observacionesI)}}</textarea>
                         </div>
                     </div>
                 </div>
             </div>
         </div><!-- panel default -->
-
+        <br>
         <div class="form-actions full">
-            <button class="btn btn-lg btn-success pull-right" type="submit">Guardar</button>
+            <a class="btn btn-default btn-lg pull-right" href="{{site_url('/')}}"> Volver al Listado </a>
+            {% if not soloLectura %}
+                <button class="btn btn-lg btn-success pull-right" type="submit">Guardar</button>
+            {% endif %}
+            
         </div>
+        
+        <br><br><br>
 
         {{ form_close() }}          
     </div>
