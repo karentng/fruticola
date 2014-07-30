@@ -10,29 +10,8 @@ class Certificacionvisita extends CI_Controller {
 
     public function index($ruat_id, $formulario) //= 1795
     {
-        /*if($formulario < 0 || $formulario > 13){
-            show_404();
-        }*/
-        
         if(!$ruat_id) show_404();
-        
-        if(!isset(CertificacionVisit::$TITULO_FORMULARIO[$formulario]))
-            show_404();
-
-        /*$preguntas = TPCPregunta::all(array('order' => 'categoria, ordenamiento'));
-        
-        $preguntas_ingresos = $preguntas_egresos = $preguntas_activos = $preguntas_totales = array();
-        
-        foreach ($preguntas as $obj) {
-            if($obj->categoria === 'A')
-                $preguntas_activos[] = $obj->to_array();
-            elseif($obj->categoria === 'B')
-                $preguntas_ingresos[] = $obj->to_array();
-            elseif($obj->categoria === 'C')
-                $preguntas_egresos[] = $obj->to_array();
-            elseif($obj->categoria === 'D')
-                $preguntas_totales[] = $obj->to_array();
-        }*/
+        if(!isset(CertificacionVisit::$TITULO_FORMULARIO[$formulario])) show_404();
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('fecha', 'Fecha', 'required');
@@ -48,15 +27,13 @@ class Certificacionvisita extends CI_Controller {
             $certificacion->ruat_id = $ruat_id;
             $certificacion->num_formulario = $formulario;
             $certificacion->fecha = $this->input->post('fecha');
+            $certificacion->creador_id = current_user('id');
             $certificacion->descripcion = $this->input->post('descripcion');
             $certificacion->observaciones = $this->input->post('observaciones');
             $certificacion->save();
         }
 
-        
-        //$this->twiggy->register_function('var_dump');
         $titulo = CertificacionVisit::$TITULO_FORMULARIO[$formulario];
-        
 
         $ruat = Ruat::find_by_id($ruat_id);
         $finca = Finca::find_by_ruat_id($ruat->id);
