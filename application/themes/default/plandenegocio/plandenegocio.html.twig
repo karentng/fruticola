@@ -1,0 +1,206 @@
+{% extends "base.html.twig" %}
+
+{% block html_head %}
+<script>
+    $(function() {
+        $("input[type='radio'], input[type='checkbox']").uniform();
+        {% if notif %}
+            notif({{notif|json_encode}});
+        {% endif %}
+    });
+
+</script>
+{% endblock %}
+
+{% block breadcrumnb %}
+    <ul class="breadcrumb">
+      <li><a href="{{site_url('listadoruats')}}"><i class="icon16 i-home-4"></i>Inicio</a></li>
+      <li><strong class="text-success">Plan de Negocio</strong></li>
+    </ul>
+{% endblock %}
+
+{% block titulo %} 
+<h1><i class="icon20 i-apple-fruit"></i> PLAN DE NEGOCIO</h1>
+{% endblock %}
+
+{% block contenido %}
+{% set disabled = soloLectura ? 'disabled="disabled"' : '' %}
+
+
+
+{{ form_open(null, {class:'form-horizontal', role:'form', 'onsubmit':"$('#loadingMask').modal()"}) }}
+    <div class="row">
+        <div class="col-md-7">
+            {% include "partials/info_productor.html.twig" with {'ruat':ruat} %}
+        </div>
+    
+        <div class="col-md-5">
+            <div class="form-group">
+                <label class="control-label col-md-5">Fecha de Visita</label>
+                <div class="col-md-6">
+                    <div class="input-group date datepicker autostart {{form_error('fecha_visita')?'has-error':''}}">
+                        <input type="text" {{disabled}} name="fecha_visita" value="{{ set_value('fecha_visita', negocio.fecha_visita ? negocio.fecha_visita.format('Y-m-d') : '') }}" class="form-control" />
+                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                    </div>
+                    <div class="help-block"><small>Formato AAAA-MM-DD</small></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="icon"><i class="icon20 i-menu-6"></i></div>
+            <h4>1. Tiempo en el negocio: Hace cuanto realiza actividad agrícola en el renglón productivo inscrito?</h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="control-label col-md-2">Años:</label>
+                <div class="col-md-2">
+                    {{form_input({name:"negocio_anios", value:set_value('negocio_anios', negocio.negocio_anios), type:'number', required:'required', class:'form-control '}) }}
+                    {% if form_error('negocio_anios') %} <span class="text-danger"><strong>Requerido Número</strong></span> {% endif %}
+                </div>
+                <label class="control-label col-md-2">Meses:</label>
+                <div class="col-md-2">
+                    {{form_input({name:"negocio_meses", value:set_value('negocio_meses', negocio.negocio_meses), type:'number', required:'required', class:'form-control'}) }}
+                    {% if form_error('negocio_meses') %} <span class="text-danger"><strong>Requerido Número</strong></span> {% endif %}
+                </div>
+            </div>            
+        </div>
+    </div>
+    <br>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="icon"><i class="icon20 i-menu-6"></i></div>
+            <h4>2. Cuál es la edad de su cultivo?</h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="control-label col-md-2">Años:</label>
+                <div class="col-md-2">
+                    {{form_input({name:"cultivo_anios", value:set_value('cultivo_anios', negocio.cultivo_anios), type:'number', required:'required', class:'form-control'}) }}
+                    {% if form_error('cultivo_anios') %} <span class="text-danger"><strong>Requerido Número</strong></span> {% endif %}
+                </div>
+                <label class="control-label col-md-2">Meses:</label>
+                <div class="col-md-2">
+                    {{form_input({name:"cultivo_meses", value:set_value('cultivo_meses', negocio.cultivo_meses), type:'number', required:'required', class:'form-control'}) }}
+                    {% if form_error('cultivo_meses') %} <span class="text-danger"><strong>Requerido Número</strong></span> {% endif %}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="control-label col-md-2">Fecha de Siembra:</label>
+                <div class="col-md-2">
+                    <div class="input-group date datepicker autostart {{form_error('fecha_siembra')?'has-error':''}}">
+                        <input type="text" {{disabled}} name="fecha_siembra" value="{{ set_value('fecha_siembra', negocio.fecha_siembra ? negocio.fecha_siembra.format('Y-m-d') : '') }}" class="form-control" />
+                        <span class="input-group-addon"><i class="icon16 i-calendar-4"></i></span>
+                    </div>
+                    <div class="help-block"><small>Formato AAAA-MM-DD</small></div>
+                    {% if form_error('fecha_siembra') %} <span class="text-danger"><strong>Requerido Fecha</strong></span> {% endif %}
+                </div>
+                <label class="control-label col-md-2">Area de Cultivo (ha):</label>
+                <div class="col-md-2">
+                    {{form_input({name:"area_cultivo", value:set_value('area_cultivo', negocio.area_cultivo), type:'number', required:'required', class:'form-control'}) }}
+                    {% if form_error('area_cultivo') %} <span class="text-danger"><strong>Requerido Número</strong></span> {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="icon"><i class="icon20 i-menu-6"></i></div>
+            <h4>3. Cuántas personas por hectárea en promedio trabajan de forma permanente en el cultivo del renglón?</h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="control-label col-md-2">Nro Personas:</label>
+                <div class="col-md-2">
+                    {{form_input({name:"trabajadores", value:set_value('trabajadores', negocio.trabajadores), type:'number', required:'required', class:'form-control'}) }}
+                    {% if form_error('trabajadores') %} <span class="text-danger"><strong>Requerido Número</strong></span> {% endif %}
+                </div>
+            </div>            
+        </div>
+    </div>
+    <br>
+    
+    {% for idxpreg in 0..bloques|length-1 %}
+        {% set pregunta = preguntas[idxpreg] %}
+        {% set fieldname = 'preg_'~pregunta.id~'[]' %}
+        
+        <div class="panel panel-{{form_error(fieldname) ? 'danger' : 'default'}}">
+            <div class="panel-heading">
+                <div class="icon"><i class="icon20 i-menu-6"></i></div>
+                <h4>{{pregunta.numero}}. {{pregunta.texto}}</h4>
+            </div>
+
+            <div class="panel-body"><div class="row">
+            {% for bloque in bloques[idxpreg] %}
+                <div class="col-sm-4">
+                {% for idxop in bloque.inicio .. bloque.fin %}
+                    <div class="form-group">
+                        {% set label = pregunta.opciones_respuesta[idxop].texto %}
+                        {% set tipo = pregunta.tipo_respuesta=='UNICA'?'radio':'checkbox' %}
+                        {% set val = pregunta.opciones_respuesta[idxop].id %}
+
+                        {% if label|lower in ['otro','otra'] %}
+                            <div class="col-xs-11 ">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Otro</span>
+                                    <input type="text" {{disabled}} class="form-control" placeholder="Cual?" id="otro_{{pregunta.id}}" name="otro_{{pregunta.id}}"  
+                                        value="{{set_value('otro_'~pregunta.id, otro[pregunta.id])}}" data-uppercase />
+                                    <span class="input-group-addon">
+                                        <input type="{{tipo}}" {{disabled}} class="form-control" id="check_otro_{{pregunta.id}}" name="{{fieldname}}" 
+                                            onchange="habilitar_campo_otro({{pregunta.id}})"
+                                            value="{{val}}" {{set_checkbox(fieldname, val, val in respuestas_bd)}} />
+                                    </span>
+                                </div>
+                                <script> $(function(){ habilitar_campo_otro({{pregunta.id}}); }) </script>
+                            </div>
+                        {% else %}
+                            <label for="{{idxpreg}}_{{idxop}}" class="control-label col-xs-8"> {{ label }} </label>
+                            <div class="col-xs-4">
+                                <label class="{{tipo}}-inline">
+                                    <input type="{{tipo}}" {{disabled}} class="form-control" id="{{idxpreg}}_{{idxop}}" name="{{fieldname}}" 
+                                        value="{{val}}" {{set_checkbox(fieldname, val, val in respuestas_bd)}} />
+                                </label>
+                            </div>
+                        {% endif %}
+                        
+                        
+                    </div>
+                    <br/>
+                {% endfor %}
+                </div>
+            {% endfor %}
+            </div></div>
+        </div>
+        <br/>
+    {% endfor %}
+
+    <br/>
+    <div class="container">
+        <h3>Observaciones</h3>
+        <textarea {{disabled}} rows="5" class="form-control" name="observaciones" placeholder="Observaciones...">{{set_value('observaciones',negocio.observaciones)}}</textarea>
+    </div>
+
+    <br/></br>
+    <div class="container text-center">
+        {#<div class="col-md-offset-3 col-md-5">#}
+            {% if soloLectura %}
+                <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Volver al Listado de RUATs</a>
+            {% else %}
+                <button type="submit" name="accion" value="guardar" class="btn btn-lg btn-success">Guardar</button>
+                <a href="{{site_url("listadoruats")}}" class="btn btn-lg btn-default">Cancelar</a>
+            {% endif %}
+        {#</div>#}
+    </div>
+{{ form_close() }}
+
+    
+{% endblock %}

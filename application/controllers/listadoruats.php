@@ -98,7 +98,7 @@ class ListadoRuats extends CI_Controller {
                 . boton("i-print", "Imprimible Poscosecha", 'info', $item->cosecha_id ? site_url("poscosechaimprimible/index/$item->id") : null, true)
                 . "</div> ";
 
-            
+            $actions .= "<br>";            
 
             if($puedeVerEstudioSuelo) {
                 $est = RuatEstudioSuelo::find_by_ruat_id($item->id);
@@ -114,6 +114,9 @@ class ListadoRuats extends CI_Controller {
 
 
             $actions .= $this->selectorVisitas($item);
+
+            $negocio = PlanNegocio::find_by_ruat_id($item->id);
+            $actions .= boton("P. Negocio", 'Plan de Negocio', $negocio? 'warning': 'default', $puedeCrearForms ? site_url("plandenegocio/index/$item->id") : null);
 
 
             $btnEliminar = $puedeEliminar? "<button class='btn btn-danger btn-xs tip' title='Eliminar RUAT' onclick='eliminarRuat({$item->id})'>-</button> " :"";
