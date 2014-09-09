@@ -17,13 +17,45 @@ class MyModel extends ActiveRecord\Model
         return $obj;
     }
 
+
+    private function getRenglon()
+    {
+        try {
+            $ruat = Ruat::find_by_id($this->ruat_id);
+            $res = $ruat->productor->renglon_productivo_id;
+            //die("PRIMERO");
+            return $res;
+        }
+        catch(Exception $ex) {
+            try { 
+                $res = $this->productor->renglon_productivo_id; // es un ruat
+                //die("SEGUNDO");
+                return $res;
+            }
+            catch(Exception $ex) {
+                return null;
+            }
+        }
+    }
+
+
     public function soloLectura(&$controller)
     {
         if($controller->ion_auth->in_group('Administrador') || $controller->ion_auth->in_group('Coordinador')) {
             return false;
         }
-        if(in_array(current_user("id"), array(5, 6, 8, 9, 10, 11, 13, 14) )) // jefes de renglon
-            return false;
+        $user_id = current_user("id");
+        if(in_array($user_id, array(5, 6, 8, 9, 10, 11, 13, 14) )) { // jefes de renglon
+            $renglon = $this->getRenglon();
+            if($user_id==5 && in_array($renglon, array(9,11))) return false; 
+            if($user_id==6 && in_array($renglon, array(5,6))) return false;  
+            if($user_id==8 && in_array($renglon, array(8,13))) return false;  
+            if($user_id==9 && in_array($renglon, array(3))) return false;  
+            if($user_id==10 && in_array($renglon, array(4,2))) return false;  
+            if($user_id==11 && in_array($renglon, array(10))) return false;  
+            if($user_id==13 && in_array($renglon, array(12))) return false;  
+            if($user_id==14 && in_array($renglon, array(1,7))) return false;  
+        }
         if($controller->ion_auth->in_group('Digitador')) {
             if($this->creador_id != current_user('id')) return true;
             
