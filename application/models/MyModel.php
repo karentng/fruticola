@@ -22,6 +22,8 @@ class MyModel extends ActiveRecord\Model
         if($controller->ion_auth->in_group('Administrador') || $controller->ion_auth->in_group('Coordinador')) {
             return false;
         }
+        if(in_array(current_user("id"), array(5, 6, 8, 9, 10, 11, 13, 14) )) // jefes de renglon
+            return false;
         if($controller->ion_auth->in_group('Digitador')) {
             if($this->creador_id != current_user('id')) return true;
             
